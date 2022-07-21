@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+$padding-x: 1em !default;
+$padding-y: 1em !default;
+
+.popover {
+  -fx-background-color: -color-bg-default;
+
+  >.border {
+    -fx-stroke: -color-border-default;
+    -fx-stroke-width: cfg.$border-width;
+    @include effects.shadow(-color-bg-inset, cfg.$popup-shadow);
+  }
+
+  >.content {
+    -fx-padding: $padding-y $padding-x $padding-y $padding-x;
+
+    >.title {
+      -fx-padding: 0 0 1em 0;
+
+      >.text {
+        -fx-text-fill: -color-fg-default;
+        -fx-font-size: cfg.$font-title-4;
+        -fx-alignment: CENTER_LEFT;
+      }
+
+      >.icon {
+        >.graphics {
+          >.circle {
+            -fx-fill: transparent;
+          }
+
+          >.line {
+            -fx-stroke: -color-fg-default;
+            -fx-stroke-width: cfg.$border-width;
+          }
+        }
+      }
+    }
+  }
+}

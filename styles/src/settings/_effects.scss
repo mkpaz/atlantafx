@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+
+// Adds shadow effect to popup menus.
+@mixin shadow($color, $radius) {
+  -fx-effect: unquote("dropshadow(gaussian, #{$color}, #{$radius}, 0.75, 0, 0)");
+}
+
+// Adds elevation effect to boxes.
+@mixin elevate($color, $radius) {
+  -fx-effect: unquote("dropshadow(three-pass-box, #{$color}, #{$radius}, 0.5, 2, 2)");
+}
+
+// Adds hover (or active) effect to icons.
+@mixin highlight($color, $radius) {
+  -fx-effect: unquote("dropshadow(two-pass-box, #{$color}, #{$radius}, 0.125em, 0, 0)");
+}

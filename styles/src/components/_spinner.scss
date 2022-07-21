@@ -1,0 +1,186 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+@use "../settings/utils";
+
+$button-bg:       -color-bg-inset   !default;
+$button-fg:       -color-fg-default !default;
+$button-hover:    utils.saturate($button-bg, cfg.$darkMode, cfg.$color-delta-hover) !default;
+$icon-padding-x:  0.25em !default;
+
+.spinner {
+  -fx-background-color: -color-bg-default;
+  -fx-border-color:  -color-border-default;
+  -fx-border-radius: cfg.$border-radius;
+  -fx-border-width:  cfg.$border-width;
+
+  >.text-field {
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-insets: 0;
+    // align spinner (uses border) and text input height (uses background insets)
+    -fx-padding: calc(cfg.$padding-y - cfg.$border-width)
+                 calc(cfg.$padding-x - cfg.$border-width)
+                 calc(cfg.$padding-y - cfg.$border-width)
+                 calc(cfg.$padding-x - cfg.$border-width);
+  }
+
+  >.increment-arrow-button {
+    -fx-background-color: $button-bg;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 cfg.$border-radius 0 0;
+    -fx-padding: 10px;
+
+    &:hover {
+      -fx-background-color: $button-hover;
+    }
+
+    >.increment-arrow {
+      -fx-background-color: $button-fg;
+      -fx-background-insets: 0;
+      -fx-padding: 0 $icon-padding-x 0 $icon-padding-x;
+      @include icons.get("arrow-drop-up", false);
+    }
+  }
+
+  >.decrement-arrow-button {
+    -fx-background-color: $button-bg;
+    -fx-background-insets: -1 0 0 0;
+    -fx-background-radius: 0 0 cfg.$border-radius 0;
+    -fx-padding: 10px;
+
+    &:hover {
+      -fx-background-color: $button-hover;
+    }
+
+    >.decrement-arrow {
+      -fx-background-color: $button-fg;
+      -fx-background-insets: 0;
+      -fx-padding: 0 $icon-padding-x 0 $icon-padding-x;
+      @include icons.get("arrow-drop-down", false);
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  &:focused,
+  &:contains-focus {
+    &:focused {
+      -fx-border-color: -color-accent-emphasis;
+    }
+  }
+
+  &.arrows-on-left-vertical {
+    >.text-field {
+      -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+      -fx-alignment: CENTER_RIGHT;
+    }
+
+    >.increment-arrow-button {
+      -fx-background-radius: cfg.$border-radius 0 0 0;
+    }
+
+    >.decrement-arrow-button {
+      -fx-background-radius: 0 0 0 cfg.$border-radius;
+    }
+  }
+
+  &.arrows-on-right-horizontal {
+    >.increment-arrow-button {
+      -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+      -fx-background-insets: 0;
+
+      >.increment-arrow {
+        @include icons.get("plus", false);
+      }
+    }
+
+    >.decrement-arrow-button {
+      -fx-background-radius: 0;
+      -fx-background-insets: 0;
+
+      >.decrement-arrow {
+        @include icons.get("minus", false);
+      }
+    }
+  }
+
+  &.arrows-on-left-horizontal {
+    >.text-field {
+      -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+      -fx-alignment: CENTER_RIGHT;
+    }
+
+    >.increment-arrow-button {
+      -fx-background-radius: 0;
+      -fx-background-insets: 0;
+
+      >.increment-arrow {
+        @include icons.get("plus", false);
+      }
+    }
+
+    >.decrement-arrow-button {
+      -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+      -fx-background-insets: 0;
+
+      >.decrement-arrow {
+        @include icons.get("minus", false);
+      }
+    }
+  }
+
+  &.split-arrows-horizontal {
+    >.text-field {
+      -fx-background-radius: 0;
+      -fx-alignment: CENTER;
+    }
+
+    >.increment-arrow-button {
+      -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+      -fx-background-insets: 0 -1 0 0;
+
+      >.increment-arrow {
+        @include icons.get("plus", false);
+      }
+    }
+
+    >.decrement-arrow-button {
+      -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+      -fx-background-insets: 0;
+
+      >.decrement-arrow {
+        @include icons.get("minus", false);
+      }
+    }
+  }
+
+  &.split-arrows-vertical {
+    >.text-field {
+      -fx-background-radius: 0;
+      -fx-alignment: CENTER;
+    }
+
+    >.increment-arrow-button {
+      -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
+      -fx-background-insets: 0;
+
+      >.increment-arrow {
+        @include icons.get("plus", false);
+        -fx-padding: $icon-padding-x 0 $icon-padding-x 0;
+      }
+    }
+
+    >.decrement-arrow-button {
+      -fx-background-radius: 0 0 cfg.$border-radius cfg.$border-radius;
+      -fx-background-insets: 0 0 -1 0;
+
+      >.decrement-arrow {
+        @include icons.get("minus", false);
+        -fx-padding: $icon-padding-x 0 $icon-padding-x 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,257 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+@use "../settings/utils";
+
+// basic style is shared with Button, ToggleButton and MenuButton
+@mixin base() {
+
+  // buttons can be configured via looked-up colors
+  -color-button-bg:          -color-bg-inset;
+  -color-button-fg:          -color-fg-default;
+  -color-button-border:      -color-border-default;
+
+  -color-button-bg-hover:     utils.saturate(-color-button-bg, cfg.$darkMode, cfg.$color-delta-hover);
+  -color-button-fg-hover:     -color-button-fg;
+  -color-button-border-hover: -color-button-border;
+
+  -color-button-bg-focused:     -color-button-bg;
+  -color-button-fg-focused:     -color-button-fg;
+  -color-button-border-focused: -color-accent-emphasis;
+
+  -color-button-bg-pressed:     utils.saturate(-color-button-bg, cfg.$darkMode, cfg.$color-delta-active);
+  -color-button-fg-pressed:     -color-button-fg;
+  -color-button-border-pressed: -color-button-border;
+
+  -fx-background-color:  -color-button-border, -color-button-bg;
+  -fx-background-insets: 0, cfg.$border-width;
+  -fx-background-radius: cfg.$border-radius;
+  -fx-graphic-text-gap:  cfg.$graphic-gap;
+  -fx-text-fill: -color-button-fg;
+  -fx-alignment: CENTER;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-button-fg;
+    // Always add -fx-fill when styling font icons. There's at least one weird bug.
+    // If you set stylesheet to the scene without '-fx-fill' font icon fg will be
+    // applied correctly. But if you set exactly the same stylesheet via
+    // Application.setUserAgentStylesheet(), font icon fg won't be correct without
+    // using '-fx-fill' here.
+    -fx-fill: -color-button-fg;
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  &:show-mnemonics {
+    >.mnemonic-underline {
+      -fx-stroke: -color-button-fg;
+    }
+  }
+
+  // Button calculates its height based on the internal text font size.
+  // So, button that has no text (or icon) will appear lower than regulat
+  // buttons. There're no workarounds, but you can set escape char like
+  // \s or \f as button text.
+  &.button-icon {
+    -fx-padding: cfg.$padding-y;
+
+    >.text {
+      visibility: hidden;
+    }
+  }
+
+  &.button-circle {
+    -fx-background-radius: 50;
+    -fx-padding: 6px 8px 6px 8px;
+
+    .text {
+      visibility: hidden;
+    }
+  }
+
+  // toggle button
+  &.left-pill {
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
+
+    &:hover,
+    &:focused {
+      -fx-background-insets: 0, cfg.$border-width;
+    }
+  }
+
+  &.center-pill {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width 0;
+
+    &:hover,
+    &:focused {
+      -fx-background-insets: 0, cfg.$border-width;
+    }
+  }
+
+  &.right-pill {
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-background-insets: 0, cfg.$border-width cfg.$border-width cfg.$border-width 0;
+
+    &:hover,
+    &:focused {
+      -fx-background-insets: 0, cfg.$border-width;
+    }
+  }
+}
+
+@mixin accent() {
+  -color-button-bg: -color-accent-emphasis;
+  -color-button-fg: -color-fg-emphasis;
+  -color-button-border: -color-accent-emphasis;
+  -color-button-border-focused: -color-accent-emphasis;
+
+  &.button-outlined {
+    -color-button-bg: -color-bg-default;
+    -color-button-fg: -color-accent-fg;
+
+    -color-button-bg-hover: -color-accent-emphasis;
+    -color-button-fg-hover: -color-fg-emphasis;
+
+    -color-button-bg-focused: -color-accent-emphasis;
+    -color-button-fg-focused: -color-fg-emphasis;
+
+    -color-button-bg-pressed: utils.saturate(-color-accent-emphasis, cfg.$darkMode, cfg.$color-delta-active);
+    -color-button-fg-pressed: -color-fg-emphasis;
+  }
+
+  &.flat {
+    -color-button-fg: -color-accent-emphasis;
+    -color-button-bg-hover: -color-accent-subtle;
+  }
+}
+
+@mixin success() {
+  -color-button-bg: -color-success-emphasis;
+  -color-button-fg: -color-fg-emphasis;
+  -color-button-border: -color-success-emphasis;
+  -color-button-border-focused: -color-success-emphasis;
+
+  &.button-outlined {
+    -color-button-bg: -color-bg-default;
+    -color-button-fg: -color-success-fg;
+
+    -color-button-bg-hover: -color-success-emphasis;
+    -color-button-fg-hover: -color-fg-emphasis;
+
+    -color-button-bg-focused: -color-success-emphasis;
+    -color-button-fg-focused: -color-fg-emphasis;
+
+    -color-button-bg-pressed: utils.saturate(-color-success-emphasis, cfg.$darkMode, cfg.$color-delta-active);
+    -color-button-fg-pressed: -color-fg-emphasis;
+  }
+
+  &.flat {
+    -color-button-fg: -color-success-emphasis;
+    -color-button-bg-hover: -color-success-subtle;
+  }
+}
+
+@mixin danger() {
+  -color-button-bg: -color-danger-emphasis;
+  -color-button-fg: -color-fg-emphasis;
+  -color-button-border: -color-danger-emphasis;
+  -color-button-border-focused: -color-danger-emphasis;
+
+  &.button-outlined {
+    -color-button-bg: -color-bg-default;
+    -color-button-fg: -color-danger-fg;
+
+    -color-button-bg-hover: -color-danger-emphasis;
+    -color-button-fg-hover: -color-fg-emphasis;
+
+    -color-button-bg-focused: -color-danger-emphasis;
+    -color-button-fg-focused: -color-fg-emphasis;
+
+    -color-button-bg-pressed: utils.saturate(-color-danger-emphasis, cfg.$darkMode, cfg.$color-delta-active);
+    -color-button-fg-pressed: -color-fg-emphasis;
+  }
+
+  &.flat {
+    -color-button-fg: -color-danger-emphasis;
+    -color-button-bg-hover: -color-danger-subtle;
+  }
+}
+
+@mixin flat() {
+  -color-button-bg: transparent;
+  -color-button-border: transparent;
+
+  -color-button-bg-hover: -color-bg-subtle;
+  -color-button-border-hover: transparent;
+
+  -color-button-bg-focused: transparent;
+  -color-button-border-focused: transparent;
+
+  -color-button-bg-pressed: transparent;
+  -color-button-border-pressed: transparent;
+}
+
+.button {
+  @include base();
+
+  -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+
+  &:hover,
+  &:hover:focused {
+    -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
+    -fx-text-fill: -color-button-fg-hover;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-hover;
+      -fx-fill: -color-button-fg-hover;
+    }
+  }
+
+  &:focused {
+    -fx-background-color: -color-button-border-focused, -color-button-bg-focused;
+    -fx-text-fill: -color-button-fg-focused;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-focused;
+      -fx-fill: -color-button-fg-focused;
+    }
+  }
+
+  &:armed,
+  &:focused:armed {
+    -fx-background-color: -color-button-border-pressed, -color-button-bg-pressed;
+    -fx-text-fill: -color-button-fg-pressed;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-pressed;
+      -fx-fill: -color-button-fg-pressed;
+    }
+  }
+
+  &:default,
+  &.accent {
+    @include accent();
+  }
+
+  &.success {
+    @include success();
+  }
+
+  &.danger {
+    @include danger();
+  }
+
+  &.flat {
+    @include flat();
+
+    &:armed,
+    &:focused:armed {
+      -fx-underline: true;
+    }
+  }
+}

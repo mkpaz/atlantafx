@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+.label {
+  -fx-text-fill: -color-fg-default;
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  &:show-mnemonics>.mnemonic-underline {
+    -fx-stroke: -color-fg-default;
+  }
+}

@@ -1,0 +1,147 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+@use "button";
+
+$arrow-button-width: 0.5em  !default;
+$separator-width:    0.75px !default;
+
+.menu-button,
+.split-menu-button {
+  @include button.base();
+
+  -fx-padding: 0;
+  -fx-alignment: CENTER_LEFT;
+
+  >.label {
+    -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+    -fx-text-fill: -color-button-fg;
+  }
+
+  >.arrow-button {
+    -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y 0;
+
+    >.arrow {
+      @include icons.get("chevron-right", false);
+      -fx-background-color: -color-button-fg;
+      -fx-min-width: $arrow-button-width;
+    }
+  }
+
+  // "vertically" means popup side (either top or bottom),
+  // so, it's actually default state
+  &:openvertically {
+    >.arrow-button {
+      >.arrow {
+        @include icons.get("expand-more", false);
+      }
+    }
+  }
+
+  &:show-mnemonics {
+    >.label {
+      >.mnemonic-underline {
+        -fx-stroke: -color-button-fg;
+      }
+    }
+  }
+
+  &.button-icon {
+    -fx-padding: 0;
+  }
+
+  &:hover {
+    -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
+
+    >.label {
+      -fx-text-fill: -color-button-fg-hover;
+    }
+
+    >.arrow-button>.arrow {
+      -fx-background-color: -color-button-fg-hover;
+    }
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-hover;
+    }
+  }
+
+  &:focused {
+    -fx-background-color: -color-button-border-focused, -color-button-bg-focused;
+
+    >.label {
+      -fx-text-fill: -color-button-fg-focused;
+    }
+
+    >.arrow-button>.arrow {
+      -fx-background-color: -color-button-fg-focused;
+    }
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-focused;
+    }
+  }
+
+  &:armed,
+  &:focused:armed {
+    -fx-background-color: -color-button-border-pressed, -color-button-bg-pressed;
+    -fx-text-fill: -color-button-fg-pressed;
+
+    >.label {
+      -fx-text-fill: -color-button-fg-pressed;
+    }
+
+    >.arrow-button>.arrow {
+      -fx-background-color: -color-button-fg-pressed;
+    }
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-button-fg-pressed;
+    }
+  }
+
+  &.flat {
+    @include button.flat();
+
+    &:armed,
+    &:focused:armed {
+      >.label {
+        -fx-underline: true;
+      }
+    }
+  }
+
+  &.accent {
+    @include button.accent();
+  }
+
+  &.success {
+    @include button.success();
+  }
+
+  &.danger {
+    @include button.danger();
+  }
+}
+
+.split-menu-button {
+
+  >.label {
+    -fx-padding: cfg.$padding-y calc(cfg.$padding-x / 2) cfg.$padding-y cfg.$padding-x;
+  }
+
+  &.button-outlined:hover {
+    >.arrow-button {
+      -color-button-fg: -color-fg-emphasis;
+    }
+  }
+
+  >.arrow-button {
+    -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-border-color: -color-button-fg;
+    -fx-border-width: 0 0 0 $separator-width;
+    -fx-border-insets: calc(cfg.$border-width + 6px) 0 calc(cfg.$border-width + 6px) 0;
+  }
+}

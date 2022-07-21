@@ -1,0 +1,152 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/utils";
+@use "sass:math";
+
+$color-rect-size: 8px !default;
+
+.html-editor {
+  -fx-background-color: -color-border-default, -color-bg-default;
+  -fx-background-insets: 0, cfg.$border-width;
+  -fx-padding: calc(cfg.$border-width + 1px);
+
+  &:contains-focus {
+    -fx-background-color: -color-accent-emphasis, -color-bg-default;
+  }
+
+  .tool-bar {
+    -fx-padding: 4px;
+  }
+
+  .button,
+  .toggle-button {
+    -fx-background-insets: 0;
+  }
+
+  .toggle-button {
+    -color-button-bg-selected: utils.saturate(-color-button-bg, cfg.$darkMode, cfg.$color-delta-active);
+    -color-button-border-focused: transparent;
+  }
+}
+
+.color-picker {
+  &.html-editor-foreground {
+    -fx-color-rect-x: 0;
+    -fx-color-rect-y: -#{math.div($color-rect-size, 2)};
+    -fx-color-rect-width: $color-rect-size;
+    -fx-color-rect-height: $color-rect-size;
+    -fx-color-label-visible: false;
+  }
+
+  &.html-editor-background {
+    -fx-color-rect-x: 0;
+    -fx-color-rect-y: -#{math.div($color-rect-size, 2)};
+    -fx-color-rect-width: $color-rect-size;
+    -fx-color-rect-height: $color-rect-size;
+    -fx-color-label-visible: false;
+  }
+
+  &.html-editor-foreground>.color-picker-label>.picker-color>.picker-color-rect,
+  &.html-editor-background>.color-picker-label>.picker-color>.picker-color-rect {
+    -fx-stroke: none;
+  }
+}
+
+// Sadly JavaFX devs have a mania to declare everyting private and final.
+// The below code isn't working, while there are no runtime errors and URLs are correct
+// it's still not loaded for unknown reason.
+// There are to many images here and HMTLEditor itself is obsolete type of control,
+// so I don't want to use data-url. It's either be fixed at OpenJFX or not.
+// Anyone who treats this as a problem can easily fix it by using addtitional CSS file.
+// Just copy CSS rules from below and images from the OpenJFX repo and then use relative
+// URLs. #javafx-bug
+$image-path: "/com/sun/javafx/scene/control/skin/modena" !default;
+
+.color-picker.html-editor-foreground {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Text-Color.png");
+}
+
+.color-picker.html-editor-background {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Background-Color.png");
+}
+
+.html-editor-cut {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Cut.png");
+}
+
+.html-editor-copy {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Copy.png");
+}
+
+.html-editor-paste {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Paste.png");
+}
+
+.html-editor-align-left {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Left.png");
+}
+
+.html-editor-align-center {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Center.png");
+}
+
+.html-editor-align-right {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Right.png");
+}
+
+.html-editor-align-justify {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Justify.png");
+}
+
+.html-editor-outdent {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Outdent.png");
+}
+
+.html-editor-outdent:dir(rtl) {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Outdent-rtl.png");
+}
+
+.html-editor-indent {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Indent.png");
+}
+
+.html-editor-indent:dir(rtl) {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Indent-rtl.png");
+}
+
+.html-editor-bullets {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Bullets.png");
+}
+
+.html-editor-bullets:dir(rtl) {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Bullets-rtl.png");
+}
+
+.html-editor-numbers {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Numbered.png");
+}
+
+.html-editor-numbers:dir(rtl) {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Numbered-rtl.png");
+}
+
+.html-editor-bold {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Bold.png");
+}
+
+.html-editor-italic {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Italic.png");
+}
+
+.html-editor-underline {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Underline.png");
+}
+
+.html-editor-strike {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Strikethrough.png");
+}
+
+.html-editor-hr {
+  -fx-graphic: url("#{$image-path}/HTMLEditor-Break.png");
+}

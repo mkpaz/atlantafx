@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+$color-bg:     -color-neutral-emphasis-plus !default;
+$color-fg:     -color-fg-emphasis   !default;
+$color-shadow: -color-bg-inset      !default;
+$opacity:       0.85 !default;
+
+$padding-x: cfg.$padding-x !default;
+$padding-y: cfg.$padding-y !default;
+
+.tooltip {
+  -fx-background-color: $color-bg;
+  -fx-background-insets: 0;
+  -fx-text-fill: $color-fg;
+  -fx-background-radius: cfg.$border-radius;
+  -fx-padding: $padding-y $padding-x $padding-y $padding-x;
+  -fx-opacity: $opacity;
+  @include effects.shadow(-color-bg-inset, 8);
+}

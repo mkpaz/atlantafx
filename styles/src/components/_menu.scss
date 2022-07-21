@@ -1,0 +1,194 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+@use "../settings/icons";
+@use "../settings/utils";
+
+///////////////////////////////////////////////////////////////////////////////
+//  MenuBar                                                                  //
+///////////////////////////////////////////////////////////////////////////////
+
+$color-menubar-bg:        -color-bg-subtle !default;
+$color-menubar-bg-hover:  utils.saturate($color-menubar-bg, cfg.$darkMode, cfg.$color-delta-hover)  !default;
+$color-menuitem-bg:       -color-bg-default !default;
+$color-menuitem-bg-hover: utils.saturate($color-menuitem-bg, cfg.$darkMode, cfg.$color-delta-hover) !default;
+
+$separator-padding:       map-get(cfg.$separators, "small") !default;
+
+.menu-bar {
+
+  -fx-background-color: -color-border-muted, $color-menubar-bg;
+  -fx-background-insets: 0 0 0 0, 0 0 1 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
+
+  >.container {
+    >.menu-button {
+      -fx-background-color: transparent;
+      -fx-background-insets: 0 0 cfg.$border-width 0;
+      -fx-background-radius: 0;
+      -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
+
+      // reset padding of menu buttons when in menu bar
+      >.label {
+        -fx-padding: 0;
+        -fx-text-fill: -color-fg-default;
+      }
+
+      // hide the down arrow for a menu placed in a menubar
+      >.arrow-button {
+        -fx-padding: 0;
+
+        >.arrow {
+          -fx-padding: 0;
+          -fx-background-color: transparent;
+          -fx-shape: null;
+        }
+      }
+
+      &:hover,
+      &:focused,
+      &:showing {
+        -fx-background-color: $color-menubar-bg-hover, $color-menubar-bg-hover;
+      }
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Menu                                                                     //
+///////////////////////////////////////////////////////////////////////////////
+
+.menu {
+
+  -fx-background-color: transparent;
+
+  >.right-container {
+    >.arrow {
+      @include icons.get("chevron-right", false);
+      -fx-background-color: -color-fg-muted;
+    }
+  }
+}
+
+// vertical (scroll) arrows appear if menu height exceeds container size
+.menu-up-arrow {
+  @include icons.get("arrow-drop-up", true);
+  -fx-background-color: -color-fg-muted;
+  -fx-padding: 3px 4px 3px 4px;
+}
+
+.menu-down-arrow {
+  @include icons.get("arrow-drop-down", true);
+  -fx-background-color: -color-fg-muted;
+  -fx-padding: 3px 4px 3px 4px;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  MenuItem                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+.menu-item {
+  -fx-background-color: $color-menuitem-bg;
+  -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
+
+  >.graphic-container {
+    -fx-padding: 0 cfg.$graphic-gap 0 0;
+  }
+
+  // affects both menu and hotkey labels text
+  >.label {
+    -fx-padding: 0 1em 0 0;
+    -fx-text-fill: -color-fg-default;
+  }
+
+  // left container is for checkbox and radio icons
+  >.left-container {
+    -fx-padding: 0 1em 0 0;
+  }
+
+  // right container is for submenu indication,
+  // note that hotkey is only displayed when submenu isn't present
+  >.right-container {
+    -fx-padding: 0 0 0 0.5em;
+  }
+
+  &:focused {
+    -fx-background-color: $color-menuitem-bg-hover, $color-menuitem-bg-hover;
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+}
+
+.radio-menu-item:checked>.left-container>.radio,
+.check-menu-item:checked>.left-container>.check {
+  @include icons.get("check", true);
+  -fx-background-color: -color-fg-muted;
+  -fx-min-height: cfg.$checkbox-mark-size;
+  -fx-min-width:  cfg.$checkbox-mark-size;
+  -fx-max-height: cfg.$checkbox-mark-size;
+  -fx-max-width:  cfg.$checkbox-mark-size;
+}
+
+.custom-menu-item.heading {
+  -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
+
+  &:hover,
+  &:focused,
+  &:pressed {
+    -fx-background-color: transparent;
+  }
+
+  >.label {
+    >.text {
+      -fx-font-weight: bold;
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  PopupMenu                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+.context-menu {
+  -fx-background-color: -color-border-muted, $color-menuitem-bg;
+  -fx-background-insets: 0, 1;
+  -fx-padding: cfg.$popup-padding-y cfg.$popup-padding-x cfg.$popup-padding-y cfg.$popup-padding-x;
+  -fx-background-radius: cfg.$border-radius;
+  @include effects.shadow(-color-bg-inset, cfg.$popup-shadow);
+
+  // no idea what's that thing and how to trigger its appearance
+  >.scroll-arrow {
+    -fx-padding: 0.5em;
+    -fx-background-color: transparent;
+
+    &:hover {
+      -fx-background-color: $color-menuitem-bg-hover;
+      -fx-text-fill: -color-fg-default;
+    }
+  }
+
+  // use border instead of insets to get thinner line.
+  .separator:horizontal {
+    -fx-padding: $separator-padding 0 $separator-padding 0;
+
+    .line {
+      -fx-border-color: -color-border-muted transparent transparent transparent;
+      -fx-border-insets: cfg.$border-width 0.5em 0 0.5em;
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Mnemonics                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+.context-menu:show-mnemonics>.mnemonic-underline,
+.menu:show-mnemonics>.mnemonic-underline,
+.menu-bar:show-mnemonics>.mnemonic-underline,
+.menu-item>.label:show-mnemonics>.mnemonic-underline {
+  -fx-stroke: -color-fg-default;
+}

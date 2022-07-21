@@ -1,0 +1,94 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config"as cfg;
+@use "../settings/effects";
+@use "../settings/icons";
+
+$padding-x: 20px !default;
+$padding-y: 10px !default;
+
+$margin-arrow:   10px !default;
+$margin-content: 20px !default;
+
+$elevation-color:       -color-border-subtle !default;
+$elevation-interactive: map-get(cfg.$elevation, 2) !default;
+
+.titled-pane {
+  -fx-background-color: -color-bg-default;
+  -fx-text-fill: -color-fg-default;
+  -fx-effect: none;
+
+  @each $level,
+  $radius in cfg.$elevation {
+    &.elevated-#{$level} {
+      @include effects.elevate($elevation-color, $radius);
+    }
+  }
+
+  >.title {
+    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-padding: $padding-y $padding-x $padding-y $padding-x;
+
+    >.text {
+      -fx-font-size: cfg.$font-title-4;
+    }
+
+    >.arrow-button {
+      -fx-background-color: none;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+      -fx-padding: 0 $margin-arrow 0 0; // distance between icon and text
+
+      >.arrow {
+        @include icons.get("expand-more", false);
+        -fx-background-color: -color-fg-default;
+        -fx-padding: 4px 5px 4px 5px;
+      }
+    }
+  }
+
+  >.content {
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 cfg.$border-width cfg.$border-width cfg.$border-width;
+    -fx-border-radius: 0 0 cfg.$border-radius cfg.$border-radius;
+    -fx-background-radius: 0 0 cfg.$border-radius cfg.$border-radius;
+
+    -fx-background-color: -color-bg-default;
+    -fx-padding: $margin-content $padding-x $padding-y $padding-x;
+    -fx-alignment: TOP_LEFT;
+  }
+
+  // if TitledPane is disabled, its elevation should also be removed,
+  // othserwise background color will be different due -fxopacity and
+  // -fx-effect applied at the same time
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  // When titled pane is animated and being collapsed you may notice that bottom
+  // pane border appears slightly before than animation has completed. Sadly, we can't
+  // draw a border around the whole titled pane (best option), because it will lead to
+  // accordion height calc problem. Instead we have to draw the borders around the '.title'
+  // and '.content' and then remove one of those adjacent borders.
+  &:expanded {
+    >.title {
+      -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
+      -fx-background-insets: 0, cfg.$border-width cfg.$border-width 0 cfg.$border-width;
+    }
+  }
+
+  &:collapsed {
+    >.title {
+      -fx-background-insets: 0, cfg.$border-width;
+      -fx-background-radius: cfg.$border-radius;
+    }
+  }
+
+  &.interactive:hover {
+    @include effects.elevate($elevation-color, $elevation-interactive);
+  }
+
+  &:show-mnemonics>.mnemonic-underline {
+    -fx-stroke: -color-fg-default;
+  }
+}

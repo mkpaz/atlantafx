@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.mkpaz</groupId>
+        <artifactId>atlantafx-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>atlantafx-base</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>atlantafx-styles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- place all resources under module package prefix -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>atlantafx/base</targetPath>
+                <filtering>false</filtering>
+            </resource>
+            <!-- copy compiled CSS to the classpath -->
+            <resource>
+                <directory>../styles/dist</directory>
+                <targetPath>atlantafx/base/theme</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- not used, just prevents installing NodeJS to the module dir -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <configuration>
+                    <installDirectory>${project.parent.basedir}</installDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

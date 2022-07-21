@@ -1,0 +1,5 @@
+--name "${app.name}"
+--icon "${app.icon}"
+--app-version "${app.version}"
+--temp "${build.package.tempDir}"
+--verbose

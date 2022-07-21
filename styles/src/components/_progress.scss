@@ -1,0 +1,159 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+///////////////////////////////////////////////////////////////////////////////
+//  ProgressBar                                                              //
+///////////////////////////////////////////////////////////////////////////////
+
+$size: (
+  "small":  2px,
+  "medium": 0.4em,
+  "large":  0.8em
+) !default;
+
+.progress-bar {
+
+  -fx-indeterminate-bar-length: 60;
+  -fx-indeterminate-bar-escape: true;
+  -fx-indeterminate-bar-flip: true;
+  -fx-indeterminate-bar-animation-time: 2;
+
+  >.track {
+    -fx-background-color: -color-bg-subtle;
+    -fx-background-insets: 0;
+    -fx-background-radius: cfg.$border-radius;
+  }
+
+  >.bar {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-background-insets: 0;
+    -fx-background-radius: cfg.$border-radius;
+    -fx-padding: map-get($size, "medium");
+  }
+
+  &.small {
+    >.bar {
+      -fx-padding: map-get($size, "small");
+    }
+  }
+
+  &.medium {
+    >.bar {
+      -fx-padding: map-get($size, "medium");
+    }
+  }
+
+  &.large {
+    >.bar {
+      -fx-padding: map-get($size, "large");
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  ProgressIndicator                                                        //
+///////////////////////////////////////////////////////////////////////////////
+
+.progress-indicator {
+
+  -fx-indeterminate-segment-count: 12;
+  -fx-spin-enabled: true;
+
+  >.determinate-indicator {
+    >.indicator {
+      -fx-background-color: -color-border-default, -color-bg-default;
+      -fx-background-insets: 0, 1;
+    }
+
+    >.progress {
+      -fx-background-color: -color-accent-emphasis;
+      -fx-padding: 0.6em; // limits tick size
+    }
+
+    >.tick {
+      -fx-background-color: -color-fg-emphasis;
+      -fx-background-insets: 0;
+      @include icons.get("check");
+    }
+
+    >.percentage {
+      -fx-font-size: cfg.$font-small;
+      -fx-fill: -color-fg-default;
+    }
+
+    &:disabled {
+      -fx-opacity: cfg.$opacity-disabled;
+    }
+  }
+
+  &:indeterminate {
+    >.spinner {
+      // undo styling from .spinner
+      -fx-background-color: transparent;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+      -fx-border-color: transparent;
+      -fx-border-width: 0;
+      -fx-border-radius: 0;
+      -fx-padding: 0;
+    }
+
+    .segment {
+      -fx-background-color: -color-accent-emphasis;
+    }
+
+    .segment0 {
+      -fx-shape: "M41.98 14.74 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment1 {
+      -fx-shape: "M33.75 6.51 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment2 {
+      -fx-shape: "M22.49 3.5 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment3 {
+      -fx-shape: "M11.24 6.51 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment4 {
+      -fx-shape: "M3.01 14.74 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment5 {
+      -fx-shape: "M0.0 26.0 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment6 {
+      -fx-shape: "M3.01 37.25 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment7 {
+      -fx-shape: "M11.25 45.48 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment8 {
+      -fx-shape: "M22.5 48.5 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment9 {
+      -fx-shape: "M33.75 45.48 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment10 {
+      -fx-shape: "M41.98 37.25 a3.5,3.5 0 1,1 0,1 Z";
+    }
+
+    .segment11 {
+      -fx-shape: "M45.0 26.0 a3.5,3.5 0 1,1 0,1 Z";
+    }
+  }
+}

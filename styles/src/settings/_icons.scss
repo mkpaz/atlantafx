@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+
+$material-icons: (
+  "arrow-double-right": "M5.06 5 4 6.06 7.94 10 4 13.94 5.06 15l5-5z M11 5 9.94 6.06 13.88 10l-3.94 3.94L11 15l5-5z",
+  "arrow-drop-down":    "M7 10l5 5 5-5z",
+  "arrow-drop-up":      "M7 14l5-5 5 5z",
+  "arrow-left":         "M14 7l-5 5 5 5V7z",
+  "arrow-right":        "M10 17l5-5-5-5v10z",
+  "calendar":           "M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z",
+  "check":              "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+  "chevron-left":       "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z",
+  "chevron-right":      "M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z",
+  "expand-less":        "M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z",
+  "expand-more":        "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z",
+  "minus":              "M 17,13 H 7 v -2 h 10 z",
+  "more-vert":          "M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z",
+  "plus":               "M 18,12.857142 H 12.857142 V 18 H 11.142858 V 12.857142 H 6 v -1.714284 h 5.142858 V 6 h 1.714284 v 5.142858 H 18 Z",
+);
+
+@mixin get($id, $scale: true) {
+  $shape: map-get($material-icons, $id);
+  @if $shape== null { @error "Unknown icon ID = #{$id}."; }
+
+  -fx-shape: $shape;
+  -fx-scale-shape: $scale;
+}

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.mkpaz</groupId>
+        <artifactId>atlantafx-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>atlantafx-sampler</artifactId>
+
+    <properties>
+        <app.launcher>atlantafx.sampler.Launcher</app.launcher>
+        <app.module>atlantafx.sampler</app.module>
+        <!-- final artifact name -->
+        <build.artifactName>${app.name}-${app.version}-${platform}-${os.arch}</build.artifactName>
+        <!-- application dependencies that will be included as JAR files -->
+        <build.dependenciesDir>${project.build.directory}${file.separator}dependencies</build.dependenciesDir>
+        <!-- application dependencies that will be bundled into runtime image -->
+        <build.platformModulesDir>${project.build.directory}${file.separator}platform-modules</build.platformModulesDir>
+        <!-- jpackage generated application image root -->
+        <build.package.appImageDir>${project.build.directory}${file.separator}app-image</build.package.appImageDir>
+        <!-- AppDir spec compliant dir for creating AppImage -->
+        <build.package.appDir>${project.build.directory}${file.separator}app-dir</build.package.appDir>
+        <!-- jlink generated runtime image -->
+        <build.package.runtimeImageDir>${project.build.directory}${file.separator}runtime-image</build.package.runtimeImageDir>
+        <!-- contains package scripts after filtering and placeholder replacement -->
+        <build.package.scriptsDir>${project.build.directory}${file.separator}package-scripts</build.package.scriptsDir>
+        <!-- jpackage directory for temp artifacts -->
+        <build.package.tempDir>${project.build.directory}${file.separator}package-temp</build.package.tempDir>
+        <!-- final artifacts (zip, deb, rpm...) -->
+        <build.releaseDir>${project.build.directory}${file.separator}release</build.releaseDir>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>atlantafx-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-feather-pack</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fr.brouillard.oss</groupId>
+            <artifactId>cssfx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- place all resources under module package prefix -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>atlantafx/sampler</targetPath>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>atlantafx/sampler</targetPath>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+            <!-- copy pages for source code viewer  -->
+            <resource>
+                <directory>src/main/java/atlantafx/sampler/page</directory>
+                <targetPath>atlantafx/sampler/page</targetPath>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/AbstractPage.java</exclude>
+                    <exclude>**/CodeViewer.java</exclude>
+                    <exclude>**/Page.java</exclude>
+                    <exclude>**/SampleBlock.java</exclude>
+                </excludes>
+            </resource>
+            <!-- copy icons -->
+            <resource>
+                <directory>icons</directory>
+                <targetPath>atlantafx/sampler/assets</targetPath>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>icons</directory>
+                <filtering>false</filtering>
+                <targetPath>${project.build.directory}</targetPath>
+            </resource>
+            <!-- copy and filter build scripts -->
+            <resource>
+                <directory>src/package-scripts</directory>
+                <filtering>true</filtering>
+                <targetPath>${build.package.scriptsDir}</targetPath>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <executable>${java.home}/bin/java</executable>
+                    <mainClass>${app.launcher}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run</id>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <configuration>
+                    <installDirectory>${project.parent.basedir}</installDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <!-- copy all dependencies that won't be included into runtime image -->
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${build.dependenciesDir}</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                            <excludeGroupIds>org.openjfx</excludeGroupIds>
+                        </configuration>
+                    </execution>
+                    <!-- copy platform dependencies that will be included into runtime image -->
+                    <execution>
+                        <id>copy-openjfx</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${build.platformModulesDir}</outputDirectory>
+                            <includeGroupIds>org.openjfx</includeGroupIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <!-- skip installation to the local repository -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <!-- copy application JAR file to the dependencies -->
+                <configuration>
+                    <outputDirectory>${build.dependenciesDir}</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.github.wiverson</groupId>
+                <artifactId>jtoolprovider-plugin</artifactId>
+                <executions>
+                    <!-- create custom JRE image -->
+                    <execution>
+                        <id>create-runtime-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>java-tool</goal>
+                        </goals>
+                        <configuration>
+                            <toolName>jlink</toolName>
+                            <addModules>java.base,java.logging,jdk.localedata,java.desktop,javafx.controls,javafx.swing,javafx.web</addModules>
+                            <modulePath>${build.platformModulesDir}</modulePath>
+                            <output>${build.package.runtimeImageDir}</output>
+                            <args>
+                                <!-- additional options to shrink resulting image even more -->
+                                <arg>--compress=2</arg>
+                                <arg>--include-locales=en</arg>
+                                <arg>--no-header-files</arg>
+                                <arg>--no-man-pages</arg>
+                                <arg>--strip-debug</arg>
+                                <arg>--verbose</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                    <!-- create application image (includes JRE plus application JARs and resources) -->
+                    <execution>
+                        <id>create-app-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>java-tool</goal>
+                        </goals>
+                        <configuration>
+                            <toolName>jpackage</toolName>
+                            <removeDirectories>${build.package.tempDir}</removeDirectories>
+                            <args>
+                                <arg>@${build.package.scriptsDir}${file.separator}args-base.txt</arg>
+                                <arg>@${build.package.scriptsDir}${file.separator}args-app-image.txt</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- compress app image and place result to the release dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${build.releaseDir}</outputDirectory>
+                            <finalName>${build.artifactName}</finalName>
+                            <attach>false</attach>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <tarLongFileMode>posix</tarLongFileMode>
+                            <descriptors>
+                                <descriptor>src/package-scripts/app-image.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- skip module deployment -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>linux-active</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <app.icon>${project.build.directory}/app-icon.png</app.icon>
+                <app.build.compressionAlg>tar.gz</app.build.compressionAlg>
+            </properties>
+        </profile>
+        <profile>
+            <id>windows-active</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <app.icon>${project.build.directory}\app-icon.ico</app.icon>
+                <app.build.compressionAlg>zip</app.build.compressionAlg>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

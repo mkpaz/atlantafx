@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+.accordion {
+
+  // make the rule more specific, otherwise it'd need to
+  // be placed below '>.titled-pane' rules
+  >.titled-pane.first-titled-pane {
+    >.title {
+      -fx-background-insets: 0, cfg.$border-width;
+      -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
+    }
+  }
+
+  >.titled-pane {
+    >.title {
+      -fx-background-insets: 0, 0 cfg.$border-width cfg.$border-width cfg.$border-width;
+      // there's no such class as 'last-titled-pane, so we can't add
+      // border radius to the last accordion block whick looks a bit ugly
+      -fx-background-radius: 0;
+    }
+  }
+}

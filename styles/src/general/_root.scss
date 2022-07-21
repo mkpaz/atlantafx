@@ -1,0 +1,100 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/palette" as palette;
+
+.root {
+
+  -color-fg-default:            palette.$fg-default;
+  -color-fg-muted:              palette.$fg-muted;
+  -color-fg-subtle:             palette.$fg-subtle;
+  -color-fg-emphasis:           palette.$fg-onEmphasis;
+
+  -color-bg-default:            palette.$canvas-default;
+  -color-bg-subtle:             palette.$canvas-subtle;
+  -color-bg-inset:              palette.$canvas-inset;
+
+  -color-border-default:        palette.$border-default;
+  -color-border-muted:          palette.$border-muted;
+  -color-border-subtle:         palette.$border-subtle;
+
+  -color-neutral-emphasis-plus: palette.$neutral-emphasisPlus;
+  -color-neutral-emphasis:      palette.$neutral-emphasis;
+  -color-neutral-muted:         palette.$neutral-muted;
+  -color-neutral-subtle:        palette.$neutral-subtle;
+
+  -color-accent-fg:             palette.$accent-fg;
+  -color-accent-emphasis:       palette.$accent-emphasis;
+  -color-accent-muted:          palette.$accent-muted;
+  -color-accent-subtle:         palette.$accent-subtle;
+
+  -color-warning-fg:            palette.$warning-fg;
+  -color-warning-emphasis:      palette.$warning-emphasis;
+  -color-warning-muted:         palette.$warning-muted;
+  -color-warning-subtle:        palette.$warning-subtle;
+
+  -color-success-fg:            palette.$success-fg;
+  -color-success-emphasis:      palette.$success-emphasis;
+  -color-success-muted:         palette.$success-muted;
+  -color-success-subtle:        palette.$success-subtle;
+
+  -color-danger-fg:             palette.$danger-fg;
+  -color-danger-emphasis:       palette.$danger-emphasis;
+  -color-danger-muted:          palette.$danger-muted;
+  -color-danger-subtle:         palette.$danger-subtle;
+
+  -color-chart-1:               palette.$chart-1;
+  -color-chart-2:               palette.$chart-2;
+  -color-chart-3:               palette.$chart-3;
+  -color-chart-4:               palette.$chart-4;
+  -color-chart-5:               palette.$chart-5;
+  -color-chart-6:               palette.$chart-6;
+  -color-chart-7:               palette.$chart-7;
+  -color-chart-8:               palette.$chart-8;
+
+  -color-chart-1-alpha70:       palette.$chart-1-alpha70;
+  -color-chart-2-alpha70:       palette.$chart-2-alpha70;
+  -color-chart-3-alpha70:       palette.$chart-3-alpha70;
+  -color-chart-4-alpha70:       palette.$chart-4-alpha70;
+  -color-chart-5-alpha70:       palette.$chart-5-alpha70;
+  -color-chart-6-alpha70:       palette.$chart-6-alpha70;
+  -color-chart-7-alpha70:       palette.$chart-7-alpha70;
+  -color-chart-8-alpha70:       palette.$chart-8-alpha70;
+
+  -color-chart-1-alpha20:       palette.$chart-1-alpha20;
+  -color-chart-2-alpha20:       palette.$chart-2-alpha20;
+  -color-chart-3-alpha20:       palette.$chart-3-alpha20;
+  -color-chart-4-alpha20:       palette.$chart-4-alpha20;
+  -color-chart-5-alpha20:       palette.$chart-5-alpha20;
+  -color-chart-6-alpha20:       palette.$chart-6-alpha20;
+  -color-chart-7-alpha20:       palette.$chart-7-alpha20;
+  -color-chart-8-alpha20:       palette.$chart-8-alpha20;
+
+  // default props inherited by all nodes
+  -fx-background-color: -color-bg-default;
+  -fx-font-family: "Inter";
+  -fx-font-size: cfg.$font-default;
+
+  // these are needed for Popup
+  -fx-background-radius: inherit;
+  -fx-background-insets: inherit;
+  -fx-padding: inherit;
+
+  // make popups transparent
+  &.popup {
+    -fx-background-color: transparent;
+  }
+}
+
+// font icons
+.ikonli-font-icon {
+  -fx-icon-color: -color-fg-default;
+  -fx-icon-size: cfg.$icon-size;
+}
+
+// Hide mnemonic stroke by default. It can only appear when user holds
+// Meta button, which adds ":show-mnemonics" pseudo-class to each control
+// that set mnemonicParsing = true.
+.mnemonic-underline {
+  -fx-stroke: transparent;
+}

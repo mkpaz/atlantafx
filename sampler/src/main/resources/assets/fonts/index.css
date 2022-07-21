@@ -1,0 +1,30 @@
+/*
+ * Note that each font-family have to be unique. That's because unlike web browsers
+ * OpenJFX CSS parser doesn't support `font-weight` and `font-style` attributes
+ * in the `@font-face` at-rule. It just silently ignores them. So, the font variant
+ * can only be expressed via font name. OpenJFX always uses font transformation,
+ * even when corresponding font variant provided explicitly.
+ *
+ * See, CSS Reference guide:
+ * https://openjfx.io/javadoc/17/javafx.graphics/javafx/scene/doc-files/cssref.html
+ * > Although the parser will parse the syntax, all @font‑face descriptors
+ * > are ignored except for the src descriptor. The src descriptor is expected
+ * > to be a <url>. The format hint is ignored.
+ */
+
+@font-face {
+    font-family: "Inter UI Regular";
+    src: url('Inter/InterUI-Regular.otf');
+}
+@font-face {
+    font-family: "Inter UI Medium";
+    src: url('Inter/InterUI-Medium.otf');
+}
+@font-face {
+    font-family: "Inter UI Bold";
+    src: url('Inter/InterUI-Bold.otf');
+}
+@font-face {
+    font-family: "Inter UI Italic";
+    src: url('Inter/InterUI-Italic.otf');
+}

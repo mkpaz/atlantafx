@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+///////////////////////////////////////////////////////////////////////////////
+//  ScrolBar                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+$scrollbar-thickness: 8px !default;
+$thumb-radius: cfg.$border-radius !default;
+
+.scroll-bar {
+
+  -fx-background-color: cfg.$scrollbar-color-track;
+  -fx-opacity: cfg.$scrollbar-opacity-inactive;
+
+  >.thumb {
+    -fx-background-color: cfg.$scrollbar-color-thumb;
+    -fx-background-radius: $thumb-radius;
+  }
+
+  >.track {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+  }
+
+  // hide archaic (arguably) increment and decrement buttons
+  >.increment-button {
+    visibility: hidden;
+    -fx-managed: false;
+
+    >.increment-arrow {
+      -fx-shape: " ";
+      -fx-padding: 0;
+    }
+  }
+
+  >.decrement-button {
+    visibility: hidden;
+    -fx-managed: false;
+
+    >.decrement-arrow {
+      -fx-shape: " ";
+      -fx-padding: 0;
+    }
+  }
+
+  &:horizontal {
+    -fx-pref-height: $scrollbar-thickness;
+  }
+
+  &:vertical {
+    -fx-pref-width: $scrollbar-thickness;
+  }
+
+  &:hover,
+  &:pressed,
+  &:focused {
+    -fx-opacity: 1;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  ScrollPane                                                               //
+///////////////////////////////////////////////////////////////////////////////
+
+// NOTE: edge-to-edge style class was removed, because it's default now.
+//       Any control that needs scroll pane with borders should draw them by yourself.
+.scroll-pane {
+
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+  -fx-padding: 0;
+
+  >.viewport {
+    -fx-background-color: transparent;
+  }
+
+  >.corner {
+    -fx-background-color: cfg.$scrollbar-color-track;
+    -fx-opacity: cfg.$scrollbar-opacity-inactive;
+  }
+
+  &:disabled {
+    >.scroll-bar {
+      -fx-opacity: cfg.$scrollbar-opacity-disabled;
+    }
+  }
+}

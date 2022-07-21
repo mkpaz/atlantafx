@@ -1,0 +1,47 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+.toggle-switch {
+  -fx-thumb-move-animation-time: 200;
+
+  >.label-container {
+    >.label {
+      -fx-font-size: 1em;
+      -fx-text-fill: -color-fg-default;
+      -fx-padding: cfg.$checkbox-label-padding cfg.$graphic-gap cfg.$checkbox-label-padding 0;
+    }
+  }
+
+  >.thumb {
+    -fx-background-color:-color-border-default, -color-fg-emphasis;
+    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-radius: 10em; // make sure this remains circular
+    -fx-padding: 0.7em;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+    -fx-opacity: 0.8;
+  }
+
+  >.thumb-area {
+    -fx-background-radius: 1em;
+    -fx-background-color: -color-border-default, -color-bg-inset;
+    -fx-background-insets: 0, cfg.$border-width;
+    -fx-padding: 0.8em 1.5em 0.8em 1.5em;
+  }
+
+  &:selected {
+    >.thumb {
+      -fx-opacity: 1;
+    }
+
+    >.thumb-area {
+      -fx-background-color: -color-accent-emphasis;
+      -fx-background-insets: 0;
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+}

@@ -1,0 +1,79 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+@use "../settings/utils";
+
+$color-bg:         -color-bg-subtle !default;
+$color-bg-pressed: utils.saturate($color-bg, cfg.$darkMode, cfg.$color-delta-active) !default;
+
+$padding-x: cfg.$padding-x !default;
+$padding-y: 4px !default;
+$spacing:   4px !default;
+$border-width: cfg.$border-width !default;
+
+.tool-bar {
+  -fx-background-color: -color-border-muted, $color-bg;
+  -fx-background-insets: 0, 0 0 $border-width 0;
+  -fx-padding: $padding-y $padding-x $padding-y $padding-x;
+  -fx-spacing: $spacing;
+  -fx-alignment: CENTER_LEFT;
+
+  >.container {
+
+    >.button,
+    >.menu-button,
+    >.split-menu-button {
+      -color-button-bg: $color-bg;
+      -fx-background-insets: 0;
+    }
+
+    .toggle-button {
+      -color-button-bg: $color-bg;
+      -color-button-bg-selected: $color-bg-pressed;
+      -color-button-fg-selected: -color-fg-default;
+      -fx-background-insets: 0;
+    }
+
+    >.separator {
+      -fx-orientation: vertical;
+    }
+  }
+
+  >.tool-bar-overflow-button {
+    -fx-padding: 0 $padding-x 0 $spacing;
+
+    >.arrow {
+      @include icons.get("arrow-double-right", false);
+      -fx-background-color: -color-fg-default;
+    }
+  }
+
+  &:vertical {
+    -fx-background-insets: 0, 0 $border-width 0 0;
+    -fx-padding: $padding-x $padding-y $padding-x $padding-y;
+    -fx-alignment: TOP_LEFT;
+
+    >.container {
+      >.separator {
+        -fx-orientation: horizontal;
+      }
+    }
+
+    >.tool-bar-overflow-button {
+      -fx-padding: $spacing 0 $padding-x 0;
+    }
+
+    // this rule existed in modena.css, but JavaFX doesn't apply it automatically,
+    // you supposed to add it manually.
+    &.right {
+      -fx-background-insets: 0, 0 0 0 $border-width;
+    }
+  }
+
+  // this rule existed in modena.css, but JavaFX doesn't apply it automatically,
+  // you supposed to add it manually.
+  &.bottom {
+    -fx-background-insets: 0, $border-width 0 0 0;
+  }
+}

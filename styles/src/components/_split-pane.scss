@@ -1,0 +1,50 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$divider-thickness: 2px  !default;
+$grabber-length:    10px !default;
+
+.split-pane {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+
+  >.split-pane-divider {
+    -fx-background-color: cfg.$scrollbar-color-track;
+    -fx-padding: 0 $divider-thickness 0 $divider-thickness;
+    -fx-opacity: cfg.$scrollbar-opacity-inactive;
+
+    // Just for example, this is how we can increase grab area without increasing divider width.
+    // Sadly, it's only appropriate when split pane items are allowed to have horizontal padding.
+    //-fx-border-color: color.$background;
+    //-fx-border-width: 0 5 0 5;
+
+    >.horizontal-grabber {
+      -fx-background-color: cfg.$scrollbar-color-thumb;
+      -fx-padding: $grabber-length $divider-thickness $grabber-length $divider-thickness;
+    }
+
+    >.vertical-grabber {
+      -fx-background-color: cfg.$scrollbar-color-thumb;
+      -fx-padding: $divider-thickness $grabber-length $divider-thickness $grabber-length;
+    }
+
+    &:pressed {
+      -fx-background-color: -color-accent-emphasis;
+
+      >.horizontal-grabber,
+      >.vertical-grabber {
+        -fx-background-color: -color-accent-emphasis;
+      }
+    }
+
+    &:hover {
+      -fx-opacity: 1;
+    }
+
+    &:disabled {
+      -fx-opacity: cfg.$scrollbar-opacity-disabled;
+    }
+  }
+}

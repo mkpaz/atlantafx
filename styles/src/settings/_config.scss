@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: MIT
+
+$darkMode:           false !default;
+$color-delta-hover:  5%    !default;
+$color-delta-active: 10%   !default;
+
+$font-default:           14px  !default; // ~= 11pt
+$font-family-serif:      serif !default;
+$font-family-sans-serif: sans-serif !default;
+$font-family-monospace:  monospace  !default;
+$font-title-1:           2em    !default;
+$font-title-2:           1.75em !default;
+$font-title-3:           1.5em  !default;
+$font-title-4:           1.25em !default;
+$font-small:             0.8em  !default;
+
+$padding-x:    12px !default;
+$padding-y:    8px  !default;
+$graphic-gap:  6px  !default;
+
+// Most components use background insets to draw its borders due to
+// performance reasons. On border radius > 2px corners may look rather ugly.
+// They're thicker than border width and sometimes a bit blurry.
+$border-width:   1px !default;
+$border-radius:  4px !default;
+
+$opacity-disabled: 0.4 !default;
+
+// javafx-controls doesn't have iconic fonts support,
+// this is just a variable that is used across the theme to style font icons
+$font-icon-selector: ".font-icon, .ikonli-font-icon";
+$font-icon-selector-immediate: ">.font-icon, >.ikonli-font-icon";
+
+// Ikonli doesn't support 'em'
+$icon-size: 18px !default;
+
+// elevation (level : radius)
+$elevation: (1: 2px, 2: 8px, 3: 16px, 4: 20px) !default;
+
+// check box, radio button
+$checkbox-mark-size:   0.75em !default;
+$checkbox-mark-padding-y: 3px !default;
+$checkbox-mark-padding-x: 4px !default;
+$checkbox-label-padding:  2px !default;
+
+// menu
+$popup-padding-x: 2px !default;
+$popup-padding-y: 2px !default;
+$popup-shadow:    2px !default;
+$menu-padding-x:  $padding-x !default;
+$menu-padding-y:  $padding-y !default;
+
+// separators
+$separators: ("small": 0.25em, "medium": 0.75em, "large": 1.5em) !default;
+
+// scroll bars
+$scrollbar-color-track: -color-border-subtle !default;
+$scrollbar-color-thumb: -color-fg-muted !default;
+$scrollbar-opacity-inactive: 0.5 !default;
+$scrollbar-opacity-disabled: 0.25 !default;

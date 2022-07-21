@@ -1,0 +1,61 @@
+// SPDX-License-Identifier: MIT
+
+@forward "settings/palette" with (
+
+  $fg-default:           #c9d1d9,
+  $fg-muted:             #8b949e,
+  $fg-subtle:            #6e7681,
+  $fg-onEmphasis:        #ffffff,
+
+  $canvas-default:       #0d1117,
+  $canvas-overlay:       #161b22,
+  $canvas-inset:         #010409,
+  $canvas-subtle:        #161b22,
+
+  $border-default:       #30363d,
+  $border-muted:         #21262d,
+  $border-subtle:        rgba(240, 246, 252, 0.1),
+
+  $neutral-emphasisPlus: #6e7681,
+  $neutral-emphasis:     #6e7681,
+  $neutral-muted:        rgba(110, 118, 129, 0.4),
+  $neutral-subtle:       rgba(110, 118, 129, 0.1),
+
+  $accent-fg:            #58a6ff,
+  $accent-emphasis:      #1f6feb,
+  $accent-muted:         rgba(56, 139, 253, 0.4),
+  $accent-subtle:        rgba(56, 139, 253, 0.15),
+
+  $success-fg:           #3fb950,
+  $success-emphasis:     #238636,
+  $success-muted:        rgba(46, 160, 67, 0.4),
+  $success-subtle:       rgba(46, 160, 67, 0.15),
+
+  $warning-fg:           #d29922,
+  $warning-emphasis:     #9e6a03,
+  $warning-muted:        rgba(187, 128, 9, 0.4),
+  $warning-subtle:       rgba(187, 128, 9, 0.15),
+
+  $danger-fg:            #f85149,
+  $danger-emphasis:      #da3633,
+  $danger-muted:         rgba(248, 81, 73, 0.4),
+  $danger-subtle:        rgba(248, 81, 73, 0.15)
+);
+
+@forward "settings/config" with (
+  $darkMode: true,
+  $color-delta-hover:  15%,
+  $color-delta-active: 20%
+);
+
+@forward "components/titled-pane" as titled-pane-* with (
+  $elevation-color: -color-bg-inset
+);
+
+@forward "components/tooltip" as tooltip-* with (
+  $color-bg: -color-bg-inset,
+  $color-fg: -color-fg-default
+);
+
+@use "general";
+@use "components";

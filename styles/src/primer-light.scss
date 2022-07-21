@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+
+// Any module variable can be customized at compile time.
+// Note that SASS is only loading any module just once so customization order does matter.
+// E.g. if A module uses B and B uses C then we should override C variables first, then B,
+// then A. Otherwise there will be an exception that we are attempting to change a variable
+// in a module that has been already loaded.
+//
+// Color customization.
+// @forward "settings/palette" with (
+//   ...
+// );
+//
+// Shared property customization.
+// @forward "settings/config" with (
+//   ...
+// );
+//
+// Individual component property customization.
+// @forward "components/split-pane" with (
+//   ...
+// );
+
+@use "general";
+@use "components";

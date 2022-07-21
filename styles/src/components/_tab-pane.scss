@@ -1,0 +1,163 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+@use "../settings/icons";
+
+$tab-padding-x: cfg.$padding-x !default;
+$tab-padding-y: 0.6em !default;
+$border-width:  2px   !default;
+
+.tab-pane {
+
+  >.tab-header-area {
+    -fx-background-insets: 0;
+    -fx-background-color: -color-bg-default;
+    -fx-alignment: CENTER;
+
+    >.tab-header-background {
+      -fx-background-color: transparent;
+    }
+
+    >.headers-region > .tab {
+      -fx-padding: $tab-padding-y $tab-padding-x $tab-padding-y $tab-padding-x;
+
+      &:top {
+        -fx-background-insets: 0 0 0 0, 0 0 $border-width 0;
+        -fx-background-color: -color-border-default, -color-bg-default;
+      }
+
+      &:bottom {
+        -fx-background-insets: 0 0 0 0, 0 0 $border-width 0;
+        -fx-background-color: -color-border-default, -color-bg-default;
+
+        >.control-buttons-tab > .container > .tab-down-button {
+          -fx-padding: -0.25em 0.25em 0.25em 0.25em;
+        }
+      }
+
+      >.tab-container {
+        >.tab-label {
+          -fx-alignment: CENTER;
+          -fx-text-fill: -color-fg-default;
+          -fx-padding: 0 5px 0 0; // close button padding
+
+          >* {
+            -fx-fill: -color-fg-default;
+            -fx-icon-color: -color-fg-default;
+          }
+        }
+
+        >.tab-close-button {
+          -fx-background-color: -color-fg-default;
+          -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+          -fx-scale-shape: false;
+
+          &:hover {
+            @include effects.highlight(-color-fg-default, 1);
+          }
+        }
+      }
+
+      &:hover {
+        -fx-background-color: -color-border-default, -color-bg-inset;
+      }
+
+      &:top:selected,
+      &:bottom:selected {
+        -fx-background-color: -color-accent-emphasis, -color-bg-default;
+
+        >.tab-container {
+          >.tab-label {
+            -fx-fill: -color-accent-fg;
+            -fx-text-fill: -color-accent-fg;
+
+            >* {
+              -fx-fill: -color-accent-fg;
+              -fx-icon-color: -color-accent-fg;
+            }
+          }
+
+          >.tab-close-button {
+            -fx-background-color: -color-accent-fg;
+          }
+        }
+      }
+
+      // order matters, as JavaFX CSS doesn't support not() selector,
+      // 'disabled' have to be applied after 'hover' and 'selected'
+      &:disabled {
+        -fx-background-color: -color-border-default, -color-bg-default;
+
+        >.tab-container {
+          -fx-opacity: cfg.$opacity-disabled;
+        }
+      }
+
+      // vertical tabs
+      &:left,
+      &:right {
+        -fx-background-insets: 0;
+        -fx-background-color: transparent;
+
+        &:hover {
+          -fx-background-color: -color-bg-default;
+
+          >.tab-container {
+            >.tab-label {
+              -fx-text-fill: -color-fg-default;
+            }
+
+            >.tab-close-button {
+              -fx-background-color: -color-fg-default;
+            }
+          }
+        }
+
+        &:selected {
+          -fx-background-color: -color-bg-inset;
+
+          >.tab-container {
+            >.tab-label {
+              -fx-text-fill: -color-fg-default;
+              -fx-underline: true;
+            }
+
+            >.tab-close-button {
+              -fx-background-color: -color-fg-default;
+            }
+          }
+        }
+
+        // order matters, because JavaFX CSS doesn't support not() selector,
+        // 'disabled' have to be applied after 'hover' and 'selected'
+        &:disabled {
+          -fx-background-color: transparent;
+        }
+      }
+    }
+
+    >.control-buttons-tab > .container {
+      -fx-padding: 0.25em 0 0 0;
+
+      >.tab-down-button {
+        -fx-padding: 0.25em 1em 1em 0.25em;
+
+        >.arrow {
+          @include icons.get("arrow-drop-down", false);
+          -fx-background-color: -color-fg-default;
+        }
+      }
+    }
+  }
+
+  // TabPane.STYLE_CLASS_FLOATING
+  &.floating {
+    // NOTE: Don't use .floating with vertical tabs
+    // they are incompatible at the moment
+    >.tab-header-area {
+      -fx-background-insets: 0 0 0 0, 0 0 $border-width 0;
+      -fx-background-color: -color-border-default, -color-bg-default;
+    }
+  }
+}

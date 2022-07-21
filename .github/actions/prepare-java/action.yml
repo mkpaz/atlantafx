@@ -1,0 +1,17 @@
+name: "Prepare Java"
+description: "Install Java and cache Maven dependencies"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build | Setup OpenJDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 17
+
+    - name: Build | Cache Maven dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2

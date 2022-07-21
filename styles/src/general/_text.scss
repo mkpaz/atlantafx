@@ -1,0 +1,100 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config"as cfg;
+
+// text nodes
+.text {
+  // enable LCD text rendering
+  -fx-font-smoothing-type: lcd;
+
+  // adjust text alignment within the bounds of text nodes,
+  // so that the text is always vertically centered within the bounds
+  -fx-bounds-type: logical_vertical_center;
+}
+
+// default text color
+Text {
+  -fx-fill: -color-fg-default;
+}
+
+// font size
+.title-1 {
+  -fx-font-size: cfg.$font-title-1;
+  -fx-font-weight: bolder;
+}
+.title-2 {
+  -fx-font-size: cfg.$font-title-2;
+  -fx-font-weight: bolder;
+}
+.title-3 {
+  -fx-font-size: cfg.$font-title-3;
+  -fx-font-weight: bolder;
+}
+.title-4 {
+  -fx-font-size: cfg.$font-title-4;
+  -fx-font-weight: normal;
+}
+.text-caption {
+  -fx-font-size: 1em;
+  -fx-font-weight: bold;
+}
+.text-small {
+  -fx-font-size: cfg.$font-small;
+}
+
+// text color
+.text.accent {
+  -fx-fill: -color-accent-fg;
+}
+.label.accent {
+  -fx-text-fill: -color-accent-fg;
+}
+.text.success {
+  -fx-fill: -color-success-fg;
+}
+.label.success {
+  -fx-text-fill: -color-success-fg;
+}
+.text.warning {
+  -fx-fill: -color-warning-fg;
+}
+.label.warning {
+  -fx-text-fill: -color-warning-fg;
+}
+.text.danger {
+  -fx-fill: -color-danger-fg;
+}
+.label.danger {
+  -fx-text-fill: -color-danger-fg;
+}
+
+// font weight
+// JavaFX CSS parser recognizes all values, but JavaFX engine
+// only supports normal and bold.
+.text-bold {
+  -fx-font-weight: bold;
+}
+.text-bolder {
+  -fx-font-weight: bolder;
+}
+.text-normal {
+  -fx-font-weight: normal;
+}
+.text-lighter {
+  -fx-font-weight: lighter;
+}
+
+// font style
+.text-italic {
+  -fx-font-style: italic;
+}
+.text-oblique {
+  -fx-font-style: oblique;
+}
+// only applied to javafx.scene.Text
+.text-underlined {
+  -fx-underline: true;
+}
+.text-strikethrough {
+  -fx-strikethrough: true;
+}

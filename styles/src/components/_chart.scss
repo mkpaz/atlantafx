@@ -1,0 +1,541 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+.chart {
+  -fx-padding: 4px;
+
+  >.chart-title {
+    -fx-font-size: cfg.$font-title-4;
+  }
+
+  >.chart-content {
+    -fx-padding: 10px;
+
+    >.chart-plot-background {
+      -fx-background-color: -color-bg-default;
+    }
+  }
+
+  &:disabled {
+    >.chart-content {
+
+      // prevent opacity from being applied twice
+      .label {
+        -fx-opacity: 1;
+      }
+
+      -fx-opacity: cfg.$opacity-disabled;
+    }
+  }
+
+  >.chart-legend {
+    -fx-padding: 6px;
+  }
+
+  .axis {
+    -fx-axis-color: -color-border-default;
+    -fx-tick-label-font-size: cfg.$font-small;
+    -fx-tick-label-fill: -color-fg-default;
+
+    &:top {
+      -fx-border-color: transparent transparent -fx-axis-color transparent;
+    }
+
+    &:right {
+      -fx-border-color: transparent transparent transparent -fx-axis-color;
+    }
+
+    &:bottom {
+      -fx-border-color: -fx-axis-color transparent transparent transparent;
+    }
+
+    &:left {
+      -fx-border-color: transparent -fx-axis-color transparent transparent;
+    }
+
+    &:top>.axis-label,
+    &:left>.axis-label {
+      -fx-padding: 0 0 4px 0;
+    }
+
+    &:bottom>.axis-label,
+    &:right>.axis-label {
+      -fx-padding: 4px 0 0 0;
+    }
+
+    >.axis-tick-mark,
+    >.axis-minor-tick-mark {
+      -fx-fill: none;
+      -fx-stroke: -fx-axis-color;
+    }
+  }
+
+  .chart-horizontal-grid-lines,
+  .chart-vertical-grid-lines {
+    -fx-stroke: -color-border-muted;
+    -fx-stroke-dash-array: 0.25em, 0.25em;
+  }
+
+  .chart-alternative-row-fill,
+  .chart-alternative-column-fill {
+    -fx-fill: none;
+    -fx-stroke: none;
+  }
+
+  .chart-vertical-zero-line,
+  .chart-horizontal-zero-line {
+    -fx-stroke: -color-fg-default;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// ScatterChart                                                              //
+///////////////////////////////////////////////////////////////////////////////
+
+// solid circle
+.chart-symbol {
+  -fx-background-color: -color-chart-1;
+  -fx-background-radius: 5px;
+  -fx-padding: 5px;
+}
+
+// solid square
+.default-color1.chart-symbol {
+  -fx-background-color: -color-chart-2;
+  -fx-background-radius: 0;
+}
+
+// solid diamond
+.default-color2.chart-symbol {
+  -fx-background-color: -color-chart-3;
+  -fx-background-radius: 0;
+  -fx-padding: 7px 5px 7px 5px;
+  -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+}
+
+// cross
+.default-color3.chart-symbol {
+  -fx-background-color: -color-chart-4;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-shape: "M2,0 L5,4 L8,0 L10,0 L10,2 L6,5 L10,8 L10,10 L8,10 L5,6 L2,10 L0,10 L0,8 L4,5 L0,2 L0,0 Z";
+}
+
+// solid triangle
+.default-color4.chart-symbol {
+  -fx-background-color: -color-chart-5;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-shape: "M5,0 L10,8 L0,8 Z";
+}
+
+// hollow circle
+.default-color5.chart-symbol {
+  -fx-background-color: -color-chart-6, white;
+  -fx-background-insets: 0, 2;
+  -fx-background-radius: 5px;
+  -fx-padding: 5px;
+}
+
+// hollow square
+.default-color6.chart-symbol {
+  -fx-background-color: -color-chart-7, white;
+  -fx-background-insets: 0, 2;
+  -fx-background-radius: 0;
+}
+
+// hollow diamond
+.default-color7.chart-symbol {
+  -fx-background-color: -color-chart-8, white;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0, 2.5;
+  -fx-padding: 7px 5px 7px 5px;
+  -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// LineChart                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+.chart-line-symbol {
+  -fx-background-color: -color-chart-1, white;
+  -fx-background-insets: 0, 2;
+  -fx-background-radius: 5px;
+  -fx-padding: 5px;
+}
+
+.chart-series-line {
+  -fx-stroke: -color-chart-1;
+  -fx-stroke-width: 3px;
+}
+
+.default-color0.chart-line-symbol {
+  -fx-background-color: -color-chart-1, white;
+}
+
+.default-color1.chart-line-symbol {
+  -fx-background-color: -color-chart-2, white;
+}
+
+.default-color2.chart-line-symbol {
+  -fx-background-color: -color-chart-3, white;
+}
+
+.default-color3.chart-line-symbol {
+  -fx-background-color: -color-chart-4, white;
+}
+
+.default-color4.chart-line-symbol {
+  -fx-background-color: -color-chart-5, white;
+}
+
+.default-color5.chart-line-symbol {
+  -fx-background-color: -color-chart-6, white;
+}
+
+.default-color6.chart-line-symbol {
+  -fx-background-color: -color-chart-7, white;
+}
+
+.default-color7.chart-line-symbol {
+  -fx-background-color: -color-chart-8, white;
+}
+
+.default-color0.chart-series-line {
+  -fx-stroke: -color-chart-1;
+}
+
+.default-color1.chart-series-line {
+  -fx-stroke: -color-chart-2;
+}
+
+.default-color2.chart-series-line {
+  -fx-stroke: -color-chart-3;
+}
+
+.default-color3.chart-series-line {
+  -fx-stroke: -color-chart-4;
+}
+
+.default-color4.chart-series-line {
+  -fx-stroke: -color-chart-5;
+}
+
+.default-color5.chart-series-line {
+  -fx-stroke: -color-chart-6;
+}
+
+.default-color6.chart-series-line {
+  -fx-stroke: -color-chart-7;
+}
+
+.default-color7.chart-series-line {
+  -fx-stroke: -color-chart-8;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// AreaChart                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+.chart-area-symbol {
+  -fx-background-color: -color-chart-1, white;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 4px; // makes sure this remains circular
+  -fx-padding: 3px;
+}
+
+.default-color0.chart-area-symbol {
+  -fx-background-color: -color-chart-1, white;
+}
+
+.default-color1.chart-area-symbol {
+  -fx-background-color: -color-chart-2, white;
+}
+
+.default-color2.chart-area-symbol {
+  -fx-background-color: -color-chart-3, white;
+}
+
+.default-color3.chart-area-symbol {
+  -fx-background-color: -color-chart-4, white;
+}
+
+.default-color4.chart-area-symbol {
+  -fx-background-color: -color-chart-5, white;
+}
+
+.default-color5.chart-area-symbol {
+  -fx-background-color: -color-chart-6, white;
+}
+
+.default-color6.chart-area-symbol {
+  -fx-background-color: -color-chart-7, white;
+}
+
+.default-color7.chart-area-symbol {
+  -fx-background-color: -color-chart-8, white;
+}
+
+.chart-series-area-line {
+  -fx-stroke: -color-chart-1;
+  -fx-stroke-width: 1px;
+}
+
+.default-color0.chart-series-area-line {
+  -fx-stroke: -color-chart-1;
+}
+
+.default-color1.chart-series-area-line {
+  -fx-stroke: -color-chart-2;
+}
+
+.default-color2.chart-series-area-line {
+  -fx-stroke: -color-chart-3;
+}
+
+.default-color3.chart-series-area-line {
+  -fx-stroke: -color-chart-4;
+}
+
+.default-color4.chart-series-area-line {
+  -fx-stroke: -color-chart-5;
+}
+
+.default-color5.chart-series-area-line {
+  -fx-stroke: -color-chart-6;
+}
+
+.default-color6.chart-series-area-line {
+  -fx-stroke: -color-chart-7;
+}
+
+.default-color7.chart-series-area-line {
+  -fx-stroke: -color-chart-8;
+}
+
+.chart-series-area-fill {
+  -fx-stroke: none;
+  -fx-fill: -color-chart-1-alpha20;
+}
+
+.default-color0.chart-series-area-fill {
+  -fx-fill: -color-chart-1-alpha20;
+}
+
+.default-color1.chart-series-area-fill {
+  -fx-fill: -color-chart-2-alpha20;
+}
+
+.default-color2.chart-series-area-fill {
+  -fx-fill: -color-chart-3-alpha20;
+}
+
+.default-color3.chart-series-area-fill {
+  -fx-fill: -color-chart-4-alpha20;
+}
+
+.default-color4.chart-series-area-fill {
+  -fx-fill: -color-chart-5-alpha20;
+}
+
+.default-color5.chart-series-area-fill {
+  -fx-fill: -color-chart-6-alpha20;
+}
+
+.default-color6.chart-series-area-fill {
+  -fx-fill: -color-chart-7-alpha20;
+}
+
+.default-color7.chart-series-area-fill {
+  -fx-fill: -color-chart-8-alpha20;
+}
+
+.area-legend-symbol {
+  -fx-padding: 6px;
+  -fx-background-radius: 6px; // makes sure this remains circular
+  -fx-background-insets: 0, 3;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// BubbleChart                                                               //
+///////////////////////////////////////////////////////////////////////////////
+
+.bubble-legend-symbol {
+  -fx-background-radius: 8px;
+  -fx-padding: 8px;
+}
+
+.chart-bubble {
+  -fx-bubble-fill: -color-chart-1-alpha70;
+  -fx-background-color: radial-gradient(center 50% 50%,
+      radius 80%,
+      derive(-fx-bubble-fill, 20%),
+      derive(-fx-bubble-fill, -30%));
+}
+
+.default-color0.chart-bubble {
+  -fx-bubble-fill: -color-chart-1-alpha70;
+}
+
+.default-color1.chart-bubble {
+  -fx-bubble-fill: -color-chart-2-alpha70;
+}
+
+.default-color2.chart-bubble {
+  -fx-bubble-fill: -color-chart-3-alpha70;
+}
+
+.default-color3.chart-bubble {
+  -fx-bubble-fill: -color-chart-4-alpha70;
+}
+
+.default-color4.chart-bubble {
+  -fx-bubble-fill: -color-chart-5-alpha70;
+}
+
+.default-color5.chart-bubble {
+  -fx-bubble-fill: -color-chart-6-alpha70;
+}
+
+.default-color6.chart-bubble {
+  -fx-bubble-fill: -color-chart-7-alpha70;
+}
+
+.default-color7.chart-bubble {
+  -fx-bubble-fill: -color-chart-8-alpha70;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// BarChart                                                                  //
+///////////////////////////////////////////////////////////////////////////////
+
+.chart-bar {
+  -fx-bar-fill: -color-chart-1;
+  -fx-background-color: linear-gradient(to right,
+      derive(-fx-bar-fill, -4%),
+      derive(-fx-bar-fill, -1%),
+      derive(-fx-bar-fill, 0%),
+      derive(-fx-bar-fill, -1%),
+      derive(-fx-bar-fill, -6%));
+  -fx-background-insets: 0;
+}
+
+.chart-bar.danger {
+  -fx-background-insets: 1 0 0 0;
+}
+
+.bar-chart:horizontal .chart-bar {
+  -fx-background-insets: 0 0 0 1;
+}
+
+.bar-chart:horizontal .chart-bar,
+.stacked-bar-chart:horizontal .chart-bar {
+  -fx-background-color: linear-gradient(to bottom,
+      derive(-fx-bar-fill, -4%),
+      derive(-fx-bar-fill, -1%),
+      derive(-fx-bar-fill, 0%),
+      derive(-fx-bar-fill, -1%),
+      derive(-fx-bar-fill, -6%));
+}
+
+.default-color0.chart-bar {
+  -fx-bar-fill: -color-chart-1;
+}
+
+.default-color1.chart-bar {
+  -fx-bar-fill: -color-chart-2;
+}
+
+.default-color2.chart-bar {
+  -fx-bar-fill: -color-chart-3;
+}
+
+.default-color3.chart-bar {
+  -fx-bar-fill: -color-chart-4;
+}
+
+.default-color4.chart-bar {
+  -fx-bar-fill: -color-chart-5;
+}
+
+.default-color5.chart-bar {
+  -fx-bar-fill: -color-chart-6;
+}
+
+.default-color6.chart-bar {
+  -fx-bar-fill: -color-chart-7;
+}
+
+.default-color7.chart-bar {
+  -fx-bar-fill: -color-chart-8;
+}
+
+.bar-legend-symbol {
+  -fx-padding: 8px;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// PieChart                                                                  //
+///////////////////////////////////////////////////////////////////////////////
+
+.chart-pie {
+  -fx-pie-color: -color-chart-1;
+  -fx-background-color: radial-gradient(radius 100%,
+      derive(-fx-pie-color, 20%),
+      derive(-fx-pie-color, -10%));
+  -fx-background-insets: 1;
+  -fx-border-color: -color-bg-default;
+}
+
+.chart-pie-label {
+  -fx-padding: 3px;
+  -fx-fill: -color-fg-default;
+}
+
+.chart-pie-label-line {
+  -fx-stroke: derive(-color-bg-default, -20%);
+}
+
+.default-color0.chart-pie {
+  -fx-pie-color: -color-chart-1;
+}
+
+.default-color1.chart-pie {
+  -fx-pie-color: -color-chart-2;
+}
+
+.default-color2.chart-pie {
+  -fx-pie-color: -color-chart-3;
+}
+
+.default-color3.chart-pie {
+  -fx-pie-color: -color-chart-4;
+}
+
+.default-color4.chart-pie {
+  -fx-pie-color: -color-chart-5;
+}
+
+.default-color5.chart-pie {
+  -fx-pie-color: -color-chart-6;
+}
+
+.default-color6.chart-pie {
+  -fx-pie-color: -color-chart-7;
+}
+
+.default-color7.chart-pie {
+  -fx-pie-color: -color-chart-8;
+}
+
+.danger.chart-pie {
+  -fx-pie-color: transparent;
+  -fx-background-color: white;
+}
+
+.pie-legend-symbol.chart-pie {
+  -fx-background-radius: 8px;
+  -fx-padding: 8px;
+  -fx-border-color: none;
+}

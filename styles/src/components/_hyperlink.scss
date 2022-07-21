@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config"as cfg;
+
+.hyperlink {
+  -fx-cursor: hand;
+  -fx-underline: true;
+  -fx-text-fill: -color-accent-fg;
+
+  &:visited {
+    -fx-text-fill: -color-fg-default;
+  }
+
+  &:armed {
+    -fx-text-fill: -color-fg-default;
+    -fx-underline: false;
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  &:show-mnemonics>.mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+  }
+}

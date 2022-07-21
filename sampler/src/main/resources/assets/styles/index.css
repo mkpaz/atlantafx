@@ -1,0 +1,84 @@
+/** SPDX-License-Identifier: MIT */
+
+.root {
+    -fx-font-family: "Inter";
+}
+
+#sidebar {
+    -fx-padding: 0 0 12px 0;
+    -fx-background-color: -color-bg-inset;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 1px 0 0;
+}
+#sidebar #search-form {
+    -fx-padding: 12px;
+    -fx-border-color: -color-border-muted;
+    -fx-border-width: 0 0 1px 0;
+}
+#sidebar .nav-menu {
+    -fx-padding: 0 6px 0 6px;
+}
+#sidebar .nav-menu > .caption {
+    -fx-padding: 10px 0 10px 6px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-fg-muted;
+}
+#sidebar .nav-menu > .nav-link {
+   -fx-padding: 6px 12px 6px 12px;
+}
+#sidebar .nav-menu > .nav-link:hover {
+   -fx-background-color: -color-accent-muted;
+   -fx-background-radius: 6px;
+}
+#sidebar .nav-menu > .nav-link:selected {
+   -fx-text-fill: -color-accent-fg;
+   -fx-font-weight: bold;
+}
+#sidebar .nav-menu > .nav-link > .tag {
+   -fx-background-color: -color-accent-emphasis;
+   -fx-text-fill: -color-fg-emphasis;
+   -fx-padding: 2px;
+   -fx-background-radius: 4px;
+}
+
+.page > .header {
+    -fx-padding: 10px 20px 14px 20px;
+    -fx-spacing: 10px;
+}
+.page > .stack > .scroll-pane {
+    -fx-background-color: -color-bg-default;
+}
+/* wrapper is used to center the content and also guarantees some minimum paddings via min-width */
+.page > .stack > .scroll-pane > .viewport > * > .wrapper {
+    -fx-min-width: 880px;
+    -fx-alignment: TOP_CENTER;
+}
+.page > .stack > .scroll-pane > .viewport > * > .wrapper > .user-content {
+    -fx-padding: 40px 0 40px 0;
+    -fx-spacing: 40px;
+    -fx-max-width: 800px;
+}
+.page > .stack > .wrapper {
+    -fx-background-color: -color-bg-default;
+    -fx-alignment: TOP_CENTER;
+}
+.page > .stack > .wrapper > .code-viewer {
+    -fx-background-color: transparent;
+    -fx-padding: 0px 0px 20px 20px;
+    -fx-max-width: 1000px;
+}
+.page > .stack > .wrapper > .code-viewer > .web-view {
+    -fx-background-color: transparent;
+}
+
+.sample-block {
+    -fx-spacing: 1em;
+}
+.sample-block>.title {
+    -fx-font-weight: bold;
+}
+
+.bordered {
+    -fx-border-width: 1px;
+    -fx-border-color: -color-border-muted;
+}

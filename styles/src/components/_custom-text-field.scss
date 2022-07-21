@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "sass:math";
+
+// space bethween text and custom node
+$text-gap: 4px !default;
+
+.custom-text-field {
+
+  &:left-node-visible {
+    -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y 0;
+
+    .left-pane {
+      -fx-padding: 0 $text-gap 0 math.div(cfg.$padding-x, 2);
+    }
+  }
+
+  &:right-node-visible {
+    -fx-padding: cfg.$padding-y 0 cfg.$padding-y cfg.$padding-x;
+
+    .right-pane {
+      -fx-padding: 0 math.div(cfg.$padding-x, 2) 0 $text-gap;
+    }
+  }
+
+  &:left-node-visible:right-node-visible {
+    -fx-padding: cfg.$padding-y 0 cfg.$padding-y 0;
+  }
+
+  &:success {
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-success-fg;
+      -fx-fill: -color-success-fg;
+    }
+  }
+
+  &:danger {
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-danger-fg;
+      -fx-fill: -color-danger-fg;
+    }
+  }
+}

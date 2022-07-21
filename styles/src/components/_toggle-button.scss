@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config"as cfg;
+@use "button";
+
+.toggle-button {
+  @include button.base();
+
+  -color-button-bg-selected: -color-accent-emphasis;
+  -color-button-fg-selected: -color-fg-emphasis;
+  -color-button-border-focused: -color-border-default;
+
+  -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+
+  &:selected,
+  &:selected:focused {
+    -fx-background-color: -color-button-bg-selected;
+    -fx-text-fill: -color-button-fg-selected;
+    -fx-background-insets: 0;
+
+    #{cfg.$font-icon-selector} {
+      -fx-fill: -color-button-fg-selected;
+      -fx-icon-color: -color-button-fg-selected;
+    }
+  }
+
+  &:show-mnemonics:selected {
+    >.mnemonic-underline {
+      -fx-stroke: -color-button-fg-selected;
+    }
+  }
+
+  &:selected.left-pill:focused {
+    -fx-background-insets: 0, cfg.$border-width;
+  }
+
+  &:selected.center-pill:focused {
+    -fx-background-insets: 0, cfg.$border-width;
+  }
+
+  &:selected.right-pill:focused {
+    -fx-background-insets: 0, cfg.$border-width;
+  }
+}

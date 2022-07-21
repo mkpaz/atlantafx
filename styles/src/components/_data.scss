@@ -1,0 +1,443 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+$cell-size-normal: 2.8em !default;
+$cell-size-dense:  2em   !default;
+$cell-padding-x:   0.5em !default;
+
+// .tree-cell doesn't support -fx-cell-size
+// its height should be set via vertical paddings
+$tree-cell-padding-x: $cell-padding-x !default;
+$tree-cell-padding-y: $cell-padding-x !default;
+$tree-cell-indent:    1em !default;
+
+@mixin _base() {
+
+  -fx-border-color: -color-border-default;
+  -fx-border-width: cfg.$border-width;
+  -fx-border-radius: 0;
+
+  >.virtual-flow {
+    >.corner {
+      -fx-background-color: -color-border-subtle;
+      -fx-opacity: cfg.$opacity-disabled;
+    }
+
+    // apply opacity to all but control borders
+    &:disabled {
+      -fx-opacity: cfg.$opacity-disabled;
+    }
+  }
+}
+
+// row selection (cellSelectionEnabled = false)
+.list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:selected,
+.tree-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-cell:filled:selected,
+.table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell:filled:selected,
+.tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell:filled:selected {
+  -fx-background-color: -color-border-default, -color-accent-subtle;
+}
+
+// individual cell selection (cellSelectionEnabled = true)
+.table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
+.tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
+  -fx-background-color: -color-accent-subtle;
+  // a margin to show bottom .table-row-cell border,
+  // it should be 1px height, but for some reason it's not enough
+  -fx-background-insets: 0 0 2 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Customised CSS for controls placed directly within cells                 //
+///////////////////////////////////////////////////////////////////////////////
+
+// nested controls supposed to have nor background nor borders
+.cell {
+
+  // NOTE:
+  // The controls inside .tree-cell _with graphic_ will be wrapped into additional
+  // container that don't use hgrow and adjusts its width after showing popup.
+  // It looks rather ugly, but there's nothing could be fixed with CSS.
+  // That's also why we don't use child combinator here.
+  // #javafx-bug
+
+  .text-input {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+  }
+
+  .check-box {
+    -fx-padding: 0 cfg.$graphic-gap 0 0;
+  }
+
+  .choice-box {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0 cfg.$padding-x 0 0;
+    -fx-alignment: CENTER_LEFT;
+    -fx-content-display: LEFT;
+  }
+
+  .combo-box {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+    -fx-content-display: LEFT;
+    -fx-background-radius: 0;
+
+    // must be more spefific than ".list-view .list-cell" selector (see below)
+    .cell.list-cell {
+      -fx-background-color: transparent;
+      -fx-padding: 0;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  ListView                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+.list-view {
+  @include _base();
+
+  .list-cell {
+    -fx-background-color: -color-bg-default;
+    -fx-text-fill: -color-fg-default;
+    -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
+    -fx-cell-size: $cell-size-normal;
+
+    // there's no ":first" or ":last" cell pseudo classes,
+    // so we can't avoid double border at the bottom
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: transparent;
+  }
+
+  &.bordered {
+    .list-cell {
+      -fx-border-color: -color-border-default;
+    }
+  }
+
+  &.dense {
+    .list-cell {
+      -fx-cell-size: $cell-size-dense;
+    }
+  }
+
+  &.striped {
+    .list-cell:odd {
+      -fx-background-color: -color-bg-inset;
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  TableView                                                                //
+///////////////////////////////////////////////////////////////////////////////
+
+@mixin _generic-table {
+
+  @include _base();
+
+  &.bordered {
+    >.column-header-background {
+      .column-header {
+        -fx-background-color: -color-border-default, -color-bg-inset;
+        -fx-background-insets: 0, 0 1 0 0;
+      }
+    }
+  }
+
+  // the column header row is made up of a number of .column-header, one for each TableColumn
+  >.column-header-background {
+
+    -fx-background-color: -color-border-default, -color-bg-inset;
+    -fx-background-insets: 0, 0 0 1 0;
+
+    // the only way to draw bottom header border is to use .table-column
+    // .column-header won't work nonetheless both classes applied to the same node
+    .table-column {
+      -fx-border-color: -color-border-default;
+      -fx-border-width: 0 0 1 0;
+    }
+
+    // columns headers can be nested, so there's no child combinator here
+    .column-header {
+      -fx-background-color: transparent;
+      -fx-background-insets: 0;
+      -fx-size: 2.2em;
+      -fx-padding: 0;
+      -fx-font-weight: bold;
+
+      // any label within column header, including title and sort order label
+      .label {
+        -fx-text-fill: -color-fg-default;
+        -fx-alignment: CENTER;
+      }
+
+      // sort container
+      GridPane {
+        -fx-padding: 0 4px 0 0;
+      }
+
+      // column sort arrows
+      .arrow {
+        -fx-background-color: -color-fg-muted;
+        -fx-padding: 3px 4px 3px 4px;
+        -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+      }
+
+      // dots are used to indicate up to 3 multiple sort columns
+      .sort-order-dots-container {
+        -fx-padding: 2px 0 2px 0;
+
+        >.sort-order-dot {
+          -fx-background-color: -color-fg-muted;
+          -fx-padding: 0.115em;
+          -fx-background-radius: 0.115em;
+        }
+      }
+
+      // digits are used to indicate more than 3 multiple sort columns
+      .sort-order {
+        -fx-padding: 0 0 0 2px;
+      }
+    }
+
+    // .filler area extends from the right-most column to the edge of the table view
+    >.filler {
+      -fx-background-color: transparent;
+      -fx-border-color: -color-border-default;
+      -fx-border-width: 0 0 1 0;
+    }
+
+    // table menu button
+    >.show-hide-columns-button {
+      -fx-border-color: -color-border-default;
+      -fx-border-width: 0 0 1 0;
+      -fx-cursor: hand;
+
+      // NOTE:
+      // If you want to increase right margin you should take into account
+      // that it's harder than it looks. E.g. paddings, transparent insets or borders
+      // aren't working. Just be sure you have enough time to tackle this problem.
+
+      >.show-hide-column-image {
+        -fx-background-color: -color-fg-muted;
+        @include icons.get("more-vert", true);
+        -fx-padding: 0.4em 0.115em 0.4em 0.115em;
+      }
+    }
+  }
+
+  // the .column-resize-line is shown when the user is attempting to resize a column
+  .column-resize-line {
+    -fx-background-color: -color-accent-emphasis;
+    -fx-padding: 0 1 0 1;
+  }
+
+  // when a column is being dragged to be placed in a different position, there is a region
+  // that follows along the column header area to indicate where the column will be dropped
+  .column-drag-header {
+    // -color-accent-muted must be RGBA color for this to work, because
+    // applying opacity to the whole pane makes label text unreadable
+    -fx-background-color: -color-accent-muted;
+  }
+
+  // semi-transparent overlay to indicate the column that is currently being moved
+  .column-overlay {
+    -fx-background-color: -color-accent-muted;
+  }
+
+  // this is shown when the table has no rows and/or no columns
+  .placeholder>.label {
+    -fx-background-color: -color-bg-default;
+    -fx-font-size: cfg.$font-title-4;
+  }
+}
+
+.table-view {
+
+  @include _generic-table();
+
+  &.bordered {
+    .table-row-cell>.table-cell {
+      -fx-border-color: transparent -color-border-default transparent transparent;
+
+      &:empty {
+        -fx-border-color: transparent;
+      }
+    }
+  }
+
+  &.dense {
+    .table-row-cell {
+      -fx-cell-size: $cell-size-dense;
+    }
+  }
+
+  &.striped {
+    .table-row-cell:odd {
+      -fx-background-color: -color-border-default, -color-bg-inset;
+    }
+  }
+
+  // each row in the table is a .table-row-cell,
+  // inside a .table-row-cell is any number of .table-cell
+  .table-row-cell {
+    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0;
+    -fx-cell-size: $cell-size-normal;
+
+    // hide empty rows
+    &:empty {
+      -fx-background-color: transparent;
+      -fx-background-insets: 0;
+
+      >.table-cell {
+        -fx-border-color:transparent;
+      }
+    }
+
+    >.table-cell {
+      -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
+      -fx-text-fill: -color-fg-default;
+      -fx-alignment: CENTER_LEFT;
+    }
+  }
+}
+
+// when in constrained resize mode, the right-most visible cell should not have a right-border,
+// as it is not possible to get this cleanly out of view without introducing horizontal scrollbars
+.table-view:constrained-resize>.virtual-flow>.clipped-container>.sheet>.table-row-cell>.table-cell:last-visible,
+.tree-table-view:constrained-resize>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell>.tree-table-cell:last-visible {
+  -fx-border-color: transparent;
+}
+
+// reset inherited font weight for context menu
+.table-view .column-header .context-menu,
+.tree-table-view .column-header .context-menu,
+.table-view>.column-header-background>.show-hide-columns-button .context-menu,
+.tree-table-view>.column-header-background>.show-hide-columns-button .context-menu {
+  -fx-font-weight: null;
+}
+
+// table cells
+.table-view .table-row-cell>.table-cell.check-box-table-cell,
+.table-view .table-row-cell>.table-cell.font-icon-table-cell,
+.tree-table-view .tree-table-row-cell>.tree-table-cell.check-box-tree-table-cell {
+  -fx-alignment: CENTER;
+  -fx-padding: 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  TreeView                                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+.tree-view {
+  @include _base();
+}
+
+.tree-cell {
+  -fx-background-color: -color-bg-default;
+  -fx-text-fill: -color-fg-default;
+  -fx-padding: $tree-cell-padding-y 0 $tree-cell-padding-y 0;
+  -fx-indent: $tree-cell-indent;
+
+  // NOTE:
+  // Instead of simply applying vertical alignment programmatically the TreeView
+  // expects you will do the same thing by adjusting .tree-disclosure-node
+  // paddings manually ¯\_(ツ)_/¯. The below values are adjusted for the theme
+  // default font size (14px). If you change the font size, you're supposed to
+  // re-adjust paddings as well. Also learn about TreeCellSkin#maxDisclosureWidthMap.
+  // #javafx-bug
+  >.tree-disclosure-node {
+    -fx-padding: 4px $tree-cell-padding-x 4px $tree-cell-padding-x;
+    -fx-background-color: transparent;
+  }
+}
+
+.tree-cell>.tree-disclosure-node>.arrow,
+.tree-table-row-cell>.tree-disclosure-node>.arrow {
+  @include icons.get("arrow-right", false);
+  -fx-background-color: -color-fg-default;
+  -fx-padding: 0.333333em 0.229em 0.333333em 0.229em;
+}
+
+.tree-cell:expanded>.tree-disclosure-node>.arrow,
+.tree-table-row-cell:expanded>.tree-disclosure-node>.arrow {
+  @include icons.get("arrow-drop-down", false);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  TreeTableView                                                            //
+///////////////////////////////////////////////////////////////////////////////
+
+// NOTE:
+// TreeTableView doesn't play well with editable cells. Whatever column
+// you use as first, if it's not ordinary TreeTableCell, there will always
+// be some issue with tree disclosure node: alignment, size  etc.
+// There's nothing that can be fixed with CSS.
+.tree-table-view {
+
+  @include _generic-table();
+
+  &.bordered {
+    .tree-table-row-cell>.tree-table-cell {
+      -fx-border-color: transparent -color-border-default transparent transparent;
+
+      &:empty {
+        -fx-border-color: transparent;
+      }
+    }
+  }
+
+  &.dense {
+    .tree-table-row-cell {
+      -fx-cell-size: $cell-size-dense;
+
+      >.tree-disclosure-node {
+        -fx-padding: 0.6em $tree-cell-padding-x 0 $tree-cell-padding-x;
+      }
+    }
+  }
+
+  &.striped {
+    .tree-table-row-cell:odd {
+      -fx-background-color: -color-border-default, -color-bg-inset;
+    }
+  }
+
+  .tree-table-row-cell {
+    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0;
+    -fx-cell-size: $cell-size-normal;
+    -fx-indent: 1em;
+
+    // hide empty rows
+    &:empty {
+      -fx-background-color: transparent;
+      -fx-background-insets: 0;
+    }
+
+    // read above about disclosure node alignment
+    >.tree-disclosure-node {
+      -fx-padding: 1em $tree-cell-padding-x 0 $tree-cell-padding-x;
+      -fx-background-color: transparent;
+    }
+
+    >.tree-table-cell {
+      -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
+      -fx-text-fill: -color-fg-default;
+      -fx-alignment: CENTER_LEFT;
+    }
+  }
+}
