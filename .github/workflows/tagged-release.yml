@@ -26,8 +26,11 @@ jobs:
       with:
         release_notes_file: RELEASE_NOTES.md
 
-    - name: Build | Package
-      run: mvn -B clean install --file pom.xml
+    - name: Build | Package styles
+      run: mvn clean install -B --file styles/pom.xml
+
+    - name: Build | Package other modules
+      run: mvn clean install -B -pl '!styles' --file pom.xml
 
     - name: Build | List artifacts (Unix)
       shell: sh

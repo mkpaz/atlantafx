@@ -11,7 +11,35 @@ JavaFX CSS theme collection plus additional controls. It's inspired by [FlatLaf]
 
 **Requirements:** JavaFX 17+ (because of `data-url` support).
 
-TODO (after publishing on Maven Central)
+For now, project is in early development stage. You should add OSSRH snapshot repository to use it.
+
+```xml
+<repository>
+    <id>ossrh.snapshots</id>
+    <name>OSSRH snapshots</name>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    <releases>
+        <enabled>false</enabled>
+    </releases>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+
+<dependency>
+    <groupId>io.github.mkpaz</groupId>
+    <artifactId>atlantafx-base</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+</dependency>
+```
+
+Set CSS theme:
+
+```java
+Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+// or
+Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+```
 
 ## Introduction
 

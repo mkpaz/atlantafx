@@ -7,7 +7,7 @@
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.1.0</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>AtlantaFX</name>
     <description>JavaFX CSS theme collection plus additional controls</description>
@@ -63,7 +63,9 @@
         <nodejs.version>v16.14.2</nodejs.version>
 
         <app.name>AtlantaFX</app.name>
-        <app.version>${project.version}</app.version>
+        <!-- DO NOT use ${project.version} as jpackage will fail on
+             Windows when using '-SNAPSHOT' suffix -->
+        <app.version>0.1.0</app.version>
 
         <lib.commons-lang.version>3.12.0</lib.commons-lang.version>
         <lib.cssfx.version>11.5.1</lib.cssfx.version>
@@ -304,7 +306,7 @@
             </properties>
         </profile>
         <profile>
-            <id>sonatype</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
