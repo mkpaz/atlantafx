@@ -41,9 +41,49 @@ Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
 ```
 
-## Introduction
+## Build
 
-TODO
+You can either use CLI or create run configuration in your favorite IDE.
+
+```sh
+# except building parent module, this will also install NodeJS along with NPM
+# and all JS dependencies into root project directory, you don't need to install NodeJS system-wide
+mvn --non-recursive install
+
+# compile SASS into styles/dist directory,
+# you can stop here and use compiled CSS files in your app just like that
+mvn install -pl styles
+
+# compile additional controls, it will also copy previously compiled CSS files
+# into the module classpath
+mvn install -pl base
+```
+
+After building module dependencies you can play with the sampler application. If you just want the demo, run:
+
+```sh
+mvn javafx:run -pl sampler
+```
+
+If you want to use hot reload (update CSS without restarting sampler) you have to start app in development mode. There's [ATLANTAFX_MODE](https://github.com/mkpaz/atlantafx/blob/master/sampler/src/main/java/atlantafx/sampler/Launcher.java#L45) variable for this. In that mode app won't use CSS from `base` module classpath, but from the `sampler/target/classes/atlantafx/sampler/theme-test` directory. Use `styles/compile-scss-dev.sh` to compile CSS files into that destination.
+
+```sh
+# compile CSS files first or there will be an exception
+cd styles
+./compile-scss-dev.sh
+cd -
+
+# then run sampler along with setting env variable
+ATLANTAFX_MODE=dev mvn javafx:run -pl sampler
+```
+
+This may look a bit complicated, but at the end you just need to create 4 IDE run configurations and open VS Code instance in parallel in styles directory to edit and rebuild CSS files. Run `compile-scss-dev.sh` script each time to reflect made changes without restarting the application.
+
+More details can be found in the source code:
+
+* See [github worklow](https://github.com/mkpaz/atlantafx/blob/master/.github/workflows/tagged-release.yml) for install instructions.
+* See [Gruntfile.js](https://github.com/mkpaz/atlantafx/blob/master/styles/Gruntfile.js) to familiarize with CSS compilation.
+
 
 ## Motivation
 
