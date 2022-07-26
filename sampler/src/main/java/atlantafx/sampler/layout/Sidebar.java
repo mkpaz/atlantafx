@@ -7,6 +7,8 @@ import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.*;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
+import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
+import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import atlantafx.sampler.util.Containers;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -67,8 +69,8 @@ public class Sidebar extends VBox {
 
         var navScroll = new ScrollPane(navContainer);
         Containers.setScrollConstraints(navScroll,
-                                        ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
-                                        ScrollPane.ScrollBarPolicy.AS_NEEDED, true
+                ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
+                ScrollPane.ScrollBarPolicy.AS_NEEDED, true
         );
         VBox.setVgrow(navScroll, ALWAYS);
 
@@ -144,7 +146,10 @@ public class Sidebar extends VBox {
                 navLink(ToolBarPage.NAME, ToolBarPage.class),
                 navLink(TooltipPage.NAME, TooltipPage.class),
                 navLink(TreePage.NAME, TreePage.class),
-                navLink(TreeTablePage.NAME, TreeTablePage.class)
+                navLink(TreeTablePage.NAME, TreeTablePage.class),
+                caption("SHOWCASE"),
+                navLink(FileManagerPage.NAME, FileManagerPage.class),
+                navLink(MusicPlayerPage.NAME, MusicPlayerPage.class)
         ));
     }
 

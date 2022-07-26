@@ -21,6 +21,11 @@ public class ApplicationWindow extends BorderPane {
 
         sidebar.setOnSelect(pageClass -> {
             try {
+                // reset previous page, e.g. to free resources
+                if (!pageContainer.getChildren().isEmpty() && pageContainer.getChildren().get(0) instanceof Page page) {
+                    page.reset();
+                }
+
                 Page page = pageClass.getDeclaredConstructor().newInstance();
                 pageContainer.getChildren().setAll(page.getView());
             } catch (Exception e) {

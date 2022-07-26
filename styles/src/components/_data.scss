@@ -15,7 +15,16 @@ $tree-cell-indent:    1em !default;
 
 @mixin _base() {
 
-  -fx-border-color: -color-border-default;
+  // draft (only supported by list view for now)
+  -color-cell-bg:          -color-bg-default;
+  -color-cell-bg-selected: -color-accent-subtle;
+  -color-cell-bg-odd:      -color-bg-inset;
+  -color-cell-fg:          -color-fg-default;
+  -color-cell-fg-odd:      -color-fg-default;
+  -color-cell-fg-selected: -color-fg-default;
+  -color-cell-border:      -color-border-default;
+
+  -fx-border-color: -color-cell-border;
   -fx-border-width: cfg.$border-width;
   -fx-border-radius: 0;
 
@@ -104,11 +113,12 @@ $tree-cell-indent:    1em !default;
 ///////////////////////////////////////////////////////////////////////////////
 
 .list-view {
+
   @include _base();
 
   .list-cell {
-    -fx-background-color: -color-bg-default;
-    -fx-text-fill: -color-fg-default;
+    -fx-background-color: -color-cell-bg;
+    -fx-text-fill: -color-cell-fg;
     -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
     -fx-cell-size: $cell-size-normal;
 
@@ -120,7 +130,7 @@ $tree-cell-indent:    1em !default;
 
   &.bordered {
     .list-cell {
-      -fx-border-color: -color-border-default;
+      -fx-border-color: -color-cell-border;
     }
   }
 
@@ -132,7 +142,7 @@ $tree-cell-indent:    1em !default;
 
   &.striped {
     .list-cell:odd {
-      -fx-background-color: -color-bg-inset;
+      -fx-background-color: -color-cell-bg-odd;
     }
   }
 }

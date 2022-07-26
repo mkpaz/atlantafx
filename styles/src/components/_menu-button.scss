@@ -64,6 +64,7 @@ $separator-width:    0.75px !default;
 
     #{cfg.$font-icon-selector} {
       -fx-icon-color: -color-button-fg-hover;
+      -fx-fill: -color-button-fg-hover;
     }
   }
 
@@ -80,6 +81,7 @@ $separator-width:    0.75px !default;
 
     #{cfg.$font-icon-selector} {
       -fx-icon-color: -color-button-fg-focused;
+      -fx-fill: -color-button-fg-focused;
     }
   }
 
@@ -98,6 +100,7 @@ $separator-width:    0.75px !default;
 
     #{cfg.$font-icon-selector} {
       -fx-icon-color: -color-button-fg-pressed;
+      -fx-fill: -color-button-fg-pressed;
     }
   }
 

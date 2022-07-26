@@ -1,0 +1,26 @@
+/** SPDX-License-Identifier: MIT */
+
+.music-player-showcase {
+    -fx-border-width: 1;
+    -fx-border-color: -color-border-default;
+}
+
+.music-player-showcase .playlist {
+    -fx-padding: 10;
+}
+
+.music-player-showcase .playlist > .list-view {
+    -fx-border-width: 0;
+}
+.music-player-showcase .playlist > .list-view .list-cell {
+    -fx-cell-size: 4em;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
+}
+.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:selected:hover,
+.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:hover {
+    -fx-background-color: derive(-color-cell-bg, -5%);
+}

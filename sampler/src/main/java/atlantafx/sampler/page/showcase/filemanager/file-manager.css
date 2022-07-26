@@ -1,0 +1,27 @@
+/* SPDX-License-Identifier: MIT */
+
+.file-manager-showcase .bookmark-list {
+    -fx-border-width: 0 0 1 1;
+}
+.file-manager-showcase .table-directory-view .table-view {
+    -fx-border-width: 0 1 1 0;
+}
+
+/* setting opacity directly to the .table-cell or .table-row-cell
+   leads to incorrect table row height calculation #javafx-bug */
+.file-manager-showcase .table-row-cell:hidden >.table-cell > * {
+    -fx-opacity: 0.6;
+}
+
+.file-manager-showcase .table-row-cell >.table-cell:folder .ikonli-font-icon {
+    -fx-icon-color: -color-accent-emphasis;
+    -fx-fill: -color-accent-emphasis;
+}
+
+.file-manager-showcase .bookmark-list .ikonli-font-icon {
+    -fx-icon-size: 18px;
+}
+
+.file-manager-showcase .table-directory-view .ikonli-font-icon {
+    -fx-icon-size: 18px;
+}

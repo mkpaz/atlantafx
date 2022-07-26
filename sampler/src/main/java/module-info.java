@@ -6,11 +6,13 @@ module atlantafx.sampler {
 
     requires java.desktop;
     requires javafx.swing;
+    requires javafx.media;
     requires javafx.web;
 
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.feather;
+    requires org.kordamp.ikonli.material2;
 
     requires fr.brouillard.oss.cssfx;
     requires datafaker;

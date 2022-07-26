@@ -3,6 +3,21 @@
 .root {
     -fx-font-family: "Inter";
 }
+.root:showcase-mode #sidebar,
+.root:showcase-mode .page > .header {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    visibility: false;
+}
+.root:showcase-mode .page > .stack > .scroll-pane > .viewport > * > .wrapper > .user-content {
+    -fx-max-width: 4096px;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
 
 #sidebar {
     -fx-padding: 0 0 12px 0;
