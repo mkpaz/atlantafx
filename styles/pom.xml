@@ -10,28 +10,35 @@
     </parent>
     <artifactId>atlantafx-styles</artifactId>
 
+    <properties>
+        <scss.inputDir>${project.basedir}/src</scss.inputDir>
+        <css.outputDir>${project.basedir}/dist</css.outputDir>
+    </properties>
+
     <build>
         <plugins>
             <!-- compile SCSS -->
             <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
+                <groupId>us.hebi.sass</groupId>
+                <artifactId>sass-cli-maven-plugin</artifactId>
                 <configuration>
-                    <installDirectory>${project.parent.basedir}</installDirectory>
+                    <args>
+                        <arg>${scss.inputDir}/primer-light.scss:${css.outputDir}/primer-light.css</arg>
+                        <arg>${scss.inputDir}/primer-dark.scss:${css.outputDir}/primer-dark.css</arg>
+                        <arg>--no-source-map</arg>
+                    </args>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>run-grunt</id>
+                        <id>run-sass</id>
                         <phase>generate-resources</phase>
                         <goals>
-                            <goal>grunt</goal>
+                            <goal>run</goal>
                         </goals>
-                        <configuration>
-                            <arguments>--verbose</arguments>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <!-- compress resulting CSS into archive for distribution -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -66,5 +73,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <css.outputDir>${project.basedir}/../sampler/target/classes/atlantafx/sampler/theme-test</css.outputDir>
+                <sass.watch>true</sass.watch>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
