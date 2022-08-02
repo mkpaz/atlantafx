@@ -44,17 +44,6 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-
-        <plugins>
-            <!-- not used, just prevents installing NodeJS to the module dir -->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <configuration>
-                    <installDirectory>${project.parent.basedir}</installDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
 </project>
