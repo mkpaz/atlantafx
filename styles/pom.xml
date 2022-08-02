@@ -13,6 +13,11 @@
     <properties>
         <scss.inputDir>${project.basedir}/src</scss.inputDir>
         <css.outputDir>${project.basedir}/dist</css.outputDir>
+        <!-- JavaFX doesn't support HSL colors. Replace all of them with RGBA
+             equivalents before bumping this. Older Dark SASS versions compile
+             HSL colors to HEX format, whereas newer version do not do this.
+        -->
+        <sass.version>1.49.9</sass.version>
     </properties>
 
     <build>
