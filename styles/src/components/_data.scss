@@ -17,11 +17,10 @@ $tree-cell-indent:    1em !default;
 
   // draft (only supported by list view for now)
   -color-cell-bg:          -color-bg-default;
-  -color-cell-bg-selected: -color-accent-subtle;
-  -color-cell-bg-odd:      -color-bg-inset;
   -color-cell-fg:          -color-fg-default;
-  -color-cell-fg-odd:      -color-fg-default;
+  -color-cell-bg-selected: -color-accent-subtle;
   -color-cell-fg-selected: -color-fg-default;
+  -color-cell-bg-odd:      -color-bg-inset;
   -color-cell-border:      -color-border-default;
 
   -fx-border-color: -color-cell-border;
@@ -30,7 +29,7 @@ $tree-cell-indent:    1em !default;
 
   >.virtual-flow {
     >.corner {
-      -fx-background-color: -color-border-subtle;
+      -fx-background-color: -color-cell-border;
       -fx-opacity: cfg.$opacity-disabled;
     }
 
@@ -46,13 +45,14 @@ $tree-cell-indent:    1em !default;
 .tree-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-cell:filled:selected,
 .table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell:filled:selected,
 .tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell:filled:selected {
-  -fx-background-color: -color-border-default, -color-accent-subtle;
+  -color-cell-fg: -color-cell-fg-selected;
+  -fx-background-color: -color-cell-border, -color-cell-bg-selected;
 }
 
 // individual cell selection (cellSelectionEnabled = true)
 .table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
 .tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
-  -fx-background-color: -color-accent-subtle;
+  -fx-background-color: -color-cell-bg-selected;
   // a margin to show bottom .table-row-cell border,
   // it should be 1px height, but for some reason it's not enough
   -fx-background-insets: 0 0 2 0;
@@ -141,6 +141,10 @@ $tree-cell-indent:    1em !default;
   }
 
   &.striped {
+    .list-cell {
+      -fx-border-width: 0;
+    }
+
     .list-cell:odd {
       -fx-background-color: -color-cell-bg-odd;
     }
@@ -155,10 +159,13 @@ $tree-cell-indent:    1em !default;
 
   @include _base();
 
+  -color-header-bg: -color-bg-inset;
+  -color-header-fg: -color-fg-default;
+
   &.bordered {
     >.column-header-background {
       .column-header {
-        -fx-background-color: -color-border-default, -color-bg-inset;
+        -fx-background-color: -color-cell-border, -color-header-bg;
         -fx-background-insets: 0, 0 1 0 0;
       }
     }
@@ -167,14 +174,14 @@ $tree-cell-indent:    1em !default;
   // the column header row is made up of a number of .column-header, one for each TableColumn
   >.column-header-background {
 
-    -fx-background-color: -color-border-default, -color-bg-inset;
+    -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 0 1 0;
 
     // the only way to draw bottom header border is to use .table-column
     // .column-header won't work nonetheless both classes applied to the same node
     .table-column {
-      -fx-border-color: -color-border-default;
-      -fx-border-width: 0 0 1 0;
+      -fx-border-color: -color-cell-border;
+      -fx-border-width: 0 1 1 0;
     }
 
     // columns headers can be nested, so there's no child combinator here
@@ -187,8 +194,9 @@ $tree-cell-indent:    1em !default;
 
       // any label within column header, including title and sort order label
       .label {
-        -fx-text-fill: -color-fg-default;
-        -fx-alignment: CENTER;
+        -fx-text-fill: -color-header-fg;
+        -fx-alignment: CENTER_LEFT;
+        -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
       }
 
       // sort container
@@ -198,7 +206,7 @@ $tree-cell-indent:    1em !default;
 
       // column sort arrows
       .arrow {
-        -fx-background-color: -color-fg-muted;
+        -fx-background-color: -color-header-fg;
         -fx-padding: 3px 4px 3px 4px;
         -fx-shape: "M 0 0 h 7 l -3.5 4 z";
       }
@@ -208,7 +216,7 @@ $tree-cell-indent:    1em !default;
         -fx-padding: 2px 0 2px 0;
 
         >.sort-order-dot {
-          -fx-background-color: -color-fg-muted;
+          -fx-background-color: -color-header-fg;
           -fx-padding: 0.115em;
           -fx-background-radius: 0.115em;
         }
@@ -223,13 +231,13 @@ $tree-cell-indent:    1em !default;
     // .filler area extends from the right-most column to the edge of the table view
     >.filler {
       -fx-background-color: transparent;
-      -fx-border-color: -color-border-default;
+      -fx-border-color: -color-cell-border;
       -fx-border-width: 0 0 1 0;
     }
 
     // table menu button
     >.show-hide-columns-button {
-      -fx-border-color: -color-border-default;
+      -fx-border-color: -color-cell-border;
       -fx-border-width: 0 0 1 0;
       -fx-cursor: hand;
 
@@ -239,7 +247,7 @@ $tree-cell-indent:    1em !default;
       // aren't working. Just be sure you have enough time to tackle this problem.
 
       >.show-hide-column-image {
-        -fx-background-color: -color-fg-muted;
+        -fx-background-color: -color-header-fg;
         @include icons.get("more-vert", true);
         -fx-padding: 0.4em 0.115em 0.4em 0.115em;
       }
@@ -267,7 +275,7 @@ $tree-cell-indent:    1em !default;
 
   // this is shown when the table has no rows and/or no columns
   .placeholder>.label {
-    -fx-background-color: -color-bg-default;
+    -fx-background-color: -color-cell-fg;
     -fx-font-size: cfg.$font-title-4;
   }
 }
@@ -278,7 +286,7 @@ $tree-cell-indent:    1em !default;
 
   &.bordered {
     .table-row-cell>.table-cell {
-      -fx-border-color: transparent -color-border-default transparent transparent;
+      -fx-border-color: transparent -color-cell-border transparent transparent;
 
       &:empty {
         -fx-border-color: transparent;
@@ -293,15 +301,19 @@ $tree-cell-indent:    1em !default;
   }
 
   &.striped {
-    .table-row-cell:odd {
-      -fx-background-color: -color-border-default, -color-bg-inset;
+    .table-row-cell {
+      -fx-background-insets: 0;
+    }
+
+    .table-row-cell:filled:odd {
+      -fx-background-color: -color-cell-border, -color-cell-bg-odd;
     }
   }
 
   // each row in the table is a .table-row-cell,
   // inside a .table-row-cell is any number of .table-cell
   .table-row-cell {
-    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-background-color: -color-cell-border, -color-cell-bg;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0;
     -fx-cell-size: $cell-size-normal;
@@ -318,7 +330,7 @@ $tree-cell-indent:    1em !default;
 
     >.table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
-      -fx-text-fill: -color-fg-default;
+      -fx-text-fill: -color-cell-fg;
       -fx-alignment: CENTER_LEFT;
     }
   }
@@ -343,8 +355,7 @@ $tree-cell-indent:    1em !default;
 .table-view .table-row-cell>.table-cell.check-box-table-cell,
 .table-view .table-row-cell>.table-cell.font-icon-table-cell,
 .tree-table-view .tree-table-row-cell>.tree-table-cell.check-box-tree-table-cell {
-  -fx-alignment: CENTER;
-  -fx-padding: 0;
+  -fx-alignment: CENTER_LEFT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -356,8 +367,8 @@ $tree-cell-indent:    1em !default;
 }
 
 .tree-cell {
-  -fx-background-color: -color-bg-default;
-  -fx-text-fill: -color-fg-default;
+  -fx-background-color: -color-cell-bg;
+  -fx-text-fill: -color-cell-fg;
   -fx-padding: $tree-cell-padding-y 0 $tree-cell-padding-y 0;
   -fx-indent: $tree-cell-indent;
 
@@ -377,7 +388,7 @@ $tree-cell-indent:    1em !default;
 .tree-cell>.tree-disclosure-node>.arrow,
 .tree-table-row-cell>.tree-disclosure-node>.arrow {
   @include icons.get("arrow-right", false);
-  -fx-background-color: -color-fg-default;
+  -fx-background-color: -color-cell-fg;
   -fx-padding: 0.333333em 0.229em 0.333333em 0.229em;
 }
 
@@ -401,7 +412,7 @@ $tree-cell-indent:    1em !default;
 
   &.bordered {
     .tree-table-row-cell>.tree-table-cell {
-      -fx-border-color: transparent -color-border-default transparent transparent;
+      -fx-border-color: transparent -color-cell-border transparent transparent;
 
       &:empty {
         -fx-border-color: transparent;
@@ -420,13 +431,17 @@ $tree-cell-indent:    1em !default;
   }
 
   &.striped {
-    .tree-table-row-cell:odd {
-      -fx-background-color: -color-border-default, -color-bg-inset;
+    .tree-table-row-cell {
+      -fx-background-insets: 0;
+    }
+
+    .tree-table-row-cell:filled:odd {
+      -fx-background-color: -color-cell-border, -color-cell-bg-odd;
     }
   }
 
   .tree-table-row-cell {
-    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-background-color: -color-cell-border, -color-cell-bg;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0;
     -fx-cell-size: $cell-size-normal;
@@ -446,7 +461,7 @@ $tree-cell-indent:    1em !default;
 
     >.tree-table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
-      -fx-text-fill: -color-fg-default;
+      -fx-text-fill: -color-cell-fg;
       -fx-alignment: CENTER_LEFT;
     }
   }
