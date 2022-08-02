@@ -15,11 +15,14 @@
 // @forward "settings/config" with (
 //   ...
 // );
-//
+
+// This should precede components customization, as it guarantees
+// that .root styles will precede components styles.
+@use "general";
+
 // Individual component property customization.
 // @forward "components/split-pane" with (
 //   ...
 // );
 
-@use "general";
 @use "components";

@@ -48,6 +48,8 @@
   $color-delta-active: 20%
 );
 
+@use "general";
+
 @forward "components/titled-pane" as titled-pane-* with (
   $elevation-color: -color-bg-inset
 );
@@ -57,5 +59,4 @@
   $color-fg: -color-fg-default
 );
 
-@use "general";
 @use "components";
