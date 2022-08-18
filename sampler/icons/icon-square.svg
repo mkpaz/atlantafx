@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="text/ecmascript" width="1024" zoomAndPan="magnify" contentStyleType="text/css" viewBox="0 0 768 768" height="1024" preserveAspectRatio="xMidYMid meet" version="1.1">
+    <defs>
+        <linearGradient xlink:actuate="onLoad" xlink:type="simple" id="background-gradient" xlink:show="other" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <stop offset="0" style="stop-color:rgb(224, 137, 251);stop-opacity:1;" id="stop1"/>
+            <stop offset="1" style="stop-color:rgb(120, 16, 140);stop-opacity:1;" id="stop2"/>
+        </linearGradient>
+        <linearGradient gradientTransform="matrix(1.6885881,0,0,1.6596959,500.95503,-719.02441)" x1="-641.09967" xmlns:xlink="http://www.w3.org/1999/xlink" gradientUnits="userSpaceOnUse" x2="-72.577332" y1="190.24055" xlink:href="#background-gradient" y2="768.65979" xlink:type="simple" xlink:actuate="onLoad" id="background-gradient-2" xlink:show="other"/>
+        <filter x="-0.034951456" y="-0.034951456" width="1.0699029" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:actuate="onLoad" height="1.0699029" id="shadowblur" xlink:show="other">
+            <feGaussianBlur stdDeviation="12"/>
+        </filter>
+        <clipPath clipPathUnits="userSpaceOnUse" shape-rendering="geometricPrecision" id="clip-path">
+            <path fill="#ffffff" d="m 346.79087,-103.57556 c 0,-10.69738 0,-20.06717 -0.0608,-30.76564 -0.0537,-9.01218 -0.15672,-18.02218 -0.40051,-27.02889 -0.52675,-19.63411 -1.67921,-39.43553 -5.1543,-58.84873 -3.52398,-19.69536 -9.27903,-38.02373 -18.34796,-55.91796 a 187.15132,188.05504 0 0 0 -34.45754,-47.63518 187.25688,188.1611 0 0 0 -47.42259,-34.60082 c -17.82775,-9.11498 -36.08764,-14.89563 -55.70909,-18.43555 -19.32311,-3.48632 -39.03481,-4.64224 -58.57354,-5.17262 -8.97113,-0.24387 -17.94094,-0.34667 -26.91424,-0.40244 -10.652503,-0.0656 -21.305016,-0.0601 -31.957528,-0.0601 L -55.8918,-382.88857 h -92.50645 l -121.49712,0.44508 c -10.67319,0 -21.34638,-0.006 -32.01956,0.0601 -8.99172,0.0558 -17.97909,0.15857 -26.96647,0.40244 -19.58438,0.53038 -39.3407,1.68739 -58.70959,5.17809 -19.6475,3.53882 -37.93568,9.31729 -55.78635,18.42571 a 187.63235,188.53838 0 0 0 -47.52385,34.60519 187.18505,188.08893 0 0 0 -34.51943,47.62644 c -9.09403,17.90407 -14.85996,36.24447 -18.39266,55.94966 -3.47828,19.40665 -4.63082,39.20041 -5.16083,58.82577 -0.24161,9.0078 -0.34608,18.0178 -0.4005,27.02889 -0.0653,10.69956 -0.61273,23.98982 -0.61273,34.688309 V 114.6874 l 0.55287,122.94993 c 0,10.7127 -0.004,21.4254 0.0598,32.13807 0.0544,9.02422 0.15889,18.04623 0.40159,27.06718 0.52892,19.65815 1.68363,39.48802 5.16518,58.92857 3.53161,19.71939 9.29645,38.0762 18.38286,55.99232 a 187.45276,188.35795 0 0 0 34.52379,47.70078 187.67479,188.58104 0 0 0 47.5151,34.64893 c 17.86156,9.12702 36.15845,14.91533 55.8179,18.45962 19.3602,3.49179 39.10999,4.6499 58.68675,5.18029 8.98737,0.24384 17.97584,0.34774 26.96757,0.40242 10.67319,0.0646 21.34528,0.0646 32.01846,0.0646 H 67.792675 c 10.652363,0 21.305025,0 31.957537,-0.0646 8.973298,-0.0547 17.942958,-0.15858 26.914088,-0.40242 19.54628,-0.53149 39.26467,-1.69069 58.59648,-5.18467 19.6094,-3.54428 37.86043,-9.33042 55.67745,-18.45195 a 187.19592,188.09988 0 0 0 47.43129,-34.65222 187.44188,188.34702 0 0 0 34.45544,-47.69315 c 9.07328,-17.92485 14.82819,-36.2893 18.35437,-56.02292 3.47175,-19.4329 4.62319,-39.2551 5.15108,-58.9056 0.24278,-9.02204 0.3461,-18.04405 0.3995,-27.06718 0.0608,-10.71267 0.0608,-21.42537 0.0608,-32.13807 z" id="path11438" style="stroke-width:1.09095"/>
+        </clipPath>
+
+        <clipPath id="b-3">
+            <path d="M 0,960 H 960 V 0 H 0 Z" transform="matrix(1,0,0,-1,0,960)"/>
+        </clipPath>
+    </defs>
+    <g style="display:inline" id="primary">
+        <g id="flat">
+            <rect x="0" width="768" y="0" height="768" style="fill:url(#background-gradient-2);fill-opacity:1;fill-rule:evenodd;stroke-width:1.25556"/>
+        </g>
+
+        
+
+        <g id="content">
+            <!-- CONTENT GOES HERE -->
+        <svg contentScriptType="text/ecmascript" zoomAndPan="magnify" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" style="fill: white" version="1.1" width="90%" preserveAspectRatio="xMidYMid meet" viewBox="0, 0, 1024, 1024" height="90%" xmlns="http://www.w3.org/2000/svg" x="5.0%" y="5.0%">
+    <text lengthAdjust="spacingAndGlyphs" x="10%" y="768" style="font: bold 768px sans-serif" textLength="80%">AF</text>
+</svg>
+    </g>
+    </g>
+</svg>

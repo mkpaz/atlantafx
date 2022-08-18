@@ -1,3 +1,6 @@
+# Conveyor
+output
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/maven,linux,eclipse,windows,intellij+all,grunt,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven,linux,eclipse,windows,intellij+all,grunt,node
@@ -367,4 +370,3 @@ $RECYCLE.BIN/
 
 /node
 /node_modules
-

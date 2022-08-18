@@ -47,8 +47,6 @@ public class Launcher extends Application {
         }
 
         loadApplicationProperties();
-        var appIcon = new Image(Resources.getResourceAsStream("assets/app-icon.png"));
-
         var root = new ApplicationWindow();
         var scene = new Scene(root, 1200, 768);
 
@@ -63,7 +61,7 @@ public class Launcher extends Application {
 
         stage.setScene(scene);
         stage.setTitle(System.getProperty("app.name"));
-        stage.getIcons().add(appIcon);
+        loadIcons(stage);
         stage.setResizable(true);
         stage.setOnCloseRequest(t -> Platform.exit());
 
@@ -71,6 +69,15 @@ public class Launcher extends Application {
             stage.show();
             stage.requestFocus();
         });
+    }
+
+    private static void loadIcons(Stage stage) {
+        int iconSize = 16;
+        while (iconSize <= 1024) {
+            // We could use the square icons for Windows here.
+            stage.getIcons().add(new Image(Resources.getResourceAsStream("assets/icon-rounded-" + iconSize + ".png")));
+            iconSize *= 2;
+        }
     }
 
     private void loadApplicationProperties() {

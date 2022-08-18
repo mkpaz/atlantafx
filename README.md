@@ -7,6 +7,10 @@ JavaFX CSS theme collection plus additional controls. It's inspired by [FlatLaf]
 ![primer_light](./.screenshots/primer_light.png)
 ![primer_dark](./.screenshots/primer_dark.png)
 
+## Try it out
+
+Grab a **[self-updating download of the Sampler app](https://downloads.hydraulic.dev/atlantafx/sampler/download.html)** for Windows, macOS and Linux, packaged with [Conveyor](https://www.hydraulic.software).
+
 ## Installing
 
 **Requirements:** JavaFX 17+ (because of `data-url` support).
