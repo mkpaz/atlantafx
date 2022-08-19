@@ -2,6 +2,8 @@
 
 @use "../settings/config" as cfg;
 
+$thumb-border-width: 2px !default;
+
 .toggle-switch {
   -fx-thumb-move-animation-time: 200;
 
@@ -15,9 +17,9 @@
 
   >.thumb {
     -fx-background-color:-color-border-default, -color-fg-emphasis;
-    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-insets: 0, $thumb-border-width;
     -fx-background-radius: 10em; // make sure this remains circular
-    -fx-padding: 0.7em;
+    -fx-padding: 0.85em;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
     -fx-opacity: 0.8;
@@ -25,13 +27,14 @@
 
   >.thumb-area {
     -fx-background-radius: 1em;
-    -fx-background-color: -color-border-default, -color-bg-inset;
+    -fx-background-color: -color-border-default, -color-bg-subtle;
     -fx-background-insets: 0, cfg.$border-width;
-    -fx-padding: 0.8em 1.5em 0.8em 1.5em;
+    -fx-padding: 0.85em 1.4em 0.85em 1.4em;
   }
 
   &:selected {
     >.thumb {
+      -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
       -fx-opacity: 1;
     }
 
