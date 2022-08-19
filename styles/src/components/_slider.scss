@@ -3,10 +3,16 @@
 @use "../settings/config" as cfg;
 @use "sass:math";
 
+$thumb-color:        -color-bg-default      !default;
+$thumb-color-border: -color-accent-emphasis !default;
 $thumb-size:         8px !default;
 $thumb-border-width: 2px !default;
+
+$track-color:        -color-accent-emphasis !default;
 $track-size:         $thumb-size !default; // visual track height (or width)
 $track-margin:       6px !default;         // increases clickable track area
+
+$tick-color:         -color-fg-muted  !default;
 $tick-major-size:    5px !default;
 $tick-minor-size:    3px !default;
 
@@ -15,7 +21,7 @@ $_track-padding: math.div($track-size + $track-margin, 2);
 .slider {
 
   >.thumb {
-    -fx-background-color: -color-accent-emphasis, -color-bg-default;
+    -fx-background-color: $thumb-color-border, $thumb-color;
     -fx-background-insets: 0, 2px;
     -fx-background-radius: 50;
     -fx-padding: $thumb-size;
@@ -24,7 +30,7 @@ $_track-padding: math.div($track-size + $track-margin, 2);
   >.track {
     // transparent background increases clickable track area without increasing visual track height,
     // it's also used to center track with thumb
-    -fx-background-color: transparent, -color-accent-emphasis;
+    -fx-background-color: transparent, $track-color;
     -fx-background-radius: cfg.$border-radius;
   }
 
@@ -47,13 +53,13 @@ $_track-padding: math.div($track-size + $track-margin, 2);
   // there's slightly noticable difference between axis length and track length,
   // wontfix this via CSS, because it's probably JavaFX calc problem
   >.axis {
-    -fx-tick-label-fill: -color-fg-muted;
+    -fx-tick-label-fill: $tick-color;
     -fx-tick-length: $tick-major-size;
     -fx-minor-tick-length: $tick-minor-size;
 
     >.axis-tick-mark,
     >.axis-minor-tick-mark {
-      -fx-stroke: -color-fg-muted;
+      -fx-stroke: $tick-color;
     }
   }
 
