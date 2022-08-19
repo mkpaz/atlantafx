@@ -110,7 +110,7 @@ $separator-width:    0.75px !default;
     &:armed,
     &:focused:armed {
       >.label {
-        -fx-underline: true;
+        -fx-underline: false;
       }
     }
   }
@@ -134,7 +134,8 @@ $separator-width:    0.75px !default;
     -fx-padding: cfg.$padding-y calc(cfg.$padding-x / 2) cfg.$padding-y cfg.$padding-x;
   }
 
-  &.button-outlined:hover {
+  &.button-outlined:hover,
+  &.button-outlined:focused {
     >.arrow-button {
       -color-button-fg: -color-fg-emphasis;
     }
