@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-@use "../settings/config"as cfg;
+@use "../settings/config" as cfg;
 @use "button";
 
 .toggle-button {
@@ -8,7 +8,6 @@
 
   -color-button-bg-selected: -color-accent-emphasis;
   -color-button-fg-selected: -color-fg-emphasis;
-  -color-button-border-focused: -color-border-default;
 
   -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
 
