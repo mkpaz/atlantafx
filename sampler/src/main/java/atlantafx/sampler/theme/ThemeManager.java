@@ -1,11 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
-import atlantafx.sampler.Resources;
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.Launcher;
+import atlantafx.sampler.Resources;
 import javafx.application.Application;
 import javafx.scene.Scene;
 
@@ -62,6 +62,14 @@ public final class ThemeManager {
                     Resources.getResource("theme-test/primer-dark.css"),
                     appStylesheets
             ), true));
+            themes.add(new ExternalTheme("Nord Light", DUMMY_STYLESHEET, merge(
+                    Resources.getResource("theme-test/nord-light.css"),
+                    appStylesheets
+            ), false));
+            themes.add(new ExternalTheme("Nord Dark", DUMMY_STYLESHEET, merge(
+                    Resources.getResource("theme-test/nord-dark.css"),
+                    appStylesheets
+            ), true));
         } else {
             themes.add(new PrimerLight(appStylesheets));
             themes.add(new PrimerDark(appStylesheets));
@@ -84,6 +92,13 @@ public final class ThemeManager {
         );
 
         currentFontSize = fontSize;
+    }
+
+    public HighlightJSTheme getMatchingHighlightJSTheme(Theme theme) {
+        Objects.requireNonNull(theme);
+        if ("Nord Light".equals(theme.getName())) { return HighlightJSTheme.nordLight(); }
+        if ("Nord Dark".equals(theme.getName())) { return HighlightJSTheme.nordDark(); }
+        return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }
 
     @SafeVarargs

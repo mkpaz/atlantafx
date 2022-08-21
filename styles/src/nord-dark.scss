@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: MIT
+
+// Nord color palette
+// informational, not commented to display color preview
+$nord0:  #2E3440;
+$nord1:  #3B4252;
+$nord1:  #434C5E;
+$nord3:  #4C566A;
+$nord4:  #D8DEE9;
+$nord5:  #E5E9F0;
+$nord6:  #ECEFF4;
+$nord7:  #8FBCBB;
+$nord8:  #88C0D0;
+$nord9:  #81A1C1;
+$nord10: #5E81AC;
+$nord11: #BF616A;
+$nord12: #D08770;
+$nord13: #EBCB8B;
+$nord14: #A3BE8C;
+$nord16: #B48EAD;
+
+@forward "settings/palette" with (
+
+  $fg-default:           #ECEFF4,
+  $fg-muted:             #DFE4ED,
+  $fg-subtle:            #CFD7E3,
+  $fg-onEmphasis:        #ECEFF4,
+
+  $canvas-default:       #2E3440,
+  $canvas-overlay:       #2E3440,
+  $canvas-inset:         #3B4252,
+  $canvas-subtle:        #3B4252,
+
+  $border-default:       #4C566A,
+  $border-muted:         #40495A,
+  $border-subtle:        #3B4353,
+
+  $neutral-emphasisPlus: #6e7681,
+  $neutral-emphasis:     #6e7681,
+  $neutral-muted:        rgba(110, 118, 129, 0.4),
+  $neutral-subtle:       rgba(110, 118, 129, 0.1),
+
+  $accent-fg:            #81A1C1,
+  $accent-emphasis:      #5E81AC,
+  $accent-muted:         rgba(81, 109, 157, 0.3),
+  $accent-subtle:        rgba(81, 109, 157, 0.1),
+
+  $success-fg:           #A3BE8C,
+  $success-emphasis:     #5A7C4F,
+  $success-muted:        rgba(163, 190, 140, 0.4),
+  $success-subtle:       rgba(163, 190, 140, 0.15),
+
+  $warning-fg:           #D08770,
+  $warning-emphasis:     #AA5338,
+  $warning-muted:        rgba(170, 83, 56, 0.4),
+  $warning-subtle:       rgba(170, 83, 56, 0.15),
+
+  $danger-fg:            #CA7C83,
+  $danger-emphasis:      #BF616A,
+  $danger-muted:         rgba(178, 72, 82, 0.4),
+  $danger-subtle:        rgba(178, 72, 82, 0.15)
+);
+
+@forward "settings/config" with (
+  $darkMode: true,
+  $color-delta-hover:  15%,
+  $color-delta-active: 20%
+);
+
+@use "general";
+
+@forward "components/slider" as slider-* with (
+  $thumb-color: -color-fg-subtle,
+  $thumb-color-border: -color-fg-subtle
+);
+
+@forward "components/titled-pane" as titled-pane-* with (
+  $elevation-color: -color-bg-inset
+);
+
+@forward "components/tooltip" as tooltip-* with (
+  $color-bg: -color-bg-inset,
+  $color-fg: -color-fg-default
+);
+
+@use "components";

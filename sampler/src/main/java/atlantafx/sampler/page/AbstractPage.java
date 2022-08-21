@@ -3,7 +3,6 @@ package atlantafx.sampler.page;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -86,8 +85,8 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
         var scrollPane = new ScrollPane(userContentWrapper);
         setScrollConstraints(scrollPane,
-                ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
-                ScrollPane.ScrollBarPolicy.AS_NEEDED, true
+                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
+                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true
         );
         scrollPane.setMaxHeight(10_000);
 
@@ -135,10 +134,9 @@ public abstract class AbstractPage extends BorderPane implements Page {
             Objects.requireNonNull(stream, "Missing source file '" + sourceFileName + "';");
 
             // set syntax highlight theme according to JavaFX theme
-            var highlightJSTheme = ThemeManager.getInstance().getTheme().isDarkMode() ?
-                    HighlightJSTheme.githubDark() :
-                    HighlightJSTheme.githubLight();
-            codeViewer.setContent(stream, highlightJSTheme);
+            ThemeManager tm = ThemeManager.getInstance();
+            System.out.println(tm.getMatchingHighlightJSTheme(tm.getTheme()).getBackground());
+            codeViewer.setContent(stream, tm.getMatchingHighlightJSTheme(tm.getTheme()));
 
             graphic.setIconCode(ICON_SAMPLE);
             codeViewerWrapper.toFront();
