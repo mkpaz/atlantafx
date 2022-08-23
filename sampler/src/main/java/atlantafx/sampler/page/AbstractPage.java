@@ -135,7 +135,6 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
             // set syntax highlight theme according to JavaFX theme
             ThemeManager tm = ThemeManager.getInstance();
-            System.out.println(tm.getMatchingHighlightJSTheme(tm.getTheme()).getBackground());
             codeViewer.setContent(stream, tm.getMatchingHighlightJSTheme(tm.getTheme()));
 
             graphic.setIconCode(ICON_SAMPLE);

@@ -93,6 +93,88 @@
     -fx-font-weight: bold;
 }
 
+#color-palette {
+    -fx-spacing: 20px;
+}
+#color-palette > .grid {
+    -fx-vgap: 20px;
+    -fx-hgap: 40px;
+}
+#color-palette > .grid > .color-block {
+    -fx-spacing: 5px;
+}
+#color-palette > .grid > .color-block > .box {
+    -fx-min-width: 12em;
+    -fx-min-height: 5em;
+    -fx-max-width: 12em;
+    -fx-max-height: 5em;
+    -fx-cursor: hand;
+}
+#color-palette > .grid > .color-block > .box > .wsag-label {
+    -fx-text-fill: white;
+    -fx-background-color: #ef5350;
+    -fx-background-radius: 6px;
+    -fx-padding: 3px;
+}
+#color-palette > .grid > .color-block > .box:passed > .wsag-label {
+    -fx-background-color: #388e3c;
+}
+#color-palette > .grid > .color-block > .box > .wsag-label > .ikonli-font-icon {
+    -fx-fill: white;
+    -fx-icon-color: white;
+}
+
+#color-palette > .contrast-checker-area {
+    -fx-padding: 0 0 0 -20px;
+}
+#color-palette > .contrast-checker-area > .contrast-checker {
+    -fx-background-color: -color-contrast-checker-bg;
+    -fx-hgap: 40px;
+    -fx-vgap: 20px;
+    -fx-padding: 20px 20px 40px 20px;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .label {
+    -fx-text-fill: -color-contrast-checker-fg;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .text-field {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-text-fill: -color-contrast-checker-fg;
+    -fx-border-color: -color-contrast-checker-fg;
+    -fx-border-width: 0 0 1 0;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .ikonli-font-icon {
+    -fx-icon-color: -color-contrast-checker-fg;
+    -fx-fill: -color-contrast-checker-fg;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .slider > .thumb {
+    -fx-background-color: -color-contrast-checker-fg;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .slider > .track {
+    -fx-background-color: transparent, -color-contrast-checker-fg;
+    -fx-opacity: 0.5;
+}
+#color-palette > .contrast-checker-area > .contrast-checker > .font-box > .text {
+    -fx-font-size: 4em;
+}
+#color-palette > .contrast-checker-area > .contrast-checker > .font-box > .ratio {
+    -fx-font-size: 2em;
+}
+#color-palette > .contrast-checker-area > .contrast-checker > .wsag-box > * > .wsag-label {
+    -fx-padding: 0.5em 1em 0.5em 1em;
+    -fx-background-color: #ef5350;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+}
+#color-palette > .contrast-checker-area > .contrast-checker > .wsag-box > * > .wsag-label > .ikonli-font-icon {
+    -fx-fill: white;
+    -fx-icon-color: white;
+}
+#color-palette > .contrast-checker-area > .contrast-checker > .wsag-box > * > .wsag-label:passed {
+    -fx-background-color: #388e3c;
+}
+
 .bordered {
     -fx-border-width: 1px;
     -fx-border-color: -color-border-muted;

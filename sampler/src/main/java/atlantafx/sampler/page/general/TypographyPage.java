@@ -3,13 +3,21 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import atlantafx.sampler.theme.ThemeManager;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+
+import java.time.Duration;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static atlantafx.base.theme.Styles.*;
 
@@ -20,7 +28,7 @@ public class TypographyPage extends AbstractPage {
     @Override
     public String getName() { return NAME; }
 
-    private GridPane fontSizeBox;
+    private GridPane fontSizeSampleContent;
 
     public TypographyPage() {
         super();
@@ -28,10 +36,18 @@ public class TypographyPage extends AbstractPage {
     }
 
     private void createView() {
+        Spinner<Integer> fontSizeSpinner = fontSizeSpinner();
+        fontSizeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+        fontSizeSpinner.setPrefWidth(200);
+
+        var fontSizeBox = new HBox(20, new Label("Font size"), fontSizeSpinner);
+        fontSizeBox.setAlignment(Pos.CENTER_LEFT);
+
         var fontSizeSample = fontSizeSample();
-        fontSizeBox = (GridPane) fontSizeSample.getContent();
+        fontSizeSampleContent = (GridPane) fontSizeSample.getContent();
 
         userContent.getChildren().setAll(
+                fontSizeBox,
                 fontSizeSample.getRoot(),
                 fontWeightSample().getRoot(),
                 fontStyleSample().getRoot(),
@@ -39,6 +55,50 @@ public class TypographyPage extends AbstractPage {
                 textColorSample().getRoot(),
                 textFlowSample().getRoot()
         );
+    }
+
+    private Spinner<Integer> fontSizeSpinner() {
+        var spinner = new Spinner<Integer>(10, 24, 14);
+
+        // Instead of this we should obtain font size from a rendered node.
+        // But since it's not trivial (thanks to JavaFX doesn't expose relevant API)
+        // we just keep current font size inside ThemeManager singleton.
+        // It works fine if ThemeManager default font size value matches
+        // default theme font size value.
+        spinner.getValueFactory().setValue(ThemeManager.getInstance().getFontSize());
+
+        spinner.valueProperty().addListener((obs, old, val) -> {
+            if (val != null && getScene() != null) {
+                ThemeManager.getInstance().setFontSize(getScene(), val);
+                updateFontInfo(Duration.ofMillis(1000));
+            }
+        });
+
+        return spinner;
+    }
+
+    // font metrics can only be obtained by requesting from a rendered node
+    protected void onRendered() {
+        super.onRendered();
+        updateFontInfo(Duration.ZERO);
+    }
+
+    private void updateFontInfo(Duration delay) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    for (Node node : fontSizeSampleContent.getChildren()) {
+                        if (node instanceof Text textNode) {
+                            var font = textNode.getFont();
+                            textNode.setText(
+                                    String.format("%s = %.1fpx", textNode.getUserData(), Math.ceil(font.getSize()))
+                            );
+                        }
+                    }
+                });
+            }
+        }, delay.toMillis());
     }
 
     private SampleBlock fontSizeSample() {
@@ -116,6 +176,7 @@ public class TypographyPage extends AbstractPage {
     private Text text(String text, String... styleClasses) {
         var t = new Text(text);
         t.getStyleClass().addAll(styleClasses);
+        t.setUserData(text);
         return t;
     }
 
@@ -143,18 +204,5 @@ public class TypographyPage extends AbstractPage {
         );
 
         return new SampleBlock("Text flow", textFlow);
-    }
-
-    // font metrics can only be obtained by requesting from a rendered node
-    protected void onRendered() {
-        for (Node node : fontSizeBox.getChildren()) {
-            if (node instanceof Text textNode) {
-                var font = textNode.getFont();
-                textNode.setText(String.format("%s = %.1fpx",
-                                               textNode.getText(),
-                                               Math.ceil(font.getSize())
-                ));
-            }
-        }
     }
 }
