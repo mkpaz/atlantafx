@@ -62,7 +62,9 @@ public class ThemePage extends AbstractPage {
         selector.getItems().setAll(manager.getAvailableThemes());
         selector.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val != null && getScene() != null) {
-                ThemeManager.getInstance().setTheme(getScene(), val);
+                var tm = ThemeManager.getInstance();
+                tm.setTheme(val);
+                tm.reloadCustomCSS();
                 colorPalette.updateColorInfo(Duration.ofSeconds(1));
             }
         });

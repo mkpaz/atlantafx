@@ -51,7 +51,8 @@ public class Launcher extends Application {
         var scene = new Scene(root, 1200, 768);
 
         var tm = ThemeManager.getInstance();
-        tm.setTheme(scene, tm.getAvailableThemes().get(0));
+        tm.setScene(scene);
+        tm.setTheme(tm.getAvailableThemes().get(0));
         if (IS_DEV_MODE) { startCssFX(scene); }
 
         scene.getStylesheets().addAll(

@@ -69,7 +69,9 @@ public class TypographyPage extends AbstractPage {
 
         spinner.valueProperty().addListener((obs, old, val) -> {
             if (val != null && getScene() != null) {
-                ThemeManager.getInstance().setFontSize(getScene(), val);
+                var tm = ThemeManager.getInstance();
+                tm.setFontSize(val);
+                tm.reloadCustomCSS();
                 updateFontInfo(Duration.ofMillis(1000));
             }
         });
@@ -122,10 +124,10 @@ public class TypographyPage extends AbstractPage {
 
     private SampleBlock fontWeightSample() {
         var box = new HBox(10,
-                           text("Bold", TEXT_BOLD),
-                           text("Bolder", TEXT_BOLDER),
-                           text("Normal", TEXT_NORMAL),
-                           text("Lighter", TEXT_LIGHTER)
+                text("Bold", TEXT_BOLD),
+                text("Bolder", TEXT_BOLDER),
+                text("Normal", TEXT_NORMAL),
+                text("Lighter", TEXT_LIGHTER)
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 
@@ -134,10 +136,10 @@ public class TypographyPage extends AbstractPage {
 
     private SampleBlock fontStyleSample() {
         var box = new HBox(10,
-                           text("Italic", TEXT_ITALIC),
-                           text("Oblique", TEXT_OBLIQUE),
-                           text("Underlined", TEXT_UNDERLINED),
-                           text("Strikethrough", TEXT_STRIKETHROUGH)
+                text("Italic", TEXT_ITALIC),
+                text("Oblique", TEXT_OBLIQUE),
+                text("Underlined", TEXT_UNDERLINED),
+                text("Strikethrough", TEXT_STRIKETHROUGH)
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 
@@ -146,10 +148,10 @@ public class TypographyPage extends AbstractPage {
 
     private SampleBlock textColorSample() {
         var box = new HBox(10,
-                           text("Accent", TEXT, ACCENT),
-                           text("Success", TEXT, SUCCESS),
-                           text("Warning", TEXT, WARNING),
-                           text("Danger", TEXT, DANGER)
+                text("Accent", TEXT, ACCENT),
+                text("Success", TEXT, SUCCESS),
+                text("Warning", TEXT, WARNING),
+                text("Danger", TEXT, DANGER)
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 
@@ -164,9 +166,9 @@ public class TypographyPage extends AbstractPage {
         linkVisited.setMnemonicParsing(true);
 
         var box = new HBox(10,
-                           linkNormal,
-                           linkVisited,
-                           hyperlink("Disabled", false, true)
+                linkNormal,
+                linkVisited,
+                hyperlink("Disabled", false, true)
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 
