@@ -177,12 +177,9 @@ $tree-cell-indent:    1em !default;
     -fx-background-color: -color-cell-border, -color-header-bg;
     -fx-background-insets: 0, 0 0 1 0;
 
-    // the only way to draw bottom header border is to use .table-column
-    // .column-header won't work nonetheless both classes applied to the same node
-    .table-column {
-      -fx-border-color: -color-cell-border;
-      -fx-border-width: 0 1 1 0;
-    }
+    // there's also
+    // .table-column { }
+    // .nested-column-header { }
 
     // columns headers can be nested, so there's no child combinator here
     .column-header {
@@ -191,6 +188,8 @@ $tree-cell-indent:    1em !default;
       -fx-size: 2.2em;
       -fx-padding: 0;
       -fx-font-weight: bold;
+      -fx-border-color: -color-cell-border;
+      -fx-border-width: 0 1 1 0;
 
       // any label within column header, including title and sort order label
       .label {
