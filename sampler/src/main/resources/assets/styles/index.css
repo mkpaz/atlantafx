@@ -1,7 +1,12 @@
 /** SPDX-License-Identifier: MIT */
 
+@font-face {
+    font-family: "Application Default";
+    src: url('../fonts/Inter-Regular.otf');
+}
+
 .root {
-    -fx-font-family: "Inter";
+    -fx-font-family: "Application Default";
 }
 .root:showcase-mode #sidebar,
 .root:showcase-mode .page > .header {

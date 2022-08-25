@@ -55,10 +55,7 @@ public class Launcher extends Application {
         tm.setTheme(tm.getAvailableThemes().get(0));
         if (IS_DEV_MODE) { startCssFX(scene); }
 
-        scene.getStylesheets().addAll(
-                Resources.resolve("assets/fonts/index.css"),
-                Resources.resolve("assets/styles/index.css")
-        );
+        scene.getStylesheets().addAll(Resources.resolve("assets/styles/index.css"));
 
         stage.setScene(scene);
         stage.setTitle(System.getProperty("app.name"));

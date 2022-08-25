@@ -5,13 +5,16 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -22,6 +25,8 @@ import java.util.TimerTask;
 import static atlantafx.base.theme.Styles.*;
 
 public class TypographyPage extends AbstractPage {
+
+    private static final double CONTROL_WIDTH = 200;
 
     public static final String NAME = "Typography";
 
@@ -36,18 +41,20 @@ public class TypographyPage extends AbstractPage {
     }
 
     private void createView() {
-        Spinner<Integer> fontSizeSpinner = fontSizeSpinner();
-        fontSizeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-        fontSizeSpinner.setPrefWidth(200);
+        var controlsGrid = new GridPane();
+        controlsGrid.setVgap(10);
+        controlsGrid.setHgap(20);
 
-        var fontSizeBox = new HBox(20, new Label("Font size"), fontSizeSpinner);
-        fontSizeBox.setAlignment(Pos.CENTER_LEFT);
+        controlsGrid.add(new Label("Font family"), 0, 0);
+        controlsGrid.add(fontFamilyChooser(), 1, 0);
+        controlsGrid.add(new Label("Font size"), 0, 1);
+        controlsGrid.add(fontSizeSpinner(), 1, 1);
 
         var fontSizeSample = fontSizeSample();
         fontSizeSampleContent = (GridPane) fontSizeSample.getContent();
 
         userContent.getChildren().setAll(
-                fontSizeBox,
+                controlsGrid,
                 fontSizeSample.getRoot(),
                 fontWeightSample().getRoot(),
                 fontStyleSample().getRoot(),
@@ -57,19 +64,42 @@ public class TypographyPage extends AbstractPage {
         );
     }
 
+    private ComboBox<String> fontFamilyChooser() {
+        final var tm = ThemeManager.getInstance();
+
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().add(tm.getFontFamily());
+        comboBox.getItems().addAll(FXCollections.observableArrayList(Font.getFamilies()));
+        comboBox.setPrefWidth(CONTROL_WIDTH);
+        comboBox.getSelectionModel().select(tm.getFontFamily());
+
+        comboBox.valueProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                tm.setFontFamily(val);
+                tm.reloadCustomCSS();
+                updateFontInfo(Duration.ofMillis(1000));
+            }
+        });
+
+        return comboBox;
+    }
+
     private Spinner<Integer> fontSizeSpinner() {
-        var spinner = new Spinner<Integer>(10, 24, 14);
+        final var tm = ThemeManager.getInstance();
+
+        var spinner = new Spinner<Integer>(10, 24, tm.getFontSize());
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+        spinner.setPrefWidth(CONTROL_WIDTH);
 
         // Instead of this we should obtain font size from a rendered node.
         // But since it's not trivial (thanks to JavaFX doesn't expose relevant API)
         // we just keep current font size inside ThemeManager singleton.
         // It works fine if ThemeManager default font size value matches
         // default theme font size value.
-        spinner.getValueFactory().setValue(ThemeManager.getInstance().getFontSize());
+        spinner.getValueFactory().setValue(tm.getFontSize());
 
         spinner.valueProperty().addListener((obs, old, val) -> {
-            if (val != null && getScene() != null) {
-                var tm = ThemeManager.getInstance();
+            if (val != null) {
                 tm.setFontSize(val);
                 tm.reloadCustomCSS();
                 updateFontInfo(Duration.ofMillis(1000));

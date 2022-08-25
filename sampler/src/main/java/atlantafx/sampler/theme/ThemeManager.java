@@ -19,6 +19,7 @@ public final class ThemeManager {
 
     private static final String DUMMY_STYLESHEET = Resources.getResource("assets/styles/empty.css").toString();
     private static final PseudoClass USER_CUSTOM = PseudoClass.getPseudoClass("user-custom");
+    private static final String DEFAULT_FONT_FAMILY_NAME = "Application Default";
 
     // KEY           |  VALUE
     // -fx-property  |  value;
@@ -26,9 +27,10 @@ public final class ThemeManager {
     // .foo          |  -fx-property: value;
     private final Map<String, String> customCSSRules = new LinkedHashMap<>();
 
-    private Theme currentTheme = null;
-    private int currentFontSize = 14;
     private Scene scene;
+    private Theme currentTheme = null;
+    private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
+    private int fontSize = 14;
 
     public Scene getScene() {
         return scene;
@@ -66,10 +68,7 @@ public final class ThemeManager {
 
     public List<Theme> getAvailableThemes() {
         var themes = new ArrayList<Theme>();
-        var appStylesheets = new URI[] {
-                URI.create(Resources.resolve("assets/fonts/index.css")),
-                URI.create(Resources.resolve("assets/styles/index.css"))
-        };
+        var appStylesheets = new URI[] { URI.create(Resources.resolve("assets/styles/index.css")) };
 
         if (Launcher.IS_DEV_MODE) {
             themes.add(new ExternalTheme("Primer Light", DUMMY_STYLESHEET, merge(
@@ -95,14 +94,23 @@ public final class ThemeManager {
         return themes;
     }
 
+    public String getFontFamily() {
+        return fontFamily;
+    }
+
+    public void setFontFamily(String fontFamily) {
+        setCustomDeclaration("-fx-font-family", "\"" + fontFamily + "\"");
+        this.fontFamily = fontFamily;
+    }
+
     public int getFontSize() {
-        return currentFontSize;
+        return fontSize;
     }
 
     public void setFontSize(int fontSize) {
         setCustomDeclaration("-fx-font-size", fontSize + "px");
         setCustomRule(".ikonli-font-icon", String.format("-fx-icon-size: %dpx;", fontSize + 2));
-        currentFontSize = fontSize;
+        this.fontSize = fontSize;
     }
 
     private void setCustomDeclaration(String property, String value) {
@@ -138,8 +146,6 @@ public final class ThemeManager {
             css.append(v);
             css.append("}\n");
         });
-
-        System.out.println(css);
 
         scene.getStylesheets().removeIf(uri -> uri.startsWith("data:text/css"));
         scene.getStylesheets().add(
