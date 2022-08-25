@@ -7,7 +7,7 @@
 
   // applied to label
   -fx-text-fill: -color-fg-default;
-  -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding cfg.$checkbox-label-padding cfg.$graphic-gap;
+  -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
 
   >.box {
     -fx-background-color: -color-fg-default, -color-bg-default;

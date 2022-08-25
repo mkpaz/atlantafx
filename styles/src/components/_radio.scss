@@ -7,7 +7,7 @@
   // applied to label
   -fx-background-color: -color-bg-default;
   -fx-text-fill: -color-fg-default;
-  -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding cfg.$checkbox-label-padding cfg.$graphic-gap;
+  -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
 
   >.radio {
     -fx-background-color: -color-fg-default, -color-bg-default;
@@ -17,7 +17,8 @@
     -fx-alignment: CENTER;
 
     >.dot {
-      -fx-background-color: transparent;
+      -fx-background-color: transparent, transparent;
+      -fx-background-insets: 0, 1px;
       -fx-background-radius: 1em; // large value to make sure this remains circular
       -fx-min-height: cfg.$checkbox-mark-size;
       -fx-max-height: cfg.$checkbox-mark-size;
@@ -36,10 +37,10 @@
 
   &:selected {
     >.radio {
-      -fx-background-color: -color-accent-emphasis, -color-bg-default;
+      -fx-background-color: -color-accent-emphasis;
 
       >.dot {
-        -fx-background-color: -color-accent-emphasis;
+        -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
       }
     }
   }

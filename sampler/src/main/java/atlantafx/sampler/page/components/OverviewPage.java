@@ -181,7 +181,7 @@ public class OverviewPage extends AbstractPage {
 
         var opt1 = new CheckBox("Option 1");
 
-        var opt2 = new CheckBox("Option 1");
+        var opt2 = new CheckBox("Option 2");
         opt2.setSelected(true);
 
         var opt3 = new CheckBox("Option 3");
@@ -200,7 +200,7 @@ public class OverviewPage extends AbstractPage {
         var opt1 = new RadioButton("Option 1");
         opt1.setToggleGroup(group);
 
-        var opt2 = new RadioButton("Option 1");
+        var opt2 = new RadioButton("Option 2");
         opt2.setToggleGroup(group);
         opt2.setSelected(true);
 
