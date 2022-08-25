@@ -275,7 +275,6 @@ $tree-cell-indent:    1em !default;
 
   // this is shown when the table has no rows and/or no columns
   .placeholder>.label {
-    -fx-background-color: -color-cell-fg;
     -fx-font-size: cfg.$font-title-4;
   }
 }
