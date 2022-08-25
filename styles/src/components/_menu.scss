@@ -120,6 +120,7 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
 
   &:disabled {
     -fx-opacity: cfg.$opacity-disabled;
+    -fx-background-color: $color-menuitem-bg;
   }
 }
 
