@@ -64,6 +64,7 @@
 .page > .header {
     -fx-padding: 10px 20px 14px 20px;
     -fx-spacing: 10px;
+    -fx-background-color: -color-bg-default;
 }
 .page > .stack > .scroll-pane {
     -fx-background-color: -color-bg-default;
