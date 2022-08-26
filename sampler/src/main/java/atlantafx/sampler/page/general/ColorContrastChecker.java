@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.controls.CustomTextField;
@@ -12,11 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -36,6 +40,7 @@ public class ColorContrastChecker extends GridPane {
     static final PseudoClass PASSED = PseudoClass.getPseudoClass("passed");
     static final float[] COLOR_WHITE = new float[] { 255f, 255f, 255f, 1f };
     static final float[] COLOR_BLACK = new float[] { 0f, 0f, 0f, 1f };
+    static final double CONTRAST_RATIO_THRESHOLD = 1.5;
     static final double LUMINANCE_THRESHOLD = 0.55;
 
     private static final int SLIDER_WIDTH = 300;
@@ -45,11 +50,8 @@ public class ColorContrastChecker extends GridPane {
 
     private final ObservableHSLAColor bgColor = new ObservableHSLAColor(Color.WHITE);
     private final ObservableHSLAColor fgColor = new ObservableHSLAColor(Color.BLACK);
-    private final DoubleBinding contrastRatio = Bindings.createDoubleBinding(
-            () -> 1 / getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor()),
-            bgColor.colorProperty(),
-            fgColor.colorProperty()
-    );
+    private final ReadOnlyObjectProperty<Color> bgBaseColor;
+    private final DoubleBinding contrastRatio;
 
     private Label bgColorNameLabel;
     private Label fgColorNameLabel;
@@ -62,8 +64,17 @@ public class ColorContrastChecker extends GridPane {
     private Slider fgLightnessSlider;
     private Slider fgAlphaSlider;
 
-    public ColorContrastChecker() {
+    public ColorContrastChecker(ReadOnlyObjectProperty<Color> bgBaseColor) {
         super();
+
+        this.bgBaseColor = bgBaseColor;
+        this.contrastRatio = Bindings.createDoubleBinding(
+                () -> 1 / getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
+                bgColor.colorProperty(),
+                fgColor.colorProperty(),
+                bgBaseColor
+        );
+
         createView();
     }
 
@@ -155,6 +166,7 @@ public class ColorContrastChecker extends GridPane {
         bgTextField.textProperty().bind(Bindings.createStringBinding(
                 () -> bgColor.getColorHexWithAlpha().substring(1), bgColor.colorProperty()
         ));
+        bgTextField.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
 
         fgColorNameLabel = new Label("Foreground Color");
         fgColorNameLabel.setPadding(new Insets(-15, 0, 0, 0));
@@ -166,6 +178,7 @@ public class ColorContrastChecker extends GridPane {
         fgTextField.textProperty().bind(Bindings.createStringBinding(
                 () -> fgColor.getColorHexWithAlpha().substring(1), fgColor.colorProperty()
         ));
+        fgTextField.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
 
         bgHueSlider = slider(1, 360, 1, 1);
         bgHueSlider.valueProperty().addListener((obs, old, val) -> {
@@ -243,6 +256,17 @@ public class ColorContrastChecker extends GridPane {
 
         // ~
 
+        var flattenButton = new Button("Flatten");
+        flattenButton.setOnAction(e -> {
+            double[] flatBg = flattenColor(bgBaseColor.get(), bgColor.getColor());
+            setBackground(Color.color(flatBg[0], flatBg[1], flatBg[2]));
+
+            double[] flatFg = flattenColor(bgBaseColor.get(), fgColor.getColor());
+            setForeground(Color.color(flatFg[0], flatFg[1], flatFg[2]));
+        });
+
+        // ~
+
         getStyleClass().add("contrast-checker");
 
         // column 0
@@ -258,6 +282,8 @@ public class ColorContrastChecker extends GridPane {
         add(bgLightnessSlider, 0, 9);
         add(bgAlphaLabel, 0, 10);
         add(bgAlphaSlider, 0, 11);
+
+        add(flattenButton, 0, 12);
 
         // column 1
         add(wsagBox, 1, 0);
@@ -287,14 +313,28 @@ public class ColorContrastChecker extends GridPane {
         float[] fg = fgColor.getRGBAColor();
 
         // use fallback color if contrast ratio is too low
-        if (contrastRatio.get() <= LUMINANCE_THRESHOLD) {
-            fg = getColorLuminance(flattenColor(Color.WHITE, bgColor.getColor())) < 0.55 ? COLOR_WHITE : COLOR_BLACK;
+        if (contrastRatio.get() <= CONTRAST_RATIO_THRESHOLD) {
+            fg = getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD ?
+                    COLOR_WHITE :
+                    COLOR_BLACK;
         }
 
-        setStyle(String.format("-color-contrast-checker-bg:rgba(%.0f,%.0f,%.0f,%.2f);-color-contrast-checker-fg:rgba(%.0f,%.0f,%.0f,%.2f);",
-                               bg[0], bg[1], bg[2], bg[3],
-                               fg[0], fg[1], fg[2], fg[3]
-        ));
+        // flat colors are necessary for controls that use reverse styling (bg color over fg color),
+        // it won't be readable if we not remove transparency first
+        double[] bgFlat = flattenColor(bgBaseColor.get(), bgColor.getColor());
+        double[] fgFlat = flattenColor(bgBaseColor.get(), fgColor.getColor());
+
+        var style = String.format("-color-contrast-checker-bg:rgba(%.0f,%.0f,%.0f,%.2f);" +
+                        "-color-contrast-checker-fg:rgba(%.0f,%.0f,%.0f,%.2f);" +
+                        "-color-contrast-checker-bg-flat:%s;" +
+                        "-color-contrast-checker-fg-flat:%s;",
+                bg[0], bg[1], bg[2], bg[3],
+                fg[0], fg[1], fg[2], fg[3],
+                JColor.color((float) bgFlat[0], (float) bgFlat[1], (float) bgFlat[2]).getColorHex(),
+                JColor.color((float) fgFlat[0], (float) fgFlat[1], (float) fgFlat[2]).getColorHex()
+        );
+
+        setStyle(style);
     }
 
     private void setBackground(Color color) {
@@ -357,9 +397,9 @@ public class ColorContrastChecker extends GridPane {
         return slider;
     }
 
-    static double getContrastRatioOpacityAware(Color bgColor, Color fgColor) {
-        double luminance1 = getColorLuminance(flattenColor(Color.WHITE, bgColor));
-        double luminance2 = getColorLuminance(flattenColor(Color.WHITE, fgColor));
+    static double getContrastRatioOpacityAware(Color bgColor, Color fgColor, Color bgBaseColor) {
+        double luminance1 = getColorLuminance(flattenColor(bgBaseColor, bgColor));
+        double luminance2 = getColorLuminance(flattenColor(bgBaseColor, fgColor));
         return getContrastRatio(luminance1, luminance2);
     }
 
@@ -371,11 +411,11 @@ public class ColorContrastChecker extends GridPane {
         private final ReadOnlyObjectWrapper<Color> color = new ReadOnlyObjectWrapper<>() { };
 
         public ObservableHSLAColor(Color initialColor) {
-            color.set(initialColor);
             values.addListener((ListChangeListener<Float>) c -> {
                 float[] rgb = getRGBAArithmeticColor();
                 color.set(Color.color(rgb[0], rgb[1], rgb[2], getAlpha()));
             });
+            setColor(initialColor);
         }
 
         public Color getColor() {

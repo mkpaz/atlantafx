@@ -1,8 +1,12 @@
+/* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -22,13 +27,34 @@ import java.util.function.Consumer;
 
 class ColorPalette extends VBox {
 
-    private final List<ColorBlock> blocks = new ArrayList<>();
-
     private Label headerLabel;
     private Button backBtn;
     private GridPane colorGrid;
     private ColorContrastChecker contrastChecker;
     private VBox contrastCheckerArea;
+
+    private final List<ColorBlock> blocks = new ArrayList<>();
+    private final Consumer<ColorBlock> colorBlockActionHandler = colorBlock -> {
+        ColorContrastChecker c = getOrCreateContrastChecker();
+        c.setValues(colorBlock.getFgColorName(),
+                colorBlock.getFgColor(),
+                colorBlock.getBgColorName(),
+                colorBlock.getBgColor()
+        );
+
+        if (contrastCheckerArea.getChildren().isEmpty()) {
+            contrastCheckerArea.getChildren().setAll(c);
+        }
+
+        showContrastChecker();
+    };
+
+    private final ReadOnlyBooleanWrapper contrastCheckerActive = new ReadOnlyBooleanWrapper(false);
+    private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
+
+    public ReadOnlyBooleanProperty contrastCheckerActiveProperty() {
+        return contrastCheckerActive.getReadOnlyProperty();
+    }
 
     public ColorPalette() {
         super();
@@ -43,21 +69,21 @@ class ColorPalette extends VBox {
         backBtn.getStyleClass().add(Styles.FLAT);
         backBtn.setVisible(false);
         backBtn.setManaged(false);
-        backBtn.setOnAction(e -> {
-            headerLabel.setText("Color Palette");
-            backBtn.setVisible(false);
-            backBtn.setManaged(false);
-            getChildren().set(1, colorGrid);
-        });
+        backBtn.setOnAction(e -> showColorPalette());
 
         var headerBox = new HBox();
         headerBox.getChildren().setAll(headerLabel, new Spacer(), backBtn);
         headerBox.setAlignment(Pos.CENTER_LEFT);
+        headerBox.getStyleClass().add("header");
 
         contrastCheckerArea = new VBox();
         contrastCheckerArea.getStyleClass().add("contrast-checker-area");
 
         colorGrid = colorGrid();
+
+        backgroundProperty().addListener((obs, old, val) -> bgBaseColor.set(
+                val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
+        ));
 
         getChildren().setAll(headerBox, colorGrid);
         setId("color-palette");
@@ -100,37 +126,32 @@ class ColorPalette extends VBox {
     }
 
     private ColorBlock colorBlock(String fgColor, String bgColor, String borderColor) {
-        var actionHandler = new Consumer<ColorBlock>() {
-            @Override
-            public void accept(ColorBlock colorBlock) {
-                ColorContrastChecker c = getOrCreateContrastChecker();
-                c.setValues(colorBlock.getFgColorName(),
-                            colorBlock.getFgColor(),
-                            colorBlock.getBgColorName(),
-                            colorBlock.getBgColor()
-                );
-
-                if (contrastCheckerArea.getChildren().isEmpty()) {
-                    contrastCheckerArea.getChildren().setAll(c);
-                }
-
-                headerLabel.setText("Contrast Checker");
-                backBtn.setVisible(true);
-                backBtn.setManaged(true);
-                getChildren().set(1, contrastCheckerArea);
-            }
-        };
-
-        var block = new ColorBlock(fgColor, bgColor, borderColor);
-        block.setOnAction(actionHandler);
+        var block = new ColorBlock(fgColor, bgColor, borderColor, bgBaseColor.getReadOnlyProperty());
+        block.setOnAction(colorBlockActionHandler);
         blocks.add(block);
         return block;
     }
 
     private ColorContrastChecker getOrCreateContrastChecker() {
-        if (contrastChecker == null) { contrastChecker = new ColorContrastChecker(); }
+        if (contrastChecker == null) { contrastChecker = new ColorContrastChecker(bgBaseColor.getReadOnlyProperty()); }
         VBox.setVgrow(contrastChecker, Priority.ALWAYS);
         return contrastChecker;
+    }
+
+    private void showColorPalette() {
+        headerLabel.setText("Color Palette");
+        backBtn.setVisible(false);
+        backBtn.setManaged(false);
+        getChildren().set(1, colorGrid);
+        contrastCheckerActive.set(false);
+    }
+
+    private void showContrastChecker() {
+        headerLabel.setText("Contrast Checker");
+        backBtn.setVisible(true);
+        backBtn.setManaged(true);
+        getChildren().set(1, contrastCheckerArea);
+        contrastCheckerActive.set(true);
     }
 
     // To calculate contrast ratio, we have to obtain all components colors first.

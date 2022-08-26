@@ -1,7 +1,9 @@
+/* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.util.Containers;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +25,7 @@ class ColorBlock extends VBox {
     private final String fgColorName;
     private final String bgColorName;
     private final String borderColorName;
+    private final ReadOnlyObjectProperty<Color> bgBaseColor;
 
     private final AnchorPane colorBox;
     private final Text fgText;
@@ -32,10 +35,14 @@ class ColorBlock extends VBox {
 
     private Consumer<ColorBlock> actionHandler;
 
-    public ColorBlock(String fgColorName, String bgColorName, String borderColorName) {
+    public ColorBlock(String fgColorName,
+                      String bgColorName,
+                      String borderColorName,
+                      ReadOnlyObjectProperty<Color> bgBaseColor) {
         this.fgColorName = validateColorName(fgColorName);
         this.bgColorName = validateColorName(bgColorName);
         this.borderColorName = validateColorName(borderColorName);
+        this.bgBaseColor = bgBaseColor;
 
         fgText = new Text();
         fgText.setStyle("-fx-fill:" + fgColorName + ";");
@@ -58,12 +65,16 @@ class ColorBlock extends VBox {
         colorBox.getStyleClass().add("box");
         colorBox.getChildren().setAll(fgText, wsagLabel, expandIcon);
         colorBox.setOnMouseEntered(e -> {
-            toggleHover(true);
             var bgFill = getBgColor();
+
+            // this happens when css isn't updated yet
+            if (bgFill == null) { return; }
+
+            toggleHover(true);
             // doesn't play quite well with transparency, because we not calc
             // actual underlying background color to flatten bgFill
-            expandIcon.setFill(getColorLuminance(flattenColor(Color.WHITE, bgFill)) < LUMINANCE_THRESHOLD ?
-                                       Color.WHITE : Color.BLACK
+            expandIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
+                    Color.WHITE : Color.BLACK
             );
         });
         colorBox.setOnMouseExited(e -> toggleHover(false));
@@ -94,6 +105,12 @@ class ColorBlock extends VBox {
         wsagLabel.setOpacity(state ? 0.5 : 1);
     }
 
+    private Text description(String text) {
+        var t = new Text(text);
+        t.getStyleClass().addAll("description", Styles.TEXT_SMALL);
+        return t;
+    }
+
     public void update() {
         var fgFill = getFgColor();
         var bgFill = getBgColor();
@@ -105,7 +122,7 @@ class ColorBlock extends VBox {
             return;
         }
 
-        double contrastRatio = 1 / getContrastRatioOpacityAware(bgFill, fgFill);
+        double contrastRatio = 1 / getContrastRatioOpacityAware(bgFill, fgFill, bgBaseColor.get());
         colorBox.pseudoClassStateChanged(PASSED, contrastRatio >= 4.5);
 
         wsagIcon.setIconCode(contrastRatio >= 4.5 ? Material2AL.CHECK : Material2AL.CLOSE);
@@ -119,9 +136,8 @@ class ColorBlock extends VBox {
     }
 
     public Color getBgColor() {
-        return colorBox.getBackground() != null & !colorBox.getBackground().isEmpty() ?
-                (Color) colorBox.getBackground().getFills().get(0).getFill() :
-                null;
+        return colorBox.getBackground() != null && !colorBox.getBackground().isEmpty() ?
+                (Color) colorBox.getBackground().getFills().get(0).getFill() : null;
     }
 
     public String getFgColorName() {
@@ -138,11 +154,5 @@ class ColorBlock extends VBox {
 
     public void setOnAction(Consumer<ColorBlock> actionHandler) {
         this.actionHandler = actionHandler;
-    }
-
-    private Text description(String text) {
-        var t = new Text(text);
-        t.getStyleClass().addAll("description", Styles.TEXT_SMALL);
-        return t;
     }
 }

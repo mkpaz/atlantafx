@@ -101,6 +101,11 @@
 
 #color-palette {
     -fx-spacing: 20px;
+    /* mandatory, base bg color for flatten feature */
+    -fx-background-color: -color-bg-default;
+}
+#color-palette > .header {
+    -fx-pref-height: 40px;
 }
 #color-palette > .grid {
     -fx-vgap: 20px;
@@ -149,6 +154,23 @@
     -fx-text-fill: -color-contrast-checker-fg;
     -fx-border-color: -color-contrast-checker-fg;
     -fx-border-width: 0 0 1 0;
+}
+#color-palette > .contrast-checker-area > .contrast-checker .button {
+    -color-button-bg: -color-contrast-checker-fg-flat;
+    -color-button-fg: -color-contrast-checker-bg-flat;
+    -color-button-border: -color-contrast-checker-bg-flat;
+
+    -color-button-bg-hover: -color-contrast-checker-fg-flat;
+    -color-button-fg-hover: -color-contrast-checker-bg-flat;
+    -color-button-border-hover: -color-contrast-checker-bg-flat;
+
+    -color-button-bg-focused: -color-contrast-checker-fg-flat;
+    -color-button-fg-focused: -color-contrast-checker-bg-flat;
+    -color-button-border-focused: -color-contrast-checker-bg-flat;
+
+    -color-button-bg-pressed: -color-contrast-checker-bg-flat;
+    -color-button-fg-pressed: -color-contrast-checker-fg-flat;
+    -color-button-border-pressed: -color-contrast-checker-fg-flat;
 }
 #color-palette > .contrast-checker-area > .contrast-checker .ikonli-font-icon {
     -fx-icon-color: -color-contrast-checker-fg;

@@ -43,6 +43,7 @@ public class ThemePage extends AbstractPage {
     private GridPane optionsGrid() {
         ChoiceBox<Theme> themeSelector = themeSelector();
         themeSelector.setPrefWidth(200);
+        themeSelector.disableProperty().bind(colorPalette.contrastCheckerActiveProperty());
 
         // ~
 
