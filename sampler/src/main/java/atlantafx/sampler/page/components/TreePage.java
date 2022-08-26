@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
+
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
 
 public class TreePage extends AbstractPage {
 
@@ -57,6 +60,11 @@ public class TreePage extends AbstractPage {
         var playground = new VBox(10);
         playground.setMinHeight(100);
 
+        var denseToggle = new ToggleSwitch("Dense");
+        denseToggle.selectedProperty().addListener(
+                (obs, old, value) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, DENSE))
+        );
+
         var showRootToggle = new ToggleSwitch("Show root");
         showRootToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedTree().ifPresent(tv -> {
             if (val != null) { tv.setShowRoot(val); }
@@ -70,6 +78,7 @@ public class TreePage extends AbstractPage {
 
         var controls = new HBox(20,
                 new Spacer(),
+                denseToggle,
                 showRootToggle,
                 disableToggle,
                 new Spacer()
@@ -100,8 +109,10 @@ public class TreePage extends AbstractPage {
             // copy existing style classes and properties to the new tree
             findDisplayedTree().ifPresent(tv -> {
                 List<String> currentStyles = tv.getStyleClass();
+                System.out.println("C = " + currentStyles);
                 currentStyles.remove("tree-view");
                 newTree.getStyleClass().addAll(currentStyles);
+                System.out.println("N = " + newTree.getStyleClass());
 
                 newTree.setShowRoot(tv.isShowRoot());
                 newTree.setDisable(tv.isDisable());

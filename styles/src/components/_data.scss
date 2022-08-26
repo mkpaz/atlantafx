@@ -10,8 +10,9 @@ $cell-padding-x:   0.5em !default;
 // .tree-cell doesn't support -fx-cell-size
 // its height should be set via vertical paddings
 $tree-cell-padding-x: $cell-padding-x !default;
-$tree-cell-padding-y: $cell-padding-x !default;
-$tree-cell-indent:    1em !default;
+$tree-cell-padding-y-normal: 0.5em  !default;
+$tree-cell-padding-y-dense:  0.25em !default;
+$tree-cell-indent: 1em !default;
 
 @mixin _base() {
 
@@ -362,12 +363,18 @@ $tree-cell-indent:    1em !default;
 
 .tree-view {
   @include _base();
+
+  &.dense {
+    .tree-cell {
+      -fx-padding: $tree-cell-padding-y-dense 0 $tree-cell-padding-y-dense 0;
+    }
+  }
 }
 
 .tree-cell {
   -fx-background-color: -color-cell-bg;
   -fx-text-fill: -color-cell-fg;
-  -fx-padding: $tree-cell-padding-y 0 $tree-cell-padding-y 0;
+  -fx-padding: $tree-cell-padding-y-normal 0 $tree-cell-padding-y-normal 0;
   -fx-indent: $tree-cell-indent;
 
   // NOTE:
@@ -378,7 +385,7 @@ $tree-cell-indent:    1em !default;
   // re-adjust paddings as well. Also learn about TreeCellSkin#maxDisclosureWidthMap.
   // #javafx-bug
   >.tree-disclosure-node {
-    -fx-padding: 4px $tree-cell-padding-x 4px $tree-cell-padding-x;
+    -fx-padding: 5px $tree-cell-padding-x 0 $tree-cell-padding-x;
     -fx-background-color: transparent;
   }
 }
