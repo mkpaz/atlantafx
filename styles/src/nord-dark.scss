@@ -78,9 +78,4 @@ $nord16: #B48EAD;
   $elevation-color: -color-bg-inset
 );
 
-@forward "components/tooltip" as tooltip-* with (
-  $color-bg: -color-bg-inset,
-  $color-fg: -color-fg-default
-);
-
 @use "components";

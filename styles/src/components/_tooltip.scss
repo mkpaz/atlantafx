@@ -3,9 +3,9 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-$color-bg:     -color-neutral-emphasis-plus !default;
-$color-fg:     -color-fg-emphasis   !default;
-$color-shadow: -color-bg-inset      !default;
+$color-bg:      -color-bg-overlay !default;
+$color-fg:      -color-fg-default !default;
+$color-shadow:  -color-bg-overlay !default;
 $opacity:       0.85 !default;
 
 $padding-x: cfg.$padding-x !default;

@@ -7,7 +7,7 @@ $padding-x: 1em !default;
 $padding-y: 1em !default;
 
 .popover {
-  -fx-background-color: -color-bg-default;
+  -fx-background-color: -color-bg-overlay;
 
   >.border {
     -fx-stroke: -color-border-default;
