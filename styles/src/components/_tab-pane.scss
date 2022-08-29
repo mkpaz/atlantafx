@@ -60,7 +60,7 @@ $border-width:  2px   !default;
       }
 
       &:hover {
-        -fx-background-color: -color-border-default, -color-bg-inset;
+        -fx-background-color: -color-border-default, -color-bg-subtle;
       }
 
       &:top:selected,
@@ -115,7 +115,7 @@ $border-width:  2px   !default;
         }
 
         &:selected {
-          -fx-background-color: -color-bg-inset;
+          -fx-background-color: -color-bg-subtle;
 
           >.tab-container {
             >.tab-label {

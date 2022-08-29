@@ -21,7 +21,7 @@ $tree-cell-indent: 1em !default;
   -color-cell-fg:          -color-fg-default;
   -color-cell-bg-selected: -color-accent-subtle;
   -color-cell-fg-selected: -color-fg-default;
-  -color-cell-bg-odd:      -color-bg-inset;
+  -color-cell-bg-odd:      -color-bg-subtle;
   -color-cell-border:      -color-border-default;
 
   -fx-border-color: -color-cell-border;
@@ -160,7 +160,7 @@ $tree-cell-indent: 1em !default;
 
   @include _base();
 
-  -color-header-bg: -color-bg-inset;
+  -color-header-bg: -color-bg-subtle;
   -color-header-fg: -color-fg-default;
 
   &.bordered {

@@ -8,7 +8,7 @@
 @mixin base() {
 
   // buttons can be configured via looked-up colors
-  -color-button-bg:          -color-bg-inset;
+  -color-button-bg:          -color-bg-subtle;
   -color-button-fg:          -color-fg-default;
   -color-button-border:      -color-border-default;
 

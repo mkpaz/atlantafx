@@ -4,7 +4,7 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$button-bg:       -color-bg-inset   !default;
+$button-bg:       -color-bg-subtle   !default;
 $button-fg:       -color-fg-default !default;
 $button-hover:    utils.saturate($button-bg, cfg.$darkMode, cfg.$color-delta-hover) !default;
 $icon-padding-x:  0.25em !default;
