@@ -71,10 +71,8 @@ class ColorBlock extends VBox {
             if (bgFill == null) { return; }
 
             toggleHover(true);
-            // doesn't play quite well with transparency, because we not calc
-            // actual underlying background color to flatten bgFill
-            expandIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
-                    Color.WHITE : Color.BLACK
+            expandIcon.setFill(
+                    getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ? Color.WHITE : Color.BLACK
             );
         });
         colorBox.setOnMouseExited(e -> toggleHover(false));

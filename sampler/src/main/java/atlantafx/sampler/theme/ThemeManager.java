@@ -19,7 +19,7 @@ public final class ThemeManager {
 
     private static final String DUMMY_STYLESHEET = Resources.getResource("assets/styles/empty.css").toString();
     private static final PseudoClass USER_CUSTOM = PseudoClass.getPseudoClass("user-custom");
-    private static final String DEFAULT_FONT_FAMILY_NAME = "Application Default";
+    public static final String DEFAULT_FONT_FAMILY_NAME = "Inter";
 
     // KEY           |  VALUE
     // -fx-property  |  value;
@@ -99,8 +99,13 @@ public final class ThemeManager {
     }
 
     public void setFontFamily(String fontFamily) {
+        Objects.requireNonNull(fontFamily);
         setCustomDeclaration("-fx-font-family", "\"" + fontFamily + "\"");
         this.fontFamily = fontFamily;
+    }
+
+    public boolean isDefaultFontFamily() {
+        return Objects.equals(DEFAULT_FONT_FAMILY_NAME, getFontFamily());
     }
 
     public int getFontSize() {

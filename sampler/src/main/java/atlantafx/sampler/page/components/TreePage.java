@@ -109,10 +109,8 @@ public class TreePage extends AbstractPage {
             // copy existing style classes and properties to the new tree
             findDisplayedTree().ifPresent(tv -> {
                 List<String> currentStyles = tv.getStyleClass();
-                System.out.println("C = " + currentStyles);
                 currentStyles.remove("tree-view");
                 newTree.getStyleClass().addAll(currentStyles);
-                System.out.println("N = " + newTree.getStyleClass());
 
                 newTree.setShowRoot(tv.isShowRoot());
                 newTree.setDisable(tv.isDisable());

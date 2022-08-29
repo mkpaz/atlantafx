@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -27,13 +29,14 @@ import static atlantafx.base.theme.Styles.*;
 public class TypographyPage extends AbstractPage {
 
     private static final double CONTROL_WIDTH = 200;
+    private static final String DEFAULT_FONT_ID = "Default";
 
     public static final String NAME = "Typography";
 
     @Override
     public String getName() { return NAME; }
 
-    private GridPane fontSizeSampleContent;
+    private Pane fontSizeSampleContent;
 
     public TypographyPage() {
         super();
@@ -51,7 +54,7 @@ public class TypographyPage extends AbstractPage {
         controlsGrid.add(fontSizeSpinner(), 1, 1);
 
         var fontSizeSample = fontSizeSample();
-        fontSizeSampleContent = (GridPane) fontSizeSample.getContent();
+        fontSizeSampleContent = (Pane) fontSizeSample.getContent();
 
         userContent.getChildren().setAll(
                 controlsGrid,
@@ -68,14 +71,14 @@ public class TypographyPage extends AbstractPage {
         final var tm = ThemeManager.getInstance();
 
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().add(tm.getFontFamily());
+        comboBox.getItems().add(tm.isDefaultFontFamily() ? DEFAULT_FONT_ID : tm.getFontFamily());
         comboBox.getItems().addAll(FXCollections.observableArrayList(Font.getFamilies()));
         comboBox.setPrefWidth(CONTROL_WIDTH);
         comboBox.getSelectionModel().select(tm.getFontFamily());
 
         comboBox.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
-                tm.setFontFamily(val);
+                tm.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val);
                 tm.reloadCustomCSS();
                 updateFontInfo(Duration.ofMillis(1000));
             }
@@ -153,15 +156,50 @@ public class TypographyPage extends AbstractPage {
     }
 
     private SampleBlock fontWeightSample() {
-        var box = new HBox(10,
+        var sample1 = new HBox(10,
                 text("Bold", TEXT_BOLD),
                 text("Bolder", TEXT_BOLDER),
                 text("Normal", TEXT_NORMAL),
                 text("Lighter", TEXT_LIGHTER)
         );
-        box.setAlignment(Pos.BASELINE_LEFT);
+        sample1.setAlignment(Pos.BASELINE_LEFT);
 
-        return new SampleBlock("Font weight", box);
+        var sample2 = new HBox(10,
+                textInlineStyle("900", "-fx-font-weight:900;"),
+                textInlineStyle("800", "-fx-font-weight:800;"),
+                textInlineStyle("700", "-fx-font-weight:700;"),
+                textInlineStyle("600", "-fx-font-weight:600;"),
+                textInlineStyle("500", "-fx-font-weight:500;"),
+                textInlineStyle("400", "-fx-font-weight:400;"),
+                textInlineStyle("300", "-fx-font-weight:300;"),
+                textInlineStyle("200", "-fx-font-weight:200;"),
+                textInlineStyle("100", "-fx-font-weight:100;")
+        );
+        sample2.setAlignment(Pos.BASELINE_LEFT);
+
+        var sample3 = new HBox(10,
+                textInlineStyle("900", "-fx-font-family:'Inter Black';"),
+                textInlineStyle("800", "-fx-font-family:'Inter Extra Bold';"),
+                textInlineStyle("700", "-fx-font-family:'Inter Bold';"),
+                textInlineStyle("600", "-fx-font-family:'Inter Semi Bold';"),
+                textInlineStyle("500", "-fx-font-family:'Inter Medium';"),
+                textInlineStyle("400", "-fx-font-family:'Inter Regular';"),
+                textInlineStyle("300", "-fx-font-family:'Inter Light';"),
+                textInlineStyle("200", "-fx-font-family:'Inter Extra Light';"),
+                textInlineStyle("100", "-fx-font-family:'Inter Thin';")
+        );
+        sample3.setAlignment(Pos.BASELINE_LEFT);
+
+        // JDK-8090423: https://bugs.openjdk.org/browse/JDK-8090423
+        // Workaround:  https://edencoding.com/resources/css_properties/fx-font-weight/
+        return new SampleBlock("Font weight", new VBox(10,
+                sample1,
+                sample2,
+                sample3,
+                text("JavaFX only supports Bold or Regular font weight. See the source code for workaround.",
+                        TEXT, TEXT_SMALL, DANGER
+                )
+        ));
     }
 
     private SampleBlock fontStyleSample() {
@@ -209,6 +247,12 @@ public class TypographyPage extends AbstractPage {
         var t = new Text(text);
         t.getStyleClass().addAll(styleClasses);
         t.setUserData(text);
+        return t;
+    }
+
+    private Text textInlineStyle(String text, String style) {
+        var t = new Text(text);
+        t.setStyle(style);
         return t;
     }
 
