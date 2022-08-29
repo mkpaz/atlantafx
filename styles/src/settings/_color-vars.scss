@@ -1,0 +1,70 @@
+// SPDX-License-Identifier: MIT
+
+@use "sass:color";
+@use "color-scale" as scale;
+
+$fg-default:           scale.$gray-9 !default;
+$fg-muted:             scale.$gray-6 !default;
+$fg-subtle:            scale.$gray-5 !default;
+$fg-onEmphasis:        scale.$white  !default;
+
+$canvas-default:       scale.$white  !default;
+$canvas-overlay:       scale.$white  !default;
+$canvas-inset:         scale.$gray-0 !default;
+$canvas-subtle:        scale.$gray-0 !default;
+
+$border-default:       scale.$gray-2 !default;
+$border-muted:         lighten(scale.$gray-2, 0.03) !default;
+$border-subtle:        color.change(scale.$black, $alpha: 0.15) !default;
+
+$neutral-emphasisPlus: scale.$gray-9 !default;
+$neutral-emphasis:     scale.$gray-5 !default;
+$neutral-muted:        color.change(scale.$gray-3, $alpha: 0.2) !default;
+$neutral-subtle:       color.change(scale.$gray-1, $alpha: 0.5) !default;
+
+$accent-fg:            scale.$blue-5 !default;
+$accent-emphasis:      scale.$blue-5 !default;
+$accent-muted:         color.change(scale.$blue-3, $alpha: 0.4) !default;
+$accent-subtle:        scale.$blue-0 !default;
+
+$success-fg:           scale.$green-5 !default;
+$success-emphasis:     scale.$green-4 !default;
+$success-muted:        color.change(scale.$green-3, $alpha: 0.4) !default;
+$success-subtle:       scale.$green-0 !default;
+
+$warning-fg:           scale.$yellow-5 !default;
+$warning-emphasis:     scale.$yellow-4 !default;
+$warning-muted:        color.change(scale.$yellow-3, $alpha: 0.4) !default;
+$warning-subtle:       scale.$yellow-0 !default;
+
+$danger-fg:            scale.$red-5 !default;
+$danger-emphasis:      scale.$red-5 !default;
+$danger-muted:         color.change(scale.$red-3, $alpha: 0.4) !default;
+$danger-subtle:        scale.$red-0 !default;
+
+$chart-1: #f3622d !default;
+$chart-2: #fba71b !default;
+$chart-3: #57b757 !default;
+$chart-4: #41a9c9 !default;
+$chart-5: #4258c9 !default;
+$chart-6: #9a42c8 !default;
+$chart-7: #c84164 !default;
+$chart-8: #888888 !default;
+
+$chart-1-alpha70: color.change($chart-1, $alpha: 0.7) !default;
+$chart-2-alpha70: color.change($chart-2, $alpha: 0.7) !default;
+$chart-3-alpha70: color.change($chart-3, $alpha: 0.7) !default;
+$chart-4-alpha70: color.change($chart-4, $alpha: 0.7) !default;
+$chart-5-alpha70: color.change($chart-5, $alpha: 0.7) !default;
+$chart-6-alpha70: color.change($chart-6, $alpha: 0.7) !default;
+$chart-7-alpha70: color.change($chart-7, $alpha: 0.7) !default;
+$chart-8-alpha70: color.change($chart-8, $alpha: 0.7) !default;
+
+$chart-1-alpha20: color.change($chart-1, $alpha: 0.2) !default;
+$chart-2-alpha20: color.change($chart-2, $alpha: 0.2) !default;
+$chart-3-alpha20: color.change($chart-3, $alpha: 0.2) !default;
+$chart-4-alpha20: color.change($chart-4, $alpha: 0.2) !default;
+$chart-5-alpha20: color.change($chart-5, $alpha: 0.2) !default;
+$chart-6-alpha20: color.change($chart-6, $alpha: 0.2) !default;
+$chart-7-alpha20: color.change($chart-7, $alpha: 0.2) !default;
+$chart-8-alpha20: color.change($chart-8, $alpha: 0.2) !default;

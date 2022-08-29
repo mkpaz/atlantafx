@@ -3,7 +3,8 @@
 @use "sass:math";
 
 // Darkens or lightens specified color depending on the color scheme.
-@function saturate($color, $darkMode, $amount) {
+// Avoid using this function, stick to color scale tints and shades instead.
+@function changeBrightness($color, $darkMode, $amount) {
   @if $darkMode == true  { @return darken($color, $darkMode, $amount); }
   @return darken($color, $darkMode, $amount);
 }

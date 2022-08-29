@@ -4,10 +4,10 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$button-bg:       -color-bg-subtle   !default;
-$button-fg:       -color-fg-default !default;
-$button-hover:    utils.saturate($button-bg, cfg.$darkMode, cfg.$color-delta-hover) !default;
-$icon-padding-x:  0.25em !default;
+$color-button-bg:    -color-bg-subtle   !default;
+$color-button-fg:    -color-fg-default !default;
+$color-button-hover: if(cfg.$darkMode, -color-gray-6, -color-gray-2) !default;
+$icon-padding-x:     0.25em !default;
 
 .spinner {
   -fx-background-color: -color-bg-default;
@@ -26,17 +26,17 @@ $icon-padding-x:  0.25em !default;
   }
 
   >.increment-arrow-button {
-    -fx-background-color: $button-bg;
+    -fx-background-color: $color-button-bg;
     -fx-background-insets: 0;
     -fx-background-radius: 0 cfg.$border-radius 0 0;
     -fx-padding: 10px;
 
     &:hover {
-      -fx-background-color: $button-hover;
+      -fx-background-color: $color-button-hover;
     }
 
     >.increment-arrow {
-      -fx-background-color: $button-fg;
+      -fx-background-color: $color-button-fg;
       -fx-background-insets: 0;
       -fx-padding: 0 $icon-padding-x 0 $icon-padding-x;
       @include icons.get("arrow-drop-up", false);
@@ -44,17 +44,17 @@ $icon-padding-x:  0.25em !default;
   }
 
   >.decrement-arrow-button {
-    -fx-background-color: $button-bg;
+    -fx-background-color: $color-button-bg;
     -fx-background-insets: -1 0 0 0;
     -fx-background-radius: 0 0 cfg.$border-radius 0;
     -fx-padding: 10px;
 
     &:hover {
-      -fx-background-color: $button-hover;
+      -fx-background-color: $color-button-hover;
     }
 
     >.decrement-arrow {
-      -fx-background-color: $button-fg;
+      -fx-background-color: $color-button-fg;
       -fx-background-insets: 0;
       -fx-padding: 0 $icon-padding-x 0 $icon-padding-x;
       @include icons.get("arrow-drop-down", false);

@@ -104,17 +104,6 @@ $separator-width:    0.75px !default;
     }
   }
 
-  &.flat {
-    @include button.flat();
-
-    &:armed,
-    &:focused:armed {
-      >.label {
-        -fx-underline: false;
-      }
-    }
-  }
-
   &.accent {
     @include button.accent();
   }
@@ -125,6 +114,10 @@ $separator-width:    0.75px !default;
 
   &.danger {
     @include button.danger();
+  }
+
+  &.flat {
+    @include button.flat();
   }
 }
 

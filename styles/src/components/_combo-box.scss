@@ -5,6 +5,10 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
+$color-cell-bg:          -color-bg-default !default;
+$color-cell-bg-hover:    if(cfg.$darkMode, -color-gray-7, -color-gray-0) !default;
+$color-cell-bg-selected: -color-accent-subtle !default;
+
 @mixin _arrow() {
   @include icons.get("arrow-drop-down", false);
   -fx-background-color: -color-fg-muted;
@@ -122,7 +126,7 @@
 
 .combo-box-popup {
   >.list-view {
-    -fx-background-color: -color-border-default, -color-bg-default;
+    -fx-background-color: -color-border-default, $color-cell-bg;
     -fx-background-insets: 0, 1;
     -fx-background-radius: cfg.$border-radius;
 
@@ -133,17 +137,17 @@
             // reset cell size, because height is set via paddings
             // to use the same values as ChoiceBox
             -fx-cell-size: 0;
-            -fx-background-color: -color-bg-default;
+            -fx-background-color: $color-cell-bg;
             -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
             -fx-graphic-text-gap: cfg.$graphic-gap;
 
             &:filled:hover {
-              -fx-background-color: utils.saturate(-color-bg-default, cfg.$darkMode, cfg.$color-delta-hover);
+              -fx-background-color: $color-cell-bg-hover;
             }
 
             &:filled:selected,
             &:filled:selected:hover {
-              -fx-background-color: -color-accent-subtle;
+              -fx-background-color: $color-cell-bg-selected;
             }
           }
         }

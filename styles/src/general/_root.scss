@@ -1,75 +1,138 @@
 // SPDX-License-Identifier: MIT
 
 @use "../settings/config" as cfg;
-@use "../settings/palette" as palette;
+@use "../settings/color-scale" as scale;
+@use "../settings/color-vars" as vars;
 
 .root {
 
-  -color-fg-default:            palette.$fg-default;
-  -color-fg-muted:              palette.$fg-muted;
-  -color-fg-subtle:             palette.$fg-subtle;
-  -color-fg-emphasis:           palette.$fg-onEmphasis;
+  // Color scale
 
-  -color-bg-default:            palette.$canvas-default;
-  -color-bg-overlay:            palette.$canvas-overlay;
-  -color-bg-subtle:             palette.$canvas-subtle;
-  -color-bg-inset:              palette.$canvas-inset;
+  -color-black:       scale.$black;
+  -color-white:       scale.$white;
 
-  -color-border-default:        palette.$border-default;
-  -color-border-muted:          palette.$border-muted;
-  -color-border-subtle:         palette.$border-subtle;
+  -color-gray-0:      scale.$gray-0;
+  -color-gray-1:      scale.$gray-1;
+  -color-gray-2:      scale.$gray-2;
+  -color-gray-3:      scale.$gray-3;
+  -color-gray-4:      scale.$gray-4;
+  -color-gray-5:      scale.$gray-5;
+  -color-gray-6:      scale.$gray-6;
+  -color-gray-7:      scale.$gray-7;
+  -color-gray-8:      scale.$gray-8;
+  -color-gray-9:      scale.$gray-9;
 
-  -color-neutral-emphasis-plus: palette.$neutral-emphasisPlus;
-  -color-neutral-emphasis:      palette.$neutral-emphasis;
-  -color-neutral-muted:         palette.$neutral-muted;
-  -color-neutral-subtle:        palette.$neutral-subtle;
+  -color-blue-0:      scale.$blue-0;
+  -color-blue-1:      scale.$blue-1;
+  -color-blue-2:      scale.$blue-2;
+  -color-blue-3:      scale.$blue-3;
+  -color-blue-4:      scale.$blue-4;
+  -color-blue-5:      scale.$blue-5;
+  -color-blue-6:      scale.$blue-6;
+  -color-blue-7:      scale.$blue-7;
+  -color-blue-8:      scale.$blue-8;
+  -color-blue-9:      scale.$blue-9;
 
-  -color-accent-fg:             palette.$accent-fg;
-  -color-accent-emphasis:       palette.$accent-emphasis;
-  -color-accent-muted:          palette.$accent-muted;
-  -color-accent-subtle:         palette.$accent-subtle;
+  -color-green-0:     scale.$green-0;
+  -color-green-1:     scale.$green-1;
+  -color-green-2:     scale.$green-2;
+  -color-green-3:     scale.$green-3;
+  -color-green-4:     scale.$green-4;
+  -color-green-5:     scale.$green-5;
+  -color-green-6:     scale.$green-6;
+  -color-green-7:     scale.$green-7;
+  -color-green-8:     scale.$green-8;
+  -color-green-9:     scale.$green-9;
 
-  -color-warning-fg:            palette.$warning-fg;
-  -color-warning-emphasis:      palette.$warning-emphasis;
-  -color-warning-muted:         palette.$warning-muted;
-  -color-warning-subtle:        palette.$warning-subtle;
+  -color-yellow-0:    scale.$yellow-0;
+  -color-yellow-1:    scale.$yellow-1;
+  -color-yellow-2:    scale.$yellow-2;
+  -color-yellow-3:    scale.$yellow-3;
+  -color-yellow-4:    scale.$yellow-4;
+  -color-yellow-5:    scale.$yellow-5;
+  -color-yellow-6:    scale.$yellow-6;
+  -color-yellow-7:    scale.$yellow-7;
+  -color-yellow-8:    scale.$yellow-8;
+  -color-yellow-9:    scale.$yellow-9;
 
-  -color-success-fg:            palette.$success-fg;
-  -color-success-emphasis:      palette.$success-emphasis;
-  -color-success-muted:         palette.$success-muted;
-  -color-success-subtle:        palette.$success-subtle;
+  -color-red-0:       scale.$red-0;
+  -color-red-1:       scale.$red-1;
+  -color-red-2:       scale.$red-2;
+  -color-red-3:       scale.$red-3;
+  -color-red-4:       scale.$red-4;
+  -color-red-5:       scale.$red-5;
+  -color-red-6:       scale.$red-6;
+  -color-red-7:       scale.$red-7;
+  -color-red-8:       scale.$red-8;
+  -color-red-9:       scale.$red-9;
 
-  -color-danger-fg:             palette.$danger-fg;
-  -color-danger-emphasis:       palette.$danger-emphasis;
-  -color-danger-muted:          palette.$danger-muted;
-  -color-danger-subtle:         palette.$danger-subtle;
+  // Functional variables
 
-  -color-chart-1:               palette.$chart-1;
-  -color-chart-2:               palette.$chart-2;
-  -color-chart-3:               palette.$chart-3;
-  -color-chart-4:               palette.$chart-4;
-  -color-chart-5:               palette.$chart-5;
-  -color-chart-6:               palette.$chart-6;
-  -color-chart-7:               palette.$chart-7;
-  -color-chart-8:               palette.$chart-8;
+  -color-fg-default:            vars.$fg-default;
+  -color-fg-muted:              vars.$fg-muted;
+  -color-fg-subtle:             vars.$fg-subtle;
+  -color-fg-emphasis:           vars.$fg-onEmphasis;
 
-  -color-chart-1-alpha70:       palette.$chart-1-alpha70;
-  -color-chart-2-alpha70:       palette.$chart-2-alpha70;
-  -color-chart-3-alpha70:       palette.$chart-3-alpha70;
-  -color-chart-4-alpha70:       palette.$chart-4-alpha70;
-  -color-chart-5-alpha70:       palette.$chart-5-alpha70;
-  -color-chart-6-alpha70:       palette.$chart-6-alpha70;
-  -color-chart-7-alpha70:       palette.$chart-7-alpha70;
-  -color-chart-8-alpha70:       palette.$chart-8-alpha70;
+  -color-bg-default:            vars.$canvas-default;
+  -color-bg-overlay:            vars.$canvas-overlay;
+  -color-bg-subtle:             vars.$canvas-subtle;
+  -color-bg-inset:              vars.$canvas-inset;
 
-  -color-chart-1-alpha20:       palette.$chart-1-alpha20;
-  -color-chart-2-alpha20:       palette.$chart-2-alpha20;
-  -color-chart-3-alpha20:       palette.$chart-3-alpha20;
-  -color-chart-4-alpha20:       palette.$chart-4-alpha20;
-  -color-chart-5-alpha20:       palette.$chart-5-alpha20;
-  -color-chart-6-alpha20:       palette.$chart-6-alpha20;
-  -color-chart-7-alpha20:       palette.$chart-7-alpha20;
-  -color-chart-8-alpha20:       palette.$chart-8-alpha20;
+  -color-border-default:        vars.$border-default;
+  -color-border-muted:          vars.$border-muted;
+  -color-border-subtle:         vars.$border-subtle;
+
+  -color-neutral-emphasis-plus: vars.$neutral-emphasisPlus;
+  -color-neutral-emphasis:      vars.$neutral-emphasis;
+  -color-neutral-muted:         vars.$neutral-muted;
+  -color-neutral-subtle:        vars.$neutral-subtle;
+
+  -color-accent-fg:             vars.$accent-fg;
+  -color-accent-emphasis:       vars.$accent-emphasis;
+  -color-accent-muted:          vars.$accent-muted;
+  -color-accent-subtle:         vars.$accent-subtle;
+
+  -color-warning-fg:            vars.$warning-fg;
+  -color-warning-emphasis:      vars.$warning-emphasis;
+  -color-warning-muted:         vars.$warning-muted;
+  -color-warning-subtle:        vars.$warning-subtle;
+
+  -color-success-fg:            vars.$success-fg;
+  -color-success-emphasis:      vars.$success-emphasis;
+  -color-success-muted:         vars.$success-muted;
+  -color-success-subtle:        vars.$success-subtle;
+
+  -color-danger-fg:             vars.$danger-fg;
+  -color-danger-emphasis:       vars.$danger-emphasis;
+  -color-danger-muted:          vars.$danger-muted;
+  -color-danger-subtle:         vars.$danger-subtle;
+
+  -color-chart-1:               vars.$chart-1;
+  -color-chart-2:               vars.$chart-2;
+  -color-chart-3:               vars.$chart-3;
+  -color-chart-4:               vars.$chart-4;
+  -color-chart-5:               vars.$chart-5;
+  -color-chart-6:               vars.$chart-6;
+  -color-chart-7:               vars.$chart-7;
+  -color-chart-8:               vars.$chart-8;
+
+  -color-chart-1-alpha70:       vars.$chart-1-alpha70;
+  -color-chart-2-alpha70:       vars.$chart-2-alpha70;
+  -color-chart-3-alpha70:       vars.$chart-3-alpha70;
+  -color-chart-4-alpha70:       vars.$chart-4-alpha70;
+  -color-chart-5-alpha70:       vars.$chart-5-alpha70;
+  -color-chart-6-alpha70:       vars.$chart-6-alpha70;
+  -color-chart-7-alpha70:       vars.$chart-7-alpha70;
+  -color-chart-8-alpha70:       vars.$chart-8-alpha70;
+
+  -color-chart-1-alpha20:       vars.$chart-1-alpha20;
+  -color-chart-2-alpha20:       vars.$chart-2-alpha20;
+  -color-chart-3-alpha20:       vars.$chart-3-alpha20;
+  -color-chart-4-alpha20:       vars.$chart-4-alpha20;
+  -color-chart-5-alpha20:       vars.$chart-5-alpha20;
+  -color-chart-6-alpha20:       vars.$chart-6-alpha20;
+  -color-chart-7-alpha20:       vars.$chart-7-alpha20;
+  -color-chart-8-alpha20:       vars.$chart-8-alpha20;
 
   // default props inherited by all nodes
   -fx-background-color: -color-bg-default;

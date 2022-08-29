@@ -4,8 +4,8 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$color-bg:         -color-bg-subtle !default;
-$color-bg-pressed: utils.saturate($color-bg, cfg.$darkMode, cfg.$color-delta-active) !default;
+$color-bg:          -color-bg-subtle !default;
+$color-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-2) !default;
 
 $padding-x: cfg.$padding-x !default;
 $padding-y: 4px !default;
@@ -30,7 +30,7 @@ $border-width: cfg.$border-width !default;
 
     .toggle-button {
       -color-button-bg: $color-bg;
-      -color-button-bg-selected: $color-bg-pressed;
+      -color-button-bg-selected: $color-bg-selected;
       -color-button-fg-selected: -color-fg-default;
       -fx-background-insets: 0;
     }

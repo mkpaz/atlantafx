@@ -10,9 +10,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 $color-menubar-bg:        -color-bg-subtle !default;
-$color-menubar-bg-hover:  utils.saturate($color-menubar-bg, cfg.$darkMode, cfg.$color-delta-hover)  !default;
+$color-menubar-bg-hover:  if(cfg.$darkMode, -color-gray-6, -color-gray-1) !default;
 $color-menuitem-bg:       -color-bg-default !default;
-$color-menuitem-bg-hover: utils.saturate($color-menuitem-bg, cfg.$darkMode, cfg.$color-delta-hover) !default;
+$color-menuitem-bg-hover: if(cfg.$darkMode, -color-gray-7, -color-gray-1) !default;
 
 $separator-padding:       map-get(cfg.$separators, "small") !default;
 
