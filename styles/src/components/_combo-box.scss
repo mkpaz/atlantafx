@@ -6,8 +6,8 @@
 @use "../settings/utils";
 
 $color-cell-bg:          -color-bg-default !default;
-$color-cell-bg-hover:    if(cfg.$darkMode, -color-gray-7, -color-gray-0) !default;
-$color-cell-bg-selected: -color-accent-subtle !default;
+$color-cell-bg-hover:    if(cfg.$darkMode, -color-gray-7, -color-gray-1) !default;
+$color-cell-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-2) !default;
 
 @mixin _arrow() {
   @include icons.get("arrow-drop-down", false);

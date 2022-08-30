@@ -3,6 +3,18 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
+$color-cell-bg:          -color-bg-default !default;
+$color-cell-fg:          -color-fg-default !default;
+$color-cell-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-1) !default;
+$color-cell-fg-selected: -color-fg-default !default;
+$color-cell-bg-odd:      -color-bg-subtle  !default;
+$color-cell-border:      -color-border-default  !default;
+$color-header-bg:        -color-bg-subtle  !default;
+$color-header-fg:        -color-fg-default !default;
+$color-resize-line:      -color-accent-emphasis !default;
+$color-drag-header:      -color-accent-muted !default;
+$color-drag-overlay:     -color-accent-muted !default;
+
 $cell-size-normal: 2.8em !default;
 $cell-size-dense:  2em   !default;
 $cell-padding-x:   0.5em !default;
@@ -16,13 +28,12 @@ $tree-cell-indent: 1em !default;
 
 @mixin _base() {
 
-  // draft (only supported by list view for now)
-  -color-cell-bg:          -color-bg-default;
-  -color-cell-fg:          -color-fg-default;
-  -color-cell-bg-selected: -color-accent-subtle;
-  -color-cell-fg-selected: -color-fg-default;
-  -color-cell-bg-odd:      -color-bg-subtle;
-  -color-cell-border:      -color-border-default;
+  -color-cell-bg:          $color-cell-bg;
+  -color-cell-fg:          $color-cell-fg;
+  -color-cell-bg-selected: $color-cell-bg-selected;
+  -color-cell-fg-selected: $color-cell-fg-selected;
+  -color-cell-bg-odd:      $color-cell-bg-odd;
+  -color-cell-border:      $color-cell-border;
 
   -fx-border-color: -color-cell-border;
   -fx-border-width: cfg.$border-width;
@@ -160,8 +171,8 @@ $tree-cell-indent: 1em !default;
 
   @include _base();
 
-  -color-header-bg: -color-bg-subtle;
-  -color-header-fg: -color-fg-default;
+  -color-header-bg: $color-header-bg;
+  -color-header-fg: $color-header-fg;
 
   &.bordered {
     >.column-header-background {
@@ -256,7 +267,7 @@ $tree-cell-indent: 1em !default;
 
   // the .column-resize-line is shown when the user is attempting to resize a column
   .column-resize-line {
-    -fx-background-color: -color-accent-emphasis;
+    -fx-background-color: $color-resize-line;
     -fx-padding: 0 1 0 1;
   }
 
@@ -265,12 +276,12 @@ $tree-cell-indent: 1em !default;
   .column-drag-header {
     // -color-accent-muted must be RGBA color for this to work, because
     // applying opacity to the whole pane makes label text unreadable
-    -fx-background-color: -color-accent-muted;
+    -fx-background-color: $color-drag-header;
   }
 
   // semi-transparent overlay to indicate the column that is currently being moved
   .column-overlay {
-    -fx-background-color: -color-accent-muted;
+    -fx-background-color: $color-drag-overlay;
   }
 
   // this is shown when the table has no rows and/or no columns
