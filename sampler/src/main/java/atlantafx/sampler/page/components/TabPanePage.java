@@ -132,14 +132,15 @@ public class TabPanePage extends AbstractPage {
         togglesGrid.add(gridLabel("Closeable"), 0, 0);
         togglesGrid.add(closeableToggle, 1, 0);
 
-        togglesGrid.add(gridLabel("Floating"), 0, 1);
-        togglesGrid.add(floatingToggle, 1, 1);
+        // not yet implemented
+        //togglesGrid.add(gridLabel("Floating"), 0, 1);
+        //togglesGrid.add(floatingToggle, 1, 1);
 
-        togglesGrid.add(gridLabel("Full width"), 0, 2);
-        togglesGrid.add(fullWidthToggle, 1, 2);
+        togglesGrid.add(gridLabel("Full width"), 0, 1);
+        togglesGrid.add(fullWidthToggle, 1, 1);
 
-        togglesGrid.add(gridLabel("Disable"), 0, 3);
-        togglesGrid.add(disableToggle, 1, 3);
+        togglesGrid.add(gridLabel("Disable"), 0, 2);
+        togglesGrid.add(disableToggle, 1, 2);
 
         // == LAYOUT ==
 
