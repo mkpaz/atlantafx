@@ -306,6 +306,24 @@
     -fx-background-color: #388e3c;
 }
 
+#quick-config-menu {
+    -fx-min-width: 200px;
+}
+#quick-config-menu .row {
+    -fx-padding: 6px;
+    -fx-background-radius: 4px;
+}
+#quick-config-menu .action:hover {
+    /* FIXME: Not visible in some themes (subtle over subtle) */
+    -fx-background-color: -color-bg-subtle;
+}
+#quick-config-menu .radio > .ikonli-font-icon {
+    visibility: hidden;
+}
+#quick-config-menu .radio:selected > .ikonli-font-icon {
+    visibility: visible;
+}
+
 .popover .date-picker-popup {
     -fx-background-color: transparent;
     -fx-background-insets: 0;

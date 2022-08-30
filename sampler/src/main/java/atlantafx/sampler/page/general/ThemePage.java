@@ -37,7 +37,10 @@ public class ThemePage extends AbstractPage {
                 optionsGrid(),
                 colorPalette
         );
+        quickConfigBtn.setVisible(false);
+        quickConfigBtn.setManaged(false);
         sourceCodeToggleBtn.setVisible(false);
+        sourceCodeToggleBtn.setManaged(false);
     }
 
     private GridPane optionsGrid() {

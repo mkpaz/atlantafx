@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
+import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.theme.ThemeManager;
@@ -16,6 +17,7 @@ import net.datafaker.Faker;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +27,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static atlantafx.base.controls.Popover.ArrowLocation.TOP_CENTER;
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
 
 public abstract class AbstractPage extends BorderPane implements Page {
@@ -38,6 +42,8 @@ public abstract class AbstractPage extends BorderPane implements Page {
     private static final Ikon ICON_CODE = Feather.CODE;
     private static final Ikon ICON_SAMPLE = Feather.LAYOUT;
 
+    protected Button quickConfigBtn;
+    protected Popover quickConfigPopover;
     protected Button sourceCodeToggleBtn;
     protected StackPane codeViewerWrapper;
     protected CodeViewer codeViewer;
@@ -63,16 +69,21 @@ public abstract class AbstractPage extends BorderPane implements Page {
         codeViewerWrapper.getStyleClass().add("wrapper");
         codeViewerWrapper.getChildren().setAll(codeViewer);
 
+        quickConfigBtn = new Button("", new FontIcon(Material2OutlinedMZ.STYLE));
+        quickConfigBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
+        quickConfigBtn.setTooltip(new Tooltip("Change theme"));
+        quickConfigBtn.setOnAction(e -> showThemeConfigPopover());
+
         sourceCodeToggleBtn = new Button("", new FontIcon(ICON_CODE));
-        sourceCodeToggleBtn.getStyleClass().addAll(BUTTON_ICON);
-        sourceCodeToggleBtn.setTooltip(new Tooltip("Source Code"));
+        sourceCodeToggleBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
+        sourceCodeToggleBtn.setTooltip(new Tooltip("Source code"));
         sourceCodeToggleBtn.setOnAction(e -> toggleSourceCode());
 
-        var header = new HBox();
+        var header = new HBox(30);
         header.getStyleClass().add("header");
         header.setMinHeight(HEADER_HEIGHT);
         header.setAlignment(Pos.CENTER_LEFT);
-        header.getChildren().setAll(titleLabel, new Spacer(), sourceCodeToggleBtn);
+        header.getChildren().setAll(titleLabel, new Spacer(), quickConfigBtn, sourceCodeToggleBtn);
 
         // == user content ==
 
@@ -119,6 +130,20 @@ public abstract class AbstractPage extends BorderPane implements Page {
     // Some properties can only be obtained after node placed
     // to the scene graph and here is the place do this.
     protected void onRendered() { }
+
+    private void showThemeConfigPopover() {
+        if (quickConfigPopover == null) {
+            var content = new QuickConfigMenu();
+            content.setExitHandler(() -> quickConfigPopover.hide());
+
+            quickConfigPopover = new Popover(content);
+            quickConfigPopover.setHeaderAlwaysVisible(false);
+            quickConfigPopover.setDetachable(false);
+            quickConfigPopover.setArrowLocation(TOP_CENTER);
+        }
+
+        quickConfigPopover.show(quickConfigBtn);
+    }
 
     protected void toggleSourceCode() {
         var graphic = (FontIcon) sourceCodeToggleBtn.getGraphic();
