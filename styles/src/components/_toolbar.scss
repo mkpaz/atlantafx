@@ -7,7 +7,7 @@
 $color-bg:          -color-bg-subtle !default;
 $color-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-2) !default;
 
-$padding-x: cfg.$padding-x !default;
+$padding-x: 0.3em !default;
 $padding-y: 4px !default;
 $spacing:   4px !default;
 $border-width: cfg.$border-width !default;
