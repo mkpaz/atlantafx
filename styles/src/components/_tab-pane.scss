@@ -35,7 +35,21 @@ $tab-tb-label-padding-y: 0.4em !default;
 $tab-lr-label-padding-x: 0.4em !default;
 $tab-lr-label-padding-y: 0.2em !default;
 
-$border-width: 2px !default;
+$header-border-width: 2px !default;
+
+// floating tabs
+$color-float-bg:     -color-bg-inset !default;
+$color-float-border: -color-border-default !default;
+
+$color-float-bg-selected:     -color-bg-default !default;
+$color-float-border-selected: -color-border-default !default;
+
+$tab-float-label-padding-x: 0.55em !default;
+$tab-float-label-padding-y: 0.55em !default;
+
+$header-float-border-width: 1px !default;
+$tab-float-spacing: 3px   !default;
+$tab-float-width:   150px !default;
 
 .tab-pane {
 
@@ -45,13 +59,13 @@ $border-width: 2px !default;
     -fx-alignment: CENTER;
 
     >.tab-header-background {
-      -fx-background-insets: 0 0 0 0, 0 0 $border-width 0;
+      -fx-background-insets: 0 0 0 0, 0 0 $header-border-width 0;
       -fx-background-color: $color-border, $color-bg;
     }
 
     >.headers-region {
       >.tab {
-        -fx-background-insets: 0 0 0 0, 0 0 $border-width 0;
+        -fx-background-insets: 0 0 0 0, 0 0 $header-border-width 0;
         -fx-background-color: transparent, transparent;
         -fx-padding: $tab-padding-y $tab-padding-x $tab-padding-y $tab-padding-x;
 
@@ -177,6 +191,46 @@ $border-width: 2px !default;
 
   // TabPane.STYLE_CLASS_FLOATING
   &.floating {
-    // not yet implemented
+
+    >.tab-header-area {
+      -fx-background-color: $color-float-border, $color-float-bg;
+      -fx-background-insets: 0, 0 0 $header-float-border-width 0;
+
+      // NOTE: Floating TabPane doesn't have '.tab-header-background'.
+
+      >.headers-region {
+        >.tab {
+          -fx-background-insets: 0;
+          -fx-background-color: transparent;
+          -fx-padding: $tab-padding-y 0 $tab-padding-y $tab-float-spacing;
+
+          >.tab-container {
+            -fx-background-color: transparent;
+            -fx-background-insets: 0;
+            -fx-background-radius: cfg.$border-radius;
+            -fx-border-radius: cfg.$border-radius;
+            // an ugly hack to create right padding for the close button
+            // sadly, it's not possible other way
+            -fx-border-width: cfg.$border-width, 0 3px 0 0;
+            -fx-border-color: transparent, transparent;
+
+            >.tab-label {
+              -fx-padding: $tab-float-label-padding-y $tab-float-label-padding-x $tab-float-label-padding-y $tab-float-label-padding-x;
+              -fx-min-width: $tab-float-width;
+              -fx-pref-width: $tab-float-width;
+              -fx-alignment: CENTER_LEFT;
+            }
+          }
+
+          &:hover,
+          &:selected {
+            >.tab-container {
+              -fx-background-color: $color-float-bg-selected;
+              -fx-border-color: $color-float-border-selected, transparent;
+            }
+          }
+        }
+      }
+    }
   }
 }
