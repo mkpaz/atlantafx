@@ -31,7 +31,7 @@ module atlantafx.sampler {
     opens atlantafx.sampler.fake.domain;
 
     // resources
-    opens atlantafx.sampler.assets.fonts;
+    opens atlantafx.sampler.assets;
     opens atlantafx.sampler.assets.highlightjs;
     opens atlantafx.sampler.assets.styles;
 }

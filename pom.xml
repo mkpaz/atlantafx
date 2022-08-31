@@ -60,6 +60,7 @@
 
         <java.version>17</java.version>
         <openjfx.version>17.0.0.1</openjfx.version>
+        <sass.version>1.54.4</sass.version>
 
         <app.name>AtlantaFX</app.name>
         <!-- DO NOT use ${project.version} as jpackage will fail on
@@ -197,6 +198,9 @@
                     <groupId>us.hebi.sass</groupId>
                     <artifactId>sass-cli-maven-plugin</artifactId>
                     <version>1.0.1</version>
+                    <configuration>
+                        <sassVersion>1.54.5</sassVersion>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

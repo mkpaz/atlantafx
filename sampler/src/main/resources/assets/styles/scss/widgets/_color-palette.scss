@@ -1,0 +1,132 @@
+// SPDX-License-Identifier: MIT
+
+$color-wsag-bg-passed: #388e3c;
+$color-wsag-bg-failed: #ef5350;
+$color-wsag-fg:        white;
+
+#color-palette {
+
+  -fx-spacing: 20px;
+  -fx-background-color: -color-bg-default; // mandatory base bg for flatten color calc
+
+  >.header {
+    -fx-pref-height: 40px;
+  }
+
+  >.grid {
+    -fx-vgap: 20px;
+    -fx-hgap: 40px;
+
+    >.color-block {
+      -fx-spacing: 5px;
+
+      >.box {
+        -fx-min-width: 12em;
+        -fx-min-height: 5em;
+        -fx-max-width: 12em;
+        -fx-max-height: 5em;
+        -fx-cursor: hand;
+
+        &:passed>.wsag-label {
+          -fx-background-color: $color-wsag-bg-passed;
+        }
+
+        >.wsag-label {
+          -fx-text-fill: $color-wsag-fg;
+          -fx-background-color: $color-wsag-bg-failed;
+          -fx-background-radius: 6px;
+          -fx-padding: 3px;
+
+          >.ikonli-font-icon {
+            -fx-fill: $color-wsag-fg;
+            -fx-icon-color: $color-wsag-fg;
+          }
+        }
+      }
+    }
+  }
+
+  >.contrast-checker-area {
+    -fx-padding: 0 0 0 -20px;
+
+    >.contrast-checker {
+      -fx-background-color: -color-contrast-checker-bg;
+      -fx-hgap: 40px;
+      -fx-vgap: 20px;
+      -fx-padding: 20px 20px 40px 20px;
+
+      .label {
+        -fx-text-fill: -color-contrast-checker-fg;
+      }
+
+      .text-field {
+        -fx-background-insets: 0;
+        -fx-background-color: transparent;
+        -fx-background-radius: 0;
+        -fx-text-fill: -color-contrast-checker-fg;
+        -fx-border-color: -color-contrast-checker-fg;
+        -fx-border-width: 0 0 1 0;
+      }
+
+      .button {
+        -color-button-bg: -color-contrast-checker-fg-flat;
+        -color-button-fg: -color-contrast-checker-bg-flat;
+        -color-button-border: -color-contrast-checker-bg-flat;
+
+        -color-button-bg-hover: -color-contrast-checker-fg-flat;
+        -color-button-fg-hover: -color-contrast-checker-bg-flat;
+        -color-button-border-hover: -color-contrast-checker-bg-flat;
+
+        -color-button-bg-focused: -color-contrast-checker-fg-flat;
+        -color-button-fg-focused: -color-contrast-checker-bg-flat;
+        -color-button-border-focused: -color-contrast-checker-bg-flat;
+
+        -color-button-bg-pressed: -color-contrast-checker-bg-flat;
+        -color-button-fg-pressed: -color-contrast-checker-fg-flat;
+        -color-button-border-pressed: -color-contrast-checker-fg-flat;
+      }
+
+      .ikonli-font-icon {
+        -fx-icon-color: -color-contrast-checker-fg;
+        -fx-fill: -color-contrast-checker-fg;
+      }
+
+      .slider {
+        >.thumb {
+          -fx-background-color: -color-contrast-checker-fg;
+        }
+
+        >.track {
+          -fx-background-color: transparent, -color-contrast-checker-fg;
+          -fx-opacity: 0.5;
+        }
+      }
+
+      .font-box {
+        >.text {
+          -fx-font-size: 4em;
+        }
+
+        >.ratio {
+          -fx-font-size: 2em;
+        }
+      }
+
+      >.wsag-box>*>.wsag-label {
+        -fx-padding: 0.5em 1em 0.5em 1em;
+        -fx-background-color: $color-wsag-bg-failed;
+        -fx-background-radius: 6px;
+        -fx-text-fill: $color-wsag-fg;
+
+        &:passed {
+          -fx-background-color: $color-wsag-bg-passed;
+        }
+
+        >.ikonli-font-icon {
+          -fx-fill: $color-wsag-fg;
+          -fx-icon-color: $color-wsag-fg;
+        }
+      }
+    }
+  }
+}

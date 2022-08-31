@@ -13,7 +13,6 @@
     <properties>
         <scss.inputDir>${project.basedir}/src</scss.inputDir>
         <css.outputDir>${project.basedir}/dist</css.outputDir>
-        <sass.version>1.54.4</sass.version>
     </properties>
 
     <build>

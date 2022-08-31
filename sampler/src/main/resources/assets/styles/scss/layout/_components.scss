@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: MIT
+
+.sample-block {
+  -fx-spacing: 1em;
+
+  >.title {
+    -fx-font-weight: bold;
+  }
+}
+
+.popover .date-picker-popup {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+}
