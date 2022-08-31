@@ -142,7 +142,7 @@
                 <artifactId>sass-cli-maven-plugin</artifactId>
                 <configuration>
                     <args>
-                        <arg>src/main/resources/assets/styles/scss/index.scss:${project.build.directory}/classes/atlantafx/sampler/assets/styles/index.css</arg>
+                        <arg>${project.basedir}/src/main/resources/assets/styles/scss/index.scss:${project.build.directory}/classes/atlantafx/sampler/assets/styles/index.css</arg>
                         <arg>--no-source-map</arg>
                     </args>
                 </configuration>
