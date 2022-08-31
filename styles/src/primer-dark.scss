@@ -112,14 +112,4 @@
 );
 
 @use "general";
-
-@forward "components/slider" as slider-* with (
-  $thumb-color: -color-fg-emphasis,
-  $thumb-color-border: -color-fg-emphasis
-);
-
-@forward "components/titled-pane" as titled-pane-* with (
-  $elevation-color: -color-bg-inset
-);
-
 @use "components";

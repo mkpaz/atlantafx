@@ -10,7 +10,8 @@ $padding-y: 10px !default;
 $margin-arrow:   10px !default;
 $margin-content: 20px !default;
 
-$elevation-color:       -color-border-subtle !default;
+// for elevation darker than bg color should be used for both light and dark modes
+$elevation-color:       if(cfg.$darkMode, -color-bg-inset, -color-border-default) !default;
 $elevation-interactive: map-get(cfg.$elevation, 2) !default;
 
 .titled-pane {

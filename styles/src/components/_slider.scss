@@ -3,8 +3,9 @@
 @use "../settings/config" as cfg;
 @use "sass:math";
 
-$thumb-color:        -color-bg-default      !default;
-$thumb-color-border: -color-accent-emphasis !default;
+// use borderless slider for dark mode by default
+$thumb-color:        if(cfg.$darkMode, -color-fg-default, -color-bg-default) !default;
+$thumb-color-border: if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
 $thumb-size:         8px !default;
 $thumb-border-width: 2px !default;
 
