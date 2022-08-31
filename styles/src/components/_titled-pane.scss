@@ -62,7 +62,12 @@ $elevation-interactive: map-get(cfg.$elevation, 2) !default;
   // othserwise background color will be different due -fxopacity and
   // -fx-effect applied at the same time
   &:disabled {
-    -fx-opacity: cfg.$opacity-disabled;
+    // opacity shouldn't be applied to the titled pane borders,
+    // otherwise disabled accordion blocks would look weird
+    >.title > *,
+    >.content > * {
+      -fx-opacity: cfg.$opacity-disabled;
+    }
   }
 
   // When titled pane is animated and being collapsed you may notice that bottom
