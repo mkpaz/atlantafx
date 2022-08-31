@@ -1,9 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
-import atlantafx.base.theme.Theme;
+import atlantafx.base.theme.*;
 import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.theme.ThemeEvent.EventType;
@@ -102,6 +100,8 @@ public final class ThemeManager {
         } else {
             themes.add(new PrimerLight(appStylesheets));
             themes.add(new PrimerDark(appStylesheets));
+            themes.add(new NordLight(appStylesheets));
+            themes.add(new NordDark(appStylesheets));
         }
         return themes;
     }
