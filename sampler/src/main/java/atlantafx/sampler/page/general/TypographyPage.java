@@ -3,6 +3,7 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -41,6 +42,12 @@ public class TypographyPage extends AbstractPage {
     public TypographyPage() {
         super();
         createView();
+        ThemeManager.getInstance().addEventListener(e -> {
+            if (e.eventType() == EventType.FONT_FAMILY_CHANGE || e.eventType() == EventType.FONT_SIZE_CHANGE) {
+                // only works for managed nodes
+                updateFontInfo(Duration.ofMillis(1000));
+            }
+        });
     }
 
     private void createView() {
@@ -65,6 +72,8 @@ public class TypographyPage extends AbstractPage {
                 textColorSample().getRoot(),
                 textFlowSample().getRoot()
         );
+        // if you want to enable quick menu don't forget that
+        // font size spinner value have to be updated accordingly
         quickConfigBtn.setVisible(false);
         quickConfigBtn.setManaged(false);
         sourceCodeToggleBtn.setVisible(false);
@@ -84,7 +93,6 @@ public class TypographyPage extends AbstractPage {
             if (val != null) {
                 tm.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val);
                 tm.reloadCustomCSS();
-                updateFontInfo(Duration.ofMillis(1000));
             }
         });
 

@@ -126,12 +126,14 @@ public class JColorUtils {
         validateHexSingle(green);
         validateHexSingle(blue);
         StringBuilder color = new StringBuilder("#");
-        if (alpha != null) {
-            color.append(expandShorthandHexSingle(alpha));
-        }
         color.append(expandShorthandHexSingle(red));
         color.append(expandShorthandHexSingle(green));
         color.append(expandShorthandHexSingle(blue));
+        // alpha must be at the end of the string
+        // not at the start, like it was originally
+        if (alpha != null) {
+            color.append(expandShorthandHexSingle(alpha));
+        }
         return color.toString();
     }
 

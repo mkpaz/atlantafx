@@ -6,12 +6,16 @@ import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
+import atlantafx.sampler.theme.ThemeEvent.EventType;
+import atlantafx.sampler.util.JColor;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 
 import java.net.URI;
 import java.util.*;
+import java.util.function.Consumer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -33,9 +37,14 @@ public final class ThemeManager {
     private Theme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
+    private final List<Consumer<ThemeEvent>> eventListeners = new ArrayList<>();
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void addEventListener(Consumer<ThemeEvent> listener) {
+        eventListeners.add(Objects.requireNonNull(listener));
     }
 
     public void setScene(Scene scene) {
@@ -66,6 +75,7 @@ public final class ThemeManager {
 
         theme.getStylesheets().forEach(uri -> scene.getStylesheets().add(uri.toString()));
         currentTheme = theme;
+        notifyEventListeners(EventType.THEME_CHANGE);
     }
 
     public List<Theme> getAvailableThemes() {
@@ -104,6 +114,7 @@ public final class ThemeManager {
         Objects.requireNonNull(fontFamily);
         setCustomDeclaration("-fx-font-family", "\"" + fontFamily + "\"");
         this.fontFamily = fontFamily;
+        notifyEventListeners(EventType.FONT_FAMILY_CHANGE);
     }
 
     public boolean isDefaultFontFamily() {
@@ -118,14 +129,36 @@ public final class ThemeManager {
         setCustomDeclaration("-fx-font-size", fontSize + "px");
         setCustomRule(".ikonli-font-icon", String.format("-fx-icon-size: %dpx;", fontSize + 2));
         this.fontSize = fontSize;
+        notifyEventListeners(EventType.FONT_SIZE_CHANGE);
+    }
+
+    public void setColor(String colorName, Color color) {
+        Objects.requireNonNull(colorName);
+        Objects.requireNonNull(color);
+        setCustomDeclaration(colorName, JColor.color(
+                (float) color.getRed(), (float) color.getGreen(), (float) color.getBlue(), (float) color.getOpacity()).getColorHexWithAlpha()
+        );
+    }
+
+    public void resetColor(String colorName) {
+        Objects.requireNonNull(colorName);
+        removeCustomDeclaration(colorName);
     }
 
     private void setCustomDeclaration(String property, String value) {
         customCSSDeclarations.put(property, value);
     }
 
+    private void removeCustomDeclaration(String property) {
+        customCSSDeclarations.remove(property);
+    }
+
     private void setCustomRule(String selector, String rule) {
         customCSSRules.put(selector, rule);
+    }
+
+    private void removeCustomRule(String selector) {
+        customCSSRules.remove(selector);
     }
 
     public void reloadCustomCSS() {
@@ -159,12 +192,14 @@ public final class ThemeManager {
                 "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
         );
         scene.getRoot().pseudoClassStateChanged(USER_CUSTOM, true);
+        notifyEventListeners(EventType.CUSTOM_CSS_CHANGE);
     }
 
     public void resetCustomCSS() {
         customCSSDeclarations.clear();
         customCSSRules.clear();
         scene.getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
+        notifyEventListeners(EventType.CUSTOM_CSS_CHANGE);
     }
 
     public HighlightJSTheme getMatchingHighlightJSTheme(Theme theme) {
@@ -172,6 +207,11 @@ public final class ThemeManager {
         if ("Nord Light".equals(theme.getName())) { return HighlightJSTheme.nordLight(); }
         if ("Nord Dark".equals(theme.getName())) { return HighlightJSTheme.nordDark(); }
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
+    }
+
+    public void notifyEventListeners(EventType eventType) {
+        var e = new ThemeEvent(eventType);
+        eventListeners.forEach(l -> l.accept(e));
     }
 
     @SafeVarargs

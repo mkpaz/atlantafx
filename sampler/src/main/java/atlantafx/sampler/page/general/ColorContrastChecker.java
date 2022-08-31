@@ -3,6 +3,7 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
+import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.JColor;
 import atlantafx.sampler.util.JColorUtils;
 import javafx.beans.binding.Bindings;
@@ -256,14 +257,25 @@ public class ColorContrastChecker extends GridPane {
 
         // ~
 
-        var flattenButton = new Button("Flatten");
-        flattenButton.setOnAction(e -> {
+        var flattenBtn = new Button("Flatten");
+        flattenBtn.setOnAction(e -> {
             double[] flatBg = flattenColor(bgBaseColor.get(), bgColor.getColor());
             setBackground(Color.color(flatBg[0], flatBg[1], flatBg[2]));
 
             double[] flatFg = flattenColor(bgBaseColor.get(), fgColor.getColor());
             setForeground(Color.color(flatFg[0], flatFg[1], flatFg[2]));
         });
+
+        var applyBtn = new Button("Apply");
+        applyBtn.setOnAction(e -> {
+            var tm  = ThemeManager.getInstance();
+            tm.setColor(getBgColorName(), bgColor.getColor());
+            tm.setColor(getFgColorName(), fgColor.getColor());
+            tm.reloadCustomCSS();
+        });
+
+        var controlsBox = new HBox(20, flattenBtn, applyBtn);
+        controlsBox.setAlignment(Pos.CENTER_LEFT);
 
         // ~
 
@@ -283,7 +295,7 @@ public class ColorContrastChecker extends GridPane {
         add(bgAlphaLabel, 0, 10);
         add(bgAlphaSlider, 0, 11);
 
-        add(flattenButton, 0, 12);
+        add(controlsBox, 0, 12, REMAINING, 1);
 
         // column 1
         add(wsagBox, 1, 0);

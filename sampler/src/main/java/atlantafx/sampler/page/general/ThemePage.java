@@ -3,6 +3,7 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -24,6 +25,12 @@ public class ThemePage extends AbstractPage {
     public ThemePage() {
         super();
         createView();
+        ThemeManager.getInstance().addEventListener(e -> {
+            if (e.eventType() == EventType.THEME_CHANGE || e.eventType() == EventType.CUSTOM_CSS_CHANGE) {
+                // only works for managed nodes
+                colorPalette.updateColorInfo(Duration.ofSeconds(1));
+            }
+        });
     }
 
     @Override
@@ -37,6 +44,8 @@ public class ThemePage extends AbstractPage {
                 optionsGrid(),
                 colorPalette
         );
+        // if you want to enable quick menu don't forget that
+        // theme selection choice box have to be updated accordingly
         quickConfigBtn.setVisible(false);
         quickConfigBtn.setManaged(false);
         sourceCodeToggleBtn.setVisible(false);
@@ -69,7 +78,6 @@ public class ThemePage extends AbstractPage {
                 var tm = ThemeManager.getInstance();
                 tm.setTheme(val);
                 tm.reloadCustomCSS();
-                colorPalette.updateColorInfo(Duration.ofSeconds(1));
             }
         });
 
