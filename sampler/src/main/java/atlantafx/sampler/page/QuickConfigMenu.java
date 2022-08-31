@@ -3,6 +3,9 @@ package atlantafx.sampler.page;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.theme.ThemeManager;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.HorizontalDirection;
 import javafx.scene.Node;
@@ -13,9 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.kordamp.ikonli.material2.Material2MZ;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,9 @@ import static javafx.geometry.Pos.CENTER_LEFT;
 import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
 import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
 
+// This should really be refactored to more generic control someday.
+// - the whole component to PopoverMenu, that reuses JavaFX MenuItem API
+// - font size switcher to flat SpinnerMenuItem
 public class QuickConfigMenu extends StackPane {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
@@ -97,6 +103,11 @@ public class QuickConfigMenu extends StackPane {
     private static class MainMenu extends VBox {
 
         private static final String ID = "MainMenu";
+        private static final List<Integer> FONT_SCALE = List.of(
+                50, 75, 80, 90, 100, 110, 125, 150, 175, 200
+        );
+
+        private final IntegerProperty fontScale = new SimpleIntegerProperty(100);
 
         public MainMenu(Consumer<String> navHandler) {
             super();
@@ -108,20 +119,43 @@ public class QuickConfigMenu extends StackPane {
 
             // ~
 
-            var zoomInBtn = new Button("", new FontIcon(Material2MZ.MINUS));
+            var zoomInBtn = new Button("", new FontIcon(Feather.ZOOM_IN));
             zoomInBtn.getStyleClass().addAll(BUTTON_CIRCLE, BUTTON_ICON, FLAT);
+            zoomInBtn.setOnAction(e -> {
+                int idx = FONT_SCALE.indexOf(fontScale.get());
+                if (idx < FONT_SCALE.size() - 1) { fontScale.set(FONT_SCALE.get(idx + 1)); }
+            });
+            zoomInBtn.disableProperty().bind(Bindings.createBooleanBinding(
+                    () -> FONT_SCALE.indexOf(fontScale.get()) >= FONT_SCALE.size() - 1, fontScale)
+            );
 
-            var zoomOutBtn = new Button("", new FontIcon(Material2MZ.PLUS));
+            var zoomOutBtn = new Button("", new FontIcon(Feather.ZOOM_OUT));
             zoomOutBtn.getStyleClass().addAll(BUTTON_CIRCLE, BUTTON_ICON, FLAT);
+            zoomOutBtn.setOnAction(e -> {
+                int idx = FONT_SCALE.indexOf(fontScale.get());
+                if (idx >= 1) { fontScale.set(FONT_SCALE.get(idx - 1)); }
+            });
+            zoomOutBtn.disableProperty().bind(Bindings.createBooleanBinding(
+                    () -> FONT_SCALE.indexOf(fontScale.get()) <= 0, fontScale)
+            );
 
-            var zoomLabel = new Label("100%");
+            var zoomLabel = new Label();
+            zoomLabel.textProperty().bind(Bindings.createStringBinding(() -> fontScale.get() + "%", fontScale));
 
-            var zoomBox = new HBox(zoomInBtn, new Spacer(), zoomLabel, new Spacer(), zoomOutBtn);
+            var zoomBox = new HBox(zoomOutBtn, new Spacer(), zoomLabel, new Spacer(), zoomInBtn);
             zoomBox.setAlignment(CENTER_LEFT);
             zoomBox.getStyleClass().addAll("row");
-            zoomBox.setDisable(true); // not yet implemented
 
-            // !
+            final var tm = ThemeManager.getInstance();
+            fontScale.addListener((obs, old, val) -> {
+                if (val != null) {
+                    double fontSize = ThemeManager.DEFAULT_FONT_SIZE / 100.0 * val.intValue();
+                    tm.setFontSize((int) Math.ceil(fontSize));
+                    tm.reloadCustomCSS();
+                }
+            });
+
+            // ~
 
             getChildren().setAll(themeSelectionMenu, new Separator(), zoomBox);
         }
@@ -137,7 +171,7 @@ public class QuickConfigMenu extends StackPane {
             super();
 
             Objects.requireNonNull(navHandler);
-            var tm = ThemeManager.getInstance();
+            final var tm = ThemeManager.getInstance();
 
             var mainMenu = menu("Theme", HorizontalDirection.LEFT);
             mainMenu.setOnMouseClicked(e -> navHandler.accept(MainMenu.ID));

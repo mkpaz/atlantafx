@@ -65,6 +65,10 @@ public class TypographyPage extends AbstractPage {
                 textColorSample().getRoot(),
                 textFlowSample().getRoot()
         );
+        quickConfigBtn.setVisible(false);
+        quickConfigBtn.setManaged(false);
+        sourceCodeToggleBtn.setVisible(false);
+        sourceCodeToggleBtn.setManaged(false);
     }
 
     private ComboBox<String> fontFamilyChooser() {

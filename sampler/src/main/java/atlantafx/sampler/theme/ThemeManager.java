@@ -19,7 +19,9 @@ public final class ThemeManager {
 
     private static final String DUMMY_STYLESHEET = Resources.getResource("assets/styles/empty.css").toString();
     private static final PseudoClass USER_CUSTOM = PseudoClass.getPseudoClass("user-custom");
+
     public static final String DEFAULT_FONT_FAMILY_NAME = "Inter";
+    public static final int DEFAULT_FONT_SIZE = 14;
 
     // KEY           |  VALUE
     // -fx-property  |  value;
@@ -30,7 +32,7 @@ public final class ThemeManager {
     private Scene scene;
     private Theme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
-    private int fontSize = 14;
+    private int fontSize = DEFAULT_FONT_SIZE;
 
     public Scene getScene() {
         return scene;
