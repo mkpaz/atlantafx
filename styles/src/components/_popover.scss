@@ -3,16 +3,19 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-$padding-x: 1em !default;
-$padding-y: 1em !default;
+$color-bg:     -color-bg-overlay !default;
+$color-fg:     -color-fg-default !default;
+$color-border: -color-border-default !default;
+$padding-x: 10px !default;
+$padding-y: 10px !default;
 
 .popover {
-  -fx-background-color: -color-bg-overlay;
+  -fx-background-color: $color-bg;
 
   >.border {
-    -fx-stroke: -color-border-default;
+    -fx-stroke: $color-border;
     -fx-stroke-width: cfg.$border-width;
-    @include effects.shadow(-color-bg-inset, cfg.$popup-shadow);
+    @include effects.shadow($color-bg, cfg.$popup-shadow);
   }
 
   >.content {
@@ -22,7 +25,7 @@ $padding-y: 1em !default;
       -fx-padding: 0 0 1em 0;
 
       >.text {
-        -fx-text-fill: -color-fg-default;
+        -fx-text-fill: $color-fg;
         -fx-font-size: cfg.$font-title-4;
         -fx-alignment: CENTER_LEFT;
       }
@@ -34,7 +37,7 @@ $padding-y: 1em !default;
           }
 
           >.line {
-            -fx-stroke: -color-fg-default;
+            -fx-stroke: $color-fg;
             -fx-stroke-width: cfg.$border-width;
           }
         }
