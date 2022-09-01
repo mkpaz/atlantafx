@@ -11,12 +11,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ColorScale extends VBox {
+class ColorScale extends VBox {
 
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final List<ColorScaleBlock> blocks = Arrays.asList(
@@ -42,6 +44,10 @@ public class ColorScale extends VBox {
         headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getStyleClass().add("header");
 
+        var noteText = new TextFlow(
+                new Text("Avoid referencing scale variables directly when building UI that needs to adapt to different color themes. Instead, use the functional variables listed above.")
+        );
+
         backgroundProperty().addListener((obs, old, val) -> bgBaseColor.set(
                 val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
         ));
@@ -49,6 +55,7 @@ public class ColorScale extends VBox {
         setId("color-scale");
         getChildren().setAll(
                 headerBox,
+                noteText,
                 colorTable()
         );
     }

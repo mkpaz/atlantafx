@@ -13,21 +13,21 @@ $color-wsag-fg:        white;
     -fx-vgap: 20px;
     -fx-hgap: 40px;
 
-    >.color-block {
+    >.block {
       -fx-spacing: 5px;
 
-      >.box {
+      >.rectangle {
         -fx-min-width: 12em;
         -fx-min-height: 5em;
         -fx-max-width: 12em;
         -fx-max-height: 5em;
         -fx-cursor: hand;
 
-        &:passed>.wsag-label {
+        &:passed>.contrast-level-label {
           -fx-background-color: $color-wsag-bg-passed;
         }
 
-        >.wsag-label {
+        >.contrast-level-label {
           -fx-text-fill: $color-wsag-fg;
           -fx-background-color: $color-wsag-bg-failed;
           -fx-background-radius: 6px;

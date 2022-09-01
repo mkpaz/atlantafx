@@ -5,6 +5,7 @@ import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.theme.ThemeManager;
+import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.JColor;
 import atlantafx.sampler.util.JColorUtils;
 import javafx.beans.binding.Bindings;
@@ -34,16 +35,19 @@ import org.kordamp.ikonli.material2.Material2AL;
 import java.util.Objects;
 
 import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
-import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
 // Inspired by the https://colourcontrast.cc/
-public class ContrastChecker extends GridPane {
+class ContrastChecker extends GridPane {
 
     public static final double CONTRAST_RATIO_THRESHOLD = 1.5;
     public static final double LUMINANCE_THRESHOLD = 0.55;
     public static final PseudoClass PASSED = PseudoClass.getPseudoClass("passed");
 
+    private static final String STATE_PASS = "PASS";
+    private static final String STATE_FAIL = "FAIL";
     private static final int SLIDER_WIDTH = 300;
 
     private String bgColorName;
@@ -70,7 +74,7 @@ public class ContrastChecker extends GridPane {
 
         this.bgBaseColor = bgBaseColor;
         this.contrastRatio = Bindings.createDoubleBinding(
-                () -> 1 / getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
+                () -> getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
                 bgColor.colorProperty(),
                 fgColor.colorProperty(),
                 bgBaseColor
@@ -112,60 +116,42 @@ public class ContrastChecker extends GridPane {
     }
 
     private void createView() {
-        var textLabel = new Label("Aa");
-        textLabel.getStyleClass().add("text");
+        var largeFontLabel = new Label("Aa");
+        largeFontLabel.getStyleClass().add("large-font");
 
-        var ratioLabel = new Label("0.0");
-        ratioLabel.getStyleClass().add("ratio");
-        ratioLabel.textProperty().bind(Bindings.createStringBinding(
+        var contrastRatioLabel = new Label("0.0");
+        contrastRatioLabel.getStyleClass().add("ratio");
+        contrastRatioLabel.textProperty().bind(Bindings.createStringBinding(
                 () -> String.format("%.2f", contrastRatio.get()), contrastRatio
         ));
 
-        var fontBox = new HBox(20, textLabel, ratioLabel);
-        fontBox.getStyleClass().add("font-box");
-        fontBox.setAlignment(Pos.BASELINE_LEFT);
+        var contrastRatioBox = new HBox(20, largeFontLabel, contrastRatioLabel);
+        contrastRatioBox.getStyleClass().add("contrast-ratio");
+        contrastRatioBox.setAlignment(Pos.BASELINE_LEFT);
 
         // !
 
-        var aaNormalLabel = wsagLabel();
-        var aaNormalBox = wsagBox(aaNormalLabel, "AA Normal");
+        var aaNormalLabel = contrastLevelLabel();
+        var aaNormalBox = contrastLevelBox(aaNormalLabel, "AA Normal");
 
-        var aaLargeLabel = wsagLabel();
-        var aaLargeBox = wsagBox(aaLargeLabel, "AA Large");
+        var aaLargeLabel = contrastLevelLabel();
+        var aaLargeBox = contrastLevelBox(aaLargeLabel, "AA Large");
 
-        var aaaNormalLabel = wsagLabel();
-        var aaaNormalBox = wsagBox(aaaNormalLabel, "AAA Normal");
+        var aaaNormalLabel = contrastLevelLabel();
+        var aaaNormalBox = contrastLevelBox(aaaNormalLabel, "AAA Normal");
 
-        var aaaLargeLabel = wsagLabel();
-        var aaaLargeBox = wsagBox(aaaLargeLabel, "AAA Large");
+        var aaaLargeLabel = contrastLevelLabel();
+        var aaaLargeBox = contrastLevelBox(aaaLargeLabel, "AAA Large");
 
-        var wsagBox = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
-        wsagBox.getStyleClass().add("wsag-box");
+        var contrastLevels = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
 
         contrastRatio.addListener((obs, old, val) -> {
             if (val == null) { return; }
             float ratio = val.floatValue();
-            if (ratio >= 7) {
-                updateWsagLabel(aaNormalLabel, true);
-                updateWsagLabel(aaLargeLabel, true);
-                updateWsagLabel(aaaNormalLabel, true);
-                updateWsagLabel(aaaLargeLabel, true);
-            } else if (ratio < 7 && ratio >= 4.5) {
-                updateWsagLabel(aaNormalLabel, true);
-                updateWsagLabel(aaLargeLabel, true);
-                updateWsagLabel(aaaNormalLabel, false);
-                updateWsagLabel(aaaLargeLabel, true);
-            } else if (ratio < 4.5 && ratio >= 3) {
-                updateWsagLabel(aaNormalLabel, false);
-                updateWsagLabel(aaLargeLabel, true);
-                updateWsagLabel(aaaNormalLabel, false);
-                updateWsagLabel(aaaLargeLabel, false);
-            } else {
-                updateWsagLabel(aaNormalLabel, false);
-                updateWsagLabel(aaLargeLabel, false);
-                updateWsagLabel(aaaNormalLabel, false);
-                updateWsagLabel(aaaLargeLabel, false);
-            }
+            updateWsagLabel(aaNormalLabel, ContrastLevel.AA_NORMAL.satisfies(ratio));
+            updateWsagLabel(aaLargeLabel, ContrastLevel.AA_LARGE.satisfies(ratio));
+            updateWsagLabel(aaaNormalLabel, ContrastLevel.AAA_NORMAL.satisfies(ratio));
+            updateWsagLabel(aaaLargeLabel, ContrastLevel.AAA_LARGE.satisfies(ratio));
         });
 
         // ~
@@ -296,7 +282,7 @@ public class ContrastChecker extends GridPane {
         getStyleClass().add("contrast-checker");
 
         // column 0
-        add(new HBox(fontBox, new Spacer(), wsagBox), 0, 0, REMAINING, 1);
+        add(new HBox(contrastRatioBox, new Spacer(), contrastLevels), 0, 0, REMAINING, 1);
         add(new Label("Background Color"), 0, 1);
         add(bgColorNameLabel, 0, 2);
         add(bgTextField, 0, 3);
@@ -335,8 +321,8 @@ public class ContrastChecker extends GridPane {
 
     private void updateStyle() {
         setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
-                JColorUtils.toHexWithAlpha(bgColor.getColor()),
-                JColorUtils.toHexWithAlpha(getSafeFgColor())
+                               JColorUtils.toHexWithAlpha(bgColor.getColor()),
+                               JColorUtils.toHexWithAlpha(getSafeFgColor())
         ));
     }
 
@@ -359,25 +345,26 @@ public class ContrastChecker extends GridPane {
     private void updateWsagLabel(Label label, boolean success) {
         FontIcon icon = Objects.requireNonNull((FontIcon) label.getGraphic());
         if (success) {
-            label.setText("PASS");
+            label.setText(STATE_PASS);
             icon.setIconCode(Material2AL.CHECK);
         } else {
-            label.setText("FAIL");
+            label.setText(STATE_FAIL);
             icon.setIconCode(Material2AL.CLOSE);
         }
         label.pseudoClassStateChanged(PASSED, success);
     }
 
-    private Label wsagLabel() {
-        var label = new Label("FAIL");
-        label.getStyleClass().add("wsag-label");
+    private Label contrastLevelLabel() {
+        var label = new Label(STATE_FAIL);
+        label.getStyleClass().add("state");
         label.setContentDisplay(ContentDisplay.RIGHT);
         label.setGraphic(new FontIcon(Material2AL.CLOSE));
         return label;
     }
 
-    private VBox wsagBox(Label label, String description) {
+    private VBox contrastLevelBox(Label label, String description) {
         var box = new VBox(10, label, new Label(description));
+        box.getStyleClass().add("contrast-level");
         box.setAlignment(Pos.CENTER);
         return box;
     }
@@ -390,12 +377,6 @@ public class ContrastChecker extends GridPane {
         slider.setMinorTickCount(0);
         slider.setSnapToTicks(true);
         return slider;
-    }
-
-    static double getContrastRatioOpacityAware(Color bgColor, Color fgColor, Color bgBaseColor) {
-        double luminance1 = getColorLuminance(flattenColor(bgBaseColor, bgColor));
-        double luminance2 = getColorLuminance(flattenColor(bgBaseColor, fgColor));
-        return JColorUtils.getContrastRatio(luminance1, luminance2);
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -3,6 +3,8 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.ContrastLevel;
+import atlantafx.sampler.util.NodeUtils;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,15 +12,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
 import java.util.function.Consumer;
 
-import static atlantafx.sampler.page.general.ContrastChecker.*;
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.page.general.ContrastChecker.LUMINANCE_THRESHOLD;
+import static atlantafx.sampler.page.general.ContrastChecker.PASSED;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
-import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
 class ColorPaletteBlock extends VBox {
 
@@ -27,11 +31,11 @@ class ColorPaletteBlock extends VBox {
     private final String borderColorName;
     private final ReadOnlyObjectProperty<Color> bgBaseColor;
 
-    private final AnchorPane colorBox;
-    private final Text fgText;
-    private final FontIcon wsagIcon = new FontIcon();
-    private final Label wsagLabel = new Label();
-    private final FontIcon expandIcon = new FontIcon(Feather.MAXIMIZE_2);
+    private final AnchorPane colorRectangle;
+    private final Text contrastRatioText;
+    private final FontIcon contrastLevelIcon = new FontIcon();
+    private final Label contrastLevelLabel = new Label();
+    private final FontIcon editIcon = new FontIcon(Material2AL.COLORIZE);
 
     private Consumer<ColorPaletteBlock> actionHandler;
 
@@ -44,69 +48,54 @@ class ColorPaletteBlock extends VBox {
         this.borderColorName = validateColorName(borderColorName);
         this.bgBaseColor = bgBaseColor;
 
-        fgText = new Text();
-        fgText.setStyle("-fx-fill:" + fgColorName + ";");
-        fgText.getStyleClass().addAll("text", Styles.TITLE_3);
-        Containers.setAnchors(fgText, new Insets(5, -1, -1, 5));
+        contrastRatioText = new Text();
+        contrastRatioText.setStyle("-fx-fill:" + fgColorName + ";");
+        contrastRatioText.getStyleClass().addAll("contrast-ratio-text", TITLE_3);
+        Containers.setAnchors(contrastRatioText, new Insets(5, -1, -1, 5));
 
-        wsagLabel.setGraphic(wsagIcon);
-        wsagLabel.getStyleClass().add("wsag-label");
-        wsagLabel.setVisible(false);
-        Containers.setAnchors(wsagLabel, new Insets(-1, 3, 3, -1));
+        contrastLevelLabel.setGraphic(contrastLevelIcon);
+        contrastLevelLabel.getStyleClass().add("contrast-level-label");
+        contrastLevelLabel.setVisible(false);
+        Containers.setAnchors(contrastLevelLabel, new Insets(-1, 3, 3, -1));
 
-        expandIcon.setIconSize(24);
-        expandIcon.getStyleClass().add("expand-icon");
-        expandIcon.setVisible(false);
-        expandIcon.setManaged(false);
-        Containers.setAnchors(expandIcon, new Insets(3, 3, -1, -1));
+        editIcon.setIconSize(24);
+        editIcon.getStyleClass().add("edit-icon");
+        NodeUtils.toggleVisibility(editIcon, false);
+        Containers.setAnchors(editIcon, new Insets(3, 3, -1, -1));
 
-        colorBox = new AnchorPane();
-        colorBox.setStyle("-fx-background-color:" + bgColorName + ";" + "-fx-border-color:" + borderColorName + ";");
-        colorBox.getStyleClass().add("box");
-        colorBox.getChildren().setAll(fgText, wsagLabel, expandIcon);
-        colorBox.setOnMouseEntered(e -> {
+        colorRectangle = new AnchorPane();
+        colorRectangle.setStyle(
+                String.format("-fx-background-color:%s;-fx-border-color:%s;", bgColorName, borderColorName)
+        );
+        colorRectangle.getStyleClass().add("rectangle");
+        colorRectangle.getChildren().setAll(contrastRatioText, contrastLevelLabel, editIcon);
+        colorRectangle.setOnMouseEntered(e -> {
             var bgFill = getBgColor();
 
             // this happens when css isn't updated yet
             if (bgFill == null) { return; }
 
             toggleHover(true);
-            expandIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
-                    Color.WHITE : Color.BLACK
+            editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
+                                     Color.WHITE : Color.BLACK
             );
         });
-        colorBox.setOnMouseExited(e -> toggleHover(false));
-        colorBox.setOnMouseClicked(e -> {
+        colorRectangle.setOnMouseExited(e -> toggleHover(false));
+        colorRectangle.setOnMouseClicked(e -> {
             if (actionHandler != null) { actionHandler.accept(this); }
         });
 
         getChildren().addAll(
-                colorBox,
-                description(fgColorName),
-                description(bgColorName),
-                description(borderColorName)
+                colorRectangle,
+                colorNameText(fgColorName),
+                colorNameText(bgColorName),
+                colorNameText(borderColorName)
         );
-        getStyleClass().add("color-block");
+        getStyleClass().add("block");
     }
 
-    static String validateColorName(String colorName) {
-        if (colorName == null || !colorName.startsWith("-color")) {
-            throw new IllegalArgumentException("Invalid color name: '" + colorName + "'.");
-        }
-        return colorName;
-    }
-
-    private void toggleHover(boolean state) {
-        expandIcon.setVisible(state);
-        expandIcon.setManaged(state);
-        fgText.setOpacity(state ? 0.5 : 1);
-        wsagLabel.setOpacity(state ? 0.5 : 1);
-    }
-
-    private Text description(String text) {
-        var t = new Text(text);
-        t.getStyleClass().addAll("description", Styles.TEXT_SMALL);
-        return t;
+    public void setOnAction(Consumer<ColorPaletteBlock> actionHandler) {
+        this.actionHandler = actionHandler;
     }
 
     public void update() {
@@ -114,28 +103,28 @@ class ColorPaletteBlock extends VBox {
         var bgFill = getBgColor();
 
         if (fgFill == null || bgFill == null) {
-            fgText.setText("");
-            wsagLabel.setText("");
-            wsagLabel.setVisible(false);
+            contrastRatioText.setText("");
+            contrastLevelLabel.setText("");
+            contrastLevelLabel.setVisible(false);
             return;
         }
 
-        double contrastRatio = 1 / getContrastRatioOpacityAware(bgFill, fgFill, bgBaseColor.get());
-        colorBox.pseudoClassStateChanged(PASSED, contrastRatio >= 4.5);
+        double contrastRatio = getContrastRatioOpacityAware(bgFill, fgFill, bgBaseColor.get());
+        colorRectangle.pseudoClassStateChanged(PASSED, ContrastLevel.AA_NORMAL.satisfies(contrastRatio));
 
-        wsagIcon.setIconCode(contrastRatio >= 4.5 ? Material2AL.CHECK : Material2AL.CLOSE);
-        wsagLabel.setVisible(true);
-        wsagLabel.setText(contrastRatio >= 7 ? "AAA" : "AA");
-        fgText.setText(String.format("%.2f", contrastRatio));
+        contrastRatioText.setText(String.format("%.2f", contrastRatio));
+        contrastLevelIcon.setIconCode(ContrastLevel.AA_NORMAL.satisfies(contrastRatio) ? Material2AL.CHECK : Material2AL.CLOSE);
+        contrastLevelLabel.setVisible(true);
+        contrastLevelLabel.setText(ContrastLevel.AAA_NORMAL.satisfies(contrastRatio) ? "AAA" : "AA");
     }
 
     public Color getFgColor() {
-        return (Color) fgText.getFill();
+        return (Color) contrastRatioText.getFill();
     }
 
     public Color getBgColor() {
-        return colorBox.getBackground() != null && !colorBox.getBackground().isEmpty() ?
-                (Color) colorBox.getBackground().getFills().get(0).getFill() : null;
+        return colorRectangle.getBackground() != null && !colorRectangle.getBackground().isEmpty() ?
+                (Color) colorRectangle.getBackground().getFills().get(0).getFill() : null;
     }
 
     public String getFgColorName() {
@@ -150,7 +139,22 @@ class ColorPaletteBlock extends VBox {
         return borderColorName;
     }
 
-    public void setOnAction(Consumer<ColorPaletteBlock> actionHandler) {
-        this.actionHandler = actionHandler;
+    private void toggleHover(boolean state) {
+        NodeUtils.toggleVisibility(editIcon, state);
+        contrastRatioText.setOpacity(state ? 0.5 : 1);
+        contrastLevelLabel.setOpacity(state ? 0.5 : 1);
+    }
+
+    private Text colorNameText(String text) {
+        var t = new Text(text);
+        t.getStyleClass().addAll("color-name", Styles.TEXT_SMALL);
+        return t;
+    }
+
+    static String validateColorName(String colorName) {
+        if (colorName == null || !colorName.startsWith("-color")) {
+            throw new IllegalArgumentException("Invalid color name: '" + colorName + "'.");
+        }
+        return colorName;
     }
 }

@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler;
 
+import atlantafx.sampler.event.BrowseEvent;
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.Listener;
 import atlantafx.sampler.layout.ApplicationWindow;
 import atlantafx.sampler.theme.ThemeManager;
 import fr.brouillard.oss.cssfx.CSSFX;
@@ -63,6 +66,9 @@ public class Launcher extends Application {
         stage.setResizable(true);
         stage.setOnCloseRequest(t -> Platform.exit());
 
+        // register event listeners
+        DefaultEventBus.getInstance().subscribe(BrowseEvent.class, this::onBrowseEvent);
+
         Platform.runLater(() -> {
             stage.show();
             stage.requestFocus();
@@ -108,5 +114,10 @@ public class Launcher extends Application {
                 System.out.println("[CSSFX] " + String.format(message, args))
         );
         CSSFX.start(scene);
+    }
+
+    @Listener
+    private void onBrowseEvent(BrowseEvent event) {
+        getHostServices().showDocument(event.getUri().toString());
     }
 }

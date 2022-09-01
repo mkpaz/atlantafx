@@ -2,6 +2,7 @@
 @use "color-palette" as palette;
 
 .contrast-checker {
+
   -fx-background-color: -color-contrast-checker-bg;
   -fx-hgap: 40px;
   -fx-vgap: 20px;
@@ -47,11 +48,6 @@
     }
   }
 
-  .ikonli-font-icon {
-    -fx-icon-color: -color-contrast-checker-fg;
-    -fx-fill: -color-contrast-checker-fg;
-  }
-
   .slider {
     >.thumb {
       -fx-background-color: -color-contrast-checker-fg;
@@ -63,10 +59,15 @@
     }
   }
 
-  .font-box {
+  .ikonli-font-icon {
+    -fx-icon-color: -color-contrast-checker-fg;
+    -fx-fill: -color-contrast-checker-fg;
+  }
+
+  .contrast-ratio {
     -fx-padding: 0 40px 0 0;
 
-    >.text {
+    >.large-font {
       -fx-font-size: 4em;
     }
 
@@ -75,19 +76,21 @@
     }
   }
 
-  .wsag-box>*>.wsag-label {
-    -fx-padding: 0.5em 1em 0.5em 1em;
-    -fx-background-color: palette.$color-wsag-bg-failed;
-    -fx-background-radius: 4px;
-    -fx-text-fill: palette.$color-wsag-fg;
+  .contrast-level {
+    >.state {
+      -fx-padding: 0.5em 1em 0.5em 1em;
+      -fx-background-color: palette.$color-wsag-bg-failed;
+      -fx-background-radius: 4px;
+      -fx-text-fill: palette.$color-wsag-fg;
 
-    &:passed {
-      -fx-background-color: palette.$color-wsag-bg-passed;
-    }
+      &:passed {
+        -fx-background-color: palette.$color-wsag-bg-passed;
+      }
 
-    >.ikonli-font-icon {
-      -fx-fill: palette.$color-wsag-fg;
-      -fx-icon-color: palette.$color-wsag-fg;
+      >.ikonli-font-icon {
+        -fx-fill: palette.$color-wsag-fg;
+        -fx-icon-color: palette.$color-wsag-fg;
+      }
     }
   }
 }

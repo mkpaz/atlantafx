@@ -1,13 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.util;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import atlantafx.sampler.event.BrowseEvent;
+import atlantafx.sampler.event.DefaultEventBus;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.net.URI;
 
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
 
@@ -40,10 +41,10 @@ public final class Controls {
     }
 
     public static ToggleButton toggleButton(String text,
-                                      Ikon icon,
-                                      ToggleGroup group,
-                                      boolean selected,
-                                      String... styleClasses) {
+                                            Ikon icon,
+                                            ToggleGroup group,
+                                            boolean selected,
+                                            String... styleClasses) {
         var toggleButton = new ToggleButton(text);
         if (icon != null) { toggleButton.setGraphic(new FontIcon(icon)); }
         if (group != null) { toggleButton.setToggleGroup(group); }
@@ -51,5 +52,13 @@ public final class Controls {
         toggleButton.getStyleClass().addAll(styleClasses);
 
         return toggleButton;
+    }
+
+    public static Hyperlink hyperlink(String text, URI uri) {
+        var hyperlink = new Hyperlink(text);
+        if (uri != null) {
+            hyperlink.setOnAction(event -> DefaultEventBus.getInstance().publish(new BrowseEvent(uri)));
+        }
+        return hyperlink;
     }
 }

@@ -8,10 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
-import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
-public class ColorScaleBlock extends VBox {
+class ColorScaleBlock extends VBox {
 
     private static final double BLOCK_WIDTH = 250;
     private static final double BLOCK_HEIGHT = 50;
@@ -34,8 +34,8 @@ public class ColorScaleBlock extends VBox {
             if (c instanceof Label label) {
                 String colorName = (String) label.getUserData();
                 label.setStyle(String.format("-fx-background-color:%s;-fx-text-fill:%s;",
-                        colorName,
-                        JColorUtils.toHexWithAlpha(getSafeFgColor(label))
+                                             colorName,
+                                             JColorUtils.toHexWithAlpha(getSafeFgColor(label))
                 ));
             }
         });

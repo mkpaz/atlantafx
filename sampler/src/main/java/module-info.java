@@ -20,6 +20,7 @@ module atlantafx.sampler {
     exports atlantafx.sampler;
     exports atlantafx.sampler.fake;
     exports atlantafx.sampler.fake.domain;
+    exports atlantafx.sampler.event;
     exports atlantafx.sampler.layout;
     exports atlantafx.sampler.page;
     exports atlantafx.sampler.page.general;

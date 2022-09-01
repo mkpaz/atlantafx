@@ -10,11 +10,16 @@ import javafx.geometry.HPos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
+import java.net.URI;
 import java.util.Objects;
 import java.util.function.Consumer;
+
+import static atlantafx.sampler.util.Controls.hyperlink;
 
 public class ThemePage extends AbstractPage {
 
@@ -23,9 +28,9 @@ public class ThemePage extends AbstractPage {
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler = colorBlock -> {
         ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
         dialog.getContent().setValues(colorBlock.getFgColorName(),
-                colorBlock.getFgColor(),
-                colorBlock.getBgColorName(),
-                colorBlock.getBgColor()
+                                      colorBlock.getFgColor(),
+                                      colorBlock.getBgColorName(),
+                                      colorBlock.getBgColor()
         );
         overlay.setContent(dialog, HPos.CENTER);
         overlay.toFront();
@@ -59,11 +64,21 @@ public class ThemePage extends AbstractPage {
     }
 
     private void createView() {
+        var noteText = new TextFlow(
+                new Text("AtlantaFX follows "),
+                hyperlink("Github Primer interface guidelines",
+                          URI.create("https://primer.style/design/foundations/color")
+                ),
+                new Text(" and color system.")
+        );
+
         userContent.getChildren().addAll(
                 optionsGrid(),
+                noteText,
                 colorPalette,
                 colorScale
         );
+
         // if you want to enable quick menu don't forget that
         // theme selection choice box have to be updated accordingly
         NodeUtils.toggleVisibility(quickConfigBtn, false);
