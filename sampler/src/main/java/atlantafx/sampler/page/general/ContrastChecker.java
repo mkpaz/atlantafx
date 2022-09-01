@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.controls.CustomTextField;
+import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.JColor;
@@ -33,16 +34,15 @@ import org.kordamp.ikonli.material2.Material2AL;
 import java.util.Objects;
 
 import static atlantafx.sampler.page.general.ColorBlock.validateColorName;
-import static atlantafx.sampler.util.JColorUtils.*;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
 // Inspired by the https://colourcontrast.cc/
-public class ColorContrastChecker extends GridPane {
+public class ContrastChecker extends GridPane {
 
-    static final PseudoClass PASSED = PseudoClass.getPseudoClass("passed");
-    static final float[] COLOR_WHITE = new float[] { 255f, 255f, 255f, 1f };
-    static final float[] COLOR_BLACK = new float[] { 0f, 0f, 0f, 1f };
-    static final double CONTRAST_RATIO_THRESHOLD = 1.5;
-    static final double LUMINANCE_THRESHOLD = 0.55;
+    public static final double CONTRAST_RATIO_THRESHOLD = 1.5;
+    public static final double LUMINANCE_THRESHOLD = 0.55;
+    public static final PseudoClass PASSED = PseudoClass.getPseudoClass("passed");
 
     private static final int SLIDER_WIDTH = 300;
 
@@ -65,7 +65,7 @@ public class ColorContrastChecker extends GridPane {
     private Slider fgLightnessSlider;
     private Slider fgAlphaSlider;
 
-    public ColorContrastChecker(ReadOnlyObjectProperty<Color> bgBaseColor) {
+    public ContrastChecker(ReadOnlyObjectProperty<Color> bgBaseColor) {
         super();
 
         this.bgBaseColor = bgBaseColor;
@@ -97,6 +97,19 @@ public class ColorContrastChecker extends GridPane {
     public Color getBgColor() { return bgColor.colorProperty().get(); }
 
     public Color getFgColor() { return fgColor.colorProperty().get(); }
+
+    public ReadOnlyObjectProperty<Color> bgColorProperty() { return bgColor.colorProperty(); }
+
+    public ReadOnlyObjectProperty<Color> fgColorProperty() { return fgColor.colorProperty(); }
+
+    // Returns fg color that guaranteed to be visible on the current bg.
+    public Color getSafeFgColor() {
+        if (contrastRatio.get() <= CONTRAST_RATIO_THRESHOLD) {
+            return getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD ? Color.WHITE : Color.BLACK;
+        } else {
+            return fgColor.getColor();
+        }
+    }
 
     private void createView() {
         var textLabel = new Label("Aa");
@@ -268,21 +281,22 @@ public class ColorContrastChecker extends GridPane {
 
         var applyBtn = new Button("Apply");
         applyBtn.setOnAction(e -> {
-            var tm  = ThemeManager.getInstance();
+            var tm = ThemeManager.getInstance();
             tm.setColor(getBgColorName(), bgColor.getColor());
             tm.setColor(getFgColorName(), fgColor.getColor());
             tm.reloadCustomCSS();
         });
 
-        var controlsBox = new HBox(20, flattenBtn, applyBtn);
+        var controlsBox = new HBox(20, new Spacer(), flattenBtn, applyBtn);
         controlsBox.setAlignment(Pos.CENTER_LEFT);
+        controlsBox.setPadding(new Insets(10, 0, 0, 0));
 
         // ~
 
         getStyleClass().add("contrast-checker");
 
         // column 0
-        add(fontBox, 0, 0);
+        add(new HBox(fontBox, new Spacer(), wsagBox), 0, 0, REMAINING, 1);
         add(new Label("Background Color"), 0, 1);
         add(bgColorNameLabel, 0, 2);
         add(bgTextField, 0, 3);
@@ -298,7 +312,6 @@ public class ColorContrastChecker extends GridPane {
         add(controlsBox, 0, 12, REMAINING, 1);
 
         // column 1
-        add(wsagBox, 1, 0);
         add(new Label("Foreground Color"), 1, 1);
         add(fgColorNameLabel, 1, 2);
         add(fgTextField, 1, 3);
@@ -321,40 +334,14 @@ public class ColorContrastChecker extends GridPane {
     }
 
     private void updateStyle() {
-        float[] bg = bgColor.getRGBAColor();
-        float[] fg = fgColor.getRGBAColor();
-
-        // use fallback color if contrast ratio is too low
-        if (contrastRatio.get() <= CONTRAST_RATIO_THRESHOLD) {
-            fg = getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD ?
-                    COLOR_WHITE :
-                    COLOR_BLACK;
-        }
-
-        // flat colors are necessary for controls that use reverse styling (bg color over fg color),
-        // it won't be readable if we not remove transparency first
-        double[] bgFlat = flattenColor(bgBaseColor.get(), bgColor.getColor());
-        double[] fgFlat = flattenColor(bgBaseColor.get(), fgColor.getColor());
-
-        var style = String.format("-color-contrast-checker-bg:rgba(%.0f,%.0f,%.0f,%.2f);" +
-                        "-color-contrast-checker-fg:rgba(%.0f,%.0f,%.0f,%.2f);" +
-                        "-color-contrast-checker-bg-flat:%s;" +
-                        "-color-contrast-checker-fg-flat:%s;",
-                bg[0], bg[1], bg[2], bg[3],
-                fg[0], fg[1], fg[2], fg[3],
-                JColor.color((float) bgFlat[0], (float) bgFlat[1], (float) bgFlat[2]).getColorHex(),
-                JColor.color((float) fgFlat[0], (float) fgFlat[1], (float) fgFlat[2]).getColorHex()
-        );
-
-        setStyle(style);
+        setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
+                JColorUtils.toHexWithAlpha(bgColor.getColor()),
+                JColorUtils.toHexWithAlpha(getSafeFgColor())
+        ));
     }
 
     private void setBackground(Color color) {
-        float[] hsl = JColorUtils.toHSL(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
-        );
+        float[] hsl = JColorUtils.toHSL(color);
         bgHueSlider.setValue(hsl[0]);
         bgSaturationSlider.setValue(hsl[1]);
         bgLightnessSlider.setValue(hsl[2]);
@@ -362,11 +349,7 @@ public class ColorContrastChecker extends GridPane {
     }
 
     private void setForeground(Color color) {
-        float[] hsl = JColorUtils.toHSL(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
-        );
+        float[] hsl = JColorUtils.toHSL(color);
         fgHueSlider.setValue(hsl[0]);
         fgSaturationSlider.setValue(hsl[1]);
         fgLightnessSlider.setValue(hsl[2]);
@@ -412,7 +395,7 @@ public class ColorContrastChecker extends GridPane {
     static double getContrastRatioOpacityAware(Color bgColor, Color fgColor, Color bgBaseColor) {
         double luminance1 = getColorLuminance(flattenColor(bgBaseColor, bgColor));
         double luminance2 = getColorLuminance(flattenColor(bgBaseColor, fgColor));
-        return getContrastRatio(luminance1, luminance2);
+        return JColorUtils.getContrastRatio(luminance1, luminance2);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -435,11 +418,7 @@ public class ColorContrastChecker extends GridPane {
         }
 
         public void setColor(Color color) {
-            float[] hsl = JColorUtils.toHSL(
-                    (float) color.getRed(),
-                    (float) color.getGreen(),
-                    (float) color.getBlue()
-            );
+            float[] hsl = JColorUtils.toHSL(color);
             values.setAll(hsl[0], hsl[1], hsl[2], (float) color.getOpacity());
         }
 
@@ -486,17 +465,6 @@ public class ColorContrastChecker extends GridPane {
                     color.getRedArithmetic(),
                     color.getGreenArithmetic(),
                     color.getBlueArithmetic(),
-                    getAlpha()
-            };
-        }
-
-        public float[] getRGBAColor() {
-            float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
-            var color = JColor.color(hsl, getAlpha());
-            return new float[] {
-                    color.getRed(),
-                    color.getGreen(),
-                    color.getBlue(),
                     getAlpha()
             };
         }

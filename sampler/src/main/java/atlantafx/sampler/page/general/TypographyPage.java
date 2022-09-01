@@ -5,6 +5,7 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
+import atlantafx.sampler.util.NodeUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
@@ -74,10 +75,8 @@ public class TypographyPage extends AbstractPage {
         );
         // if you want to enable quick menu don't forget that
         // font size spinner value have to be updated accordingly
-        quickConfigBtn.setVisible(false);
-        quickConfigBtn.setManaged(false);
-        sourceCodeToggleBtn.setVisible(false);
-        sourceCodeToggleBtn.setManaged(false);
+        NodeUtils.toggleVisibility(quickConfigBtn, false);
+        NodeUtils.toggleVisibility(sourceCodeToggleBtn, false);
     }
 
     private ComboBox<String> fontFamilyChooser() {

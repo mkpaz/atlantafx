@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 
 import static javafx.scene.layout.Priority.ALWAYS;
 
-public class Sidebar extends VBox {
+class Sidebar extends VBox {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
 

@@ -109,12 +109,6 @@
                 <directory>src/main/java/atlantafx/sampler/page</directory>
                 <targetPath>atlantafx/sampler/page</targetPath>
                 <filtering>false</filtering>
-                <excludes>
-                    <exclude>**/AbstractPage.java</exclude>
-                    <exclude>**/CodeViewer.java</exclude>
-                    <exclude>**/Page.java</exclude>
-                    <exclude>**/SampleBlock.java</exclude>
-                </excludes>
             </resource>
             <!-- copy icons -->
             <resource>

@@ -16,7 +16,7 @@ import org.kordamp.ikonli.material2.Material2AL;
 
 import java.util.function.Consumer;
 
-import static atlantafx.sampler.page.general.ColorContrastChecker.*;
+import static atlantafx.sampler.page.general.ContrastChecker.*;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
 import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
@@ -71,8 +71,8 @@ class ColorBlock extends VBox {
             if (bgFill == null) { return; }
 
             toggleHover(true);
-            expandIcon.setFill(
-                    getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ? Color.WHITE : Color.BLACK
+            expandIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
+                    Color.WHITE : Color.BLACK
             );
         });
         colorBox.setOnMouseExited(e -> toggleHover(false));

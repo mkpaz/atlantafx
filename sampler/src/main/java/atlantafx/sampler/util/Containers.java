@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
@@ -40,5 +41,15 @@ public final class Containers {
         ColumnConstraints constraints = new ColumnConstraints(minWidth, USE_COMPUTED_SIZE, maxWidth);
         constraints.setHgrow(hgrow);
         return constraints;
+    }
+
+    public static void usePrefWidth(Region region) {
+        region.setMinWidth(USE_PREF_SIZE);
+        region.setMaxWidth(USE_PREF_SIZE);
+    }
+
+    public static void usePrefHeight(Region region) {
+        region.setMinHeight(USE_PREF_SIZE);
+        region.setMaxHeight(USE_PREF_SIZE);
     }
 }

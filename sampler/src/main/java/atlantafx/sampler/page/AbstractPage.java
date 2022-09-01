@@ -4,6 +4,7 @@ package atlantafx.sampler.page;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
+import atlantafx.sampler.layout.Overlay;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,6 +49,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
     protected StackPane codeViewerWrapper;
     protected CodeViewer codeViewer;
     protected VBox userContent;
+    protected Overlay overlay;
     protected boolean isRendered = false;
 
     protected AbstractPage() {
@@ -96,8 +98,8 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
         var scrollPane = new ScrollPane(userContentWrapper);
         setScrollConstraints(scrollPane,
-                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
-                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true
+                ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
+                ScrollPane.ScrollBarPolicy.AS_NEEDED, true
         );
         scrollPane.setMaxHeight(10_000);
 
@@ -129,9 +131,16 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
     // Some properties can only be obtained after node placed
     // to the scene graph and here is the place do this.
-    protected void onRendered() { }
+    protected void onRendered() {
+        this.overlay = lookupOverlay();
+    }
 
-    private void showThemeConfigPopover() {
+    protected Overlay lookupOverlay() {
+        return getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay overlay ?
+                overlay : null;
+    }
+
+    protected void showThemeConfigPopover() {
         if (quickConfigPopover == null) {
             var content = new QuickConfigMenu();
             content.setExitHandler(() -> quickConfigPopover.hide());

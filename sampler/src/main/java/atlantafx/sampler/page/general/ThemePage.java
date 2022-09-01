@@ -5,6 +5,8 @@ import atlantafx.base.theme.Theme;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
+import atlantafx.sampler.util.NodeUtils;
+import javafx.geometry.HPos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -12,12 +14,26 @@ import javafx.util.StringConverter;
 
 import java.time.Duration;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class ThemePage extends AbstractPage {
 
     public static final String NAME = "Theme";
 
-    private final ColorPalette colorPalette = new ColorPalette();
+    private final Consumer<ColorBlock> colorBlockActionHandler = colorBlock -> {
+        ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
+        dialog.getContent().setValues(colorBlock.getFgColorName(),
+                colorBlock.getFgColor(),
+                colorBlock.getBgColorName(),
+                colorBlock.getBgColor()
+        );
+        overlay.setContent(dialog, HPos.CENTER);
+        overlay.toFront();
+    };
+
+    private final ColorPalette colorPalette = new ColorPalette(colorBlockActionHandler);
+
+    private ContrastCheckerDialog contrastCheckerDialog;
 
     @Override
     public String getName() { return NAME; }
@@ -46,16 +62,13 @@ public class ThemePage extends AbstractPage {
         );
         // if you want to enable quick menu don't forget that
         // theme selection choice box have to be updated accordingly
-        quickConfigBtn.setVisible(false);
-        quickConfigBtn.setManaged(false);
-        sourceCodeToggleBtn.setVisible(false);
-        sourceCodeToggleBtn.setManaged(false);
+        NodeUtils.toggleVisibility(quickConfigBtn, false);
+        NodeUtils.toggleVisibility(sourceCodeToggleBtn, false);
     }
 
     private GridPane optionsGrid() {
         ChoiceBox<Theme> themeSelector = themeSelector();
         themeSelector.setPrefWidth(200);
-        themeSelector.disableProperty().bind(colorPalette.contrastCheckerActiveProperty());
 
         // ~
 
@@ -105,5 +118,18 @@ public class ThemePage extends AbstractPage {
         }
 
         return selector;
+    }
+
+    private ContrastCheckerDialog getOrCreateContrastCheckerDialog() {
+        if (contrastCheckerDialog == null) {
+            contrastCheckerDialog = new ContrastCheckerDialog(colorPalette.bgBaseColorProperty());
+        }
+
+        contrastCheckerDialog.setOnCloseRequest(() -> {
+            overlay.removeContent();
+            overlay.toBack();
+        });
+
+        return contrastCheckerDialog;
     }
 }
