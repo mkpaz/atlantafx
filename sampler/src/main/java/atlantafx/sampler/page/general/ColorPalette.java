@@ -1,9 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
-import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
-import javafx.application.Platform;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Pos;
@@ -12,18 +12,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
-import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 class ColorPalette extends VBox {
 
-    private final List<ColorBlock> blocks = new ArrayList<>();
+    private final List<ColorPaletteBlock> blocks = new ArrayList<>();
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
-    private final Consumer<ColorBlock> colorBlockActionHandler;
+    private final Consumer<ColorPaletteBlock> colorBlockActionHandler;
 
-    public ColorPalette(Consumer<ColorBlock> blockClickedHandler) {
+    public ColorPalette(Consumer<ColorPaletteBlock> blockClickedHandler) {
         super();
 
         this.colorBlockActionHandler = Objects.requireNonNull(blockClickedHandler);
@@ -35,7 +37,7 @@ class ColorPalette extends VBox {
         headerLabel.getStyleClass().add(Styles.TITLE_4);
 
         var headerBox = new HBox();
-        headerBox.getChildren().setAll(headerLabel, new Spacer());
+        headerBox.getChildren().setAll(headerLabel);
         headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getStyleClass().add("header");
 
@@ -85,8 +87,8 @@ class ColorPalette extends VBox {
         return grid;
     }
 
-    private ColorBlock colorBlock(String fgColor, String bgColor, String borderColor) {
-        var block = new ColorBlock(fgColor, bgColor, borderColor, bgBaseColor.getReadOnlyProperty());
+    private ColorPaletteBlock colorBlock(String fgColor, String bgColor, String borderColor) {
+        var block = new ColorPaletteBlock(fgColor, bgColor, borderColor, bgBaseColor.getReadOnlyProperty());
         block.setOnAction(colorBlockActionHandler);
         blocks.add(block);
         return block;
@@ -96,12 +98,9 @@ class ColorPalette extends VBox {
     // Unfortunately, JavaFX doesn't provide an API to observe when stylesheet changes has been applied.
     // The timer is introduced to defer widget update to a time when scene changes supposedly will be finished.
     public void updateColorInfo(Duration delay) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> blocks.forEach(ColorBlock::update));
-            }
-        }, delay.toMillis());
+        var t = new Timeline(new KeyFrame(delay));
+        t.setOnFinished(e -> blocks.forEach(ColorPaletteBlock::update));
+        t.play();
     }
 
     public ReadOnlyObjectProperty<Color> bgBaseColorProperty() {

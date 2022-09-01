@@ -33,7 +33,7 @@ import org.kordamp.ikonli.material2.Material2AL;
 
 import java.util.Objects;
 
-import static atlantafx.sampler.page.general.ColorBlock.validateColorName;
+import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
 import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 

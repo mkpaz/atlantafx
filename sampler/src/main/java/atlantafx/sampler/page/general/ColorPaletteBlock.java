@@ -20,7 +20,7 @@ import static atlantafx.sampler.page.general.ContrastChecker.*;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
 import static atlantafx.sampler.util.JColorUtils.getColorLuminance;
 
-class ColorBlock extends VBox {
+class ColorPaletteBlock extends VBox {
 
     private final String fgColorName;
     private final String bgColorName;
@@ -33,12 +33,12 @@ class ColorBlock extends VBox {
     private final Label wsagLabel = new Label();
     private final FontIcon expandIcon = new FontIcon(Feather.MAXIMIZE_2);
 
-    private Consumer<ColorBlock> actionHandler;
+    private Consumer<ColorPaletteBlock> actionHandler;
 
-    public ColorBlock(String fgColorName,
-                      String bgColorName,
-                      String borderColorName,
-                      ReadOnlyObjectProperty<Color> bgBaseColor) {
+    public ColorPaletteBlock(String fgColorName,
+                             String bgColorName,
+                             String borderColorName,
+                             ReadOnlyObjectProperty<Color> bgBaseColor) {
         this.fgColorName = validateColorName(fgColorName);
         this.bgColorName = validateColorName(bgColorName);
         this.borderColorName = validateColorName(borderColorName);
@@ -150,7 +150,7 @@ class ColorBlock extends VBox {
         return borderColorName;
     }
 
-    public void setOnAction(Consumer<ColorBlock> actionHandler) {
+    public void setOnAction(Consumer<ColorPaletteBlock> actionHandler) {
         this.actionHandler = actionHandler;
     }
 }

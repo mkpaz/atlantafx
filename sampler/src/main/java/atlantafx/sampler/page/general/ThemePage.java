@@ -10,9 +10,9 @@ import javafx.geometry.HPos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 
-import java.time.Duration;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -20,7 +20,7 @@ public class ThemePage extends AbstractPage {
 
     public static final String NAME = "Theme";
 
-    private final Consumer<ColorBlock> colorBlockActionHandler = colorBlock -> {
+    private final Consumer<ColorPaletteBlock> colorBlockActionHandler = colorBlock -> {
         ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
         dialog.getContent().setValues(colorBlock.getFgColorName(),
                 colorBlock.getFgColor(),
@@ -32,6 +32,7 @@ public class ThemePage extends AbstractPage {
     };
 
     private final ColorPalette colorPalette = new ColorPalette(colorBlockActionHandler);
+    private final ColorScale colorScale = new ColorScale();
 
     private ContrastCheckerDialog contrastCheckerDialog;
 
@@ -44,7 +45,8 @@ public class ThemePage extends AbstractPage {
         ThemeManager.getInstance().addEventListener(e -> {
             if (e.eventType() == EventType.THEME_CHANGE || e.eventType() == EventType.CUSTOM_CSS_CHANGE) {
                 // only works for managed nodes
-                colorPalette.updateColorInfo(Duration.ofSeconds(1));
+                colorPalette.updateColorInfo(Duration.seconds(1));
+                colorScale.updateColorInfo(Duration.seconds(1));
             }
         });
     }
@@ -53,12 +55,14 @@ public class ThemePage extends AbstractPage {
     protected void onRendered() {
         super.onRendered();
         colorPalette.updateColorInfo(Duration.ZERO);
+        colorScale.updateColorInfo(Duration.ZERO);
     }
 
     private void createView() {
         userContent.getChildren().addAll(
                 optionsGrid(),
-                colorPalette
+                colorPalette,
+                colorScale
         );
         // if you want to enable quick menu don't forget that
         // theme selection choice box have to be updated accordingly

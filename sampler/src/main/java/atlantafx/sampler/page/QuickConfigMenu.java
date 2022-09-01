@@ -139,6 +139,7 @@ public class QuickConfigMenu extends StackPane {
                     () -> FONT_SCALE.indexOf(fontScale.get()) <= 0, fontScale)
             );
 
+            // FIXME: Default zoom value is always 100% which isn't correct because it may have been changed earlier
             var zoomLabel = new Label();
             zoomLabel.textProperty().bind(Bindings.createStringBinding(() -> fontScale.get() + "%", fontScale));
 
@@ -149,7 +150,9 @@ public class QuickConfigMenu extends StackPane {
             final var tm = ThemeManager.getInstance();
             fontScale.addListener((obs, old, val) -> {
                 if (val != null) {
-                    double fontSize = ThemeManager.DEFAULT_FONT_SIZE / 100.0 * val.intValue();
+                    double fontSize = val.intValue() != 100 ?
+                            ThemeManager.DEFAULT_FONT_SIZE / 100.0 * val.intValue() :
+                            ThemeManager.DEFAULT_FONT_SIZE;
                     tm.setFontSize((int) Math.ceil(fontSize));
                     tm.reloadCustomCSS();
                 }

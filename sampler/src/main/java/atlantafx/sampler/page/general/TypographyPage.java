@@ -6,7 +6,8 @@ import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.NodeUtils;
-import javafx.application.Platform;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,10 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
-import java.time.Duration;
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.util.Duration;
 
 import static atlantafx.base.theme.Styles.*;
 
@@ -46,7 +44,7 @@ public class TypographyPage extends AbstractPage {
         ThemeManager.getInstance().addEventListener(e -> {
             if (e.eventType() == EventType.FONT_FAMILY_CHANGE || e.eventType() == EventType.FONT_SIZE_CHANGE) {
                 // only works for managed nodes
-                updateFontInfo(Duration.ofMillis(1000));
+                updateFontInfo(Duration.seconds(1));
             }
         });
     }
@@ -116,7 +114,7 @@ public class TypographyPage extends AbstractPage {
             if (val != null) {
                 tm.setFontSize(val);
                 tm.reloadCustomCSS();
-                updateFontInfo(Duration.ofMillis(1000));
+                updateFontInfo(Duration.seconds(1));
             }
         });
 
@@ -130,21 +128,18 @@ public class TypographyPage extends AbstractPage {
     }
 
     private void updateFontInfo(Duration delay) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    for (Node node : fontSizeSampleContent.getChildren()) {
-                        if (node instanceof Text textNode) {
-                            var font = textNode.getFont();
-                            textNode.setText(
-                                    String.format("%s = %.1fpx", textNode.getUserData(), Math.ceil(font.getSize()))
-                            );
-                        }
-                    }
-                });
+        var t = new Timeline(new KeyFrame(delay));
+        t.setOnFinished(e -> {
+            for (Node node : fontSizeSampleContent.getChildren()) {
+                if (node instanceof Text textNode) {
+                    var font = textNode.getFont();
+                    textNode.setText(
+                            String.format("%s = %.1fpx", textNode.getUserData(), Math.ceil(font.getSize()))
+                    );
+                }
             }
-        }, delay.toMillis());
+        });
+        t.play();
     }
 
     private SampleBlock fontSizeSample() {

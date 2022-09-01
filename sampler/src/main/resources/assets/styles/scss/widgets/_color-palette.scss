@@ -9,10 +9,6 @@ $color-wsag-fg:        white;
   -fx-spacing: 20px;
   -fx-background-color: -color-bg-default; // mandatory base bg for flatten color calc
 
-  >.header {
-    -fx-pref-height: 40px;
-  }
-
   >.grid {
     -fx-vgap: 20px;
     -fx-hgap: 40px;
