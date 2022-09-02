@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Side;
@@ -35,7 +36,8 @@ public class MenuButtonPage extends AbstractPage {
                 popupSideSample().getRoot(),
                 iconOnlySample().getRoot(),
                 outlinedSample().getRoot(),
-                disabledSample().getRoot()
+                disabledSample().getRoot(),
+                noArrowSample().getRoot()
         );
     }
 
@@ -232,6 +234,26 @@ public class MenuButtonPage extends AbstractPage {
         sample.getChildren().addAll(basicMenuBtn, accentSplitBtn, flatMenuBtn, iconMenuBtn);
 
         return new SampleBlock("Disabled", sample);
+    }
+
+    private SampleBlock noArrowSample() {
+        var basicMenuBtn = new MenuButton("_Menu Button");
+        basicMenuBtn.getItems().setAll(menuItems(5));
+        basicMenuBtn.getStyleClass().addAll(Tweaks.NO_ARROW);
+
+        var flatMenuBtn = new MenuButton("Flat");
+        flatMenuBtn.getItems().setAll(menuItems(5));
+        flatMenuBtn.getStyleClass().addAll(FLAT, Tweaks.NO_ARROW);
+
+        var iconMenuBtn = new MenuButton();
+        iconMenuBtn.setGraphic(new FontIcon(Feather.MORE_HORIZONTAL));
+        iconMenuBtn.getItems().setAll(menuItems(5));
+        iconMenuBtn.getStyleClass().addAll(BUTTON_ICON, Tweaks.NO_ARROW);
+
+        var content = new HBox(10);
+        content.getChildren().addAll(basicMenuBtn, flatMenuBtn, iconMenuBtn);
+
+        return new SampleBlock("No Arrow", content);
     }
 
     @SuppressWarnings("SameParameterValue")

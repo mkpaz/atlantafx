@@ -121,6 +121,20 @@ $separator-width:    0.75px !default;
   }
 }
 
+.menu-button {
+  &.no-arrow {
+    >.arrow-button {
+      -fx-padding: 0;
+
+      >.arrow {
+        -fx-shape: none;
+        -fx-scale-shape: false;
+        -fx-min-width: -1;
+      }
+    }
+  }
+}
+
 .split-menu-button {
 
   >.label {
