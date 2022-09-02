@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: MIT
+
+.accent-color-selector {
+  -color-primary: -color-accent-emphasis;
+
+  -fx-spacing: 1em;
+
+  >.color-button {
+    >.icon {
+      -fx-min-width: 1em;
+      -fx-pref-width: 1em;
+      -fx-max-height: 1em;
+      -fx-min-width: 1em;
+      -fx-pref-height: 1em;
+      -fx-max-height: 1em;
+      -fx-background-color: -color-primary;
+    }
+  }
+}

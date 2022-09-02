@@ -1,9 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
-import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.NodeUtils;
 import javafx.animation.KeyFrame;
@@ -25,6 +26,9 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.event.ThemeEvent.EventType.FONT_CHANGE;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_CHANGE;
+import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_FONT_SIZE;
 
 public class TypographyPage extends AbstractPage {
 
@@ -41,9 +45,8 @@ public class TypographyPage extends AbstractPage {
     public TypographyPage() {
         super();
         createView();
-        ThemeManager.getInstance().addEventListener(e -> {
-            if (e.eventType() == EventType.FONT_FAMILY_CHANGE || e.eventType() == EventType.FONT_SIZE_CHANGE) {
-                // only works for managed nodes
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
+            if (e.getEventType() == THEME_CHANGE || e.getEventType() == FONT_CHANGE) {
                 updateFontInfo(Duration.seconds(1));
             }
         });
@@ -89,7 +92,6 @@ public class TypographyPage extends AbstractPage {
         comboBox.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 tm.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val);
-                tm.reloadCustomCSS();
             }
         });
 
@@ -99,7 +101,11 @@ public class TypographyPage extends AbstractPage {
     private Spinner<Integer> fontSizeSpinner() {
         final var tm = ThemeManager.getInstance();
 
-        var spinner = new Spinner<Integer>(10, 24, tm.getFontSize());
+        var spinner = new Spinner<Integer>(
+                SUPPORTED_FONT_SIZE.get(0),
+                SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
+                tm.getFontSize()
+        );
         spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
         spinner.setPrefWidth(CONTROL_WIDTH);
 
@@ -113,7 +119,6 @@ public class TypographyPage extends AbstractPage {
         spinner.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 tm.setFontSize(val);
-                tm.reloadCustomCSS();
                 updateFontInfo(Duration.seconds(1));
             }
         });

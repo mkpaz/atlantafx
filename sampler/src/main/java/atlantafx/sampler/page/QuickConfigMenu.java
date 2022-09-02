@@ -2,12 +2,15 @@
 package atlantafx.sampler.page;
 
 import atlantafx.base.controls.Spacer;
+import atlantafx.sampler.page.general.AccentColorSelector;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.HorizontalDirection;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +29,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_ZOOM;
+import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_ZOOM;
 import static javafx.geometry.Pos.CENTER_LEFT;
 import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
 import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
@@ -43,14 +48,10 @@ public class QuickConfigMenu extends StackPane {
     private Runnable exitHandler;
 
     private final Consumer<String> navHandler = s -> {
-        Pane pane = null;
+        Menu menu = null;
         switch (s) {
-            case MainMenu.ID -> pane = getOrCreateMainMenu();
-            case ThemeSelectionMenu.ID -> {
-                ThemeSelectionMenu menu = getOrCreateThemeSelectionMenu();
-                menu.update();
-                pane = menu;
-            }
+            case MainMenu.ID -> menu = getOrCreateMainMenu();
+            case ThemeSelectionMenu.ID -> menu = getOrCreateThemeSelectionMenu();
             default -> {
                 if (exitHandler != null) {
                     exitHandler.run();
@@ -58,7 +59,10 @@ public class QuickConfigMenu extends StackPane {
                 }
             }
         }
-        getChildren().setAll(Objects.requireNonNull(pane));
+
+        Objects.requireNonNull(menu);
+        menu.update();
+        getChildren().setAll(menu.getRoot());
     };
 
     public void setExitHandler(Runnable exitHandler) {
@@ -98,16 +102,30 @@ public class QuickConfigMenu extends StackPane {
         return root;
     }
 
+    public void update() {
+        getOrCreateMainMenu().update();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
 
-    private static class MainMenu extends VBox {
+    private interface Menu {
+
+        void update();
+
+        Pane getRoot();
+    }
+
+    private static class MainMenu extends VBox implements Menu {
 
         private static final String ID = "MainMenu";
-        private static final List<Integer> FONT_SCALE = List.of(
-                50, 75, 80, 90, 100, 110, 125, 150, 175, 200
-        );
 
-        private final IntegerProperty fontScale = new SimpleIntegerProperty(100);
+        private final IntegerProperty zoom = new SimpleIntegerProperty(DEFAULT_ZOOM);
+        private final BooleanBinding canZoomIn = Bindings.createBooleanBinding(
+                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) < SUPPORTED_ZOOM.size() - 1, zoom
+        );
+        private final BooleanBinding canZoomOut = Bindings.createBooleanBinding(
+                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) >= 1, zoom
+        );
 
         public MainMenu(Consumer<String> navHandler) {
             super();
@@ -117,54 +135,66 @@ public class QuickConfigMenu extends StackPane {
             var themeSelectionMenu = menu("Theme", HorizontalDirection.RIGHT);
             themeSelectionMenu.setOnMouseClicked(e -> navHandler.accept(ThemeSelectionMenu.ID));
 
+            var accentSelector = new AccentColorSelector();
+            accentSelector.setAlignment(Pos.CENTER);
+
             // ~
 
             var zoomInBtn = new Button("", new FontIcon(Feather.ZOOM_IN));
             zoomInBtn.getStyleClass().addAll(BUTTON_CIRCLE, BUTTON_ICON, FLAT);
             zoomInBtn.setOnAction(e -> {
-                int idx = FONT_SCALE.indexOf(fontScale.get());
-                if (idx < FONT_SCALE.size() - 1) { fontScale.set(FONT_SCALE.get(idx + 1)); }
+                if (canZoomIn.get()) {
+                    zoom.set(SUPPORTED_ZOOM.get(SUPPORTED_ZOOM.indexOf(zoom.get()) + 1));
+                }
             });
-            zoomInBtn.disableProperty().bind(Bindings.createBooleanBinding(
-                    () -> FONT_SCALE.indexOf(fontScale.get()) >= FONT_SCALE.size() - 1, fontScale)
-            );
+            zoomInBtn.disableProperty().bind(canZoomIn.not());
 
             var zoomOutBtn = new Button("", new FontIcon(Feather.ZOOM_OUT));
             zoomOutBtn.getStyleClass().addAll(BUTTON_CIRCLE, BUTTON_ICON, FLAT);
             zoomOutBtn.setOnAction(e -> {
-                int idx = FONT_SCALE.indexOf(fontScale.get());
-                if (idx >= 1) { fontScale.set(FONT_SCALE.get(idx - 1)); }
+                if (canZoomOut.get()) {
+                    zoom.set(SUPPORTED_ZOOM.get(SUPPORTED_ZOOM.indexOf(zoom.get()) - 1));
+                }
             });
-            zoomOutBtn.disableProperty().bind(Bindings.createBooleanBinding(
-                    () -> FONT_SCALE.indexOf(fontScale.get()) <= 0, fontScale)
-            );
+            zoomOutBtn.disableProperty().bind(canZoomOut.not());
 
-            // FIXME: Default zoom value is always 100% which isn't correct because it may have been changed earlier
             var zoomLabel = new Label();
-            zoomLabel.textProperty().bind(Bindings.createStringBinding(() -> fontScale.get() + "%", fontScale));
+            zoomLabel.textProperty().bind(Bindings.createStringBinding(() -> zoom.get() + "%", zoom));
 
             var zoomBox = new HBox(zoomOutBtn, new Spacer(), zoomLabel, new Spacer(), zoomInBtn);
             zoomBox.setAlignment(CENTER_LEFT);
             zoomBox.getStyleClass().addAll("row");
 
             final var tm = ThemeManager.getInstance();
-            fontScale.addListener((obs, old, val) -> {
-                if (val != null) {
-                    double fontSize = val.intValue() != 100 ?
-                            ThemeManager.DEFAULT_FONT_SIZE / 100.0 * val.intValue() :
-                            ThemeManager.DEFAULT_FONT_SIZE;
-                    tm.setFontSize((int) Math.ceil(fontSize));
-                    tm.reloadCustomCSS();
+            zoom.addListener((obs, old, val) -> {
+                if (val != null && tm.getZoom() != val.intValue()) {
+                    tm.setZoom(val.intValue());
                 }
             });
 
             // ~
 
-            getChildren().setAll(themeSelectionMenu, new Separator(), zoomBox);
+            getChildren().setAll(
+                    themeSelectionMenu,
+                    new Separator(),
+                    accentSelector,
+                    new Separator(),
+                    zoomBox
+            );
+        }
+
+        @Override
+        public void update() {
+            zoom.set(ThemeManager.getInstance().getZoom());
+        }
+
+        @Override
+        public Pane getRoot() {
+            return this;
         }
     }
 
-    private static class ThemeSelectionMenu extends VBox {
+    private static class ThemeSelectionMenu extends VBox implements Menu {
 
         public static final String ID = "ThemeSelectionMenu";
 
@@ -174,7 +204,7 @@ public class QuickConfigMenu extends StackPane {
             super();
 
             Objects.requireNonNull(navHandler);
-            final var tm = ThemeManager.getInstance();
+            var tm = ThemeManager.getInstance();
 
             var mainMenu = menu("Theme", HorizontalDirection.LEFT);
             mainMenu.setOnMouseClicked(e -> navHandler.accept(MainMenu.ID));
@@ -189,7 +219,6 @@ public class QuickConfigMenu extends StackPane {
                 item.setUserData(theme.getName());
                 item.setOnMouseClicked(e -> {
                     tm.setTheme(theme);
-                    tm.reloadCustomCSS();
                     navHandler.accept(MainMenu.ID);
                     navHandler.accept(QuickConfigMenu.EXIT_ID);
                 });
@@ -199,11 +228,17 @@ public class QuickConfigMenu extends StackPane {
             });
         }
 
+        @Override
         public void update() {
             items.forEach(item -> item.pseudoClassStateChanged(
                     SELECTED,
                     Objects.equals(item.getUserData(), ThemeManager.getInstance().getTheme().getName())
             ));
+        }
+
+        @Override
+        public Pane getRoot() {
+            return this;
         }
     }
 }

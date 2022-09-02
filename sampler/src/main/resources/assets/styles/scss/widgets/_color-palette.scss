@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-$color-wsag-bg-passed: #388e3c;
-$color-wsag-bg-failed: #ef5350;
-$color-wsag-fg:        white;
+$color-wcag-bg-passed: #388e3c;
+$color-wcag-bg-failed: #ef5350;
+$color-wcag-fg:        white;
 
 #color-palette {
 
@@ -24,18 +24,18 @@ $color-wsag-fg:        white;
         -fx-cursor: hand;
 
         &:passed>.contrast-level-label {
-          -fx-background-color: $color-wsag-bg-passed;
+          -fx-background-color: $color-wcag-bg-passed;
         }
 
         >.contrast-level-label {
-          -fx-text-fill: $color-wsag-fg;
-          -fx-background-color: $color-wsag-bg-failed;
+          -fx-text-fill: $color-wcag-fg;
+          -fx-background-color: $color-wcag-bg-failed;
           -fx-background-radius: 6px;
           -fx-padding: 3px;
 
           >.ikonli-font-icon {
-            -fx-fill: $color-wsag-fg;
-            -fx-icon-color: $color-wsag-fg;
+            -fx-fill: $color-wcag-fg;
+            -fx-icon-color: $color-wcag-fg;
           }
         }
       }

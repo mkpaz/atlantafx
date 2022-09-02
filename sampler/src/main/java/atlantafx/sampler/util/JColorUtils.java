@@ -26,7 +26,6 @@ package atlantafx.sampler.util;
 
 import javafx.scene.paint.Color;
 
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
@@ -803,19 +802,32 @@ public class JColorUtils {
      * <br/>
      * <a href="https://filosophy.org/code/online-tool-to-lighten-color-without-alpha-channel/">Source</a>.
      */
-    public static double[] flattenColor(Color bgColor, Color fgColor) {
+    public static double[] flattenColor(Color bg, Color fgColor) {
         var opacity = fgColor.getOpacity();
         return opacity < 1 ?
                 new double[] {
-                        opacity * fgColor.getRed() + (1 - opacity) * bgColor.getRed(),
-                        opacity * fgColor.getGreen() + (1 - opacity) * bgColor.getGreen(),
-                        opacity * fgColor.getBlue() + (1 - opacity) * bgColor.getBlue(),
+                        opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
+                        opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
+                        opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
                 } :
                 new double[] {
                         fgColor.getRed(),
                         fgColor.getGreen(),
                         fgColor.getBlue(),
                 };
+    }
+
+    /**
+     * The opposite to the {@link JColorUtils#flattenColor(Color, Color)}. It converts target opaque color
+     * to its equivalent with the desired opacity level.
+     */
+    public static Color opaqueColor(Color bgColor, Color targetColor, double targetOpacity) {
+        return Color.color(
+                bgColor.getRed() + (targetColor.getRed() - bgColor.getRed()) * targetOpacity,
+                bgColor.getGreen() + (targetColor.getGreen() - bgColor.getGreen()) * targetOpacity,
+                bgColor.getBlue() + (targetColor.getBlue() - bgColor.getBlue()) * targetOpacity,
+                targetOpacity
+        );
     }
 
     public static float[] toHSL(Color color) {

@@ -149,6 +149,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
             quickConfigPopover.setHeaderAlwaysVisible(false);
             quickConfigPopover.setDetachable(false);
             quickConfigPopover.setArrowLocation(TOP_CENTER);
+            quickConfigPopover.setOnShowing(e -> content.update());
         }
 
         quickConfigPopover.show(quickConfigBtn);
@@ -169,7 +170,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
             // set syntax highlight theme according to JavaFX theme
             ThemeManager tm = ThemeManager.getInstance();
-            codeViewer.setContent(stream, tm.getMatchingHighlightJSTheme(tm.getTheme()));
+            codeViewer.setContent(stream, tm.getMatchingSourceCodeHighlightTheme(tm.getTheme()));
 
             graphic.setIconCode(ICON_SAMPLE);
             codeViewerWrapper.toFront();

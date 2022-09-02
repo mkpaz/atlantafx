@@ -3,6 +3,7 @@ package atlantafx.sampler.layout;
 
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.OverviewPage;
+import atlantafx.sampler.theme.ThemeManager;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;

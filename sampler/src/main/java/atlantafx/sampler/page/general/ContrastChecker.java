@@ -32,6 +32,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
@@ -148,10 +149,10 @@ class ContrastChecker extends GridPane {
         contrastRatio.addListener((obs, old, val) -> {
             if (val == null) { return; }
             float ratio = val.floatValue();
-            updateWsagLabel(aaNormalLabel, ContrastLevel.AA_NORMAL.satisfies(ratio));
-            updateWsagLabel(aaLargeLabel, ContrastLevel.AA_LARGE.satisfies(ratio));
-            updateWsagLabel(aaaNormalLabel, ContrastLevel.AAA_NORMAL.satisfies(ratio));
-            updateWsagLabel(aaaLargeLabel, ContrastLevel.AAA_LARGE.satisfies(ratio));
+            updateContrastLevelLabel(aaNormalLabel, ContrastLevel.AA_NORMAL.satisfies(ratio));
+            updateContrastLevelLabel(aaLargeLabel, ContrastLevel.AA_LARGE.satisfies(ratio));
+            updateContrastLevelLabel(aaaNormalLabel, ContrastLevel.AAA_NORMAL.satisfies(ratio));
+            updateContrastLevelLabel(aaaLargeLabel, ContrastLevel.AAA_LARGE.satisfies(ratio));
         });
 
         // ~
@@ -266,12 +267,10 @@ class ContrastChecker extends GridPane {
         });
 
         var applyBtn = new Button("Apply");
-        applyBtn.setOnAction(e -> {
-            var tm = ThemeManager.getInstance();
-            tm.setColor(getBgColorName(), bgColor.getColor());
-            tm.setColor(getFgColorName(), fgColor.getColor());
-            tm.reloadCustomCSS();
-        });
+        applyBtn.setOnAction(e -> ThemeManager.getInstance().setNamedColors(Map.of(
+                getBgColorName(), bgColor.getColor(),
+                getFgColorName(), fgColor.getColor()
+        )));
 
         var controlsBox = new HBox(20, new Spacer(), flattenBtn, applyBtn);
         controlsBox.setAlignment(Pos.CENTER_LEFT);
@@ -321,8 +320,8 @@ class ContrastChecker extends GridPane {
 
     private void updateStyle() {
         setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
-                               JColorUtils.toHexWithAlpha(bgColor.getColor()),
-                               JColorUtils.toHexWithAlpha(getSafeFgColor())
+                JColorUtils.toHexWithAlpha(bgColor.getColor()),
+                JColorUtils.toHexWithAlpha(getSafeFgColor())
         ));
     }
 
@@ -342,7 +341,7 @@ class ContrastChecker extends GridPane {
         fgAlphaSlider.setValue(color.getOpacity());
     }
 
-    private void updateWsagLabel(Label label, boolean success) {
+    private void updateContrastLevelLabel(Label label, boolean success) {
         FontIcon icon = Objects.requireNonNull((FontIcon) label.getGraphic());
         if (success) {
             label.setText(STATE_PASS);

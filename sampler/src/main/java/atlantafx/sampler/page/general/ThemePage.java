@@ -2,8 +2,9 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Theme;
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.theme.ThemeEvent.EventType;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.NodeUtils;
 import javafx.geometry.HPos;
@@ -19,6 +20,8 @@ import java.net.URI;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static atlantafx.sampler.event.ThemeEvent.EventType.COLOR_CHANGE;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_CHANGE;
 import static atlantafx.sampler.util.Controls.hyperlink;
 
 public class ThemePage extends AbstractPage {
@@ -28,9 +31,9 @@ public class ThemePage extends AbstractPage {
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler = colorBlock -> {
         ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
         dialog.getContent().setValues(colorBlock.getFgColorName(),
-                                      colorBlock.getFgColor(),
-                                      colorBlock.getBgColorName(),
-                                      colorBlock.getBgColor()
+                colorBlock.getFgColor(),
+                colorBlock.getBgColorName(),
+                colorBlock.getBgColor()
         );
         overlay.setContent(dialog, HPos.CENTER);
         overlay.toFront();
@@ -47,9 +50,8 @@ public class ThemePage extends AbstractPage {
     public ThemePage() {
         super();
         createView();
-        ThemeManager.getInstance().addEventListener(e -> {
-            if (e.eventType() == EventType.THEME_CHANGE || e.eventType() == EventType.CUSTOM_CSS_CHANGE) {
-                // only works for managed nodes
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
+            if (e.getEventType() == THEME_CHANGE || e.getEventType() == COLOR_CHANGE) {
                 colorPalette.updateColorInfo(Duration.seconds(1));
                 colorScale.updateColorInfo(Duration.seconds(1));
             }
@@ -67,7 +69,7 @@ public class ThemePage extends AbstractPage {
         var noteText = new TextFlow(
                 new Text("AtlantaFX follows "),
                 hyperlink("Github Primer interface guidelines",
-                          URI.create("https://primer.style/design/foundations/color")
+                        URI.create("https://primer.style/design/foundations/color")
                 ),
                 new Text(" and color system.")
         );
@@ -89,6 +91,8 @@ public class ThemePage extends AbstractPage {
         ChoiceBox<Theme> themeSelector = themeSelector();
         themeSelector.setPrefWidth(200);
 
+        var accentSelector = new AccentColorSelector();
+
         // ~
 
         var grid = new GridPane();
@@ -97,6 +101,8 @@ public class ThemePage extends AbstractPage {
 
         grid.add(new Label("Color theme"), 0, 0);
         grid.add(themeSelector, 1, 0);
+        grid.add(new Label("Accent color"), 0, 1);
+        grid.add(accentSelector, 1, 1);
 
         return grid;
     }
@@ -109,7 +115,6 @@ public class ThemePage extends AbstractPage {
             if (val != null && getScene() != null) {
                 var tm = ThemeManager.getInstance();
                 tm.setTheme(val);
-                tm.reloadCustomCSS();
             }
         });
 

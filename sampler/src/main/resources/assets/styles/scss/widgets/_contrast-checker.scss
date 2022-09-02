@@ -79,17 +79,17 @@
   .contrast-level {
     >.state {
       -fx-padding: 0.5em 1em 0.5em 1em;
-      -fx-background-color: palette.$color-wsag-bg-failed;
+      -fx-background-color: palette.$color-wcag-bg-failed;
       -fx-background-radius: 4px;
-      -fx-text-fill: palette.$color-wsag-fg;
+      -fx-text-fill: palette.$color-wcag-fg;
 
       &:passed {
-        -fx-background-color: palette.$color-wsag-bg-passed;
+        -fx-background-color: palette.$color-wcag-bg-passed;
       }
 
       >.ikonli-font-icon {
-        -fx-fill: palette.$color-wsag-fg;
-        -fx-icon-color: palette.$color-wsag-fg;
+        -fx-fill: palette.$color-wcag-fg;
+        -fx-icon-color: palette.$color-wcag-fg;
       }
     }
   }
