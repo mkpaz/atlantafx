@@ -4,6 +4,7 @@ package atlantafx.sampler.page.showcase.filemanager;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.text.CharacterIterator;
@@ -29,24 +30,16 @@ final class Utils {
         }
     }
 
-    public static FileTime fileMTime(Path path) {
+    public static FileTime fileMTime(Path path, LinkOption... options) {
         if (path == null) { return null; }
         try {
-            return Files.getLastModifiedTime(path);
+            return Files.getLastModifiedTime(path, options);
         } catch (IOException e) {
             return null;
         }
     }
 
-    public static String humanReadableByteCount(long bytes) {
-        if (-1000 < bytes && bytes < 1000) { return bytes + " B"; }
-        CharacterIterator ci = new StringCharacterIterator("kMGTPE");
-        while (bytes <= -999_950 || bytes >= 999_950) {
-            bytes /= 1000;
-            ci.next();
-        }
-        return String.format("%.1f %cB", bytes / 1000.0, ci.current());
-    }
+
 
     public static void openFile(Path path) {
         if (Desktop.isDesktopSupported()) {
@@ -57,6 +50,14 @@ final class Utils {
                     throw new RuntimeException();
                 }
             }).start();
+        }
+    }
+
+    public static String getMimeType(Path path) {
+        try {
+            return Files.probeContentType(path);
+        } catch (IOException e) {
+            return null;
         }
     }
 }

@@ -1,7 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.filemanager;
 
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.HumanReadableFormat;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,28 +13,29 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2AL;
-import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static atlantafx.sampler.page.showcase.filemanager.Utils.*;
+import static atlantafx.sampler.util.HumanReadableFormat.byteCount;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static javafx.scene.control.TableColumn.SortType.ASCENDING;
 
 final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
     private static final PseudoClass HIDDEN = PseudoClass.getPseudoClass("hidden");
     private static final PseudoClass FOLDER = PseudoClass.getPseudoClass("folder");
+    private static final FileIconRepository REPO = new FileIconRepository();
+    private static final String UNKNOWN = "unknown";
 
     private final FileList fileList;
     private Consumer<Path> actionHandler;
@@ -42,7 +45,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         fileList = new FileList(table);
 
         getChildren().setAll(table);
-        getStyleClass().add("table-directory-view");
+        getStyleClass().addAll("table-directory-view");
         Containers.setAnchors(table, Insets.EMPTY);
     }
 
@@ -61,12 +64,14 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         sizeCol.setCellFactory(col -> new FileSizeCell());
 
         var mtimeCol = new TableColumn<Path, FileTime>("Modified");
-        mtimeCol.setCellValueFactory(param -> new SimpleObjectProperty<>(fileMTime(param.getValue())));
+        mtimeCol.setCellValueFactory(param -> new SimpleObjectProperty<>(fileMTime(param.getValue(), NOFOLLOW_LINKS)));
         mtimeCol.setCellFactory(col -> new FileTimeCell());
+        mtimeCol.setStyle("-fx-alignment: CENTER-RIGHT;");
 
         // ~
 
         var table = new TableView<Path>();
+        table.getStyleClass().add(Styles.STRIPED);
         table.getColumns().setAll(filenameCol, sizeCol, mtimeCol);
         table.getSortOrder().add(filenameCol);
         table.setSortPolicy(param -> true);
@@ -83,6 +88,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
             return row;
         });
+        table.setContextMenu(new RightClickMenu());
 
         return table;
     }
@@ -119,10 +125,12 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
     private static class FilenameCell extends TableCell<Path, String> {
 
-        private final FontIcon icon = new FontIcon();
+        private final ImageView imageView = new ImageView();
 
         public FilenameCell() {
             setGraphicTextGap(10);
+            imageView.setFitWidth(24);
+            imageView.setFitHeight(24);
         }
 
         @Override
@@ -132,11 +140,19 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
                 setGraphic(null);
                 setText(null);
             } else {
-                boolean isDirectory = Files.isDirectory(getTableRow().getItem());
-                icon.setIconCode(isDirectory ? Material2AL.FOLDER : Material2OutlinedAL.INSERT_DRIVE_FILE);
+                var isDirectory = Files.isDirectory(getTableRow().getItem());
+                var path = getTableRow().getItem();
+
+                if (!isDirectory) {
+                    imageView.setImage(REPO.getByMimeType(Utils.getMimeType(path)));
+                } else {
+                    imageView.setImage(FileIconRepository.FOLDER);
+                }
+
                 pseudoClassStateChanged(FOLDER, isDirectory);
-                getTableRow().pseudoClassStateChanged(HIDDEN, isFileHidden(getTableRow().getItem()));
-                setGraphic(icon);
+                getTableRow().pseudoClassStateChanged(HIDDEN, isFileHidden(path));
+
+                setGraphic(imageView);
                 setText(filename);
             }
         }
@@ -159,10 +175,10 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
                             throw new RuntimeException(e);
                         }
                     } else {
-                        setText("unknown");
+                        setText(UNKNOWN);
                     }
                 } else {
-                    setText(humanReadableByteCount(fileSize.longValue()));
+                    setText(byteCount(fileSize.longValue()));
                 }
             }
         }
@@ -176,9 +192,10 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
             if (empty) {
                 setText(null);
             } else {
-                setText(DateTimeFormatter.ISO_DATE.format(
-                        fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                ));
+                setText(fileTime != null ?
+                                HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
+                                UNKNOWN
+                );
             }
         }
     }

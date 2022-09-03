@@ -3,19 +3,21 @@ package atlantafx.sampler.page.showcase.filemanager;
 
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Spacer;
-import atlantafx.base.theme.Styles;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2MZ;
 
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -23,10 +25,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static atlantafx.base.theme.Styles.*;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_ANY;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_NOT_HIDDEN;
 import static atlantafx.sampler.page.showcase.filemanager.Utils.openFile;
+import static atlantafx.sampler.util.Controls.hyperlink;
+import static atlantafx.sampler.util.Controls.iconButton;
 
 public class FileManagerPage extends ShowcasePage {
 
@@ -48,36 +53,39 @@ public class FileManagerPage extends ShowcasePage {
     private void createView() {
         var topBar = new ToolBar();
 
-        var backBtn = new Button("", new FontIcon(Feather.ARROW_LEFT));
-        backBtn.getStyleClass().addAll(BUTTON_ICON, LEFT_PILL);
+        var backBtn = iconButton(Feather.ARROW_LEFT, false);
         backBtn.setOnAction(e -> model.back());
         backBtn.disableProperty().bind(model.getHistory().canGoBackProperty().not());
 
-        var forthBtn = new Button("", new FontIcon(Feather.ARROW_RIGHT));
-        forthBtn.getStyleClass().addAll(BUTTON_ICON, RIGHT_PILL);
+        var forthBtn = iconButton(Feather.ARROW_RIGHT, false);
         forthBtn.setOnAction(e -> model.forth());
         forthBtn.disableProperty().bind(model.getHistory().canGoForthProperty().not());
-
-        var backForthBox = new HBox(backBtn, forthBtn);
-        backForthBox.setAlignment(Pos.CENTER_LEFT);
 
         Breadcrumbs<Path> breadcrumbs = breadCrumbs();
         breadcrumbs.setOnCrumbAction(e -> model.navigate(e.getSelectedCrumb().getValue(), true));
 
+        var createMenuBtn = new MenuButton();
+        createMenuBtn.setText("New");
+        createMenuBtn.getItems().setAll(
+                new MenuItem("New Folder"),
+                new MenuItem("New Document")
+        );
+
         var toggleHiddenCheck = new CheckMenuItem("Show Hidden Files");
-        toggleHiddenCheck.setSelected(true);
+        toggleHiddenCheck.setSelected(false);
 
         var menuBtn = new MenuButton();
-        menuBtn.setGraphic(new FontIcon(Feather.MORE_HORIZONTAL));
-        menuBtn.getItems().setAll(
-                toggleHiddenCheck
-        );
-        menuBtn.getStyleClass().add(BUTTON_ICON);
+        menuBtn.setGraphic(new FontIcon(Material2MZ.MENU));
+        menuBtn.getItems().setAll(toggleHiddenCheck);
+        menuBtn.getStyleClass().addAll(BUTTON_ICON, Tweaks.NO_ARROW);
 
         topBar.getItems().setAll(
-                backForthBox,
+                backBtn,
+                forthBtn,
+                new Spacer(10),
                 breadcrumbs,
                 new Spacer(),
+                createMenuBtn,
                 menuBtn
         );
 
@@ -98,18 +106,31 @@ public class FileManagerPage extends ShowcasePage {
         // ~
 
         var splitPane = new SplitPane(bookmarksList, directoryView.getView());
-        splitPane.setDividerPositions(0.2, 0.8);
+        splitPane.widthProperty().addListener(
+                // set sidebar width in pixels depending on split pane width
+                (obs, old, val) -> splitPane.setDividerPosition(0, 200 / splitPane.getWidth())
+        );
+
+        var creditsBox = new HBox(5,
+                                  new Spacer(),
+                                  new Text("Inspired by"),
+                                  hyperlink("Gnome Files", URI.create("https://gitlab.gnome.org/GNOME/nautilus"))
+        );
+        creditsBox.getStyleClass().add("credits");
+        creditsBox.setPadding(new Insets(5, 0, 5, 0));
 
         var root = new BorderPane();
         root.getStyleClass().add("file-manager-showcase");
         root.getStylesheets().add(STYLESHEET_URL);
         root.setTop(topBar);
         root.setCenter(splitPane);
+        root.setBottom(creditsBox);
 
         toggleHiddenCheck.selectedProperty().addListener((obs, old, val) -> directoryView.getFileList()
                 .predicateProperty()
                 .set(val ? PREDICATE_ANY : PREDICATE_NOT_HIDDEN)
         );
+        directoryView.getFileList().predicateProperty().set(PREDICATE_NOT_HIDDEN);
 
         model.currentPathProperty().addListener((obs, old, val) -> {
             if (!Files.isReadable(val)) {
@@ -117,8 +138,9 @@ public class FileManagerPage extends ShowcasePage {
                 return;
             }
 
+            // crumb count should be calculated depending on available width
             breadcrumbs.setSelectedCrumb(
-                    Breadcrumbs.buildTreeModel(getParentPath(val, 5).toArray(Path[]::new))
+                    Breadcrumbs.buildTreeModel(getParentPath(val, 4).toArray(Path[]::new))
             );
             directoryView.setDirectory(val);
         });
@@ -130,13 +152,13 @@ public class FileManagerPage extends ShowcasePage {
     private Breadcrumbs<Path> breadCrumbs() {
         Callback<TreeItem<Path>, Button> crumbFactory = crumb -> {
             var btn = new Button(crumb.getValue().getFileName().toString());
-            btn.getStyleClass().add(Styles.FLAT);
+            btn.getStyleClass().add(FLAT);
             btn.setFocusTraversable(false);
             if (!crumb.getChildren().isEmpty()) {
                 btn.setGraphic(new FontIcon(Feather.CHEVRON_RIGHT));
             }
             btn.setContentDisplay(ContentDisplay.RIGHT);
-            btn.setStyle("-fx-padding: 6px 12px 6px 12px;");
+            btn.setStyle("-fx-padding: 6px 0 6px 6px;");
             return btn;
         };
 
@@ -144,7 +166,7 @@ public class FileManagerPage extends ShowcasePage {
         breadcrumbs.setAutoNavigationEnabled(false);
         breadcrumbs.setCrumbFactory(crumbFactory);
         breadcrumbs.setSelectedCrumb(
-                Breadcrumbs.buildTreeModel(getParentPath(model.currentPathProperty().get(), 5).toArray(Path[]::new))
+                Breadcrumbs.buildTreeModel(getParentPath(model.currentPathProperty().get(), 4).toArray(Path[]::new))
         );
         breadcrumbs.setMaxWidth(Region.USE_PREF_SIZE);
         breadcrumbs.setMaxHeight(Region.USE_PREF_SIZE);

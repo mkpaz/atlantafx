@@ -4,7 +4,14 @@
     -fx-border-width: 0 0 1 1;
 }
 .file-manager-showcase .table-directory-view .table-view {
+    -color-header-bg: -color-bg-default;
+    -color-cell-bg-selected: -color-accent-emphasis;
+    -color-cell-fg-selected: -color-fg-emphasis;
     -fx-border-width: 0 1 1 0;
+}
+
+.file-manager-showcase .tool-bar {
+    -fx-background-insets: 0, 1;
 }
 
 /* setting opacity directly to the .table-cell or .table-row-cell
@@ -13,15 +20,6 @@
     -fx-opacity: 0.6;
 }
 
-.file-manager-showcase .table-row-cell >.table-cell:folder .ikonli-font-icon {
-    -fx-icon-color: -color-accent-emphasis;
-    -fx-fill: -color-accent-emphasis;
-}
-
 .file-manager-showcase .bookmark-list .ikonli-font-icon {
-    -fx-icon-size: 18px;
-}
-
-.file-manager-showcase .table-directory-view .ikonli-font-icon {
     -fx-icon-size: 18px;
 }

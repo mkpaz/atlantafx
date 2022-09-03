@@ -29,6 +29,10 @@
         -fx-padding: 0;
         -fx-spacing: 0;
       }
+
+      .credits {
+        @include hide();
+      }
     }
   }
 }
