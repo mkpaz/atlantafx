@@ -5,7 +5,7 @@
 
 $color-cell-bg:          -color-bg-default !default;
 $color-cell-fg:          -color-fg-default !default;
-$color-cell-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-1) !default;
+$color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
 $color-cell-fg-selected: -color-fg-default !default;
 $color-cell-bg-odd:      -color-bg-subtle  !default;
 $color-cell-border:      -color-border-default  !default;

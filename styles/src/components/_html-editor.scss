@@ -5,7 +5,7 @@
 @use "sass:math";
 
 $color-picker-rect-size:   8px !default;
-$color-button-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-1) !default;
+$color-button-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
 
 .html-editor {
   -fx-background-color: -color-border-default, -color-bg-default;

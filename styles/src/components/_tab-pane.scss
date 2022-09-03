@@ -22,7 +22,7 @@ $color-lr-bg-hover: -color-bg-subtle  !default;
 $color-lr-fg-hover: -color-fg-default !default;
 $color-lr-border-hover: -color-border-default !default;
 
-$color-lr-bg-selected: if(cfg.$darkMode, -color-gray-7, -color-gray-1) !default;
+$color-lr-bg-selected: if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
 $color-lr-fg-selected: -color-fg-default !default;
 $color-lr-border-selected: -color-border-default !default;
 

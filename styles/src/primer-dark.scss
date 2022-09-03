@@ -4,107 +4,107 @@
 
 @forward "settings/color-scale" with (
 
-  $black:    #010409, // hsl(218, 80, 2  )
-  $white:    #ffffff, // hsl(0,   0 , 100)
+  $dark:      #010409, // hsl(218, 80, 2  )
+  $light:     #ffffff, // hsl(0,   0 , 100)
 
-  $gray-0:   #f0f6fc, // hsl(210, 66.7, 96.5)
-  $gray-1:   #c9d1d9, // hsl(210, 17.4, 82  )
-  $gray-2:   #b1bac4, // hsl(212, 13.9, 73.1)
-  $gray-3:   #8b949e, // hsl(212, 8.9,  58.2)
-  $gray-4:   #6e7681, // hsl(215, 7.9,  46.9)
-  $gray-5:   #484f58, // hsl(214, 10,   31.4)
-  $gray-6:   #30363d, // hsl(212, 11.9, 21.4)
-  $gray-7:   #21262d, // hsl(215, 15.4, 15.3)
-  $gray-8:   #161b22, // hsl(215, 21.4, 11  )
-  $gray-9:   #0d1117, // hsl(216, 27.8, 7.1 )
+  $base-0:    #f0f6fc, // hsl(210, 66.7, 96.5)
+  $base-1:    #c9d1d9, // hsl(210, 17.4, 82  )
+  $base-2:    #b1bac4, // hsl(212, 13.9, 73.1)
+  $base-3:    #8b949e, // hsl(212, 8.9,  58.2)
+  $base-4:    #6e7681, // hsl(215, 7.9,  46.9)
+  $base-5:    #484f58, // hsl(214, 10,   31.4)
+  $base-6:    #30363d, // hsl(212, 11.9, 21.4)
+  $base-7:    #21262d, // hsl(215, 15.4, 15.3)
+  $base-8:    #161b22, // hsl(215, 21.4, 11  )
+  $base-9:    #0d1117, // hsl(216, 27.8, 7.1 )
 
-  $blue-0:   #cae8ff, // hsl(206, 100,  89.6)
-  $blue-1:   #a5d6ff, // hsl(207, 100,  82.4)
-  $blue-2:   #79c0ff, // hsl(208, 100,  73.7)
-  $blue-3:   #58a6ff, // hsl(212, 100,  67.3)
-  $blue-4:   #388bfd, // hsl(215, 98,   60.6)
-  $blue-5:   #1f6feb, // hsl(216, 83.6, 52.2)
-  $blue-6:   #1158c7, // hsl(217, 84.3, 42.4)
-  $blue-7:   #0d419d, // hsl(218, 84.7, 33.3)
-  $blue-8:   #0c2d6b, // hsl(219, 79.8, 23.3)
-  $blue-9:   #051d4d, // hsl(220, 87.8, 16.1)
+  $accent-0:  #cae8ff, // hsl(206, 100,  89.6)
+  $accent-1:  #a5d6ff, // hsl(207, 100,  82.4)
+  $accent-2:  #79c0ff, // hsl(208, 100,  73.7)
+  $accent-3:  #58a6ff, // hsl(212, 100,  67.3)
+  $accent-4:  #388bfd, // hsl(215, 98,   60.6)
+  $accent-5:  #1f6feb, // hsl(216, 83.6, 52.2)
+  $accent-6:  #1158c7, // hsl(217, 84.3, 42.4)
+  $accent-7:  #0d419d, // hsl(218, 84.7, 33.3)
+  $accent-8:  #0c2d6b, // hsl(219, 79.8, 23.3)
+  $accent-9:  #051d4d, // hsl(220, 87.8, 16.1)
 
-  $green-0:  #aff5b4, // hsl(124, 77.8, 82.4)
-  $green-1:  #7ee787, // hsl(125, 68.6, 70  )
-  $green-2:  #56d364, // hsl(127, 58.7, 58.2)
-  $green-3:  #3fb950, // hsl(128, 49.2, 48.6)
-  $green-4:  #2ea043, // hsl(131, 55.3, 40.4)
-  $green-5:  #238636, // hsl(132, 58.6, 33.1)
-  $green-6:  #196c2e, // hsl(135, 62.4, 26.1)
-  $green-7:  #0f5323, // hsl(138, 69.4, 19.2)
-  $green-8:  #033a16, // hsl(141, 90.2, 12  )
-  $green-9:  #04260f, // hsl(139, 81,   8.2 )
+  $success-0: #aff5b4, // hsl(124, 77.8, 82.4)
+  $success-1: #7ee787, // hsl(125, 68.6, 70  )
+  $success-2: #56d364, // hsl(127, 58.7, 58.2)
+  $success-3: #3fb950, // hsl(128, 49.2, 48.6)
+  $success-4: #2ea043, // hsl(131, 55.3, 40.4)
+  $success-5: #238636, // hsl(132, 58.6, 33.1)
+  $success-6: #196c2e, // hsl(135, 62.4, 26.1)
+  $success-7: #0f5323, // hsl(138, 69.4, 19.2)
+  $success-8: #033a16, // hsl(141, 90.2, 12  )
+  $success-9: #04260f, // hsl(139, 81,   8.2 )
 
-  $yellow-0: #f8e3a1, // hsl(46, 86.1, 80.2)
-  $yellow-1: #f2cc60, // hsl(44, 84.9, 66.3)
-  $yellow-2: #e3b341, // hsl(42, 74.3, 57.3)
-  $yellow-3: #d29922, // hsl(41, 72.1, 47.8)
-  $yellow-4: #bb8009, // hsl(40, 90.8, 38.4)
-  $yellow-5: #9e6a03, // hsl(40, 96.3, 31.6)
-  $yellow-6: #845306, // hsl(37, 91.3, 27.1)
-  $yellow-7: #693e00, // hsl(35, 100,  20.6)
-  $yellow-8: #4b2900, // hsl(33, 100,  14.7)
-  $yellow-9: #341a00, // hsl(30, 100,  10.2)
+  $warning-0: #f8e3a1, // hsl(46, 86.1, 80.2)
+  $warning-1: #f2cc60, // hsl(44, 84.9, 66.3)
+  $warning-2: #e3b341, // hsl(42, 74.3, 57.3)
+  $warning-3: #d29922, // hsl(41, 72.1, 47.8)
+  $warning-4: #bb8009, // hsl(40, 90.8, 38.4)
+  $warning-5: #9e6a03, // hsl(40, 96.3, 31.6)
+  $warning-6: #845306, // hsl(37, 91.3, 27.1)
+  $warning-7: #693e00, // hsl(35, 100,  20.6)
+  $warning-8: #4b2900, // hsl(33, 100,  14.7)
+  $warning-9: #341a00, // hsl(30, 100,  10.2)
 
-  $red-0:    #ffdcd7, // hsl(8,   100,  92.2)
-  $red-1:    #ffc1ba, // hsl(6,   100,  86.5)
-  $red-2:    #ffa198, // hsl(5,   100,  79.8)
-  $red-3:    #ff7b72, // hsl(4,   100,  72.4)
-  $red-4:    #f85149, // hsl(3,   92.6, 62.9)
-  $red-5:    #da3633, // hsl(1,   69.3, 52.7)
-  $red-6:    #b62324, // hsl(0,   67.7, 42.5)
-  $red-7:    #8e1519, // hsl(358, 74.2, 32  )
-  $red-8:    #67060c, // hsl(356, 89,   21.4)
-  $red-9:    #490202  // hsl(0,   94.7, 14.7)
+  $danger-0:  #ffdcd7, // hsl(8,   100,  92.2)
+  $danger-1:  #ffc1ba, // hsl(6,   100,  86.5)
+  $danger-2:  #ffa198, // hsl(5,   100,  79.8)
+  $danger-3:  #ff7b72, // hsl(4,   100,  72.4)
+  $danger-4:  #f85149, // hsl(3,   92.6, 62.9)
+  $danger-5:  #da3633, // hsl(1,   69.3, 52.7)
+  $danger-6:  #b62324, // hsl(0,   67.7, 42.5)
+  $danger-7:  #8e1519, // hsl(358, 74.2, 32  )
+  $danger-8:  #67060c, // hsl(356, 89,   21.4)
+  $danger-9:  #490202  // hsl(0,   94.7, 14.7)
 );
 
 @use "settings/color-scale" as scale;
 
 @forward "settings/color-vars" with (
 
-  $fg-default:           scale.$gray-1,
-  $fg-muted:             scale.$gray-3,
-  $fg-subtle:            scale.$gray-4,
-  $fg-onEmphasis:        scale.$white,
+  $fg-default:           scale.$base-1,
+  $fg-muted:             scale.$base-3,
+  $fg-subtle:            scale.$base-4,
+  $fg-onEmphasis:        scale.$light,
 
-  $canvas-default:       scale.$gray-9,
-  $canvas-overlay:       scale.$gray-8,
-  $canvas-inset:         scale.$black,
-  $canvas-subtle:        scale.$gray-8,
+  $canvas-default:       scale.$base-9,
+  $canvas-overlay:       scale.$base-8,
+  $canvas-inset:         scale.$dark,
+  $canvas-subtle:        scale.$base-8,
 
-  $border-default:       scale.$gray-6,
-  $border-muted:         scale.$gray-7,
-  $border-subtle:        color.change(scale.$gray-0, $alpha: 0.1),
+  $border-default:       scale.$base-6,
+  $border-muted:         scale.$base-7,
+  $border-subtle:        color.change(scale.$base-0, $alpha: 0.1),
 
-  $neutral-emphasisPlus: scale.$gray-4,
-  $neutral-emphasis:     scale.$gray-4,
-  $neutral-muted:        color.change(scale.$gray-4, $alpha: 0.4),
-  $neutral-subtle:       color.change(scale.$gray-4, $alpha: 0.1),
+  $neutral-emphasisPlus: scale.$base-4,
+  $neutral-emphasis:     scale.$base-4,
+  $neutral-muted:        color.change(scale.$base-4, $alpha: 0.4),
+  $neutral-subtle:       color.change(scale.$base-4, $alpha: 0.1),
 
-  $accent-fg:            scale.$blue-3,
-  $accent-emphasis:      scale.$blue-5,
-  $accent-muted:         color.change(scale.$blue-4, $alpha: 0.4),
-  $accent-subtle:        color.change(scale.$blue-4, $alpha: 0.15),
+  $accent-fg:            scale.$accent-3,
+  $accent-emphasis:      scale.$accent-5,
+  $accent-muted:         color.change(scale.$accent-4, $alpha: 0.4),
+  $accent-subtle:        color.change(scale.$accent-4, $alpha: 0.15),
 
-  $success-fg:           scale.$green-3,
-  $success-emphasis:     scale.$green-5,
-  $success-muted:        color.change(scale.$green-4, $alpha: 0.4),
-  $success-subtle:       color.change(scale.$green-4, $alpha: 0.15),
+  $success-fg:           scale.$success-3,
+  $success-emphasis:     scale.$success-5,
+  $success-muted:        color.change(scale.$success-4, $alpha: 0.4),
+  $success-subtle:       color.change(scale.$success-4, $alpha: 0.15),
 
-  $warning-fg:           scale.$yellow-3,
-  $warning-emphasis:     scale.$yellow-5,
-  $warning-muted:        color.change(scale.$yellow-4, $alpha: 0.4),
-  $warning-subtle:       color.change(scale.$yellow-4, $alpha: 0.15),
+  $warning-fg:           scale.$warning-3,
+  $warning-emphasis:     scale.$warning-5,
+  $warning-muted:        color.change(scale.$warning-4, $alpha: 0.4),
+  $warning-subtle:       color.change(scale.$warning-4, $alpha: 0.15),
 
-  $danger-fg:            scale.$red-4,
-  $danger-emphasis:      scale.$red-5,
-  $danger-muted:         color.change(scale.$red-4, $alpha: 0.4),
-  $danger-subtle:        color.change(scale.$red-4, $alpha: 0.15)
+  $danger-fg:            scale.$danger-4,
+  $danger-emphasis:      scale.$danger-5,
+  $danger-muted:         color.change(scale.$danger-4, $alpha: 0.4),
+  $danger-subtle:        color.change(scale.$danger-4, $alpha: 0.15)
 );
 
 @forward "settings/config" with (

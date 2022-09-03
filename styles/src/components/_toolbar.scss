@@ -5,7 +5,7 @@
 @use "../settings/utils";
 
 $color-bg:          -color-bg-subtle !default;
-$color-bg-selected: if(cfg.$darkMode, -color-gray-6, -color-gray-2) !default;
+$color-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
 
 $padding-x: 0.3em !default;
 $padding-y: 4px !default;

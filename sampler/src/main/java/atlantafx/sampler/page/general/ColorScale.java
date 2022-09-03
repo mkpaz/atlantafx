@@ -22,12 +22,12 @@ class ColorScale extends VBox {
 
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final List<ColorScaleBlock> blocks = Arrays.asList(
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-gray-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-blue-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-green-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-yellow-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-red-", 10),
-            ColorScaleBlock.forColorName(bgBaseColor, "-color-black", "-color-white")
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-base-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-accent-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-success-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-warning-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-danger-", 10),
+            ColorScaleBlock.forColorName(bgBaseColor, "-color-dark", "-color-light")
     );
 
     public ColorScale() {

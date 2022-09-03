@@ -9,7 +9,7 @@ $color-bg:                     -color-bg-subtle  !default;
 $color-fg:                     -color-fg-default !default;
 $color-border:                 -color-border-default !default;
 
-$color-bg-hover:               if(cfg.$darkMode, -color-gray-6, -color-gray-1) !default;
+$color-bg-hover:               if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
 $color-fg-hover:               -color-button-fg !default;
 $color-border-hover:           -color-button-border !default;
 
@@ -17,7 +17,7 @@ $color-bg-focused:             -color-button-bg !default;
 $color-fg-focused:             -color-button-fg !default;
 $color-border-focused:         -color-accent-emphasis !default;
 
-$color-bg-pressed:             if(cfg.$darkMode, -color-gray-7, -color-gray-2) !default;
+$color-bg-pressed:             if(cfg.$darkMode, -color-base-7, -color-base-2) !default;
 $color-fg-pressed:             -color-button-fg !default;
 $color-border-pressed:         transparent !default;
 
@@ -26,7 +26,7 @@ $color-accent-bg:              -color-accent-emphasis !default;
 $color-accent-fg:              -color-fg-emphasis     !default;
 $color-accent-border:          -color-accent-emphasis !default;
 
-$color-accent-bg-hover:        -color-blue-6 !default;
+$color-accent-bg-hover:        -color-accent-6        !default;
 $color-accent-fg-hover:        -color-fg-emphasis     !default;
 $color-accent-border-hover:    -color-accent-emphasis !default;
 
@@ -34,7 +34,7 @@ $color-accent-bg-focused:      -color-accent-emphasis !default;
 $color-accent-fg-focused:      -color-fg-emphasis     !default;
 $color-accent-border-focused:  -color-accent-emphasis !default;
 
-$color-accent-bg-pressed:      -color-blue-6 !default;
+$color-accent-bg-pressed:      -color-accent-6 !default;
 $color-accent-fg-pressed:      -color-fg-emphasis !default;
 $color-accent-border-pressed:  transparent   !default;
 
@@ -43,7 +43,7 @@ $color-success-bg:             -color-success-emphasis !default;
 $color-success-fg:             -color-fg-emphasis      !default;
 $color-success-border:         -color-success-emphasis !default;
 
-$color-success-bg-hover:       -color-green-5 !default;
+$color-success-bg-hover:       if(cfg.$darkMode, -color-success-6, -color-success-5) !default;
 $color-success-fg-hover:       -color-fg-emphasis      !default;
 $color-success-border-hover:   -color-success-emphasis !default;
 
@@ -51,7 +51,7 @@ $color-success-bg-focused:     -color-success-emphasis !default;
 $color-success-fg-focused:     -color-fg-emphasis      !default;
 $color-success-border-focused: -color-success-emphasis !default;
 
-$color-success-bg-pressed:     -color-green-5 !default;
+$color-success-bg-pressed:     if(cfg.$darkMode, -color-success-6, -color-success-5) !default;
 $color-success-fg-pressed:     -color-fg-emphasis !default;
 $color-success-border-pressed: transparent !default;
 
@@ -60,7 +60,7 @@ $color-danger-bg:              -color-danger-emphasis !default;
 $color-danger-fg:              -color-fg-emphasis     !default;
 $color-danger-border:          -color-danger-emphasis !default;
 
-$color-danger-bg-hover:        -color-red-6 !default;
+$color-danger-bg-hover:        -color-danger-6        !default;
 $color-danger-fg-hover:        -color-fg-emphasis     !default;
 $color-danger-border-hover:    -color-danger-emphasis !default;
 
@@ -68,7 +68,7 @@ $color-danger-bg-focused:      -color-danger-emphasis !default;
 $color-danger-fg-focused:      -color-fg-emphasis     !default;
 $color-danger-border-focused:  -color-danger-emphasis !default;
 
-$color-danger-bg-pressed:      -color-red-6 !default;
+$color-danger-bg-pressed:      -color-danger-6 !default;
 $color-danger-fg-pressed:      -color-fg-emphasis !default;
 $color-danger-border-pressed:  transparent  !default;
 

@@ -52,16 +52,16 @@ public class ColorMap {
     public static ColorMap primerPurple() {
         var map = new ColorMap(Color.web("#8250df"));
 
-        map.setColor("-color-blue-0", Color.web("#fbefff"));
-        map.setColor("-color-blue-1", Color.web("#ecd8ff"));
-        map.setColor("-color-blue-2", Color.web("#d8b9ff"));
-        map.setColor("-color-blue-3", Color.web("#c297ff"));
-        map.setColor("-color-blue-4", Color.web("#a475f9"));
-        map.setColor("-color-blue-5", Color.web("#8250df"));
-        map.setColor("-color-blue-6", Color.web("#6639ba"));
-        map.setColor("-color-blue-7", Color.web("#512a97"));
-        map.setColor("-color-blue-8", Color.web("#3e1f79"));
-        map.setColor("-color-blue-9", Color.web("#2e1461"));
+        map.setColor("-color-accent-0", Color.web("#fbefff"));
+        map.setColor("-color-accent-1", Color.web("#ecd8ff"));
+        map.setColor("-color-accent-2", Color.web("#d8b9ff"));
+        map.setColor("-color-accent-3", Color.web("#c297ff"));
+        map.setColor("-color-accent-4", Color.web("#a475f9"));
+        map.setColor("-color-accent-5", Color.web("#8250df"));
+        map.setColor("-color-accent-6", Color.web("#6639ba"));
+        map.setColor("-color-accent-7", Color.web("#512a97"));
+        map.setColor("-color-accent-8", Color.web("#3e1f79"));
+        map.setColor("-color-accent-9", Color.web("#2e1461"));
         map.setColor("-color-accent-fg", Color.web("#8250df"));
         map.setColor("-color-accent-emphasis", Color.web("#8250df"));
         map.setColor(MUTED_COLOR_NAME, Color.web("#d8b9ff"));
@@ -76,16 +76,16 @@ public class ColorMap {
     public static ColorMap primerPink() {
         var map = new ColorMap(Color.web("#bf3989"));
 
-        map.setColor("-color-blue-0", Color.web("#ffeff7"));
-        map.setColor("-color-blue-1", Color.web("#ffd3eb"));
-        map.setColor("-color-blue-2", Color.web("#ffadda"));
-        map.setColor("-color-blue-3", Color.web("#ff80c8"));
-        map.setColor("-color-blue-4", Color.web("#e85aad"));
-        map.setColor("-color-blue-5", Color.web("#bf3989"));
-        map.setColor("-color-blue-6", Color.web("#99286e"));
-        map.setColor("-color-blue-7", Color.web("#772057"));
-        map.setColor("-color-blue-8", Color.web("#611347"));
-        map.setColor("-color-blue-9", Color.web("#4d0336"));
+        map.setColor("-color-accent-0", Color.web("#ffeff7"));
+        map.setColor("-color-accent-1", Color.web("#ffd3eb"));
+        map.setColor("-color-accent-2", Color.web("#ffadda"));
+        map.setColor("-color-accent-3", Color.web("#ff80c8"));
+        map.setColor("-color-accent-4", Color.web("#e85aad"));
+        map.setColor("-color-accent-5", Color.web("#bf3989"));
+        map.setColor("-color-accent-6", Color.web("#99286e"));
+        map.setColor("-color-accent-7", Color.web("#772057"));
+        map.setColor("-color-accent-8", Color.web("#611347"));
+        map.setColor("-color-accent-9", Color.web("#4d0336"));
         map.setColor("-color-accent-fg", Color.web("#bf3989"));
         map.setColor("-color-accent-emphasis", Color.web("#bf3989"));
         map.setColor(MUTED_COLOR_NAME, Color.web("#ffadda"));
@@ -100,16 +100,16 @@ public class ColorMap {
     public static ColorMap primerCoral() {
         var map = new ColorMap(Color.web("#c4432b"));
 
-        map.setColor("-color-blue-0", Color.web("#fff0eb"));
-        map.setColor("-color-blue-1", Color.web("#ffd6cc"));
-        map.setColor("-color-blue-2", Color.web("#ffb4a1"));
-        map.setColor("-color-blue-3", Color.web("#fd8c73"));
-        map.setColor("-color-blue-4", Color.web("#ec6547"));
-        map.setColor("-color-blue-5", Color.web("#c4432b"));
-        map.setColor("-color-blue-6", Color.web("#9e2f1c"));
-        map.setColor("-color-blue-7", Color.web("#801f0f"));
-        map.setColor("-color-blue-8", Color.web("#691105"));
-        map.setColor("-color-blue-9", Color.web("#510901"));
+        map.setColor("-color-accent-0", Color.web("#fff0eb"));
+        map.setColor("-color-accent-1", Color.web("#ffd6cc"));
+        map.setColor("-color-accent-2", Color.web("#ffb4a1"));
+        map.setColor("-color-accent-3", Color.web("#fd8c73"));
+        map.setColor("-color-accent-4", Color.web("#ec6547"));
+        map.setColor("-color-accent-5", Color.web("#c4432b"));
+        map.setColor("-color-accent-6", Color.web("#9e2f1c"));
+        map.setColor("-color-accent-7", Color.web("#801f0f"));
+        map.setColor("-color-accent-8", Color.web("#691105"));
+        map.setColor("-color-accent-9", Color.web("#510901"));
         map.setColor("-color-accent-fg", Color.web("#c4432b"));
         map.setColor("-color-accent-emphasis", Color.web("#c4432b"));
         map.setColor(MUTED_COLOR_NAME, Color.web("#ffb4a1"));
@@ -126,16 +126,16 @@ public class ColorMap {
     static ColorMap empty() {
         var map = new ColorMap(Color.web("#bf3989"));
 
-        map.setColor("-color-blue-0", null);
-        map.setColor("-color-blue-1", null);
-        map.setColor("-color-blue-2", null);
-        map.setColor("-color-blue-3", null);
-        map.setColor("-color-blue-4", null);
-        map.setColor("-color-blue-5", null);
-        map.setColor("-color-blue-6", null);
-        map.setColor("-color-blue-7", null);
-        map.setColor("-color-blue-8", null);
-        map.setColor("-color-blue-9", null);
+        map.setColor("-color-accent-0", null);
+        map.setColor("-color-accent-1", null);
+        map.setColor("-color-accent-2", null);
+        map.setColor("-color-accent-3", null);
+        map.setColor("-color-accent-4", null);
+        map.setColor("-color-accent-5", null);
+        map.setColor("-color-accent-6", null);
+        map.setColor("-color-accent-7", null);
+        map.setColor("-color-accent-8", null);
+        map.setColor("-color-accent-9", null);
         map.setColor("-color-accent-fg", null);
         map.setColor("-color-accent-emphasis", null);
         map.setColor(MUTED_COLOR_NAME, null);
