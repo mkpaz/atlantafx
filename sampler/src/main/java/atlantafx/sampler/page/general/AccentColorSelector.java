@@ -28,9 +28,9 @@ public class AccentColorSelector extends HBox {
 
         setAlignment(Pos.CENTER_LEFT);
         getChildren().setAll(
-                colorButton(AccentColor.PURPLE),
-                colorButton(AccentColor.PINK),
-                colorButton(AccentColor.CORAL),
+                colorButton(AccentColor.primerPurple()),
+                colorButton(AccentColor.primerPink()),
+                colorButton(AccentColor.primerCoral()),
                 resetBtn
         );
         getStyleClass().add("accent-color-selector");
@@ -40,11 +40,9 @@ public class AccentColorSelector extends HBox {
         var icon = new Region();
         icon.getStyleClass().add("icon");
 
-        var colorMap = accentColor.getColorMap();
-
         var btn = new Button("", icon);
         btn.getStyleClass().addAll(BUTTON_ICON, FLAT, "color-button");
-        btn.setStyle("-color-primary:" + JColorUtils.toHexWithAlpha(colorMap.getPrimaryColor()) + ";");
+        btn.setStyle("-color-primary:" + JColorUtils.toHexWithAlpha(accentColor.primaryColor()) + ";");
         btn.setUserData(accentColor);
         btn.setOnAction(e -> ThemeManager.getInstance().setAccentColor((AccentColor) btn.getUserData()));
 

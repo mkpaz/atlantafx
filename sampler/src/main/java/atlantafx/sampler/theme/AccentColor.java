@@ -1,18 +1,19 @@
 package atlantafx.sampler.theme;
 
-public enum AccentColor {
+import javafx.css.PseudoClass;
+import javafx.scene.paint.Color;
 
-    PURPLE(ColorMap.primerPurple()),
-    PINK(ColorMap.primerPink()),
-    CORAL(ColorMap.primerCoral());
+public record AccentColor(Color primaryColor, PseudoClass pseudoClass) {
 
-    private final ColorMap colorMap;
-
-    AccentColor(ColorMap colorMap) {
-        this.colorMap = colorMap;
+    public static AccentColor primerPurple() {
+        return new AccentColor(Color.web("#8250df"), PseudoClass.getPseudoClass("accent-primer-purple"));
     }
 
-    public ColorMap getColorMap() {
-        return colorMap;
+    public static AccentColor primerPink() {
+        return new AccentColor(Color.web("#bf3989"), PseudoClass.getPseudoClass("accent-primer-pink"));
+    }
+
+    public static AccentColor primerCoral() {
+        return new AccentColor(Color.web("#c4432b"), PseudoClass.getPseudoClass("accent-primer-coral"));
     }
 }

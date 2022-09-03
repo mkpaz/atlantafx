@@ -12,6 +12,7 @@ import atlantafx.sampler.util.JColor;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.net.URI;
@@ -25,6 +26,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public final class ThemeManager {
 
     private static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
+    private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");
     private static final PseudoClass USER_CUSTOM = PseudoClass.getPseudoClass("user-custom");
     private static final EventBus EVENT_BUS = DefaultEventBus.getInstance();
 
@@ -39,6 +41,8 @@ public final class ThemeManager {
     private final Map<String, String> customCSSRules = new LinkedHashMap<>(); // .foo | -fx-property: value;
 
     private Scene scene;
+    private Pane body;
+
     private Theme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
@@ -91,10 +95,14 @@ public final class ThemeManager {
         Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
 
         if (currentTheme != null) {
-            scene.getStylesheets().removeIf(url -> currentTheme.getStylesheets().contains(URI.create(url)));
+            getScene().getStylesheets().removeIf(url -> currentTheme.getStylesheets().contains(URI.create(url)));
         }
 
-        theme.getStylesheets().forEach(uri -> scene.getStylesheets().add(uri.toString()));
+        theme.getStylesheets().forEach(uri -> getScene().getStylesheets().add(uri.toString()));
+        getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
+
+        // remove user CSS customizations and reset accent on theme change
+        resetAccentColor();
         resetCustomCSS();
 
         currentTheme = theme;
@@ -126,9 +134,9 @@ public final class ThemeManager {
     public void setFontSize(int size) {
         if (!SUPPORTED_FONT_SIZE.contains(size)) {
             throw new IllegalArgumentException(String.format("Font size must in the range %d-%dpx. Actual value is %d.",
-                    SUPPORTED_FONT_SIZE.get(0),
-                    SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
-                    size
+                                                             SUPPORTED_FONT_SIZE.get(0),
+                                                             SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
+                                                             size
             ));
         }
 
@@ -157,8 +165,8 @@ public final class ThemeManager {
     public void setZoom(int zoom) {
         if (!SUPPORTED_ZOOM.contains(zoom)) {
             throw new IllegalArgumentException(String.format("Zoom value must one of %s. Actual value is %d.",
-                    SUPPORTED_ZOOM,
-                    zoom
+                                                             SUPPORTED_ZOOM,
+                                                             zoom
             ));
         }
 
@@ -173,28 +181,22 @@ public final class ThemeManager {
     public void setAccentColor(AccentColor color) {
         Objects.requireNonNull(color);
 
-        var colorMap = color.getColorMap();
-
-        // adapt color map to the current theme
-        if (!getTheme().isDarkMode()) {
-            colorMap.update(Color.WHITE);
-        } else {
-            colorMap.update(Color.BLACK);
+        if (accentColor != null) {
+            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
         }
 
-        applyColorMap(colorMap);
-
+        getScene().getRoot().pseudoClassStateChanged(color.pseudoClass(), true);
         this.accentColor = color;
 
-        reloadCustomCSS();
         EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
     }
 
     public void resetAccentColor() {
-        applyColorMap(ColorMap.empty());
-        this.accentColor = null;
+        if (accentColor != null) {
+            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
+            accentColor = null;
+        }
 
-        reloadCustomCSS();
         EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
     }
 
@@ -256,10 +258,6 @@ public final class ThemeManager {
         }
     }
 
-    private void applyColorMap(ColorMap colorMap) {
-        colorMap.getAll().forEach(this::setOrRemoveColor);
-    }
-
     private void reloadCustomCSS() {
         Objects.requireNonNull(scene);
         StringBuilder css = new StringBuilder();
@@ -277,7 +275,9 @@ public final class ThemeManager {
         css.append("}\n");
 
         customCSSRules.forEach((k, v) -> {
-            css.append(".root:");
+            // custom CSS is applied to the body,
+            // thus it has a preference over accent color
+            css.append(".body:");
             css.append(USER_CUSTOM.getPseudoClassName());
             css.append(" ");
             css.append(k);
@@ -286,17 +286,17 @@ public final class ThemeManager {
             css.append("}\n");
         });
 
-        scene.getStylesheets().removeIf(uri -> uri.startsWith("data:text/css"));
-        scene.getStylesheets().add(
+        getScene().getRoot().getStylesheets().removeIf(uri -> uri.startsWith("data:text/css"));
+        getScene().getRoot().getStylesheets().add(
                 "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
         );
-        scene.getRoot().pseudoClassStateChanged(USER_CUSTOM, true);
+        getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, true);
     }
 
     public void resetCustomCSS() {
         customCSSDeclarations.clear();
         customCSSRules.clear();
-        scene.getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
+        getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
     }
 
     @SafeVarargs
