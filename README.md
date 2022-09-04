@@ -4,8 +4,7 @@ JavaFX CSS theme collection plus additional controls. It's inspired by [FlatLaf]
 
 ---
 
-![primer_light](./.screenshots/primer_light.png)
-![primer_dark](./.screenshots/primer_dark.png)
+![alt](./.screenshots/demo.gif)
 
 ## Try it out
 
