@@ -7,16 +7,16 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -26,9 +26,9 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import static atlantafx.base.controls.Popover.ArrowLocation;
 import static atlantafx.base.theme.Styles.*;
 import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
-import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.BACKGROUND_OPACITY;
 import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
 import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
+import static java.lang.Double.MAX_VALUE;
 import static javafx.geometry.Orientation.VERTICAL;
 import static javafx.geometry.Pos.CENTER;
 import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
@@ -37,30 +37,53 @@ import static org.kordamp.ikonli.material2.Material2MZ.*;
 import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
 import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
 
-final class Player extends VBox {
+final class PlayerPane extends VBox {
 
     private static final int PANEL_MAX_WIDTH = 220;
 
+    private final Model model;
     private final ObjectProperty<MediaPlayer> currentPlayer = new SimpleObjectProperty<>();
 
-    public Player(Model model) {
-        Rectangle coverImage = new Rectangle(0, 0, 150, 150);
+    private Rectangle coverImage;
+    private Label trackTitle;
+    private Label trackArtist;
+    private Label trackAlbum;
+
+    private FontIcon playIcon;
+    private Button playBtn;
+
+    private Slider timeSlider;
+    private Slider volumeSlider;
+    private Label currentTimeLabel;
+    private Label endTimeLabel;
+
+    public PlayerPane(Model model) {
+        super();
+
+        this.model = model;
+
+        createView();
+        init();
+    }
+
+    private void createView() {
+        coverImage = new Rectangle(0, 0, 150, 150);
         coverImage.setArcWidth(20.0);
         coverImage.setArcHeight(20.0);
         coverImage.setFill(new ImagePattern(NO_IMAGE));
 
-        var trackTitle = new Label(NO_TITLE);
-        trackTitle.setAlignment(CENTER);
-        trackTitle.setMaxWidth(Double.MAX_VALUE);
+        trackTitle = new Label(NO_TITLE);
         trackTitle.getStyleClass().add(TITLE_3);
+        trackTitle.setAlignment(CENTER);
+        trackTitle.setMaxWidth(MAX_VALUE);
 
-        var trackArtist = new Label(NO_ARTIST);
+        trackArtist = new Label(NO_ARTIST);
         trackArtist.setAlignment(CENTER);
-        trackArtist.setMaxWidth(Double.MAX_VALUE);
+        trackArtist.setMaxWidth(MAX_VALUE);
 
-        var trackAlbum = new Label(NO_ALBUM);
+        trackAlbum = new Label(NO_ALBUM);
         trackAlbum.setAlignment(CENTER);
-        trackAlbum.setMaxWidth(Double.MAX_VALUE);
+        trackAlbum.setMaxWidth(MAX_VALUE);
 
         // == Media controls ==
 
@@ -71,11 +94,10 @@ final class Player extends VBox {
         prevBtn.disableProperty().bind(model.canGoBackProperty().not());
         prevBtn.setOnAction(e -> model.playPrevious());
 
-        var playIcon = new FontIcon(PLAY_ARROW);
-        playIcon.setIconSize(32);
+        playIcon = new FontIcon(PLAY_ARROW);
 
-        var playBtn = new Button("", playIcon);
-        playBtn.getStyleClass().addAll(BUTTON_CIRCLE);
+        playBtn = new Button("", playIcon);
+        playBtn.getStyleClass().addAll("play", BUTTON_CIRCLE);
         playBtn.setShape(new Circle(50));
 
         var nextBtn = new Button("", new FontIcon(FAST_FORWARD));
@@ -86,20 +108,21 @@ final class Player extends VBox {
         nextBtn.setTooltip(new Tooltip("Next"));
 
         var mediaControls = new HBox(20);
+        mediaControls.getStyleClass().add("media-controls");
         mediaControls.getChildren().setAll(prevBtn, playBtn, nextBtn);
         mediaControls.setAlignment(CENTER);
 
         // == Time controls ==
 
-        var timeSlider = new Slider(0, 1, 0);
-        timeSlider.setMaxWidth(Double.MAX_VALUE);
+        timeSlider = new Slider(0, 1, 0);
+        timeSlider.getStyleClass().add("time-slider");
         timeSlider.setMinWidth(PANEL_MAX_WIDTH);
         timeSlider.setMaxWidth(PANEL_MAX_WIDTH);
 
-        var currentTimeLabel = new Label("0.0");
+        currentTimeLabel = new Label("0.0");
         currentTimeLabel.getStyleClass().add(TEXT_SMALL);
 
-        var endTimeLabel = new Label("5.0");
+        endTimeLabel = new Label("5.0");
         endTimeLabel.getStyleClass().add(TEXT_SMALL);
 
         var timeMarkersBox = new HBox(5);
@@ -120,7 +143,7 @@ final class Player extends VBox {
         shuffleBtn.setTooltip(new Tooltip("Shuffle"));
         shuffleBtn.setOnAction(e -> model.shuffle());
 
-        var volumeSlider = new Slider(0, 1, 0.75);
+        volumeSlider = new Slider(0, 1, 0.75);
         volumeSlider.setOrientation(VERTICAL);
 
         var volumeBar = new VBox(5);
@@ -140,11 +163,12 @@ final class Player extends VBox {
         extraControls.getChildren().setAll(clearPlaylistBtn, shuffleBtn, new Spacer(), volumeBtn);
         extraControls.setMaxWidth(PANEL_MAX_WIDTH);
 
-        // == Root ==
+        // ~
 
-        setSpacing(5);
         getStyleClass().add("player");
         setAlignment(CENTER);
+        setSpacing(5);
+        setMinWidth(300);
         getChildren().setAll(
                 new Spacer(VERTICAL),
                 new StackPane(coverImage),
@@ -161,13 +185,15 @@ final class Player extends VBox {
                 extraControls,
                 new Spacer(VERTICAL)
         );
+    }
 
-        // == Play ==
-
-        backgroundProperty().bind(Bindings.createObjectBinding(() -> {
-            Color color = model.backgroundColorProperty().get();
-            return new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY));
-        }, model.backgroundColorProperty()));
+    private void init() {
+        heightProperty().addListener((obs, old, val) -> {
+            if (val == null) { return; }
+            int size = val.intValue() < 600 ? 150 : 250;
+            coverImage.setWidth(size);
+            coverImage.setHeight(size);
+        });
 
         playBtn.setOnAction(e -> {
             MediaPlayer player = currentPlayer.get();
@@ -179,7 +205,7 @@ final class Player extends VBox {
             }
         });
 
-        InvalidationListener timeChangeListener = obs -> {
+        InvalidationListener mediaTimeChangeListener = obs -> {
             if (currentPlayer.get() == null) { return; }
 
             var duration = currentPlayer.get().getCurrentTime();
@@ -189,15 +215,14 @@ final class Player extends VBox {
             currentTimeLabel.setText(seconds > 0 ? formatDuration(duration) : "0.0");
         };
 
-        InvalidationListener sliderChangeListener = obs -> {
+        timeSlider.valueProperty().addListener(obs -> {
             if (currentPlayer.get() == null) { return; }
             long max = (long) currentPlayer.get().getMedia().getDuration().toSeconds();
             long sliderVal = (long) timeSlider.getValue();
             if (sliderVal <= max && timeSlider.isValueChanging()) {
                 currentPlayer.get().seek(Duration.seconds(sliderVal));
             }
-        };
-        timeSlider.valueProperty().addListener(sliderChangeListener);
+        });
 
         model.currentTrackProperty().addListener((obs, old, val) -> {
             if (val == null) {
@@ -215,7 +240,7 @@ final class Player extends VBox {
             mediaPlayer.setOnReady(() -> {
                 Image image = getTag(media, "image", Image.class, NO_IMAGE);
                 coverImage.setFill(new ImagePattern(image));
-                model.setBackgroundColor(image != NO_IMAGE ? getDominantColor(image, BACKGROUND_OPACITY) : null);
+                model.setBackgroundColor(image != NO_IMAGE ? getDominantColor(image, 1.0) : null);
 
                 trackTitle.setText(getTag(media, "title", String.class, NO_TITLE));
                 trackArtist.setText(getTag(media, "artist", String.class, NO_ARTIST));
@@ -234,7 +259,7 @@ final class Player extends VBox {
                 }, mediaPlayer.statusProperty()));
 
                 mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
-                mediaPlayer.currentTimeProperty().addListener(timeChangeListener);
+                mediaPlayer.currentTimeProperty().addListener(mediaTimeChangeListener);
             });
             mediaPlayer.setOnEndOfMedia(model::playNext);
 
@@ -247,7 +272,7 @@ final class Player extends VBox {
             if (old != null) {
                 old.stop();
                 old.volumeProperty().unbind();
-                old.currentTimeProperty().removeListener(timeChangeListener);
+                old.currentTimeProperty().removeListener(mediaTimeChangeListener);
                 playIcon.iconCodeProperty().unbind();
                 old.dispose();
             }

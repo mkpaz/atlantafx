@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCodeCombination;
 
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
-public class RightClickMenu extends ContextMenu {
+final class RightClickMenu extends ContextMenu {
 
     public RightClickMenu() {
         super();

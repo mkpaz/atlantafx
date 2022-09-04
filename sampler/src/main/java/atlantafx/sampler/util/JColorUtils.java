@@ -846,4 +846,12 @@ public class JColorUtils {
                 (float) color.getOpacity()
         ).getColorHexShorthandWithAlpha();
     }
+
+    public static String toHexOpaque(Color color) {
+        return JColor.color(
+                (float) color.getRed(),
+                (float) color.getGreen(),
+                (float) color.getBlue()
+        ).getColorHexShorthandWithAlpha();
+    }
 }

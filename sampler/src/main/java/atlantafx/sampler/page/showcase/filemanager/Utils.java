@@ -39,8 +39,6 @@ final class Utils {
         }
     }
 
-
-
     public static void openFile(Path path) {
         if (Desktop.isDesktopSupported()) {
             new Thread(() -> {

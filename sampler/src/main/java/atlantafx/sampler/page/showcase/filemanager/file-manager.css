@@ -3,6 +3,14 @@
 .file-manager-showcase .bookmark-list {
     -fx-border-width: 0 0 1 1;
 }
+.file-manager-showcase .bookmark-list .ikonli-font-icon {
+    -fx-icon-size: 18px;
+}
+
+.file-manager-showcase .tool-bar {
+    -fx-background-insets: 0, 1;
+}
+
 .file-manager-showcase .table-directory-view .table-view {
     -color-header-bg: -color-bg-default;
     -color-cell-bg-selected: -color-accent-emphasis;
@@ -10,16 +18,8 @@
     -fx-border-width: 0 1 1 0;
 }
 
-.file-manager-showcase .tool-bar {
-    -fx-background-insets: 0, 1;
-}
-
 /* setting opacity directly to the .table-cell or .table-row-cell
    leads to incorrect table row height calculation #javafx-bug */
 .file-manager-showcase .table-row-cell:hidden >.table-cell > * {
     -fx-opacity: 0.6;
-}
-
-.file-manager-showcase .bookmark-list .ikonli-font-icon {
-    -fx-icon-size: 18px;
 }

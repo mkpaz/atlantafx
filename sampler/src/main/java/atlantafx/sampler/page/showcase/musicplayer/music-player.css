@@ -1,26 +1,52 @@
 /** SPDX-License-Identifier: MIT */
 
-.music-player-showcase {
+.music-player-showcase > .start-screen {
+    -fx-border-color: -color-border-muted;
     -fx-border-width: 1;
-    -fx-border-color: -color-border-default;
+}
+.music-player-showcase > .start-screen > .content > .ikonli-font-icon {
+    -fx-icon-color: -color-fg-muted;
+    -fx-fill: -color-fg-muted;
+    -fx-icon-size: 64px;
 }
 
-.music-player-showcase .playlist {
-    -fx-padding: 10;
+.music-player-showcase > .player-screen {
+    -fx-border-color: -color-border-muted;
+    -fx-border-width: 1;
+    -color-dominant:    transparent;
+    -color-dominant-20: transparent;
+    -color-dominant-50: transparent;
+    -color-dominant-70: transparent;
+    -color-dominant-border: -color-border-muted;
+}
+.music-player-showcase > .player-screen > * > .player {
+    -fx-background-color: radial-gradient(radius 100%, -color-dominant-50, -color-dominant-20);
+}
+.music-player-showcase > .player-screen > * > .player > .media-controls > .play > .ikonli-font-icon {
+    -fx-icon-size: 32px;
+}
+.music-player-showcase > .player-screen > .split-pane-divider {
+    -fx-background-color: -color-dominant-border;
 }
 
-.music-player-showcase .playlist > .list-view {
+.music-player-showcase > .player-screen > * > .playlist {
+    -fx-background-color: radial-gradient(radius 100%, -color-dominant-20, -color-dominant-50);
+}
+.music-player-showcase > .player-screen > * > .playlist > .controls {
+    -fx-border-color: -color-dominant-border;
+    -fx-border-width: 0 0 0.75px 0;
+}
+.music-player-showcase > .player-screen > * > .playlist > .controls > .button {
+    -color-button-bg-hover: transparent;
+    -color-button-bg-focused: transparent;
+    -color-button-bg-pressed: transparent;
+}
+.music-player-showcase > .player-screen > * > .playlist > .list-view {
     -fx-border-width: 0;
 }
-.music-player-showcase .playlist > .list-view .list-cell {
+.music-player-showcase > .player-screen > * > .playlist > .list-view .list-cell {
+    -color-cell-bg: transparent;
+    -color-cell-bg-selected: transparent;
+    -color-cell-border: transparent;
     -fx-cell-size: 4em;
-    -fx-background-color: transparent;
-    -fx-background-radius: 6px;
-}
-.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:selected {
-    -fx-background-color: transparent;
-}
-.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:selected:hover,
-.music-player-showcase .playlist > .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:hover {
-    -fx-background-color: derive(-color-cell-bg, -5%);
 }

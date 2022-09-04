@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-class Model {
+final class Model {
 
     private final ObservableList<MediaFile> playlist = FXCollections.observableArrayList();
     private final IntegerProperty playlistIndex = new SimpleIntegerProperty();

@@ -7,10 +7,12 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
@@ -111,18 +113,22 @@ public class FileManagerPage extends ShowcasePage {
                 (obs, old, val) -> splitPane.setDividerPosition(0, 200 / splitPane.getWidth())
         );
 
+        var aboutBox = new HBox(new Text("Simple file manager. You can traverse through the file system and open files via default system application."));
+        aboutBox.setPadding(new Insets(5, 0, 5, 0));
+        aboutBox.getStyleClass().add("about");
+
         var creditsBox = new HBox(5,
-                                  new Spacer(),
-                                  new Text("Inspired by"),
+                                  new Text("Inspired by ©"),
                                   hyperlink("Gnome Files", URI.create("https://gitlab.gnome.org/GNOME/nautilus"))
         );
         creditsBox.getStyleClass().add("credits");
+        creditsBox.setAlignment(Pos.CENTER_RIGHT);
         creditsBox.setPadding(new Insets(5, 0, 5, 0));
 
         var root = new BorderPane();
         root.getStyleClass().add("file-manager-showcase");
         root.getStylesheets().add(STYLESHEET_URL);
-        root.setTop(topBar);
+        root.setTop(new VBox(aboutBox, topBar));
         root.setCenter(splitPane);
         root.setBottom(creditsBox);
 

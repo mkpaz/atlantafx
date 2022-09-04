@@ -8,9 +8,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
 import org.kordamp.ikonli.feather.Feather;
@@ -21,7 +21,7 @@ import static atlantafx.base.theme.Styles.ACCENT;
 public abstract class ShowcasePage extends AbstractPage {
 
     protected static final PseudoClass SHOWCASE_MODE = PseudoClass.getPseudoClass("showcase-mode");
-    protected final AnchorPane showcase = new AnchorPane();
+    protected final StackPane showcase = new StackPane();
     protected final HBox expandBox = new HBox(10);
     protected final HBox collapseBox = new HBox(10);
 

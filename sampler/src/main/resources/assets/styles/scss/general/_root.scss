@@ -32,6 +32,10 @@
         -fx-spacing: 0;
       }
 
+      .about {
+        @include hide();
+      }
+
       .credits {
         @include hide();
       }

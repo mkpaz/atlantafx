@@ -37,12 +37,4 @@ final class Utils {
                 String.format("%02d:%02d", (seconds % 3600) / 60, seconds % 60) :
                 String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
     }
-
-    public static String toWebColor(Color color) {
-        int r = ((int) Math.round(color.getRed() * 255)) << 24;
-        int g = ((int) Math.round(color.getGreen() * 255)) << 16;
-        int b = ((int) Math.round(color.getBlue() * 255)) << 8;
-        int a = ((int) Math.round(color.getOpacity() * 255));
-        return String.format("#%08X", (r + g + b + a));
-    }
 }

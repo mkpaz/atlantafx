@@ -32,16 +32,17 @@ record MediaFile(File file) {
         // MediaPlayer and that player has transitioned to Status.READY status.
         mediaPlayer.setOnReady(() -> {
             Map<String, Object> metadata = media.getMetadata();
-            callback.accept(METADATA_CACHE.computeIfAbsent(file.getAbsolutePath(), k ->
-                    // clone everything to make sure media player will be garbage collected
-                    new Metadata(
-                            new String(getTag(metadata, "title", String.class, NO_TITLE)),
-                            copyImage(getTag(metadata, "image", Image.class, NO_IMAGE)),
-                            new String(getTag(metadata, "artist", String.class, NO_ARTIST)),
-                            new String(getTag(metadata, "album", String.class, NO_ALBUM)),
-                            media.getDuration().toMillis()
-                    ))
-            );
+            callback.accept(METADATA_CACHE.computeIfAbsent(file.getAbsolutePath(), k -> {
+                var image = getTag(metadata, "image", Image.class, null);
+                // clone everything to make sure media player will be garbage collected
+                return new Metadata(
+                        new String(getTag(metadata, "title", String.class, NO_TITLE)),
+                        image != null ? copyImage(image) : null,
+                        new String(getTag(metadata, "artist", String.class, NO_ARTIST)),
+                        new String(getTag(metadata, "album", String.class, NO_ALBUM)),
+                        media.getDuration().toMillis()
+                );
+            }));
 
             mediaPlayer.dispose();
         });
@@ -63,6 +64,11 @@ record MediaFile(File file) {
         static final Image NO_IMAGE = new Image(
                 Resources.getResourceAsStream("images/no-image.png"), 150, 150, true, false
         );
+
+        static final Image NO_IMAGE_ALT = new Image(
+                Resources.getResourceAsStream("images/papirus/mimetypes/audio-mp3.png"), 150, 150, true, false
+        );
+
         static final String NO_TITLE = "Unknown title";
         static final String NO_ARTIST = "Unknown artist";
         static final String NO_ALBUM = "Unknown album";
