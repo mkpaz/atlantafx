@@ -2,16 +2,26 @@
 
 @use "../settings/config" as cfg;
 
-$divider-thickness: 2px  !default;
-$grabber-length:    10px !default;
+$divider-color:         cfg.$scrollbar-color-track !default;
+$divider-color-pressed: -color-accent-emphasis !default;
+$divider-thickness:     2px !default;
+
+$grabber-color:         cfg.$scrollbar-color-thumb !default;
+$grabber-color-pressed: -color-accent-emphasis !default;
+$grabber-length:        10px !default;
 
 .split-pane {
+  -color-divider:         $divider-color;
+  -color-divider-pressed: $divider-color-pressed;
+  -color-grabber:         $grabber-color;
+  -color-grabber-pressed: $grabber-color-pressed;
+
   -fx-background-color: transparent;
   -fx-background-insets: 0;
   -fx-padding: 0;
 
   >.split-pane-divider {
-    -fx-background-color: cfg.$scrollbar-color-track;
+    -fx-background-color: -color-divider;
     -fx-padding: 0 $divider-thickness 0 $divider-thickness;
     -fx-opacity: cfg.$scrollbar-opacity-inactive;
 
@@ -21,21 +31,21 @@ $grabber-length:    10px !default;
     //-fx-border-width: 0 5 0 5;
 
     >.horizontal-grabber {
-      -fx-background-color: cfg.$scrollbar-color-thumb;
+      -fx-background-color: -color-grabber;
       -fx-padding: $grabber-length $divider-thickness $grabber-length $divider-thickness;
     }
 
     >.vertical-grabber {
-      -fx-background-color: cfg.$scrollbar-color-thumb;
+      -fx-background-color: -color-grabber;
       -fx-padding: $divider-thickness $grabber-length $divider-thickness $grabber-length;
     }
 
     &:pressed {
-      -fx-background-color: -color-accent-emphasis;
+      -fx-background-color: -color-divider-pressed;
 
       >.horizontal-grabber,
       >.vertical-grabber {
-        -fx-background-color: -color-accent-emphasis;
+        -fx-background-color: -color-grabber-pressed;
       }
     }
 
