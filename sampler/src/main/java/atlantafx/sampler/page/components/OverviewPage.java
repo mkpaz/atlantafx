@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.IntegerStringConverter;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
@@ -228,6 +229,7 @@ public class OverviewPage extends AbstractPage {
 
         var comboBox = new ComboBox<String>();
         comboBox.getItems().setAll("Option 1", "Option 2", "Option 3");
+        comboBox.getStyleClass().add(Tweaks.ALT_ICON);
         comboBox.getSelectionModel().selectFirst();
         comboBox.setPrefWidth(COMBO_BOX_WIDTH);
 

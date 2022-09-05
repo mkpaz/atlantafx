@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,32 +116,45 @@ public class ComboBoxPage extends AbstractPage {
             c.getSelectionModel().selectFirst();
         }), 2, 6);
 
-        // disabled
-        grid.add(comboBox(c -> c.setDisable(true)), 0, 7);
-        grid.add(label("disabled"), 1, 7);
-        grid.add(choiceBox(c -> c.setDisable(true)), 2, 7);
-
-        // overflow
+        // alt icon
         grid.add(comboBox(c -> {
-            c.setItems(createItems(50));
+            c.setItems(createItems(5));
+            c.getStyleClass().add(Tweaks.ALT_ICON);
             c.getSelectionModel().selectFirst();
-        }), 0, 8);
-        grid.add(label("large list"), 1, 8);
+        }), 0, 7);
+        grid.add(label("alt icon"), 1, 7);
         grid.add(choiceBox(c -> {
-            c.setItems(createItems(50));
+            c.setItems(createItems(5));
+            c.getStyleClass().add(Tweaks.ALT_ICON);
             c.getSelectionModel().selectFirst();
-        }), 2, 8);
+        }), 2, 7);
+
+        // disabled
+        grid.add(comboBox(c -> c.setDisable(true)), 0, 8);
+        grid.add(label("disabled"), 1, 8);
+        grid.add(choiceBox(c -> c.setDisable(true)), 2, 8);
 
         // overflow
         grid.add(comboBox(c -> {
-            c.setItems(observableArrayList(generate(() -> FAKER.chuckNorris().fact(), 5)));
+            c.setItems(createItems(50));
             c.getSelectionModel().selectFirst();
         }), 0, 9);
-        grid.add(label("wide text"), 1, 9);
+        grid.add(label("large list"), 1, 9);
+        grid.add(choiceBox(c -> {
+            c.setItems(createItems(50));
+            c.getSelectionModel().selectFirst();
+        }), 2, 9);
+
+        // overflow
+        grid.add(comboBox(c -> {
+            c.setItems(observableArrayList(generate(() -> FAKER.chuckNorris().fact(), 5)));
+            c.getSelectionModel().selectFirst();
+        }), 0, 10);
+        grid.add(label("wide text"), 1, 10);
         grid.add(choiceBox(c -> {
             c.setItems(observableArrayList(generate(() -> FAKER.chuckNorris().fact(), 5)));
             c.getSelectionModel().selectFirst();
-        }), 2, 9);
+        }), 2, 10);
 
         return grid;
     }

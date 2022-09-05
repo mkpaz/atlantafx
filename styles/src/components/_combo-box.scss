@@ -5,13 +5,18 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$color-cell-bg:          -color-bg-default !default;
-$color-cell-bg-hover:    if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
+$color-cell-bg: -color-bg-default !default;
+$color-cell-bg-hover: if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
 $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
 
 @mixin _arrow() {
   @include icons.get("arrow-drop-down", false);
   -fx-background-color: -color-fg-muted;
+}
+
+// alt icon to make combo-box not to be confused with menu button, if matters
+@mixin _alt-arrow() {
+  @include icons.get("unfold-more", false);
 }
 
 @mixin _combo-box-base() {
@@ -101,6 +106,13 @@ $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   &:danger {
     >.arrow-button>.arrow {
       -fx-background-color: -color-danger-fg;
+    }
+  }
+
+  // #tweaks/alt-icon
+  &.alt-icon {
+    >.arrow-button>.arrow {
+      @include _alt-arrow();
     }
   }
 }
@@ -201,6 +213,13 @@ $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
     >.open-button>.arrow {
       -fx-background-color: -color-danger-fg;
+    }
+  }
+
+  // #tweaks/alt-icon
+  &.alt-icon {
+    >.open-button>.arrow {
+      @include _alt-arrow();
     }
   }
 }
