@@ -93,6 +93,14 @@
       }
     }
   }
+
+  .context-menu {
+    -fx-background-color: -color-border-muted, -color-bg-default;
+
+    >.label {
+      -fx-text-fill: -color-fg-default;
+    }
+  }
 }
 
 .contrast-checker-dialog {

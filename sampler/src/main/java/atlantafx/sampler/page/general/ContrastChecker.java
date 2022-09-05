@@ -8,6 +8,7 @@ import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.JColor;
 import atlantafx.sampler.util.JColorUtils;
+import atlantafx.sampler.util.PlatformUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -16,14 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,6 +35,7 @@ import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName
 import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
 import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 // Inspired by the https://colourcontrast.cc/
 class ContrastChecker extends GridPane {
@@ -167,7 +164,7 @@ class ContrastChecker extends GridPane {
         bgTextField.textProperty().bind(Bindings.createStringBinding(
                 () -> bgColor.getColorHexWithAlpha().substring(1), bgColor.colorProperty()
         ));
-        bgTextField.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
+        bgTextField.setContextMenu(new RightClickMenu(bgColor));
 
         fgColorNameLabel = new Label("Foreground Color");
         fgColorNameLabel.setPadding(new Insets(-15, 0, 0, 0));
@@ -179,7 +176,7 @@ class ContrastChecker extends GridPane {
         fgTextField.textProperty().bind(Bindings.createStringBinding(
                 () -> fgColor.getColorHexWithAlpha().substring(1), fgColor.colorProperty()
         ));
-        fgTextField.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, Event::consume);
+        fgTextField.setContextMenu(new RightClickMenu(fgColor));
 
         bgHueSlider = slider(1, 360, 1, 1);
         bgHueSlider.valueProperty().addListener((obs, old, val) -> {
@@ -320,8 +317,8 @@ class ContrastChecker extends GridPane {
 
     private void updateStyle() {
         setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
-                JColorUtils.toHexWithAlpha(bgColor.getColor()),
-                JColorUtils.toHexWithAlpha(getSafeFgColor())
+                toHexWithAlpha(bgColor.getColor()),
+                toHexWithAlpha(getSafeFgColor())
         ));
     }
 
@@ -452,6 +449,50 @@ class ContrastChecker extends GridPane {
         public String getColorHexWithAlpha() {
             float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
             return JColor.color(hsl, getAlpha()).getColorHexWithAlpha();
+        }
+    }
+
+    private static class RightClickMenu extends ContextMenu {
+
+        private final ObservableHSLAColor color;
+
+        public RightClickMenu(ObservableHSLAColor color) {
+            super();
+
+            this.color = color;
+
+            createMenu();
+        }
+
+        private void createMenu() {
+            var hexItem = new MenuItem("Copy as HEX");
+            hexItem.setOnAction(e -> {
+                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
+                        toHexWithAlpha(color.getColor()) :
+                        c.getColorHex()
+                );
+            });
+
+            var rgbItem = new MenuItem("Copy as RGB");
+            rgbItem.setOnAction(e -> {
+                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
+                        String.format("rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()) :
+                        String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
+                );
+            });
+
+            var hslItem = new MenuItem("Copy as HSL");
+            hslItem.setOnAction(e -> {
+                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
+                        String.format("hsla(%.0f,%.2f,%.2f, %.1f)", c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()) :
+                        String.format("hsl(%.0f,%.2f,%.2f)", c.getHue(), c.getSaturation(), c.getLightness())
+                );
+            });
+
+            getItems().setAll(hexItem, rgbItem, hslItem);
         }
     }
 }
