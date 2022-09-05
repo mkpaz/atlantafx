@@ -12,4 +12,9 @@ public final class Tweaks {
 
     /** Remover external control borders */
     public static final String EDGE_TO_EDGE = "edge-to-edge";
+
+    /** Alignment */
+    public static final String ALIGN_LEFT = "align-left";
+    public static final String ALIGN_CENTER = "align-center";
+    public static final String ALIGN_RIGHT = "align-right";
 }

@@ -4,7 +4,6 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.beans.binding.Bindings;
@@ -22,9 +21,11 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIconTableCell;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.base.theme.Tweaks.*;
 import static javafx.collections.FXCollections.observableArrayList;
 import static javafx.geometry.Orientation.HORIZONTAL;
 
@@ -229,11 +230,57 @@ public class TablePage extends AbstractPage {
         var edge2edgeItem = new CheckMenuItem("Edge to edge");
         edge2edgeItem.selectedProperty().addListener((obs, old, val) -> {
             if (!val) {
-                table.getStyleClass().remove(Tweaks.EDGE_TO_EDGE);
+                table.getStyleClass().remove(EDGE_TO_EDGE);
             } else {
-                table.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
+                table.getStyleClass().add(EDGE_TO_EDGE);
             }
         });
+
+        // ~
+
+        var alignToggleGroup = new ToggleGroup();
+
+        var alignLeftItem = new RadioMenuItem("Left");
+        alignLeftItem.setToggleGroup(alignToggleGroup);
+        alignLeftItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                addStyleClass(c, ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignCenterItem = new RadioMenuItem("Center");
+        alignCenterItem.setToggleGroup(alignToggleGroup);
+        alignCenterItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
+            }
+        });
+
+        var alignRightItem = new RadioMenuItem("Right");
+        alignRightItem.setToggleGroup(alignToggleGroup);
+        alignRightItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
+            }
+        });
+
+        var alignDefaultItem = new MenuItem("Default");
+        alignDefaultItem.setOnAction(e -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignMenu = new Menu("Align columns");
+        alignMenu.getItems().setAll(
+                alignLeftItem,
+                alignCenterItem,
+                alignRightItem,
+                new SeparatorMenuItem(),
+                alignDefaultItem
+        );
+
+        // ~
 
         var menuButtonItem = new CheckMenuItem("Show menu button");
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
@@ -250,9 +297,20 @@ public class TablePage extends AbstractPage {
                     new SeparatorMenuItem(),
                     editCellsItem,
                     cellSelectionItem,
+                    alignMenu,
                     edge2edgeItem,
                     menuButtonItem
             );
         }};
+    }
+
+    private static void addStyleClass(TableColumn<?, ?> c, String styleClass, String... excludes) {
+        Objects.requireNonNull(c);
+        Objects.requireNonNull(styleClass);
+
+        if (excludes != null && excludes.length > 0) {
+            c.getStyleClass().removeAll(excludes);
+        }
+        c.getStyleClass().add(styleClass);
     }
 }

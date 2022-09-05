@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.showcase.filemanager;
 
 import atlantafx.base.theme.Styles;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.HumanReadableFormat;
 import javafx.beans.property.SimpleLongProperty;
@@ -66,7 +67,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         var mtimeCol = new TableColumn<Path, FileTime>("Modified");
         mtimeCol.setCellValueFactory(param -> new SimpleObjectProperty<>(fileMTime(param.getValue(), NOFOLLOW_LINKS)));
         mtimeCol.setCellFactory(col -> new FileTimeCell());
-        mtimeCol.setStyle("-fx-alignment: CENTER-RIGHT;");
+        mtimeCol.getStyleClass().add(Tweaks.ALIGN_RIGHT);
 
         // ~
 
@@ -193,8 +194,8 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
                 setText(null);
             } else {
                 setText(fileTime != null ?
-                                HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
-                                UNKNOWN
+                        HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
+                        UNKNOWN
                 );
             }
         }

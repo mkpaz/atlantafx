@@ -16,9 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.base.theme.Tweaks.*;
 
 public class TreeTablePage extends AbstractPage {
 
@@ -223,6 +225,52 @@ public class TreeTablePage extends AbstractPage {
             }
         });
 
+        // ~
+
+        var alignToggleGroup = new ToggleGroup();
+
+        var alignLeftItem = new RadioMenuItem("Left");
+        alignLeftItem.setToggleGroup(alignToggleGroup);
+        alignLeftItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                addStyleClass(c, ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignCenterItem = new RadioMenuItem("Center");
+        alignCenterItem.setToggleGroup(alignToggleGroup);
+        alignCenterItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
+            }
+        });
+
+        var alignRightItem = new RadioMenuItem("Right");
+        alignRightItem.setToggleGroup(alignToggleGroup);
+        alignRightItem.selectedProperty().addListener((obs, old, val) -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
+            }
+        });
+
+        var alignDefaultItem = new MenuItem("Default");
+        alignDefaultItem.setOnAction(e -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignMenu = new Menu("Align columns");
+        alignMenu.getItems().setAll(
+                alignLeftItem,
+                alignCenterItem,
+                alignRightItem,
+                new SeparatorMenuItem(),
+                alignDefaultItem
+        );
+
+        // ~
+
         var menuButtonItem = new CheckMenuItem("Show menu button");
         treeTable.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
@@ -239,9 +287,20 @@ public class TreeTablePage extends AbstractPage {
                     showRootItem,
                     editCellsItem,
                     cellSelectionItem,
+                    alignMenu,
                     edge2edgeItem,
                     menuButtonItem
             );
         }};
+    }
+
+    private static void addStyleClass(TreeTableColumn<?, ?> c, String styleClass, String... excludes) {
+        Objects.requireNonNull(c);
+        Objects.requireNonNull(styleClass);
+
+        if (excludes != null && excludes.length > 0) {
+            c.getStyleClass().removeAll(excludes);
+        }
+        c.getStyleClass().add(styleClass);
     }
 }
