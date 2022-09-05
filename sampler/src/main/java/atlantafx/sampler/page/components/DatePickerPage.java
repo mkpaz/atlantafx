@@ -9,18 +9,23 @@ import atlantafx.sampler.page.AbstractPage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
 import java.time.LocalDate;
 import java.time.chrono.HijrahChronology;
 import java.time.format.DateTimeFormatter;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
 import static javafx.scene.layout.GridPane.REMAINING;
 
 public class DatePickerPage extends AbstractPage {
@@ -104,7 +109,10 @@ public class DatePickerPage extends AbstractPage {
         );
         controls.setAlignment(Pos.CENTER_RIGHT);
 
+        var colorSelector = new DatePickerColorSelector(playground);
+
         // == GRID ==
+
         var defaultLabel = new Label("Default");
         defaultLabel.getStyleClass().add(Styles.TEXT_BOLD);
 
@@ -117,6 +125,7 @@ public class DatePickerPage extends AbstractPage {
         playground.add(inlineLabel, 0, 3);
         playground.add(inlineDatePicker, INLINE_DATE_PICKER_COL, INLINE_DATE_PICKER_ROW);
         playground.add(inlineValue, 0, 5);
+        playground.add(colorSelector, 0, 6);
         playground.add(controls, 1, 0, 1, REMAINING);
 
         return playground;
@@ -170,6 +179,69 @@ public class DatePickerPage extends AbstractPage {
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
             setDisable(empty || date.compareTo(TODAY) < 0);
+        }
+    }
+
+    // This class shares stylesheet with the AccentColorSelector
+    private static class DatePickerColorSelector extends HBox {
+
+        private final Pane root;
+
+        public DatePickerColorSelector(Pane root) {
+            super();
+            this.root = root;
+            createView();
+        }
+
+        private void createView() {
+            var resetBtn = new Button("", new FontIcon(Material2AL.CLEAR));
+            resetBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
+            resetBtn.setOnAction(e -> resetColorVariables());
+
+            setAlignment(Pos.CENTER);
+            getChildren().setAll(
+                    colorButton("-color-accent-emphasis", "-color-fg-emphasis"),
+                    colorButton("-color-success-emphasis", "-color-fg-emphasis"),
+                    colorButton("-color-danger-emphasis", "-color-fg-emphasis"),
+                    resetBtn
+            );
+            getStyleClass().add("accent-color-selector");
+        }
+
+        private Button colorButton(String bgColorName, String fgColorName) {
+            var icon = new Region();
+            icon.getStyleClass().add("icon");
+            icon.setStyle("-color-primary:" + bgColorName + ";");
+
+            var btn = new Button("", icon);
+            btn.getStyleClass().addAll(BUTTON_ICON, FLAT, "color-button");
+            btn.setOnAction(e -> setColorVariables(bgColorName, fgColorName));
+
+            return btn;
+        }
+
+        private void setColorVariables(String bgColorName, String fgColorName) {
+            for (Node node : root.getChildren()) {
+                var style = String.format("-color-dp-border:%s;-color-dp-month-year-bg:%s;-color-dp-month-year-fg:%s;",
+                        bgColorName,
+                        bgColorName,
+                        fgColorName
+                );
+
+                if (node instanceof InlineDatePicker dp) {
+                    var popup = dp.lookup(".date-picker-popup");
+                    if (popup != null) { popup.setStyle(style); }
+                }
+            }
+        }
+
+        private void resetColorVariables() {
+            for (Node node : root.getChildren()) {
+                if (node instanceof InlineDatePicker dp) {
+                    var popup = dp.lookup(".date-picker-popup");
+                    if (popup != null) { popup.setStyle(null); }
+                }
+            }
         }
     }
 }

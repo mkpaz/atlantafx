@@ -9,6 +9,9 @@
 }
 
 .popover .date-picker-popup {
-  -fx-background-color: transparent;
-  -fx-background-insets: 0;
+  -color-dp-border: transparent;
+  -color-dp-bg: transparent;
+  -color-dp-day-bg: transparent;
+  -color-dp-month-year-bg: transparent;
+  -color-dp-day-bg-hover:  -color-bg-subtle;
 }

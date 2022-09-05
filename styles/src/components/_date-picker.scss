@@ -4,22 +4,55 @@
 @use "../settings/effects";
 @use "../settings/icons";
 
+$color-bg:              -color-bg-default     !default;
+$color-border:          -color-border-default !default;
+$month-year-color-bg:   -color-bg-default !default;
+$month-year-color-fg:   -color-fg-default !default;
+$day-color-bg:          -color-bg-default !default;
+$day-color-bg-hover:    -color-bg-subtle  !default;
+$day-color-bg-selected: -color-accent-emphasis !default;
+$day-color-fg:          -color-fg-default  !default;
+$day-color-fg-hover:    -color-fg-default  !default;
+$day-color-fg-selected: -color-fg-emphasis !default;
+$week-color-bg:         -color-bg-default  !default;
+$week-color-fg:         -color-accent-fg   !default;
+$today-color-bg:        -color-accent-subtle  !default;
+$today-color-fg:        -color-accent-fg   !default;
+$other-month-color-fg:  -color-fg-muted    !default;
+$chrono-color-fg:       -color-success-fg  !default;
+
 $content-padding-x: 8px !default;
 $content-padding-y: 8px !default;
 
-$month-year-pane-color-bg: -color-bg-default   !default;
-$month-year-pane-color-fg: -color-fg-default !default;
-$month-year-pane-font-size: 1.1em !default;
+$month-year-font-size: 1.1em !default;
 
 $cell-padding-x: 4px !default;
 $cell-padding-y: 8px !default;
 $day-name-font-size: 0.9em !default;
 
 // secondary chronology
-$chronology-fg:           -color-success-fg !default;
-$chronology-label-margin: 0.5em  !default;
-$chronology-cell-size:    2.75em !default;
-$chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
+$chrono-label-margin: 0.5em  !default;
+$chrono-cell-size:    2.75em !default;
+$chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
+
+@mixin _color-variables() {
+  -color-dp-bg:              $color-bg;
+  -color-dp-border:          $color-border;
+  -color-dp-month-year-bg:   $month-year-color-bg;
+  -color-dp-month-year-fg:   $month-year-color-fg;
+  -color-dp-day-bg:          $day-color-bg;
+  -color-dp-day-bg-hover:    $day-color-bg-hover;
+  -color-dp-day-bg-selected: $day-color-bg-selected;
+  -color-dp-day-fg:          $day-color-fg;
+  -color-dp-day-fg-hover:    $day-color-fg-hover;
+  -color-dp-day-fg-selected: $day-color-fg-selected;
+  -color-dp-week-bg:         $week-color-bg;
+  -color-dp-week-fg:         $week-color-fg;
+  -color-dp-today-bg:        $today-color-bg;
+  -color-dp-today-fg:        $today-color-fg;
+  -color-dp-other-month-fg:  $other-month-color-fg;
+  -color-dp-chrono-fg:       $chrono-color-fg;
+}
 
 .combo-box-base.date-picker {
   >.arrow-button {
@@ -34,7 +67,8 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 }
 
 .date-picker-popup {
-  -fx-background-color: -color-border-default, -color-bg-default;
+  @include _color-variables();
+  -fx-background-color: -color-dp-border, -color-dp-bg;
   -fx-background-insets: 0, 1;
   -fx-background-radius: 0;
   -fx-alignment: CENTER;
@@ -43,7 +77,7 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 
   >.month-year-pane {
     -fx-padding: $content-padding-y $content-padding-x $content-padding-y $content-padding-x;
-    -fx-background-color: $month-year-pane-color-bg;
+    -fx-background-color: -color-dp-month-year-bg;
     -fx-background-insets: 0;
 
     // this one is actually HBox, but because of the class name it uses Spinner styles
@@ -53,7 +87,7 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
       -fx-fill-height: false;
       -fx-background-color: transparent;
       -fx-border-color: transparent;
-      -fx-font-size: $month-year-pane-font-size;
+      -fx-font-size: $month-year-font-size;
 
       >.button {
         -fx-background-color: transparent;
@@ -63,30 +97,30 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 
         >.left-arrow {
           @include icons.get("chevron-left", false);
-          -fx-background-color: $month-year-pane-color-fg;
+          -fx-background-color: -color-dp-month-year-fg;
         }
 
         >.right-arrow {
           @include icons.get("chevron-right", false);
-          -fx-background-color: $month-year-pane-color-fg;
+          -fx-background-color: -color-dp-month-year-fg;
         }
       }
 
       >.label {
         -fx-alignment: CENTER;
-        -fx-text-fill: $month-year-pane-color-fg;
+        -fx-text-fill: -color-dp-month-year-fg;
       }
     }
 
     >.secondary-label {
       -fx-alignment: BASELINE_CENTER;
-      -fx-padding:   $chronology-label-margin 0 0 0;
-      -fx-text-fill: $month-year-pane-color-fg;
+      -fx-padding:   $chrono-label-margin 0 0 0;
+      -fx-text-fill: -color-dp-month-year-fg;
     }
   }
 
   >.calendar-grid {
-    -fx-background-color: -color-bg-default;
+    -fx-background-color: -color-dp-bg;
     -fx-padding: $content-padding-x;
 
     >.date-cell {
@@ -94,22 +128,22 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
       -fx-padding: 0;
       -fx-alignment: BASELINE_CENTER;
       -fx-opacity: 1.0;
-      -fx-text-fill: -color-fg-default;
+      -fx-text-fill: -color-dp-day-fg;
     }
 
     >.week-number-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
-      -fx-background-color: -color-bg-default;
-      -fx-text-fill: -color-accent-fg;
+      -fx-background-color: -color-dp-week-bg;
+      -fx-text-fill: -color-dp-week-fg;
       -fx-font-size: $day-name-font-size;
     }
 
     >.day-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
-      -fx-background-color: -color-bg-default;
+      -fx-background-color: -color-dp-day-bg;
 
       >.secondary-text {
-        -fx-fill: $chronology-fg;
+        -fx-fill: -color-dp-chrono-fg;
       }
 
       &:disabled {
@@ -124,13 +158,13 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 
     >.hijrah-day-cell {
       -fx-alignment: TOP_LEFT;
-      -fx-padding: $chronology-cell-padding;
-      -fx-cell-size: $chronology-cell-size;
+      -fx-padding: $chrono-cell-padding;
+      -fx-cell-size: $chrono-cell-size;
     }
 
     >.today {
-      -fx-background-color: -color-accent-subtle;
-      -fx-text-fill: -color-accent-fg;
+      -fx-background-color: -color-dp-today-bg;
+      -fx-text-fill: -color-dp-today-fg;
       -fx-font-weight: bold;
     }
   }
@@ -153,20 +187,20 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
     >.back-button {
       >.left-arrow {
         @include icons.get("chevron-left", false);
-        -fx-background-color: $month-year-pane-color-fg;
+        -fx-background-color: -color-dp-month-year-fg;
       }
     }
 
     >.forward-button {
       >.right-arrow {
         @include icons.get("chevron-right", false);
-        -fx-background-color: $month-year-pane-color-fg;
+        -fx-background-color: -color-dp-month-year-fg;
       }
     }
 
     >.label {
-      -fx-text-fill: $month-year-pane-color-fg;
-      -fx-font-size: $month-year-pane-font-size;
+      -fx-text-fill: -color-dp-month-year-fg;
+      -fx-font-size: $month-year-font-size;
     }
   }
 
@@ -188,18 +222,25 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 .date-picker-popup>.calendar-grid>.selected>.secondary-text,
 .date-picker-popup>.calendar-grid>.previous-month.selected,
 .date-picker-popup>.calendar-grid>.next-month.selected {
-  -fx-background-color: -color-accent-emphasis;
-  -fx-text-fill: -color-fg-emphasis;
-  -fx-fill: -color-fg-emphasis;
+  -fx-background-color: -color-dp-day-bg-selected;
+  -fx-text-fill: -color-dp-day-fg-selected;
+  -fx-fill: -color-dp-day-fg-selected;
   -fx-font-weight: normal;
 }
 
 .date-picker-popup>.calendar-grid>.day-cell:hover {
-  -fx-background-color: -color-bg-subtle;
+  -fx-background-color: -color-dp-day-bg-hover;
+}
+
+.date-picker-popup>.calendar-grid>.today:hover {
+  -fx-background-color: -color-dp-today-bg;
+  -fx-text-fill: -color-dp-today-fg;
 }
 
 .date-picker-popup>.calendar-grid>.selected:hover {
-  -fx-background-color: -color-accent-emphasis;
+  -fx-background-color: -color-dp-day-bg-selected;
+  -fx-text-fill: -color-dp-day-fg-selected;
+  -fx-fill: -color-dp-day-fg-selected;
 }
 
 .date-picker-popup>.calendar-grid>.previous-month,
@@ -208,7 +249,7 @@ $chronology-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !defa
 .date-picker-popup>.calendar-grid>.next-month.today,
 .date-picker-popup>.calendar-grid>.previous-month>.secondary-text,
 .date-picker-popup>.calendar-grid>.next-month>.secondary-text {
-  -fx-text-fill: -color-fg-muted;
-  -fx-fill: -color-fg-muted;
+  -fx-text-fill: -color-dp-other-month-fg;
+  -fx-fill: -color-dp-other-month-fg;
   -fx-font-weight: normal;
 }
