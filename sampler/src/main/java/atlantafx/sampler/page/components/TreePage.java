@@ -3,6 +3,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -71,6 +72,11 @@ public class TreePage extends AbstractPage {
         }));
         showRootToggle.setSelected(true);
 
+        var edge2edgeToggle = new ToggleSwitch("Edge to edge");
+        edge2edgeToggle.selectedProperty().addListener(
+                (obs, old, val) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.EDGE_TO_EDGE))
+        );
+
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedTree().ifPresent(tv -> {
             if (val != null) { tv.setDisable(val); }
@@ -80,6 +86,7 @@ public class TreePage extends AbstractPage {
                 new Spacer(),
                 denseToggle,
                 showRootToggle,
+                edge2edgeToggle,
                 disableToggle,
                 new Spacer()
         );

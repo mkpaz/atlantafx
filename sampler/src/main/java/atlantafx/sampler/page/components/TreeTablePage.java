@@ -4,6 +4,7 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.beans.property.SimpleStringProperty;
@@ -55,10 +56,10 @@ public class TreeTablePage extends AbstractPage {
         });
 
         var togglesBox = new HBox(20,
-                                  bordersToggle,
-                                  denseToggle,
-                                  stripesToggle,
-                                  disableToggle
+                bordersToggle,
+                denseToggle,
+                stripesToggle,
+                disableToggle
         );
         togglesBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -213,6 +214,15 @@ public class TreeTablePage extends AbstractPage {
         treeTable.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
+        var edge2edgeItem = new CheckMenuItem("Edge to edge");
+        edge2edgeItem.selectedProperty().addListener((obs, old, val) -> {
+            if (!val) {
+                treeTable.getStyleClass().remove(Tweaks.EDGE_TO_EDGE);
+            } else {
+                treeTable.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
+            }
+        });
+
         var menuButtonItem = new CheckMenuItem("Show menu button");
         treeTable.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
@@ -229,6 +239,7 @@ public class TreeTablePage extends AbstractPage {
                     showRootItem,
                     editCellsItem,
                     cellSelectionItem,
+                    edge2edgeItem,
                     menuButtonItem
             );
         }};

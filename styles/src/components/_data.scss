@@ -50,6 +50,11 @@ $tree-cell-indent: 1em !default;
       -fx-opacity: cfg.$opacity-disabled;
     }
   }
+
+  // #tweak/edge-to-edge
+  &.edge-to-edge {
+    -fx-border-width: 0;
+  }
 }
 
 // row selection (cellSelectionEnabled = false)

@@ -1,10 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.sampler.fake.domain.Product;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
+import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
@@ -225,6 +226,15 @@ public class TablePage extends AbstractPage {
         table.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
+        var edge2edgeItem = new CheckMenuItem("Edge to edge");
+        edge2edgeItem.selectedProperty().addListener((obs, old, val) -> {
+            if (!val) {
+                table.getStyleClass().remove(Tweaks.EDGE_TO_EDGE);
+            } else {
+                table.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
+            }
+        });
+
         var menuButtonItem = new CheckMenuItem("Show menu button");
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
@@ -240,6 +250,7 @@ public class TablePage extends AbstractPage {
                     new SeparatorMenuItem(),
                     editCellsItem,
                     cellSelectionItem,
+                    edge2edgeItem,
                     menuButtonItem
             );
         }};

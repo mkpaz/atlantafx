@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.theme.Tweaks;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
@@ -82,6 +83,7 @@ final class PlaylistPane extends VBox {
         controlsBox.setAlignment(CENTER_LEFT);
 
         playlist = new ListView<>(model.playlist());
+        playlist.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
         playlist.setCellFactory(param -> new MediaCell(model));
         playlist.setPlaceholder(new Label("No Content"));
         VBox.setVgrow(playlist, ALWAYS);

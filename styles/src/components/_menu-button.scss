@@ -122,6 +122,7 @@ $separator-width:    0.75px !default;
 }
 
 .menu-button {
+  // #tweak/no-arrow
   &.no-arrow {
     >.arrow-button {
       -fx-padding: 0;

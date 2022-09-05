@@ -3,6 +3,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Book;
 import atlantafx.sampler.page.AbstractPage;
 import javafx.geometry.Orientation;
@@ -91,18 +92,22 @@ public class ListPage extends AbstractPage {
         var stripedToggle = new ToggleSwitch("Striped");
         stripedToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, STRIPED)));
 
+        var edge2edgeToggle = new ToggleSwitch("Edge to edge");
+        edge2edgeToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, Tweaks.EDGE_TO_EDGE)));
+
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedList().ifPresent(lv -> {
             if (val != null) { lv.setDisable(val); }
         }));
 
         var controls = new HBox(20,
-                                new Spacer(),
-                                borderedToggle,
-                                denseToggle,
-                                stripedToggle,
-                                disableToggle,
-                                new Spacer()
+                new Spacer(),
+                borderedToggle,
+                denseToggle,
+                stripedToggle,
+                edge2edgeToggle,
+                disableToggle,
+                new Spacer()
         );
 
         playground.getChildren().setAll(
@@ -273,11 +278,11 @@ public class ListPage extends AbstractPage {
             purchaseBtn.setGraphic(new FontIcon(Feather.SHOPPING_CART));
 
             root = new HBox(5,
-                            titleLabel,
-                            new Label(" by"),
-                            authorLink,
-                            new Spacer(),
-                            purchaseBtn
+                    titleLabel,
+                    new Label(" by"),
+                    authorLink,
+                    new Spacer(),
+                    purchaseBtn
             );
             root.setAlignment(Pos.CENTER_LEFT);
         }

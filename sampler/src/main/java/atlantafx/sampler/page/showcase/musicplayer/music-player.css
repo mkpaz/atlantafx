@@ -41,9 +41,6 @@
     -color-button-bg-focused: transparent;
     -color-button-bg-pressed: transparent;
 }
-.music-player-showcase > .player-screen > * > .playlist > .list-view {
-    -fx-border-width: 0;
-}
 .music-player-showcase > .player-screen > * > .playlist > .list-view .list-cell {
     -color-cell-bg: transparent;
     -color-cell-bg-selected: transparent;
