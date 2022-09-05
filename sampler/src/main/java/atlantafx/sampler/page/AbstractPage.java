@@ -4,6 +4,8 @@ package atlantafx.sampler.page;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.layout.Overlay;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.event.ActionEvent;
@@ -57,6 +59,13 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
         getStyleClass().add("page");
         createPageLayout();
+
+        // update code view color theme on app theme change
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
+            if (ThemeManager.getInstance().getTheme() != null && isCodeViewActive()) {
+                loadSourceCodeAndMoveToFront();
+            }
+        });
     }
 
     protected void createPageLayout() {
@@ -156,14 +165,16 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     protected void toggleSourceCode() {
-        var graphic = (FontIcon) sourceCodeToggleBtn.getGraphic();
-
-        if (graphic.getIconCode() == ICON_SAMPLE) {
+        if (isCodeViewActive()) {
             codeViewerWrapper.toBack();
-            graphic.setIconCode(ICON_CODE);
+            ((FontIcon) sourceCodeToggleBtn.getGraphic()).setIconCode(ICON_CODE);
             return;
         }
 
+        loadSourceCodeAndMoveToFront();
+    }
+
+    protected void loadSourceCodeAndMoveToFront() {
         var sourceFileName = getClass().getSimpleName() + ".java";
         try (var stream = getClass().getResourceAsStream(sourceFileName)) {
             Objects.requireNonNull(stream, "Missing source file '" + sourceFileName + "';");
@@ -172,11 +183,23 @@ public abstract class AbstractPage extends BorderPane implements Page {
             ThemeManager tm = ThemeManager.getInstance();
             codeViewer.setContent(stream, tm.getMatchingSourceCodeHighlightTheme(tm.getTheme()));
 
+            var graphic = (FontIcon) sourceCodeToggleBtn.getGraphic();
             graphic.setIconCode(ICON_SAMPLE);
+
             codeViewerWrapper.toFront();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected final boolean isSampleViewActive() {
+        var graphic = (FontIcon) sourceCodeToggleBtn.getGraphic();
+        return graphic.getIconCode() == ICON_CODE;
+    }
+
+    protected final boolean isCodeViewActive() {
+        var graphic = (FontIcon) sourceCodeToggleBtn.getGraphic();
+        return graphic.getIconCode() == ICON_SAMPLE;
     }
 
     ///////////////////////////////////////////////////////////////////////////
