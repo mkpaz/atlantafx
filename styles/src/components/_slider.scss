@@ -3,8 +3,7 @@
 @use "../settings/config" as cfg;
 @use "sass:math";
 
-// use borderless slider for dark mode by default
-$thumb-color:        if(cfg.$darkMode, -color-fg-default, -color-bg-default) !default;
+$thumb-color:        if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
 $thumb-color-border: if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
 $thumb-size:         8px !default;
 $thumb-border-width: 2px !default;
@@ -21,8 +20,13 @@ $_track-padding: math.div($track-size + $track-margin, 2);
 
 .slider {
 
+  -color-slider-thumb:        $thumb-color;
+  -color-slider-thumb-border: $thumb-color-border;
+  -color-slider-track:        $track-color;
+  -color-slider-tick:         $tick-color;
+
   >.thumb {
-    -fx-background-color: $thumb-color-border, $thumb-color;
+    -fx-background-color: -color-slider-thumb-border, -color-slider-thumb;
     -fx-background-insets: 0, 2px;
     -fx-background-radius: 50;
     -fx-padding: $thumb-size;
@@ -31,7 +35,7 @@ $_track-padding: math.div($track-size + $track-margin, 2);
   >.track {
     // transparent background increases clickable track area without increasing visual track height,
     // it's also used to center track with thumb
-    -fx-background-color: transparent, $track-color;
+    -fx-background-color: transparent, -color-slider-track;
     -fx-background-radius: cfg.$border-radius;
   }
 
@@ -54,13 +58,13 @@ $_track-padding: math.div($track-size + $track-margin, 2);
   // there's slightly noticable difference between axis length and track length,
   // wontfix this via CSS, because it's probably JavaFX calc problem
   >.axis {
-    -fx-tick-label-fill: $tick-color;
+    -fx-tick-label-fill: -color-slider-tick;
     -fx-tick-length: $tick-major-size;
     -fx-minor-tick-length: $tick-minor-size;
 
     >.axis-tick-mark,
     >.axis-minor-tick-mark {
-      -fx-stroke: $tick-color;
+      -fx-stroke: -color-slider-tick;
     }
   }
 

@@ -50,11 +50,12 @@
 
   .slider {
     >.thumb {
-      -fx-background-color: -color-contrast-checker-fg;
+      -color-slider-thumb: -color-contrast-checker-fg;
+      -color-slider-thumb-border: -color-contrast-checker-fg;
     }
 
     >.track {
-      -fx-background-color: transparent, -color-contrast-checker-fg;
+      -color-slider-track: -color-contrast-checker-fg;
       -fx-opacity: 0.5;
     }
   }
