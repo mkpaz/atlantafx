@@ -87,13 +87,13 @@ $color-flat-danger-bg-hover:   -color-danger-subtle  !default;
 
 // outlined
 $color-accent-outlined-fg:        -color-accent-fg  !default;
-$color-accent-outlined-bg-hover:  -color-accent-emphasis  !default;
+$color-accent-outlined-bg-hover:  $color-accent-bg-hover  !default;
 
 $color-success-outlined-fg:       -color-success-fg !default;
-$color-success-outlined-bg-hover: -color-success-emphasis !default;
+$color-success-outlined-bg-hover: $color-success-bg-hover !default;
 
 $color-danger-outlined-fg:        -color-danger-fg  !default;
-$color-danger-outlined-bg-hover:  -color-danger-emphasis  !default;
+$color-danger-outlined-bg-hover:  $color-danger-bg-hover  !default;
 
 // basic style is shared with Button, ToggleButton and MenuButton
 @mixin base() {
