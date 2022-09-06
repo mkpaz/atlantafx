@@ -16,6 +16,14 @@
     </properties>
 
     <build>
+        <resources>
+            <!-- include SASS sources to the resulting JAR file -->
+            <resource>
+                <directory>src</directory>
+                <targetPath>atlantafx/styles</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <plugins>
             <!-- compile SCSS -->
             <plugin>
