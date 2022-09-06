@@ -205,7 +205,7 @@ public class DatePickerPage extends AbstractPage {
                     colorButton("-color-danger-emphasis", "-color-fg-emphasis"),
                     resetBtn
             );
-            getStyleClass().add("accent-color-selector");
+            getStyleClass().add("color-selector");
         }
 
         private Button colorButton(String bgColorName, String fgColorName) {

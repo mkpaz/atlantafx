@@ -33,7 +33,7 @@ public class AccentColorSelector extends HBox {
                 colorButton(AccentColor.primerCoral()),
                 resetBtn
         );
-        getStyleClass().add("accent-color-selector");
+        getStyleClass().add("color-selector");
     }
 
     private Button colorButton(AccentColor accentColor) {
