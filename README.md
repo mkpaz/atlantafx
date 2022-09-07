@@ -1,10 +1,23 @@
 # AtlantaFX
 
-JavaFX CSS theme collection plus additional controls. It's inspired by [FlatLaf](https://github.com/JFormDesigner/FlatLaf) and the variety of Web component frameworks.
-
----
-
 ![alt](./.screenshots/demo.gif)
+
+Features:
+
+* Modern flat interface inspired by the variety of Web component frameworks.
+* CSS first. It works with existing JavaFX controls.
+* Light and dark themes included.
+* Simple and intuitive color system based on the [GitHub Primer guidelines](https://primer.style/design/foundations/color).
+* Fully customizable. Easily change global accent (brand) color or individual control via looked-up color variables.
+* Written in modular SASS. No more digging in 3,500 lines of CSS code.
+* Custom themes support. Compile your own theme from existing SASS sources.
+* Additional controls that essential for modern GUI development.
+* Sampler app:
+  * play with themes and fonts
+  * test every feature of each existing control and check source code directly in the app to learn how to implement it
+  * check color palette and modify theme color contrast
+  * hot reload; play with control styles without restarting the whole app
+  * showcases that demonstrate real-world project usage
 
 ## Try it out
 
@@ -14,25 +27,11 @@ Grab a **[self-updating download of the Sampler app](https://downloads.hydraulic
 
 **Requirements:** JavaFX 17+ (because of `data-url` support).
 
-For now, project is in early development stage. You should add OSSRH snapshot repository to use it.
-
 ```xml
-<repository>
-    <id>ossrh.snapshots</id>
-    <name>OSSRH snapshots</name>
-    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-    <releases>
-        <enabled>false</enabled>
-    </releases>
-    <snapshots>
-        <enabled>true</enabled>
-    </snapshots>
-</repository>
-
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -40,8 +39,8 @@ Set CSS theme:
 
 ```java
 Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-// or
 Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+// ... find more themes in 'atlantafx.base.theme' package
 ```
 
 ## Build
@@ -50,7 +49,7 @@ You can either use CLI or create run configuration in your favorite IDE.
 
 ```sh
 # compile SASS into styles/dist directory,
-# you can stop here and use compiled CSS files in your app just like that
+# you can stop here and use compiled CSS files just like that
 mvn install -pl styles
 
 # compile additional controls, it will also copy previously compiled CSS files
