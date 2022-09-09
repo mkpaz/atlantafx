@@ -15,13 +15,14 @@ title: AtlantaFX
 description: >- # this means to ignore newlines until "baseurl:"
   Modern JavaFX CSS theme collection with additional controls.
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: ""     # the base hostname & protocol for your site, e.g. http://example.com
+url: ""      # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  mkpaz
 
 # Build settings
 markdown: kramdown
 remote_theme: just-the-docs/just-the-docs
 search_enabled: true
+logo: "/assets/images/logo.jpg"
 
 # The following items will not be processed, by default.
 # exclude:
