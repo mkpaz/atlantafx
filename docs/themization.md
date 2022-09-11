@@ -7,7 +7,7 @@ AtlantaFX stylesheet is written in SASS. You don't have to learn it, though it's
 
 To compile SASS to CSS, AtlantaFX uses the Dart SASS library and very handy [`sass-cli-maven-plugin`](https://github.com/HebiRobotics/sass-cli-maven-plugin) by **@ennerf**.
 
-Note, that theme is not limited by colors. If you only want to change colors, all you need is to override default looked-up [color variables](/colors/global-variables). The easiest way is to utilize pseudo-class, so you can always return to the default color scheme.
+Note, that theme is not limited by colors. If you only want to change colors, all you need is to override default looked-up [color variables]({{ site.baseurl }}{% link colors/global-variables.md %}). The easiest way is to utilize pseudo-class, so you can always return to the default color scheme.
 
 ```css
 .root:custom-theme {

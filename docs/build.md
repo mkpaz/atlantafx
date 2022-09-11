@@ -5,7 +5,7 @@ nav_order: 2
 
 ## Project structure
 
-![Project structure](/assets/images/project-structure.png)
+![Project structure]({{ site.baseurl }}{% link /assets/images/project-structure.png %})
 
 | Directory    | Description                             |
 |--------------|-----------------------------------------|

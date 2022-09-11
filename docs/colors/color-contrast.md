@@ -17,8 +17,8 @@ The contrast requirements are:
 
 You can check and modify color contrast directly in the Sampler app.
 
-![Color Contrast](/assets/images/color-contrast.png)
+![Color Contrast]({{ site.baseurl }}{% link /assets/images/color-contrast.png %})
 
 Click on any block to run contrast checker and get more detailed info.
 
-![Contrast Checker](/assets/images/contrast-checker.png)
+![Contrast Checker]({{ site.baseurl }}{% link /assets/images/contrast-checker.png %})
