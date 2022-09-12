@@ -244,9 +244,14 @@ public class TypographyPage extends AbstractPage {
         var linkVisited = hyperlink("_Visited", true, false);
         linkVisited.setMnemonicParsing(true);
 
+        var linkBroken = hyperlink("_Broken", true, false);
+        linkBroken.setStyle("-color-link-fg-visited:-color-danger-fg;");
+        linkBroken.setMnemonicParsing(true);
+
         var box = new HBox(10,
                 linkNormal,
                 linkVisited,
+                linkBroken,
                 hyperlink("Disabled", false, true)
         );
         box.setAlignment(Pos.BASELINE_LEFT);

@@ -2,17 +2,26 @@
 
 @use "../settings/config"as cfg;
 
+$color-fg:         -color-accent-fg  !default;
+$color-fg-visited: -color-fg-default !default;
+$color-fg-armed:   -color-fg-default !default;
+
 .hyperlink {
+
+  -color-link-fg:         $color-fg;
+  -color-link-fg-visited: $color-fg-visited;
+  -color-link-fg-armed:   $color-fg-armed;
+
   -fx-cursor: hand;
   -fx-underline: true;
-  -fx-text-fill: -color-accent-fg;
+  -fx-text-fill: -color-link-fg;
 
   &:visited {
-    -fx-text-fill: -color-fg-default;
+    -fx-text-fill: -color-link-fg-visited;
   }
 
   &:armed {
-    -fx-text-fill: -color-fg-default;
+    -fx-text-fill: -color-link-fg-armed;
     -fx-underline: false;
   }
 
