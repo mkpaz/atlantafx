@@ -7,6 +7,9 @@
 //  ProgressBar                                                              //
 ///////////////////////////////////////////////////////////////////////////////
 
+$progress-bar-track-color: -color-bg-subtle !default;
+$progress-bar-fill-color:  -color-accent-emphasis !default;
+
 $size: (
   "small":  2px,
   "medium": 0.4em,
@@ -15,19 +18,22 @@ $size: (
 
 .progress-bar {
 
+  -color-progress-bar-track: $progress-bar-track-color;
+  -color-progress-bar-fill:  $progress-bar-fill-color;
+
   -fx-indeterminate-bar-length: 60;
   -fx-indeterminate-bar-escape: true;
   -fx-indeterminate-bar-flip: true;
   -fx-indeterminate-bar-animation-time: 2;
 
   >.track {
-    -fx-background-color: -color-bg-subtle;
+    -fx-background-color: -color-progress-bar-track;
     -fx-background-insets: 0;
     -fx-background-radius: cfg.$border-radius;
   }
 
   >.bar {
-    -fx-background-color: -color-accent-emphasis;
+    -fx-background-color: -color-progress-bar-fill;
     -fx-background-insets: 0;
     -fx-background-radius: cfg.$border-radius;
     -fx-padding: map-get($size, "medium");
