@@ -13,10 +13,14 @@
   }
 
   .text-field {
+    -color-input-bg:             transparent;
+    -color-input-fg:             -color-contrast-checker-fg;
+    -color-input-border:         transparent;
+    -color-input-bg-focused:     transparent;
+    -color-input-border-focused: transparent;
+
     -fx-background-insets: 0;
-    -fx-background-color: transparent;
     -fx-background-radius: 0;
-    -fx-text-fill: -color-contrast-checker-fg;
     -fx-border-color: -color-contrast-checker-fg;
     -fx-border-width: 0 0 1 0;
   }
