@@ -13,12 +13,12 @@ $color-bg-highlight: -color-accent-subtle !default;
 $color-fg-highlight: -color-fg-default    !default;
 
 $color-bg-success:     -color-bg-default       !default;
-$color-fg-success:     -color-success-emphasis !default;
-$color-border-success: -color-success-fg       !default;
+$color-fg-success:     -color-success-fg       !default;
+$color-border-success: -color-success-emphasis !default;
 
 $color-bg-danger:     -color-bg-default      !default;
-$color-fg-danger:     -color-danger-emphasis !default;
-$color-border-danger: -color-danger-fg       !default;
+$color-fg-danger:     -color-danger-fg       !default;
+$color-border-danger: -color-danger-emphasis !default;
 
 // not exposed as looked-up color variables
 $color-fg-placeholder: -color-fg-subtle !default;

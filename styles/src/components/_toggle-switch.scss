@@ -2,7 +2,13 @@
 
 @use "../settings/config" as cfg;
 
-$thumb-border-width: 2px !default;
+$thumb-radius:       10em   !default;
+$thumb-padding:      0.85em !default;
+$thumb-border-width: 2px    !default;
+$thumb-opacity:      0.8    !default;
+
+$thumb-area-radius:  1em    !default;
+$thumb-area-padding: 0.85em 1.4em 0.85em 1.4em !default;
 
 .toggle-switch {
   -fx-thumb-move-animation-time: 200;
@@ -18,18 +24,18 @@ $thumb-border-width: 2px !default;
   >.thumb {
     -fx-background-color:-color-border-default, -color-fg-emphasis;
     -fx-background-insets: 0, $thumb-border-width;
-    -fx-background-radius: 10em; // make sure this remains circular
-    -fx-padding: 0.85em;
+    -fx-background-radius: $thumb-radius;
+    -fx-padding: $thumb-padding;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
-    -fx-opacity: 0.8;
+    -fx-opacity: $thumb-opacity;
   }
 
   >.thumb-area {
-    -fx-background-radius: 1em;
+    -fx-background-radius: $thumb-area-radius;
     -fx-background-color: -color-border-default, -color-bg-subtle;
     -fx-background-insets: 0, cfg.$border-width;
-    -fx-padding: 0.85em 1.4em 0.85em 1.4em;
+    -fx-padding: $thumb-area-padding;
   }
 
   &:selected {
