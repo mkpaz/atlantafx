@@ -2,50 +2,51 @@
 
 @use "../settings/config" as cfg;
 
-$divider-color:         cfg.$scrollbar-color-track !default;
-$divider-color-pressed: -color-accent-emphasis !default;
-$divider-thickness:     2px !default;
+$color-divider:         cfg.$scrollbar-color-track !default;
+$color-divider-pressed: -color-accent-emphasis !default;
 
-$grabber-color:         cfg.$scrollbar-color-thumb !default;
-$grabber-color-pressed: -color-accent-emphasis !default;
+$color-grabber:         cfg.$scrollbar-color-thumb !default;
+$color-grabber-pressed: -color-accent-emphasis !default;
+
+$divider-thickness:     2px !default;
 $grabber-length:        10px !default;
 
 .split-pane {
-  -color-divider:         $divider-color;
-  -color-divider-pressed: $divider-color-pressed;
-  -color-grabber:         $grabber-color;
-  -color-grabber-pressed: $grabber-color-pressed;
+  -color-split-divider:         $color-divider;
+  -color-split-divider-pressed: $color-divider-pressed;
+  -color-split-grabber:         $color-grabber;
+  -color-split-grabber-pressed: $color-grabber-pressed;
 
   -fx-background-color: transparent;
   -fx-background-insets: 0;
   -fx-padding: 0;
 
   >.split-pane-divider {
-    -fx-background-color: -color-divider;
+    -fx-background-color: -color-split-divider;
     -fx-padding: 0 $divider-thickness 0 $divider-thickness;
     -fx-opacity: cfg.$scrollbar-opacity-inactive;
 
     // Just for example, this is how we can increase grab area without increasing divider width.
     // Sadly, it's only appropriate when split pane items are allowed to have horizontal padding.
-    //-fx-border-color: color.$background;
+    //-fx-border-color: -color-xxx;
     //-fx-border-width: 0 5 0 5;
 
     >.horizontal-grabber {
-      -fx-background-color: -color-grabber;
+      -fx-background-color: -color-split-grabber;
       -fx-padding: $grabber-length $divider-thickness $grabber-length $divider-thickness;
     }
 
     >.vertical-grabber {
-      -fx-background-color: -color-grabber;
+      -fx-background-color: -color-split-grabber;
       -fx-padding: $divider-thickness $grabber-length $divider-thickness $grabber-length;
     }
 
     &:pressed {
-      -fx-background-color: -color-divider-pressed;
+      -fx-background-color: -color-split-divider-pressed;
 
       >.horizontal-grabber,
       >.vertical-grabber {
-        -fx-background-color: -color-grabber-pressed;
+        -fx-background-color: -color-split-grabber-pressed;
       }
     }
 

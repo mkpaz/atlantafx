@@ -3,16 +3,17 @@
 @use "../settings/config" as cfg;
 @use "sass:math";
 
-$thumb-color:        if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
-$thumb-color-border: if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
+$color-thumb:        if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
+$color-thumb-border: if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
+$color-track:        -color-accent-emphasis !default;
+$color-tick:         -color-fg-muted        !default;
+
 $thumb-size:         8px !default;
 $thumb-border-width: 2px !default;
 
-$track-color:        -color-accent-emphasis !default;
 $track-size:         $thumb-size !default; // visual track height (or width)
 $track-margin:       6px !default;         // increases clickable track area
 
-$tick-color:         -color-fg-muted  !default;
 $tick-major-size:    5px !default;
 $tick-minor-size:    3px !default;
 
@@ -20,10 +21,10 @@ $_track-padding: math.div($track-size + $track-margin, 2);
 
 .slider {
 
-  -color-slider-thumb:        $thumb-color;
-  -color-slider-thumb-border: $thumb-color-border;
-  -color-slider-track:        $track-color;
-  -color-slider-tick:         $tick-color;
+  -color-slider-thumb:        $color-thumb;
+  -color-slider-thumb-border: $color-thumb-border;
+  -color-slider-track:        $color-track;
+  -color-slider-tick:         $color-tick;
 
   >.thumb {
     -fx-background-color: -color-slider-thumb-border, -color-slider-thumb;

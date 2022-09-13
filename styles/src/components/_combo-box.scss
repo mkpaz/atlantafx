@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
 
 @use "../settings/config" as cfg;
-@use "../settings/effects";
 @use "../settings/icons";
-@use "../settings/utils";
 
-$color-cell-bg: -color-bg-default !default;
-$color-cell-bg-hover: if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
-$color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
+$color-list-bg:          -color-bg-default !default;
+$color-list-bg-hover:    if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
+$color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
 
 @mixin _arrow() {
   @include icons.get("arrow-drop-down", false);
@@ -138,7 +136,7 @@ $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
 .combo-box-popup {
   >.list-view {
-    -fx-background-color: -color-border-default, $color-cell-bg;
+    -fx-background-color: -color-border-default, $color-list-bg;
     -fx-background-insets: 0, 1;
     -fx-background-radius: cfg.$border-radius;
 
@@ -149,17 +147,17 @@ $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
             // reset cell size, because height is set via paddings
             // to use the same values as ChoiceBox
             -fx-cell-size: 0;
-            -fx-background-color: $color-cell-bg;
+            -fx-background-color: $color-list-bg;
             -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
             -fx-graphic-text-gap: cfg.$graphic-gap;
 
             &:filled:hover {
-              -fx-background-color: $color-cell-bg-hover;
+              -fx-background-color: $color-list-bg-hover;
             }
 
             &:filled:selected,
             &:filled:selected:hover {
-              -fx-background-color: $color-cell-bg-selected;
+              -fx-background-color: $color-list-bg-selected;
             }
           }
         }

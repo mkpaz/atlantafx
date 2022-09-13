@@ -26,8 +26,8 @@
     -fx-icon-size: 32px;
 }
 .music-player-showcase > .player-screen > .split-pane-divider {
-    -color-divider: -color-dominant-border;
-    -color-grabber: -color-dominant-border;
+    -color-split-divider: -color-dominant-border;
+    -color-split-grabber: -color-dominant-border;
 }
 
 .music-player-showcase > .player-screen > * > .playlist {

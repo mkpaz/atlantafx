@@ -7,8 +7,8 @@
 //  ProgressBar                                                              //
 ///////////////////////////////////////////////////////////////////////////////
 
-$progress-bar-track-color: -color-bg-subtle !default;
-$progress-bar-fill-color:  -color-accent-emphasis !default;
+$color-bar-track: -color-bg-subtle       !default;
+$color-bar-fill:  -color-accent-emphasis !default;
 
 $size: (
   "small":  2px,
@@ -18,8 +18,8 @@ $size: (
 
 .progress-bar {
 
-  -color-progress-bar-track: $progress-bar-track-color;
-  -color-progress-bar-fill:  $progress-bar-fill-color;
+  -color-progress-bar-track: $color-bar-track;
+  -color-progress-bar-fill:  $color-bar-fill;
 
   -fx-indeterminate-bar-length: 60;
   -fx-indeterminate-bar-escape: true;

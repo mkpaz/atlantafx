@@ -3,8 +3,8 @@
 @use "../settings/config" as cfg;
 
 $padding:    map-get(cfg.$separators, "medium") !default;
-$line-width: cfg.$border-width !default;
 $line-color: -color-border-muted !default;
+$line-width: cfg.$border-width   !default;
 
 .separator {
 

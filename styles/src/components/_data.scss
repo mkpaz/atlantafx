@@ -3,28 +3,30 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
-$color-cell-bg: -color-bg-default !default;
-$color-cell-fg: -color-fg-default !default;
+$color-cell-bg:          -color-bg-default  !default;
+$color-cell-fg:          -color-fg-default  !default;
 $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
-$color-cell-fg-selected: -color-fg-default !default;
-$color-cell-bg-odd: -color-bg-subtle !default;
-$color-cell-border: -color-border-default !default;
-$color-header-bg: -color-bg-subtle !default;
+$color-cell-fg-selected: -color-fg-default     !default;
+$color-cell-bg-odd:      -color-bg-subtle      !default;
+$color-cell-border:      -color-border-default !default;
+
+$color-header-bg: -color-bg-subtle  !default;
 $color-header-fg: -color-fg-default !default;
-$color-resize-line: -color-accent-emphasis !default;
-$color-drag-header: -color-accent-muted !default;
-$color-drag-overlay: -color-accent-muted !default;
+
+$color-resize-line:  -color-accent-emphasis !default;
+$color-drag-header:  -color-accent-muted    !default;
+$color-drag-overlay: -color-accent-muted    !default;
 
 $cell-size-normal: 2.8em !default;
-$cell-size-dense: 2em !default;
-$cell-padding-x: 0.5em !default;
+$cell-size-dense:  2em   !default;
+$cell-padding-x:   0.5em !default;
 
 // .tree-cell doesn't support -fx-cell-size
 // its height should be set via vertical paddings
-$tree-cell-padding-x: $cell-padding-x  !default;
-$tree-cell-padding-y-normal: 0.5em !default;
-$tree-cell-padding-y-dense: 0.25em !default;
-$tree-cell-indent: 1em !default;
+$tree-cell-padding-x:        $cell-padding-x !default;
+$tree-cell-padding-y-normal: 0.5em  !default;
+$tree-cell-padding-y-dense:  0.25em !default;
+$tree-cell-indent:           1em    !default;
 
 @mixin _base() {
 

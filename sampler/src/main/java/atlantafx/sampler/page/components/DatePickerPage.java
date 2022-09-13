@@ -222,7 +222,7 @@ public class DatePickerPage extends AbstractPage {
 
         private void setColorVariables(String bgColorName, String fgColorName) {
             for (Node node : root.getChildren()) {
-                var style = String.format("-color-dp-border:%s;-color-dp-month-year-bg:%s;-color-dp-month-year-fg:%s;",
+                var style = String.format("-color-date-border:%s;-color-date-month-year-bg:%s;-color-date-month-year-fg:%s;",
                         bgColorName,
                         bgColorName,
                         fgColorName

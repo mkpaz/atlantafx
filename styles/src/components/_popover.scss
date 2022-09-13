@@ -3,11 +3,11 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-$color-bg:     -color-bg-overlay !default;
-$color-fg:     -color-fg-default !default;
-$color-border: -color-border-default !default;
-$padding-x: 10px !default;
-$padding-y: 10px !default;
+$color-bg:      -color-bg-overlay     !default;
+$color-fg:      -color-fg-default     !default;
+$color-border:  -color-border-default !default;
+$padding-x:     10px !default;
+$padding-y:     10px !default;
 
 .popover {
   -fx-background-color: $color-bg;

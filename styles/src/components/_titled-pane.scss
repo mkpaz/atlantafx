@@ -19,8 +19,7 @@ $elevation-interactive: map-get(cfg.$elevation, 2) !default;
   -fx-text-fill: -color-fg-default;
   -fx-effect: none;
 
-  @each $level,
-  $radius in cfg.$elevation {
+  @each $level,$radius in cfg.$elevation {
     &.elevated-#{$level} {
       @include effects.elevate($elevation-color, $radius);
     }

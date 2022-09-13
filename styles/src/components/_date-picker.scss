@@ -4,26 +4,25 @@
 @use "../settings/effects";
 @use "../settings/icons";
 
-$color-bg:              -color-bg-default     !default;
-$color-border:          -color-border-default !default;
-$month-year-color-bg:   -color-bg-default !default;
-$month-year-color-fg:   -color-fg-default !default;
-$day-color-bg:          -color-bg-default !default;
-$day-color-bg-hover:    -color-bg-subtle  !default;
-$day-color-bg-selected: -color-accent-emphasis !default;
-$day-color-fg:          -color-fg-default  !default;
-$day-color-fg-hover:    -color-fg-default  !default;
-$day-color-fg-selected: -color-fg-emphasis !default;
-$week-color-bg:         -color-bg-default  !default;
-$week-color-fg:         -color-accent-fg   !default;
-$today-color-bg:        -color-accent-subtle  !default;
-$today-color-fg:        -color-accent-fg   !default;
-$other-month-color-fg:  -color-fg-muted    !default;
-$chrono-color-fg:       -color-success-fg  !default;
+$color-bg:              -color-bg-default      !default;
+$color-border:          -color-border-default  !default;
+$color-month-year-bg:   -color-bg-default      !default;
+$color-month-year-fg:   -color-fg-default      !default;
+$color-day-bg:          -color-bg-default      !default;
+$color-day-bg-hover:    -color-bg-subtle       !default;
+$color-day-bg-selected: -color-accent-emphasis !default;
+$color-day-fg:          -color-fg-default      !default;
+$color-day-fg-hover:    -color-fg-default      !default;
+$color-day-fg-selected: -color-fg-emphasis     !default;
+$color-week-bg:         -color-bg-default      !default;
+$color-week-fg:         -color-accent-fg       !default;
+$color-today-bg:        -color-accent-subtle   !default;
+$color-today-fg:        -color-accent-fg       !default;
+$color-other-month-fg:  -color-fg-muted        !default;
+$color-chrono-fg:       -color-success-fg      !default;
 
 $content-padding-x: 8px !default;
 $content-padding-y: 8px !default;
-
 $month-year-font-size: 1.1em !default;
 
 $cell-padding-x: 4px !default;
@@ -36,22 +35,22 @@ $chrono-cell-size:    2.75em !default;
 $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
 @mixin _color-variables() {
-  -color-dp-bg:              $color-bg;
-  -color-dp-border:          $color-border;
-  -color-dp-month-year-bg:   $month-year-color-bg;
-  -color-dp-month-year-fg:   $month-year-color-fg;
-  -color-dp-day-bg:          $day-color-bg;
-  -color-dp-day-bg-hover:    $day-color-bg-hover;
-  -color-dp-day-bg-selected: $day-color-bg-selected;
-  -color-dp-day-fg:          $day-color-fg;
-  -color-dp-day-fg-hover:    $day-color-fg-hover;
-  -color-dp-day-fg-selected: $day-color-fg-selected;
-  -color-dp-week-bg:         $week-color-bg;
-  -color-dp-week-fg:         $week-color-fg;
-  -color-dp-today-bg:        $today-color-bg;
-  -color-dp-today-fg:        $today-color-fg;
-  -color-dp-other-month-fg:  $other-month-color-fg;
-  -color-dp-chrono-fg:       $chrono-color-fg;
+  -color-date-bg:              $color-bg;
+  -color-date-border:          $color-border;
+  -color-date-month-year-bg:   $color-month-year-bg;
+  -color-date-month-year-fg:   $color-month-year-fg;
+  -color-date-day-bg:          $color-day-bg;
+  -color-date-day-bg-hover:    $color-day-bg-hover;
+  -color-date-day-bg-selected: $color-day-bg-selected;
+  -color-date-day-fg:          $color-day-fg;
+  -color-date-day-fg-hover:    $color-day-fg-hover;
+  -color-date-day-fg-selected: $color-day-fg-selected;
+  -color-date-week-bg:         $color-week-bg;
+  -color-date-week-fg:         $color-week-fg;
+  -color-date-today-bg:        $color-today-bg;
+  -color-date-today-fg:        $color-today-fg;
+  -color-date-other-month-fg:  $color-other-month-fg;
+  -color-date-chrono-fg:       $color-chrono-fg;
 }
 
 .combo-box-base.date-picker {
@@ -68,7 +67,8 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
 .date-picker-popup {
   @include _color-variables();
-  -fx-background-color: -color-dp-border, -color-dp-bg;
+
+  -fx-background-color: -color-date-border, -color-date-bg;
   -fx-background-insets: 0, 1;
   -fx-background-radius: 0;
   -fx-alignment: CENTER;
@@ -77,7 +77,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
   >.month-year-pane {
     -fx-padding: $content-padding-y $content-padding-x $content-padding-y $content-padding-x;
-    -fx-background-color: -color-dp-month-year-bg;
+    -fx-background-color: -color-date-month-year-bg;
     -fx-background-insets: 0;
 
     // this one is actually HBox, but because of the class name it uses Spinner styles
@@ -97,30 +97,30 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
         >.left-arrow {
           @include icons.get("chevron-left", false);
-          -fx-background-color: -color-dp-month-year-fg;
+          -fx-background-color: -color-date-month-year-fg;
         }
 
         >.right-arrow {
           @include icons.get("chevron-right", false);
-          -fx-background-color: -color-dp-month-year-fg;
+          -fx-background-color: -color-date-month-year-fg;
         }
       }
 
       >.label {
         -fx-alignment: CENTER;
-        -fx-text-fill: -color-dp-month-year-fg;
+        -fx-text-fill: -color-date-month-year-fg;
       }
     }
 
     >.secondary-label {
       -fx-alignment: BASELINE_CENTER;
       -fx-padding:   $chrono-label-margin 0 0 0;
-      -fx-text-fill: -color-dp-month-year-fg;
+      -fx-text-fill: -color-date-month-year-fg;
     }
   }
 
   >.calendar-grid {
-    -fx-background-color: -color-dp-bg;
+    -fx-background-color: -color-date-bg;
     -fx-padding: $content-padding-x;
 
     >.date-cell {
@@ -128,22 +128,22 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       -fx-padding: 0;
       -fx-alignment: BASELINE_CENTER;
       -fx-opacity: 1.0;
-      -fx-text-fill: -color-dp-day-fg;
+      -fx-text-fill: -color-date-day-fg;
     }
 
     >.week-number-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
-      -fx-background-color: -color-dp-week-bg;
-      -fx-text-fill: -color-dp-week-fg;
+      -fx-background-color: -color-date-week-bg;
+      -fx-text-fill: -color-date-week-fg;
       -fx-font-size: $day-name-font-size;
     }
 
     >.day-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
-      -fx-background-color: -color-dp-day-bg;
+      -fx-background-color: -color-date-day-bg;
 
       >.secondary-text {
-        -fx-fill: -color-dp-chrono-fg;
+        -fx-fill: -color-date-chrono-fg;
       }
 
       &:disabled {
@@ -163,8 +163,8 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     }
 
     >.today {
-      -fx-background-color: -color-dp-today-bg;
-      -fx-text-fill: -color-dp-today-fg;
+      -fx-background-color: -color-date-today-bg;
+      -fx-text-fill: -color-date-today-fg;
       -fx-font-weight: bold;
     }
   }
@@ -187,19 +187,19 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     >.back-button {
       >.left-arrow {
         @include icons.get("chevron-left", false);
-        -fx-background-color: -color-dp-month-year-fg;
+        -fx-background-color: -color-date-month-year-fg;
       }
     }
 
     >.forward-button {
       >.right-arrow {
         @include icons.get("chevron-right", false);
-        -fx-background-color: -color-dp-month-year-fg;
+        -fx-background-color: -color-date-month-year-fg;
       }
     }
 
     >.label {
-      -fx-text-fill: -color-dp-month-year-fg;
+      -fx-text-fill: -color-date-month-year-fg;
       -fx-font-size: $month-year-font-size;
     }
   }
@@ -222,25 +222,25 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 .date-picker-popup>.calendar-grid>.selected>.secondary-text,
 .date-picker-popup>.calendar-grid>.previous-month.selected,
 .date-picker-popup>.calendar-grid>.next-month.selected {
-  -fx-background-color: -color-dp-day-bg-selected;
-  -fx-text-fill: -color-dp-day-fg-selected;
-  -fx-fill: -color-dp-day-fg-selected;
+  -fx-background-color: -color-date-day-bg-selected;
+  -fx-text-fill: -color-date-day-fg-selected;
+  -fx-fill: -color-date-day-fg-selected;
   -fx-font-weight: normal;
 }
 
 .date-picker-popup>.calendar-grid>.day-cell:hover {
-  -fx-background-color: -color-dp-day-bg-hover;
+  -fx-background-color: -color-date-day-bg-hover;
 }
 
 .date-picker-popup>.calendar-grid>.today:hover {
-  -fx-background-color: -color-dp-today-bg;
-  -fx-text-fill: -color-dp-today-fg;
+  -fx-background-color: -color-date-today-bg;
+  -fx-text-fill: -color-date-today-fg;
 }
 
 .date-picker-popup>.calendar-grid>.selected:hover {
-  -fx-background-color: -color-dp-day-bg-selected;
-  -fx-text-fill: -color-dp-day-fg-selected;
-  -fx-fill: -color-dp-day-fg-selected;
+  -fx-background-color: -color-date-day-bg-selected;
+  -fx-text-fill: -color-date-day-fg-selected;
+  -fx-fill: -color-date-day-fg-selected;
 }
 
 .date-picker-popup>.calendar-grid>.previous-month,
@@ -249,7 +249,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 .date-picker-popup>.calendar-grid>.next-month.today,
 .date-picker-popup>.calendar-grid>.previous-month>.secondary-text,
 .date-picker-popup>.calendar-grid>.next-month>.secondary-text {
-  -fx-text-fill: -color-dp-other-month-fg;
-  -fx-fill: -color-dp-other-month-fg;
+  -fx-text-fill: -color-date-other-month-fg;
+  -fx-fill: -color-date-other-month-fg;
   -fx-font-weight: normal;
 }

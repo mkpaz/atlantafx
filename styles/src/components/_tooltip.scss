@@ -3,8 +3,8 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-$color-bg:     -color-bg-overlay !default;
-$color-fg:     -color-fg-default !default;
+$color-bg:     -color-bg-overlay     !default;
+$color-fg:     -color-fg-default     !default;
 $color-border: -color-border-default !default;
 $opacity:      0.85 !default;
 
