@@ -5,7 +5,7 @@ parent: Controls
 
 ## Looked-up colors
 
-- `-color-divider`
-- `-color-divider-pressed`
-- `-color-grabber`
-- `-color-grabber-pressed`
+- `-color-split-divider`
+- `-color-split-divider-pressed`
+- `-color-split-grabber`
+- `-color-split-grabber-pressed`

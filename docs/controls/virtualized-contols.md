@@ -9,9 +9,9 @@ This file belongs to the `ListView`, `TreeView`, `TableView` and `TreeTableView`
 
 - `-color-cell-bg`
 - `-color-cell-fg`
+- `-color-cell-border`
+- `-color-cell-bg-odd`
 - `-color-cell-bg-selected`
 - `-color-cell-fg-selected`
-- `-color-cell-bg-odd`
-- `-color-cell-border`
 - `-color-header-bg`
 - `-color-header-fg`

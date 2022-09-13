@@ -5,19 +5,19 @@ parent: Controls
 
 ## Looked-up colors
 
-- `-color-dp-bg`
-- `-color-dp-border`
-- `-color-dp-month-year-bg`
-- `-color-dp-month-year-fg`
-- `-color-dp-day-bg`
-- `-color-dp-day-bg-hover`
-- `-color-dp-day-bg-selected`
-- `-color-dp-day-fg`
-- `-color-dp-day-fg-hover`
-- `-color-dp-day-fg-selected`
-- `-color-dp-week-bg`
-- `-color-dp-week-fg`
-- `-color-dp-today-bg`
-- `-color-dp-today-fg`
-- `-color-dp-other-month-fg`
-- `-color-dp-chrono-fg`
+- `-color-date-bg`
+- `-color-date-border`
+- `-color-date-month-year-bg`
+- `-color-date-month-year-fg`
+- `-color-date-day-bg`
+- `-color-date-day-bg-hover`
+- `-color-date-day-bg-selected`
+- `-color-date-day-fg`
+- `-color-date-day-fg-hover`
+- `-color-date-day-fg-selected`
+- `-color-date-week-bg`
+- `-color-date-week-fg`
+- `-color-date-today-bg`
+- `-color-date-today-fg`
+- `-color-date-other-month-fg`
+- `-color-date-chrono-fg`
