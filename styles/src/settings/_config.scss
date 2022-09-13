@@ -12,9 +12,10 @@ $font-title-3:           1.5em  !default;
 $font-title-4:           1.25em !default;
 $font-small:             0.8em  !default;
 
-$padding-x:    12px !default;
-$padding-y:    8px  !default;
-$graphic-gap:  6px  !default;
+$padding-x:       12px !default;
+$padding-x-large: calc($padding-x * 1.4) !default;
+$padding-y:       8px  !default;
+$graphic-gap:     6px  !default;
 
 // Most components use background insets to draw its borders due to
 // performance reasons. On border radius > 2px corners may look rather ugly.

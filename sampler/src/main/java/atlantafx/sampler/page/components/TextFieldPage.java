@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.PasswordField;
@@ -54,6 +55,10 @@ public class TextFieldPage extends AbstractPage {
         dangerField.pseudoClassStateChanged(STATE_DANGER, true);
         var dangerBlock = new SampleBlock("Danger", dangerField);
 
+        var roundedField = new TextField("Text");
+        roundedField.getStyleClass().add(Styles.ROUNDED);
+        var roundedBlock = new SampleBlock("Rounded", roundedField);
+
         var flowPane = new FlowPane(20, 20);
         flowPane.getChildren().setAll(
                 basicBlock.getRoot(),
@@ -62,7 +67,8 @@ public class TextFieldPage extends AbstractPage {
                 readonlyBlock.getRoot(),
                 disabledBlock.getRoot(),
                 successBlock.getRoot(),
-                dangerBlock.getRoot()
+                dangerBlock.getRoot(),
+                roundedBlock.getRoot()
         );
 
         return flowPane;

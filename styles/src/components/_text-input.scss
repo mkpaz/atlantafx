@@ -76,6 +76,11 @@ $color-fg-password:    -color-fg-muted  !default;
     -color-input-border-focused: $color-border-danger;
   }
 
+  &.rounded {
+    -fx-padding: cfg.$padding-y cfg.$padding-x-large cfg.$padding-y cfg.$padding-x-large;
+    -fx-background-radius: 10em;
+  }
+
   // input group
   &.left-pill {
     -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;

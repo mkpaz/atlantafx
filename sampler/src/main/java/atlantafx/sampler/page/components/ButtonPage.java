@@ -36,7 +36,8 @@ public class ButtonPage extends AbstractPage {
         grid.add(coloredSamples().getRoot(), 0, 1);
         grid.add(circularButtons().getRoot(), 1, 1);
         grid.add(outlinedSamples().getRoot(), 0, 2);
-        grid.add(disabledSample().getRoot(), 1, 2);
+        grid.add(roundedSamples().getRoot(), 1, 2);
+        grid.add(disabledSample().getRoot(), 0, 3);
 
         userContent.getChildren().addAll(grid);
     }
@@ -108,7 +109,7 @@ public class ButtonPage extends AbstractPage {
 
         var content = new HBox(10);
         content.getChildren().addAll(basicBtn, accentBtn, successBtn, dangerBtn,
-                                     flatAccentBtn, flatSuccessBtn, flatDangerBtn
+                flatAccentBtn, flatSuccessBtn, flatDangerBtn
         );
 
         return new SampleBlock("Icon only", content);
@@ -145,7 +146,7 @@ public class ButtonPage extends AbstractPage {
 
         var content = new HBox(10);
         content.getChildren().addAll(basicBtn, accentBtn, successBtn, dangerBtn,
-                                     flatAccentBtn, flatSuccessBtn, flatDangerBtn
+                flatAccentBtn, flatSuccessBtn, flatDangerBtn
         );
 
         return new SampleBlock("Circular", content);
@@ -172,6 +173,25 @@ public class ButtonPage extends AbstractPage {
         content.getChildren().addAll(accentBtn, successBtn, dangerBtn);
 
         return new SampleBlock("Outlined", content);
+    }
+
+    private SampleBlock roundedSamples() {
+        var basicBtn = new Button("Basic");
+        basicBtn.getStyleClass().add(ROUNDED);
+        basicBtn.setOnAction(PRINT_SOURCE);
+
+        var accentBtn = new Button("Accent");
+        accentBtn.getStyleClass().addAll(ROUNDED, ACCENT);
+        accentBtn.setOnAction(PRINT_SOURCE);
+
+        var successBtn = new Button("Success", new FontIcon(Feather.CHECK));
+        successBtn.getStyleClass().addAll(ROUNDED, BUTTON_OUTLINED, SUCCESS);
+        successBtn.setOnAction(PRINT_SOURCE);
+
+        var content = new HBox(10);
+        content.getChildren().addAll(basicBtn, accentBtn, successBtn);
+
+        return new SampleBlock("Rounded", content);
     }
 
     private SampleBlock disabledSample() {

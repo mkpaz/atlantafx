@@ -54,6 +54,7 @@ public final class Styles {
     public static final String ELEVATED_3  = "elevated-3";
     public static final String ELEVATED_4  = "elevated-4";
     public static final String INTERACTIVE = "interactive";
+    public static final String ROUNDED     = "rounded";
     public static final String STRIPED     = "striped";
 
     // Text

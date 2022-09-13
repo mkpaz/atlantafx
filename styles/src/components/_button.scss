@@ -366,4 +366,9 @@ $color-danger-outlined-bg-hover:  $color-danger-bg-hover  !default;
       -fx-underline: true;
     }
   }
+
+  &.rounded {
+    -fx-padding: cfg.$padding-y cfg.$padding-x-large cfg.$padding-y cfg.$padding-x-large;
+    -fx-background-radius: 10em;
+  }
 }
