@@ -1,7 +1,37 @@
 // SPDX-License-Identifier: MIT
 
+@use "../settings/config" as cfg;
+
+// node hierarchy
 // .bread-crumb-bar {
-//   >.crumb {
-//     ...
-//   }
+//   >.crumb { ... }
 // }
+
+// right gap is small, because we have crumbs divider on the right,
+// which gives us additional padding, at least visually.
+$crumb-right-gap: 2px !default;
+$crumb-left-gap:  calc(cfg.$graphic-gap * 1.5) !default;
+
+.bread-crumb-bar {
+  >.button.flat {
+    -fx-padding: cfg.$padding-y $crumb-right-gap cfg.$padding-y $crumb-left-gap;
+    -fx-content-display: RIGHT;
+
+    &.first {
+      -fx-padding: cfg.$padding-y $crumb-right-gap cfg.$padding-y cfg.$padding-x;
+    }
+
+    &.last {
+      -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y $crumb-left-gap;
+
+      #{cfg.$font-icon-selector} {
+        // hiding font icon doesn't work as it should,
+        // and have to be replaced by '-fx-managed' when supported
+        -fx-min-width: 0;
+        -fx-pref-width: 0;
+        -fx-max-width: 0;
+        visibility: hidden;
+      }
+    }
+  }
+}

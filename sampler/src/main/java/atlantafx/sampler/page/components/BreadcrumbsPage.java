@@ -7,7 +7,6 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
@@ -45,8 +44,6 @@ public class BreadcrumbsPage extends AbstractPage {
             if (!crumb.getChildren().isEmpty()) {
                 btn.setGraphic(new FontIcon(Feather.CHEVRON_RIGHT));
             }
-            btn.setContentDisplay(ContentDisplay.RIGHT);
-            btn.setStyle("-fx-padding: 12px 6px 12px 6px;");
             return btn;
         };
 

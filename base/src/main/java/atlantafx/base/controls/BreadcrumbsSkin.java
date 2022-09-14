@@ -45,6 +45,7 @@ import java.util.List;
 public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
 
     private static final String STYLE_CLASS_FIRST = "first";
+    private static final String STYLE_CLASS_LAST = "last";
 
     public BreadcrumbsSkin(final Breadcrumbs<T> control) {
         super(control);
@@ -84,16 +85,28 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
             for (int i = 0; i < crumbs.size(); i++) {
                 Button crumb = createCrumb(factory, crumbs.get(i));
                 crumb.setMnemonicParsing(false);
-                if (i == 0) {
-                    if (!crumb.getStyleClass().contains(STYLE_CLASS_FIRST)) {
-                        crumb.getStyleClass().add(STYLE_CLASS_FIRST);
-                    }
-                } else {
+
+                boolean first = crumbs.size() > 1 && i == 0;
+                boolean last = crumbs.size() > 1 && i == crumbs.size() - 1;
+
+                if (first) {
+                    crumb.getStyleClass().remove(STYLE_CLASS_LAST);
+                    addStyleClass(crumb, STYLE_CLASS_FIRST);
+                } else if (last) {
                     crumb.getStyleClass().remove(STYLE_CLASS_FIRST);
+                    addStyleClass(crumb, STYLE_CLASS_LAST);
+                } else {
+                    crumb.getStyleClass().removeAll(STYLE_CLASS_FIRST, STYLE_CLASS_LAST);
                 }
 
                 getChildren().add(crumb);
             }
+        }
+    }
+
+    private void addStyleClass(Node node, String styleClass) {
+        if (!node.getStyleClass().contains(styleClass)) {
+            node.getStyleClass().add(styleClass);
         }
     }
 
