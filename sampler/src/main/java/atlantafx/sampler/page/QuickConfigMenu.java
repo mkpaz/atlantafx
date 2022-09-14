@@ -211,7 +211,7 @@ public class QuickConfigMenu extends StackPane {
 
             getChildren().setAll(mainMenu, new Separator());
 
-            tm.getAvailableThemes().forEach(theme -> {
+            tm.getRepository().getAll().forEach(theme -> {
                 var icon = new FontIcon(Material2AL.CHECK);
 
                 var item = new HBox(20, icon, new Label(theme.getName()));

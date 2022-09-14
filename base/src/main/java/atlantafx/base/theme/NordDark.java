@@ -1,20 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.theme;
 
-import java.net.URI;
-import java.util.Set;
+public final class NordDark implements Theme {
 
-public class NordDark extends AbstractTheme {
-
-    public NordDark() {}
-
-    public NordDark(URI... stylesheets) {
-        super(stylesheets);
-    }
-
-    public NordDark(Set<URI> stylesheets) {
-        super(stylesheets);
-    }
+    public NordDark() { }
 
     @Override
     public String getName() {

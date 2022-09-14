@@ -2,7 +2,6 @@
 package atlantafx.sampler.theme;
 
 import atlantafx.base.theme.*;
-import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
@@ -12,10 +11,8 @@ import atlantafx.sampler.util.JColor;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,7 +22,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class ThemeManager {
 
-    private static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
+    static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
+    static final String[] APP_STYLESHEETS = new String[] {
+            Resources.resolve("assets/styles/index.css")
+    };
+    static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
+            PrimerLight.class, PrimerDark.class, NordLight.class, NordDark.class
+    );
+
     private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");
     private static final PseudoClass USER_CUSTOM = PseudoClass.getPseudoClass("user-custom");
     private static final EventBus EVENT_BUS = DefaultEventBus.getInstance();
@@ -40,14 +44,19 @@ public final class ThemeManager {
     private final Map<String, String> customCSSDeclarations = new LinkedHashMap<>(); // -fx-property | value;
     private final Map<String, String> customCSSRules = new LinkedHashMap<>(); // .foo | -fx-property: value;
 
-    private Scene scene;
-    private Pane body;
+    private final ThemeRepository repository = new ThemeRepository();
 
-    private Theme currentTheme = null;
+    private Scene scene;
+
+    private SamplerTheme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
     private int zoom = DEFAULT_ZOOM;
     private AccentColor accentColor = DEFAULT_ACCENT_COLOR;
+
+    public ThemeRepository getRepository() {
+        return repository;
+    }
 
     public Scene getScene() {
         return scene;
@@ -59,46 +68,26 @@ public final class ThemeManager {
         this.scene = Objects.requireNonNull(scene);
     }
 
-    public Theme getTheme() {
+    public SamplerTheme getTheme() {
         return currentTheme;
     }
 
-    public List<Theme> getAvailableThemes() {
-        var themes = new ArrayList<Theme>();
-        var appStylesheets = new URI[] { URI.create(Resources.resolve("assets/styles/index.css")) };
-
-        if (Launcher.IS_DEV_MODE) {
-            themes.add(new ExternalTheme("Primer Light", DUMMY_STYLESHEET, merge(getResource("theme-test/primer-light.css"), appStylesheets), false));
-            themes.add(new ExternalTheme("Primer Dark", DUMMY_STYLESHEET, merge(getResource("theme-test/primer-dark.css"), appStylesheets), true));
-            themes.add(new ExternalTheme("Nord Light", DUMMY_STYLESHEET, merge(getResource("theme-test/nord-light.css"), appStylesheets), false));
-            themes.add(new ExternalTheme("Nord Dark", DUMMY_STYLESHEET, merge(getResource("theme-test/nord-dark.css"), appStylesheets), true));
-        } else {
-            themes.add(new PrimerLight(appStylesheets));
-            themes.add(new PrimerDark(appStylesheets));
-            themes.add(new NordLight(appStylesheets));
-            themes.add(new NordDark(appStylesheets));
-        }
-        return themes;
+    public SamplerTheme getDefaultTheme() {
+        return getRepository().getAll().get(0);
     }
 
-    /**
-     * Resets user agent stylesheet and then adds {@link Theme} styles to the {@link Scene}
-     * stylesheets. This is necessary when we want to reload style changes at runtime, because
-     * CSSFX doesn't monitor user agent stylesheet.
-     * Also, some styles aren't applied when using {@link  Application#setUserAgentStylesheet(String)} ).
-     * E.g. JavaFX ignores Ikonli -fx-icon-color and -fx-icon-size properties, but for an unknown
-     * reason they won't be ignored when exactly the same stylesheet is set via {@link Scene#getStylesheets()}.
-     */
-    public void setTheme(Theme theme) {
+    /** @see SamplerTheme */
+    public void setTheme(SamplerTheme theme) {
         Objects.requireNonNull(theme);
 
         Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
 
         if (currentTheme != null) {
-            getScene().getStylesheets().removeIf(url -> currentTheme.getStylesheets().contains(URI.create(url)));
+            getScene().getStylesheets().removeIf(s -> theme.getAllStylesheets().contains(s));
         }
 
-        theme.getStylesheets().forEach(uri -> getScene().getStylesheets().add(uri.toString()));
+        theme.getAllStylesheets().forEach(s -> getScene().getStylesheets().add(s));
+
         getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
 
         // remove user CSS customizations and reset accent on theme change
@@ -133,11 +122,12 @@ public final class ThemeManager {
 
     public void setFontSize(int size) {
         if (!SUPPORTED_FONT_SIZE.contains(size)) {
-            throw new IllegalArgumentException(String.format("Font size must in the range %d-%dpx. Actual value is %d.",
-                                                             SUPPORTED_FONT_SIZE.get(0),
-                                                             SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
-                                                             size
-            ));
+            throw new IllegalArgumentException(
+                    String.format("Font size must in the range %d-%dpx. Actual value is %d.",
+                                  SUPPORTED_FONT_SIZE.get(0),
+                                  SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
+                                  size
+                    ));
         }
 
         setCustomDeclaration("-fx-font-size", size + "px");
@@ -164,10 +154,9 @@ public final class ThemeManager {
 
     public void setZoom(int zoom) {
         if (!SUPPORTED_ZOOM.contains(zoom)) {
-            throw new IllegalArgumentException(String.format("Zoom value must one of %s. Actual value is %d.",
-                                                             SUPPORTED_ZOOM,
-                                                             zoom
-            ));
+            throw new IllegalArgumentException(
+                    String.format("Zoom value must one of %s. Actual value is %d.", SUPPORTED_ZOOM, zoom)
+            );
         }
 
         setFontSize((int) Math.ceil(zoom != 100 ? (DEFAULT_FONT_SIZE * zoom) / 100.0f : DEFAULT_FONT_SIZE));
@@ -297,14 +286,6 @@ public final class ThemeManager {
         customCSSDeclarations.clear();
         customCSSRules.clear();
         getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
-    }
-
-    @SafeVarargs
-    private <T> Set<T> merge(T first, T... arr) {
-        var set = new LinkedHashSet<T>();
-        set.add(first);
-        Collections.addAll(set, arr);
-        return set;
     }
 
     ///////////////////////////////////////////////////////////////////////////

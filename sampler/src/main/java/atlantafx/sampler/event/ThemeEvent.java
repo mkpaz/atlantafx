@@ -18,6 +18,9 @@ public class ThemeEvent extends Event {
         // font size or family only change
         FONT_CHANGE,
         // colors only change
-        COLOR_CHANGE
+        COLOR_CHANGE,
+        // new theme added or removed
+        THEME_ADD,
+        THEME_REMOVE
     }
 }

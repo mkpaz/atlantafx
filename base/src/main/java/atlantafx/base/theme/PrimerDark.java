@@ -1,20 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.theme;
 
-import java.net.URI;
-import java.util.Set;
+public final class PrimerDark implements Theme {
 
-public class PrimerDark extends AbstractTheme {
-
-    public PrimerDark() {}
-
-    public PrimerDark(URI... stylesheets) {
-        super(stylesheets);
-    }
-
-    public PrimerDark(Set<URI> stylesheets) {
-        super(stylesheets);
-    }
+    public PrimerDark() { }
 
     @Override
     public String getName() {

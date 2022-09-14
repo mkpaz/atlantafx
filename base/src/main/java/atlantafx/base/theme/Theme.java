@@ -1,8 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.theme;
 
-import java.net.URI;
-import java.util.Set;
+import java.util.Objects;
 
 import static javafx.application.Application.STYLESHEET_CASPIAN;
 import static javafx.application.Application.STYLESHEET_MODENA;
@@ -16,9 +15,30 @@ public interface Theme {
 
     String getUserAgentStylesheet();
 
-    Set<URI> getStylesheets();
-
     boolean isDarkMode();
+
+    static Theme of(String name, String userAgentStylesheet, boolean darkMode) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(userAgentStylesheet);
+
+        return new Theme() {
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public String getUserAgentStylesheet() {
+                return userAgentStylesheet;
+            }
+
+            @Override
+            public boolean isDarkMode() {
+                return darkMode;
+            }
+        };
+    }
 
     default boolean isDefault() {
         return STYLESHEET_MODENA.equals(getUserAgentStylesheet()) || STYLESHEET_CASPIAN.equals(getUserAgentStylesheet());

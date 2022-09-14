@@ -80,7 +80,7 @@ public class InlineDatePicker extends Control {
             if (isValidDate(chrono, date)) {
                 lastValidDate = date;
             } else {
-                System.err.println("Restoring value to " + (lastValidDate == null ? "null" : lastValidDate));
+                System.err.println("[ERROR] Restoring value to " + (lastValidDate == null ? "null" : lastValidDate));
                 setValue(lastValidDate);
             }
         });
@@ -92,7 +92,7 @@ public class InlineDatePicker extends Control {
             if (isValidDate(chrono, date)) {
                 lastValidChronology = chrono;
             } else {
-                System.err.println("Restoring value to " + lastValidChronology);
+                System.err.println("[ERROR] Restoring value to " + lastValidChronology);
                 setChronology(lastValidChronology);
             }
         });

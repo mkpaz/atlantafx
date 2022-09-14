@@ -9,6 +9,7 @@ import atlantafx.sampler.theme.ThemeManager;
 import fr.brouillard.oss.cssfx.CSSFX;
 import fr.brouillard.oss.cssfx.api.URIToPathConverter;
 import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger;
+import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger.LogLevel;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -55,7 +56,7 @@ public class Launcher extends Application {
 
         var tm = ThemeManager.getInstance();
         tm.setScene(scene);
-        tm.setTheme(tm.getAvailableThemes().get(0));
+        tm.setTheme(tm.getDefaultTheme());
         if (IS_DEV_MODE) { startCssFX(scene); }
 
         scene.getStylesheets().addAll(Resources.resolve("assets/styles/index.css"));
@@ -110,9 +111,11 @@ public class Launcher extends Application {
         };
 
         CSSFX.addConverter(fileUrlConverter).start();
-        CSSFXLogger.setLoggerFactory(loggerName -> (level, message, args) ->
-                System.out.println("[CSSFX] " + String.format(message, args))
-        );
+        CSSFXLogger.setLoggerFactory(loggerName -> (level, message, args) -> {
+            if (level.ordinal() <= LogLevel.INFO.ordinal()) {
+                System.out.println("[" + level + "] CSSFX: " + String.format(message, args));
+            }
+        });
         CSSFX.start(scene);
     }
 
