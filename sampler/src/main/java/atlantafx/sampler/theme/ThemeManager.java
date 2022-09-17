@@ -81,13 +81,7 @@ public final class ThemeManager {
         Objects.requireNonNull(theme);
 
         Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
-
-        if (currentTheme != null) {
-            getScene().getStylesheets().removeIf(s -> theme.getAllStylesheets().contains(s));
-        }
-
-        theme.getAllStylesheets().forEach(s -> getScene().getStylesheets().add(s));
-
+        getScene().getStylesheets().setAll(theme.getAllStylesheets());
         getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
 
         // remove user CSS customizations and reset accent on theme change

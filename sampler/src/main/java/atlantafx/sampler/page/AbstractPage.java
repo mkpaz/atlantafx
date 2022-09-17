@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static atlantafx.base.controls.Popover.ArrowLocation.TOP_CENTER;
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
 
 public abstract class AbstractPage extends BorderPane implements Page {
@@ -95,6 +95,11 @@ public abstract class AbstractPage extends BorderPane implements Page {
         header.setMinHeight(HEADER_HEIGHT);
         header.setAlignment(Pos.CENTER_LEFT);
         header.getChildren().setAll(titleLabel, new Spacer(), quickConfigBtn, sourceCodeToggleBtn);
+        if (IS_DEV_MODE) {
+            var devModeLabel = new Label("App is running in development mode");
+            devModeLabel.getStyleClass().addAll(TEXT_SMALL, "dev-mode-indicator");
+            header.getChildren().add(1, devModeLabel);
+        }
 
         // == user content ==
 
@@ -107,8 +112,8 @@ public abstract class AbstractPage extends BorderPane implements Page {
 
         var scrollPane = new ScrollPane(userContentWrapper);
         setScrollConstraints(scrollPane,
-                ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
-                ScrollPane.ScrollBarPolicy.AS_NEEDED, true
+                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
+                             ScrollPane.ScrollBarPolicy.AS_NEEDED, true
         );
         scrollPane.setMaxHeight(10_000);
 

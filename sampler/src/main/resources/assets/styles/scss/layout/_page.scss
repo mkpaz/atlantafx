@@ -5,6 +5,16 @@
     -fx-padding: 10px 20px 14px 20px;
     -fx-spacing: 10px;
     -fx-background-color: -color-bg-default;
+
+    >.dev-mode-indicator {
+        -fx-background-color: -color-warning-subtle;
+        -fx-background-radius: 10px;
+        -fx-text-fill: -color-warning-fg;
+        -fx-padding: 5px;
+        -fx-border-color: -color-warning-muted;
+        -fx-border-width: 1px;
+        -fx-border-radius: 10px;
+    }
   }
 
   >.stack {
