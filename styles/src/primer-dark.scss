@@ -73,13 +73,14 @@
   $fg-onEmphasis:        scale.$light,
 
   $canvas-default:       scale.$base-9,
-  $canvas-overlay:       scale.$base-8,
+  $canvas-overlay:       scale.$base-9,
   $canvas-inset:         scale.$dark,
   $canvas-subtle:        scale.$base-8,
 
   $border-default:       scale.$base-6,
   $border-muted:         scale.$base-7,
   $border-subtle:        color.change(scale.$base-0, $alpha: 0.1),
+  $shadow-default:       scale.$dark,
 
   $neutral-emphasisPlus: scale.$base-4,
   $neutral-emphasis:     scale.$base-4,

@@ -18,5 +18,5 @@ $padding-y: cfg.$padding-y !default;
   -fx-background-radius: cfg.$border-radius;
   -fx-padding: $padding-y $padding-x $padding-y $padding-x;
   -fx-opacity: $opacity;
-  @include effects.shadow($color-bg, cfg.$popup-shadow);
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 }

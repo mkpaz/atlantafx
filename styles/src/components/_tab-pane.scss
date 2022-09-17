@@ -85,10 +85,6 @@ $tab-float-width:           150px !default;
             -fx-background-color: $color-fg;
             -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
             -fx-scale-shape: false;
-
-            &:hover {
-              @include effects.highlight($color-fg, 1);
-            }
           }
         }
 

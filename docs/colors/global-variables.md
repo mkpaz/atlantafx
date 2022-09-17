@@ -30,11 +30,12 @@ Background colors.
 
 Border colors.
 
-| Color | Usage |
-|-------|-------|
-| `-color-border-default`| Default color to create bounds around content.                                   |
-| `-color-border-muted`  | For dividers to emphasize the separation between items, columns or sections.     |
-| `-color-border-subtle` | Faint border color.                                                              |
+| Color                   | Usage                                                                        |
+|-------------------------|------------------------------------------------------------------------------|
+| `-color-border-default` | Default color to create bounds around content.                               |
+| `-color-border-muted`   | For dividers to emphasize the separation between items, columns or sections. |
+| `-color-border-subtle`  | Faint border color.                                                          |
+| `-color-shadow-default` | Color for creating shadow effects around controls.                           |
 
 The below colors are all accent colors. Use them according to their role. The variable names are self-explaining.
 

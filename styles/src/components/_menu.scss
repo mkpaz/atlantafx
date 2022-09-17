@@ -158,7 +158,7 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
   -fx-background-insets: 0, 1;
   -fx-padding: cfg.$popup-padding-y cfg.$popup-padding-x cfg.$popup-padding-y cfg.$popup-padding-x;
   -fx-background-radius: cfg.$border-radius;
-  @include effects.shadow($color-menuitem-bg, cfg.$popup-shadow);
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 
   // no idea what's that thing and how to trigger its appearance
   >.scroll-arrow {

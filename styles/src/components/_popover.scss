@@ -11,11 +11,11 @@ $padding-y:     10px !default;
 
 .popover {
   -fx-background-color: $color-bg;
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 
   >.border {
     -fx-stroke: $color-border;
     -fx-stroke-width: cfg.$border-width;
-    @include effects.shadow($color-bg, cfg.$popup-shadow);
   }
 
   >.content {

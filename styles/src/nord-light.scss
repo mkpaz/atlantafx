@@ -101,6 +101,7 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
   $border-default:       scale.$base-3,
   $border-muted:         lighten(scale.$base-3, 0.1),
   $border-subtle:        color.change(scale.$dark, $alpha: 0.15),
+  $shadow-default:       scale.$base-3,
 
   $neutral-emphasisPlus: scale.$base-8,
   $neutral-emphasis:     scale.$base-7,

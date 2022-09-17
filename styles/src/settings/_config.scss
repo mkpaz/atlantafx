@@ -43,11 +43,12 @@ $checkbox-mark-padding-x: 4px !default;
 $checkbox-label-padding:  2px !default;
 
 // menu
-$popup-padding-x: 2px !default;
-$popup-padding-y: 2px !default;
-$popup-shadow:    2px !default;
-$menu-padding-x:  $padding-x !default;
-$menu-padding-y:  $padding-y !default;
+$popup-padding-x:     2px !default;
+$popup-padding-y:     2px !default;
+$popup-shadow-radius: if($darkMode, 8px, 6px) !default;
+$popup-shadow-spread: if($darkMode, 0.6, 0.3) !default;
+$menu-padding-x:      $padding-x !default;
+$menu-padding-y:      $padding-y !default;
 
 // separators
 $separators: ("small": 0.25em, "medium": 0.75em, "large": 1.5em) !default;
