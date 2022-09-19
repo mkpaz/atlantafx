@@ -7,7 +7,6 @@ import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import atlantafx.sampler.util.NodeUtils;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -53,7 +52,19 @@ public class ThemePage extends AbstractPage {
     private ContrastCheckerDialog contrastCheckerDialog;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public boolean canDisplaySourceCode() {
+        return false;
+    }
+
+    @Override
+    public boolean canChangeThemeSettings() {
+        return false;
+    }
 
     public ThemePage() {
         super();
@@ -81,7 +92,7 @@ public class ThemePage extends AbstractPage {
         var noteText = new TextFlow(
                 new Text("AtlantaFX follows "),
                 hyperlink("Github Primer interface guidelines",
-                          URI.create("https://primer.style/design/foundations/color")
+                        URI.create("https://primer.style/design/foundations/color")
                 ),
                 new Text(" and color system.")
         );
@@ -94,11 +105,6 @@ public class ThemePage extends AbstractPage {
         );
 
         selectCurrentTheme();
-
-        // if you want to enable quick menu don't forget that
-        // theme selection choice box have to be updated accordingly
-        NodeUtils.toggleVisibility(quickConfigBtn, false);
-        NodeUtils.toggleVisibility(sourceCodeToggleBtn, false);
     }
 
     private GridPane optionsGrid() {

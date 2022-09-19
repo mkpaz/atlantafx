@@ -9,5 +9,9 @@ public interface Page {
 
     Parent getView();
 
+    boolean canDisplaySourceCode();
+
+    boolean canChangeThemeSettings();
+
     void reset();
 }

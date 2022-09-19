@@ -38,7 +38,19 @@ public class TypographyPage extends AbstractPage {
     public static final String NAME = "Typography";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
+
+    @Override
+    public boolean canDisplaySourceCode() {
+        return false;
+    }
+
+    @Override
+    public boolean canChangeThemeSettings() {
+        return false;
+    }
 
     private Pane fontSizeSampleContent;
 
@@ -74,10 +86,6 @@ public class TypographyPage extends AbstractPage {
                 textColorSample().getRoot(),
                 textFlowSample().getRoot()
         );
-        // if you want to enable quick menu don't forget that
-        // font size spinner value have to be updated accordingly
-        NodeUtils.toggleVisibility(quickConfigBtn, false);
-        NodeUtils.toggleVisibility(sourceCodeToggleBtn, false);
     }
 
     private ComboBox<String> fontFamilyChooser() {

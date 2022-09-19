@@ -29,6 +29,11 @@ public abstract class ShowcasePage extends AbstractPage {
         createShowcaseLayout();
     }
 
+    @Override
+    public boolean canDisplaySourceCode() {
+        return false;
+    }
+
     protected void createShowcaseLayout() {
         var expandBtn = new Button("Expand");
         expandBtn.setGraphic(new FontIcon(Feather.MAXIMIZE_2));
@@ -58,9 +63,6 @@ public abstract class ShowcasePage extends AbstractPage {
         collapseBox.setPadding(new Insets(5));
         collapseBox.setVisible(false);
         collapseBox.setManaged(false);
-
-        sourceCodeToggleBtn.setVisible(false);
-        sourceCodeToggleBtn.setManaged(false);
 
         userContent.getChildren().setAll(showcase, expandBox, collapseBox);
     }

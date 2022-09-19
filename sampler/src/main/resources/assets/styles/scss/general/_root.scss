@@ -22,11 +22,8 @@
     }
 
     .page {
-      >.header {
-        @include hide();
-      }
 
-      >.stack>.scroll-pane>.viewport>*>.wrapper>.user-content {
+      >.scroll-pane>.viewport>*>.wrapper>.user-content {
         -fx-max-width: 4096px;
         -fx-padding: 0;
         -fx-spacing: 0;

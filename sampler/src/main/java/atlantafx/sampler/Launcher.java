@@ -3,6 +3,7 @@ package atlantafx.sampler;
 
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.HotkeyEvent;
 import atlantafx.sampler.event.Listener;
 import atlantafx.sampler.layout.ApplicationWindow;
 import atlantafx.sampler.theme.ThemeManager;
@@ -14,12 +15,17 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -28,6 +34,10 @@ public class Launcher extends Application {
 
     public static final boolean IS_DEV_MODE = "DEV".equalsIgnoreCase(
             Resources.getPropertyOrEnv("atlantafx.mode", "ATLANTAFX_MODE")
+    );
+
+    public static final List<KeyCodeCombination> SUPPORTED_HOTKEYS = List.of(
+            new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)
     );
 
     private static class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
@@ -45,14 +55,15 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) {
         Thread.currentThread().setUncaughtExceptionHandler(new DefaultExceptionHandler());
+        loadApplicationProperties();
 
         if (IS_DEV_MODE) {
             System.out.println("[WARNING] Application is running in development mode.");
         }
 
-        loadApplicationProperties();
         var root = new ApplicationWindow();
         var scene = new Scene(root, 1200, 768);
+        scene.setOnKeyPressed(this::dispatchHotkeys);
 
         var tm = ThemeManager.getInstance();
         tm.setScene(scene);
@@ -117,6 +128,15 @@ public class Launcher extends Application {
             }
         });
         CSSFX.start(scene);
+    }
+
+    private void dispatchHotkeys(KeyEvent event) {
+        for (KeyCodeCombination k : SUPPORTED_HOTKEYS) {
+            if (k.match(event)) {
+                DefaultEventBus.getInstance().publish(new HotkeyEvent(k));
+                return;
+            }
+        }
     }
 
     @Listener

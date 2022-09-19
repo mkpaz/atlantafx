@@ -23,4 +23,11 @@ public class ThemeEvent extends Event {
         THEME_ADD,
         THEME_REMOVE
     }
+
+    @Override
+    public String toString() {
+        return "ThemeEvent{" +
+                "eventType=" + eventType +
+                "} " + super.toString();
+    }
 }

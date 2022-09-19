@@ -19,6 +19,6 @@ public class BrowseEvent extends Event {
     public String toString() {
         return "BrowseEvent{" +
                 "uri=" + uri +
-                '}';
+                "} " + super.toString();
     }
 }
