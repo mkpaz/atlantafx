@@ -6,14 +6,16 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Book;
 import atlantafx.sampler.page.AbstractPage;
-import javafx.geometry.Orientation;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.ChoiceBoxListCell;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
@@ -27,6 +29,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class ListPage extends AbstractPage {
 
@@ -35,54 +39,20 @@ public class ListPage extends AbstractPage {
     @Override
     public String getName() { return NAME; }
 
-    private VBox playground;
-    private ComboBox<Example> exampleSelect;
-
     private final List<Book> dataList = generate(() -> Book.random(FAKER), 50);
-    private final StringConverter<Book> bookStringConverter = new StringConverter<>() {
-
-        @Override
-        public String toString(Book book) {
-            if (book == null) { return null; }
-            return String.format("\"%s\" by %s", book.getTitle(), book.getAuthor());
-        }
-
-        @Override
-        public Book fromString(String s) {
-            if (s == null) { return null; }
-
-            int sep = s.indexOf("\" by");
-            String title = s.substring(1, sep);
-            String author = s.substring(sep + "\" by".length());
-
-            return dataList.stream()
-                    .filter(b -> Objects.equals(b.getTitle(), title) && Objects.equals(b.getAuthor(), author))
-                    .findFirst()
-                    .orElse(null);
-        }
-    };
+    private final StringConverter<Book> bookStringConverter = new BookStringConverter(dataList);
+    private final BorderPane listWrapper = new BorderPane();
+    private final ComboBox<Example> exampleSelect = createExampleSelect();
 
     public ListPage() {
         super();
-        createView();
+
+        var sample = new SampleBlock("Playground", createPlayground());
+        sample.setFillHeight(true);
+        setUserContent(sample);
     }
 
-    private void createView() {
-        exampleSelect = exampleSelect();
-        playground = playground(exampleSelect);
-        userContent.getChildren().setAll(playground);
-    }
-
-    @Override
-    protected void onRendered() {
-        super.onRendered();
-        exampleSelect.getSelectionModel().selectFirst();
-    }
-
-    private VBox playground(ComboBox<Example> exampleSelect) {
-        var playground = new VBox(10);
-        playground.setMinHeight(100);
-
+    private VBox createPlayground() {
         var borderedToggle = new ToggleSwitch("Bordered");
         borderedToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, BORDERED)));
 
@@ -100,37 +70,30 @@ public class ListPage extends AbstractPage {
             if (val != null) { lv.setDisable(val); }
         }));
 
-        var controls = new HBox(20,
-                new Spacer(),
-                borderedToggle,
-                denseToggle,
-                stripedToggle,
-                edge2edgeToggle,
-                disableToggle,
-                new Spacer()
-        );
+        var controls = new HBox(BLOCK_HGAP, borderedToggle, denseToggle, stripedToggle, edge2edgeToggle);
+        controls.setAlignment(Pos.CENTER);
 
-        playground.getChildren().setAll(
-                new Label("Select an example:"),
+        VBox.setVgrow(listWrapper, Priority.ALWAYS);
+
+        var playground = new VBox(
+                BLOCK_VGAP,
+                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
                 exampleSelect,
-                new Spacer(Orientation.VERTICAL), // placeholder for ListView<?>
+                listWrapper,
                 controls
         );
+        playground.setMinHeight(100);
 
         return playground;
     }
 
-    private ComboBox<Example> exampleSelect() {
+    private ComboBox<Example> createExampleSelect() {
         var select = new ComboBox<Example>();
-
         select.setMaxWidth(Double.MAX_VALUE);
         select.getItems().setAll(Example.values());
 
         select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val == null) { return; }
-            if (playground.getChildren().size() != 4) {
-                throw new RuntimeException("Unexpected container size.");
-            }
 
             ListView<?> newList = createList(val);
 
@@ -139,15 +102,13 @@ public class ListPage extends AbstractPage {
                 List<String> currentStyles = lv.getStyleClass();
                 currentStyles.remove("list-view");
                 newList.getStyleClass().addAll(currentStyles);
-
                 newList.setDisable(lv.isDisable());
             });
 
-            playground.getChildren().set(2, newList);
+            listWrapper.setCenter(newList);
         });
 
         select.setConverter(new StringConverter<>() {
-
             @Override
             public String toString(Example example) {
                 return example == null ? "" : example.getName();
@@ -162,12 +123,16 @@ public class ListPage extends AbstractPage {
         return select;
     }
 
+    @Override
+    protected void onRendered() {
+        super.onRendered();
+        exampleSelect.getSelectionModel().selectFirst();
+    }
+
     private Optional<ListView<?>> findDisplayedList() {
-        if (playground == null) { return Optional.empty(); }
-        return playground.getChildren().stream()
-                .filter(c -> c instanceof ListView<?>)
-                .findFirst()
-                .map(c -> (ListView<?>) c);
+        return listWrapper.getChildren().size() > 0 ?
+                Optional.of((ListView<?>) listWrapper.getChildren().get(0)) :
+                Optional.empty();
     }
 
     private void toggleListProperty(Consumer<ListView<?>> consumer) {
@@ -258,6 +223,35 @@ public class ListPage extends AbstractPage {
         public static Example find(String name) {
             return Arrays.stream(Example.values())
                     .filter(example -> Objects.equals(example.getName(), name))
+                    .findFirst()
+                    .orElse(null);
+        }
+    }
+
+    private static class BookStringConverter extends StringConverter<Book> {
+
+        private final List<Book> dataList;
+
+        public BookStringConverter(List<Book> dataList) {
+            this.dataList = dataList;
+        }
+
+        @Override
+        public String toString(Book book) {
+            if (book == null) { return null; }
+            return String.format("\"%s\" by %s", book.getTitle(), book.getAuthor());
+        }
+
+        @Override
+        public Book fromString(String s) {
+            if (s == null) { return null; }
+
+            int sep = s.indexOf("\" by");
+            String title = s.substring(1, sep);
+            String author = s.substring(sep + "\" by".length());
+
+            return dataList.stream()
+                    .filter(b -> Objects.equals(b.getTitle(), title) && Objects.equals(b.getAuthor(), author))
                     .findFirst()
                     .orElse(null);
         }

@@ -85,7 +85,7 @@ final class PlayerPane extends VBox {
         trackAlbum.setAlignment(CENTER);
         trackAlbum.setMaxWidth(MAX_VALUE);
 
-        // == Media controls ==
+        // == MEDIA CONTROLS ==
 
         var prevBtn = new Button("", new FontIcon(FAST_REWIND));
         prevBtn.getStyleClass().addAll(BUTTON_CIRCLE);
@@ -112,7 +112,7 @@ final class PlayerPane extends VBox {
         mediaControls.getChildren().setAll(prevBtn, playBtn, nextBtn);
         mediaControls.setAlignment(CENTER);
 
-        // == Time controls ==
+        // == TIME CONTROLS ==
 
         timeSlider = new Slider(0, 1, 0);
         timeSlider.getStyleClass().add("time-slider");
@@ -129,7 +129,7 @@ final class PlayerPane extends VBox {
         timeMarkersBox.getChildren().setAll(currentTimeLabel, new Spacer(), endTimeLabel);
         timeMarkersBox.setMaxWidth(PANEL_MAX_WIDTH);
 
-        // == Extra controls ==
+        // == EXTRA CONTROLS ==
 
         var clearPlaylistBtn = new Button("", new FontIcon(CLEAR_ALL));
         clearPlaylistBtn.getStyleClass().addAll(BUTTON_CIRCLE);

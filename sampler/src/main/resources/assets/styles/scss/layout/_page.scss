@@ -1,19 +1,34 @@
 // SPDX-License-Identifier: MIT
 
 .page {
-
   >.scroll-pane {
     -fx-background-color: -color-bg-default;
 
-    >.viewport>*>.wrapper {
-      -fx-min-width: 880px;
-      -fx-alignment: TOP_CENTER;
+    // stack pane to center user content
+    .user-content {
+      -fx-padding: 40px 0 40px 0; // vertical paddings
+      -fx-min-width: 860px; // horizontal paddings
 
-      >.user-content {
-        -fx-padding: 40px 0 40px 0;
-        -fx-spacing: 40px;
+      >* {
+        // limit user content width
+        -fx-min-width: 800px;
         -fx-max-width: 800px;
       }
     }
+  }
+}
+
+.sample-block {
+  -fx-background-color: -color-bg-default;
+  -fx-effect: dropshadow(gaussian, -color-shadow-default, 10, 0.4, 0, 0);
+  -fx-border-color: -color-border-muted;
+  -fx-border-width: 1px;
+  -fx-padding: 1em 1.5em 1.5em 1.5em;
+  -fx-spacing: 1em;
+  -fx-min-width: 220px;
+
+  >.title {
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
   }
 }

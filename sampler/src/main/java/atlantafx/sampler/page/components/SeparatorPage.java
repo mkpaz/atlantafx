@@ -3,6 +3,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
@@ -16,89 +17,89 @@ import static javafx.geometry.Pos.CENTER;
 public final class SeparatorPage extends AbstractPage {
 
     public static final String NAME = "Separator";
-    private static final int BRICK_SIZE = 100;
+    private static final int SPACING = 50;
+    private static final int PANE_SIZE = 100;
 
     @Override
     public String getName() { return NAME; }
 
     public SeparatorPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                Page.PAGE_HGAP, Page.PAGE_VGAP,
+                orientationSample(),
+                sizeSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(
-                orientationSamples(),
-                sizeSamples()
+    private SampleBlock orientationSample() {
+        var hBox = new HBox(
+                createPane("Left", VERTICAL),
+                new Separator(VERTICAL),
+                createPane("Right", VERTICAL)
         );
-    }
-
-    private FlowPane orientationSamples() {
-        var hBox = new HBox(brick("Left", VERTICAL), new Separator(VERTICAL), brick("Right", VERTICAL));
         hBox.setAlignment(CENTER);
-        var hBlock = new SampleBlock("Vertical", hBox);
 
-        var vBox = new VBox(brick("Top", HORIZONTAL), new Separator(HORIZONTAL), brick("Bottom", HORIZONTAL));
-        vBox.setAlignment(CENTER);
-        var vBlock = new SampleBlock("Horizontal", vBox);
-
-        var root = new FlowPane(20, 20);
-        root.getChildren().setAll(
-                hBlock.getRoot(),
-                vBlock.getRoot()
+        var vBox = new VBox(
+                createPane("Top", HORIZONTAL),
+                new Separator(HORIZONTAL),
+                createPane("Bottom", HORIZONTAL)
         );
+        vBox.setAlignment(CENTER);
 
-        return root;
+        return new SampleBlock("Orientation", new HBox(SPACING, hBox, vBox));
     }
 
-    private FlowPane sizeSamples() {
+    private SampleBlock sizeSample() {
         var smallSep = new Separator(VERTICAL);
         smallSep.getStyleClass().add(Styles.SMALL);
-        var smallBox = new HBox(brick("Left", VERTICAL), smallSep, brick("Right", VERTICAL));
+        var smallBox = new HBox(
+                createPane("Left", VERTICAL),
+                smallSep,
+                createPane("Right", VERTICAL)
+        );
         smallBox.setAlignment(CENTER);
-        var smallBlock = new SampleBlock("Small", smallBox);
 
         var mediumSep = new Separator(VERTICAL);
         mediumSep.getStyleClass().add(Styles.MEDIUM);
-        var mediumBox = new HBox(brick("Left", VERTICAL), mediumSep, brick("Right", VERTICAL));
+        var mediumBox = new HBox(
+                createPane("Left", VERTICAL),
+                mediumSep,
+                createPane("Right", VERTICAL)
+        );
         mediumBox.setAlignment(CENTER);
-        var mediumBlock = new SampleBlock("Medium", mediumBox);
 
         var largeSep = new Separator(VERTICAL);
         largeSep.getStyleClass().add(Styles.LARGE);
-        var largeBox = new HBox(brick("Left", VERTICAL), largeSep, brick("Right", VERTICAL));
-        largeBox.setAlignment(CENTER);
-        var largeBlock = new SampleBlock("Large", largeBox);
-
-        var root = new FlowPane(20, 20);
-        root.getChildren().setAll(
-                smallBlock.getRoot(),
-                mediumBlock.getRoot(),
-                largeBlock.getRoot()
+        var largeBox = new HBox(
+                createPane("Left", VERTICAL),
+                largeSep,
+                createPane("Right", VERTICAL)
         );
+        largeBox.setAlignment(CENTER);
 
-        return root;
+        return new SampleBlock("Size", new HBox(SPACING, smallBox, mediumBox, largeBox));
     }
 
-    private Pane brick(String text, Orientation orientation) {
-        var root = new StackPane();
-        root.getChildren().setAll(new Label(text));
-        root.getStyleClass().add("bordered");
+    private Pane createPane(String text, Orientation orientation) {
+        var pane = new StackPane();
+        pane.getChildren().setAll(new Label(text));
+        pane.getStyleClass().add("bordered");
 
         if (orientation == HORIZONTAL) {
-            root.setMinHeight(BRICK_SIZE);
-            root.setPrefHeight(BRICK_SIZE);
-            root.setMaxHeight(BRICK_SIZE);
-            root.setMinWidth(BRICK_SIZE);
+            pane.setMinHeight(PANE_SIZE);
+            pane.setPrefHeight(PANE_SIZE);
+            pane.setMaxHeight(PANE_SIZE);
+            pane.setMinWidth(PANE_SIZE);
         }
 
         if (orientation == VERTICAL) {
-            root.setMinWidth(BRICK_SIZE);
-            root.setPrefWidth(BRICK_SIZE);
-            root.setMaxWidth(BRICK_SIZE);
-            root.setMinHeight(BRICK_SIZE);
+            pane.setMinWidth(PANE_SIZE);
+            pane.setPrefWidth(PANE_SIZE);
+            pane.setMaxWidth(PANE_SIZE);
+            pane.setMinHeight(PANE_SIZE);
         }
 
-        return root;
+        return pane;
     }
 }

@@ -1,10 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.theme.Styles;
 import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.base.controls.Spacer;
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -12,8 +12,10 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class PaginationPage extends AbstractPage {
 
@@ -25,14 +27,12 @@ public class PaginationPage extends AbstractPage {
 
     public PaginationPage() {
         super();
-        createView();
+        setUserContent(new VBox(
+                new SampleBlock("Playground", createPlayground())
+        ));
     }
 
-    private void createView() {
-        var playground = new VBox(10);
-        playground.setMinHeight(100);
-        playground.setAlignment(Pos.CENTER);
-
+    private VBox createPlayground() {
         var pagination = new Pagination();
         pagination.setCurrentPageIndex(1);
         pagination.setPageFactory(index -> {
@@ -76,13 +76,14 @@ public class PaginationPage extends AbstractPage {
         pagination.disableProperty().bind(disableToggle.selectedProperty());
 
         var controls = new GridPane();
-        controls.setHgap(20);
-        controls.setVgap(10);
+        controls.setHgap(BLOCK_HGAP);
+        controls.setVgap(BLOCK_VGAP);
+        controls.setAlignment(Pos.CENTER);
 
-        controls.add(new Label("Page count:"), 0, 0);
+        controls.add(new Label("Page count"), 0, 0);
         controls.add(pageCountSpinner, 1, 0);
 
-        controls.add(new Label("Visible count:"), 0, 1);
+        controls.add(new Label("Visible count"), 0, 1);
         controls.add(visibleCountSpinner, 1, 1);
 
         controls.add(new Label("Bullet style"), 3, 0);
@@ -99,15 +100,9 @@ public class PaginationPage extends AbstractPage {
 
         // ~
 
-        var separator = new Separator();
-        separator.getStyleClass().addAll(Styles.LARGE);
+        var playground = new VBox(BLOCK_VGAP, pagination, new Separator(), controls);
+        playground.setMinHeight(100);
 
-        playground.getChildren().setAll(
-                pagination,
-                separator,
-                new HBox(new Spacer(), controls, new Spacer())
-        );
-
-        userContent.getChildren().setAll(playground);
+        return playground;
     }
 }

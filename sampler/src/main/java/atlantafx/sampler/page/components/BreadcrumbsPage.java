@@ -4,11 +4,13 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -22,18 +24,14 @@ public class BreadcrumbsPage extends AbstractPage {
 
     public BreadcrumbsPage() {
         super();
-        createView();
-    }
-
-    private void createView() {
-        userContent.getChildren().addAll(
-                defaultSample().getRoot(),
-                customCrumbSample().getRoot()
-        );
+        setUserContent(new VBox(Page.PAGE_VGAP,
+                                defaultSample(),
+                                customCrumbSample()
+        ));
     }
 
     private SampleBlock defaultSample() {
-        return new SampleBlock("Basic", breadcrumbs(null));
+        return new SampleBlock("Basic", createBreadcrumbs(null));
     }
 
     private SampleBlock customCrumbSample() {
@@ -47,10 +45,10 @@ public class BreadcrumbsPage extends AbstractPage {
             return btn;
         };
 
-        return new SampleBlock("Custom crumb factory", breadcrumbs(crumbFactory));
+        return new SampleBlock("Flat", createBreadcrumbs(crumbFactory));
     }
 
-    private HBox breadcrumbs(Callback<TreeItem<String>, Button> crumbFactory) {
+    private HBox createBreadcrumbs(Callback<TreeItem<String>, Button> crumbFactory) {
         int count = 5;
         TreeItem<String> model = Breadcrumbs.buildTreeModel(
                 generate(() -> FAKER.science().element(), count).toArray(String[]::new)
@@ -76,7 +74,7 @@ public class BreadcrumbsPage extends AbstractPage {
             }
         });
 
-        var box = new HBox(60, nextBtn, breadcrumbs);
+        var box = new HBox(40, nextBtn, breadcrumbs);
         box.setAlignment(Pos.CENTER_LEFT);
 
         return box;

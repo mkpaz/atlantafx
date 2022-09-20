@@ -4,10 +4,12 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -31,17 +33,32 @@ public class AccordionPage extends AbstractPage {
 
     public AccordionPage() {
         super();
-        createView();
+
+        var sample = new SampleBlock(
+                "Playground",
+                new VBox(SampleBlock.BLOCK_VGAP, createControls(), createPlayground())
+        );
+        sample.setFillHeight(true);
+        setUserContent(sample);
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(new VBox(10,
-                controls(),
-                playground()
-        ));
+    private HBox createControls() {
+        var animatedToggle = new ToggleSwitch("Animated");
+        animatedProperty.bind(animatedToggle.selectedProperty());
+        animatedToggle.setSelected(true);
+
+        var expandedToggle = new ToggleSwitch("Always expanded");
+        expandedProperty.bind(expandedToggle.selectedProperty());
+        expandedToggle.setSelected(true);
+
+        var controls = new HBox(SampleBlock.BLOCK_HGAP, animatedToggle, expandedToggle);
+        controls.setAlignment(Pos.CENTER);
+        controls.setPadding(new Insets(0, 0, 0, 2));
+
+        return controls;
     }
 
-    private Accordion playground() {
+    private Accordion createPlayground() {
         var textBlockContent = new Label(FAKER.chuckNorris().fact());
         var textBlock = new TitledPane("_Quote", textBlockContent);
         textBlock.setMnemonicParsing(true);
@@ -74,30 +91,16 @@ public class AccordionPage extends AbstractPage {
                 disabledBlock,
                 imageBlock
         );
+
+        // prevents accordion from being completely collapsed
         accordion.expandedPaneProperty().addListener((obs, old, val) -> {
-            // make sure the accordion can never be completely collapsed
             boolean hasExpanded = accordion.getPanes().stream().anyMatch(TitledPane::isExpanded);
             if (expandedProperty.get() && !hasExpanded && old != null) {
                 Platform.runLater(() -> accordion.setExpandedPane(old));
             }
         });
-        accordion.setExpandedPane(accordion.getPanes().get(0));
+        accordion.setExpandedPane(accordion.getPanes().get(1));
 
         return accordion;
-    }
-
-    private HBox controls() {
-        var animatedToggle = new ToggleSwitch("Animated");
-        animatedProperty.bind(animatedToggle.selectedProperty());
-        animatedToggle.setSelected(true);
-
-        var expandedToggle = new ToggleSwitch("Always expanded");
-        expandedProperty.bind(expandedToggle.selectedProperty());
-        expandedToggle.setSelected(true);
-
-        var controls = new HBox(20, animatedToggle, expandedToggle);
-        controls.setPadding(new Insets(0, 0, 0, 2));
-
-        return controls;
     }
 }

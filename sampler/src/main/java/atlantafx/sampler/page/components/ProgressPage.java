@@ -1,8 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
 import javafx.concurrent.Task;
@@ -18,9 +18,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-// Indeterminate (animated) progress bar and also progress indicator are very expensive.
-// It consumes single CPU core and a lot of memory.
-// #javafx-bug
+import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
+// #javafx-bug Indeterminate (animated) progress bar and also progress indicator
+// are VERY resource expensive. It consumes a single CPU core and a lot of memory.
 public class ProgressPage extends AbstractPage {
 
     public static final String NAME = "Progress";
@@ -30,50 +33,44 @@ public class ProgressPage extends AbstractPage {
 
     public ProgressPage() {
         super();
-        createView();
+        setUserContent(new VBox(Page.PAGE_VGAP,
+                expandingHBox(basicBarSample(), basicIndicatorSample()),
+                expandingHBox(barSizeSample(), colorChangeSample())
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(
-                basicBarSamples().getRoot(),
-                basicIndicatorSamples().getRoot(),
-                barSizeSamples().getRoot(),
-                colorChangeSample().getRoot()
+    private SampleBlock basicBarSample() {
+        var flowPane = new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                createBar(0, false),
+                createBar(0.5, false),
+                createBar(1, false),
+                createBar(0.5, true)
         );
-    }
-
-    private SampleBlock basicBarSamples() {
-        var flowPane = new FlowPane(20, 20);
         flowPane.setAlignment(Pos.CENTER_LEFT);
-        flowPane.getChildren().addAll(
-                progressBar(0, false),
-                progressBar(0.5, false),
-                progressBar(1, false),
-                progressBar(0.5, true)
-        );
 
         return new SampleBlock("Progress Bar", flowPane);
     }
 
-    private SampleBlock basicIndicatorSamples() {
-        var flowPane = new FlowPane(20, 20);
-        flowPane.getChildren().addAll(
-                progressIndicator(0, false),
-                progressIndicator(0.5, false),
-                progressIndicator(1, false),
-                progressIndicator(0.5, true)
+    private SampleBlock basicIndicatorSample() {
+        var flowPane = new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                createIndicator(0, false),
+                createIndicator(0.5, false),
+                createIndicator(1, false),
+                createIndicator(0.5, true)
         );
         flowPane.setAlignment(Pos.TOP_LEFT);
 
         return new SampleBlock("Progress Indicator", flowPane);
     }
 
-    private SampleBlock barSizeSamples() {
+    private SampleBlock barSizeSample() {
         var container = new VBox(
-                10,
-                new HBox(20, progressBar(0.5, false, Styles.SMALL), new Text("small")),
-                new HBox(20, progressBar(0.5, false, Styles.MEDIUM), new Text("medium")),
-                new HBox(20, progressBar(0.5, false, Styles.LARGE), new Text("large"))
+                BLOCK_VGAP,
+                new HBox(20, createBar(0.5, false, SMALL), new Text("small")),
+                new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")),
+                new HBox(20, createBar(0.5, false, LARGE), new Text("large"))
         );
         container.getChildren().forEach(c -> ((HBox) c).setAlignment(Pos.CENTER_LEFT));
 
@@ -83,10 +80,10 @@ public class ProgressPage extends AbstractPage {
     private SampleBlock colorChangeSample() {
         var stateSuccess = PseudoClass.getPseudoClass("state-success");
         var stateDanger = PseudoClass.getPseudoClass("state-danger");
-        var width = 400;
+        var width = 300;
 
         var bar = new ProgressBar(0);
-        bar.getStyleClass().add(Styles.LARGE);
+        bar.getStyleClass().add(LARGE);
         bar.setPrefWidth(width);
         bar.setMaxWidth(width);
 
@@ -102,7 +99,7 @@ public class ProgressPage extends AbstractPage {
 
         // ~
 
-        var content = new VBox(10);
+        var content = new VBox(BLOCK_VGAP);
         content.getChildren().setAll(barStack, runBtn);
         content.setAlignment(Pos.CENTER_LEFT);
 
@@ -127,7 +124,8 @@ public class ProgressPage extends AbstractPage {
                 .example:state-danger  .label {
                     -fx-text-fill: -color-fg-emphasis;
                 }
-                """).addTo(content);
+                """
+        ).addTo(content);
 
         runBtn.setOnAction(e1 -> {
             var task = new Task<Void>() {
@@ -162,17 +160,17 @@ public class ProgressPage extends AbstractPage {
             new Thread(task).start();
         });
 
-        return new SampleBlock("Live color change", content);
+        return new SampleBlock("Dynamic Color Change", content);
     }
 
-    private ProgressIndicator progressBar(double progress, boolean disabled, String... styleClasses) {
+    private ProgressIndicator createBar(double progress, boolean disabled, String... styleClasses) {
         var bar = new ProgressBar(progress);
         bar.getStyleClass().addAll(styleClasses);
         bar.setDisable(disabled);
         return bar;
     }
 
-    private ProgressIndicator progressIndicator(double progress, boolean disabled) {
+    private ProgressIndicator createIndicator(double progress, boolean disabled) {
         var indicator = new ProgressIndicator(progress);
         indicator.setMinSize(50, 50);
         indicator.setMaxSize(50, 50);

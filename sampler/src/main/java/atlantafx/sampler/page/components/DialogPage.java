@@ -2,7 +2,6 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.beans.property.BooleanProperty;
@@ -10,10 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.StageStyle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -22,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static javafx.scene.control.Alert.AlertType;
 import static javafx.scene.control.ButtonBar.ButtonData;
 
@@ -41,10 +38,6 @@ public class DialogPage extends AbstractPage {
     }
 
     private void createView() {
-        userContent.getChildren().setAll(playground());
-    }
-
-    private VBox playground() {
         var showHeaderToggle = new ToggleSwitch("Show header");
         showHeaderProperty.bind(showHeaderToggle.selectedProperty());
         showHeaderToggle.setSelected(true);
@@ -53,25 +46,30 @@ public class DialogPage extends AbstractPage {
         minDecorationsProperty.bind(minDecorationsToggle.selectedProperty());
         minDecorationsToggle.setSelected(true);
 
-        var controls = new HBox(20, new Spacer(), showHeaderToggle, minDecorationsToggle, new Spacer());
+        var controls = new HBox(BLOCK_HGAP, showHeaderToggle, minDecorationsToggle);
         controls.setAlignment(Pos.CENTER);
 
-        // ~
+        var samples = new FlowPane(
+                PAGE_HGAP, PAGE_VGAP,
+                infoDialogSample(),
+                warningDialogSample(),
+                errorDialogSample(),
+                exceptionDialogSample(),
+                confirmationDialogSample(),
+                textInputDialogSample(),
+                choiceDialogSample()
+        );
 
-        var row1 = new HBox(40, infoDialogButton().getRoot(), warnDialogButton().getRoot(), errorDialogButton().getRoot());
-
-        var row2 = new HBox(40, exceptionDialogButton().getRoot(), confirmationDialogButton().getRoot(), textInputDialogButton().getRoot(), choiceDialogButton().getRoot());
-
-        var playground = new VBox(20);
-        playground.setMinHeight(100);
-        playground.getChildren().setAll(controls, new Separator(Orientation.HORIZONTAL), row1, row2);
-
-        return playground;
+        setUserContent(new VBox(
+                10,
+                controls,
+                new Separator(Orientation.HORIZONTAL),
+                samples
+        ));
     }
 
-    private SampleBlock infoDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.INFO));
+    private SampleBlock infoDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.INFO));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
@@ -85,9 +83,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Information", button);
     }
 
-    private SampleBlock warnDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.ALERT_TRIANGLE));
+    private SampleBlock warningDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning Dialog");
@@ -101,9 +98,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Warning", button);
     }
 
-    private SampleBlock errorDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.X_CIRCLE));
+    private SampleBlock errorDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.X_CIRCLE));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -117,10 +113,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Error", button);
     }
 
-    private SampleBlock exceptionDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.MEH));
-
+    private SampleBlock exceptionDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.MEH));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -157,10 +151,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Exception", button);
     }
 
-    private SampleBlock confirmationDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.CHECK_SQUARE));
-
+    private SampleBlock confirmationDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.CHECK_SQUARE));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
@@ -181,10 +173,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Confirmation", button);
     }
 
-    private SampleBlock textInputDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.EDIT_2));
-
+    private SampleBlock textInputDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.EDIT_2));
         button.setOnAction(e -> {
             var dialog = new TextInputDialog();
             dialog.setTitle("Text Input Dialog");
@@ -198,10 +188,8 @@ public class DialogPage extends AbstractPage {
         return new SampleBlock("Text Input", button);
     }
 
-    private SampleBlock choiceDialogButton() {
-        var button = new Button("Click");
-        button.setGraphic(new FontIcon(Feather.LIST));
-
+    private SampleBlock choiceDialogSample() {
+        var button = new Button("Click", new FontIcon(Feather.LIST));
         button.setOnAction(e -> {
             var choices = new ArrayList<>();
             choices.add("A");

@@ -5,6 +5,7 @@ import atlantafx.base.theme.Styles;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import javafx.geometry.HPos;
@@ -13,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
@@ -25,6 +27,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import static atlantafx.sampler.event.ThemeEvent.EventType.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 import static atlantafx.sampler.util.Controls.hyperlink;
 
 public class ThemePage extends AbstractPage {
@@ -46,29 +50,25 @@ public class ThemePage extends AbstractPage {
 
     private final ColorPalette colorPalette = new ColorPalette(colorBlockActionHandler);
     private final ColorScale colorScale = new ColorScale();
-    private final ChoiceBox<SamplerTheme> themeSelector = themeSelector();
+    private final ChoiceBox<SamplerTheme> themeSelector = createThemeSelector();
 
     private ThemeRepoManagerDialog themeRepoManagerDialog;
     private ContrastCheckerDialog contrastCheckerDialog;
 
     @Override
-    public String getName() {
-        return NAME;
-    }
+    public String getName() { return NAME; }
 
     @Override
-    public boolean canDisplaySourceCode() {
-        return false;
-    }
+    public boolean canDisplaySourceCode() { return false; }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return false;
-    }
+    public boolean canChangeThemeSettings() { return false; }
 
     public ThemePage() {
         super();
+
         createView();
+
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             if (e.getEventType() == THEME_ADD || e.getEventType() == THEME_REMOVE) {
                 themeSelector.getItems().setAll(TM.getRepository().getAll());
@@ -91,32 +91,29 @@ public class ThemePage extends AbstractPage {
     private void createView() {
         var noteText = new TextFlow(
                 new Text("AtlantaFX follows "),
-                hyperlink("Github Primer interface guidelines",
-                        URI.create("https://primer.style/design/foundations/color")
-                ),
+                hyperlink("Github Primer interface guidelines", URI.create("https://primer.style/design/foundations/color")),
                 new Text(" and color system.")
         );
 
-        userContent.getChildren().addAll(
-                optionsGrid(),
+        setUserContent(new VBox(
+                Page.PAGE_VGAP,
+                createOptionsGrid(),
                 noteText,
                 colorPalette,
                 colorScale
-        );
+        ));
 
         selectCurrentTheme();
     }
 
-    private GridPane optionsGrid() {
+    private GridPane createOptionsGrid() {
         var themeRepoBtn = new Button("", new FontIcon(Material2OutlinedMZ.SETTINGS));
         themeRepoBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT);
         themeRepoBtn.setTooltip(new Tooltip("Settings"));
         themeRepoBtn.setOnAction(e -> {
             ThemeRepoManagerDialog dialog = getOrCreateThemeRepoManagerDialog();
-
             overlay.setContent(dialog, HPos.CENTER);
             dialog.getContent().update();
-
             overlay.toFront();
         });
 
@@ -125,8 +122,8 @@ public class ThemePage extends AbstractPage {
         // ~
 
         var grid = new GridPane();
-        grid.setVgap(20);
-        grid.setHgap(20);
+        grid.setHgap(BLOCK_HGAP);
+        grid.setVgap(BLOCK_VGAP);
 
         grid.add(new Label("Color theme"), 0, 0);
         grid.add(themeSelector, 1, 0);
@@ -137,7 +134,7 @@ public class ThemePage extends AbstractPage {
         return grid;
     }
 
-    private ChoiceBox<SamplerTheme> themeSelector() {
+    private ChoiceBox<SamplerTheme> createThemeSelector() {
         var selector = new ChoiceBox<SamplerTheme>();
         selector.getItems().setAll(TM.getRepository().getAll());
         selector.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {

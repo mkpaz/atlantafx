@@ -5,13 +5,16 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
-import javafx.geometry.Orientation;
+import atlantafx.sampler.page.SampleBlock;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.control.cell.ChoiceBoxTreeCell;
 import javafx.scene.control.cell.ComboBoxTreeCell;
 import javafx.scene.control.cell.TextFieldTreeCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
@@ -25,6 +28,8 @@ import java.util.function.Supplier;
 
 import static atlantafx.base.theme.Styles.DENSE;
 import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TreePage extends AbstractPage {
 
@@ -33,34 +38,20 @@ public class TreePage extends AbstractPage {
     private static final int[] TREE_DICE = { -1, 0, 1 };
 
     @Override
-    public String getName() {
-        return NAME;
-    }
+    public String getName() { return NAME; }
 
-    private VBox playground;
-    private ComboBox<Example> exampleSelect;
+    private final BorderPane treeWrapper = new BorderPane();
+    private final ComboBox<Example> exampleSelect = createExampleSelect();
 
     public TreePage() {
         super();
-        createView();
+
+        var sample = new SampleBlock("Playground", createPlayground());
+        sample.setFillHeight(true);
+        setUserContent(sample);
     }
 
-    private void createView() {
-        exampleSelect = exampleSelect();
-        playground = playground(exampleSelect);
-        userContent.getChildren().setAll(playground);
-    }
-
-    @Override
-    protected void onRendered() {
-        super.onRendered();
-        exampleSelect.getSelectionModel().selectFirst();
-    }
-
-    private VBox playground(ComboBox<Example> exampleSelect) {
-        var playground = new VBox(10);
-        playground.setMinHeight(100);
-
+    private VBox createPlayground() {
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
                 (obs, old, value) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, DENSE))
@@ -82,34 +73,29 @@ public class TreePage extends AbstractPage {
             if (val != null) { tv.setDisable(val); }
         }));
 
-        var controls = new HBox(20,
-                new Spacer(),
-                denseToggle,
-                showRootToggle,
-                edge2edgeToggle,
-                disableToggle,
-                new Spacer()
-        );
+        var controls = new HBox(BLOCK_HGAP, denseToggle, showRootToggle, edge2edgeToggle);
+        controls.setAlignment(Pos.CENTER);
 
-        playground.getChildren().setAll(
-                new Label("Select an example:"),
+        VBox.setVgrow(treeWrapper, Priority.ALWAYS);
+
+        var playground = new VBox(
+                BLOCK_VGAP,
+                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
                 exampleSelect,
-                new Spacer(Orientation.VERTICAL), // placeholder for TreeView<?>
+                treeWrapper,
                 controls
         );
+        playground.setMinHeight(100);
 
         return playground;
     }
 
-    private ComboBox<Example> exampleSelect() {
+    private ComboBox<Example> createExampleSelect() {
         var select = new ComboBox<Example>();
         select.setMaxWidth(Double.MAX_VALUE);
         select.getItems().setAll(Example.values());
         select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val == null) { return; }
-            if (playground.getChildren().size() != 4) {
-                throw new RuntimeException("Unexpected container size.");
-            }
 
             TreeView<String> newTree = createTree(val);
 
@@ -123,10 +109,9 @@ public class TreePage extends AbstractPage {
                 newTree.setDisable(tv.isDisable());
             });
 
-            playground.getChildren().set(2, newTree);
+            treeWrapper.setCenter(newTree);
         });
         select.setConverter(new StringConverter<>() {
-
             @Override
             public String toString(Example example) {
                 return example == null ? "" : example.getName();
@@ -141,12 +126,16 @@ public class TreePage extends AbstractPage {
         return select;
     }
 
+    @Override
+    protected void onRendered() {
+        super.onRendered();
+        exampleSelect.getSelectionModel().selectFirst();
+    }
+
     private Optional<TreeView<?>> findDisplayedTree() {
-        if (playground == null) { return Optional.empty(); }
-        return playground.getChildren().stream()
-                .filter(c -> c instanceof TreeView<?>)
-                .findFirst()
-                .map(c -> (TreeView<?>) c);
+        return treeWrapper.getChildren().size() > 0 ?
+                Optional.of((TreeView<?>) treeWrapper.getChildren().get(0)) :
+                Optional.empty();
     }
 
     private TreeView<String> createTree(Example example) {

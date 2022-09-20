@@ -1,7 +1,7 @@
 package atlantafx.sampler.page.showcase;
 
-import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.util.NodeUtils;
 import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,30 +41,25 @@ public abstract class ShowcasePage extends AbstractPage {
         expandBtn.setOnAction(e -> {
             expandBtn.getScene().getRoot().pseudoClassStateChanged(SHOWCASE_MODE, true);
             VBox.setVgrow(showcase, Priority.ALWAYS);
-            expandBox.setVisible(false);
-            expandBox.setManaged(false);
-            collapseBox.setVisible(true);
-            collapseBox.setManaged(true);
+            NodeUtils.toggleVisibility(expandBox, false);
+            NodeUtils.toggleVisibility(collapseBox, true);
         });
-        expandBox.getChildren().setAll(new Spacer(), expandBtn, new Spacer());
-        expandBox.setAlignment(Pos.CENTER_LEFT);
+        expandBox.getChildren().setAll(expandBtn);
+        expandBox.setAlignment(Pos.CENTER);
 
         var collapseBtn = new Hyperlink("Exit showcase mode");
         collapseBtn.setOnAction(e -> {
             expandBtn.getScene().getRoot().pseudoClassStateChanged(SHOWCASE_MODE, false);
             VBox.setVgrow(showcase, Priority.NEVER);
-            expandBox.setVisible(true);
-            expandBox.setManaged(true);
-            collapseBox.setVisible(false);
-            collapseBox.setManaged(false);
+            NodeUtils.toggleVisibility(expandBox, true);
+            NodeUtils.toggleVisibility(collapseBox, false);
         });
         collapseBox.getChildren().setAll(new FontIcon(Feather.MINIMIZE_2), collapseBtn);
         collapseBox.setAlignment(Pos.CENTER_LEFT);
         collapseBox.setPadding(new Insets(5));
-        collapseBox.setVisible(false);
-        collapseBox.setManaged(false);
+        NodeUtils.toggleVisibility(collapseBox, false);
 
-        userContent.getChildren().setAll(showcase, expandBox, collapseBox);
+        setUserContent(new VBox(showcase, expandBox, collapseBox));
     }
 
     @SuppressWarnings("SameParameterValue")

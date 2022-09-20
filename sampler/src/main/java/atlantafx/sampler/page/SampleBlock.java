@@ -3,40 +3,59 @@ package atlantafx.sampler.page;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-public class SampleBlock {
+import java.util.Objects;
 
-    protected final VBox root;
+public class SampleBlock extends VBox {
+
+    public static final int BLOCK_HGAP = 20;
+    public static final int BLOCK_VGAP = 10;
+
     protected final Label titleLabel;
-    protected final Node content;
+    protected final Node content; // can be either Pane or Control
+    protected TextFlow descriptionText;
 
     public SampleBlock(String title, Node content) {
-        this.titleLabel = new Label(title);
-        this.titleLabel.getStyleClass().add("title");
-
-        this.content = content;
-        VBox.setVgrow(content, Priority.ALWAYS);
-
-        this.root = new VBox(titleLabel, content);
-        this.root.getStyleClass().add("sample-block");
+        this(title, content, null);
     }
 
-    public Pane getRoot() {
-        return root;
+    public SampleBlock(String title, Node content, String description) {
+        titleLabel = new Label(Objects.requireNonNull(title));
+        titleLabel.getStyleClass().add("title");
+
+        this.content = Objects.requireNonNull(content);
+        content.getStyleClass().add("content");
+
+        getChildren().setAll(titleLabel, content);
+        if (description != null && !description.isBlank()) {
+            descriptionText = new TextFlow(new Text(description));
+            getChildren().add(descriptionText);
+        }
+
+        getStyleClass().add("sample-block");
     }
 
-    public String getText() {
+    public String getTitle() {
         return titleLabel.getText();
     }
 
-    public void setText(String text) {
+    public void setTitle(String text) {
         titleLabel.setText(text);
     }
 
     public Node getContent() {
         return content;
+    }
+
+    public void setFillHeight(boolean fillHeight) {
+        if (fillHeight) {
+            VBox.setVgrow(content, Priority.ALWAYS);
+        } else {
+            VBox.setVgrow(content, Priority.NEVER);
+        }
     }
 }

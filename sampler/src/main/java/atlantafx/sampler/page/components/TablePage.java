@@ -4,8 +4,10 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleObjectProperty;
@@ -15,9 +17,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.javafx.FontIconTableCell;
 
 import java.util.List;
@@ -26,8 +30,9 @@ import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
 import static atlantafx.base.theme.Tweaks.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 import static javafx.collections.FXCollections.observableArrayList;
-import static javafx.geometry.Orientation.HORIZONTAL;
 
 public class TablePage extends AbstractPage {
 
@@ -43,16 +48,15 @@ public class TablePage extends AbstractPage {
 
     public TablePage() {
         super();
-        createView();
+
+        var sample = new SampleBlock("Playground", createPlayground());
+        sample.setFillHeight(true);
+        setUserContent(sample);
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(
-                playground()
-        );
-    }
+    private VBox createPlayground() {
+        // == FOOTER ==
 
-    private VBox playground() {
         var bordersToggle = new ToggleSwitch("Bordered");
         bordersToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(table, BORDERED));
 
@@ -62,29 +66,31 @@ public class TablePage extends AbstractPage {
         var stripesToggle = new ToggleSwitch("Striped");
         stripesToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(table, STRIPED));
 
-        var disableToggle = new ToggleSwitch("Disable");
-        disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { table.setDisable(val); }
-        });
+        var edge2edgeToggle = new ToggleSwitch("Edge to edge");
+        edge2edgeToggle.selectedProperty().addListener(
+                (obs, old, value) -> toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
+        );
 
-        var maxValue = 100;
-        var rowCountChoice = new ComboBox<>(observableArrayList(0, 5, 10, 25, maxValue));
-        rowCountChoice.setValue(maxValue);
+        var maxRowCount = 100;
+        var rowCountChoice = new ComboBox<>(observableArrayList(0, 5, 10, 25, maxRowCount));
+        rowCountChoice.setValue(maxRowCount);
 
-        var rowCountBox = new HBox(10, new Label("rows"), rowCountChoice);
+        var rowCountBox = new HBox(BLOCK_HGAP, new Label("rows"), rowCountChoice);
         rowCountBox.setAlignment(Pos.CENTER_LEFT);
 
-        var togglesBox = new HBox(20,
+        var footer = new HBox(
+                BLOCK_HGAP,
+                new Spacer(),
                 bordersToggle,
                 denseToggle,
                 stripesToggle,
-                disableToggle,
-                new Spacer(HORIZONTAL),
+                edge2edgeToggle,
+                new Spacer(),
                 rowCountBox
         );
-        togglesBox.setAlignment(Pos.CENTER_LEFT);
+        footer.setAlignment(Pos.CENTER_LEFT);
 
-        // ~
+        // == TABLE ==
 
         var filteredData = new FilteredList<>(observableArrayList(dataList));
         filteredData.predicateProperty().bind(Bindings.createObjectBinding(
@@ -94,32 +100,69 @@ public class TablePage extends AbstractPage {
 
         var sortedData = new SortedList<>(filteredData);
 
-        table = table();
+        table = createTable();
         table.setItems(sortedData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
+        VBox.setVgrow(table, Priority.ALWAYS);
+
+        // == HEADER ==
+
+        var alignGroup = new ToggleGroup();
+
+        var alignLeftBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_LEFT));
+        alignLeftBtn.getStyleClass().add(".left-pill");
+        alignLeftBtn.setToggleGroup(alignGroup);
+        alignLeftBtn.setSelected(true);
+        alignLeftBtn.setOnAction(e -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignCenterBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_CENTER));
+        alignCenterBtn.getStyleClass().add(".center-pill");
+        alignCenterBtn.setToggleGroup(alignGroup);
+        alignCenterBtn.selectedProperty().addListener((obs, old, val) -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
+            }
+        });
+
+        var alignRightBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_RIGHT));
+        alignRightBtn.getStyleClass().add(".right-pill");
+        alignRightBtn.setToggleGroup(alignGroup);
+        alignRightBtn.selectedProperty().addListener((obs, old, val) -> {
+            for (TableColumn<?, ?> c : table.getColumns()) {
+                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
+            }
+        });
+
+        var alignBox = new HBox(alignLeftBtn, alignCenterBtn, alignRightBtn);
+
+        var disableToggle = new ToggleSwitch("Disable");
+        disableToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null) { table.setDisable(val); }
+        });
+
+        var header = new HBox(
+                createTablePropertiesMenu(table),
+                new Spacer(),
+                alignBox,
+                new Spacer(),
+                disableToggle
+        );
+        header.setAlignment(Pos.CENTER_LEFT);
 
         // ~
 
-        var topBox = new HBox(
-                new Label("Example:"),
-                new Spacer(),
-                settingsMenu(table)
-        );
-        topBox.setAlignment(Pos.CENTER_LEFT);
-
-        var playground = new VBox(10);
+        var playground = new VBox(BLOCK_VGAP, header, table, footer);
         playground.setMinHeight(100);
-        playground.getChildren().setAll(
-                topBox,
-                table,
-                togglesBox
-        );
 
         return playground;
     }
 
     @SuppressWarnings("unchecked")
-    private TableView<Product> table() {
+    private TableView<Product> createTable() {
         var stateCol = new TableColumn<Product, Boolean>("Selected");
         stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
         stateCol.setCellFactory(CheckBoxTableCell.forTableColumn(stateCol));
@@ -142,21 +185,21 @@ public class TablePage extends AbstractPage {
         iconCol.setCellFactory(FontIconTableCell.forTableColumn());
         iconCol.setEditable(false);
 
-        var brandCol = new TableColumn<Product, String>("Brand ✎");
+        var brandCol = new TableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTableCell.forTableColumn(
                 generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
-        var nameCol = new TableColumn<Product, String>("Name ✎");
+        var nameCol = new TableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTableCell.forTableColumn(
                 generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
         ));
         nameCol.setEditable(true);
 
-        var priceCol = new TableColumn<Product, String>("Price ✎");
+        var priceCol = new TableColumn<Product, String>("Price  🖉");
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         priceCol.setCellFactory(TextFieldTableCell.forTableColumn());
         priceCol.setEditable(true);
@@ -179,7 +222,7 @@ public class TablePage extends AbstractPage {
         return table;
     }
 
-    private MenuButton settingsMenu(TableView<Product> table) {
+    private MenuButton createTablePropertiesMenu(TableView<Product> table) {
         var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
         var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
@@ -227,66 +270,13 @@ public class TablePage extends AbstractPage {
         table.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
-        var edge2edgeItem = new CheckMenuItem("Edge to edge");
-        edge2edgeItem.selectedProperty().addListener((obs, old, val) -> {
-            if (!val) {
-                table.getStyleClass().remove(EDGE_TO_EDGE);
-            } else {
-                table.getStyleClass().add(EDGE_TO_EDGE);
-            }
-        });
-
-        // ~
-
-        var alignToggleGroup = new ToggleGroup();
-
-        var alignLeftItem = new RadioMenuItem("Left");
-        alignLeftItem.setToggleGroup(alignToggleGroup);
-        alignLeftItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TableColumn<?, ?> c : table.getColumns()) {
-                addStyleClass(c, ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
-            }
-        });
-
-        var alignCenterItem = new RadioMenuItem("Center");
-        alignCenterItem.setToggleGroup(alignToggleGroup);
-        alignCenterItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TableColumn<?, ?> c : table.getColumns()) {
-                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
-            }
-        });
-
-        var alignRightItem = new RadioMenuItem("Right");
-        alignRightItem.setToggleGroup(alignToggleGroup);
-        alignRightItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TableColumn<?, ?> c : table.getColumns()) {
-                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
-            }
-        });
-
-        var alignDefaultItem = new MenuItem("Default");
-        alignDefaultItem.setOnAction(e -> {
-            for (TableColumn<?, ?> c : table.getColumns()) {
-                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
-            }
-        });
-
-        var alignMenu = new Menu("Align columns");
-        alignMenu.getItems().setAll(
-                alignLeftItem,
-                alignCenterItem,
-                alignRightItem,
-                new SeparatorMenuItem(),
-                alignDefaultItem
-        );
-
         // ~
 
         var menuButtonItem = new CheckMenuItem("Show menu button");
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Settings") {{
+        return new MenuButton("Properties") {{
             getItems().setAll(
                     resizePolicyCaption,
                     unconstrainedResizeItem,
@@ -297,8 +287,6 @@ public class TablePage extends AbstractPage {
                     new SeparatorMenuItem(),
                     editCellsItem,
                     cellSelectionItem,
-                    alignMenu,
-                    edge2edgeItem,
                     menuButtonItem
             );
         }};

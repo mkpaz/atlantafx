@@ -1,9 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -18,6 +19,8 @@ import javafx.scene.text.TextFlow;
 
 import static atlantafx.base.theme.Styles.ELEVATED_2;
 import static atlantafx.base.theme.Styles.INTERACTIVE;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TitledPanePage extends AbstractPage {
 
@@ -33,13 +36,22 @@ public class TitledPanePage extends AbstractPage {
     }
 
     private void createView() {
-        var samples = new HBox(20, interactivePane(), disabledCard(), untitledCard());
+        var samples = new HBox(
+                PAGE_HGAP,
+                interactivePane(),
+                disabledPane(),
+                untitledPane()
+        );
         samples.getChildren().forEach(c -> ((TitledPane) c).setPrefSize(500, 120));
 
-        userContent.getChildren().setAll(new VBox(20, playground(), samples));
+        setUserContent(new VBox(
+                Page.PAGE_VGAP,
+                createPlayground(),
+                samples
+        ));
     }
 
-    private TitledPane playground() {
+    private TitledPane createPlayground() {
         var playground = new TitledPane();
         playground.setText("_Playground");
         playground.setMnemonicParsing(true);
@@ -79,7 +91,7 @@ public class TitledPanePage extends AbstractPage {
         animateToggle.setSelected(true);
         playground.animatedProperty().bind(animateToggle.selectedProperty());
 
-        var controls = new HBox(20);
+        var controls = new HBox(BLOCK_HGAP);
         controls.setMinHeight(80);
         controls.setFillHeight(false);
         controls.setAlignment(Pos.CENTER_LEFT);
@@ -91,7 +103,7 @@ public class TitledPanePage extends AbstractPage {
                 animateToggle
         );
 
-        var content = new VBox(20, textFlow, controls);
+        var content = new VBox(BLOCK_VGAP, textFlow, controls);
         VBox.setVgrow(textFlow, Priority.ALWAYS);
         playground.setContent(content);
 
@@ -105,14 +117,14 @@ public class TitledPanePage extends AbstractPage {
         return titledPane;
     }
 
-    private TitledPane disabledCard() {
+    private TitledPane disabledPane() {
         var titledPane = new TitledPane("Disabled", new CheckBox("This checkbox is disabled."));
         titledPane.setCollapsible(false);
         titledPane.setDisable(true);
         return titledPane;
     }
 
-    private TitledPane untitledCard() {
+    private TitledPane untitledPane() {
         var titledPane = new TitledPane("This pane has no title.", new Text());
         titledPane.setCollapsible(false);
         return titledPane;

@@ -2,11 +2,14 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class RadioButtonPage extends AbstractPage {
 
@@ -17,36 +20,30 @@ public class RadioButtonPage extends AbstractPage {
 
     public RadioButtonPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                Page.PAGE_HGAP, Page.PAGE_VGAP,
+                basicSample(),
+                groupSample(),
+                disabledSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(
-                basicSamples(),
-                groupSamples().getRoot()
-        );
+    private SampleBlock basicSample() {
+        var radio1 = new RadioButton("_Check Me");
+        radio1.setMnemonicParsing(true);
+
+        var radio2 = new RadioButton("Check Me");
+
+        return new SampleBlock("Basic", new VBox(BLOCK_VGAP, radio1, radio2));
     }
 
-    private HBox basicSamples() {
-        var basicRadio = new RadioButton("_Check Me");
-        basicRadio.setMnemonicParsing(true);
-        basicRadio.setOnAction(PRINT_SOURCE);
-        var basicBlock = new SampleBlock("Basic", basicRadio);
-
-        var disabledRadio = new RadioButton("Check Me");
-        disabledRadio.setDisable(true);
-        var disabledBlock = new SampleBlock("Disabled", disabledRadio);
-
-        var root = new HBox(20);
-        root.getChildren().addAll(
-                basicBlock.getRoot(),
-                disabledBlock.getRoot()
-        );
-
-        return root;
+    private SampleBlock disabledSample() {
+        var radio = new RadioButton("Check Me");
+        radio.setDisable(true);
+        return new SampleBlock("Disabled", radio);
     }
 
-    private SampleBlock groupSamples() {
+    private SampleBlock groupSample() {
         var group = new ToggleGroup();
 
         var musicRadio = new RadioButton("Music");

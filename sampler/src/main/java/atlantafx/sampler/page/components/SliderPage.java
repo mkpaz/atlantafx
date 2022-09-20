@@ -2,10 +2,13 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 import static javafx.geometry.Orientation.HORIZONTAL;
 import static javafx.geometry.Orientation.VERTICAL;
@@ -13,52 +16,52 @@ import static javafx.geometry.Orientation.VERTICAL;
 public class SliderPage extends AbstractPage {
 
     public static final String NAME = "Slider";
+    private static final int SLIDER_SIZE = 200;
+    private static final int SPACING = 40;
 
     @Override
     public String getName() { return NAME; }
 
     public SliderPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                Page.PAGE_HGAP, Page.PAGE_VGAP,
+                horizontalSample(),
+                verticalSample(),
+                disabledSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(row1(), row2());
-    }
-
-    private Pane row1() {
+    private SampleBlock horizontalSample() {
         var slider = new Slider(1, 5, 3);
         slider.setOrientation(HORIZONTAL);
 
-        var tickSlider = tickSlider();
-        tickSlider.setMinWidth(200);
-        tickSlider.setMaxWidth(200);
+        var tickSlider = createTickSlider();
+        tickSlider.setMinWidth(SLIDER_SIZE);
+        tickSlider.setMaxWidth(SLIDER_SIZE);
 
-        var hBlock = new SampleBlock("Horizontal", new HBox(20, slider, tickSlider));
-
-        return new HBox(20, hBlock.getRoot());
+        return new SampleBlock("Horizontal", new VBox(SPACING, slider, tickSlider));
     }
 
-    private Pane row2() {
+    private Pane verticalSample() {
         var slider = new Slider(1, 5, 3);
         slider.setOrientation(VERTICAL);
 
-        var tickSlider = tickSlider();
+        var tickSlider = createTickSlider();
         tickSlider.setOrientation(VERTICAL);
-        tickSlider.setMinHeight(200);
-        tickSlider.setMaxHeight(200);
+        tickSlider.setMinHeight(SLIDER_SIZE);
+        tickSlider.setMaxHeight(SLIDER_SIZE);
 
-        var vBlock = new SampleBlock("Vertical", new HBox(20, slider, tickSlider));
-
-        var disabledSlider = tickSlider();
-        disabledSlider.setDisable(true);
-
-        var disabledBlock = new SampleBlock("Disabled", new HBox(20, disabledSlider));
-
-        return new HBox(40, vBlock.getRoot(), disabledBlock.getRoot());
+        return new SampleBlock("Vertical", new HBox(SPACING, slider, tickSlider));
     }
 
-    private Slider tickSlider() {
+    private Pane disabledSample() {
+        var disabledSlider = createTickSlider();
+        disabledSlider.setDisable(true);
+        return new SampleBlock("Disabled", new HBox(disabledSlider));
+    }
+
+    private Slider createTickSlider() {
         var slider = new Slider(0, 5, 3);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
@@ -66,7 +69,6 @@ public class SliderPage extends AbstractPage {
         slider.setBlockIncrement(1);
         slider.setMinorTickCount(5);
         slider.setSnapToTicks(true);
-
         return slider;
     }
 }

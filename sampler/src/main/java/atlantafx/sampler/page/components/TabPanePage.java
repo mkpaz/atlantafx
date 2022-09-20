@@ -1,10 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.theme.Styles;
-import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
@@ -14,8 +15,8 @@ import javafx.scene.layout.*;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
 import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
 import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
@@ -36,7 +37,7 @@ public class TabPanePage extends AbstractPage {
     }
 
     private void createView() {
-        var tabs = tabPane();
+        var tabs = createTabPane();
         var tabsLayer = new BorderPane();
         tabsLayer.setTop(tabs);
         tabs.getTabs().addListener((ListChangeListener<Tab>) c -> updateTabsWidth(tabsLayer, tabs, fullWidth));
@@ -52,7 +53,7 @@ public class TabPanePage extends AbstractPage {
         root.getChildren().addAll(tabsLayer, controllerLayer);
         VBox.setVgrow(root, Priority.ALWAYS);
 
-        userContent.getChildren().setAll(root);
+        setUserContent(new SampleBlock("Playground", root));
     }
 
     private TitledPane createController(BorderPane borderPane, TabPane tabs) {
@@ -76,7 +77,7 @@ public class TabPanePage extends AbstractPage {
 
         var appendBtn = new Button("", new FontIcon(Feather.PLUS));
         appendBtn.getStyleClass().addAll(BUTTON_ICON, ACCENT);
-        appendBtn.setOnAction(e -> tabs.getTabs().add(randomTab()));
+        appendBtn.setOnAction(e -> tabs.getTabs().add(createRandomTab()));
 
         var buttonsPane = new BorderPane();
         buttonsPane.setMinSize(120, 120);
@@ -112,6 +113,16 @@ public class TabPanePage extends AbstractPage {
             if (val != null) { Styles.toggleStyleClass(tabs, TabPane.STYLE_CLASS_FLOATING); }
         });
 
+        var animatedToggle = new ToggleSwitch();
+        animatedToggle.setSelected(true);
+        animatedToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null && val) {
+                tabs.setStyle("");
+            } else {
+                tabs.setStyle("-fx-open-tab-animation:none;-fx-close-tab-animation:none;");
+            }
+        });
+
         var fullWidthToggle = new ToggleSwitch();
         fullWidthToggle.selectedProperty().addListener((obs, old, val) -> {
             if (val != null) {
@@ -129,17 +140,20 @@ public class TabPanePage extends AbstractPage {
         togglesGrid.setHgap(10);
         togglesGrid.setVgap(10);
 
-        togglesGrid.add(gridLabel("Closeable"), 0, 0);
+        togglesGrid.add(createGridLabel("Closeable"), 0, 0);
         togglesGrid.add(closeableToggle, 1, 0);
 
-        togglesGrid.add(gridLabel("Floating"), 0, 1);
+        togglesGrid.add(createGridLabel("Floating"), 0, 1);
         togglesGrid.add(floatingToggle, 1, 1);
 
-        togglesGrid.add(gridLabel("Full width"), 0, 2);
-        togglesGrid.add(fullWidthToggle, 1, 2);
+        togglesGrid.add(createGridLabel("Animated"), 0, 2);
+        togglesGrid.add(animatedToggle, 1, 2);
 
-        togglesGrid.add(gridLabel("Disable"), 0, 3);
-        togglesGrid.add(disableToggle, 1, 3);
+        togglesGrid.add(createGridLabel("Full width"), 0, 3);
+        togglesGrid.add(fullWidthToggle, 1, 3);
+
+        togglesGrid.add(createGridLabel("Disable"), 0, 4);
+        togglesGrid.add(disableToggle, 1, 4);
 
         // == LAYOUT ==
 
@@ -151,11 +165,7 @@ public class TabPanePage extends AbstractPage {
         );
         controls.setAlignment(Pos.CENTER);
 
-        var content = new VBox(20);
-        content.getChildren().setAll(controls);
-        content.setAlignment(Pos.CENTER);
-
-        var root = new TitledPane("Controller", content);
+        var root = new TitledPane("Controller", controls);
         root.setCollapsible(false);
 
         return root;
@@ -194,7 +204,7 @@ public class TabPanePage extends AbstractPage {
         }
     }
 
-    private TabPane tabPane() {
+    private TabPane createTabPane() {
         var tabs = new TabPane();
         tabs.setTabClosingPolicy(UNAVAILABLE);
         tabs.setMinHeight(TAB_MIN_HEIGHT);
@@ -203,9 +213,9 @@ public class TabPanePage extends AbstractPage {
         //       like disabled. To prevent it from closing one can use "black hole"
         //       event handler. #javafx-bug
         tabs.getTabs().addAll(
-                randomTab(),
-                randomTab(),
-                randomTab()
+                createRandomTab(),
+                createRandomTab(),
+                createRandomTab()
         );
 
         return tabs;
@@ -229,13 +239,13 @@ public class TabPanePage extends AbstractPage {
         });
     }
 
-    private Tab randomTab() {
+    private Tab createRandomTab() {
         var tab = new Tab(FAKER.cat().name());
         tab.setGraphic(new FontIcon(randomIcon()));
         return tab;
     }
 
-    private Label gridLabel(String text) {
+    private Label createGridLabel(String text) {
         var label = new Label(text);
         label.setAlignment(Pos.CENTER_RIGHT);
         label.setMaxWidth(Double.MAX_VALUE);

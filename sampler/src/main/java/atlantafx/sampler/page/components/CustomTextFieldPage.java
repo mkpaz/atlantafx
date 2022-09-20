@@ -14,58 +14,60 @@ import static atlantafx.base.theme.Styles.STATE_SUCCESS;
 public class CustomTextFieldPage extends AbstractPage {
 
     public static final String NAME = "CustomTextField";
+    private static final int PREF_WIDTH = 120;
 
     @Override
     public String getName() { return NAME; }
 
     public CustomTextFieldPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                PAGE_HGAP, PAGE_VGAP,
+                leftIconSample(),
+                rightIconSample(),
+                bothIconsSample(),
+                successSample(),
+                dangerSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(samples());
-    }
-
-    private FlowPane samples() {
+    private SampleBlock leftIconSample() {
         var leftIconField = new CustomTextField();
         leftIconField.setPromptText("Prompt text");
         leftIconField.setRight(new FontIcon(Feather.X));
-        var leftIconBlock = new SampleBlock("Node on the left", leftIconField);
+        leftIconField.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Left", leftIconField);
+    }
 
+    private SampleBlock rightIconSample() {
         var rightIconField = new CustomTextField();
         rightIconField.setPromptText("Prompt text");
         rightIconField.setLeft(new FontIcon(Feather.MAP_PIN));
-        var rightIconBlock = new SampleBlock("Node on the right", rightIconField);
+        rightIconField.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Right", rightIconField);
+    }
 
+    private SampleBlock bothIconsSample() {
         var bothIconField = new CustomTextField("Text");
         bothIconField.setLeft(new FontIcon(Feather.MAP_PIN));
         bothIconField.setRight(new FontIcon(Feather.X));
-        var bothIconBlock = new SampleBlock("Nodes on both sides", bothIconField);
+        bothIconField.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Both Sides", bothIconField);
+    }
 
-        var noSideIconsField = new CustomTextField("Text");
-        var noSideIconsBlock = new SampleBlock("No side nodes", noSideIconsField);
-
+    private SampleBlock successSample() {
         var successField = new CustomTextField("Text");
         successField.pseudoClassStateChanged(STATE_SUCCESS, true);
         successField.setRight(new FontIcon(Feather.X));
-        var successBlock = new SampleBlock("Success", successField);
+        successField.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Success", successField);
+    }
 
+    private SampleBlock dangerSample() {
         var dangerField = new CustomTextField("Text");
         dangerField.pseudoClassStateChanged(STATE_DANGER, true);
         dangerField.setLeft(new FontIcon(Feather.MAP_PIN));
-        var dangerBlock = new SampleBlock("Danger", dangerField);
-
-        var flowPane = new FlowPane(20, 20);
-        flowPane.getChildren().setAll(
-                leftIconBlock.getRoot(),
-                rightIconBlock.getRoot(),
-                bothIconBlock.getRoot(),
-                noSideIconsBlock.getRoot(),
-                successBlock.getRoot(),
-                dangerBlock.getRoot()
-        );
-
-        return flowPane;
+        dangerField.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Danger", dangerField);
     }
 }

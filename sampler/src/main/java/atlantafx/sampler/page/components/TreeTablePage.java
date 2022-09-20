@@ -7,13 +7,17 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +25,8 @@ import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
 import static atlantafx.base.theme.Tweaks.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TreeTablePage extends AbstractPage {
 
@@ -33,16 +39,15 @@ public class TreeTablePage extends AbstractPage {
 
     public TreeTablePage() {
         super();
-        createView();
+
+        var sample = new SampleBlock("Playground", createPlayground());
+        sample.setFillHeight(true);
+        setUserContent(sample);
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(
-                playground()
-        );
-    }
+    private VBox createPlayground() {
+        // == FOOTER ==
 
-    private VBox playground() {
         var bordersToggle = new ToggleSwitch("Bordered");
         bordersToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(treeTable, BORDERED));
 
@@ -52,20 +57,15 @@ public class TreeTablePage extends AbstractPage {
         var stripesToggle = new ToggleSwitch("Striped");
         stripesToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(treeTable, STRIPED));
 
-        var disableToggle = new ToggleSwitch("Disable");
-        disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { treeTable.setDisable(val); }
-        });
-
-        var togglesBox = new HBox(20,
-                bordersToggle,
-                denseToggle,
-                stripesToggle,
-                disableToggle
+        var edge2edgeToggle = new ToggleSwitch("Edge to edge");
+        edge2edgeToggle.selectedProperty().addListener(
+                (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
         );
-        togglesBox.setAlignment(Pos.CENTER_LEFT);
 
-        // ~
+        var footer = new HBox(BLOCK_HGAP, bordersToggle, denseToggle, stripesToggle, edge2edgeToggle);
+        footer.setAlignment(Pos.CENTER);
+
+        // == TREE TABLE ==
 
         var rootVal = Product.empty(0);
         rootVal.setBrand("Root");
@@ -78,35 +78,72 @@ public class TreeTablePage extends AbstractPage {
 
             var group = new TreeItem<>(groupVal);
             group.getChildren().setAll(
-                    treeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
+                    createTreeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
             );
             root.getChildren().add(group);
         }
 
-        treeTable = treeTable();
+        treeTable = createTreeTable();
         treeTable.setRoot(root);
+        VBox.setVgrow(treeTable, Priority.ALWAYS);
+
+        // == HEADER ==
+
+        var alignGroup = new ToggleGroup();
+
+        var alignLeftBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_LEFT));
+        alignLeftBtn.getStyleClass().add(".left-pill");
+        alignLeftBtn.setToggleGroup(alignGroup);
+        alignLeftBtn.setSelected(true);
+        alignLeftBtn.setOnAction(e -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
+            }
+        });
+
+        var alignCenterBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_CENTER));
+        alignCenterBtn.getStyleClass().add(".center-pill");
+        alignCenterBtn.setToggleGroup(alignGroup);
+        alignCenterBtn.selectedProperty().addListener((obs, old, val) -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
+            }
+        });
+
+        var alignRightBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_RIGHT));
+        alignRightBtn.getStyleClass().add(".right-pill");
+        alignRightBtn.setToggleGroup(alignGroup);
+        alignRightBtn.selectedProperty().addListener((obs, old, val) -> {
+            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
+                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
+            }
+        });
+
+        var alignBox = new HBox(alignLeftBtn, alignCenterBtn, alignRightBtn);
+
+        var disableToggle = new ToggleSwitch("Disable");
+        disableToggle.selectedProperty().addListener((obs, old, val) -> {
+            if (val != null) { treeTable.setDisable(val); }
+        });
+
+        var header = new HBox(
+                createPropertiesMenu(treeTable),
+                new Spacer(),
+                alignBox,
+                new Spacer(),
+                disableToggle
+        );
+        header.setAlignment(Pos.CENTER_LEFT);
 
         // ~
 
-        var topBox = new HBox(
-                new Label("Example:"),
-                new Spacer(),
-                settingsMenu(treeTable)
-        );
-        topBox.setAlignment(Pos.CENTER_LEFT);
-
-        var playground = new VBox(10);
+        var playground = new VBox(BLOCK_VGAP, header, treeTable, footer);
         playground.setMinHeight(100);
-        playground.getChildren().setAll(
-                topBox,
-                treeTable,
-                togglesBox
-        );
 
         return playground;
     }
 
-    private List<TreeItem<Product>> treeItems(int startId, int count, String brand) {
+    private List<TreeItem<Product>> createTreeItems(int startId, int count, String brand) {
         return IntStream.range(startId, startId + count + 1).boxed()
                 .map(id -> Product.random(id, brand, FAKER))
                 .map(TreeItem::new)
@@ -114,7 +151,7 @@ public class TreeTablePage extends AbstractPage {
     }
 
     @SuppressWarnings("unchecked")
-    private TreeTableView<Product> treeTable() {
+    private TreeTableView<Product> createTreeTable() {
         var arrowCol = new TreeTableColumn<Product, String>("#");
         // This is placeholder column for disclosure nodes. We need to fill it
         // with empty strings or all .tree-table-cell will be marked as :empty,
@@ -138,14 +175,14 @@ public class TreeTablePage extends AbstractPage {
         idCol.setEditable(false);
         idCol.setMinWidth(80);
 
-        var brandCol = new TreeTableColumn<Product, String>("Brand ✎");
+        var brandCol = new TreeTableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTreeTableCell.forTreeTableColumn(
                 generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
-        var nameCol = new TreeTableColumn<Product, String>("Name ✎");
+        var nameCol = new TreeTableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTreeTableCell.forTreeTableColumn(
                 generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
@@ -153,7 +190,7 @@ public class TreeTablePage extends AbstractPage {
         nameCol.setEditable(true);
         nameCol.setMinWidth(200);
 
-        var priceCol = new TreeTableColumn<Product, String>("Price ✎");
+        var priceCol = new TreeTableColumn<Product, String>("Price  🖉");
         priceCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("price"));
         priceCol.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
         priceCol.setEditable(true);
@@ -164,7 +201,7 @@ public class TreeTablePage extends AbstractPage {
         return table;
     }
 
-    private MenuButton settingsMenu(TreeTableView<Product> treeTable) {
+    private MenuButton createPropertiesMenu(TreeTableView<Product> treeTable) {
         var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
         var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
@@ -216,66 +253,13 @@ public class TreeTablePage extends AbstractPage {
         treeTable.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
-        var edge2edgeItem = new CheckMenuItem("Edge to edge");
-        edge2edgeItem.selectedProperty().addListener((obs, old, val) -> {
-            if (!val) {
-                treeTable.getStyleClass().remove(Tweaks.EDGE_TO_EDGE);
-            } else {
-                treeTable.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
-            }
-        });
-
-        // ~
-
-        var alignToggleGroup = new ToggleGroup();
-
-        var alignLeftItem = new RadioMenuItem("Left");
-        alignLeftItem.setToggleGroup(alignToggleGroup);
-        alignLeftItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
-                addStyleClass(c, ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
-            }
-        });
-
-        var alignCenterItem = new RadioMenuItem("Center");
-        alignCenterItem.setToggleGroup(alignToggleGroup);
-        alignCenterItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
-                addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
-            }
-        });
-
-        var alignRightItem = new RadioMenuItem("Right");
-        alignRightItem.setToggleGroup(alignToggleGroup);
-        alignRightItem.selectedProperty().addListener((obs, old, val) -> {
-            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
-                addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
-            }
-        });
-
-        var alignDefaultItem = new MenuItem("Default");
-        alignDefaultItem.setOnAction(e -> {
-            for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
-                c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
-            }
-        });
-
-        var alignMenu = new Menu("Align columns");
-        alignMenu.getItems().setAll(
-                alignLeftItem,
-                alignCenterItem,
-                alignRightItem,
-                new SeparatorMenuItem(),
-                alignDefaultItem
-        );
-
         // ~
 
         var menuButtonItem = new CheckMenuItem("Show menu button");
         treeTable.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Settings") {{
+        return new MenuButton("Properties") {{
             getItems().setAll(
                     resizePolicyCaption,
                     unconstrainedResizeItem,
@@ -287,8 +271,6 @@ public class TreeTablePage extends AbstractPage {
                     showRootItem,
                     editCellsItem,
                     cellSelectionItem,
-                    alignMenu,
-                    edge2edgeItem,
                     menuButtonItem
             );
         }};

@@ -1,17 +1,17 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
@@ -31,38 +31,30 @@ public class ChartPage extends AbstractPage {
     @Override
     public String getName() { return NAME; }
 
-    private VBox playground;
-    private ComboBox<Example> exampleSelect;
+    private final BorderPane chartWrapper = new BorderPane();
+    private final ComboBox<Example> exampleSelect = new ComboBox<>();
 
     public ChartPage() {
         super();
-        createView();
+        setUserContent(new VBox(
+                new SampleBlock("Playground", createPlayground())
+        ));
     }
 
-    private void createView() {
-        playground = new VBox(10);
-        playground.setMinHeight(100);
-
-        // === SELECT ===
-
-        exampleSelect = new ComboBox<>();
+    private VBox createPlayground() {
         exampleSelect.setMaxWidth(Double.MAX_VALUE);
         exampleSelect.getItems().setAll(Example.values());
         exampleSelect.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val == null) { return; }
-            if (playground.getChildren().size() != 5) {
-                throw new RuntimeException("Unexpected container size.");
-            }
 
             Chart newChart = createChart(val);
 
             // copy existing properties to the new chart
-            findDisplayedChart().ifPresent(ch -> newChart.setDisable(ch.isDisable()));
+            findDisplayedChart().ifPresent(chart -> newChart.setDisable(chart.isDisable()));
 
-            playground.getChildren().set(2, newChart);
+            chartWrapper.setCenter(newChart);
         });
         exampleSelect.setConverter(new StringConverter<>() {
-
             @Override
             public String toString(Example example) {
                 return example == null ? "" : example.getName();
@@ -74,31 +66,22 @@ public class ChartPage extends AbstractPage {
             }
         });
 
-        // === CONTROLS ===
-
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedChart().ifPresent(ch -> {
             if (val != null) { ch.setDisable(val); }
         }));
 
-        var controls = new HBox(20,
-                                new Spacer(),
-                                disableToggle,
-                                new Spacer()
-        );
+        var controls = new HBox(disableToggle);
         controls.setAlignment(Pos.CENTER);
 
-        // ~
-
+        VBox playground = new VBox(SampleBlock.BLOCK_VGAP);
         playground.getChildren().setAll(
-                new Label("Select an example:"),
+                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
                 exampleSelect,
-                new Spacer(Orientation.VERTICAL),
-                new Separator(),
-                controls
+                chartWrapper
         );
 
-        userContent.getChildren().setAll(playground);
+        return playground;
     }
 
     @Override
@@ -108,10 +91,9 @@ public class ChartPage extends AbstractPage {
     }
 
     private Optional<Chart> findDisplayedChart() {
-        return playground.getChildren().stream()
-                .filter(c -> c instanceof Chart)
-                .findFirst()
-                .map(c -> (Chart) c);
+        return chartWrapper.getChildren().size() > 0 ?
+                Optional.of((Chart) chartWrapper.getChildren().get(0)) :
+                Optional.empty();
     }
 
     private Chart createChart(Example example) {

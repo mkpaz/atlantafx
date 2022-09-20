@@ -5,15 +5,21 @@ import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
+import atlantafx.sampler.theme.CSSFragment;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.time.LocalDate;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class PopoverPage extends AbstractPage {
 
@@ -24,66 +30,73 @@ public class PopoverPage extends AbstractPage {
 
     public PopoverPage() {
         super();
-        createView();
+        setUserContent(new VBox(Page.PAGE_VGAP,
+                new HBox(PAGE_HGAP, textSample(), datePickerSample()),
+                positionSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(basicSamples(), positionSamples().getRoot());
+    private SampleBlock textSample() {
+        var popover = new Popover(createTextFlow(30));
+        popover.setTitle("Lorem Ipsum");
+        popover.setHeaderAlwaysVisible(true);
+        popover.setDetachable(true);
+
+        var link = createHyperlink("Click me");
+        link.setOnAction(e -> popover.show(link));
+
+        return new SampleBlock("Text", link);
     }
 
-    private HBox basicSamples() {
-        var textPopover = new Popover(textFlow(30));
-        textPopover.setTitle("Lorem Ipsum");
-        textPopover.setHeaderAlwaysVisible(true);
-        textPopover.setDetachable(true);
-        var textLink = hyperlink("Click me");
-        textLink.setOnAction(e -> textPopover.show(textLink));
-        var textBlock = new SampleBlock("Basic", textLink);
-
+    private SampleBlock datePickerSample() {
         var datePicker = new InlineDatePicker();
         datePicker.setValue(LocalDate.now());
 
-        var datePopover = new Popover(datePicker);
-        textPopover.setHeaderAlwaysVisible(false);
-        datePopover.setDetachable(true);
-        var dateLink = hyperlink("Click me");
-        dateLink.setOnAction(e -> datePopover.show(dateLink));
-        var dateBlock = new SampleBlock("Date picker", dateLink);
+        var popover = new Popover(datePicker);
+        popover.setHeaderAlwaysVisible(false);
+        popover.setDetachable(true);
 
-        var box = new HBox(20,
-                           textBlock.getRoot(),
-                           dateBlock.getRoot()
-        );
-        box.setAlignment(Pos.CENTER_LEFT);
+        var link = createHyperlink("Click me");
+        link.setOnAction(e -> popover.show(link));
+        new CSSFragment("""
+                .popover .date-picker-popup {
+                  -color-date-border: transparent;
+                  -color-date-bg: transparent;
+                  -color-date-day-bg: transparent;
+                  -color-date-month-year-bg: transparent;
+                  -color-date-day-bg-hover: -color-bg-subtle;
+                }
+                """
+        ).addTo(link);
 
-        return box;
+        return new SampleBlock("Date Picker", link);
     }
 
-    private SampleBlock positionSamples() {
+    private SampleBlock positionSample() {
         var grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
+        grid.setHgap(BLOCK_HGAP);
+        grid.setVgap(BLOCK_VGAP);
 
-        grid.add(arrowPositionBlock(ArrowLocation.TOP_LEFT), 0, 0);
-        grid.add(arrowPositionBlock(ArrowLocation.TOP_CENTER), 0, 1);
-        grid.add(arrowPositionBlock(ArrowLocation.TOP_RIGHT), 0, 2);
+        grid.add(createArrowPositionBlock(ArrowLocation.TOP_LEFT), 0, 0);
+        grid.add(createArrowPositionBlock(ArrowLocation.TOP_CENTER), 0, 1);
+        grid.add(createArrowPositionBlock(ArrowLocation.TOP_RIGHT), 0, 2);
 
-        grid.add(arrowPositionBlock(ArrowLocation.RIGHT_TOP), 1, 0);
-        grid.add(arrowPositionBlock(ArrowLocation.RIGHT_CENTER), 1, 1);
-        grid.add(arrowPositionBlock(ArrowLocation.RIGHT_BOTTOM), 1, 2);
+        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_TOP), 1, 0);
+        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_CENTER), 1, 1);
+        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_BOTTOM), 1, 2);
 
-        grid.add(arrowPositionBlock(ArrowLocation.BOTTOM_LEFT), 2, 0);
-        grid.add(arrowPositionBlock(ArrowLocation.BOTTOM_CENTER), 2, 1);
-        grid.add(arrowPositionBlock(ArrowLocation.BOTTOM_RIGHT), 2, 2);
+        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_LEFT), 2, 0);
+        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_CENTER), 2, 1);
+        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_RIGHT), 2, 2);
 
-        grid.add(arrowPositionBlock(ArrowLocation.LEFT_TOP), 3, 0);
-        grid.add(arrowPositionBlock(ArrowLocation.LEFT_CENTER), 3, 1);
-        grid.add(arrowPositionBlock(ArrowLocation.LEFT_BOTTOM), 3, 2);
+        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_TOP), 3, 0);
+        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_CENTER), 3, 1);
+        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_BOTTOM), 3, 2);
 
         return new SampleBlock("Position", grid);
     }
 
-    private Hyperlink hyperlink(String text) {
+    private Hyperlink createHyperlink(String text) {
         Hyperlink hyperlink = new Hyperlink(text);
         hyperlink.setMinWidth(50);
         hyperlink.setMinHeight(50);
@@ -91,18 +104,20 @@ public class PopoverPage extends AbstractPage {
         return hyperlink;
     }
 
-    private TextFlow textFlow(int wordCount) {
+    private TextFlow createTextFlow(int wordCount) {
         var textFlow = new TextFlow(new Text(FAKER.lorem().sentence(wordCount)));
         textFlow.setPrefWidth(300);
         return textFlow;
     }
 
-    private Hyperlink arrowPositionBlock(ArrowLocation arrowLocation) {
-        var link = hyperlink(String.valueOf(arrowLocation));
-        var popover = new Popover(textFlow(50));
+    private Hyperlink createArrowPositionBlock(ArrowLocation arrowLocation) {
+        var popover = new Popover(createTextFlow(50));
         popover.setHeaderAlwaysVisible(false);
         popover.setArrowLocation(arrowLocation);
+
+        var link = createHyperlink(String.valueOf(arrowLocation));
         link.setOnAction(e -> popover.show(link));
+
         return link;
     }
 }

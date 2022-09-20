@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -12,6 +13,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static atlantafx.sampler.util.Controls.toggleButton;
 import static javafx.scene.layout.GridPane.REMAINING;
 
@@ -29,15 +31,15 @@ public class ToggleButtonPage extends AbstractPage {
 
     private void createView() {
         var grid = new GridPane();
-        grid.setHgap(40);
-        grid.setVgap(40);
+        grid.setHgap(Page.PAGE_HGAP);
+        grid.setVgap(Page.PAGE_VGAP);
 
-        grid.add(basicSample().getRoot(), 0, 0, REMAINING, 1);
-        grid.add(wizardSample().getRoot(), 0, 1);
-        grid.add(iconOnlySample().getRoot(), 1, 1);
-        grid.add(disabledSample().getRoot(), 0, 2);
+        grid.add(basicSample(), 0, 0, REMAINING, 1);
+        grid.add(wizardSample(), 0, 1);
+        grid.add(iconOnlySample(), 1, 1);
+        grid.add(disabledSample(), 0, 2);
 
-        userContent.getChildren().addAll(grid);
+        setUserContent(grid);
     }
 
     private SampleBlock basicSample() {
@@ -45,15 +47,12 @@ public class ToggleButtonPage extends AbstractPage {
 
         var leftPill = toggleButton("._left-pill", null, threeButtonGroup, true, LEFT_PILL);
         leftPill.setMnemonicParsing(true);
-        leftPill.setOnAction(PRINT_SOURCE);
 
         var centerPill = toggleButton("._center-pill", null, threeButtonGroup, false, CENTER_PILL);
         centerPill.setMnemonicParsing(true);
-        centerPill.setOnAction(PRINT_SOURCE);
 
         var rightPill = toggleButton("._right-pill", null, threeButtonGroup, false, RIGHT_PILL);
         rightPill.setMnemonicParsing(true);
-        rightPill.setOnAction(PRINT_SOURCE);
 
         var threeButtonBox = new HBox(leftPill, centerPill, rightPill);
 
@@ -63,18 +62,14 @@ public class ToggleButtonPage extends AbstractPage {
                 toggleButton(".right-pill", null, twoButtonGroup, false, RIGHT_PILL)
         );
 
-        var content = new HBox(10);
-        content.getChildren().setAll(threeButtonBox, twoButtonBox);
-
-        return new SampleBlock("Basic", content);
+        return new SampleBlock("Basic", new HBox(BLOCK_HGAP, threeButtonBox, twoButtonBox));
     }
 
     private SampleBlock wizardSample() {
         var group = new ToggleGroup();
 
-        var prevBtn = new Button("\f");
+        var prevBtn = new Button("\f", new FontIcon(Feather.CHEVRON_LEFT));
         prevBtn.getStyleClass().addAll(BUTTON_ICON, LEFT_PILL);
-        prevBtn.setGraphic(new FontIcon(Feather.CHEVRON_LEFT));
         prevBtn.setOnAction(e -> {
             int selected = group.getToggles().indexOf(group.getSelectedToggle());
             if (selected > 0) {
@@ -82,9 +77,8 @@ public class ToggleButtonPage extends AbstractPage {
             }
         });
 
-        var nextBtn = new Button("\f");
+        var nextBtn = new Button("\f", new FontIcon(Feather.CHEVRON_RIGHT));
         nextBtn.getStyleClass().addAll(BUTTON_ICON, RIGHT_PILL);
-        nextBtn.setGraphic(new FontIcon(Feather.CHEVRON_RIGHT));
         nextBtn.setContentDisplay(ContentDisplay.RIGHT);
         nextBtn.setOnAction(e -> {
             int selected = group.getToggles().indexOf(group.getSelectedToggle());

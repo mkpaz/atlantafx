@@ -6,6 +6,7 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.fake.SampleMenuBar;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Orientation;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 import static atlantafx.sampler.util.Controls.*;
 import static javafx.geometry.Orientation.HORIZONTAL;
 import static javafx.geometry.Orientation.VERTICAL;
@@ -41,7 +43,7 @@ public class ToolBarPage extends AbstractPage {
     }
 
     private void createView() {
-        var toolbar = new ToolBar(toolBarButtons(HORIZONTAL));
+        var toolbar = new ToolBar(createButtons(HORIZONTAL));
         var toolbarLayer = new BorderPane();
         toolbarLayer.setTop(new TopBar(toolbar));
 
@@ -56,7 +58,7 @@ public class ToolBarPage extends AbstractPage {
         root.getChildren().addAll(toolbarLayer, controllerLayer);
         VBox.setVgrow(root, Priority.ALWAYS);
 
-        userContent.getChildren().setAll(root);
+        setUserContent(new SampleBlock("Playground", root));
     }
 
     private TitledPane createController(BorderPane borderPane, ToolBar toolbar) {
@@ -130,10 +132,10 @@ public class ToolBarPage extends AbstractPage {
         togglesGrid.setHgap(10);
         togglesGrid.setVgap(10);
 
-        togglesGrid.add(gridLabel("Show menu bar"), 0, 0);
+        togglesGrid.add(createLabel("Show menu bar"), 0, 0);
         togglesGrid.add(menuBarToggle, 1, 0);
 
-        togglesGrid.add(gridLabel("Disable"), 0, 1);
+        togglesGrid.add(createLabel("Disable"), 0, 1);
         togglesGrid.add(disableToggle, 1, 1);
 
         // == LAYOUT ==
@@ -141,7 +143,7 @@ public class ToolBarPage extends AbstractPage {
         var controls = new HBox(40, new Spacer(), buttonsPane, togglesGrid, new Spacer());
         controls.setAlignment(Pos.CENTER);
 
-        var content = new VBox(10);
+        var content = new VBox(BLOCK_VGAP);
         content.getChildren().setAll(controls);
         content.setAlignment(Pos.CENTER);
 
@@ -171,32 +173,32 @@ public class ToolBarPage extends AbstractPage {
                 case TOP -> {
                     toolbar.setOrientation(HORIZONTAL);
                     Styles.addStyleClass(toolbar, TOP, RIGHT, BOTTOM, LEFT);
-                    toolbar.getItems().setAll(toolBarButtons(HORIZONTAL));
+                    toolbar.getItems().setAll(createButtons(HORIZONTAL));
                     topBar.setToolBar(toolbar);
                 }
                 case RIGHT -> {
                     toolbar.setOrientation(VERTICAL);
                     Styles.addStyleClass(toolbar, RIGHT, TOP, BOTTOM, LEFT);
-                    toolbar.getItems().setAll(toolBarButtons(VERTICAL));
+                    toolbar.getItems().setAll(createButtons(VERTICAL));
                     borderPane.setRight(toolbar);
                 }
                 case BOTTOM -> {
                     toolbar.setOrientation(HORIZONTAL);
                     Styles.addStyleClass(toolbar, BOTTOM, TOP, RIGHT, LEFT);
-                    toolbar.getItems().setAll(toolBarButtons(HORIZONTAL));
+                    toolbar.getItems().setAll(createButtons(HORIZONTAL));
                     borderPane.setBottom(toolbar);
                 }
                 case LEFT -> {
                     toolbar.setOrientation(VERTICAL);
                     Styles.addStyleClass(toolbar, LEFT, RIGHT, TOP, BOTTOM);
-                    toolbar.getItems().setAll(toolBarButtons(VERTICAL));
+                    toolbar.getItems().setAll(createButtons(VERTICAL));
                     borderPane.setLeft(toolbar);
                 }
             }
         });
     }
 
-    public Node[] toolBarButtons(Orientation orientation) {
+    public Node[] createButtons(Orientation orientation) {
         var result = new ArrayList<Node>();
         result.add(iconButton(Feather.FILE, false));
         result.add(iconButton(Feather.FOLDER, false));
@@ -209,18 +211,18 @@ public class ToolBarPage extends AbstractPage {
 
             result.add(new Separator());
 
-            var group = new ToggleGroup();
             result.add(toggleButton("", Feather.BOLD, null, true, BUTTON_ICON, LEFT_PILL));
             result.add(toggleButton("", Feather.ITALIC, null, false, BUTTON_ICON, CENTER_PILL));
             result.add(toggleButton("", Feather.UNDERLINE, null, false, BUTTON_ICON, RIGHT_PILL));
 
             result.add(new Spacer(5));
+
             var fontCombo = new ComboBox<>(FXCollections.observableArrayList(Font.getFamilies()));
             fontCombo.setPrefWidth(150);
             fontCombo.getSelectionModel().selectFirst();
             result.add(fontCombo);
 
-            var settingsMenu = new MenuButton("Settings", new FontIcon(Feather.SETTINGS), menuItems(5));
+            var settingsMenu = new MenuButton("Settings", new FontIcon(Feather.SETTINGS), createItems(5));
             settingsMenu.getStyleClass().add(FLAT);
             result.add(new Spacer());
             result.add(settingsMenu);
@@ -236,14 +238,14 @@ public class ToolBarPage extends AbstractPage {
         return result.toArray(Node[]::new);
     }
 
-    private Label gridLabel(String text) {
+    private Label createLabel(String text) {
         var label = new Label(text);
         label.setAlignment(Pos.CENTER_RIGHT);
         label.setMaxWidth(Double.MAX_VALUE);
         return label;
     }
 
-    public static MenuItem[] menuItems(int count) {
+    public static MenuItem[] createItems(int count) {
         return IntStream.range(0, count).mapToObj(i -> new MenuItem(FAKER.babylon5().character())).toArray(MenuItem[]::new);
     }
 

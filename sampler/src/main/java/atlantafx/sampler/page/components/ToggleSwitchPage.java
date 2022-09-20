@@ -3,9 +3,9 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import atlantafx.sampler.page.Page;
+import atlantafx.sampler.page.SampleBlock;
+import javafx.scene.layout.FlowPane;
 
 public class ToggleSwitchPage extends AbstractPage {
 
@@ -16,17 +16,16 @@ public class ToggleSwitchPage extends AbstractPage {
 
     public ToggleSwitchPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                Page.PAGE_HGAP, Page.PAGE_VGAP,
+                basicSample()
+        ));
     }
 
-    private void createView() {
+    private SampleBlock basicSample() {
         var toggle = new ToggleSwitch();
         toggle.selectedProperty().addListener((obs, old, val) -> toggle.setText(val ? "Disable" : "Enable"));
         toggle.setSelected(true);
-
-        var box = new VBox(20, new Label("Nothing fancy here."), toggle);
-        box.setAlignment(Pos.CENTER);
-
-        userContent.getChildren().setAll(box);
+        return new SampleBlock("Basic", toggle);
     }
 }

@@ -6,6 +6,7 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -47,20 +48,18 @@ public class DatePickerPage extends AbstractPage {
 
     public DatePickerPage() {
         super();
-        createView();
+        setUserContent(new VBox(
+                new SampleBlock("Playground", createPlayground())
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(playground());
-    }
+    private GridPane createPlayground() {
+        var grid = new GridPane();
+        grid.setHgap(40);
+        grid.setVgap(SampleBlock.BLOCK_VGAP);
 
-    private GridPane playground() {
-        var playground = new GridPane();
-        playground.setHgap(40);
-        playground.setVgap(10);
-
-        final var popupDatePicker = popupDatePicker();
-        final var inlineDatePicker = inlineDatePicker(null);
+        final var popupDatePicker = createPopupDatePicker();
+        final var inlineDatePicker = createInlineDatePicker(null);
 
         var inlineValue = new Label();
         inlineValue.setAlignment(Pos.CENTER);
@@ -74,25 +73,27 @@ public class DatePickerPage extends AbstractPage {
         weekNumToggle.setSelected(true);
 
         var chronologyToggle = new ToggleSwitch("Second chronology");
-        chronologyToggle.selectedProperty().addListener((obs, old, val) ->
-                popupDatePicker.setChronology(val ? HijrahChronology.INSTANCE : null)
+        chronologyToggle.selectedProperty().addListener(
+                (obs, old, val) -> popupDatePicker.setChronology(val ? HijrahChronology.INSTANCE : null)
         );
 
         var editableToggle = new ToggleSwitch("Editable");
         editableProperty.bind(editableToggle.selectedProperty());
         // clear selected value to demonstrate prompt text
-        editableProperty.addListener((obs, old, val) -> popupDatePicker.setValue(val ? null : TODAY));
+        editableProperty.addListener(
+                (obs, old, val) -> popupDatePicker.setValue(val ? null : TODAY)
+        );
 
         var offPastDatesToggle = new ToggleSwitch("No past dates");
         offPastDatesProperty.bind(offPastDatesToggle.selectedProperty());
         offPastDatesProperty.addListener((obs, old, val) -> {
-            popupDatePicker.setDayCellFactory(val ? dp -> new CustomDateCell() : null);
+            popupDatePicker.setDayCellFactory(val ? dp -> new FutureDateCell() : null);
             popupDatePicker.setValue(TODAY);
 
             // we have to create new date picker, because changing cell factory won't update existing cells
-            var datePicker = inlineDatePicker(val ? dp -> new CustomDateCell() : null);
-            playground.getChildren().removeIf(n -> n instanceof InlineDatePicker);
-            playground.add(datePicker, INLINE_DATE_PICKER_COL, INLINE_DATE_PICKER_ROW);
+            var datePicker = createInlineDatePicker(val ? dp -> new FutureDateCell() : null);
+            grid.getChildren().removeIf(n -> n instanceof InlineDatePicker);
+            grid.add(datePicker, INLINE_DATE_PICKER_COL, INLINE_DATE_PICKER_ROW);
             inlineValue.textProperty().unbind();
             inlineValue.textProperty().bind(datePicker.valueProperty().asString());
         });
@@ -100,7 +101,8 @@ public class DatePickerPage extends AbstractPage {
         var disablePickerToggle = new ToggleSwitch("Disable");
         disableProperty.bind(disablePickerToggle.selectedProperty());
 
-        var controls = new VBox(10,
+        var controls = new VBox(
+                SampleBlock.BLOCK_VGAP,
                 weekNumToggle,
                 chronologyToggle,
                 editableToggle,
@@ -109,7 +111,7 @@ public class DatePickerPage extends AbstractPage {
         );
         controls.setAlignment(Pos.CENTER_RIGHT);
 
-        var colorSelector = new DatePickerColorSelector(playground);
+        var colorSelector = new DatePickerColorSelector(grid);
 
         // == GRID ==
 
@@ -119,19 +121,19 @@ public class DatePickerPage extends AbstractPage {
         var inlineLabel = new Label("Inline");
         inlineLabel.getStyleClass().add(Styles.TEXT_BOLD);
 
-        playground.add(defaultLabel, 0, 0);
-        playground.add(popupDatePicker, 0, 1);
-        playground.add(new Spacer(20), 0, 2);
-        playground.add(inlineLabel, 0, 3);
-        playground.add(inlineDatePicker, INLINE_DATE_PICKER_COL, INLINE_DATE_PICKER_ROW);
-        playground.add(inlineValue, 0, 5);
-        playground.add(colorSelector, 0, 6);
-        playground.add(controls, 1, 0, 1, REMAINING);
+        grid.add(defaultLabel, 0, 0);
+        grid.add(popupDatePicker, 0, 1);
+        grid.add(new Spacer(20), 0, 2);
+        grid.add(inlineLabel, 0, 3);
+        grid.add(inlineDatePicker, INLINE_DATE_PICKER_COL, INLINE_DATE_PICKER_ROW);
+        grid.add(inlineValue, 0, 5);
+        grid.add(colorSelector, 0, 6);
+        grid.add(controls, 1, 0, 1, REMAINING);
 
-        return playground;
+        return grid;
     }
 
-    private DatePicker popupDatePicker() {
+    private DatePicker createPopupDatePicker() {
         var datePicker = new DatePicker();
         datePicker.setConverter(DATE_CONVERTER);
         datePicker.setPromptText(DATE_FORMATTER_PROMPT);
@@ -140,18 +142,16 @@ public class DatePickerPage extends AbstractPage {
         datePicker.showWeekNumbersProperty().bind(weekNumProperty);
         datePicker.editableProperty().bind(editableProperty);
         datePicker.disableProperty().bind(disableProperty);
-
         return datePicker;
     }
 
-    private InlineDatePicker inlineDatePicker(Callback<InlineDatePicker, DateCell> dayCellFactory) {
+    private InlineDatePicker createInlineDatePicker(Callback<InlineDatePicker, DateCell> dayCellFactory) {
         var datePicker = new InlineDatePicker();
         datePicker.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         datePicker.setDayCellFactory(dayCellFactory);
         datePicker.setValue(TODAY);
         datePicker.showWeekNumbersProperty().bind(weekNumProperty);
         datePicker.disableProperty().bind(disableProperty);
-
         return datePicker;
     }
 
@@ -170,11 +170,13 @@ public class DatePickerPage extends AbstractPage {
             if (dateString == null || dateString.trim().isEmpty()) { return null; }
             try {
                 return LocalDate.parse(dateString, DATE_FORMATTER);
-            } catch (Exception e) { return null; }
+            } catch (Exception e) {
+                return null;
+            }
         }
     };
 
-    private static class CustomDateCell extends DateCell {
+    private static class FutureDateCell extends DateCell {
 
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
@@ -185,11 +187,11 @@ public class DatePickerPage extends AbstractPage {
     // This class shares stylesheet with the AccentColorSelector
     private static class DatePickerColorSelector extends HBox {
 
-        private final Pane root;
+        private final Pane parent;
 
-        public DatePickerColorSelector(Pane root) {
+        public DatePickerColorSelector(Pane parent) {
             super();
-            this.root = root;
+            this.parent = parent;
             createView();
         }
 
@@ -221,11 +223,11 @@ public class DatePickerPage extends AbstractPage {
         }
 
         private void setColorVariables(String bgColorName, String fgColorName) {
-            for (Node node : root.getChildren()) {
+            for (Node node : parent.getChildren()) {
                 var style = String.format("-color-date-border:%s;-color-date-month-year-bg:%s;-color-date-month-year-fg:%s;",
-                        bgColorName,
-                        bgColorName,
-                        fgColorName
+                                          bgColorName,
+                                          bgColorName,
+                                          fgColorName
                 );
 
                 if (node instanceof InlineDatePicker dp) {
@@ -236,7 +238,7 @@ public class DatePickerPage extends AbstractPage {
         }
 
         private void resetColorVariables() {
-            for (Node node : root.getChildren()) {
+            for (Node node : parent.getChildren()) {
                 if (node instanceof InlineDatePicker dp) {
                     var popup = dp.lookup(".date-picker-popup");
                     if (popup != null) { popup.setStyle(null); }

@@ -3,6 +3,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.util.IntegerStringConverter;
 import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.FlowPane;
@@ -17,82 +18,75 @@ public final class SpinnerPage extends AbstractPage {
 
     public SpinnerPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                Page.PAGE_HGAP, Page.PAGE_VGAP,
+                basicSample(),
+                arrowsLeftVerticalSample(),
+                arrowsLeftHorizontalSample(),
+                arrowsRightHorizontalSample(),
+                arrowsSplitHorizontalSample(),
+                arrowsSplitVerticalSample(),
+                disabledSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().addAll(
-                basicSamples(),
-                arrowPositionSamples()
-        );
+    private SampleBlock basicSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setEditable(true);
+        return new SampleBlock("Basic", spinner);
     }
 
-    private FlowPane basicSamples() {
-        var editableSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(editableSpin);
-        editableSpin.setPrefWidth(PREF_WIDTH);
-        editableSpin.setEditable(true);
-        var editableBlock = new SampleBlock("Editable", editableSpin);
-
-        var disabledSpin = new Spinner<Integer>(1, 10, 1);
-        disabledSpin.setPrefWidth(PREF_WIDTH);
-        disabledSpin.setDisable(true);
-        var disabledBlock = new SampleBlock("Disabled", disabledSpin);
-
-        var root = new FlowPane(20, 20);
-        root.getChildren().addAll(
-                editableBlock.getRoot(),
-                disabledBlock.getRoot()
-        );
-
-        return root;
+    private SampleBlock disabledSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setDisable(true);
+        return new SampleBlock("Disabled", spinner);
     }
 
-    private FlowPane arrowPositionSamples() {
-        var leftVSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(leftVSpin);
-        leftVSpin.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL);
-        leftVSpin.setPrefWidth(PREF_WIDTH);
-        leftVSpin.setEditable(true);
-        var leftVBlock = new SampleBlock("Arrows on left & vertical", leftVSpin);
+    private SampleBlock arrowsLeftVerticalSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setEditable(true);
+        return new SampleBlock("Left & Vertical", spinner);
+    }
 
-        var leftHSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(leftHSpin);
-        leftHSpin.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL);
-        leftHSpin.setPrefWidth(PREF_WIDTH);
-        leftHSpin.setEditable(true);
-        var leftHBlock = new SampleBlock("Arrows on left & horizontal", leftHSpin);
+    private SampleBlock arrowsLeftHorizontalSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setEditable(true);
+        return new SampleBlock("Left & Horizontal", spinner);
+    }
 
-        var rightHSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(rightHSpin);
-        rightHSpin.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_RIGHT_HORIZONTAL);
-        rightHSpin.setPrefWidth(PREF_WIDTH);
-        rightHSpin.setEditable(true);
-        var rightHBlock = new SampleBlock("Arrows on right & horizontal", rightHSpin);
+    private SampleBlock arrowsRightHorizontalSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_ARROWS_ON_RIGHT_HORIZONTAL);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setEditable(true);
+        return new SampleBlock("Right & Horizontal", spinner);
+    }
 
-        var splitHSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(splitHSpin);
-        splitHSpin.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-        splitHSpin.setPrefWidth(PREF_WIDTH);
-        splitHSpin.setEditable(true);
-        var splitHBlock = new SampleBlock("Split arrows & horizontal", splitHSpin);
+    private SampleBlock arrowsSplitHorizontalSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+        spinner.setPrefWidth(PREF_WIDTH);
+        spinner.setEditable(true);
+        return new SampleBlock("Split & Horizontal", spinner);
+    }
 
-        var splitVSpin = new Spinner<Integer>(1, 10, 1);
-        IntegerStringConverter.createFor(splitVSpin);
-        splitVSpin.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
-        splitVSpin.setEditable(true);
-        splitVSpin.setPrefWidth(40);
-        var splitVBlock = new SampleBlock("Split arrows & vertical", splitVSpin);
-
-        var root = new FlowPane(20, 20);
-        root.getChildren().addAll(
-                leftVBlock.getRoot(),
-                leftHBlock.getRoot(),
-                rightHBlock.getRoot(),
-                splitHBlock.getRoot(),
-                splitVBlock.getRoot()
-        );
-
-        return root;
+    private SampleBlock arrowsSplitVerticalSample() {
+        var spinner = new Spinner<Integer>(1, 10, 1);
+        IntegerStringConverter.createFor(spinner);
+        spinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
+        spinner.setEditable(true);
+        spinner.setPrefWidth(40);
+        return new SampleBlock("Split & Vertical", spinner);
     }
 }

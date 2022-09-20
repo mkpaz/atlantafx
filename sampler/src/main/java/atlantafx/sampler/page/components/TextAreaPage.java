@@ -23,59 +23,63 @@ public class TextAreaPage extends AbstractPage {
 
     public TextAreaPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                PAGE_HGAP, PAGE_VGAP,
+                basicSample(),
+                promptSample(),
+                scrollSample(),
+                readonlySample(),
+                successSample(),
+                dangerSample(),
+                disabledSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(samples());
+    private SampleBlock basicSample() {
+        var textArea = createTextArea("Text");
+        textArea.setWrapText(true);
+        return new SampleBlock("Basic", textArea);
     }
 
-    private FlowPane samples() {
-        var basicArea = textArea("Text");
-        basicArea.setWrapText(true);
-        var basicBlock = new SampleBlock("Basic", basicArea);
+    private SampleBlock promptSample() {
+        var textArea = createTextArea(null);
+        textArea.setPromptText("Prompt text");
+        return new SampleBlock("Prompt", textArea);
+    }
 
-        var promptArea = textArea(null);
-        promptArea.setPromptText("Prompt text");
-        var promptBlock = new SampleBlock("Prompt", promptArea);
-
-        var scrollArea = textArea(
+    private SampleBlock scrollSample() {
+        var textArea = createTextArea(
                 Stream.generate(() -> FAKER.lorem().paragraph()).limit(10).collect(Collectors.joining("\n"))
         );
-        scrollArea.setWrapText(false);
-        var scrollBlock = new SampleBlock("Scrolling", scrollArea);
-
-        var readonlyArea = textArea("Text");
-        readonlyArea.setEditable(false);
-        var readonlyBlock = new SampleBlock("Readonly", readonlyArea);
-
-        var disabledArea = textArea("Text");
-        disabledArea.setDisable(true);
-        var disabledBlock = new SampleBlock("Disabled", disabledArea);
-
-        var successArea = textArea("Text");
-        successArea.pseudoClassStateChanged(STATE_SUCCESS, true);
-        var successBlock = new SampleBlock("Success", successArea);
-
-        var dangerArea = textArea("Text");
-        dangerArea.pseudoClassStateChanged(STATE_DANGER, true);
-        var dangerBlock = new SampleBlock("Danger", dangerArea);
-
-        var flowPane = new FlowPane(20, 20);
-        flowPane.getChildren().setAll(
-                basicBlock.getRoot(),
-                promptBlock.getRoot(),
-                scrollBlock.getRoot(),
-                readonlyBlock.getRoot(),
-                disabledBlock.getRoot(),
-                successBlock.getRoot(),
-                dangerBlock.getRoot()
-        );
-
-        return flowPane;
+        textArea.setWrapText(false);
+        return new SampleBlock("Scrolling", textArea);
     }
 
-    private TextArea textArea(String text) {
+    private SampleBlock readonlySample() {
+        var textArea = createTextArea("Text");
+        textArea.setEditable(false);
+        return new SampleBlock("Readonly", textArea);
+    }
+
+    private SampleBlock successSample() {
+        var textArea = createTextArea("Text");
+        textArea.pseudoClassStateChanged(STATE_SUCCESS, true);
+        return new SampleBlock("Success", textArea);
+    }
+
+    private SampleBlock dangerSample() {
+        var textArea = createTextArea("Text");
+        textArea.pseudoClassStateChanged(STATE_DANGER, true);
+        return new SampleBlock("Danger", textArea);
+    }
+
+    private SampleBlock disabledSample() {
+        var textArea = createTextArea("Text");
+        textArea.setDisable(true);
+        return new SampleBlock("Disabled", textArea);
+    }
+
+    private TextArea createTextArea(String text) {
         var textArea = new TextArea(text);
         textArea.setMinWidth(CONTROL_WIDTH);
         textArea.setMinHeight(CONTROL_HEIGHT);

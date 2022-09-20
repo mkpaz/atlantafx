@@ -23,10 +23,12 @@
 
     .page {
 
-      >.scroll-pane>.viewport>*>.wrapper>.user-content {
-        -fx-max-width: 4096px;
+      >.scroll-pane .user-content {
         -fx-padding: 0;
-        -fx-spacing: 0;
+
+        >* {
+          -fx-max-width: 4096px;
+        }
       }
 
       .about {

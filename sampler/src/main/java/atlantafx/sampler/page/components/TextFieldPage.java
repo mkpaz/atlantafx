@@ -20,57 +20,63 @@ public class TextFieldPage extends AbstractPage {
 
     public TextFieldPage() {
         super();
-        createView();
+        setUserContent(new FlowPane(
+                PAGE_HGAP, PAGE_VGAP,
+                basicSample(),
+                promptSample(),
+                passwordSample(),
+                readonlySample(),
+                successSample(),
+                dangerSample(),
+                roundedSample(),
+                disabledSample()
+        ));
     }
 
-    private void createView() {
-        userContent.getChildren().setAll(samples());
+    private SampleBlock basicSample() {
+        var field = new TextField("Text");
+        return new SampleBlock("Basic", field);
     }
 
-    private FlowPane samples() {
-        var basicField = new TextField("Text");
-        var basicBlock = new SampleBlock("Basic", basicField);
+    private SampleBlock passwordSample() {
+        var field = new PasswordField();
+        field.setText("qwerty");
+        return new SampleBlock("Password", field);
+    }
 
-        var passwordField = new PasswordField();
-        passwordField.setText("qwerty");
-        var passwordBlock = new SampleBlock("Password", passwordField);
+    private SampleBlock promptSample() {
+        var field = new TextField();
+        field.setPromptText("Prompt text");
+        return new SampleBlock("Prompt", field);
+    }
 
-        var promptField = new TextField();
-        promptField.setPromptText("Prompt text");
-        var promptBlock = new SampleBlock("Prompt", promptField);
+    private SampleBlock readonlySample() {
+        var field = new TextField("Text");
+        field.setEditable(false);
+        return new SampleBlock("Readonly", field);
+    }
 
-        var readonlyField = new TextField("Text");
-        readonlyField.setEditable(false);
-        var readonlyBlock = new SampleBlock("Readonly", readonlyField);
+    private SampleBlock successSample() {
+        var field = new TextField("Text");
+        field.pseudoClassStateChanged(STATE_SUCCESS, true);
+        return new SampleBlock("Success", field);
+    }
 
-        var disabledField = new TextField("Text");
-        disabledField.setDisable(true);
-        var disabledBlock = new SampleBlock("Disabled", disabledField);
+    private SampleBlock dangerSample() {
+        var field = new TextField("Text");
+        field.pseudoClassStateChanged(STATE_DANGER, true);
+        return new SampleBlock("Danger", field);
+    }
 
-        var successField = new TextField("Text");
-        successField.pseudoClassStateChanged(STATE_SUCCESS, true);
-        var successBlock = new SampleBlock("Success", successField);
+    private SampleBlock roundedSample() {
+        var field = new TextField("Text");
+        field.getStyleClass().add(Styles.ROUNDED);
+        return new SampleBlock("Rounded", field);
+    }
 
-        var dangerField = new TextField("Text");
-        dangerField.pseudoClassStateChanged(STATE_DANGER, true);
-        var dangerBlock = new SampleBlock("Danger", dangerField);
-
-        var roundedField = new TextField("Text");
-        roundedField.getStyleClass().add(Styles.ROUNDED);
-        var roundedBlock = new SampleBlock("Rounded", roundedField);
-
-        var flowPane = new FlowPane(20, 20);
-        flowPane.getChildren().setAll(
-                basicBlock.getRoot(),
-                passwordBlock.getRoot(),
-                promptBlock.getRoot(),
-                readonlyBlock.getRoot(),
-                disabledBlock.getRoot(),
-                successBlock.getRoot(),
-                dangerBlock.getRoot(),
-                roundedBlock.getRoot()
-        );
-
-        return flowPane;
+    private SampleBlock disabledSample() {
+        var field = new TextField("Text");
+        field.setDisable(true);
+        return new SampleBlock("Disabled", field);
     }
 }
