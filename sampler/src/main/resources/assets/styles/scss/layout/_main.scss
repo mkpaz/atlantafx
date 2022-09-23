@@ -4,7 +4,7 @@
   -fx-icon-size: 20px;
 
   &:hover {
-    -fx-opacity: 0.75;
+    -fx-effect: dropshadow(gaussian, -color-fg-emphasis, 20, 0.1, 0, 0)
   }
 }
 
@@ -28,11 +28,16 @@
 
 #header-bar {
   -fx-background-color: -color-accent-emphasis;
-  -fx-padding: 0px 30px 0px 0;
+  -fx-padding: 0px 20px 0px 0;
   -fx-spacing: 30px;
 
   >.logo {
-    -fx-padding: 0px 0 0px 20px;
+    -fx-padding: 0px 0 0px 10px;
+
+    >.image {
+      -fx-background-color:-color-success-emphasis;
+      -fx-background-radius: 6px;
+    }
 
     >.label {
       -fx-text-fill: -color-fg-emphasis;
@@ -40,10 +45,6 @@
 
     >.version {
       -fx-padding: -1em 0 0 0;
-    }
-
-    >.ikonli-font-icon {
-      @include link-button();
     }
   }
 
@@ -72,10 +73,6 @@
 
   >.ikonli-font-icon {
     @include link-button();
-
-    &:disabled {
-      -fx-opacity: 0.1;
-    }
   }
 
   >.dev-mode-indicator {

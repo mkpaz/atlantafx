@@ -3,17 +3,22 @@ package atlantafx.sampler.layout;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
+import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.HotkeyEvent;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination.ModifierValue;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -43,22 +48,26 @@ class HeaderBar extends HBox {
     }
 
     private void createView() {
+        var logoImage = new ImageView(new Image(Resources.getResource("assets/app-icon.png").toString()));
+        logoImage.setFitWidth(32);
+        logoImage.setFitHeight(32);
+
+        var logoImageBorder = new Insets(1);
+        var logoImageBox = new StackPane(logoImage);
+        logoImageBox.getStyleClass().add("image");
+        logoImageBox.setPadding(logoImageBorder);
+        logoImageBox.setPrefWidth(logoImage.getFitWidth() + logoImageBorder.getRight() * 2);
+        logoImageBox.setMaxWidth(logoImage.getFitHeight() + logoImageBorder.getTop() * 2);
+        logoImageBox.setPrefHeight(logoImage.getFitWidth() + logoImageBorder.getTop() * 2);
+        logoImageBox.setMaxHeight(logoImage.getFitHeight() + logoImageBorder.getRight() * 2);
+
         var logoLabel = new Label("AtlantaFX");
         logoLabel.getStyleClass().addAll(TITLE_3);
 
         var versionLabel = new Label(System.getProperty("app.version"));
         versionLabel.getStyleClass().addAll("version", TEXT_SMALL);
 
-        var githubLink = new FontIcon(Feather.GITHUB);
-        githubLink.getStyleClass().addAll("github");
-        githubLink.setOnMouseClicked(e -> {
-            var homepage = System.getProperty("app.homepage");
-            if (homepage != null) {
-                DefaultEventBus.getInstance().publish(new BrowseEvent(URI.create(homepage)));
-            }
-        });
-
-        var logoBox = new HBox(10, logoLabel, versionLabel, new Spacer(), githubLink);
+        var logoBox = new HBox(10, logoImageBox, logoLabel, versionLabel);
         logoBox.getStyleClass().add("logo");
         logoBox.setAlignment(Pos.CENTER_LEFT);
         logoBox.setMinWidth(SIDEBAR_WIDTH);
@@ -100,6 +109,15 @@ class HeaderBar extends HBox {
         ));
         sourceCodeBtn.setOnMouseClicked(e -> model.nextSubLayer());
 
+        var githubLink = new FontIcon(Feather.GITHUB);
+        githubLink.getStyleClass().addAll("github");
+        githubLink.setOnMouseClicked(e -> {
+            var homepage = System.getProperty("app.homepage");
+            if (homepage != null) {
+                DefaultEventBus.getInstance().publish(new BrowseEvent(URI.create(homepage)));
+            }
+        });
+
         // ~
 
         model.currentSubLayerProperty().addListener((obs, old, val) -> {
@@ -120,7 +138,8 @@ class HeaderBar extends HBox {
                 searchField,
                 popoverAnchor,
                 quickConfigBtn,
-                sourceCodeBtn
+                sourceCodeBtn,
+                githubLink
         );
 
         if (IS_DEV_MODE) {

@@ -87,10 +87,10 @@ public class Launcher extends Application {
         });
     }
 
-    private static void loadIcons(Stage stage) {
+    private void loadIcons(Stage stage) {
         int iconSize = 16;
         while (iconSize <= 1024) {
-            // We could use the square icons for Windows here.
+            // we could use the square icons for Windows here
             stage.getIcons().add(new Image(Resources.getResourceAsStream("assets/icon-rounded-" + iconSize + ".png")));
             iconSize *= 2;
         }
