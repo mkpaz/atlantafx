@@ -40,21 +40,13 @@ public class Launcher extends Application {
             new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)
     );
 
-    private static class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
-
-        @Override
-        public void uncaughtException(Thread t, Throwable e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        Thread.currentThread().setUncaughtExceptionHandler(new DefaultExceptionHandler());
+        Thread.currentThread().setUncaughtExceptionHandler(new DefaultExceptionHandler(stage));
         loadApplicationProperties();
 
         if (IS_DEV_MODE) {

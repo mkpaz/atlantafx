@@ -117,7 +117,7 @@ public class DialogPage extends AbstractPage {
         var button = new Button("Click", new FontIcon(Feather.MEH));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
+            alert.setTitle("Exception Dialog");
             alert.setHeaderText(randomHeader());
             alert.setContentText(FAKER.lorem().paragraph(3));
 
