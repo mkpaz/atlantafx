@@ -16,6 +16,18 @@
       }
     }
   }
+
+  &.widget-collection {
+    -fx-padding: 40px;
+    -fx-min-width: 800px;
+    -fx-max-width: 1200px;
+
+    >.toc {
+      -fx-pref-width: 150px;
+      -color-cell-bg-selected: -color-cell-bg;
+      -color-cell-fg-selected: -color-accent-fg;
+    }
+  }
 }
 
 .sample-block {

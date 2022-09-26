@@ -108,7 +108,7 @@ class MainLayer extends BorderPane {
 
             // startup, no prev page, no animation
             if (getScene() == null) {
-                subLayerPane.getChildren().add(nextPage.getView());
+                subLayerPane.getChildren().setAll(nextPage.getView());
                 return;
             }
 
@@ -118,7 +118,7 @@ class MainLayer extends BorderPane {
             prevPage.reset();
 
             // animate switching between pages
-            subLayerPane.getChildren().add(nextPage.getView());
+            subLayerPane.getChildren().setAll(nextPage.getView());
             var transition = new FadeTransition(Duration.millis(PAGE_TRANSITION_DURATION), nextPage.getView());
             transition.setFromValue(0.0);
             transition.setToValue(1.0);

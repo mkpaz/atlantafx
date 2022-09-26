@@ -7,13 +7,19 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import net.datafaker.Faker;
+import org.kordamp.ikonli.feather.Feather;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class SampleBlock extends VBox {
 
     public static final int BLOCK_HGAP = 20;
     public static final int BLOCK_VGAP = 10;
+
+    protected static final Faker FAKER = new Faker();
+    protected static final Random RANDOM = new Random();
 
     protected final Label titleLabel;
     protected final Node content; // can be either Pane or Control
@@ -57,5 +63,9 @@ public class SampleBlock extends VBox {
         } else {
             VBox.setVgrow(content, Priority.NEVER);
         }
+    }
+
+    protected static Feather randomIcon() {
+        return Feather.values()[RANDOM.nextInt(Feather.values().length)];
     }
 }

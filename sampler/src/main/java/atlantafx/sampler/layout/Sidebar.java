@@ -9,6 +9,7 @@ import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
+import atlantafx.sampler.page.showcase.widget.WidgetCollectionPage;
 import atlantafx.sampler.util.Containers;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -209,7 +210,8 @@ class Sidebar extends StackPane {
                     navLink(TreeTablePage.NAME, TreeTablePage.class),
                     caption("SHOWCASE"),
                     navLink(FileManagerPage.NAME, FileManagerPage.class),
-                    navLink(MusicPlayerPage.NAME, MusicPlayerPage.class)
+                    navLink(MusicPlayerPage.NAME, MusicPlayerPage.class),
+                    navLink(WidgetCollectionPage.NAME, WidgetCollectionPage.class)
             );
         }
 
