@@ -211,7 +211,10 @@ class Sidebar extends StackPane {
                     caption("SHOWCASE"),
                     navLink(FileManagerPage.NAME, FileManagerPage.class),
                     navLink(MusicPlayerPage.NAME, MusicPlayerPage.class),
-                    navLink(WidgetCollectionPage.NAME, WidgetCollectionPage.class)
+                    navLink(WidgetCollectionPage.NAME,
+                            WidgetCollectionPage.class,
+                            "Card", "Message", "Stepper", "Tag"
+                    )
             );
         }
 
