@@ -1,10 +1,12 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import net.datafaker.Faker;
@@ -31,12 +33,19 @@ public class SampleBlock extends VBox {
 
     public SampleBlock(String title, Node content, String description) {
         titleLabel = new Label(Objects.requireNonNull(title));
-        titleLabel.getStyleClass().add("title");
+
+        Polygon polygon = new Polygon();
+        polygon.getPoints().addAll(0.0, 0.0, 20.0, 10.0, 20.0, 0.0);
+        polygon.getStyleClass().add("polygon");
+
+        var titleBox = new VBox(titleLabel, polygon);
+        titleBox.getStyleClass().add("title");
+        VBox.setMargin(titleBox, new Insets(-5, 0, 0, -40));
 
         this.content = Objects.requireNonNull(content);
         content.getStyleClass().add("content");
 
-        getChildren().setAll(titleLabel, content);
+        getChildren().setAll(titleBox, content);
         if (description != null && !description.isBlank()) {
             descriptionText = new TextFlow(new Text(description));
             getChildren().add(descriptionText);

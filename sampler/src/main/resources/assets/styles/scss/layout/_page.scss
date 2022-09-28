@@ -35,12 +35,20 @@
   -fx-effect: dropshadow(gaussian, -color-shadow-default, 10, 0.4, 0, 0);
   -fx-border-color: -color-border-muted;
   -fx-border-width: 1px;
-  -fx-padding: 1em 1.5em 1.5em 1.5em;
-  -fx-spacing: 1em;
+  -fx-padding: 15px 20px 15px 20px;
+  -fx-spacing: 20px;
   -fx-min-width: 220px;
 
   >.title {
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 10px 0;
+    >.label {
+      -fx-padding: 5px 15px 5px 10px;
+      -fx-background-color: -color-accent-subtle;
+      -fx-text-fill: -color-fg-default;
+      -fx-font-size: 1.1em;
+    }
+
+    >.polygon {
+      -fx-fill: -color-accent-muted;
+    }
   }
 }
