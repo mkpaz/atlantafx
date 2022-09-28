@@ -1,7 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.controls;
 
-import atlantafx.base.theme.Styles;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
@@ -9,7 +8,7 @@ import javafx.scene.control.Label;
 @SuppressWarnings("unused")
 public class CaptionMenuItem extends CustomMenuItem {
 
-    private final Label title = new Label();
+    protected final Label title = new Label();
 
     public CaptionMenuItem() {
         this(null);
@@ -21,7 +20,7 @@ public class CaptionMenuItem extends CustomMenuItem {
         setTitle(text);
         setContent(title);
         setHideOnClick(false);
-        getStyleClass().add(Styles.TEXT_CAPTION);
+        getStyleClass().addAll("caption-menu-item");
     }
 
     public String getTitle() {

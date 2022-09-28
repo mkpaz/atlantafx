@@ -133,7 +133,7 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
   -fx-max-width:  cfg.$checkbox-mark-size;
 }
 
-.custom-menu-item.heading {
+.caption-menu-item {
   -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
 
   &:hover,
