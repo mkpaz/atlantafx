@@ -316,9 +316,16 @@ $tree-cell-indent:           1em    !default;
     }
   }
 
+
   &.striped {
     .table-row-cell {
       -fx-background-insets: 0;
+    }
+
+    &.bordered {
+      .table-row-cell {
+        -fx-background-insets: 0, 0 0 1 0;
+      }
     }
 
     .table-row-cell:filled:odd {
@@ -470,6 +477,12 @@ $tree-cell-indent:           1em    !default;
   &.striped {
     .tree-table-row-cell {
       -fx-background-insets: 0;
+    }
+
+    &.bordered {
+      .tree-table-row-cell {
+        -fx-background-insets: 0, 0 0 1 0;
+      }
     }
 
     .tree-table-row-cell:filled:odd {
