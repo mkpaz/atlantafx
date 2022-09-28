@@ -1,15 +1,16 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import javafx.geometry.Pos;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 public class TextFieldPage extends AbstractPage {
 
@@ -20,15 +21,11 @@ public class TextFieldPage extends AbstractPage {
 
     public TextFieldPage() {
         super();
-        setUserContent(new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                basicSample(),
-                promptSample(),
-                passwordSample(),
-                readonlySample(),
-                successSample(),
-                dangerSample(),
-                roundedSample(),
+        setUserContent(new VBox(
+                PAGE_VGAP,
+                expandingHBox(basicSample(), promptSample(), passwordSample()),
+                expandingHBox(readonlySample(), successSample(), dangerSample()),
+                expandingHBox(sizeSample(), roundedSample()),
                 disabledSample()
         ));
     }
@@ -68,15 +65,37 @@ public class TextFieldPage extends AbstractPage {
         return new SampleBlock("Danger", field);
     }
 
+    private SampleBlock sizeSample() {
+        var smallField = new TextField("Small");
+        smallField.getStyleClass().add(SMALL);
+        smallField.setPrefWidth(70);
+
+        var normalField = new TextField("Normal");
+        normalField.setPrefWidth(120);
+
+        var largeField = new TextField("Large");
+        largeField.getStyleClass().add(LARGE);
+        largeField.setPrefWidth(200);
+
+        var content = new HBox(BLOCK_HGAP, smallField, normalField, largeField);
+        content.setAlignment(Pos.CENTER_LEFT);
+
+        return new SampleBlock("Size", content);
+    }
+
     private SampleBlock roundedSample() {
         var field = new TextField("Text");
-        field.getStyleClass().add(Styles.ROUNDED);
+        field.getStyleClass().add(ROUNDED);
         return new SampleBlock("Rounded", field);
     }
 
     private SampleBlock disabledSample() {
         var field = new TextField("Text");
         field.setDisable(true);
-        return new SampleBlock("Disabled", field);
+
+        var block = new SampleBlock("Disabled", field);
+        block.setMaxWidth(250);
+
+        return block;
     }
 }
