@@ -13,8 +13,11 @@ $font-title-4:           1.25em !default;
 $font-small:             0.8em  !default;
 
 $padding-x:       12px !default;
+$padding-x-small: calc($padding-x / 1.4) !default;
 $padding-x-large: calc($padding-x * 1.4) !default;
 $padding-y:       8px  !default;
+$padding-y-small: calc($padding-y / 1.4) !default;
+$padding-y-large: calc($padding-y * 1.4) !default;
 $graphic-gap:     6px  !default;
 
 // Most components use background insets to draw its borders due to

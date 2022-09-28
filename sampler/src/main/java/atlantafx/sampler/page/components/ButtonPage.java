@@ -4,6 +4,7 @@ package atlantafx.sampler.page.components;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.GridPane;
@@ -33,18 +34,23 @@ public class ButtonPage extends AbstractPage {
         var grid = new GridPane();
         grid.setHgap(Page.PAGE_HGAP);
         grid.setVgap(Page.PAGE_VGAP);
-        grid.add(basicSamples(), 0, 0);
-        grid.add(iconButtonSamples(), 1, 0);
-        grid.add(coloredSamples(), 0, 1);
-        grid.add(circularButtons(), 1, 1);
-        grid.add(outlinedSamples(), 0, 2);
-        grid.add(roundedSamples(), 1, 2);
-        grid.add(disabledSample(), 0, 3);
+
+        grid.add(basicSample(), 0, 0);
+        grid.add(iconButtonSample(), 1, 0);
+
+        grid.add(coloredSample(), 0, 1);
+        grid.add(circularSample(), 1, 1);
+
+        grid.add(outlinedSample(), 0, 2);
+        grid.add(sizeSample(), 1, 2);
+
+        grid.add(roundedSample(), 0, 3);
+        grid.add(disabledSample(), 1, 3);
 
         setUserContent(grid);
     }
 
-    private SampleBlock basicSamples() {
+    private SampleBlock basicSample() {
         var basicBtn = new Button("_Basic");
         basicBtn.setMnemonicParsing(true);
 
@@ -59,7 +65,7 @@ public class ButtonPage extends AbstractPage {
         return new SampleBlock("Basic", content);
     }
 
-    private SampleBlock coloredSamples() {
+    private SampleBlock coloredSample() {
         var accentBtn = new Button("_Accent");
         accentBtn.getStyleClass().add(ACCENT);
         accentBtn.setMnemonicParsing(true);
@@ -77,7 +83,7 @@ public class ButtonPage extends AbstractPage {
         return new SampleBlock("Colored", content);
     }
 
-    private SampleBlock iconButtonSamples() {
+    private SampleBlock iconButtonSample() {
         var basicBtn = new Button("", new FontIcon(Feather.MORE_HORIZONTAL));
         basicBtn.getStyleClass().addAll(BUTTON_ICON);
 
@@ -106,7 +112,7 @@ public class ButtonPage extends AbstractPage {
         return new SampleBlock("Icon", content);
     }
 
-    private SampleBlock circularButtons() {
+    private SampleBlock circularSample() {
         var basicBtn = new Button("", new FontIcon(Feather.MORE_HORIZONTAL));
         basicBtn.getStyleClass().addAll(BUTTON_CIRCLE);
         basicBtn.setShape(new Circle(50));
@@ -142,7 +148,7 @@ public class ButtonPage extends AbstractPage {
         return new SampleBlock("Circular", content);
     }
 
-    private SampleBlock outlinedSamples() {
+    private SampleBlock outlinedSample() {
         var accentBtn = new Button("Accen_t");
         accentBtn.getStyleClass().addAll(BUTTON_OUTLINED, ACCENT);
         accentBtn.setMnemonicParsing(true);
@@ -161,18 +167,35 @@ public class ButtonPage extends AbstractPage {
         return new SampleBlock("Outlined", content);
     }
 
-    private SampleBlock roundedSamples() {
+    private SampleBlock roundedSample() {
         var basicBtn = new Button("Basic");
-        basicBtn.getStyleClass().add(ROUNDED);
+        basicBtn.getStyleClass().addAll(SMALL, ROUNDED);
 
         var accentBtn = new Button("Accent");
         accentBtn.getStyleClass().addAll(ROUNDED, ACCENT);
 
         var successBtn = new Button("Success", new FontIcon(Feather.CHECK));
-        successBtn.getStyleClass().addAll(ROUNDED, BUTTON_OUTLINED, SUCCESS);
+        successBtn.getStyleClass().addAll(LARGE, ROUNDED, BUTTON_OUTLINED, SUCCESS);
 
         var content = new HBox(BLOCK_HGAP, basicBtn, accentBtn, successBtn);
+        content.setAlignment(Pos.CENTER_LEFT);
+
         return new SampleBlock("Rounded", content);
+    }
+
+    private SampleBlock sizeSample() {
+        var smallBtn = new Button("Small");
+        smallBtn.getStyleClass().addAll(SMALL);
+
+        var normalBtn = new Button("Normal");
+
+        var largeBtn = new Button("Large");
+        largeBtn.getStyleClass().addAll(LARGE);
+
+        var content = new HBox(BLOCK_HGAP, smallBtn, normalBtn, largeBtn);
+        content.setAlignment(Pos.CENTER_LEFT);
+
+        return new SampleBlock("Size", content);
     }
 
     private SampleBlock disabledSample() {
