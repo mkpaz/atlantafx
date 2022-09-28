@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+@each $level, $radius in cfg.$elevation {
+  .elevated-#{$level} {
+    @include effects.shadow(cfg.$elevation-color, $radius);
+  }
+}
+
+.interactive:hover {
+  @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
+}

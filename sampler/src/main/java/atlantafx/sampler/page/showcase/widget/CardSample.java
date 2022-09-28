@@ -50,6 +50,7 @@ public class CardSample extends HBox {
 
     private Card textFooterCard() {
         var card = new Card();
+        card.getStyleClass().add(Styles.ELEVATED_1);
         card.setMinWidth(CARD_WIDTH);
         card.setMaxWidth(CARD_WIDTH);
 
@@ -67,6 +68,7 @@ public class CardSample extends HBox {
 
     private Card imageTextCard() {
         var card = new Card();
+        card.getStyleClass().add(Styles.ELEVATED_4);
         card.setMinWidth(CARD_WIDTH);
         card.setMaxWidth(CARD_WIDTH);
 
@@ -83,10 +85,11 @@ public class CardSample extends HBox {
 
     private Card titleTextCard() {
         var card = new Card();
+        card.getStyleClass().add(Styles.INTERACTIVE);
         card.setMinWidth(CARD_WIDTH);
         card.setMaxWidth(CARD_WIDTH);
 
-        card.setTitle("Title");
+        card.setTitle("Interactive");
         card.setSubtitle("Subtitle");
 
         var text = new Text(FAKER.lorem().paragraph());
@@ -97,6 +100,7 @@ public class CardSample extends HBox {
 
     private Card titleImageCard() {
         var card = new Card();
+        card.getStyleClass().add(Styles.ELEVATED_2);
         card.setMinWidth(CARD_WIDTH);
         card.setMaxWidth(CARD_WIDTH);
 
@@ -115,6 +119,7 @@ public class CardSample extends HBox {
 
     private Card quoteCard() {
         var card = new Card();
+        card.getStyleClass().add(Styles.ELEVATED_3);
         card.setMinWidth(CARD_WIDTH);
         card.setMaxWidth(CARD_WIDTH);
 

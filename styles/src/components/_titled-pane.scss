@@ -10,18 +10,14 @@ $padding-y: 10px !default;
 $margin-arrow:   10px !default;
 $margin-content: 20px !default;
 
-// for elevation darker than bg color should be used for both light and dark modes
-$elevation-color:       -color-shadow-default      !default;
-$elevation-interactive: map-get(cfg.$elevation, 2) !default;
-
 .titled-pane {
   -fx-background-color: -color-bg-default;
   -fx-text-fill: -color-fg-default;
   -fx-effect: none;
 
-  @each $level,$radius in cfg.$elevation {
+  @each $level, $radius in cfg.$elevation {
     &.elevated-#{$level} {
-      @include effects.shadow($elevation-color, $radius);
+      @include effects.shadow(cfg.$elevation-color, $radius);
     }
   }
 
@@ -90,7 +86,7 @@ $elevation-interactive: map-get(cfg.$elevation, 2) !default;
   }
 
   &.interactive:hover {
-    @include effects.shadow($elevation-color, $elevation-interactive);
+    @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
   }
 
   &:show-mnemonics>.mnemonic-underline {

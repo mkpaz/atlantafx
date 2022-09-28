@@ -38,6 +38,8 @@ $icon-size: 18px !default;
 
 // elevation (level : radius)
 $elevation: (1: 2px, 2: 8px, 3: 16px, 4: 20px) !default;
+$elevation-color:       -color-shadow-default  !default;
+$elevation-interactive: map-get($elevation, 2) !default;
 
 // check box, radio button
 $checkbox-mark-size:   0.75em !default;

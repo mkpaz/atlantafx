@@ -20,7 +20,6 @@ public class Card extends VBox {
     public static final String CSS = """
             .card {
                -fx-background-color: -color-bg-default;
-               -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 8, 0.5, 0, 2);
              }
              .card > .subtitle {
                 -fx-text-fill: -color-fg-muted;
