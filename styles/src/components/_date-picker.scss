@@ -173,9 +173,15 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 .inline-date-picker {
   -fx-effect: none;
 
+  >.top-node,
+  >.bottom-node {
+    -fx-padding: $content-padding-y calc($content-padding-x * 2) $content-padding-y calc($content-padding-x * 2);
+  }
+
   >.month-year-pane {
-    -fx-alignment: CENTER;
-    -fx-spacing: 10px;
+    -fx-padding: $content-padding-y calc($content-padding-x * 2) $content-padding-y calc($content-padding-x * 2);
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 6px;
 
     >.button {
       -fx-background-color: transparent;
@@ -185,6 +191,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     }
 
     >.back-button {
+      -fx-padding: 0 1em 0 0;
       >.left-arrow {
         @include icons.get("chevron-left", false);
         -fx-background-color: -color-date-month-year-fg;
@@ -221,6 +228,8 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 .date-picker-popup>.calendar-grid>.selected,
 .date-picker-popup>.calendar-grid>.selected>.secondary-text,
 .date-picker-popup>.calendar-grid>.previous-month.selected,
+.date-picker-popup>.calendar-grid>.previous-month.today.selected,
+.date-picker-popup>.calendar-grid>.next-month.today.selected,
 .date-picker-popup>.calendar-grid>.next-month.selected {
   -fx-background-color: -color-date-day-bg-selected;
   -fx-text-fill: -color-date-day-fg-selected;

@@ -35,7 +35,11 @@ import javafx.css.Styleable;
 import javafx.css.StyleableBooleanProperty;
 import javafx.css.StyleableProperty;
 import javafx.css.converter.BooleanConverter;
-import javafx.scene.control.*;
+import javafx.scene.Node;
+import javafx.scene.control.Cell;
+import javafx.scene.control.Control;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.Skin;
 import javafx.util.Callback;
 
 import java.time.DateTimeException;
@@ -225,6 +229,34 @@ public class InlineDatePicker extends Control {
 
     public final boolean isShowWeekNumbers() {
         return showWeekNumbersProperty().getValue();
+    }
+
+    private final ObjectProperty<Node> topNode = new SimpleObjectProperty<>(this, "topNode", null);
+
+    public final void setTopNode(Node value) {
+        topNode.setValue(value);
+    }
+
+    public final Node getTopNode() {
+        return topNode.getValue();
+    }
+
+    public ObjectProperty<Node> topNodeProperty() {
+        return topNode;
+    }
+
+    private final ObjectProperty<Node> bottomNode = new SimpleObjectProperty<>(this, "bottomNode", null);
+
+    public final void setBottomNode(Node value) {
+        bottomNode.setValue(value);
+    }
+
+    public final Node getBottomNode() {
+        return bottomNode.getValue();
+    }
+
+    public ObjectProperty<Node> bottomNodeProperty() {
+        return bottomNode;
     }
 
     ///////////////////////////////////////////////////////////////////////////

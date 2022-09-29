@@ -114,6 +114,30 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
             updateGrid();
             updateWeekNumberCells();
         });
+
+        registerChangeListener(datePicker.topNodeProperty(), e -> {
+            Node node = datePicker.getTopNode();
+            if (node == null) {
+                rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("top-node"));
+            } else {
+                if (!node.getStyleClass().contains("top-node")) {
+                    node.getStyleClass().add("top-node");
+                }
+                rootPane.getChildren().add(0, node);
+            }
+        });
+
+        registerChangeListener(datePicker.bottomNodeProperty(), e -> {
+            Node node = datePicker.getBottomNode();
+            if (node == null) {
+                rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("bottom-node"));
+            } else {
+                if (!node.getStyleClass().contains("bottom-node")) {
+                    node.getStyleClass().add("bottom-node");
+                }
+                rootPane.getChildren().add(node);
+            }
+        });
     }
 
     @Override
@@ -153,6 +177,11 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
     ///////////////////////////////////////////////////////////////////////////
 
     protected void createUI() {
+        if (getControl().getTopNode() != null) {
+            getControl().getTopNode().getStyleClass().add("top-node");
+            rootPane.getChildren().add(getControl().getTopNode());
+        }
+
         // YearMonth //
 
         LocalDate value = getControl().getValue();
@@ -191,6 +220,11 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         rootPane.getStyleClass().addAll("date-picker-popup", "inline-date-picker");
         rootPane.getChildren().add(calendarGrid);
 
+        if (getControl().getBottomNode() != null) {
+            getControl().getBottomNode().getStyleClass().add("bottom-node");
+            rootPane.getChildren().add(getControl().getBottomNode());
+        }
+
         getChildren().add(rootPane);
 
         getControl().setOnKeyPressed(e -> behavior.onKeyPressed(e));
@@ -211,17 +245,14 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         leftArrow.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         backButton.setGraphic(leftArrow);
 
-        Region leftSpacer = new Region();
-        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
         monthLabel = new Label();
         monthLabel.getStyleClass().add("month-label");
 
         yearLabel = new Label();
         yearLabel.getStyleClass().add("year-label");
-
-        Region rightSpacer = new Region();
-        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
         forwardButton = new Button();
         forwardButton.getStyleClass().addAll("forward-button");
@@ -232,7 +263,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         rightArrow.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         forwardButton.setGraphic(rightArrow);
 
-        monthYearPane.getChildren().addAll(backButton, leftSpacer, monthLabel, yearLabel, rightSpacer, forwardButton);
+        monthYearPane.getChildren().addAll(monthLabel, yearLabel, spacer, backButton, forwardButton);
 
         return monthYearPane;
     }

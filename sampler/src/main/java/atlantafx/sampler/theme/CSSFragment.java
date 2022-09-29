@@ -24,12 +24,12 @@ public final class CSSFragment {
 
     public void removeFrom(Region region) {
         Objects.requireNonNull(region);
-        region.getStyleClass().remove(toDataURI());
+        region.getStylesheets().remove(toDataURI());
     }
 
     public boolean existsIn(Region region) {
         Objects.requireNonNull(region);
-        return region.getStyleClass().contains(toDataURI());
+        return region.getStylesheets().contains(toDataURI());
     }
 
     @Override
