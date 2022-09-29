@@ -93,10 +93,10 @@ public class TypographyPage extends AbstractPage {
 
     private ComboBox<String> createFontFamilyChooser() {
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().add(TM.isDefaultFontFamily() ? DEFAULT_FONT_ID : TM.getFontFamily());
+        comboBox.getItems().add(DEFAULT_FONT_ID); // keyword to reset font family to its default value
         comboBox.getItems().addAll(FXCollections.observableArrayList(Font.getFamilies()));
         comboBox.setPrefWidth(CONTROL_WIDTH);
-        comboBox.getSelectionModel().select(TM.getFontFamily());
+        comboBox.getSelectionModel().select(TM.getFontFamily()); // select active font family value on page load
         comboBox.valueProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 TM.setFontFamily(DEFAULT_FONT_ID.equals(val) ? DEFAULT_FONT_FAMILY_NAME : val);
