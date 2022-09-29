@@ -53,13 +53,16 @@ $separator-width:    0.75px !default;
 
   &:hover {
     -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
+    -fx-opacity: button.$opacity-hover;
 
     >.label {
       -fx-text-fill: -color-button-fg-hover;
     }
 
-    >.arrow-button>.arrow {
-      -fx-background-color: -color-button-fg-hover;
+    >.arrow-button {
+      >.arrow {
+        -fx-background-color: -color-button-fg-hover;
+      }
     }
 
     #{cfg.$font-icon-selector} {
@@ -122,6 +125,7 @@ $separator-width:    0.75px !default;
 }
 
 .menu-button {
+
   // #tweak/no-arrow
   &.no-arrow {
     >.arrow-button {
@@ -140,6 +144,35 @@ $separator-width:    0.75px !default;
 
   >.label {
     -fx-padding: cfg.$padding-y calc(cfg.$padding-x / 2) cfg.$padding-y cfg.$padding-x;
+  }
+
+  &:hover,
+  &:focused:hover {
+    >.arrow-button {
+      -fx-background-color: -color-neutral-emphasis-plus;
+      -fx-background-insets: cfg.$border-width;
+      -fx-background-radius: cfg.$border-radius;
+      -fx-border-color: transparent;
+      -fx-opacity: 0.75;
+
+      >.arrow {
+        -fx-background-color: -color-fg-emphasis;
+        -fx-opacity: 1.0;
+      }
+    }
+  }
+
+  &:default:hover,
+  &.accent:hover,
+  &.success:hover,
+  &.danger:hover {
+    >.arrow-button {
+      -fx-background-color: -color-fg-emphasis;
+
+      >.arrow {
+        -fx-background-color: -color-button-bg-hover;
+      }
+    }
   }
 
   &.button-outlined:hover,

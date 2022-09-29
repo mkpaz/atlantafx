@@ -4,6 +4,7 @@ package atlantafx.sampler.page.components;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
+import atlantafx.sampler.theme.CSSFragment;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -12,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
 import static atlantafx.base.theme.Styles.*;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -45,7 +47,9 @@ public class ButtonPage extends AbstractPage {
         grid.add(sizeSample(), 1, 2);
 
         grid.add(roundedSample(), 0, 3);
-        grid.add(disabledSample(), 1, 3);
+        grid.add(customColorSample(), 1, 3);
+
+        grid.add(disabledSample(), 0, 4);
 
         setUserContent(grid);
     }
@@ -196,6 +200,33 @@ public class ButtonPage extends AbstractPage {
         content.setAlignment(Pos.CENTER_LEFT);
 
         return new SampleBlock("Size", content);
+    }
+
+    private SampleBlock customColorSample() {
+        var btn = new Button("DO SOMETHING!");
+        btn.getStyleClass().addAll(SUCCESS, LARGE);
+        btn.setStyle("""
+                  -color-button-bg:       linear-gradient(to bottom right, -color-success-emphasis, darkblue);
+                  -color-button-bg-hover:   -color-button-bg;
+                  -color-button-bg-focused: -color-button-bg;
+                  -color-button-bg-pressed: -color-button-bg;
+                """);
+
+        var iconBtn = new Button("", new FontIcon(Material2AL.FAVORITE));
+        iconBtn.getStyleClass().addAll("favorite-button", BUTTON_CIRCLE, FLAT, DANGER);
+        new CSSFragment("""
+                .favorite-button.button >.ikonli-font-icon {
+                    -fx-fill:       linear-gradient(to bottom right, pink, -color-danger-emphasis);
+                    -fx-icon-color: linear-gradient(to bottom right, pink, -color-danger-emphasis);
+                    -fx-font-size:  32px;
+                    -fx-icon-size:  32px;
+                }
+                """).addTo(iconBtn);
+
+        var content = new HBox(BLOCK_HGAP, btn, iconBtn);
+        content.setAlignment(Pos.CENTER_LEFT);
+
+        return new SampleBlock("Custom Color", content);
     }
 
     private SampleBlock disabledSample() {

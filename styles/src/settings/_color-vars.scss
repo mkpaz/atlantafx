@@ -18,6 +18,8 @@ $border-muted:         lighten(scale.$base-2, 0.03) !default;
 $border-subtle:        color.change(scale.$dark, $alpha: 0.15) !default;
 $shadow-default:       scale.$base-2 !default;
 
+// neutral is used by the .split-menu-button,
+// note that you should maintain some contrast between neutral and canvas.subtle
 $neutral-emphasisPlus: scale.$base-9 !default;
 $neutral-emphasis:     scale.$base-5 !default;
 $neutral-muted:        color.change(scale.$base-3, $alpha: 0.2) !default;
