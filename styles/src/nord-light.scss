@@ -137,6 +137,22 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
 
 @use "general";
 
+@forward "components/pagination" as pagination-* with (
+  $button-radius: 1
+);
+
+@forward "components/slider" as slider-* with (
+  $color-thumb-large:        -color-accent-emphasis,
+  $color-thumb-large-border: -color-accent-emphasis,
+  $thumb-size: (
+    "small-h": 8px, "medium-h": 10px, "large-h": 14px,
+    "small-w": 4px, "medium-w": 4px,  "large-w": 4px
+  ),
+  $track-size: ("small": 2px, "medium": 4px, "large": 12px),
+  $thumb-radius: 0,
+  $track-radius: 0
+);
+
 @forward "components/toggle-switch" as toggle-switch-* with (
   $thumb-radius:       1px,
   $thumb-area-radius:  1px,

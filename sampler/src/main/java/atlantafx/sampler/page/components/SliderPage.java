@@ -16,8 +16,8 @@ import static javafx.geometry.Orientation.VERTICAL;
 public class SliderPage extends AbstractPage {
 
     public static final String NAME = "Slider";
-    private static final int SLIDER_SIZE = 200;
-    private static final int SPACING = 40;
+    private static final int SLIDER_SIZE = 180;
+    private static final int SPACING = 20;
 
     @Override
     public String getName() { return NAME; }

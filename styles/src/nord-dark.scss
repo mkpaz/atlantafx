@@ -151,13 +151,27 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
   $color-menubar-bg-hover: -color-base-7
 );
 
+@forward "components/pagination" as pagination-* with (
+  $button-radius: 1
+);
+
+@forward "components/slider" as slider-* with (
+  $thumb-size: (
+    "small-h": 8px, "medium-h": 10px, "large-h": 14px,
+    "small-w": 4px, "medium-w": 4px,  "large-w": 4px
+  ),
+  $track-size: ("small": 2px, "medium": 4px, "large": 12px),
+  $thumb-radius: 1,
+  $track-radius: 1
+);
+
 @forward "components/toolbar" as toolbar-* with (
   $color-bg-selected: -color-base-7
 );
 
 @forward "components/toggle-switch" as toggle-switch-* with (
-  $thumb-radius:       1px,
-  $thumb-area-radius:  1px,
+  $thumb-radius:       1,
+  $thumb-area-radius:  1,
   $thumb-padding:      0.8em,
   $thumb-area-padding: 0.8em 1.6em 0.8em 1.6em,
   $thumb-border-width: 3px

@@ -2,6 +2,8 @@
 
 @use "../settings/icons";
 
+$button-radius: 10em !default;
+
 .pagination {
   -fx-padding: 0;
   -fx-arrow-button-gap: 4;
@@ -55,17 +57,17 @@
         -fx-spacing: 0;
 
         >.left-arrow-button {
-          -fx-background-radius: 10em;
+          -fx-background-radius: $button-radius;
           -fx-padding: 0 0.25em 0 0.083em; // center arrow inside the circle
         }
 
         >.right-arrow-button {
-          -fx-background-radius: 10em;
+          -fx-background-radius: $button-radius;
           -fx-padding: 0 0.083em 0 0.25em; // center arrow inside the circle
         }
 
         >.bullet-button {
-          -fx-background-radius: 0, 10em, 10em;
+          -fx-background-radius: 0, $button-radius, $button-radius;
           -fx-background-color: transparent, -color-border-default, -color-bg-subtle;
           -fx-background-insets: 0, 5, 6;
 
