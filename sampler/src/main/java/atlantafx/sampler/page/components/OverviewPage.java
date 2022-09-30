@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.IntegerStringConverter;
@@ -235,6 +236,7 @@ public class OverviewPage extends AbstractPage {
         tickSlider.setMinorTickCount(5);
         tickSlider.setSnapToTicks(true);
         tickSlider.setPrefWidth(BUTTON_WIDTH * 2);
+        tickSlider.setSkin(new ProgressSliderSkin(tickSlider));
 
         var container = new HBox(BLOCK_HGAP, slider, tickSlider);
         return new SampleBlock("Sliders", container);

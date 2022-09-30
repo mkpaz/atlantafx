@@ -3,61 +3,77 @@
 @use "../settings/config" as cfg;
 @use "sass:math";
 
-$color-thumb:        if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
-$color-thumb-border: if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
-$color-track:        -color-accent-emphasis !default;
-$color-tick:         -color-fg-muted        !default;
+$color-thumb:          if(cfg.$darkMode, -color-fg-default, -color-accent-emphasis) !default;
+$color-thumb-border:   $color-thumb           !default;
+$color-track:          -color-border-muted    !default;
+$color-track-progress: -color-accent-emphasis !default;
+$color-tick:           -color-fg-muted        !default;
 
-$thumb-size:         8px !default;
-$thumb-border-width: 2px !default;
+// this is padding ...
+$thumb-size: (
+  "small":  8px,
+  "medium": 10px,
+  "large":  12px
+) !default;
 
-$track-size:         $thumb-size !default; // visual track height (or width)
-$track-margin:       6px !default;         // increases clickable track area
+// ... in combination with radius it can be converted to square or rectange
+$thumb-radius: 10em !default;
 
-$tick-major-size:    5px !default;
-$tick-minor-size:    3px !default;
+// visual track height (or width)
+$track-size: (
+  "small":  2px,
+  "medium": 4px,
+  "large":  12px
+) !default;
 
-$_track-padding: math.div($track-size + $track-margin, 2);
+$track-radius: cfg.$border-radius !default;
+
+$tick-major-size: 5px !default;
+$tick-minor-size: 3px !default;
 
 .slider {
 
-  -color-slider-thumb:        $color-thumb;
-  -color-slider-thumb-border: $color-thumb-border;
-  -color-slider-track:        $color-track;
-  -color-slider-tick:         $color-tick;
+  -color-slider-thumb:          $color-thumb;
+  -color-slider-thumb-border:   $color-thumb-border;
+  -color-slider-track:          $color-track;
+  -color-slider-track-progress: $color-track-progress;
+  -color-slider-tick:           $color-tick;
+
+  &.large {
+    -color-slider-thumb:        if(cfg.$darkMode, $color-thumb, -color-fg-emphasis);
+    -color-slider-thumb-border: if(cfg.$darkMode, $color-thumb, -color-accent-emphasis);
+  }
 
   >.thumb {
     -fx-background-color: -color-slider-thumb-border, -color-slider-thumb;
     -fx-background-insets: 0, 2px;
-    -fx-background-radius: 50;
-    -fx-padding: $thumb-size;
+    -fx-background-radius: $thumb-radius;
+    -fx-padding: map-get($thumb-size, "medium");
+  }
+
+  &.small {
+    >.thumb {
+      -fx-padding: map-get($thumb-size, "small");
+    }
+  }
+
+  &.large {
+    >.thumb {
+      -fx-padding: map-get($thumb-size, "large");
+    }
   }
 
   >.track {
-    // transparent background increases clickable track area without increasing visual track height,
-    // it's also used to center track with thumb
     -fx-background-color: transparent, -color-slider-track;
-    -fx-background-radius: cfg.$border-radius;
+    -fx-background-radius: $track-radius;
   }
 
-  // center thumb over track horizontally
-  &:horizontal {
-    >.track {
-      -fx-padding: $_track-padding 0 $_track-padding 0;
-      -fx-background-insets: 0, $track-margin 0 $track-margin 0;
-    }
-  }
-
-  // center thumb over track vertically
-  &:vertical {
-    >.track {
-      -fx-padding: 0 $_track-padding 0 $_track-padding;
-      -fx-background-insets: 0, 0 $track-margin 0 $track-margin;
-    }
+  >.progress {
+    -fx-background-color: transparent, -color-slider-track-progress;
   }
 
   // there's slightly noticable difference between axis length and track length,
-  // wontfix this via CSS, because it's probably JavaFX calc problem
+  // because SliderSkin ignores track radius in layoutChildren()
   >.axis {
     -fx-tick-label-fill: -color-slider-tick;
     -fx-tick-length: $tick-major-size;
@@ -71,5 +87,89 @@ $_track-padding: math.div($track-size + $track-margin, 2);
 
   &:disabled {
     -fx-opacity: cfg.$opacity-disabled;
+  }
+
+  /////////////////////////////////////////////////////////
+  // Horizontal                                          //
+  /////////////////////////////////////////////////////////
+
+  // center thumb over track horizontally
+  &:horizontal {
+    >.track {
+      -fx-padding: map-get($thumb-size, "medium") 0 map-get($thumb-size, "medium") 0;
+      -fx-background-insets: 0, calc(map-get($thumb-size, "medium") - map-get($track-size, "medium")) 0
+                                calc(map-get($thumb-size, "medium") - map-get($track-size, "medium")) 0;
+    }
+    >.progress {
+      -fx-background-radius: $track-radius;
+      -fx-background-insets: 0, calc(map-get($thumb-size, "medium") - map-get($track-size, "medium")) 0
+                                calc(map-get($thumb-size, "medium") - map-get($track-size, "medium")) 0;
+    }
+  }
+
+  &.small:horizontal {
+    >.track {
+      -fx-padding: map-get($thumb-size, "small") 0 map-get($thumb-size, "small") 0;
+      -fx-background-insets: 0, calc(map-get($thumb-size, "small") - map-get($track-size, "small")) 0
+                                calc(map-get($thumb-size, "small") - map-get($track-size, "small")) 0;
+    }
+    >.progress {
+      -fx-padding: map-get($thumb-size, "small") 0 map-get($thumb-size, "small") 0;
+      -fx-background-insets: 0, calc(map-get($thumb-size, "small") - map-get($track-size, "small")) 0
+                                calc(map-get($thumb-size, "small") - map-get($track-size, "small")) 0;
+    }
+  }
+
+  &.large:horizontal {
+    >.track {
+      -fx-padding: map-get($track-size, "large") 0 map-get($track-size, "large") 0;
+      -fx-background-insets: 0;
+    }
+    >.progress {
+      -fx-padding: map-get($track-size, "large") 0 map-get($track-size, "large") 0;
+      -fx-background-insets: 0;
+    }
+  }
+
+  /////////////////////////////////////////////////////////
+  // Vertical                                            //
+  /////////////////////////////////////////////////////////
+
+  // center thumb over track vertically
+  &:vertical {
+    >.track {
+      -fx-padding: 0 map-get($thumb-size, "medium") 0 map-get($thumb-size, "medium");
+      -fx-background-insets: 0, 0 calc(map-get($thumb-size, "medium") - map-get($track-size, "medium"))
+                                0 calc(map-get($thumb-size, "medium") - map-get($track-size, "medium"));
+    }
+    >.progress {
+      -fx-background-radius: $thumb-radius $thumb-radius $track-radius $track-radius;
+      -fx-background-insets: 0, 0 calc(map-get($thumb-size, "medium") - map-get($track-size, "medium"))
+                                0 calc(map-get($thumb-size, "medium") - map-get($track-size, "medium"));
+    }
+  }
+
+  &.small:vertical {
+    >.track {
+      -fx-padding: 0 map-get($thumb-size, "small") 0 map-get($thumb-size, "small");
+      -fx-background-insets: 0, 0 calc(map-get($thumb-size, "small") - map-get($track-size, "small"))
+                                0 calc(map-get($thumb-size, "small") - map-get($track-size, "small"));
+    }
+    >.progress {
+      -fx-padding: map-get($thumb-size, "small") 0 map-get($thumb-size, "small") 0;
+      -fx-background-insets: 0, 0 calc(map-get($thumb-size, "small") - map-get($track-size, "small"))
+                                0 calc(map-get($thumb-size, "small") - map-get($track-size, "small"));
+    }
+  }
+
+  &.large:vertical {
+    >.track {
+      -fx-padding: 0 map-get($track-size, "large") 0 map-get($track-size, "large");
+      -fx-background-insets: 0;
+    }
+    >.progress {
+      -fx-padding: 0 map-get($track-size, "large") 0 map-get($track-size, "large");
+      -fx-background-insets: 0;
+    }
   }
 }

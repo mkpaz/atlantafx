@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import atlantafx.base.controls.Popover;
+import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.Spacer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -115,6 +116,7 @@ final class PlayerPane extends VBox {
         // == TIME CONTROLS ==
 
         timeSlider = new Slider(0, 1, 0);
+        timeSlider.setSkin(new ProgressSliderSkin(timeSlider));
         timeSlider.getStyleClass().add("time-slider");
         timeSlider.setMinWidth(PANEL_MAX_WIDTH);
         timeSlider.setMaxWidth(PANEL_MAX_WIDTH);
@@ -144,6 +146,8 @@ final class PlayerPane extends VBox {
         shuffleBtn.setOnAction(e -> model.shuffle());
 
         volumeSlider = new Slider(0, 1, 0.75);
+        volumeSlider.setSkin(new ProgressSliderSkin(volumeSlider));
+        volumeSlider.getStyleClass().add(SMALL);
         volumeSlider.setOrientation(VERTICAL);
 
         var volumeBar = new VBox(5);
@@ -169,22 +173,7 @@ final class PlayerPane extends VBox {
         setAlignment(CENTER);
         setSpacing(5);
         setMinWidth(300);
-        getChildren().setAll(
-                new Spacer(VERTICAL),
-                new StackPane(coverImage),
-                new Spacer(10, VERTICAL),
-                trackTitle,
-                trackArtist,
-                trackAlbum,
-                new Spacer(20, VERTICAL),
-                mediaControls,
-                new Spacer(10, VERTICAL),
-                timeSlider,
-                timeMarkersBox,
-                new Spacer(10, VERTICAL),
-                extraControls,
-                new Spacer(VERTICAL)
-        );
+        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle, trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider, timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
     }
 
     private void init() {
