@@ -269,9 +269,10 @@ class ContrastChecker extends GridPane {
                 getFgColorName(), fgColor.getColor()
         )));
 
-        var controlsBox = new HBox(20, new Spacer(), flattenBtn, applyBtn);
-        controlsBox.setAlignment(Pos.CENTER_LEFT);
-        controlsBox.setPadding(new Insets(10, 0, 0, 0));
+        var actionsBox = new HBox(20, new Spacer(), flattenBtn, applyBtn);
+        actionsBox.getStyleClass().add("actions");
+        actionsBox.setAlignment(Pos.CENTER_LEFT);
+        actionsBox.setPadding(new Insets(10, 0, 0, 0));
 
         // ~
 
@@ -291,7 +292,7 @@ class ContrastChecker extends GridPane {
         add(bgAlphaLabel, 0, 10);
         add(bgAlphaSlider, 0, 11);
 
-        add(controlsBox, 0, 12, REMAINING, 1);
+        add(actionsBox, 0, 12, REMAINING, 1);
 
         // column 1
         add(new Label("Foreground Color"), 1, 1);

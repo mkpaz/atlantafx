@@ -26,6 +26,17 @@
       -fx-pref-width: 150px;
       -color-cell-bg-selected: -color-cell-bg;
       -color-cell-fg-selected: -color-accent-fg;
+
+      .list-cell {
+        &:filled {
+          -fx-border-width: 0 0 0 2;
+          -fx-border-color: -color-border-muted;
+        }
+        &:selected {
+          -color-cell-fg: -color-cell-fg-selected;
+          -fx-border-color: -color-accent-emphasis;
+        }
+      }
     }
   }
 }
