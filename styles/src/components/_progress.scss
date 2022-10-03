@@ -10,6 +10,9 @@
 $color-bar-track: -color-bg-subtle       !default;
 $color-bar-fill:  -color-accent-emphasis !default;
 
+$color-ring-indicator-track: -color-bg-subtle !default;
+$color-ring-indicator-fill:  -color-accent-emphasis !default;
+
 $size: (
   "small":  2px,
   "medium": 0.4em,
@@ -160,6 +163,43 @@ $size: (
 
     .segment11 {
       -fx-shape: "M45.0 26.0 a3.5,3.5 0 1,1 0,1 Z";
+    }
+  }
+}
+
+.ring-progress-indicator {
+  -fx-indeterminate-animation-time: 3;
+  -color-progress-indicator-track: $color-ring-indicator-track;
+  -color-progress-indicator-fill:  $color-ring-indicator-fill;
+
+  >.container {
+    // for extra small/large indicators you should also change the stroke width
+    -fx-min-width: 4em;
+
+    >.track {
+      -fx-stroke: -color-progress-indicator-track;
+      -fx-stroke-width: 5px;
+    }
+
+    >.ring {
+      -fx-stroke: -color-progress-indicator-fill;
+      -fx-stroke-width: 5px;
+    }
+  }
+
+  &:indeterminate {
+    >.container {
+      // for extra small/large indicators you should also change the stroke width
+      -fx-min-width: 1.5em;
+
+      >.track {
+        visibility: hidden;
+      }
+
+      >.ring {
+        -fx-stroke: linear-gradient(-color-bg-default, -color-progress-indicator-fill);
+        -fx-stroke-width: 2px;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.controls.RingProgressIndicator;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
@@ -12,11 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import static atlantafx.base.theme.Styles.*;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -33,48 +34,109 @@ public class ProgressPage extends AbstractPage {
 
     public ProgressPage() {
         super();
-        setUserContent(new VBox(Page.PAGE_VGAP,
-                expandingHBox(basicBarSample(), basicIndicatorSample()),
-                expandingHBox(barSizeSample(), colorChangeSample())
-        ));
+
+        var grid = new GridPane();
+        grid.setHgap(Page.PAGE_HGAP);
+        grid.setVgap(Page.PAGE_VGAP);
+
+        grid.add(basicBarSample(), 0, 0);
+        grid.add(basicIndicatorSample(), 1, 0);
+
+        grid.add(ringIndicatorSample(), 0, 1);
+        grid.add(barSizeSample(), 1, 1);
+
+        grid.add(colorChangeSample(), 0, 2);
+
+        setUserContent(grid);
     }
 
     private SampleBlock basicBarSample() {
-        var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                createBar(0, false),
-                createBar(0.5, false),
-                createBar(1, false),
-                createBar(0.5, true)
-        );
+        var flowPane = new FlowPane(BLOCK_HGAP, BLOCK_VGAP, createBar(0, false), createBar(0.5, false), createBar(1, false), createBar(0.5, true));
         flowPane.setAlignment(Pos.CENTER_LEFT);
 
         return new SampleBlock("Progress Bar", flowPane);
     }
 
     private SampleBlock basicIndicatorSample() {
-        var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                createIndicator(0, false),
-                createIndicator(0.5, false),
-                createIndicator(1, false),
-                createIndicator(0.5, true)
-        );
+        var flowPane = new FlowPane(BLOCK_HGAP, BLOCK_VGAP, createIndicator(0, false), createIndicator(0.5, false), createIndicator(1, false), createIndicator(0.5, true));
         flowPane.setAlignment(Pos.TOP_LEFT);
 
         return new SampleBlock("Progress Indicator", flowPane);
     }
 
     private SampleBlock barSizeSample() {
-        var container = new VBox(
-                BLOCK_VGAP,
-                new HBox(20, createBar(0.5, false, SMALL), new Text("small")),
-                new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")),
-                new HBox(20, createBar(0.5, false, LARGE), new Text("large"))
-        );
+        var container = new VBox(BLOCK_VGAP, new HBox(20, createBar(0.5, false, SMALL), new Text("small")), new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")), new HBox(20, createBar(0.5, false, LARGE), new Text("large")));
         container.getChildren().forEach(c -> ((HBox) c).setAlignment(Pos.CENTER_LEFT));
 
         return new SampleBlock("Size", container);
+    }
+
+    private SampleBlock ringIndicatorSample() {
+        var basicIndicator = new RingProgressIndicator(0, false);
+
+        var customTextIndicator = new RingProgressIndicator(0.5, false);
+        customTextIndicator.setPrefSize(75, 75);
+        customTextIndicator.setStringConverter(new StringConverter<>() {
+            @Override
+            public String toString(Double progress) {
+                return (int) Math.ceil(progress * 100) + "°";
+            }
+
+            @Override
+            public Double fromString(String progress) {
+                return 0d;
+            }
+        });
+
+        var reverseIndicator = new RingProgressIndicator(0.25, true);
+        reverseIndicator.setPrefSize(150, 150);
+
+        var reverseIndicatorLabel = new Label("25%");
+        reverseIndicatorLabel.getStyleClass().add(TITLE_4);
+
+        var reversePlayButton = new Button("", new FontIcon(Feather.PLAY));
+        reversePlayButton.getStyleClass().addAll(BUTTON_CIRCLE, FLAT);
+        reversePlayButton.disableProperty().bind(reverseIndicator.progressProperty().greaterThan(0.25));
+        reversePlayButton.setOnAction(e1 -> {
+            var task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    int steps = 100;
+
+                    for (int i = 25; i <= steps; i++) {
+                        Thread.sleep(100);
+                        updateProgress(i, steps);
+                        updateMessage(i + "%");
+                    }
+                    return null;
+                }
+            };
+
+            // reset properties, so we can start a new task
+            task.setOnSucceeded(e2 -> {
+                reverseIndicator.progressProperty().unbind();
+                reverseIndicatorLabel.textProperty().unbind();
+
+                reverseIndicator.setProgress(0.25);
+                reverseIndicatorLabel.setText("25%");
+            });
+
+            reverseIndicator.progressProperty().bind(task.progressProperty());
+            reverseIndicatorLabel.textProperty().bind(task.messageProperty());
+
+            new Thread(task).start();
+        });
+
+        var reverseBox = new VBox(10, reverseIndicatorLabel, reversePlayButton);
+        reverseBox.setAlignment(Pos.CENTER);
+        reverseIndicator.setGraphic(reverseBox);
+
+        // ~
+
+        var box = new HBox(BLOCK_HGAP, basicIndicator, customTextIndicator, reverseIndicator);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        return new SampleBlock("Ring Indicator", box);
     }
 
     private SampleBlock colorChangeSample() {
@@ -124,8 +186,7 @@ public class ProgressPage extends AbstractPage {
                 .example:state-danger  .label {
                     -fx-text-fill: -color-fg-emphasis;
                 }
-                """
-        ).addTo(content);
+                """).addTo(content);
 
         runBtn.setOnAction(e1 -> {
             var task = new Task<Void>() {
