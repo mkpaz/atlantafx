@@ -333,7 +333,7 @@ public class Popover extends PopupControl {
         targetY = y;
 
         if (owner == null) {
-            throw new IllegalArgumentException("owner can not be null");
+            throw new NullPointerException("Owner Node cannot be null!");
         }
 
         // this is all needed because children windows do not get their x and y

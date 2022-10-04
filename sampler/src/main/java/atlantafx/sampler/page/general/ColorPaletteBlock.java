@@ -73,16 +73,20 @@ class ColorPaletteBlock extends VBox {
             var bgFill = getBgColor();
 
             // this happens when css isn't updated yet
-            if (bgFill == null) { return; }
+            if (bgFill == null) {
+                return;
+            }
 
             toggleHover(true);
             editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
-                                     Color.WHITE : Color.BLACK
+                    Color.WHITE : Color.BLACK
             );
         });
         colorRectangle.setOnMouseExited(e -> toggleHover(false));
         colorRectangle.setOnMouseClicked(e -> {
-            if (actionHandler != null) { actionHandler.accept(this); }
+            if (actionHandler != null) {
+                actionHandler.accept(this);
+            }
         });
 
         getChildren().addAll(
@@ -152,7 +156,10 @@ class ColorPaletteBlock extends VBox {
     }
 
     static String validateColorName(String colorName) {
-        if (colorName == null || !colorName.startsWith("-color")) {
+        if (colorName == null) {
+            throw new NullPointerException("Color name cannot be null!");
+        }
+        if (!colorName.startsWith("-color")) {
             throw new IllegalArgumentException("Invalid color name: '" + colorName + "'.");
         }
         return colorName;
