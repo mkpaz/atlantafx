@@ -4,8 +4,6 @@ package atlantafx.base.theme;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
 
-import java.util.Objects;
-
 @SuppressWarnings("unused")
 public final class Styles {
 
@@ -77,11 +75,20 @@ public final class Styles {
     public static final String TEXT_UNDERLINED = "text-underlined";
     public static final String TEXT_MUTED = "text-muted";
 
+    /**
+     * Initialize a new Styles
+     */
+    private Styles() {
+        // Default constructor
+    }
+
     // @formatter:on
 
     public static void toggleStyleClass(Node node, String styleClass) {
-        Objects.requireNonNull(node);
-        Objects.requireNonNull(styleClass);
+        if (node == null)
+            throw new NullPointerException("Node cannot be null!");
+        if (styleClass == null)
+            throw new NullPointerException("Style class cannot be null!");
 
         int idx = node.getStyleClass().indexOf(styleClass);
         if (idx > 0) {
@@ -92,8 +99,10 @@ public final class Styles {
     }
 
     public static void addStyleClass(Node node, String styleClass, String... excludes) {
-        Objects.requireNonNull(node);
-        Objects.requireNonNull(styleClass);
+        if (node == null)
+            throw new NullPointerException("Node cannot be null!");
+        if (styleClass == null)
+            throw new NullPointerException("Style class cannot be null!");
 
         if (excludes != null && excludes.length > 0) {
             node.getStyleClass().removeAll(excludes);
@@ -102,8 +111,10 @@ public final class Styles {
     }
 
     public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
-        Objects.requireNonNull(node);
-        Objects.requireNonNull(pseudoClass);
+        if (node == null)
+            throw new NullPointerException("Node cannot be null!");
+        if (pseudoClass == null)
+            throw new NullPointerException("PseudoClass cannot be null!");
 
         if (excludes != null && excludes.length > 0) {
             for (PseudoClass exclude : excludes) {

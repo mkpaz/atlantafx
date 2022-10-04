@@ -3,6 +3,9 @@ package atlantafx.base.theme;
 
 public final class NordLight implements Theme {
 
+    /**
+     * Initialize a new NordLight
+     */
     public NordLight() {
         // Default constructor
     }

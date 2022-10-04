@@ -3,6 +3,9 @@ package atlantafx.base.theme;
 
 public final class PrimerLight implements Theme {
 
+    /**
+     * Initialize a new PrimerLight
+     */
     public PrimerLight() {
         // Default constructor
     }
