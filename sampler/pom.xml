@@ -24,7 +24,8 @@
         <!-- AppDir spec compliant dir for creating AppImage -->
         <build.package.appDir>${project.build.directory}${file.separator}app-dir</build.package.appDir>
         <!-- jlink generated runtime image -->
-        <build.package.runtimeImageDir>${project.build.directory}${file.separator}runtime-image</build.package.runtimeImageDir>
+        <build.package.runtimeImageDir>${project.build.directory}${file.separator}runtime-image
+        </build.package.runtimeImageDir>
         <!-- contains package scripts after filtering and placeholder replacement -->
         <build.package.scriptsDir>${project.build.directory}${file.separator}package-scripts</build.package.scriptsDir>
         <!-- jpackage directory for temp artifacts -->
@@ -136,7 +137,9 @@
                 <artifactId>sass-cli-maven-plugin</artifactId>
                 <configuration>
                     <args>
-                        <arg>${project.basedir}/src/main/resources/assets/styles/scss/index.scss:${project.build.directory}/classes/atlantafx/sampler/assets/styles/index.css</arg>
+                        <arg>
+                            ${project.basedir}/src/main/resources/assets/styles/scss/index.scss:${project.build.directory}/classes/atlantafx/sampler/assets/styles/index.css
+                        </arg>
                         <arg>--no-source-map</arg>
                     </args>
                 </configuration>
@@ -223,7 +226,9 @@
                         </goals>
                         <configuration>
                             <toolName>jlink</toolName>
-                            <addModules>java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.swing,javafx.web</addModules>
+                            <addModules>
+                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.swing,javafx.web
+                            </addModules>
                             <modulePath>${build.platformModulesDir}</modulePath>
                             <output>${build.package.runtimeImageDir}</output>
                             <args>
