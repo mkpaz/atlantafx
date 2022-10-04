@@ -120,7 +120,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
 
             if (i > 0) {
                 // we have to position the bread crumbs slightly overlapping
-                double ins = n instanceof Breadcrumbs.BreadCrumbButton ? ((Breadcrumbs.BreadCrumbButton) n).getArrowWidth() : 0;
+                double ins = n instanceof Breadcrumbs.BreadCrumbButton d ? d.getArrowWidth() : 0;
                 x = snapPositionX(x - ins);
             }
 
