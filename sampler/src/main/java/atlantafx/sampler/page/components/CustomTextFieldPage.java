@@ -2,8 +2,10 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.CustomTextField;
+import atlantafx.base.util.PasswordTextFormatter;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import javafx.scene.Cursor;
 import javafx.scene.layout.FlowPane;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -27,47 +29,71 @@ public class CustomTextFieldPage extends AbstractPage {
                 rightIconSample(),
                 bothIconsSample(),
                 successSample(),
-                dangerSample()
+                dangerSample(),
+                passwordSample()
         ));
     }
 
     private SampleBlock leftIconSample() {
-        var leftIconField = new CustomTextField();
-        leftIconField.setPromptText("Prompt text");
-        leftIconField.setRight(new FontIcon(Feather.X));
-        leftIconField.setPrefWidth(PREF_WIDTH);
-        return new SampleBlock("Left", leftIconField);
+        var tf = new CustomTextField();
+        tf.setPromptText("Prompt text");
+        tf.setRight(new FontIcon(Feather.X));
+        tf.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Left", tf);
     }
 
     private SampleBlock rightIconSample() {
-        var rightIconField = new CustomTextField();
-        rightIconField.setPromptText("Prompt text");
-        rightIconField.setLeft(new FontIcon(Feather.MAP_PIN));
-        rightIconField.setPrefWidth(PREF_WIDTH);
-        return new SampleBlock("Right", rightIconField);
+        var tf = new CustomTextField();
+        tf.setPromptText("Prompt text");
+        tf.setLeft(new FontIcon(Feather.MAP_PIN));
+        tf.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Right", tf);
     }
 
     private SampleBlock bothIconsSample() {
-        var bothIconField = new CustomTextField("Text");
-        bothIconField.setLeft(new FontIcon(Feather.MAP_PIN));
-        bothIconField.setRight(new FontIcon(Feather.X));
-        bothIconField.setPrefWidth(PREF_WIDTH);
-        return new SampleBlock("Both Sides", bothIconField);
+        var tf = new CustomTextField("Text");
+        tf.setLeft(new FontIcon(Feather.MAP_PIN));
+        tf.setRight(new FontIcon(Feather.X));
+        tf.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Both Sides", tf);
     }
 
     private SampleBlock successSample() {
-        var successField = new CustomTextField("Text");
-        successField.pseudoClassStateChanged(STATE_SUCCESS, true);
-        successField.setRight(new FontIcon(Feather.X));
-        successField.setPrefWidth(PREF_WIDTH);
-        return new SampleBlock("Success", successField);
+        var tf = new CustomTextField("Text");
+        tf.pseudoClassStateChanged(STATE_SUCCESS, true);
+        tf.setRight(new FontIcon(Feather.X));
+        tf.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Success", tf);
     }
 
     private SampleBlock dangerSample() {
-        var dangerField = new CustomTextField("Text");
-        dangerField.pseudoClassStateChanged(STATE_DANGER, true);
-        dangerField.setLeft(new FontIcon(Feather.MAP_PIN));
-        dangerField.setPrefWidth(PREF_WIDTH);
-        return new SampleBlock("Danger", dangerField);
+        var tf = new CustomTextField();
+        tf.pseudoClassStateChanged(STATE_DANGER, true);
+        tf.setLeft(new FontIcon(Feather.MAP_PIN));
+        tf.setPrefWidth(PREF_WIDTH);
+        return new SampleBlock("Danger", tf);
+    }
+
+    private SampleBlock passwordSample() {
+        var tf = new CustomTextField("qwerty");
+        tf.setPrefWidth(PREF_WIDTH);
+
+        var passwordFormatter = PasswordTextFormatter.create(tf);
+        tf.setTextFormatter(passwordFormatter);
+
+        var icon = new FontIcon(Feather.EYE_OFF);
+        icon.setCursor(Cursor.HAND);
+        icon.setOnMouseClicked(e -> {
+            if (passwordFormatter.revealPasswordProperty().get()) {
+                passwordFormatter.revealPasswordProperty().set(false);
+                icon.setIconCode(Feather.EYE_OFF);
+            } else {
+                passwordFormatter.revealPasswordProperty().set(true);
+                icon.setIconCode(Feather.EYE);
+            }
+        });
+        tf.setRight(icon);
+
+        return new SampleBlock("Password", tf);
     }
 }

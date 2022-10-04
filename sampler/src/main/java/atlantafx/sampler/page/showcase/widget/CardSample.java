@@ -7,15 +7,19 @@ import atlantafx.sampler.theme.CSSFragment;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import net.datafaker.Faker;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
 import static atlantafx.sampler.page.Page.PAGE_HGAP;
 import static atlantafx.sampler.page.Page.PAGE_VGAP;
@@ -43,7 +47,8 @@ public class CardSample extends HBox {
                 new VBox(
                         PAGE_VGAP,
                         imageTextCard(),
-                        titleImageCard()
+                        titleImageCard(),
+                        statisticCard()
                 )
         );
     }
@@ -111,7 +116,7 @@ public class CardSample extends HBox {
         card.setImage(new ImageView(cropImage));
         card.setTitle("Title");
 
-        var text = new Text(FAKER.lorem().paragraph());
+        var text = new Text(FAKER.lorem().sentence());
         card.setBody(new TextFlow(text));
 
         return card;
@@ -138,6 +143,36 @@ public class CardSample extends HBox {
                 new Text("Share on "),
                 new Hyperlink("Twitter")
         ));
+
+        return card;
+    }
+
+    private Card statisticCard() {
+        var card = new Card();
+        card.setMinWidth(CARD_WIDTH);
+        card.setMaxWidth(CARD_WIDTH);
+        card.setTitle("Statistic");
+
+        var grid = new GridPane();
+        grid.setHgap(40);
+        grid.setVgap(10);
+        card.setBody(grid);
+
+        var leftHead = new Text("Active");
+        leftHead.getStyleClass().add(Styles.TEXT_MUTED);
+        grid.add(leftHead, 0, 0);
+
+        var leftData = new Label("12.87", new FontIcon(Material2AL.ARROW_UPWARD));
+        leftData.getStyleClass().addAll(Styles.SUCCESS, Styles.TITLE_2);
+        grid.add(leftData, 0, 1);
+
+        var rightHead = new Text("Idle");
+        rightHead.getStyleClass().add(Styles.TEXT_MUTED);
+        grid.add(rightHead, 1, 0);
+
+        var rightData = new Label("3.74", new FontIcon(Material2AL.ARROW_DOWNWARD));
+        rightData.getStyleClass().addAll(Styles.DANGER, Styles.TITLE_2);
+        grid.add(rightData, 1, 1);
 
         return card;
     }

@@ -7,6 +7,7 @@ import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.page.showcase.widget.Stepper.Item;
 import atlantafx.sampler.theme.CSSFragment;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -61,20 +62,24 @@ public class StepperSample extends SampleBlock {
 
         // == CONTROLS ==
 
-        var saveBtn = new Button("Save");
-        saveBtn.setDefaultButton(true);
-        saveBtn.setOnAction(e -> {
+        var nextBtn = new Button("Next");
+        nextBtn.setDefaultButton(true);
+        nextBtn.setOnAction(e -> {
             // you can validate user input before moving forward here
             stepper.getSelectedItem().setCompleted(true);
             stepper.forward();
         });
+        nextBtn.textProperty().bind(Bindings.createStringBinding(
+                () -> stepper.canGoForwardProperty().get() ? "Next" : "Done", stepper.canGoForwardProperty())
+        );
 
-        var cancelBtn = new Button("Cancel");
-        cancelBtn.getStyleClass().addAll(Styles.FLAT);
-        cancelBtn.setOnAction(e -> {
+        var prevBtn = new Button("Previous");
+        prevBtn.getStyleClass().addAll(Styles.FLAT);
+        prevBtn.setOnAction(e -> {
             stepper.getSelectedItem().setCompleted(false);
             stepper.backward();
         });
+        prevBtn.disableProperty().bind(stepper.canGoBackProperty().not());
 
         var iconToggle = new ToggleSwitch("Icons");
         iconToggle.selectedProperty().addListener((obs, old, val) -> {
@@ -101,8 +106,8 @@ public class StepperSample extends SampleBlock {
 
         var controls = new HBox(
                 BLOCK_HGAP,
-                saveBtn,
-                cancelBtn,
+                nextBtn,
+                prevBtn,
                 new Spacer(),
                 iconToggle,
                 rotateBtn

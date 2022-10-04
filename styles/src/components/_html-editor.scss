@@ -53,14 +53,10 @@ $color-button-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !defa
   }
 }
 
-// Sadly JavaFX devs have a mania to declare everyting private and final.
-// The below code isn't working, while there are no runtime errors and URLs are correct
-// it's still not loaded for unknown reason.
-// There are to many images here and HMTLEditor itself is obsolete type of control,
-// so I don't want to use data-url. It's either be fixed at OpenJFX or not.
-// Anyone who treats this as a problem can easily fix it by using addtitional CSS file.
-// Just copy CSS rules from below and images from the OpenJFX repo and then use relative
-// URLs. #javafx-bug
+// JavaFX doesn't export (open) Modena resources package, so the below links won't work.
+// Because of AtlantaFX themes are also distributed as single CSS files, it can't be fixed here.
+// You can copy Modena resources and override those URLs in your app CSS to tackle the problem
+// or better use TinyMCE or any other modern JS WYSIWYG editor instead of this legacy control.
 $image-path: "/com/sun/javafx/scene/control/skin/modena" !default;
 
 .color-picker.html-editor-foreground {

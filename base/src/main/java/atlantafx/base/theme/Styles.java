@@ -75,6 +75,7 @@ public final class Styles {
     public static final String TEXT_OBLIQUE       = "text-oblique";
     public static final String TEXT_STRIKETHROUGH = "text-strikethrough";
     public static final String TEXT_UNDERLINED    = "text-underlined";
+    public static final String TEXT_MUTED         = "text-muted";
 
     // @formatter:on
 

@@ -6,13 +6,13 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.css.PseudoClass;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
+import javafx.geometry.VPos;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
@@ -24,7 +24,7 @@ import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 // #javafx-bug Indeterminate (animated) progress bar and also progress indicator
-// are VERY resource expensive. It consumes a single CPU core and a lot of memory.
+// are very resource expensive. It consumes a single CPU core and a lot of memory.
 public class ProgressPage extends AbstractPage {
 
     public static final String NAME = "Progress";
@@ -45,27 +45,46 @@ public class ProgressPage extends AbstractPage {
         grid.add(ringIndicatorSample(), 0, 1);
         grid.add(barSizeSample(), 1, 1);
 
-        grid.add(colorChangeSample(), 0, 2);
+        grid.add(indeterminateSample(), 0, 2);
+        grid.add(colorChangeSample(), 1, 2);
 
         setUserContent(grid);
     }
 
     private SampleBlock basicBarSample() {
-        var flowPane = new FlowPane(BLOCK_HGAP, BLOCK_VGAP, createBar(0, false), createBar(0.5, false), createBar(1, false), createBar(0.5, true));
+        var flowPane = new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                createBar(0, false),
+                createBar(0.5, false),
+                createBar(1, false),
+                createBar(0.5, true)
+        );
         flowPane.setAlignment(Pos.CENTER_LEFT);
 
         return new SampleBlock("Progress Bar", flowPane);
     }
 
     private SampleBlock basicIndicatorSample() {
-        var flowPane = new FlowPane(BLOCK_HGAP, BLOCK_VGAP, createIndicator(0, false), createIndicator(0.5, false), createIndicator(1, false), createIndicator(0.5, true));
+        var flowPane = new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                createIndicator(0, false),
+                createIndicator(0.5, false),
+                createIndicator(1, false),
+                createIndicator(0.5, true)
+        );
         flowPane.setAlignment(Pos.TOP_LEFT);
 
         return new SampleBlock("Progress Indicator", flowPane);
     }
 
     private SampleBlock barSizeSample() {
-        var container = new VBox(BLOCK_VGAP, new HBox(20, createBar(0.5, false, SMALL), new Text("small")), new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")), new HBox(20, createBar(0.5, false, LARGE), new Text("large")));
+        var container = new VBox(
+                BLOCK_VGAP,
+                new HBox(20, createBar(0.5, false, SMALL), new Text("small")),
+                new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")),
+                new HBox(20, createBar(0.5, false, LARGE), new Text("large"))
+        );
+        container.setAlignment(Pos.TOP_LEFT);
         container.getChildren().forEach(c -> ((HBox) c).setAlignment(Pos.CENTER_LEFT));
 
         return new SampleBlock("Size", container);
@@ -75,7 +94,7 @@ public class ProgressPage extends AbstractPage {
         var basicIndicator = new RingProgressIndicator(0, false);
 
         var customTextIndicator = new RingProgressIndicator(0.5, false);
-        customTextIndicator.setPrefSize(75, 75);
+        customTextIndicator.setMinSize(75, 75);
         customTextIndicator.setStringConverter(new StringConverter<>() {
             @Override
             public String toString(Double progress) {
@@ -89,7 +108,7 @@ public class ProgressPage extends AbstractPage {
         });
 
         var reverseIndicator = new RingProgressIndicator(0.25, true);
-        reverseIndicator.setPrefSize(150, 150);
+        reverseIndicator.setMinSize(150, 150);
 
         var reverseIndicatorLabel = new Label("25%");
         reverseIndicatorLabel.getStyleClass().add(TITLE_4);
@@ -139,6 +158,60 @@ public class ProgressPage extends AbstractPage {
         return new SampleBlock("Ring Indicator", box);
     }
 
+    private SampleBlock indeterminateSample() {
+        var grid = new GridPane();
+        grid.setHgap(40);
+        grid.setVgap(BLOCK_VGAP);
+        grid.getColumnConstraints().setAll(
+                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
+                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
+                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true)
+        );
+        grid.getRowConstraints().setAll(
+                new RowConstraints(-1, -1, -1, Priority.ALWAYS, VPos.CENTER, true),
+                new RowConstraints(-1, -1, -1, Priority.NEVER, VPos.CENTER, true)
+        );
+
+        var barToggle = new ToggleButton("Start");
+        barToggle.textProperty().bind(Bindings.createStringBinding(
+                () -> barToggle.isSelected() ? "Stop" : "Start", barToggle.selectedProperty())
+        );
+        var bar = createBar(0, false);
+        bar.progressProperty().bind(Bindings.createDoubleBinding(
+                () -> barToggle.isSelected() ? -1d : 0d, barToggle.selectedProperty())
+        );
+        grid.add(bar, 0, 0);
+        grid.add(barToggle, 0, 1);
+
+        var indicatorToggle = new ToggleButton("Start");
+        indicatorToggle.textProperty().bind(Bindings.createStringBinding(
+                () -> indicatorToggle.isSelected() ? "Stop" : "Start", indicatorToggle.selectedProperty())
+        );
+        var indicator = createIndicator(0, false);
+        indicator.setPrefSize(75, 75);
+        indicator.progressProperty().bind(Bindings.createDoubleBinding(
+                () -> indicatorToggle.isSelected() ? -1d : 0d, indicatorToggle.selectedProperty())
+        );
+        grid.add(indicator, 1, 0);
+        grid.add(indicatorToggle, 1, 1);
+
+        var ringToggle = new ToggleButton("Start");
+        ringToggle.textProperty().bind(Bindings.createStringBinding(
+                () -> ringToggle.isSelected() ? "Stop" : "Start", ringToggle.selectedProperty())
+        );
+        var ring = new RingProgressIndicator(0, false);
+        ring.setMinSize(75, 75);
+        ring.progressProperty().bind(Bindings.createDoubleBinding(
+                () -> ringToggle.isSelected() ? -1d : 0d, ringToggle.selectedProperty())
+        );
+        grid.add(ring, 2, 0);
+        grid.add(ringToggle, 2, 1);
+
+        return new SampleBlock("Indeterminate", grid,
+                               "Animated JavaFX progress indicators aren't cheap. They can consume quite a lot of CPU time."
+        );
+    }
+
     private SampleBlock colorChangeSample() {
         var stateSuccess = PseudoClass.getPseudoClass("state-success");
         var stateDanger = PseudoClass.getPseudoClass("state-danger");
@@ -164,6 +237,7 @@ public class ProgressPage extends AbstractPage {
         var content = new VBox(BLOCK_VGAP);
         content.getChildren().setAll(barStack, runBtn);
         content.setAlignment(Pos.CENTER_LEFT);
+        content.setPrefHeight(200);
 
         bar.progressProperty().addListener((obs, old, val) -> {
             if (val == null) { return; }
@@ -176,17 +250,17 @@ public class ProgressPage extends AbstractPage {
         });
 
         new CSSFragment("""
-                .example:state-success .progress-bar {
-                    -color-progress-bar-fill: -color-success-emphasis;
-                }
-                .example:state-danger  .progress-bar {
-                    -color-progress-bar-fill: -color-danger-emphasis;
-                }
-                .example:state-success .label,
-                .example:state-danger  .label {
-                    -fx-text-fill: -color-fg-emphasis;
-                }
-                """).addTo(content);
+                        .example:state-success .progress-bar {
+                             -color-progress-bar-fill: -color-success-emphasis;
+                         }
+                         .example:state-danger  .progress-bar {
+                             -color-progress-bar-fill: -color-danger-emphasis;
+                         }
+                         .example:state-success .label,
+                         .example:state-danger  .label {
+                             -fx-text-fill: -color-fg-emphasis;
+                         }
+                         """).addTo(content);
 
         runBtn.setOnAction(e1 -> {
             var task = new Task<Void>() {
@@ -224,7 +298,7 @@ public class ProgressPage extends AbstractPage {
         return new SampleBlock("Dynamic Color Change", content);
     }
 
-    private ProgressIndicator createBar(double progress, boolean disabled, String... styleClasses) {
+    private ProgressBar createBar(double progress, boolean disabled, String... styleClasses) {
         var bar = new ProgressBar(progress);
         bar.getStyleClass().addAll(styleClasses);
         bar.setDisable(disabled);

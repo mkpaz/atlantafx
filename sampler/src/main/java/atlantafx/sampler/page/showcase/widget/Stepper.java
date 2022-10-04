@@ -56,7 +56,7 @@ public class Stepper extends HBox {
               -fx-icon-color: -color-stepper-fg;
             }
             .stepper > .item:selected > .graphic {
-              -color-stepper-bg: -color-accent-subtle;
+              -color-stepper-bg: -color-bg-default;
               -color-stepper-fg: -color-accent-fg;
               -color-stepper-border: -color-accent-emphasis;
             }

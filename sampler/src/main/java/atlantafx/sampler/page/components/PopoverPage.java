@@ -8,13 +8,18 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
 
@@ -31,7 +36,7 @@ public class PopoverPage extends AbstractPage {
     public PopoverPage() {
         super();
         setUserContent(new VBox(Page.PAGE_VGAP,
-                new HBox(PAGE_HGAP, textSample(), datePickerSample()),
+                new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
                 positionSample()
         ));
     }
@@ -70,6 +75,42 @@ public class PopoverPage extends AbstractPage {
         ).addTo(link);
 
         return new SampleBlock("Date Picker", link);
+    }
+
+    private SampleBlock dialogSample() {
+        var root = new VBox(BLOCK_VGAP);
+
+        var popover = new Popover(root);
+        popover.setHeaderAlwaysVisible(false);
+        popover.setDetachable(true);
+
+        var icon = new FontIcon(Feather.ALERT_TRIANGLE);
+        icon.setIconSize(32); // not always works
+        icon.setStyle("-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
+
+        var label = new Label(FAKER.chuckNorris().fact(), icon);
+        label.setStyle("-fx-graphic-text-gap:10;");
+        label.setWrapText(true);
+        label.setMaxWidth(300);
+        label.setMaxHeight(Double.MAX_VALUE);
+        root.getChildren().add(label);
+
+        var yesBtn = new Button("Yes");
+        yesBtn.setDefaultButton(true);
+        yesBtn.setOnAction(e -> popover.hide());
+
+        var noBtn = new Button("No");
+        noBtn.setOnAction(e -> popover.hide());
+
+        var box = new HBox(10, yesBtn, noBtn);
+        box.setPadding(new Insets(0, 0, 0, 42));
+        box.setAlignment(Pos.CENTER_LEFT);
+        root.getChildren().add(box);
+
+        var link = createHyperlink("Click me");
+        link.setOnAction(e -> popover.show(link));
+
+        return new SampleBlock("Dialog", link);
     }
 
     private SampleBlock positionSample() {

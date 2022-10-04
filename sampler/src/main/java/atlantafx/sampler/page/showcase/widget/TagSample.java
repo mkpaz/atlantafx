@@ -30,6 +30,7 @@ public class TagSample extends GridPane {
         add(iconTagSample(), 1, 0);
         add(outlinedTagSample(), 0, 1);
         add(closeableTagSample(), 1, 1);
+        add(customColorTagSample(), 0, 2);
     }
 
     private SampleBlock filledTagSample() {
@@ -113,5 +114,43 @@ public class TagSample extends GridPane {
         content.getChildren().add(dangerTag);
 
         return new SampleBlock("Removable", content);
+    }
+
+    private SampleBlock customColorTagSample() {
+        var content = new FlowPane(BLOCK_HGAP, BLOCK_VGAP);
+        content.setPrefWidth(PREF_WIDTH);
+        new CSSFragment("""
+                .brand {
+                  -color-button-fg:         -color-fg-emphasis;
+                  -color-button-bg-hover:   -color-button-bg;
+                  -color-button-bg-pressed: -color-button-bg;
+                }
+                .twitter {
+                  -color-button-bg:     rgb(85, 172, 238);
+                  -color-button-border: rgb(85, 172, 238);
+                }
+                .youtube {
+                  -color-button-bg:     rgb(205, 32, 31);
+                  -color-button-border: rgb(205, 32, 31);
+                }
+                .facebook {
+                  -color-button-bg:     rgb(59, 89, 153);
+                  -color-button-border: rgb(59, 89, 153);
+                }
+                """).addTo(content);
+
+        var twitterTag = new Tag("Twitter", new FontIcon(Feather.TWITTER));
+        twitterTag.getStyleClass().addAll("brand", "twitter");
+        content.getChildren().add(twitterTag);
+
+        var youtubeTag = new Tag("YouTube", new FontIcon(Feather.YOUTUBE));
+        youtubeTag.getStyleClass().addAll("brand", "youtube");
+        content.getChildren().add(youtubeTag);
+
+        var facebookTag = new Tag("Facebook", new FontIcon(Feather.FACEBOOK));
+        facebookTag.getStyleClass().addAll("brand", "facebook");
+        content.getChildren().add(facebookTag);
+
+        return new SampleBlock("Custom Color", content);
     }
 }

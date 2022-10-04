@@ -48,24 +48,55 @@ Text {
 }
 .label.accent {
   -fx-text-fill: -color-accent-fg;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-accent-fg;
+    -fx-fill: -color-accent-fg;
+  }
 }
 .text.success {
   -fx-fill: -color-success-fg;
 }
 .label.success {
   -fx-text-fill: -color-success-fg;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-success-fg;
+    -fx-fill: -color-success-fg;
+  }
 }
 .text.warning {
   -fx-fill: -color-warning-fg;
 }
 .label.warning {
   -fx-text-fill: -color-warning-fg;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-warning-fg;
+    -fx-fill: -color-warning-fg;
+  }
 }
 .text.danger {
   -fx-fill: -color-danger-fg;
 }
 .label.danger {
   -fx-text-fill: -color-danger-fg;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-danger-fg;
+    -fx-fill: -color-danger-fg;
+  }
+}
+.text-muted {
+  -fx-fill: -color-fg-muted;
+}
+.label.text-muted {
+  -fx-text-fill: -color-accent-fg;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-accent-fg;
+    -fx-fill: -color-accent-fg;
+  }
 }
 
 // font weight

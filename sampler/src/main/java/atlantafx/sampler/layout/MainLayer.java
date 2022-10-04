@@ -119,11 +119,11 @@ class MainLayer extends BorderPane {
 
             // animate switching between pages
             subLayerPane.getChildren().add(nextPage.getView());
+            subLayerPane.getChildren().remove(prevPage.getView());
             var transition = new FadeTransition(Duration.millis(PAGE_TRANSITION_DURATION), nextPage.getView());
             transition.setFromValue(0.0);
             transition.setToValue(1.0);
             transition.setOnFinished(t -> {
-                subLayerPane.getChildren().remove(prevPage.getView());
                 if (nextPage instanceof Pane nextPane) { nextPane.toFront(); }
             });
             transition.play();

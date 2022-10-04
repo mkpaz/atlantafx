@@ -137,6 +137,7 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     protected void toggleIndeterminate() {
         var indeterminate = getSkinnable().isIndeterminate();
         progressLabel.setManaged(!indeterminate);
+        progressLabel.setVisible(!indeterminate);
 
         if (indeterminate) {
             if (getSkinnable().isVisible()) {
