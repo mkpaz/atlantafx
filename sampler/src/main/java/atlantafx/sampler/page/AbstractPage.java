@@ -66,6 +66,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
     @Override
     public void reset() { }
 
+    @Override
     protected void layoutChildren() {
         super.layoutChildren();
         if (isRendered) { return; }
