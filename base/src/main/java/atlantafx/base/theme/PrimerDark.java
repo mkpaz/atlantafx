@@ -3,7 +3,9 @@ package atlantafx.base.theme;
 
 public final class PrimerDark implements Theme {
 
-    public PrimerDark() { }
+    public PrimerDark() {
+        // Default constructor
+    }
 
     @Override
     public String getName() {

@@ -3,7 +3,9 @@ package atlantafx.base.theme;
 
 public final class NordDark implements Theme {
 
-    public NordDark() { }
+    public NordDark() {
+        // Default constructor
+    }
 
     @Override
     public String getName() {
