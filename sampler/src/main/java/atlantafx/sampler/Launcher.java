@@ -91,11 +91,13 @@ public class Launcher extends Application {
     private void loadApplicationProperties() {
         try {
             var properties = new Properties();
-            properties.load(new InputStreamReader(Resources.getResourceAsStream("application.properties"), UTF_8));
-            properties.forEach((key, value) -> System.setProperty(
-                    String.valueOf(key),
-                    String.valueOf(value)
-            ));
+            try (InputStreamReader in = new InputStreamReader(Resources.getResourceAsStream("application.properties"), UTF_8)) {
+                properties.load(in);
+                properties.forEach((key, value) -> System.setProperty(
+                        String.valueOf(key),
+                        String.valueOf(value)
+                ));
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
