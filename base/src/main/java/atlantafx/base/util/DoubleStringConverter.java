@@ -26,15 +26,17 @@ import java.text.DecimalFormat;
  */
 public class DoubleStringConverter extends StringConverter<Double> {
 
-    private final DecimalFormat _format = new DecimalFormat("0.##");
-    private Runnable _reset;
+    private final DecimalFormat decimalFormat = new DecimalFormat("0.##");
+    private Runnable reset;
 
     /**
      * Creates a {@link DoubleStringConverter}.
      * Swallows {@link NumberFormatException} but does nothing
      * in response until {@link #setReset} is defined.
      */
-    public DoubleStringConverter() { }
+    public DoubleStringConverter() {
+        // Default constructor
+    }
 
     /**
      * Creates a {@link DoubleStringConverter} with an editor reset callback.
@@ -43,7 +45,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @param reset the {@link Runnable} to call upon {@link NumberFormatException}
      */
     public DoubleStringConverter(Runnable reset) {
-        _reset = reset;
+        this.reset = reset;
     }
 
     /**
@@ -59,10 +61,12 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @throws NullPointerException if {@code input} is {@code null}
      */
     public DoubleStringConverter(TextField input, double min, double max) {
-        if (input == null) { throw new NullPointerException("input"); }
+        if (input == null) {
+            throw new NullPointerException("input");
+        }
 
         final double resetValue = Math.min(Math.max(0, min), max);
-        _reset = () -> input.setText(_format.format(resetValue));
+        reset = () -> input.setText(decimalFormat.format(resetValue));
 
         // bound JavaFX properties cannot be explicitly set
         // if (!input.tooltipProperty().isBound()) {
@@ -71,11 +75,15 @@ public class DoubleStringConverter extends StringConverter<Double> {
 
         // restrict direct input to valid numerical characters
         input.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue == null || newValue.isEmpty()) { return; }
+            if (newValue == null || newValue.isEmpty()) {
+                return;
+            }
 
             // special case: minus sign if negative values allowed
             if (min < 0 && newValue.endsWith("-")) {
-                if (newValue.length() > 1) { Platform.runLater(() -> input.setText("-")); }
+                if (newValue.length() > 1) {
+                    Platform.runLater(() -> input.setText("-"));
+                }
                 return;
             }
 
@@ -95,10 +103,14 @@ public class DoubleStringConverter extends StringConverter<Double> {
 
             // redundant for Spinner but not harmful
             final double restricted = Math.min(Math.max(value, min), max);
-            if (value != restricted) { input.setText(_format.format(restricted)); }
+            if (value != restricted) {
+                input.setText(decimalFormat.format(restricted));
+            }
 
             // required for Spinner which handles onAction
-            if (oldHandler != null) { oldHandler.handle(t); }
+            if (oldHandler != null) {
+                oldHandler.handle(t);
+            }
         });
     }
 
@@ -139,7 +151,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @see #fromString
      */
     public void setReset(Runnable reset) {
-        _reset = reset;
+        this.reset = reset;
     }
 
     /**
@@ -154,14 +166,18 @@ public class DoubleStringConverter extends StringConverter<Double> {
     @Override
     public Double fromString(String s) {
         if (s == null || s.isEmpty()) {
-            if (_reset != null) { _reset.run(); }
+            if (reset != null) {
+                reset.run();
+            }
             return 0.0;
         }
 
         try {
             return Double.valueOf(s);
         } catch (NumberFormatException e) {
-            if (_reset != null) { _reset.run(); }
+            if (reset != null) {
+                reset.run();
+            }
             return 0.0;
         }
     }
@@ -175,7 +191,9 @@ public class DoubleStringConverter extends StringConverter<Double> {
      */
     @Override
     public String toString(Double value) {
-        if (value == null) { return "0"; }
-        return _format.format(value);
+        if (value == null) {
+            return "0";
+        }
+        return decimalFormat.format(value);
     }
 }
