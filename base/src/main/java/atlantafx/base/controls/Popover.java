@@ -156,6 +156,7 @@ public class Popover extends PopupControl {
             if (node == null) {
                 throw new NullPointerException("Node cannot be null!");
             }
+            this.set(node);
         }
     };
 
