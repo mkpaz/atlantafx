@@ -55,7 +55,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      */
     public IntegerStringConverter(TextField input, int min, int max) {
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("Input cannot be null!");
         }
 
         final int resetValue = Math.min(Math.max(0, min), max);
