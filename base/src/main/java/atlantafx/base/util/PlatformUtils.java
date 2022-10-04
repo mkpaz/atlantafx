@@ -3,8 +3,15 @@ package atlantafx.base.util;
 
 public final class PlatformUtils {
 
-    private static final String OS = System.getProperty("os.name");
-    private static final boolean MAC = OS.startsWith("Mac");
+    /**
+     * Initialize a new PlatformUtils
+     */
+    private PlatformUtils() {
+        // Default constructor
+    }
+
+    private static final String OS = System.getProperty("os.name", "generic").toLowerCase();
+    private static final boolean MAC = OS.contains("mac") || OS.contains("darwin");
 
     public static boolean isMac() {
         return MAC;
