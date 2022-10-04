@@ -62,7 +62,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
      */
     public DoubleStringConverter(TextField input, double min, double max) {
         if (input == null) {
-            throw new NullPointerException("input");
+            throw new NullPointerException("Input cannot be null!");
         }
 
         final double resetValue = Math.min(Math.max(0, min), max);

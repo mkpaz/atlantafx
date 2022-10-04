@@ -27,9 +27,12 @@ public class PasswordTextFormatter extends TextFormatter<String> {
                                     char bullet) {
         super(valueConverter, null, filter);
 
-        Objects.requireNonNull(valueConverter);
-        Objects.requireNonNull(filter);
-        Objects.requireNonNull(textField);
+        if (valueConverter == null)
+            throw new NullPointerException("StringConverter cannot be null!");
+        if (filter == null)
+            throw new NullPointerException("UnaryOperator cannot be null!");
+        if (textField == null)
+            throw new NullPointerException("TextField cannot be null!");
 
         PasswordFilter passwordFilter = (PasswordFilter) getFilter();
         passwordFilter.setBullet(bullet);
