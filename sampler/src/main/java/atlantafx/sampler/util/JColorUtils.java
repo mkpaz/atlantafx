@@ -219,7 +219,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex single color to a RGB integer
+     * Convert the hex single color to an RGB integer
      *
      * @param color hex single color in format FF or F
      * @return integer color inclusively between 0 and 255
@@ -233,7 +233,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the arithmetic RGB float to a RGB integer
+     * Convert the arithmetic RGB float to an RGB integer
      *
      * @param color float color inclusively between 0.0 and 1.0
      * @return integer color inclusively between 0 and 255

@@ -216,10 +216,10 @@ public class TablePage extends AbstractPage {
         var stockCol = new TableColumn<Product, Double>("Stock");
         stockCol.getColumns().setAll(stockCountCol, stockAvailCol);
 
-        var table = new TableView<Product>();
-        table.getColumns().setAll(stateCol, indexCol, iconCol, brandCol, nameCol, priceCol, stockCol);
+        var tableView = new TableView<Product>();
+        tableView.getColumns().setAll(stateCol, indexCol, iconCol, brandCol, nameCol, priceCol, stockCol);
 
-        return table;
+        return tableView;
     }
 
     private MenuButton createTablePropertiesMenu(TableView<Product> table) {

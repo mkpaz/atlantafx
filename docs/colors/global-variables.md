@@ -4,9 +4,9 @@ parent: Colors
 nav_order: 2
 ---
 
-Global variables are defined at the Scene root level. You can preview all of the them in the Sampler app.
+Global variables are defined at the Scene root level. You can preview all of them in the Sampler app.
 
-AtlantaFX is based on GitHub Primer color system. You can check [GitHub Primer interface guidelines](https://primer.style/design/foundations/color) for more detailed instructions. There'are functional color variables and color scale variables.
+AtlantaFX is based on GitHub Primer color system. You can check [GitHub Primer interface guidelines](https://primer.style/design/foundations/color) for more detailed instructions. There are functional color variables and color scale variables.
 
 ## Functional colors
 
