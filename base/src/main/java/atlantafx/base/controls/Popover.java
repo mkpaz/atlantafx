@@ -355,10 +355,8 @@ public class Popover extends PopupControl {
             // the user clicked somewhere into the transparent background,
             // if this is the case then hide the window (when attached)
             getScene().addEventHandler(MOUSE_CLICKED, mouseEvent -> {
-                if (mouseEvent.getTarget().equals(getScene().getRoot())) {
-                    if (!isDetached()) {
-                        hide();
-                    }
+                if (mouseEvent.getTarget().equals(getScene().getRoot()) && !isDetached()) {
+                    hide();
                 }
             });
 
