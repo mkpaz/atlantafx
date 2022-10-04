@@ -21,7 +21,7 @@ import javafx.util.StringConverter;
  */
 public class IntegerStringConverter extends StringConverter<Integer> {
 
-    private Runnable _reset;
+    private Runnable reset;
 
     /**
      * Creates an {@link IntegerStringConverter}.
@@ -38,7 +38,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @param reset the {@link Runnable} to call upon {@link NumberFormatException}
      */
     public IntegerStringConverter(Runnable reset) {
-        _reset = reset;
+        this.reset = reset;
     }
 
     /**
@@ -59,7 +59,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
         }
 
         final int resetValue = Math.min(Math.max(0, min), max);
-        _reset = () -> input.setText(Integer.toString(resetValue));
+        reset = () -> input.setText(Integer.toString(resetValue));
 
         // bound JavaFX properties cannot be explicitly set
         // if (!input.tooltipProperty().isBound()) {
@@ -144,7 +144,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @see #fromString
      */
     public void setReset(Runnable reset) {
-        _reset = reset;
+        this.reset = reset;
     }
 
     /**
@@ -159,8 +159,8 @@ public class IntegerStringConverter extends StringConverter<Integer> {
     @Override
     public Integer fromString(String s) {
         if (s == null || s.isEmpty()) {
-            if (_reset != null) {
-                _reset.run();
+            if (reset != null) {
+                reset.run();
             }
             return 0;
         }
@@ -168,8 +168,8 @@ public class IntegerStringConverter extends StringConverter<Integer> {
         try {
             return Integer.valueOf(s);
         } catch (NumberFormatException e) {
-            if (_reset != null) {
-                _reset.run();
+            if (reset != null) {
+                reset.run();
             }
             return 0;
         }
