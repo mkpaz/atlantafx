@@ -39,7 +39,9 @@ public class PasswordTextFormatter extends TextFormatter<String> {
             // Force text field update, because converter is only called on focus
             // events by default. Don't use commitValue() here because caret position
             // won't be correct due to #javafx-bug (https://bugs.openjdk.org/browse/JDK-8248914).
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             textField.setText(passwordProperty().get());
         });
 
@@ -90,7 +92,9 @@ public class PasswordTextFormatter extends TextFormatter<String> {
 
         @Override
         public String toString(String s) {
-            if (s == null) { return ""; }
+            if (s == null) {
+                return "";
+            }
             return filter.revealPassword.get() ? filter.password.get() : filter.maskText(s.length());
         }
 

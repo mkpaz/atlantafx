@@ -28,7 +28,8 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * Swallows {@link NumberFormatException} but does nothing
      * in response until {@link #setReset} is defined.
      */
-    public IntegerStringConverter() { }
+    public IntegerStringConverter() {
+    }
 
     /**
      * Creates an {@link IntegerStringConverter} with an editor reset callback.
@@ -53,7 +54,9 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @throws NullPointerException if {@code input} is {@code null}
      */
     public IntegerStringConverter(TextField input, int min, int max) {
-        if (input == null) { throw new NullPointerException("input"); }
+        if (input == null) {
+            throw new NullPointerException("input");
+        }
 
         final int resetValue = Math.min(Math.max(0, min), max);
         _reset = () -> input.setText(Integer.toString(resetValue));
@@ -65,11 +68,15 @@ public class IntegerStringConverter extends StringConverter<Integer> {
 
         // restrict direct input to valid numerical characters
         input.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue == null || newValue.isEmpty()) { return; }
+            if (newValue == null || newValue.isEmpty()) {
+                return;
+            }
 
             // special case: minus sign if negative values allowed
             if (min < 0 && newValue.endsWith("-")) {
-                if (newValue.length() > 1) { Platform.runLater(() -> input.setText("-")); }
+                if (newValue.length() > 1) {
+                    Platform.runLater(() -> input.setText("-"));
+                }
                 return;
             }
 
@@ -89,10 +96,14 @@ public class IntegerStringConverter extends StringConverter<Integer> {
 
             // redundant for Spinner but not harmful
             final int restricted = Math.min(Math.max(value, min), max);
-            if (value != restricted) { input.setText(Integer.toString(restricted)); }
+            if (value != restricted) {
+                input.setText(Integer.toString(restricted));
+            }
 
             // required for Spinner which handles onAction
-            if (oldHandler != null) { oldHandler.handle(t); }
+            if (oldHandler != null) {
+                oldHandler.handle(t);
+            }
         });
     }
 
@@ -148,14 +159,18 @@ public class IntegerStringConverter extends StringConverter<Integer> {
     @Override
     public Integer fromString(String s) {
         if (s == null || s.isEmpty()) {
-            if (_reset != null) { _reset.run(); }
+            if (_reset != null) {
+                _reset.run();
+            }
             return 0;
         }
 
         try {
             return Integer.valueOf(s);
         } catch (NumberFormatException e) {
-            if (_reset != null) { _reset.run(); }
+            if (_reset != null) {
+                _reset.run();
+            }
             return 0;
         }
     }
@@ -169,7 +184,9 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      */
     @Override
     public String toString(Integer value) {
-        if (value == null) { return "0"; }
+        if (value == null) {
+            return "0";
+        }
         return Integer.toString(value);
     }
 }
