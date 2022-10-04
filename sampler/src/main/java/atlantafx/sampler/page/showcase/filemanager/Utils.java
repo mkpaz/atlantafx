@@ -7,13 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
 
 final class Utils {
 
+    private Utils() {
+        // Default constructor
+    }
+
     public static long fileSize(Path path) {
-        if (path == null) { return 0; }
+        if (path == null) {
+            return 0;
+        }
         try {
             return Files.size(path);
         } catch (IOException e) {
@@ -22,7 +26,9 @@ final class Utils {
     }
 
     public static boolean isFileHidden(Path path) {
-        if (path == null) { return false; }
+        if (path == null) {
+            return false;
+        }
         try {
             return Files.isHidden(path);
         } catch (IOException e) {
@@ -31,7 +37,9 @@ final class Utils {
     }
 
     public static FileTime fileMTime(Path path, LinkOption... options) {
-        if (path == null) { return null; }
+        if (path == null) {
+            return null;
+        }
         try {
             return Files.getLastModifiedTime(path, options);
         } catch (IOException e) {
@@ -45,7 +53,7 @@ final class Utils {
                 try {
                     Desktop.getDesktop().open(path.toFile());
                 } catch (IOException e) {
-                    throw new RuntimeException();
+                    throw new RuntimeException(e);
                 }
             }).start();
         }

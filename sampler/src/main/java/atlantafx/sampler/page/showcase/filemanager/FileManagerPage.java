@@ -4,7 +4,6 @@ package atlantafx.sampler.page.showcase.filemanager;
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Tweaks;
-import atlantafx.sampler.page.components.BreadcrumbsPage;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
 import javafx.geometry.Insets;
