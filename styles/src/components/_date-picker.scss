@@ -14,11 +14,11 @@ $color-day-bg-selected: -color-accent-emphasis !default;
 $color-day-fg:          -color-fg-default      !default;
 $color-day-fg-hover:    -color-fg-default      !default;
 $color-day-fg-selected: -color-fg-emphasis     !default;
-$color-week-bg:         -color-bg-default      !default;
-$color-week-fg:         -color-accent-fg       !default;
+$color-week-bg:         -color-bg-subtle       !default;
+$color-week-fg:         -color-fg-muted        !default;
 $color-today-bg:        -color-accent-subtle   !default;
 $color-today-fg:        -color-accent-fg       !default;
-$color-other-month-fg:  -color-fg-muted        !default;
+$color-other-month-fg:  -color-fg-subtle       !default;
 $color-chrono-fg:       -color-success-fg      !default;
 
 $content-padding-x: 8px !default;
