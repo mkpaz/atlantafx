@@ -757,7 +757,7 @@ public class Popover extends PopupControl {
      */
     public final void setTitle(String title) {
         if (title == null) {
-            throw new IllegalArgumentException("title can not be null");
+            throw new NullPointerException("Title cannot be null!");
         }
         titleProperty().set(title);
     }
