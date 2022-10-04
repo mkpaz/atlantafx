@@ -154,7 +154,7 @@ public class Popover extends PopupControl {
         @Override
         public void setValue(Node node) {
             if (node == null) {
-                throw new IllegalArgumentException("content node can not be null");
+                throw new NullPointerException("Node cannot be null!");
             }
         }
     };
