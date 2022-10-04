@@ -28,12 +28,19 @@ public enum ContrastLevel {
 
     public boolean satisfies(double ratio) {
         switch (this) {
-            case AA_NORMAL -> { return ratio >= 4.5; }
-            case AA_LARGE -> { return ratio >= 3; }
-            case AAA_NORMAL -> { return ratio >= 7; }
-            case AAA_LARGE -> { return ratio >= 4.5; }
+            case AA_NORMAL, AAA_LARGE -> {
+                return ratio >= 4.5;
+            }
+            case AA_LARGE -> {
+                return ratio >= 3;
+            }
+            case AAA_NORMAL -> {
+                return ratio >= 7;
+            }
+            default -> {
+                return false;
+            }
         }
-        return false;
     }
 
     public static double getContrastRatio(Color color1, Color color2) {
@@ -67,8 +74,10 @@ public enum ContrastLevel {
         return (tmp[0] * 0.2126) + (tmp[1] * 0.7152) + (tmp[2] * 0.0722);
     }
 
-    /** @see ContrastLevel#getColorLuminance(double[]) */
+    /**
+     * @see ContrastLevel#getColorLuminance(double[])
+     */
     public static double getColorLuminance(Color color) {
-        return getColorLuminance(new double[] { color.getRed(), color.getGreen(), color.getBlue() });
+        return getColorLuminance(new double[]{color.getRed(), color.getGreen(), color.getBlue()});
     }
 }
