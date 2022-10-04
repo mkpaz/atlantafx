@@ -7,12 +7,15 @@ import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class InputGroupPage extends AbstractPage {
 
@@ -26,7 +29,8 @@ public class InputGroupPage extends AbstractPage {
         setUserContent(new VBox(
                 Page.PAGE_VGAP,
                 expandingHBox(httpMethodSample(), passwordSample()),
-                expandingHBox(networkSample(), dropdownSample())
+                expandingHBox(networkSample(), dropdownSample()),
+                labelSample()
         ));
     }
 
@@ -101,6 +105,58 @@ public class InputGroupPage extends AbstractPage {
         box.setAlignment(Pos.CENTER_LEFT);
 
         return new SampleBlock("MenuButton & TextField", box);
+    }
+
+    private SampleBlock labelSample() {
+        var leftLabel1 = new Label("", new CheckBox());
+        leftLabel1.getStyleClass().add(Styles.LEFT_PILL);
+
+        var rightText1 = new TextField();
+        rightText1.setPromptText("Username");
+        rightText1.getStyleClass().add(Styles.RIGHT_PILL);
+        rightText1.setPrefWidth(100);
+
+        var sample1 = new HBox(leftLabel1, rightText1);
+        sample1.setAlignment(Pos.CENTER_LEFT);
+
+        // ~
+
+        var leftText2 = new TextField("johndoe");
+        leftText2.getStyleClass().add(Styles.LEFT_PILL);
+        leftText2.setPrefWidth(100);
+
+        var centerLabel2 = new Label("@");
+        centerLabel2.getStyleClass().add(Styles.CENTER_PILL);
+
+        var rightText2 = new TextField("gmail.com");
+        rightText2.getStyleClass().add(Styles.RIGHT_PILL);
+        rightText2.setPrefWidth(100);
+
+        var sample2 = new HBox(leftText2, centerLabel2, rightText2);
+        sample2.setAlignment(Pos.CENTER_LEFT);
+
+        // ~
+
+        var leftText3 = new TextField("+123456");
+        leftText3.getStyleClass().add(Styles.LEFT_PILL);
+        leftText3.setPrefWidth(100);
+
+        var rightLabel3 = new Label("", new FontIcon(Feather.DOLLAR_SIGN));
+        rightLabel3.getStyleClass().add(Styles.RIGHT_PILL);
+
+        var sample3 = new HBox(leftText3, rightLabel3);
+        sample3.setAlignment(Pos.CENTER_LEFT);
+
+        // ~
+
+        var flowPane = new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                sample1,
+                sample2,
+                sample3
+        );
+
+        return new SampleBlock("Label & TextField", flowPane);
     }
 }
 
