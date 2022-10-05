@@ -103,10 +103,4 @@ public class BreadcrumbsPage extends AbstractPage {
         }
         return current;
     }
-
-    @Override
-    protected double computePrefHeight(double width) {
-        System.out.println("pref height" + super.computePrefHeight(width));
-        return super.computePrefHeight(width);
-    }
 }

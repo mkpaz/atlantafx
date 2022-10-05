@@ -36,4 +36,5 @@ module atlantafx.sampler {
     opens atlantafx.sampler.assets;
     opens atlantafx.sampler.assets.highlightjs;
     opens atlantafx.sampler.assets.styles;
+    opens atlantafx.sampler.images.modena;
 }
