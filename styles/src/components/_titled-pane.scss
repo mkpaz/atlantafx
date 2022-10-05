@@ -4,11 +4,15 @@
 @use "../settings/effects";
 @use "../settings/icons";
 
-$padding-x: 20px !default;
-$padding-y: 10px !default;
+$padding-x:       20px !default;
+$padding-x-dense: 10px !default;
+$padding-y:       10px !default;
+$padding-y-dense: 5px  !default;
 
-$margin-arrow:   10px !default;
-$margin-content: 20px !default;
+$margin-arrow:         10px !default;
+$margin-arrow-dense:   10px !default;
+$margin-content:       20px !default;
+$margin-content-dense: 10px !default;
 
 .titled-pane {
   -fx-background-color: -color-bg-default;
@@ -91,5 +95,33 @@ $margin-content: 20px !default;
 
   &:show-mnemonics>.mnemonic-underline {
     -fx-stroke: -color-fg-default;
+  }
+
+  &.dense {
+    >.title {
+      -fx-padding: $padding-y-dense $padding-x-dense $padding-y-dense $padding-x-dense;
+
+      >.text {
+        -fx-font-size: 1.1em;
+      }
+
+      >.arrow-button {
+        -fx-padding: 0 $margin-arrow-dense 0 0;
+      }
+    }
+
+    >.content {
+      -fx-padding: $margin-content-dense $padding-x-dense $padding-y-dense $padding-x-dense;
+    }
+  }
+
+  &.alt-icon {
+    >.title {
+      >.arrow-button {
+        >.arrow {
+          @include icons.get("arrow-drop-down", false);
+        }
+      }
+    }
   }
 }

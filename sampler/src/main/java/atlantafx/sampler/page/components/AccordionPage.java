@@ -2,6 +2,7 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
@@ -21,6 +22,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+
 public class AccordionPage extends AbstractPage {
 
     public static final String NAME = "Accordion";
@@ -31,12 +36,15 @@ public class AccordionPage extends AbstractPage {
     private final BooleanProperty expandedProperty = new SimpleBooleanProperty(true);
     private final BooleanProperty animatedProperty = new SimpleBooleanProperty(true);
 
+    private final Accordion accordion;
+
     public AccordionPage() {
         super();
 
+        accordion = createPlayground();
         var sample = new SampleBlock(
                 "Playground",
-                new VBox(SampleBlock.BLOCK_VGAP, createControls(), createPlayground())
+                new VBox(SampleBlock.BLOCK_VGAP, createControls(), accordion)
         );
         sample.setFillHeight(true);
         setUserContent(sample);
@@ -51,7 +59,23 @@ public class AccordionPage extends AbstractPage {
         expandedProperty.bind(expandedToggle.selectedProperty());
         expandedToggle.setSelected(true);
 
-        var controls = new HBox(SampleBlock.BLOCK_HGAP, animatedToggle, expandedToggle);
+        var denseToggle = new ToggleSwitch("Dense");
+        denseToggle.selectedProperty().addListener(
+                (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, DENSE))
+        );
+
+        var altIconToggle = new ToggleSwitch("Alt icon");
+        altIconToggle.selectedProperty().addListener(
+                (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, Tweaks.ALT_ICON))
+        );
+
+        var controls = new HBox(
+                BLOCK_HGAP,
+                animatedToggle,
+                expandedToggle,
+                denseToggle,
+                altIconToggle
+        );
         controls.setAlignment(Pos.CENTER);
         controls.setPadding(new Insets(0, 0, 0, 2));
 

@@ -3,6 +3,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import javafx.geometry.Pos;
@@ -10,17 +11,15 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import static atlantafx.base.theme.Styles.ELEVATED_2;
-import static atlantafx.base.theme.Styles.INTERACTIVE;
+import static atlantafx.base.theme.Styles.*;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static javafx.geometry.HPos.RIGHT;
+import static javafx.scene.layout.Priority.NEVER;
 
 public class TitledPanePage extends AbstractPage {
 
@@ -91,6 +90,24 @@ public class TitledPanePage extends AbstractPage {
         animateToggle.setSelected(true);
         playground.animatedProperty().bind(animateToggle.selectedProperty());
 
+        var denseToggle = new ToggleSwitch("Dense");
+        denseToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(playground, DENSE));
+
+        var altIconToggle = new ToggleSwitch("Alt icon");
+        altIconToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(playground, Tweaks.ALT_ICON));
+
+        var toggles = new GridPane();
+        toggles.setVgap(10);
+        toggles.setHgap(BLOCK_HGAP);
+        toggles.getColumnConstraints().setAll(
+                new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false),
+                new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false)
+        );
+        toggles.add(collapseToggle, 0, 0);
+        toggles.add(animateToggle, 1, 0);
+        toggles.add(denseToggle, 0, 1);
+        toggles.add(altIconToggle, 1, 1);
+
         var controls = new HBox(BLOCK_HGAP);
         controls.setMinHeight(80);
         controls.setFillHeight(false);
@@ -99,8 +116,7 @@ public class TitledPanePage extends AbstractPage {
                 new Label("Elevation"),
                 elevationSlider,
                 new Spacer(),
-                collapseToggle,
-                animateToggle
+                toggles
         );
 
         var content = new VBox(BLOCK_VGAP, textFlow, controls);
