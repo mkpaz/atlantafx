@@ -28,18 +28,13 @@
  */
 package atlantafx.base.controls;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.control.TreeItem;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.util.Callback;
 
 import java.util.UUID;
@@ -47,35 +42,48 @@ import java.util.UUID;
 /**
  * Represents a bread crumb bar. This control is useful to visualize and navigate
  * a hierarchical path structure, such as file systems.
+ * <p>
+ * A breadcrumbs consist of two types of elements: a button (default is a hyperlink)
+ * and a divider (default is for Label). You can customize both by providing the
+ * corresponding control factory.
  */
 @SuppressWarnings("unused")
 public class Breadcrumbs<T> extends Control {
 
-    private static final String STYLE_CLASS_FIRST = "first";
+    protected static final String DEFAULT_STYLE_CLASS = "breadcrumbs";
 
-    /** Represents an Event which is fired when a bread crumb was activated. */
-    public static class BreadCrumbActionEvent<TE> extends Event {
+    protected final Callback<BreadCrumbItem<T>, ButtonBase> defaultCrumbNodeFactory =
+            item -> new Hyperlink(item.getStringValue());
+    protected final Callback<BreadCrumbItem<T>, ? extends Node> defaultDividerFactory =
+            item -> item != null && !item.isLast() ? new Label("/") : null;
 
-        /**
-         * The event type that should be listened to by people interested in
-         * knowing when the {@link Breadcrumbs#selectedCrumbProperty() selected crumb}
-         * has changed.
-         */
-        public static final EventType<BreadCrumbActionEvent<?>> CRUMB_ACTION
-                = new EventType<>("CRUMB_ACTION" + UUID.randomUUID());
+    /** Creates an empty bread crumb bar. */
+    public Breadcrumbs() {
+        this(null);
+    }
 
-        private final TreeItem<TE> selectedCrumb;
+    /**
+     * Creates a bread crumb bar with the given BreadCrumbItem as the currently
+     * selected crumb.
+     */
+    public Breadcrumbs(BreadCrumbItem<T> selectedCrumb) {
+        getStyleClass().add(DEFAULT_STYLE_CLASS);
 
-        /** Creates a new event that can subsequently be fired. */
-        public BreadCrumbActionEvent(TreeItem<TE> selectedCrumb) {
-            super(CRUMB_ACTION);
-            this.selectedCrumb = selectedCrumb;
-        }
+        // breadcrumbs should be the size of its content
+        setPrefWidth(Region.USE_COMPUTED_SIZE);
+        setMaxWidth(Region.USE_PREF_SIZE);
+        setPrefHeight(Region.USE_COMPUTED_SIZE);
+        setMaxHeight(Region.USE_PREF_SIZE);
 
-        /** Returns the crumb which was the action target. */
-        public TreeItem<TE> getSelectedCrumb() {
-            return selectedCrumb;
-        }
+        setSelectedCrumb(selectedCrumb);
+        setCrumbFactory(defaultCrumbNodeFactory);
+        setDividerFactory(defaultDividerFactory);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new BreadcrumbsSkin<>(this);
     }
 
     /**
@@ -83,10 +91,10 @@ public class Breadcrumbs<T> extends Control {
      * as selectedCrumb node to be shown
      */
     @SafeVarargs
-    public static <T> TreeItem<T> buildTreeModel(T... crumbs) {
-        TreeItem<T> subRoot = null;
+    public static <T> BreadCrumbItem<T> buildTreeModel(T... crumbs) {
+        BreadCrumbItem<T> subRoot = null;
         for (T crumb : crumbs) {
-            TreeItem<T> currentNode = new TreeItem<>(crumb);
+            BreadCrumbItem<T> currentNode = new BreadCrumbItem<>(crumb);
             if (subRoot != null) {
                 subRoot.getChildren().add(currentNode);
             }
@@ -95,24 +103,9 @@ public class Breadcrumbs<T> extends Control {
         return subRoot;
     }
 
-    /** Default crumb node factory. This factory is used when no custom factory is specified by the user. */
-    private final Callback<TreeItem<T>, Button> defaultCrumbNodeFactory =
-            crumb -> new BreadCrumbButton(crumb.getValue() != null ? crumb.getValue().toString() : "");
-
-    /** Creates an empty bread crumb bar. */
-    public Breadcrumbs() {
-        this(null);
-    }
-
-    /**
-     * Creates a bread crumb bar with the given TreeItem as the currently
-     * selected crumb.
-     */
-    public Breadcrumbs(TreeItem<T> selectedCrumb) {
-        getStyleClass().add(DEFAULT_STYLE_CLASS);
-        setSelectedCrumb(selectedCrumb);
-        setCrumbFactory(defaultCrumbNodeFactory);
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    // Properties                                                            //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Represents the bottom-most path node (the node on the most-right side in
@@ -125,26 +118,25 @@ public class Breadcrumbs<T> extends Control {
      * <p>
      * To show the above bread crumb bar, you have to set the [file.txt] tree-node as selected crumb.
      */
-    public final ObjectProperty<TreeItem<T>> selectedCrumbProperty() {
+    public final ObjectProperty<BreadCrumbItem<T>> selectedCrumbProperty() {
         return selectedCrumb;
     }
 
-    private final ObjectProperty<TreeItem<T>> selectedCrumb =
+    protected final ObjectProperty<BreadCrumbItem<T>> selectedCrumb =
             new SimpleObjectProperty<>(this, "selectedCrumb");
 
-    /** Get the current target path. */
-    public final TreeItem<T> getSelectedCrumb() {
+    public final BreadCrumbItem<T> getSelectedCrumb() {
         return selectedCrumb.get();
     }
 
-    /** Select one node in the BreadCrumbBar for being the bottom-most path node. */
-    public final void setSelectedCrumb(TreeItem<T> selectedCrumb) {
+    public final void setSelectedCrumb(BreadCrumbItem<T> selectedCrumb) {
         this.selectedCrumb.set(selectedCrumb);
     }
 
     /**
-     * Enable or disable auto navigation (default is enabled).
-     * If auto navigation is enabled, it will automatically navigate to the crumb which was clicked by the user.
+     * Enables or disables auto navigation (default is enabled).
+     * If auto navigation is enabled, it will automatically navigate to the crumb which was
+     * clicked by the user.
      *
      * @return a {@link BooleanProperty}
      */
@@ -152,59 +144,77 @@ public class Breadcrumbs<T> extends Control {
         return autoNavigation;
     }
 
-    private final BooleanProperty autoNavigation =
+    protected final BooleanProperty autoNavigation =
             new SimpleBooleanProperty(this, "autoNavigationEnabled", true);
 
-    /**
-     * Return whether auto-navigation is enabled.
-     *
-     * @return whether auto-navigation is enabled.
-     */
     public final boolean isAutoNavigationEnabled() {
         return autoNavigation.get();
     }
 
-    /**
-     * Enable or disable auto navigation (default is enabled).
-     * If auto navigation is enabled, it will automatically navigate to the crumb which was clicked by the user.
-     */
     public final void setAutoNavigationEnabled(boolean enabled) {
         autoNavigation.set(enabled);
     }
 
     /**
-     * Return an ObjectProperty of the CrumbFactory.
-     *
-     * @return an ObjectProperty of the CrumbFactory.
+     * Crumb factory is used to create custom bread crumb instances.
+     * <code>null</code> is not allowed and will result in a fallback to the default factory.
+     * <p>
+     * <code>BreadCrumbItem<T></code> specifies the tree item for creating bread crumb. Use
+     * {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to create bread crumb
+     * depending on item position.
+     * <p>
+     * <code>ButtonBase</code> stands for resulting bread crumb node. It CAN NOT be <code>null</code>.
      */
-    public final ObjectProperty<Callback<TreeItem<T>, Button>> crumbFactoryProperty() {
+    public final ObjectProperty<Callback<BreadCrumbItem<T>, ButtonBase>> crumbFactoryProperty() {
         return crumbFactory;
     }
 
-    private final ObjectProperty<Callback<TreeItem<T>, Button>> crumbFactory =
+    protected final ObjectProperty<Callback<BreadCrumbItem<T>, ButtonBase>> crumbFactory =
             new SimpleObjectProperty<>(this, "crumbFactory");
 
-    /**
-     * Sets the crumb factory to create (custom) {@link BreadCrumbButton} instances.
-     * <code>null</code> is not allowed and will result in a fallback to the default factory.
-     */
-    public final void setCrumbFactory(Callback<TreeItem<T>, Button> value) {
+    public final void setCrumbFactory(Callback<BreadCrumbItem<T>, ButtonBase> value) {
         if (value == null) {
             value = defaultCrumbNodeFactory;
         }
         crumbFactoryProperty().set(value);
     }
 
-    /**
-     * Returns the cell factory that will be used to create {@link BreadCrumbButton}
-     * instances
-     */
-    public final Callback<TreeItem<T>, Button> getCrumbFactory() {
+    public final Callback<BreadCrumbItem<T>, ButtonBase> getCrumbFactory() {
         return crumbFactory.get();
     }
 
     /**
-     * @return an ObjectProperty representing the crumbAction EventHandler being used.
+     * Divider factory is used to create custom divider instances.
+     * <code>null</code> is not allowed and will result in a fallback to the default factory.
+     * <p>
+     * <code>BreadCrumbItem<T></code> specifies the preceding tree item. It can be null, because this way
+     * you can insert divider before the first bread crumb, which can be used e.g. for creating a Unix path.
+     * Use {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to create divider
+     * depending on item position.
+     * <p>
+     * <code>? extends Node</code> stands for resulting divider node. It CAN be <code>null</code>, which
+     * means there will be no divider inserted after the specified bread crumb.
+     */
+    public final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactoryProperty() {
+        return dividerFactory;
+    }
+
+    protected final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactory =
+            new SimpleObjectProperty<>(this, "dividerFactory");
+
+    public final void setDividerFactory(Callback<BreadCrumbItem<T>, ? extends Node> value) {
+        if (value == null) {
+            value = defaultDividerFactory;
+        }
+        dividerFactoryProperty().set(value);
+    }
+
+    public final Callback<BreadCrumbItem<T>, ? extends Node> getDividerFactory() {
+        return dividerFactory.get();
+    }
+
+    /**
+     * The EventHandler is called when a user selects a bread crumb.
      */
     public final ObjectProperty<EventHandler<BreadCrumbActionEvent<T>>> onCrumbActionProperty() {
         return onCrumbAction;
@@ -215,16 +225,11 @@ public class Breadcrumbs<T> extends Control {
         onCrumbActionProperty().set(value);
     }
 
-    /**
-     * Return the EventHandler currently used when a user selects a crumb.
-     *
-     * @return the EventHandler currently used when a user selects a crumb.
-     */
     public final EventHandler<BreadCrumbActionEvent<T>> getOnCrumbAction() {
         return onCrumbActionProperty().get();
     }
 
-    private final ObjectProperty<EventHandler<BreadCrumbActionEvent<T>>> onCrumbAction = new ObjectPropertyBase<>() {
+    protected final ObjectProperty<EventHandler<BreadCrumbActionEvent<T>>> onCrumbAction = new ObjectPropertyBase<>() {
 
         @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
@@ -243,117 +248,60 @@ public class Breadcrumbs<T> extends Control {
         }
     };
 
-    private static final String DEFAULT_STYLE_CLASS = "bread-crumb-bar";
+    ///////////////////////////////////////////////////////////////////////////
 
-    /** {@inheritDoc} */
-    @Override
-    protected Skin<?> createDefaultSkin() {
-        return new BreadcrumbsSkin<>(this);
+    public static class BreadCrumbItem<T> extends TreeItem<T> {
+
+        // setters must not be exposed to user
+        private boolean first;
+        private boolean last;
+
+        public BreadCrumbItem(T value) {
+            super(value);
+        }
+
+        public boolean isFirst() {
+            return first;
+        }
+
+        void setFirst(boolean first) {
+            this.first = first;
+        }
+
+        public boolean isLast() {
+            return last;
+        }
+
+        void setLast(boolean last) {
+            this.last = last;
+        }
+
+        String getStringValue() {
+            return getValue() != null ? getValue().toString() : "";
+        }
     }
 
-    @SuppressWarnings("FieldCanBeLocal")
-    public static class BreadCrumbButton extends Button {
-
-        private final ObjectProperty<Boolean> first = new SimpleObjectProperty<>(this, STYLE_CLASS_FIRST);
-
-        private final double arrowWidth = 5;
-        private final double arrowHeight = 20;
+    /** Represents an Event which is fired when a bread crumb was activated. */
+    public static class BreadCrumbActionEvent<TE> extends Event {
 
         /**
-         * Create a BreadCrumbButton
-         *
-         * @param text Buttons text
+         * The event type that should be listened to by people interested in
+         * knowing when the {@link Breadcrumbs#selectedCrumbProperty() selected crumb}
+         * has changed.
          */
-        public BreadCrumbButton(String text) {
-            this(text, null);
+        public static final EventType<BreadCrumbActionEvent<?>> CRUMB_ACTION
+                = new EventType<>("CRUMB_ACTION" + UUID.randomUUID());
+
+        private final BreadCrumbItem<TE> selectedCrumb;
+
+        /** Creates a new event that can subsequently be fired. */
+        public BreadCrumbActionEvent(BreadCrumbItem<TE> selectedCrumb) {
+            super(CRUMB_ACTION);
+            this.selectedCrumb = selectedCrumb;
         }
 
-        /**
-         * Create a BreadCrumbButton
-         *
-         * @param text Buttons text
-         * @param gfx  Gfx of the Button
-         */
-        public BreadCrumbButton(String text, Node gfx) {
-            super(text, gfx);
-            first.set(false);
-
-            getStyleClass().addListener((InvalidationListener) obs -> updateShape());
-
-            updateShape();
-        }
-
-        private void updateShape() {
-            this.setShape(createButtonShape());
-        }
-
-        /** Returns the crumb arrow width. */
-        public double getArrowWidth() {
-            return arrowWidth;
-        }
-
-        /** Creates an arrow path. */
-        private Path createButtonShape() {
-            // build the following shape (or home without left arrow)
-
-            //   --------
-            //  \         \
-            //  /         /
-            //   --------
-            Path path = new Path();
-
-            // begin in the upper left corner
-            MoveTo e1 = new MoveTo(0, 0);
-            path.getElements().add(e1);
-
-            // draw a horizontal line that defines the width of the shape
-            HLineTo e2 = new HLineTo();
-            // bind the width of the shape to the width of the button
-            e2.xProperty().bind(this.widthProperty().subtract(arrowWidth));
-            path.getElements().add(e2);
-
-            // draw upper part of right arrow
-            LineTo e3 = new LineTo();
-            // the x endpoint of this line depends on the x property of line e2
-            e3.xProperty().bind(e2.xProperty().add(arrowWidth));
-            e3.setY(arrowHeight / 2.0);
-            path.getElements().add(e3);
-
-            // draw lower part of right arrow
-            LineTo e4 = new LineTo();
-            // the x endpoint of this line depends on the x property of line e2
-            e4.xProperty().bind(e2.xProperty());
-            e4.setY(arrowHeight);
-            path.getElements().add(e4);
-
-            // draw lower horizontal line
-            HLineTo e5 = new HLineTo(0);
-            path.getElements().add(e5);
-
-            if (!getStyleClass().contains(STYLE_CLASS_FIRST)) {
-                // draw lower part of left arrow
-                // we simply can omit it for the first Button
-                LineTo e6 = new LineTo(arrowWidth, arrowHeight / 2.0);
-                path.getElements().add(e6);
-            } else {
-                // draw an arc for the first bread crumb
-                ArcTo arcTo = new ArcTo();
-                arcTo.setSweepFlag(true);
-                arcTo.setX(0);
-                arcTo.setY(0);
-                arcTo.setRadiusX(15.0f);
-                arcTo.setRadiusY(15.0f);
-                path.getElements().add(arcTo);
-            }
-
-            // close path
-            ClosePath e7 = new ClosePath();
-            path.getElements().add(e7);
-
-            // this is a dummy color to fill the shape, it won't be visible
-            path.setFill(Color.BLACK);
-
-            return path;
+        public BreadCrumbItem<TE> getSelectedCrumb() {
+            return selectedCrumb;
         }
     }
 }

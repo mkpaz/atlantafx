@@ -2,21 +2,23 @@
 package atlantafx.sampler.page.showcase.filemanager;
 
 import atlantafx.base.controls.Breadcrumbs;
+import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 
 import java.net.URI;
@@ -156,24 +158,23 @@ public class FileManagerPage extends ShowcasePage {
     }
 
     private Breadcrumbs<Path> breadCrumbs() {
-        Callback<TreeItem<Path>, Button> crumbFactory = crumb -> {
+        Callback<BreadCrumbItem<Path>, ButtonBase> crumbFactory = crumb -> {
             var btn = new Button(crumb.getValue().getFileName().toString());
             btn.getStyleClass().add(FLAT);
             btn.setFocusTraversable(false);
-            if (!crumb.getChildren().isEmpty()) {
-                btn.setGraphic(new FontIcon(Feather.CHEVRON_RIGHT));
-            }
             return btn;
         };
+
+        Callback<BreadCrumbItem<Path>, ? extends Node> dividerFactory = item ->
+                item != null && !item.isLast() ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT)) : null;
 
         var breadcrumbs = new Breadcrumbs<Path>();
         breadcrumbs.setAutoNavigationEnabled(false);
         breadcrumbs.setCrumbFactory(crumbFactory);
-        breadcrumbs.setSelectedCrumb(
-                Breadcrumbs.buildTreeModel(getParentPath(model.currentPathProperty().get(), 4).toArray(Path[]::new))
+        breadcrumbs.setDividerFactory(dividerFactory);
+        breadcrumbs.setSelectedCrumb(Breadcrumbs.buildTreeModel(
+                getParentPath(model.currentPathProperty().get(), 4).toArray(Path[]::new))
         );
-        breadcrumbs.setMaxWidth(Region.USE_PREF_SIZE);
-        breadcrumbs.setMaxHeight(Region.USE_PREF_SIZE);
 
         return breadcrumbs;
     }

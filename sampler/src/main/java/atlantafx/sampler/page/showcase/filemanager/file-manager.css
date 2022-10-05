@@ -11,6 +11,10 @@
     -fx-background-insets: 0, 1;
 }
 
+.file-manager-showcase .breadcrumbs >.divider {
+    -fx-padding: 0;
+}
+
 .file-manager-showcase .table-directory-view .table-view {
     -color-header-bg: -color-bg-default;
     -color-cell-bg-selected: -color-accent-emphasis;

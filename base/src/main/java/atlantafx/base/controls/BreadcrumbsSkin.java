@@ -28,15 +28,14 @@
  */
 package atlantafx.base.controls;
 
-import javafx.beans.value.ChangeListener;
+import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.SkinBase;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeItem.TreeModificationEvent;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,89 +43,90 @@ import java.util.List;
 
 public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
 
-    private static final String STYLE_CLASS_FIRST = "first";
-    private static final String STYLE_CLASS_LAST = "last";
+    protected static final PseudoClass FIRST = PseudoClass.getPseudoClass("first");
+    protected static final PseudoClass LAST = PseudoClass.getPseudoClass("last");
+
+    protected final EventHandler<TreeModificationEvent<Object>> treeChildrenModifiedHandler = e -> updateBreadCrumbs();
 
     public BreadcrumbsSkin(final Breadcrumbs<T> control) {
         super(control);
-        control.selectedCrumbProperty().addListener(selectedPathChangeListener);
+
+        control.selectedCrumbProperty().addListener((obs, old, val) -> updateSelectedPath(old, val));
         updateSelectedPath(getSkinnable().selectedCrumbProperty().get(), null);
     }
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final ChangeListener<TreeItem<T>> selectedPathChangeListener =
-            (obs, oldItem, newItem) -> updateSelectedPath(newItem, oldItem);
+    @Override
+    protected void layoutChildren(double x, double y, double width, double height) {
+        double controlHeight = getSkinnable().getHeight();
+        double nodeX = x, nodeY;
 
-    private void updateSelectedPath(TreeItem<T> newTarget, TreeItem<T> oldTarget) {
-        if (oldTarget != null) {
-            // remove old listener
-            oldTarget.removeEventHandler(TreeItem.childrenModificationEvent(), treeChildrenModifiedHandler);
-        }
-        if (newTarget != null) {
-            // add new listener
-            newTarget.addEventHandler(TreeItem.childrenModificationEvent(), treeChildrenModifiedHandler);
-        }
-        updateBreadCrumbs();
-    }
+        for (int i = 0; i < getChildren().size(); i++) {
+            Node node = getChildren().get(i);
 
-    private final EventHandler<TreeModificationEvent<Object>> treeChildrenModifiedHandler =
-            args -> updateBreadCrumbs();
+            double nodeWidth = snapSizeX(node.prefWidth(height));
+            double nodeHeight = snapSizeY(node.prefHeight(-1));
 
-    private void updateBreadCrumbs() {
-        final Breadcrumbs<T> buttonBar = getSkinnable();
-        final TreeItem<T> pathTarget = buttonBar.getSelectedCrumb();
-        final Callback<TreeItem<T>, Button> factory = buttonBar.getCrumbFactory();
+            // center node within the breadcrumbs
+            nodeY = nodeHeight < controlHeight ? (controlHeight - nodeHeight) / 2 : y;
 
-        getChildren().clear();
-
-        if (pathTarget != null) {
-            List<TreeItem<T>> crumbs = constructFlatPath(pathTarget);
-
-            for (int i = 0; i < crumbs.size(); i++) {
-                Button crumb = createCrumb(factory, crumbs.get(i));
-                crumb.setMnemonicParsing(false);
-
-                boolean first = crumbs.size() > 1 && i == 0;
-                boolean last = crumbs.size() > 1 && i == crumbs.size() - 1;
-
-                if (first) {
-                    crumb.getStyleClass().remove(STYLE_CLASS_LAST);
-                    addStyleClass(crumb, STYLE_CLASS_FIRST);
-                } else if (last) {
-                    crumb.getStyleClass().remove(STYLE_CLASS_FIRST);
-                    addStyleClass(crumb, STYLE_CLASS_LAST);
-                } else {
-                    crumb.getStyleClass().removeAll(STYLE_CLASS_FIRST, STYLE_CLASS_LAST);
-                }
-
-                getChildren().add(crumb);
-            }
-        }
-    }
-
-    private void addStyleClass(Node node, String styleClass) {
-        if (!node.getStyleClass().contains(styleClass)) {
-            node.getStyleClass().add(styleClass);
+            node.resizeRelocate(nodeX, nodeY, nodeWidth, nodeHeight);
+            nodeX += nodeWidth;
         }
     }
 
     @Override
-    protected void layoutChildren(double x, double y, double w, double h) {
-        for (int i = 0; i < getChildren().size(); i++) {
-            Node n = getChildren().get(i);
+    protected double computeMinWidth(double height, double topInset, double rightInset,
+                                     double bottomInset, double leftInset) {
+        double width = 0;
+        for (Node node : getChildren()) {
+            if (!node.isManaged()) { continue; }
+            width += snapSizeX(node.prefWidth(height));
+        }
 
-            double nw = snapSizeX(n.prefWidth(h));
-            double nh = snapSizeY(n.prefHeight(-1));
+        return width + rightInset + leftInset;
+    }
 
-            if (i > 0) {
-                // we have to position the bread crumbs slightly overlapping
-                double ins = n instanceof Breadcrumbs.BreadCrumbButton d ? d.getArrowWidth() : 0;
-                x = snapPositionX(x - ins);
+    protected void updateSelectedPath(BreadCrumbItem<T> old, BreadCrumbItem<T> val) {
+        if (old != null) {
+            old.removeEventHandler(BreadCrumbItem.childrenModificationEvent(), treeChildrenModifiedHandler);
+        }
+        if (val != null) {
+            val.addEventHandler(BreadCrumbItem.childrenModificationEvent(), treeChildrenModifiedHandler);
+        }
+        updateBreadCrumbs();
+    }
+
+    protected void updateBreadCrumbs() {
+        getChildren().clear();
+        BreadCrumbItem<T> selectedTreeItem = getSkinnable().getSelectedCrumb();
+        Node divider;
+        if (selectedTreeItem != null) {
+            // optionally insert divider before the first node
+            divider = createDivider(null);
+            if (divider != null) {
+                divider.pseudoClassStateChanged(FIRST, true);
+                divider.pseudoClassStateChanged(LAST, false);
+                getChildren().add(divider);
             }
 
-            n.resize(nw, nh);
-            n.relocate(x, y);
-            x += nw;
+            List<BreadCrumbItem<T>> crumbs = constructFlatPath(selectedTreeItem);
+            for (BreadCrumbItem<T> treeItem : crumbs) {
+                ButtonBase crumb = createCrumb(treeItem);
+                crumb.pseudoClassStateChanged(FIRST, treeItem.isFirst());
+                crumb.pseudoClassStateChanged(LAST, treeItem.isLast());
+                getChildren().add(crumb);
+
+                // for the sake of flexibility, it's user responsibility to decide
+                // whether insert divider after the last node or not
+                divider = createDivider(treeItem);
+                if (divider != null) {
+                    if (treeItem.isLast()) {
+                        divider.pseudoClassStateChanged(FIRST, false);
+                        divider.pseudoClassStateChanged(LAST, true);
+                    }
+                    getChildren().add(divider);
+                }
+            }
         }
     }
 
@@ -135,31 +135,51 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
      *
      * @param bottomMost The crumb node at the end of the path
      */
-    private List<TreeItem<T>> constructFlatPath(TreeItem<T> bottomMost) {
-        List<TreeItem<T>> path = new ArrayList<>();
+    protected List<BreadCrumbItem<T>> constructFlatPath(BreadCrumbItem<T> bottomMost) {
+        List<BreadCrumbItem<T>> path = new ArrayList<>();
 
-        TreeItem<T> current = bottomMost;
+        BreadCrumbItem<T> current = bottomMost;
         do {
             path.add(current);
-            current = current.getParent();
+            current.setFirst(false);
+            current.setLast(false);
+            current = (BreadCrumbItem<T>) current.getParent();
         } while (current != null);
 
         Collections.reverse(path);
+
+        // if the path consists of a single item it considered as first, but not last
+        if (path.size() > 0) { path.get(0).setFirst(true); }
+        if (path.size() > 1) { path.get(path.size() - 1).setLast(true); }
+
         return path;
     }
 
-    private Button createCrumb(
-            final Callback<TreeItem<T>, Button> factory,
-            final TreeItem<T> selectedCrumb) {
+    protected ButtonBase createCrumb(BreadCrumbItem<T> treeItem) {
+        ButtonBase crumb = getSkinnable().getCrumbFactory().call(treeItem);
+        crumb.setMnemonicParsing(false);
 
-        Button crumb = factory.call(selectedCrumb);
-
-        crumb.getStyleClass().add("crumb"); //$NON-NLS-1$
+        if (!crumb.getStyleClass().contains("crumb")) {
+            crumb.getStyleClass().add("crumb");
+        }
 
         // listen to the action event of each bread crumb
-        crumb.setOnAction(ae -> onBreadCrumbAction(selectedCrumb));
+        crumb.setOnAction(e -> onBreadCrumbAction(treeItem));
 
         return crumb;
+    }
+
+    protected Node createDivider(BreadCrumbItem<T> treeItem) {
+        Node divider = getSkinnable().getDividerFactory().call(treeItem);
+        if (divider == null) {
+            return null;
+        }
+
+        if (!divider.getStyleClass().contains("divider")) {
+            divider.getStyleClass().add("divider");
+        }
+
+        return divider;
     }
 
     /**
@@ -167,7 +187,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
      *
      * @param crumbModel The crumb which received the action event
      */
-    protected void onBreadCrumbAction(final TreeItem<T> crumbModel) {
+    protected void onBreadCrumbAction(BreadCrumbItem<T> crumbModel) {
         final Breadcrumbs<T> breadCrumbBar = getSkinnable();
 
         // fire the composite event in the breadCrumbBar
