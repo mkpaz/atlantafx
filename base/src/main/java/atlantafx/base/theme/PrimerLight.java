@@ -3,7 +3,12 @@ package atlantafx.base.theme;
 
 public final class PrimerLight implements Theme {
 
-    public PrimerLight() { }
+    /**
+     * Initialize a new PrimerLight
+     */
+    public PrimerLight() {
+        // Default constructor
+    }
 
     @Override
     public String getName() {

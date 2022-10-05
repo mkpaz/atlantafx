@@ -1,8 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.theme;
 
-import java.util.Objects;
-
 import static javafx.application.Application.STYLESHEET_CASPIAN;
 import static javafx.application.Application.STYLESHEET_MODENA;
 
@@ -17,9 +15,11 @@ public interface Theme {
 
     boolean isDarkMode();
 
-    static Theme of(String name, String userAgentStylesheet, boolean darkMode) {
-        Objects.requireNonNull(name);
-        Objects.requireNonNull(userAgentStylesheet);
+    static Theme of(final String name, final String userAgentStylesheet, final boolean darkMode) {
+        if (name == null)
+            throw new NullPointerException("Name cannot be null!");
+        if (userAgentStylesheet == null)
+            throw new NullPointerException("User agent stylesheet cannot be null!");
 
         return new Theme() {
 

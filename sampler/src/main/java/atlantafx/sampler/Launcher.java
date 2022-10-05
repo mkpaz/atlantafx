@@ -60,7 +60,9 @@ public class Launcher extends Application {
         var tm = ThemeManager.getInstance();
         tm.setScene(scene);
         tm.setTheme(tm.getDefaultTheme());
-        if (IS_DEV_MODE) { startCssFX(scene); }
+        if (IS_DEV_MODE) {
+            startCssFX(scene);
+        }
 
         scene.getStylesheets().addAll(Resources.resolve("assets/styles/index.css"));
 
@@ -89,9 +91,9 @@ public class Launcher extends Application {
     }
 
     private void loadApplicationProperties() {
-        try {
-            var properties = new Properties();
-            properties.load(new InputStreamReader(Resources.getResourceAsStream("application.properties"), UTF_8));
+        Properties properties = new Properties();
+        try (InputStreamReader in = new InputStreamReader(Resources.getResourceAsStream("application.properties"), UTF_8)) {
+            properties.load(in);
             properties.forEach((key, value) -> System.setProperty(
                     String.valueOf(key),
                     String.valueOf(value)

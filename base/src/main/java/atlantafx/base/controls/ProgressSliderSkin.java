@@ -31,17 +31,18 @@ public class ProgressSliderSkin extends SliderSkin {
     protected void layoutChildren(double x, double y, double w, double h) {
         super.layoutChildren(x, y, w, h);
 
-        double progressX, progressY, progressWidth, progressHeight;
+        double progressX = track.getLayoutX();
+        double progressY;
+        double progressWidth;
+        double progressHeight;
 
         // intentionally ignore background radius in calculation,
         // because slider looks better this way
         if (getSkinnable().getOrientation() == Orientation.HORIZONTAL) {
-            progressX = track.getLayoutX();
             progressY = track.getLayoutY();
             progressWidth = thumb.getLayoutX() - snappedLeftInset();
             progressHeight = track.getHeight();
         } else {
-            progressX = track.getLayoutX();
             progressY = thumb.getLayoutY();
             progressWidth = track.getWidth();
             progressHeight = track.getLayoutBounds().getMaxY() + track.getLayoutY() - thumb.getLayoutY() - snappedBottomInset();

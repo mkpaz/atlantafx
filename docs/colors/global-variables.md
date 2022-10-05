@@ -4,29 +4,29 @@ parent: Colors
 nav_order: 2
 ---
 
-Global variables are defined at the Scene root level. You can preview all of the them in the Sampler app.
+Global variables are defined at the Scene root level. You can preview all of them in the Sampler app.
 
-AtlantaFX is based on GitHub Primer color system. You can check [GitHub Primer interface guidelines](https://primer.style/design/foundations/color) for more detailed instructions. There'are functional color variables and color scale variables.
+AtlantaFX is based on GitHub Primer color system. You can check [GitHub Primer interface guidelines](https://primer.style/design/foundations/color) for more detailed instructions. There are functional color variables and color scale variables.
 
 ## Functional colors
 
 Foreground colors.
 
-| Color | Usage |
-|-------|-------|
-| `-color-fg-default`  | Primary color for text and icons. It should be used for body content, titles and labels. |
+| Color                | Usage                                                                                                                            |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `-color-fg-default`  | Primary color for text and icons. It should be used for body content, titles and labels.                                         |
 | `-color-fg-muted`    | For content that is secondary or that provides additional context but is not critical to understanding the flow of an interface. |
-| `-color-fg-subtle`   | For placeholders or decorative foregrounds. |
-| `-color-fg-emphasis` | The text color designed to combine with `*-emphasis` backgrounds for optimal contrast. |
+| `-color-fg-subtle`   | For placeholders or decorative foregrounds.                                                                                      |
+| `-color-fg-emphasis` | The text color designed to combine with `*-emphasis` backgrounds for optimal contrast.                                           |
 
 Background colors.
 
-| Color | Usage |
-|-------|-------|
-| `-color-bg-default`| Primary background color.                                          |
-| `-color-bg-overlay`| Background color for popup controls such as popovers and tooltips. |
-| `-color-bg-subtle` | Provides visual rest and contrast against the default background.  |
-| `-color-bg-inset`  | For a focal point, such as in conversations or activity feeds.     |
+| Color               | Usage                                                              |
+|---------------------|--------------------------------------------------------------------|
+| `-color-bg-default` | Primary background color.                                          |
+| `-color-bg-overlay` | Background color for popup controls such as popovers and tooltips. |
+| `-color-bg-subtle`  | Provides visual rest and contrast against the default background.  |
+| `-color-bg-inset`   | For a focal point, such as in conversations or activity feeds.     |
 
 Border colors.
 

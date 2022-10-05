@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
@@ -66,6 +65,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
     @Override
     public void reset() { }
 
+    @Override
     protected void layoutChildren() {
         super.layoutChildren();
         if (isRendered) { return; }
@@ -81,7 +81,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     protected Overlay lookupOverlay() {
-        return getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay overlay ? overlay : null;
+        return getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay ov ? ov : null;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     protected <T> List<T> generate(Supplier<T> supplier, int count) {
-        return Stream.generate(supplier).limit(count).collect(Collectors.toList());
+        return Stream.generate(supplier).limit(count).toList();
     }
 
     protected Feather randomIcon() {

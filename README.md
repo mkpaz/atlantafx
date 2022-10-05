@@ -55,7 +55,7 @@ Check the [docs](https://mkpaz.github.io/atlantafx/) for more information.
 
 * SASS
 
-  JavaFX standard themes, namely Modena and Caspian, maintained as a huge single CSS file, which is an overwhelmingly hard task. This alone makes creating a new JavaFX theme from scratch hardly possible. Also, JavaFX styling is based on CSS v2.1 specification which does not provide, nor variables, nor mixins, nor modules nor any other goodies that are default for modern front-end development. AtlantaFX themes are written in SASS with each component in a separate module and use recent [Dart SASS](https://sass-lang.com/dart-sass) implementation for CSS compilation. It also follows [Github Primer](https://primer.style/design/foundations/color) color system to make creating new themes more simple.
+  JavaFX standard themes, namely Modena and Caspian, maintained as a huge single CSS file, which is an overwhelmingly hard task. This alone makes creating a new JavaFX theme from scratch hardly possible. Also, JavaFX styling is based on CSS v2.1 specification which does not provide, nor variables, nor mixins, nor modules nor any other goodies that are default for modern front-end development. AtlantaFX themes are written in SASS with each component in a separate module and use recent [Dart SASS](https://sass-lang.com/dart-sass) implementation for CSS compilation. It also follows [GitHub Primer](https://primer.style/design/foundations/color) color system to make creating new themes more simple.
 
 * Additional controls
 

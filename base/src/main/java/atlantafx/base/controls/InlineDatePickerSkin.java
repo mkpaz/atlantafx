@@ -238,7 +238,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
         backButton = new Button();
         backButton.getStyleClass().addAll("back-button");
-        backButton.setOnMouseClicked(e -> behavior.moveBackward(e));
+        backButton.setOnMouseClicked(behavior::moveBackward);
 
         StackPane leftArrow = new StackPane();
         leftArrow.getStyleClass().add("left-arrow");
@@ -256,7 +256,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
         forwardButton = new Button();
         forwardButton.getStyleClass().addAll("forward-button");
-        forwardButton.setOnMouseClicked(e -> behavior.moveForward(e));
+        forwardButton.setOnMouseClicked(behavior::moveForward);
 
         StackPane rightArrow = new StackPane();
         rightArrow.getStyleClass().add("right-arrow");
@@ -564,8 +564,8 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
     public void rememberFocusedDayCell() {
         Node node = getControl().getScene().getFocusOwner();
-        if (node instanceof DateCell) {
-            lastFocusedDayCell = (DateCell) node;
+        if (node instanceof DateCell dc) {
+            lastFocusedDayCell = dc;
         }
     }
 
