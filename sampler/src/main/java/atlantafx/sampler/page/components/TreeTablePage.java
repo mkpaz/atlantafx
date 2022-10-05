@@ -57,12 +57,15 @@ public class TreeTablePage extends AbstractPage {
         var stripesToggle = new ToggleSwitch("Striped");
         stripesToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(treeTable, STRIPED));
 
+        var altIconToggle = new ToggleSwitch("Alt icon");
+        altIconToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(treeTable, Tweaks.ALT_ICON));
+
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
                 (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
         );
 
-        var footer = new HBox(BLOCK_HGAP, bordersToggle, denseToggle, stripesToggle, edge2edgeToggle);
+        var footer = new HBox(BLOCK_HGAP, bordersToggle, denseToggle, stripesToggle, altIconToggle, edge2edgeToggle);
         footer.setAlignment(Pos.CENTER);
 
         // == TREE TABLE ==

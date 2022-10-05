@@ -9,6 +9,7 @@ $color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !defaul
 $color-cell-fg-selected: -color-fg-default     !default;
 $color-cell-bg-odd:      -color-bg-subtle      !default;
 $color-cell-border:      -color-border-default !default;
+$color-disclosure:       -color-fg-muted       !default;
 
 $color-header-bg: -color-bg-subtle  !default;
 $color-header-fg: -color-fg-default !default;
@@ -36,6 +37,7 @@ $tree-cell-indent:           1em    !default;
   -color-cell-fg-selected: $color-cell-fg-selected;
   -color-cell-bg-odd: $color-cell-bg-odd;
   -color-cell-border: $color-cell-border;
+  -color-disclosure:  $color-disclosure;
 
   -fx-border-color: -color-cell-border;
   -fx-border-width: cfg.$border-width;
@@ -408,6 +410,22 @@ $tree-cell-indent:           1em    !default;
       -fx-padding: $tree-cell-padding-y-dense 0 $tree-cell-padding-y-dense 0;
     }
   }
+
+  &.alt-icon {
+    .tree-cell>.tree-disclosure-node {
+      -fx-padding: 0.2em $tree-cell-padding-x 0 $tree-cell-padding-x;
+    }
+
+    .tree-cell>.tree-disclosure-node>.arrow {
+      @include icons.get("plus-box", true);
+      -fx-padding: 0.5em;
+    }
+
+    .tree-cell:expanded>.tree-disclosure-node>.arrow {
+      @include icons.get("minus-box", true);
+      -fx-padding: 0.5em;
+    }
+  }
 }
 
 .tree-cell {
@@ -424,7 +442,7 @@ $tree-cell-indent:           1em    !default;
   // re-adjust paddings as well. Also learn about TreeCellSkin#maxDisclosureWidthMap.
   // #javafx-bug
   >.tree-disclosure-node {
-    -fx-padding: 5px $tree-cell-padding-x 0 $tree-cell-padding-x;
+    -fx-padding: 0.35em $tree-cell-padding-x 0 $tree-cell-padding-x;
     -fx-background-color: transparent;
   }
 }
@@ -432,7 +450,7 @@ $tree-cell-indent:           1em    !default;
 .tree-cell>.tree-disclosure-node>.arrow,
 .tree-table-row-cell>.tree-disclosure-node>.arrow {
   @include icons.get("arrow-right", false);
-  -fx-background-color: -color-cell-fg;
+  -fx-background-color: -color-disclosure;
   -fx-padding: 0.333333em 0.229em 0.333333em 0.229em;
 }
 
@@ -528,6 +546,18 @@ $tree-cell-indent:           1em    !default;
       &.table-column.align-right {
         -fx-alignment: CENTER-RIGHT;
       }
+    }
+  }
+
+  &.alt-icon {
+    .tree-table-row-cell>.tree-disclosure-node>.arrow {
+      @include icons.get("plus-box", true);
+      -fx-padding: 0.5em;
+    }
+
+    .tree-table-row-cell:expanded>.tree-disclosure-node>.arrow {
+      @include icons.get("minus-box", true);
+      -fx-padding: 0.5em;
     }
   }
 }

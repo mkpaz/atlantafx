@@ -63,6 +63,11 @@ public class TreePage extends AbstractPage {
         }));
         showRootToggle.setSelected(true);
 
+        var altIconToggle = new ToggleSwitch("Alt icon");
+        altIconToggle.selectedProperty().addListener((obs, old, val) ->
+                findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.ALT_ICON))
+        );
+
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
                 (obs, old, val) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.EDGE_TO_EDGE))
@@ -73,7 +78,7 @@ public class TreePage extends AbstractPage {
             if (val != null) { tv.setDisable(val); }
         }));
 
-        var controls = new HBox(BLOCK_HGAP, denseToggle, showRootToggle, edge2edgeToggle);
+        var controls = new HBox(BLOCK_HGAP, denseToggle, showRootToggle, altIconToggle, edge2edgeToggle);
         controls.setAlignment(Pos.CENTER);
 
         VBox.setVgrow(treeWrapper, Priority.ALWAYS);
