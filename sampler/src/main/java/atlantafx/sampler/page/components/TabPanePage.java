@@ -15,8 +15,7 @@ import javafx.scene.layout.*;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import static atlantafx.base.theme.Styles.ACCENT;
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.*;
 import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
@@ -131,6 +130,9 @@ public class TabPanePage extends AbstractPage {
             }
         });
 
+        var denseToggle = new ToggleSwitch();
+        denseToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(tabs, DENSE));
+
         var disableToggle = new ToggleSwitch();
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
             if (val != null) { tabs.setDisable(val); }
@@ -152,8 +154,11 @@ public class TabPanePage extends AbstractPage {
         togglesGrid.add(createGridLabel("Full width"), 0, 3);
         togglesGrid.add(fullWidthToggle, 1, 3);
 
-        togglesGrid.add(createGridLabel("Disable"), 0, 4);
-        togglesGrid.add(disableToggle, 1, 4);
+        togglesGrid.add(createGridLabel("Dense"), 0, 4);
+        togglesGrid.add(denseToggle, 1, 4);
+
+        togglesGrid.add(createGridLabel("Disable"), 0, 5);
+        togglesGrid.add(disableToggle, 1, 5);
 
         // == LAYOUT ==
 
