@@ -55,10 +55,16 @@ public class Stepper extends HBox {
               -fx-fill: -color-stepper-fg;
               -fx-icon-color: -color-stepper-fg;
             }
+            .stepper > .item:selected {
+              -color-stepper-bg: -color-bg-default;
+              -color-stepper-fg: -color-accent-fg;
+              -color-stepper-border: -color-accent-emphasis;
+            }
             .stepper > .item:selected > .graphic {
               -color-stepper-bg: -color-bg-default;
               -color-stepper-fg: -color-accent-fg;
               -color-stepper-border: -color-accent-emphasis;
+              -fx-border-width: 2;
             }
             .stepper > .item:completed {
               -color-stepper-bg: -color-accent-emphasis;

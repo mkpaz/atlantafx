@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 @use "sass:math";
+@use "sass:color";
 
 // Darkens or lightens specified color depending on the color scheme.
 // Avoid using this function, stick to color scale tints and shades instead.
@@ -38,4 +39,17 @@
   @if (unitless($font-size)) { $font-size: $font-size * 1px; }
 
   @return math.div($pixels, $font-size) * 1em;
+}
+
+@function flattenColor($bg: #ffffff, $fg) {
+  $opacity: color.opacity($fg);
+  @if $opacity == 1  { @return $fg; }
+
+  $red   : $opacity * math.div(color.red($fg),   255) + (1 - $opacity) * math.div(color.red($bg ) , 255);
+  $green : $opacity * math.div(color.green($fg), 255) + (1 - $opacity) * math.div(color.green($bg), 255);
+  $blue  : $opacity * math.div(color.blue($fg),  255) + (1 - $opacity) * math.div(color.blue($bg) , 255);
+
+  //@debug rgb($red * 255, $green * 255, $blue * 255);
+
+  @return rgb($red * 255, $green * 255, $blue * 255);
 }

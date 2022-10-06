@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 @use "sass:color";
+@use "settings/utils" as utils;
 
 // Note that only dark theme is officially supported:
 // https://github.com/arcticicestudio/nord/issues/46
@@ -105,28 +106,28 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
 
   $neutral-emphasisPlus: scale.$base-8,
   $neutral-emphasis:     scale.$base-7,
-  $neutral-muted:        color.change(scale.$base-5, $alpha: 0.4),
-  $neutral-subtle:       color.change(scale.$base-5, $alpha: 0.1),
+  $neutral-muted:        utils.flattenColor(scale.$light, color.change(scale.$base-5, $alpha: 0.4)),
+  $neutral-subtle:       utils.flattenColor(scale.$light, color.change(scale.$base-5, $alpha: 0.1)),
 
   $accent-fg:            scale.$accent-6,
   $accent-emphasis:      scale.$accent-7,
-  $accent-muted:         color.change(scale.$accent-4, $alpha: 0.4),
-  $accent-subtle:        color.change(scale.$accent-4, $alpha: 0.1),
+  $accent-muted:         utils.flattenColor(scale.$light, color.change(scale.$accent-4, $alpha: 0.4)),
+  $accent-subtle:        utils.flattenColor(scale.$light, color.change(scale.$accent-4, $alpha: 0.1)),
 
   $success-fg:           scale.$success-7,
   $success-emphasis:     scale.$success-6,
-  $success-muted:        color.change(scale.$success-4, $alpha: 0.4),
-  $success-subtle:       color.change(scale.$success-4, $alpha: 0.1),
+  $success-muted:        utils.flattenColor(scale.$light, color.change(scale.$success-4, $alpha: 0.4)),
+  $success-subtle:       utils.flattenColor(scale.$light, color.change(scale.$success-4, $alpha: 0.1)),
 
   $warning-fg:           scale.$warning-7,
   $warning-emphasis:     scale.$warning-6,
-  $warning-muted:        color.change(scale.$warning-4, $alpha: 0.4),
-  $warning-subtle:       color.change(scale.$warning-4, $alpha: 0.1),
+  $warning-muted:        utils.flattenColor(scale.$light, color.change(scale.$warning-4, $alpha: 0.4)),
+  $warning-subtle:       utils.flattenColor(scale.$light, color.change(scale.$warning-4, $alpha: 0.1)),
 
   $danger-fg:            scale.$danger-6,
   $danger-emphasis:      scale.$danger-5,
-  $danger-muted:         color.change(scale.$danger-4, $alpha: 0.4),
-  $danger-subtle:        color.change(scale.$danger-4, $alpha: 0.15)
+  $danger-muted:         utils.flattenColor(scale.$light, color.change(scale.$danger-4, $alpha: 0.4)),
+  $danger-subtle:        utils.flattenColor(scale.$light, color.change(scale.$danger-4, $alpha: 0.15))
 );
 
 @forward "settings/config" with (

@@ -51,7 +51,7 @@ public class HTMLEditorPage extends AbstractPage {
                         "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
         );
 
-        var fixToggle = new ToggleSwitch("Apply fix");
+        var fixToggle = new ToggleSwitch("Apply Fix");
 
         var content = new VBox(BLOCK_VGAP, editor, new TextFlow(description), fixToggle);
         content.setAlignment(Pos.CENTER);
