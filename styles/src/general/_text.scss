@@ -91,11 +91,22 @@ Text {
   -fx-fill: -color-fg-muted;
 }
 .label.text-muted {
-  -fx-text-fill: -color-accent-fg;
+  -fx-text-fill: -color-fg-muted;
 
   #{cfg.$font-icon-selector} {
-    -fx-icon-color: -color-accent-fg;
-    -fx-fill: -color-accent-fg;
+    -fx-icon-color: -color-fg-muted;
+    -fx-fill: -color-fg-muted;
+  }
+}
+.text-subtle {
+  -fx-fill: -color-fg-subtle;
+}
+.label.text-subtle {
+  -fx-text-fill: -color-fg-subtle;
+
+  #{cfg.$font-icon-selector} {
+    -fx-icon-color: -color-fg-subtle;
+    -fx-fill: -color-fg-subtle;
   }
 }
 

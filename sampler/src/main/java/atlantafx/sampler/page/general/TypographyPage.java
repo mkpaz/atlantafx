@@ -249,7 +249,9 @@ public class TypographyPage extends AbstractPage {
                 createText("Accent", TEXT, ACCENT),
                 createText("Success", TEXT, SUCCESS),
                 createText("Warning", TEXT, WARNING),
-                createText("Danger", TEXT, DANGER)
+                createText("Danger", TEXT, DANGER),
+                createText("Muted", TEXT, TEXT_MUTED),
+                createText("Subtle", TEXT, TEXT_SUBTLE)
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 

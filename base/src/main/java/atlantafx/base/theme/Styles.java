@@ -7,8 +7,6 @@ import javafx.scene.Node;
 @SuppressWarnings("unused")
 public final class Styles {
 
-    // @formatter:off
-
     // Colors
 
     public static final String ACCENT = "accent";
@@ -73,7 +71,9 @@ public final class Styles {
     public static final String TEXT_OBLIQUE = "text-oblique";
     public static final String TEXT_STRIKETHROUGH = "text-strikethrough";
     public static final String TEXT_UNDERLINED = "text-underlined";
+
     public static final String TEXT_MUTED = "text-muted";
+    public static final String TEXT_SUBTLE = "text-subtle";
 
     /**
      * Initialize a new Styles
@@ -81,8 +81,6 @@ public final class Styles {
     private Styles() {
         // Default constructor
     }
-
-    // @formatter:on
 
     public static void toggleStyleClass(Node node, String styleClass) {
         if (node == null)
