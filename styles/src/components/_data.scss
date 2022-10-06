@@ -22,12 +22,27 @@ $cell-size-normal: 2.8em !default;
 $cell-size-dense:  2em   !default;
 $cell-padding-x:   0.5em !default;
 
-// .tree-cell doesn't support -fx-cell-size
+// .tree-cell doesn't support -fx-cell-size,
 // its height should be set via vertical paddings
-$tree-cell-padding-x:        $cell-padding-x !default;
+$tree-cell-padding-x:        0.5em  !default;
 $tree-cell-padding-y-normal: 0.5em  !default;
 $tree-cell-padding-y-dense:  0.25em !default;
-$tree-cell-indent:           1em    !default;
+
+// This variable is for '-fx-indent' manipulation. Ideally, each descendant disclosure
+// node should be aligned with its ancestor text (graphic) start position. Like this:
+//
+// > ⬛ foo
+//   > ⬛ bar
+//     > ⬛ baz
+//
+// Sadly, JavaFX doesn't do this programmaticaly and with CSS it's not possible
+// to define universal indentation size that would look perfect with any disclosure
+// icon or cell graphic icon, because any icon have its own margins or you may not
+// use icon at all.
+//
+// If you feel that your tree cell content isn't aligned properly, play with
+// '-fx-indent' and left '.tree-cell' padding.
+$tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
 @mixin _base() {
 
@@ -412,18 +427,22 @@ $tree-cell-indent:           1em    !default;
   }
 
   &.alt-icon {
-    .tree-cell>.tree-disclosure-node {
-      -fx-padding: 0.2em $tree-cell-padding-x 0 $tree-cell-padding-x;
+    .tree-cell {
+      -fx-indent: 1.6em;
+
+      >.tree-disclosure-node {
+          -fx-padding: 0.229em $tree-cell-padding-x 0 $tree-cell-padding-x;
+      }
     }
 
     .tree-cell>.tree-disclosure-node>.arrow {
       @include icons.get("plus-box", true);
-      -fx-padding: 0.5em;
+      -fx-padding: 0.4em;
     }
 
     .tree-cell:expanded>.tree-disclosure-node>.arrow {
       @include icons.get("minus-box", true);
-      -fx-padding: 0.5em;
+      -fx-padding: 0.4em;
     }
   }
 }
