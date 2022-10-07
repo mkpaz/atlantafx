@@ -3,13 +3,15 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
-$color-cell-bg:          -color-bg-default  !default;
-$color-cell-fg:          -color-fg-default  !default;
-$color-cell-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
-$color-cell-fg-selected: -color-fg-default     !default;
-$color-cell-bg-odd:      -color-bg-subtle      !default;
-$color-cell-border:      -color-border-default !default;
-$color-disclosure:       -color-fg-muted       !default;
+$color-cell-bg:                  -color-bg-default !default;
+$color-cell-fg:                  -color-fg-default !default;
+$color-cell-bg-selected:         if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
+$color-cell-fg-selected:         -color-fg-default !default;
+$color-cell-bg-selected-focused: $color-cell-bg-selected !default;
+$color-cell-fg-selected-focused: $color-cell-fg-selected !default;
+$color-cell-bg-odd:              -color-bg-subtle      !default;
+$color-cell-border:              -color-border-default !default;
+$color-disclosure:               -color-fg-muted       !default;
 
 $color-header-bg: -color-bg-subtle  !default;
 $color-header-fg: -color-fg-default !default;
@@ -50,6 +52,8 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   -color-cell-fg: $color-cell-fg;
   -color-cell-bg-selected: $color-cell-bg-selected;
   -color-cell-fg-selected: $color-cell-fg-selected;
+  -color-cell-bg-selected-focused: $color-cell-bg-selected-focused;
+  -color-cell-fg-selected-focused: $color-cell-fg-selected-focused;
   -color-cell-bg-odd: $color-cell-bg-odd;
   -color-cell-border: $color-cell-border;
   -color-disclosure:  $color-disclosure;
@@ -77,21 +81,32 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 }
 
 // row selection (cellSelectionEnabled = false)
+.list-view>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:selected,
+.tree-view>.virtual-flow>.clipped-container>.sheet>.tree-cell:filled:selected,
+.table-view>.virtual-flow>.clipped-container>.sheet>.table-row-cell:filled:selected,
+.tree-table-view>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell:filled:selected {
+  -color-cell-fg: -color-cell-fg-selected;
+  -fx-background-color: -color-cell-border, -color-cell-bg-selected;
+}
 .list-view:focused>.virtual-flow>.clipped-container>.sheet>.list-cell:filled:selected,
 .tree-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-cell:filled:selected,
 .table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell:filled:selected,
 .tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell:filled:selected {
-  -color-cell-fg: -color-cell-fg-selected;
-  -fx-background-color: -color-cell-border, -color-cell-bg-selected;
+  -color-cell-fg: -color-cell-fg-selected-focused;
+  -fx-background-color: -color-cell-border, -color-cell-bg-selected-focused;
 }
 
 // individual cell selection (cellSelectionEnabled = true)
-.table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
-.tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
+.table-view>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
+.tree-table-view>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
   -fx-background-color: -color-cell-bg-selected;
   // a margin to show bottom .table-row-cell border,
   // it should be 1px height, but for some reason it's not enough
   -fx-background-insets: 0 0 2 0;
+}
+.table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
+.tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
+  -fx-background-color: -color-cell-bg-selected-focused;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
