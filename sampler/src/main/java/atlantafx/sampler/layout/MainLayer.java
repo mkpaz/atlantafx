@@ -156,6 +156,7 @@ class MainLayer extends BorderPane {
             // set syntax highlight theme according to JavaFX theme
             ThemeManager tm = ThemeManager.getInstance();
             codeViewer.setContent(stream, tm.getMatchingSourceCodeHighlightTheme(tm.getTheme()));
+            codeViewer.setVisible(true);
             codeViewerWrapper.toFront();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -164,5 +165,6 @@ class MainLayer extends BorderPane {
 
     private void hideSourceCode() {
         codeViewerWrapper.toBack();
+        codeViewer.setVisible(false);
     }
 }
