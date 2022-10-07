@@ -196,7 +196,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
       -fx-border-width: 0;
     }
 
-    .list-cell:odd {
+    .list-cell:filled:odd {
       -fx-background-color: -color-cell-bg-odd;
     }
   }
