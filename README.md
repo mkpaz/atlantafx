@@ -1,23 +1,27 @@
-![logo](./.screenshots/logo.jpg)
+![logo](./.screenshots/logo.png)
 
-**[📙 Docs](https://mkpaz.github.io/atlantafx/) | [📸 Screenshots](https://github.com/mkpaz/atlantafx/tree/master/.screenshots)**
+![](https://img.shields.io/github/license/mkpaz/atlantafx)
+![](https://img.shields.io/github/v/release/mkpaz/atlantafx)
+![](https://img.shields.io/github/last-commit/mkpaz/atlantafx/master)
+
+**[Docs](https://mkpaz.github.io/atlantafx/) | [Screenshots](https://github.com/mkpaz/atlantafx/tree/master/.screenshots)**
 
 JavaFX CSS theme collection with additional controls.
 
 * Modern flat interface inspired by the variety of Web component frameworks.
 * CSS first. It works with existing JavaFX controls.
-* Light and dark themes included.
+* Two themes in both light and dark variants. 
 * Simple and intuitive color system based on the [GitHub Primer guidelines](https://primer.style/design/foundations/color).
 * Fully customizable. Easily change global accent (brand) color or individual control via looked-up color variables.
-* Written in modular SASS. No more digging in 3,500 lines of CSS code.
-* Custom themes support. Compile your own theme from existing SASS sources.
+* Written in modular [SASS](https://sass-lang.com/). No more digging in 3,500 lines of CSS code.
+* [Custom themes support](https://github.com/mkpaz/atlantafx-sample-theme). Compile your own theme from existing SASS sources.
 * Additional controls that essential for modern GUI development.
 * Sampler app:
   * Play with themes and fonts.
   * Test every feature of each existing control and check source code directly in the app to learn how to implement it.
   * Check color palette and modify theme color contrast.
   * Hot reload. Play with control styles without restarting the whole app.
-  * Showcases that demonstrate real-world project usage included.
+  * Showcases to demonstrate real-world project usage.
 
 ![alt](./.screenshots/demo.gif)
 
@@ -35,7 +39,7 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -48,6 +52,23 @@ Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
 ```
 
 Check the [docs](https://mkpaz.github.io/atlantafx/) for more information.
+
+## Contributing
+
+Contributions are always welcome! Contributing can mean many things such as participating in discussion or proposing changes. Feel free to open an issue if you've found a bug or want to raise a question, or discuss a possible feature.
+
+Please, note that AtlantaFX is primarily CSS theme library. Controls and skins support will probably grow over time, but creating yet another control's library is not a main goal.
+
+Here are some areas, where you can help the project:
+
+1. Fixing or reporting bugs. Please, check [OpenJFX bug tracker](https://bugs.openjdk.org/browse/JDK-8294722?jql=project%20%3D%20JDK%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20javafx%20%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC) first if the bug you're experiencing isn't related to CSS or custom AtlantaFX control.
+2. Adding or improving control samples, which helps people to learn more about existing controls and we can also test how controls look and work with different themes.
+3. Adding or improving widget samples, which provides basic examples of how to implement some conventional UI components.
+4. Adding or improving app showcases, which demonstrates how AtlantaFX looks in real-world that helps to find more areas for improvement.
+5. Improving docs, because good docs is the face of the project.
+6. Advertising the project.
+
+Also, if you created a custom AtlantaFX theme or using AtlantaFX in your app feel free to open an issue, and I will add the link to the project page.
 
 ## Motivation
 
