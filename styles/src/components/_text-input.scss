@@ -38,7 +38,7 @@ $color-fg-password: -color-fg-muted !default;
 
   -fx-background-color: -color-input-border, -color-input-bg;
   -fx-background-insets: 0, cfg.$border-width;
-  -fx-background-radius: cfg.$border-radius;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-text-fill: -color-input-fg;
 
   -fx-highlight-fill: -color-input-bg-highlight;
@@ -78,7 +78,7 @@ $color-fg-password: -color-fg-muted !default;
 
   // input group
   &.left-pill {
-    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;
     -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
 
     &:focused {
@@ -96,7 +96,7 @@ $color-fg-password: -color-fg-muted !default;
   }
 
   &.right-pill {
-    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
     -fx-background-insets: 0, cfg.$border-width cfg.$border-width cfg.$border-width 0;
 
     &:focused {

@@ -22,7 +22,7 @@
   }
 
   &.left-pill {
-    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;
   }
 
   &.center-pill {
@@ -30,6 +30,6 @@
   }
 
   &.right-pill {
-    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
   }
 }

@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+@use "sass:math";
+
 $darkMode:           false !default;
 
 $font-default:           14px  !default; // ~= 11pt
@@ -21,10 +23,10 @@ $padding-y-large: calc($padding-y * 1.4) !default;
 $graphic-gap:     6px  !default;
 
 // Most components use background insets to draw its borders due to
-// performance reasons. On border radius > 2px corners may look rather ugly.
-// They're thicker than border width and sometimes a bit blurry.
+// performance reasons.
 $border-width:   1px !default;
 $border-radius:  4px !default;
+$inner-border-radius: math.max($border-radius - $border-width, 0) !default;
 
 $opacity-disabled: 0.4 !default;
 
