@@ -139,7 +139,7 @@ $icon-padding-x:     0.25em !default;
 
     >.increment-arrow-button {
       -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
-      -fx-background-insets: 0 -1 0 0;
+      -fx-background-insets: 0;
 
       >.increment-arrow {
         @include icons.get("plus", false);
@@ -174,7 +174,7 @@ $icon-padding-x:     0.25em !default;
 
     >.decrement-arrow-button {
       -fx-background-radius: 0 0 cfg.$border-radius cfg.$border-radius;
-      -fx-background-insets: 0 0 -1 0;
+      -fx-background-insets: 0;
 
       >.decrement-arrow {
         @include icons.get("minus", false);
