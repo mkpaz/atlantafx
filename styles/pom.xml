@@ -53,21 +53,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <attach>false</attach>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <tarLongFileMode>posix</tarLongFileMode>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>assembly</id>
-                        <phase>install</phase>
+                        <id>assemble-themes</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
                             <finalName>${app.name}-${app.version}-themes</finalName>
-                            <attach>false</attach>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <tarLongFileMode>posix</tarLongFileMode>
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assemble-scenebuilder</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${app.name}-${app.version}-scenebuilder</finalName>
+                            <descriptors>
+                                <descriptor>scenebuilder.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

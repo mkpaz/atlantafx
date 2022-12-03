@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+
+    <id>assembly</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!-- original filenames -->
+    <fileSets>
+        <fileSet>
+            <outputDirectory>/com/oracle/javafx/scenebuilder/kit/util/css/caspian</outputDirectory>
+            <directory>dist/</directory>
+            <filtered>false</filtered>
+        </fileSet>
+    </fileSets>
+
+    <!-- rename to overwrite useragent stylesheets that are looked up by SceneBuilder -->
+    <files>
+        <file>
+            <outputDirectory>/com/oracle/javafx/scenebuilder/kit/util/css/caspian</outputDirectory>
+            <source>dist/primer-light.css</source>
+            <destName>caspian-embedded.css</destName>
+        </file>
+        <file>
+            <outputDirectory>/com/oracle/javafx/scenebuilder/kit/util/css/caspian</outputDirectory>
+            <source>dist/primer-dark.css</source>
+            <destName>caspian-embedded-highContrast.css</destName>
+        </file>
+        <file>
+            <outputDirectory>/com/oracle/javafx/scenebuilder/kit/util/css/caspian</outputDirectory>
+            <source>dist/nord-light.css</source>
+            <destName>caspian-embedded-qvga.css</destName>
+        </file>
+        <file>
+            <outputDirectory>/com/oracle/javafx/scenebuilder/kit/util/css/caspian</outputDirectory>
+            <source>dist/nord-dark.css</source>
+            <destName>caspian-embedded-qvga-highContrast.css</destName>
+        </file>
+    </files>
+
+</assembly>
