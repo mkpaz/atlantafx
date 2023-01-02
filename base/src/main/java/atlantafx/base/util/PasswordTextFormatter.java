@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
 
-import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 /**
@@ -19,7 +18,7 @@ import java.util.function.UnaryOperator;
  */
 public class PasswordTextFormatter extends TextFormatter<String> {
 
-    public static final char BULLET = '\u2731'; // heavy asterisk
+    public static final char BULLET = '✱'; // U+2731, heavy asterisk
 
     protected PasswordTextFormatter(StringConverter<String> valueConverter,
                                     UnaryOperator<Change> filter,
@@ -39,13 +38,13 @@ public class PasswordTextFormatter extends TextFormatter<String> {
         passwordFilter.setInitialText(textField.getText());
 
         revealPasswordProperty().addListener((obs, old, val) -> {
-            // Force text field update, because converter is only called on focus
-            // events by default. Don't use commitValue() here because caret position
-            // won't be correct due to #javafx-bug (https://bugs.openjdk.org/browse/JDK-8248914).
-            if (val == null) {
-                return;
-            }
-            textField.setText(passwordProperty().get());
+            if (val == null) { return; }
+
+            // Force text field update, because converter is only called on focus events by default.
+            // Also, reset caret first, because otherwise its position won't be correct due to
+            // #javafx-bug (https://bugs.openjdk.org/browse/JDK-8248914).
+            textField.positionCaret(0);
+            textField.commitValue();
         });
 
         // force text field update on scene show
@@ -95,15 +94,17 @@ public class PasswordTextFormatter extends TextFormatter<String> {
 
         @Override
         public String toString(String s) {
-            if (s == null) {
-                return "";
-            }
-            return filter.revealPassword.get() ? filter.password.get() : filter.maskText(s.length());
+            return getPassword();
         }
 
         @Override
-        public String fromString(String string) {
-            return filter.password.get();
+        public String fromString(String s) {
+            return getPassword();
+        }
+
+        protected String getPassword() {
+            var password = filter.password.get();
+            return filter.revealPassword.get() ? password : filter.maskText(password.length());
         }
     }
 
@@ -116,15 +117,6 @@ public class PasswordTextFormatter extends TextFormatter<String> {
 
         @Override
         public TextFormatter.Change apply(TextFormatter.Change change) {
-            // Since we are using setText() to force text field to update (see above),
-            // we should protect internal password value from changing when `revealPassword`is toggled.
-            if (Objects.equals(change.getText(), sb.toString())) {
-                if (!revealPassword.get()) {
-                    change.setText(maskText(change.getText().length()));
-                }
-                return change;
-            }
-
             if (change.isReplaced()) {
                 sb.replace(change.getRangeStart(), change.getRangeEnd(), change.getText());
             } else if (change.isDeleted()) {
