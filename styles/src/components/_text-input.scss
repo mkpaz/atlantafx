@@ -103,6 +103,18 @@ $color-fg-password: -color-fg-muted !default;
       -fx-background-insets: 0, cfg.$border-width;
     }
   }
+
+  .context-menu {
+    // prevent context menu from inheriting text inputs font properties
+    -fx-font-size: cfg.$font-default;
+    -fx-font-weight: normal;
+
+    .menu-item {
+      // There's some #javafx-bug here. Setting this e.g. to 'hand' works as expected
+      // but 'default' changes nothing and cursor still has the 'text' shape.
+      -fx-cursor: default;
+    }
+  }
 }
 
 .text-field {
