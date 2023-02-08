@@ -3,6 +3,8 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
+$thickness: 1.3333 !default;
+
 .check-box {
 
   // applied to label
@@ -11,7 +13,7 @@
 
   >.box {
     -fx-background-color: -color-fg-default, -color-bg-default;
-    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-insets: 0, $thickness;
     -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
     -fx-padding: cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x;
     -fx-alignment: CENTER;
@@ -24,12 +26,16 @@
       -fx-min-width:  cfg.$checkbox-mark-size;
       -fx-max-width:  cfg.$checkbox-mark-size;
     }
+
+    &:hover {
+      -fx-background-color: -color-fg-muted, -color-bg-subtle;
+    }
   }
 
   &:indeterminate {
     >.box {
       >.mark {
-        -fx-background-color: -color-fg-muted;
+        -fx-background-color: -color-fg-default;
         @include icons.get("minus", false);
       }
     }

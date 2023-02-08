@@ -2,6 +2,8 @@
 
 @use "../settings/config" as cfg;
 
+$thickness: 1.3333 !default;
+
 .radio-button {
 
   // applied to label
@@ -11,19 +13,23 @@
 
   >.radio {
     -fx-background-color: -color-fg-default, -color-bg-default;
-    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-insets: 0, $thickness;
     -fx-background-radius: 1em; // large value to make sure this remains circular
     -fx-padding: cfg.$checkbox-mark-padding-y;
     -fx-alignment: CENTER;
 
     >.dot {
       -fx-background-color: transparent, transparent;
-      -fx-background-insets: 0, 1px;
+      -fx-background-insets: 0, 1;
       -fx-background-radius: 1em; // large value to make sure this remains circular
       -fx-min-height: cfg.$checkbox-mark-size;
       -fx-max-height: cfg.$checkbox-mark-size;
       -fx-min-width: cfg.$checkbox-mark-size;
       -fx-max-width: cfg.$checkbox-mark-size;
+    }
+
+    &:hover {
+      -fx-background-color: -color-fg-muted, -color-bg-subtle;
     }
   }
 
