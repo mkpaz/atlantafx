@@ -161,7 +161,7 @@ $opacity-hover: 0.9 !default;
     -fx-background-radius: 50;
     -fx-padding: 6px 8px 6px 8px;
 
-    .text {
+    >.text {
       visibility: hidden;
     }
   }
