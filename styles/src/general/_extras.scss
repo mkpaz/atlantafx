@@ -3,7 +3,8 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-@each $level, $radius in cfg.$elevation {
+@each $level,
+$radius in cfg.$elevation {
   .elevated-#{$level} {
     @include effects.shadow(cfg.$elevation-color, $radius);
   }
@@ -11,4 +12,48 @@
 
 .interactive:hover {
   @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Ikonli                                                                    //
+///////////////////////////////////////////////////////////////////////////////
+
+.ikonli-font-icon.accent {
+  -fx-fill: -color-accent-emphasis;
+  -fx-icon-color: -color-accent-emphasis;
+}
+
+.ikonli-font-icon.success {
+  -fx-fill: -color-success-emphasis;
+  -fx-icon-color: -color-success-emphasis;
+}
+
+.ikonli-font-icon.warning {
+  -fx-fill: -color-warning-emphasis;
+  -fx-icon-color: -color-warning-emphasis;
+}
+
+.ikonli-font-icon.danger {
+  -fx-fill: -color-danger-emphasis;
+  -fx-icon-color: -color-danger-emphasis;
+}
+
+.ikonli-font-icon:accent {
+  -fx-fill: -color-accent-emphasis;
+  -fx-icon-color: -color-accent-emphasis;
+}
+
+.ikonli-font-icon:success {
+  -fx-fill: -color-success-emphasis;
+  -fx-icon-color: -color-success-emphasis;
+}
+
+.ikonli-font-icon:warning {
+  -fx-fill: -color-warning-emphasis;
+  -fx-icon-color: -color-warning-emphasis;
+}
+
+.ikonli-font-icon:danger {
+  -fx-fill: -color-danger-emphasis;
+  -fx-icon-color: -color-danger-emphasis;
 }

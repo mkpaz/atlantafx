@@ -5,6 +5,7 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.*;
+import atlantafx.sampler.page.general.IconsPage;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
@@ -170,6 +171,7 @@ class Sidebar extends StackPane {
                     caption("GENERAL"),
                     navLink(ThemePage.NAME, ThemePage.class),
                     navLink(TypographyPage.NAME, TypographyPage.class),
+                    navLink(IconsPage.NAME, IconsPage.class),
                     caption("COMPONENTS"),
                     navLink(OverviewPage.NAME, OverviewPage.class),
                     navLink(InputGroupPage.NAME, InputGroupPage.class),
