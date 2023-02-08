@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 @use "sass:color";
+@use "settings/utils" as utils;
 
 @forward "settings/color-scale" with (
 
@@ -79,7 +80,7 @@
 
   $border-default:       scale.$base-6,
   $border-muted:         scale.$base-7,
-  $border-subtle:        color.change(scale.$base-0, $alpha: 0.1),
+  $border-subtle:        utils.flattenColor(scale.$base-9, color.change(scale.$base-0, $alpha: 0.1)),
   $shadow-default:       scale.$dark,
 
   $neutral-emphasisPlus: scale.$base-4,

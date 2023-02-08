@@ -2,6 +2,7 @@
 
 @use "sass:color";
 @use "color-scale" as scale;
+@use "utils";
 
 $fg-default:           scale.$base-9 !default;
 $fg-muted:             scale.$base-6 !default;
@@ -15,7 +16,7 @@ $canvas-subtle:        scale.$base-0 !default;
 
 $border-default:       scale.$base-2 !default;
 $border-muted:         lighten(scale.$base-2, 0.03) !default;
-$border-subtle:        color.change(scale.$dark, $alpha: 0.15) !default;
+$border-subtle:        utils.flattenColor(scale.$light, color.change(scale.$dark, $alpha: 0.15)) !default;
 $shadow-default:       scale.$base-2 !default;
 
 // neutral is used by the .split-menu-button,
