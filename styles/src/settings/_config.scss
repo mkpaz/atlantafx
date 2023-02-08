@@ -50,10 +50,13 @@ $checkbox-mark-padding-x: 4px !default;
 $checkbox-label-padding:  2px !default;
 
 // menu
-$popup-padding-x:     2px !default;
-$popup-padding-y:     2px !default;
+$popup-padding-x:     5px !default;
+$popup-padding-y:     5px !default;
 $popup-shadow-radius: if($darkMode, 8px, 6px) !default;
 $popup-shadow-spread: if($darkMode, 0.6, 0.3) !default;
+$popup-radius:        5px !default;
+$menubar-padding-x:   4px !default;
+$menubar-padding-y:   4px !default;
 $menu-padding-x:      $padding-x !default;
 $menu-padding-y:      $padding-y !default;
 

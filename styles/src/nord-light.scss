@@ -133,7 +133,8 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
 @forward "settings/config" with (
   $darkMode:         false,
   $border-radius:    1,
-  $opacity-disabled: 0.6
+  $opacity-disabled: 0.6,
+  $popup-radius:     0
 );
 
 @use "general";
