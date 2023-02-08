@@ -32,4 +32,94 @@
   &.right-pill {
     -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
   }
+
+  &.accent {
+    -fx-text-fill: -color-accent-fg;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-accent-fg;
+      -fx-fill: -color-accent-fg;
+    }
+  }
+
+  &.success {
+    -fx-text-fill: -color-success-fg;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-success-fg;
+      -fx-fill: -color-success-fg;
+    }
+  }
+
+  &.warning {
+    -fx-text-fill: -color-warning-fg;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-warning-fg;
+      -fx-fill: -color-warning-fg;
+    }
+  }
+
+  &.danger {
+    -fx-text-fill: -color-danger-fg;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-danger-fg;
+      -fx-fill: -color-danger-fg;
+    }
+  }
+
+  &.text-muted {
+    -fx-text-fill: -color-fg-muted;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-fg-muted;
+      -fx-fill: -color-fg-muted;
+    }
+  }
+
+  &.text-subtle {
+    -fx-text-fill: -color-fg-subtle;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-fg-subtle;
+      -fx-fill: -color-fg-subtle;
+    }
+  }
+
+  &:accent {
+    -fx-text-fill: -color-accent-emphasis;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-accent-fg;
+      -fx-fill: -color-accent-fg;
+    }
+  }
+
+  &:success {
+    -fx-text-fill: -color-success-emphasis;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-success-fg;
+      -fx-fill: -color-success-fg;
+    }
+  }
+
+  &:warning {
+    -fx-text-fill: -color-warning-emphasis;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-warning-fg;
+      -fx-fill: -color-warning-fg;
+    }
+  }
+
+  &:danger {
+    -fx-text-fill: -color-danger-emphasis;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-danger-fg;
+      -fx-fill: -color-danger-fg;
+    }
+  }
 }

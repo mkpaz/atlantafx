@@ -187,6 +187,7 @@ class Sidebar extends StackPane {
                     navLink(DatePickerPage.NAME, DatePickerPage.class),
                     navLink(DialogPage.NAME, DialogPage.class),
                     navLink(HTMLEditorPage.NAME, HTMLEditorPage.class),
+                    navLink(LabelPage.NAME, LabelPage.class),
                     navLink(ListPage.NAME, ListPage.class),
                     navLink(MenuPage.NAME, MenuPage.class),
                     navLink(MenuButtonPage.NAME, MenuButtonPage.class, "SplitMenuButton"),
