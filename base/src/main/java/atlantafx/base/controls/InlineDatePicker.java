@@ -172,6 +172,7 @@ public class InlineDatePicker extends Control {
 
     private final ObjectProperty<Chronology> chronology = new SimpleObjectProperty<>(this, "chronology", null);
 
+    @SuppressWarnings("CatchAndPrintStackTrace")
     public final Chronology getChronology() {
         Chronology chrono = chronology.get();
         if (chrono == null) {
@@ -304,6 +305,7 @@ public class InlineDatePicker extends Control {
         return getClassCssMetaData();
     }
 
+    @SuppressWarnings("CatchAndPrintStackTrace")
     static boolean isValidDate(Chronology chrono, LocalDate date, int offset, ChronoUnit unit) {
         if (date != null) {
             try {
