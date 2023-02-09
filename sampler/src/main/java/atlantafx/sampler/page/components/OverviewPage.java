@@ -17,6 +17,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.stream.IntStream;
 
 import static atlantafx.base.theme.Styles.*;
@@ -214,7 +215,7 @@ public class OverviewPage extends AbstractPage {
 
         var datePicker = new DatePicker();
         datePicker.setPrefWidth(COMBO_BOX_WIDTH);
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
 
         var colorPicker = new ColorPicker();
         colorPicker.setPrefWidth(COMBO_BOX_WIDTH);

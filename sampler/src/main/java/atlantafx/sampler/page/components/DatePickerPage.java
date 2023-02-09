@@ -30,6 +30,7 @@ import org.kordamp.ikonli.material2.Material2AL;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.chrono.HijrahChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -42,23 +43,23 @@ import static javafx.scene.layout.GridPane.REMAINING;
 public class DatePickerPage extends AbstractPage {
 
     public static final String NAME = "DatePicker";
-    private static final LocalDate TODAY = LocalDate.now();
+    private static final LocalDate TODAY = LocalDate.now(ZoneId.systemDefault());
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private static final String DATE_FORMATTER_PROMPT = "yyyy-MM-dd";
     private static final int INLINE_DATE_PICKER_COL = 0;
     private static final int INLINE_DATE_PICKER_ROW = 4;
     private static final CSSFragment NO_YEAR_MONTH_STYLE = new CSSFragment("""
-            .date-picker-popup >.month-year-pane {
-              visibility: hidden;
-              -fx-min-width: 0;
-              -fx-pref-width: 0;
-              -fx-max-width: 0;
-              -fx-min-height: 0;
-              -fx-pref-height: 0;
-              -fx-max-height: 0;
-            }
-            """);
+                                                                           .date-picker-popup >.month-year-pane {
+                                                                             visibility: hidden;
+                                                                             -fx-min-width: 0;
+                                                                             -fx-pref-width: 0;
+                                                                             -fx-max-width: 0;
+                                                                             -fx-min-height: 0;
+                                                                             -fx-pref-height: 0;
+                                                                             -fx-max-height: 0;
+                                                                           }
+                                                                           """);
 
     @Override
     public String getName() { return NAME; }
@@ -227,21 +228,27 @@ public class DatePickerPage extends AbstractPage {
     private static class Clock extends VBox {
 
         public Clock() {
-            var clockLabel = new Label(TIME_FORMATTER.format(LocalTime.now()));
+            var clockLabel = new Label(
+                    TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
+            );
             clockLabel.getStyleClass().add(Styles.TITLE_2);
 
-            var dateLabel = new Label(DateTimeFormatter.ofPattern("EEEE, LLLL dd, yyyy").format(LocalDate.now()));
+            var dateLabel = new Label(
+                    DateTimeFormatter.ofPattern("EEEE, LLLL dd, yyyy").format(LocalDate.now(ZoneId.systemDefault()))
+            );
 
             setStyle("""
-                    -fx-border-width: 0 0 0.5 0;
-                    -fx-border-color: -color-border-default;"""
+                     -fx-border-width: 0 0 0.5 0;
+                     -fx-border-color: -color-border-default;"""
             );
             setSpacing(BLOCK_VGAP);
             getChildren().setAll(clockLabel, dateLabel);
 
             var t = new Timeline(new KeyFrame(
                     Duration.seconds(1),
-                    e -> clockLabel.setText(TIME_FORMATTER.format(LocalTime.now()))
+                    e -> clockLabel.setText(
+                            TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
+                    )
             ));
             t.setCycleCount(Animation.INDEFINITE);
             t.playFromStart();
@@ -294,19 +301,19 @@ public class DatePickerPage extends AbstractPage {
 
         private void updateStyle(String bgColorName, String fgColorName) {
             style.set(new CSSFragment(String.format("""
-                            .date-picker-popup {
-                              -color-date-border: %s;
-                              -color-date-month-year-bg: %s;
-                              -color-date-month-year-fg: %s;
-                            }
-                            .date-picker-popup >.top-node {
-                                -fx-background-color: %s;
-                                -color-fg-default: %s;
-                                -color-border-default: %s;
-                                -fx-border-color:  %s;
-                            }""",
-                    bgColorName, bgColorName, fgColorName,
-                    bgColorName, fgColorName, fgColorName, fgColorName
+                                                    .date-picker-popup {
+                                                      -color-date-border: %s;
+                                                      -color-date-month-year-bg: %s;
+                                                      -color-date-month-year-fg: %s;
+                                                    }
+                                                    .date-picker-popup >.top-node {
+                                                        -fx-background-color: %s;
+                                                        -color-fg-default: %s;
+                                                        -color-border-default: %s;
+                                                        -fx-border-color:  %s;
+                                                    }""",
+                                                    bgColorName, bgColorName, fgColorName,
+                                                    bgColorName, fgColorName, fgColorName, fgColorName
             )));
         }
     }

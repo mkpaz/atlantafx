@@ -4,6 +4,7 @@ package atlantafx.sampler.util;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -28,7 +29,7 @@ public final class HumanReadableFormat {
 
     public static String date(LocalDateTime x) {
         Objects.requireNonNull(x);
-        var now = LocalDateTime.now();
+        var now = LocalDateTime.now(ZoneId.systemDefault());
 
         // not this year
         if (x.getYear() != now.getYear()) { return DAY_MONTH_YEAR.format(x); }

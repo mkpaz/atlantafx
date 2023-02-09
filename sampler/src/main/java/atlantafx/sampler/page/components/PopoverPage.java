@@ -22,6 +22,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
@@ -55,7 +56,7 @@ public class PopoverPage extends AbstractPage {
 
     private SampleBlock datePickerSample() {
         var datePicker = new InlineDatePicker();
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
 
         var popover = new Popover(datePicker);
         popover.setHeaderAlwaysVisible(false);
