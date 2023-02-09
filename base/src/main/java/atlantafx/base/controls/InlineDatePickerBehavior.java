@@ -17,6 +17,7 @@ public class InlineDatePickerBehavior extends BehaviorBase<InlineDatePicker, Inl
         super(control, skin);
     }
 
+    @SuppressWarnings("MissingCasesInEnumSwitch")
     public void onKeyPressed(KeyEvent e) {
         getSkin().rememberFocusedDayCell();
 

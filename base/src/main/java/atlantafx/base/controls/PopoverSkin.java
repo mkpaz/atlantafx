@@ -72,6 +72,7 @@ public class PopoverSkin implements Skin<Popover> {
     private Point2D dragStartLocation;
     private final Popover popover;
 
+    @SuppressWarnings("MissingCasesInEnumSwitch")
     public PopoverSkin(final Popover popover) {
         this.popover = popover;
 
