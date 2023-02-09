@@ -124,8 +124,8 @@ class ContrastChecker extends GridPane {
     // Returns fg color that guaranteed to be visible on the current bg.
     public Color getSafeFgColor() {
         if (contrastRatio.get() <= CONTRAST_RATIO_THRESHOLD) {
-            return getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD ?
-                Color.WHITE : Color.BLACK;
+            return getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD
+                ? Color.WHITE : Color.BLACK;
         } else {
             return fgColor.getColor();
         }
@@ -511,9 +511,8 @@ class ContrastChecker extends GridPane {
             hexItem.setOnAction(e -> {
                 var c = JColor.color(
                     new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                    toHexWithAlpha(color.getColor()) :
-                    c.getColorHex()
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1
+                    ? toHexWithAlpha(color.getColor()) : c.getColorHex()
                 );
             });
 
@@ -521,10 +520,11 @@ class ContrastChecker extends GridPane {
             rgbItem.setOnAction(e -> {
                 var c = JColor.color(
                     new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                    String.format("rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(),
-                        c.getAlphaArithmetic()) :
-                    String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1
+                    ? String.format(
+                        "rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()
+                    )
+                    : String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
                 );
             });
 
@@ -532,10 +532,11 @@ class ContrastChecker extends GridPane {
             hslItem.setOnAction(e -> {
                 var c = JColor.color(
                     new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                    String.format("hsla(%.0f,%.2f,%.2f, %.1f)", c.getHue(), c.getSaturation(), c.getLightness(),
-                        c.getAlphaArithmetic()) :
-                    String.format("hsl(%.0f,%.2f,%.2f)", c.getHue(), c.getSaturation(), c.getLightness())
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1
+                    ? String.format(
+                        "hsla(%.0f,%.2f,%.2f, %.1f)", c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()
+                    )
+                    : String.format("hsl(%.0f,%.2f,%.2f)", c.getHue(), c.getSaturation(), c.getLightness())
                 );
             });
 

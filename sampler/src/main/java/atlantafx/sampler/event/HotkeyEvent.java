@@ -18,8 +18,8 @@ public class HotkeyEvent extends Event {
 
     @Override
     public String toString() {
-        return "HotkeyEvent{" +
-            "keys=" + keys +
-            "} " + super.toString();
+        return "HotkeyEvent{"
+            + "keys=" + keys
+            + "} " + super.toString();
     }
 }

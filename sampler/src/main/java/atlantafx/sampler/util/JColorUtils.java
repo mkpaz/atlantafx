@@ -798,13 +798,13 @@ public class JColorUtils {
      */
     public static double[] flattenColor(Color bg, Color fgColor) {
         var opacity = fgColor.getOpacity();
-        return opacity < 1 ?
-            new double[] {
+        return opacity < 1
+            ? new double[] {
                 opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
                 opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
                 opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
-            } :
-            new double[] {
+            }
+            : new double[] {
                 fgColor.getRed(),
                 fgColor.getGreen(),
                 fgColor.getBlue(),

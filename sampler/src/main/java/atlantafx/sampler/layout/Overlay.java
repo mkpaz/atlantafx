@@ -77,8 +77,8 @@ public class Overlay extends StackPane {
         setOnMouseClicked(e -> {
             Pane content = getContent();
             Node eventSource = e.getPickResult().getIntersectedNode();
-            if (e.getButton() == MouseButton.PRIMARY && content != null &&
-                !NodeUtils.isDescendant(content, eventSource)) {
+            if (e.getButton() == MouseButton.PRIMARY && content != null
+                && !NodeUtils.isDescendant(content, eventSource)) {
                 hideAndConsume.accept(e);
             }
         });
@@ -128,9 +128,9 @@ public class Overlay extends StackPane {
     }
 
     public boolean contains(Pane content) {
-        return content != null &&
-            getContentWrapper().getChildren().size() > 0 &&
-            getContentWrapper().getChildren().get(0).equals(content);
+        return content != null
+            && getContentWrapper().getChildren().size() > 0
+            && getContentWrapper().getChildren().get(0).equals(content);
     }
 
     @Override

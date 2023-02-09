@@ -36,9 +36,9 @@ final class FileList {
         var sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(Bindings.createObjectBinding(() -> {
             Comparator<Path> tableComparator = table.comparatorProperty().get();
-            return tableComparator != null ?
-                FILE_TYPE_COMPARATOR.thenComparing(tableComparator) :
-                FILE_TYPE_COMPARATOR;
+            return tableComparator != null
+                ? FILE_TYPE_COMPARATOR.thenComparing(tableComparator)
+                : FILE_TYPE_COMPARATOR;
         }, table.comparatorProperty()));
         table.setItems(sortedList);
     }

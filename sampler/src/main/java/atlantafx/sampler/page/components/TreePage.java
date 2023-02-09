@@ -150,9 +150,9 @@ public class TreePage extends AbstractPage {
     }
 
     private Optional<TreeView<?>> findDisplayedTree() {
-        return treeWrapper.getChildren().size() > 0 ?
-            Optional.of((TreeView<?>) treeWrapper.getChildren().get(0)) :
-            Optional.empty();
+        return treeWrapper.getChildren().size() > 0
+            ? Optional.of((TreeView<?>) treeWrapper.getChildren().get(0))
+            : Optional.empty();
     }
 
     private TreeView<String> createTree(Example example) {

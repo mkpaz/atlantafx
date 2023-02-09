@@ -44,7 +44,7 @@ public interface Theme {
     }
 
     default boolean isDefault() {
-        return STYLESHEET_MODENA.equals(getUserAgentStylesheet()) ||
-            STYLESHEET_CASPIAN.equals(getUserAgentStylesheet());
+        return STYLESHEET_MODENA.equals(getUserAgentStylesheet())
+            || STYLESHEET_CASPIAN.equals(getUserAgentStylesheet());
     }
 }

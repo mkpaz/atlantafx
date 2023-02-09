@@ -78,8 +78,8 @@ class ColorPaletteBlock extends VBox {
             }
 
             toggleHover(true);
-            editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
-                Color.WHITE : Color.BLACK
+            editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD
+                ? Color.WHITE : Color.BLACK
             );
         });
         colorRectangle.setOnMouseExited(e -> toggleHover(false));
@@ -129,8 +129,8 @@ class ColorPaletteBlock extends VBox {
     }
 
     public Color getBgColor() {
-        return colorRectangle.getBackground() != null && !colorRectangle.getBackground().isEmpty() ?
-            (Color) colorRectangle.getBackground().getFills().get(0).getFill() : null;
+        return colorRectangle.getBackground() != null && !colorRectangle.getBackground().isEmpty()
+            ? (Color) colorRectangle.getBackground().getFills().get(0).getFill() : null;
     }
 
     public String getFgColorName() {

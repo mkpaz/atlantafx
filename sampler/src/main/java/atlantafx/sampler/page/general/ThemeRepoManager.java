@@ -174,8 +174,8 @@ class ThemeRepoManager extends VBox {
             });
 
             task.setOnFailed(
-                e -> System.err.println("[ERROR] Unable to parse \"" + theme.getName() +
-                    "\" theme colors. Either CSS not valid or file isn't readable.")
+                e -> System.err.println("[ERROR] Unable to parse \"" + theme.getName()
+                    + "\" theme colors. Either CSS not valid or file isn't readable.")
             );
 
             THREAD_POOL.execute(task);

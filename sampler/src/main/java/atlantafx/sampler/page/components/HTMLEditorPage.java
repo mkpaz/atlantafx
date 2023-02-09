@@ -49,9 +49,9 @@ public class HTMLEditorPage extends AbstractPage {
 
     private SampleBlock editorSample() {
         var description = new Text(
-            "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. " +
-                "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. " +
-                "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
+            "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. "
+                + "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. "
+                + "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
         );
 
         var fixToggle = new ToggleSwitch("Apply Fix");
@@ -86,16 +86,16 @@ public class HTMLEditorPage extends AbstractPage {
         var tm = ThemeManager.getInstance();
         Theme samplerTheme = tm.getTheme();
         HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(samplerTheme);
-        return "<!DOCTYPE html>" +
-            "<html>" +
-            "<body style=\"" +
-            "background-color:" + hlTheme.getBackground() + ";" +
-            "color:" + hlTheme.getForeground() + ";" +
-            "font-family:" + tm.getFontFamily() + ";" +
-            "font-size:" + tm.getFontSize() + "px;" +
-            "\">" +
-            String.join("<br/><br/>", FAKER.lorem().paragraphs(10)) +
-            "</body>" +
-            "</html>";
+        return "<!DOCTYPE html>"
+            + "<html>"
+            + "<body style=\""
+            + "background-color:" + hlTheme.getBackground() + ";"
+            + "color:" + hlTheme.getForeground() + ";"
+            + "font-family:" + tm.getFontFamily() + ";"
+            + "font-size:" + tm.getFontSize() + "px;"
+            + "\">"
+            + String.join("<br/><br/>", FAKER.lorem().paragraphs(10))
+            + "</body>"
+            + "</html>";
     }
 }

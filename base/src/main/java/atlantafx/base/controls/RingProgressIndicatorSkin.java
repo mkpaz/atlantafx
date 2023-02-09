@@ -235,8 +235,8 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
 
                 @Override
                 public boolean isSettable(RingProgressIndicator n) {
-                    return n.getSkin() instanceof RingProgressIndicatorSkin s &&
-                        (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
+                    return n.getSkin() instanceof RingProgressIndicatorSkin s
+                        && (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
                 }
 
                 @Override

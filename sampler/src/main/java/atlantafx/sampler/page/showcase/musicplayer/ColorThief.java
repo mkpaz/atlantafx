@@ -316,9 +316,9 @@ final class ColorThief {
                 int numVBoxes = vboxes.size();
                 for (VBox vbox : vboxes) {
                     int[] vbColor = vbox.avg(false);
-                    d2 = Math.sqrt(Math.pow(color[0] - vbColor[0], 2) +
-                        Math.pow(color[1] - vbColor[1], 2) +
-                        Math.pow(color[2] - vbColor[2], 2)
+                    d2 = Math.sqrt(Math.pow(color[0] - vbColor[0], 2)
+                        + Math.pow(color[1] - vbColor[1], 2)
+                        + Math.pow(color[2] - vbColor[2], 2)
                     );
                     if (d2 < d1) {
                         d1 = d2;

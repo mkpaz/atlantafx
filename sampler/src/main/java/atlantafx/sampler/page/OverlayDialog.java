@@ -91,8 +91,8 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
             // overwrite existing content
             getChildren().set(CONTENT_CHILD_INDEX, content);
         } else {
-            throw new UnsupportedOperationException("Content cannot be placed because of unexpected children size. " +
-                "You should override 'OverlayDialog#setContent()' and place it manually.");
+            throw new UnsupportedOperationException("Content cannot be placed because of unexpected children size. "
+                + "You should override 'OverlayDialog#setContent()' and place it manually.");
         }
     }
 

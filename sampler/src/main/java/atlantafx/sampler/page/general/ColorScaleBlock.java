@@ -67,8 +67,8 @@ class ColorScaleBlock extends VBox {
     }
 
     private Color getBgColor(Label label) {
-        return label.getBackground() != null && !label.getBackground().isEmpty() ?
-            (Color) label.getBackground().getFills().get(0).getFill() : Color.WHITE;
+        return label.getBackground() != null && !label.getBackground().isEmpty()
+            ? (Color) label.getBackground().getFills().get(0).getFill() : Color.WHITE;
     }
 
     ///////////////////////////////////////////////////////////////////////////

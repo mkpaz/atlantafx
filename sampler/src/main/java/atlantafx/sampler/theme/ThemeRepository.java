@@ -92,10 +92,10 @@ public final class ThemeRepository {
 
     public boolean isFileValid(Path path) {
         Objects.requireNonNull(path);
-        return !Files.isDirectory(path, NOFOLLOW_LINKS) &&
-            Files.isRegularFile(path, NOFOLLOW_LINKS) &&
-            Files.isReadable(path) &&
-            path.getFileName().toString().endsWith(".css");
+        return !Files.isDirectory(path, NOFOLLOW_LINKS)
+            && Files.isRegularFile(path, NOFOLLOW_LINKS)
+            && Files.isReadable(path)
+            && path.getFileName().toString().endsWith(".css");
     }
 
     public boolean isUnique(SamplerTheme theme) {

@@ -195,9 +195,9 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
             if (empty) {
                 setText(null);
             } else {
-                setText(fileTime != null ?
-                    HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
-                    UNKNOWN
+                setText(fileTime != null
+                    ? HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                    : UNKNOWN
                 );
             }
         }

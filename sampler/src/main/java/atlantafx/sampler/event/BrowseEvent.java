@@ -18,8 +18,8 @@ public class BrowseEvent extends Event {
 
     @Override
     public String toString() {
-        return "BrowseEvent{" +
-            "uri=" + uri +
-            "} " + super.toString();
+        return "BrowseEvent{"
+            + "uri=" + uri
+            + "} " + super.toString();
     }
 }

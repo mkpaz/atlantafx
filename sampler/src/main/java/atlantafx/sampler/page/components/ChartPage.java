@@ -108,9 +108,9 @@ public class ChartPage extends AbstractPage {
     }
 
     private Optional<Chart> findDisplayedChart() {
-        return chartWrapper.getChildren().size() > 0 ?
-            Optional.of((Chart) chartWrapper.getChildren().get(0)) :
-            Optional.empty();
+        return chartWrapper.getChildren().size() > 0
+            ? Optional.of((Chart) chartWrapper.getChildren().get(0))
+            : Optional.empty();
     }
 
     private Chart createChart(Example example) {

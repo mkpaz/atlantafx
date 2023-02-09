@@ -149,9 +149,9 @@ public class ListPage extends AbstractPage {
     }
 
     private Optional<ListView<?>> findDisplayedList() {
-        return listWrapper.getChildren().size() > 0 ?
-            Optional.of((ListView<?>) listWrapper.getChildren().get(0)) :
-            Optional.empty();
+        return listWrapper.getChildren().size() > 0
+            ? Optional.of((ListView<?>) listWrapper.getChildren().get(0))
+            : Optional.empty();
     }
 
     private void toggleListProperty(Consumer<ListView<?>> consumer) {

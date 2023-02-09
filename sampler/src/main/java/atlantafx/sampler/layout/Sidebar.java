@@ -321,8 +321,8 @@ class Sidebar extends StackPane {
 
         public boolean matches(String filter) {
             Objects.requireNonNull(filter);
-            return contains(getText(), filter) ||
-                searchKeywords.stream().anyMatch(keyword -> contains(keyword, filter));
+            return contains(getText(), filter)
+                || searchKeywords.stream().anyMatch(keyword -> contains(keyword, filter));
         }
 
         private boolean contains(String text, String filter) {

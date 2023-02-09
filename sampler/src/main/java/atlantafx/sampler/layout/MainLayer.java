@@ -88,8 +88,8 @@ class MainLayer extends BorderPane {
 
         // update code view color theme on app theme change
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
-            if (ThemeManager.getInstance().getTheme() != null &&
-                model.currentSubLayerProperty().get() == SubLayer.SOURCE_CODE) {
+            if (ThemeManager.getInstance().getTheme() != null
+                && model.currentSubLayerProperty().get() == SubLayer.SOURCE_CODE) {
                 showSourceCode();
             }
         });

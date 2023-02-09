@@ -619,9 +619,8 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         if (word.length() > 0) {
             int firstChar = word.codePointAt(0);
             if (!Character.isTitleCase(firstChar)) {
-                word = new String(new int[] {
-                    Character.toTitleCase(firstChar)}, 0, 1) +
-                    word.substring(Character.offsetByCodePoints(word, 0, 1));
+                word = new String(new int[] {Character.toTitleCase(firstChar)}, 0, 1)
+                    + word.substring(Character.offsetByCodePoints(word, 0, 1));
             }
         }
         return word;
