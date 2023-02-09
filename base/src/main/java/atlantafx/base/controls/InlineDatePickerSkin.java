@@ -45,6 +45,7 @@ import javafx.util.Callback;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.Chronology;
 import java.time.format.DateTimeFormatter;
@@ -105,7 +106,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
         registerChangeListener(datePicker.valueProperty(), e -> {
             LocalDate date = datePicker.getValue();
-            displayedYearMonthProperty().set((date != null) ? YearMonth.from(date) : YearMonth.now());
+            displayedYearMonthProperty().set(
+                    date != null ? YearMonth.from(date) : YearMonth.now(ZoneId.systemDefault())
+            );
             updateValues();
             datePicker.fireEvent(new ActionEvent());
         });
@@ -185,7 +188,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         // YearMonth //
 
         LocalDate value = getControl().getValue();
-        displayedYearMonth.set(value != null ? YearMonth.from(value) : YearMonth.now());
+        displayedYearMonth.set(
+                value != null ? YearMonth.from(value) : YearMonth.now(ZoneId.systemDefault())
+        );
         displayedYearMonth.addListener((observable, oldValue, newValue) -> updateValues());
 
         rootPane.getChildren().add(createMonthYearPane());
@@ -611,6 +616,6 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
     }
 
     private static LocalDate today() {
-        return LocalDate.now();
+        return LocalDate.now(ZoneId.systemDefault());
     }
 }

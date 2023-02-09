@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import static atlantafx.base.util.PlatformUtils.isMac;
 import static java.time.temporal.ChronoUnit.MONTHS;
@@ -24,7 +25,7 @@ public class InlineDatePickerBehavior extends BehaviorBase<InlineDatePicker, Inl
         if (e.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (e.getCode()) {
                 case HOME -> {
-                    getSkin().goToDate(LocalDate.now(), true);
+                    getSkin().goToDate(LocalDate.now(ZoneId.systemDefault()), true);
                     e.consume();
                 }
                 case PAGE_UP -> {
