@@ -209,7 +209,7 @@ final class PlayerPane extends VBox {
             long max = (long) currentPlayer.get().getMedia().getDuration().toSeconds();
             long sliderVal = (long) timeSlider.getValue();
             if (sliderVal <= max && timeSlider.isValueChanging()) {
-                currentPlayer.get().seek(Duration.seconds(sliderVal));
+                currentPlayer.get().seek(Duration.seconds((double) sliderVal));
             }
         });
 
