@@ -12,7 +12,6 @@ import java.util.Objects;
 final class Model {
 
     private final ObservableList<MediaFile> playlist = FXCollections.observableArrayList();
-    private final IntegerProperty playlistIndex = new SimpleIntegerProperty();
     private final ReadOnlyBooleanWrapper canGoBack = new ReadOnlyBooleanWrapper();
     private final ReadOnlyBooleanWrapper canGoForward = new ReadOnlyBooleanWrapper();
     private final ReadOnlyObjectWrapper<MediaFile> currentTrack = new ReadOnlyObjectWrapper<>();

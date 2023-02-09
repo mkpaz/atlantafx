@@ -187,6 +187,7 @@ public class ComboBoxPage extends AbstractPage {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    @SuppressWarnings("unused")
     private record Badge(String text, Ikon icon) { }
 
     private static class BadgeCell extends ListCell<Badge> {
