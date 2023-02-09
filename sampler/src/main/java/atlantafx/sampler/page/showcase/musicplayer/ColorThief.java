@@ -142,7 +142,7 @@ final class ColorThief {
 
             r = (rgb >> 16) & 0xFF;
             g = (rgb >> 8) & 0xFF;
-            b = (rgb) & 0xFF;
+            b = rgb & 0xFF;
             if (!(ignoreWhite && r > 250 && g > 250 && b > 250)) {
                 res[numUsedPixels] = new int[] { r, g, b };
                 numUsedPixels++;
