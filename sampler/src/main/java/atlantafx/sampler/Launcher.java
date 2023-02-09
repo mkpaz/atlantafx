@@ -103,6 +103,7 @@ public class Launcher extends Application {
         }
     }
 
+    @SuppressWarnings("CatchAndPrintStackTrace")
     private void startCssFX(Scene scene) {
         URIToPathConverter fileUrlConverter = uri -> {
             try {
