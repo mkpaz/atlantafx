@@ -30,6 +30,7 @@ import static atlantafx.base.theme.Styles.*;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.layout.Priority.ALWAYS;
 
+@SuppressWarnings("UnnecessaryLambda")
 class ThemeRepoManager extends VBox {
 
     private static final Executor THREAD_POOL = Executors.newFixedThreadPool(3);

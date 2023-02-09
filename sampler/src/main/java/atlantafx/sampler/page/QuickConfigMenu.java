@@ -38,6 +38,7 @@ import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
 // This should really be refactored to more generic control someday.
 // - the whole component to PopoverMenu, that reuses JavaFX MenuItem API
 // - font size switcher to flat SpinnerMenuItem
+@SuppressWarnings("UnnecessaryLambda")
 public class QuickConfigMenu extends StackPane {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");

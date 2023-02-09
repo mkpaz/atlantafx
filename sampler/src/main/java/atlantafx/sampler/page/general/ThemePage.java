@@ -31,6 +31,7 @@ import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 import static atlantafx.sampler.util.Controls.hyperlink;
 
+@SuppressWarnings("UnnecessaryLambda")
 public class ThemePage extends AbstractPage {
 
     public static final String NAME = "Theme";

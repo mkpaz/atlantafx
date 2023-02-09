@@ -33,6 +33,7 @@ import java.util.function.Predicate;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.layout.Priority.ALWAYS;
 
+@SuppressWarnings("UnnecessaryLambda")
 class Sidebar extends StackPane {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
