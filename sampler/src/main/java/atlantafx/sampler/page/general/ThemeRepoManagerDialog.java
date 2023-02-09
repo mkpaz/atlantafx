@@ -3,14 +3,13 @@ package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.OverlayDialog;
+import java.io.File;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2MZ;
-
-import java.io.File;
 
 class ThemeRepoManagerDialog extends OverlayDialog<ThemeRepoManager> {
 

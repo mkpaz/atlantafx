@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.controls;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -20,10 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
 

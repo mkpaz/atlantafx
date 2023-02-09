@@ -1,19 +1,18 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler;
 
+import static java.lang.Double.MAX_VALUE;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Objects;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Objects;
-
-import static java.lang.Double.MAX_VALUE;
 
 public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
 

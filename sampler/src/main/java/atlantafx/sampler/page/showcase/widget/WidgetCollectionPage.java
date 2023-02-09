@@ -4,6 +4,7 @@ package atlantafx.sampler.page.showcase.widget;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.Page;
+import java.util.function.Supplier;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -12,8 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.util.function.Supplier;
 
 // JavaFX Skin API is very complex and almost undocumented. In many cases it's much simpler
 // to create a small widget that just do the job than wasting hours to debug control behaviour.

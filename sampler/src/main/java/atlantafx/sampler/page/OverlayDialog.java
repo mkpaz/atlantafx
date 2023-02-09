@@ -1,8 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TITLE_4;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.util.Containers;
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,10 +18,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.Objects;
-
-import static atlantafx.base.theme.Styles.*;
 
 public abstract class OverlayDialog<T extends Region> extends VBox {
 

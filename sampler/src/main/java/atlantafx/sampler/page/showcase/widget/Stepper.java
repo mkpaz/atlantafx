@@ -1,6 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.widget;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -18,11 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class Stepper extends HBox {
 

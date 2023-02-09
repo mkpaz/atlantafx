@@ -1,13 +1,15 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import java.util.Objects;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
-
-import java.util.Objects;
 
 final class Model {
 

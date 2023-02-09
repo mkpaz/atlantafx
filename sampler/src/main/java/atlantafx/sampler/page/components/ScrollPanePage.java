@@ -5,7 +5,11 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class ScrollPanePage extends AbstractPage {
 

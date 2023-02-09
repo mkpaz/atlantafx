@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.fake.SampleMenuBar;
 import atlantafx.sampler.page.AbstractPage;
@@ -15,8 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
-
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 public class MenuPage extends AbstractPage {
 

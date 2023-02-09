@@ -5,17 +5,6 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.chart.*;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Arrays;
@@ -23,6 +12,27 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.BubbleChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 public class ChartPage extends AbstractPage {
 

@@ -1,6 +1,18 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.BUTTON_OUTLINED;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LARGE;
+import static atlantafx.base.theme.Styles.ROUNDED;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
@@ -14,9 +26,6 @@ import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 public class ButtonPage extends AbstractPage {
 

@@ -1,6 +1,15 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LARGE;
+import static atlantafx.base.theme.Styles.MEDIUM;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.TITLE_4;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.RingProgressIndicator;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
@@ -12,16 +21,23 @@ import javafx.css.PseudoClass;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 // #javafx-bug Indeterminate (animated) progress bar and also progress indicator
 // are very resource expensive. It consumes a single CPU core and a lot of memory.

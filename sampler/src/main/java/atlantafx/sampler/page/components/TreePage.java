@@ -1,13 +1,27 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Supplier;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.control.cell.ChoiceBoxTreeCell;
 import javafx.scene.control.cell.ComboBoxTreeCell;
@@ -19,17 +33,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
-
-import static atlantafx.base.theme.Styles.DENSE;
-import static atlantafx.base.theme.Styles.toggleStyleClass;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TreePage extends AbstractPage {
 

@@ -1,20 +1,25 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.fake;
 
+import static atlantafx.sampler.util.Controls.menuItem;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
+
+import java.util.stream.IntStream;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import net.datafaker.Faker;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.stream.IntStream;
-
-import static atlantafx.sampler.util.Controls.menuItem;
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
-import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
 
 public class SampleMenuBar extends MenuBar {
 

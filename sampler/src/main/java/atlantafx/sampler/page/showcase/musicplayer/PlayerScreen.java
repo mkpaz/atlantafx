@@ -1,12 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import javafx.scene.control.SplitPane;
-import javafx.scene.paint.Color;
+import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 import java.util.Objects;
-
-import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
+import javafx.scene.control.SplitPane;
+import javafx.scene.paint.Color;
 
 final class PlayerScreen extends SplitPane {
 

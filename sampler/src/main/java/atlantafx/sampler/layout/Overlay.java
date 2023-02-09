@@ -4,6 +4,8 @@ package atlantafx.sampler.layout;
 import atlantafx.sampler.util.Animations;
 import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.NodeUtils;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
@@ -20,9 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-
-import java.util.Objects;
-import java.util.function.Consumer;
 
 public class Overlay extends StackPane {
 

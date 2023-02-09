@@ -9,12 +9,16 @@
  */
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.util.*;
-
 import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
+
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings({"unused", "NarrowingCompoundAssignment"})
 final class ColorThief {

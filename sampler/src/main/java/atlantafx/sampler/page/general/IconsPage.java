@@ -1,11 +1,18 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.util.Controls.hyperlink;
+
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -19,14 +26,6 @@ import org.kordamp.ikonli.javafx.StackedFontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Controls.hyperlink;
 
 public class IconsPage extends AbstractPage {
 

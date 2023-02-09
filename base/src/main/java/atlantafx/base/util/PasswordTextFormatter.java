@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.util;
 
+import java.util.function.UnaryOperator;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -9,8 +10,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
-
-import java.util.function.UnaryOperator;
 
 /**
  * An alternative for the {@link javafx.scene.control.PasswordField}.

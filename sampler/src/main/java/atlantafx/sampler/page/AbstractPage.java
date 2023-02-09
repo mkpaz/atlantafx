@@ -1,21 +1,24 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
-import atlantafx.sampler.layout.Overlay;
-import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
-import net.datafaker.Faker;
-import org.kordamp.ikonli.feather.Feather;
+import static atlantafx.sampler.util.Containers.setScrollConstraints;
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 
+import atlantafx.sampler.layout.Overlay;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import static atlantafx.sampler.util.Containers.setScrollConstraints;
-import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import net.datafaker.Faker;
+import org.kordamp.ikonli.feather.Feather;
 
 public abstract class AbstractPage extends BorderPane implements Page {
 

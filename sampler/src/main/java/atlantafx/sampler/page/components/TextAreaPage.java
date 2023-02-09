@@ -1,16 +1,15 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.FlowPane;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import static atlantafx.base.theme.Styles.STATE_DANGER;
 import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+
+import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.FlowPane;
 
 public class TextAreaPage extends AbstractPage {
 

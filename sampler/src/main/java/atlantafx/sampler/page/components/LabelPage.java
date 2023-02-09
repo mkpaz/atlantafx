@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
@@ -9,9 +12,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class LabelPage extends AbstractPage {
 

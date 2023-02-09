@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
@@ -12,9 +15,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class ColorPickerPage extends AbstractPage {
 

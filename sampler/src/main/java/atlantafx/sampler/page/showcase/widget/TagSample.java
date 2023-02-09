@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.widget;
 
+import static atlantafx.sampler.page.Page.PAGE_HGAP;
+import static atlantafx.sampler.page.Page.PAGE_VGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
@@ -10,11 +15,6 @@ import javafx.scene.layout.GridPane;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.sampler.page.Page.PAGE_HGAP;
-import static atlantafx.sampler.page.Page.PAGE_VGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TagSample extends GridPane {
 

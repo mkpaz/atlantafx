@@ -1,10 +1,49 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.layout;
 
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import static javafx.scene.layout.Priority.ALWAYS;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.components.*;
+import atlantafx.sampler.page.components.AccordionPage;
+import atlantafx.sampler.page.components.BreadcrumbsPage;
+import atlantafx.sampler.page.components.ButtonPage;
+import atlantafx.sampler.page.components.ChartPage;
+import atlantafx.sampler.page.components.CheckBoxPage;
+import atlantafx.sampler.page.components.ColorPickerPage;
+import atlantafx.sampler.page.components.ComboBoxPage;
+import atlantafx.sampler.page.components.CustomTextFieldPage;
+import atlantafx.sampler.page.components.DatePickerPage;
+import atlantafx.sampler.page.components.DialogPage;
+import atlantafx.sampler.page.components.HTMLEditorPage;
+import atlantafx.sampler.page.components.InputGroupPage;
+import atlantafx.sampler.page.components.LabelPage;
+import atlantafx.sampler.page.components.ListPage;
+import atlantafx.sampler.page.components.MenuButtonPage;
+import atlantafx.sampler.page.components.MenuPage;
+import atlantafx.sampler.page.components.OverviewPage;
+import atlantafx.sampler.page.components.PaginationPage;
+import atlantafx.sampler.page.components.PopoverPage;
+import atlantafx.sampler.page.components.ProgressPage;
+import atlantafx.sampler.page.components.RadioButtonPage;
+import atlantafx.sampler.page.components.ScrollPanePage;
+import atlantafx.sampler.page.components.SeparatorPage;
+import atlantafx.sampler.page.components.SliderPage;
+import atlantafx.sampler.page.components.SpinnerPage;
+import atlantafx.sampler.page.components.SplitPanePage;
+import atlantafx.sampler.page.components.TabPanePage;
+import atlantafx.sampler.page.components.TablePage;
+import atlantafx.sampler.page.components.TextAreaPage;
+import atlantafx.sampler.page.components.TextFieldPage;
+import atlantafx.sampler.page.components.TitledPanePage;
+import atlantafx.sampler.page.components.ToggleButtonPage;
+import atlantafx.sampler.page.components.ToggleSwitchPage;
+import atlantafx.sampler.page.components.ToolBarPage;
+import atlantafx.sampler.page.components.TooltipPage;
+import atlantafx.sampler.page.components.TreePage;
+import atlantafx.sampler.page.components.TreeTablePage;
 import atlantafx.sampler.page.general.IconsPage;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
@@ -12,6 +51,14 @@ import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import atlantafx.sampler.page.showcase.widget.WidgetCollectionPage;
 import atlantafx.sampler.util.Containers;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -26,12 +73,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.util.*;
-import java.util.function.Predicate;
-
-import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
-import static javafx.scene.layout.Priority.ALWAYS;
 
 @SuppressWarnings("UnnecessaryLambda")
 class Sidebar extends StackPane {

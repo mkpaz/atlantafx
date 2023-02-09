@@ -1,22 +1,29 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
-import atlantafx.base.theme.*;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+
+import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.NordLight;
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.Theme;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.event.ThemeEvent.EventType;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
-
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public final class ThemeRepository {
 

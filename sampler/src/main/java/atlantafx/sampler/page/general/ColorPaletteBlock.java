@@ -1,10 +1,18 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.page.general.ContrastChecker.LUMINANCE_THRESHOLD;
+import static atlantafx.sampler.page.general.ContrastChecker.PASSED;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.NodeUtils;
+import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -14,15 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.TITLE_3;
-import static atlantafx.sampler.page.general.ContrastChecker.LUMINANCE_THRESHOLD;
-import static atlantafx.sampler.page.general.ContrastChecker.PASSED;
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 class ColorPaletteBlock extends VBox {
 

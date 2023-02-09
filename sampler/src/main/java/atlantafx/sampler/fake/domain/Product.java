@@ -1,12 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.fake.domain;
 
+import java.util.Objects;
+import java.util.function.Function;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import net.datafaker.Faker;
-
-import java.util.Objects;
-import java.util.function.Function;
 
 public final class Product {
 

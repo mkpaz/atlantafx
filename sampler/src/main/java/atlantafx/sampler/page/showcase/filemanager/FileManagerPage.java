@@ -1,16 +1,38 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.filemanager;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_ANY;
+import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_NOT_HIDDEN;
+import static atlantafx.sampler.page.showcase.filemanager.Utils.openFile;
+import static atlantafx.sampler.util.Controls.hyperlink;
+import static atlantafx.sampler.util.Controls.iconButton;
+
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,22 +42,6 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
-
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.FLAT;
-import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_ANY;
-import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_NOT_HIDDEN;
-import static atlantafx.sampler.page.showcase.filemanager.Utils.openFile;
-import static atlantafx.sampler.util.Controls.hyperlink;
-import static atlantafx.sampler.util.Controls.iconButton;
 
 public class FileManagerPage extends ShowcasePage {
 

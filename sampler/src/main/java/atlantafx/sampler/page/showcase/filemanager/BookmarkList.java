@@ -1,16 +1,15 @@
 package atlantafx.sampler.page.showcase.filemanager;
 
+import static atlantafx.sampler.page.showcase.filemanager.Model.USER_HOME;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static atlantafx.sampler.page.showcase.filemanager.Model.USER_HOME;
 
 final class BookmarkList extends ListView<Bookmark> {
 

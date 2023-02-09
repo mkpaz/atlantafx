@@ -1,6 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.filemanager;
 
+import static atlantafx.sampler.page.showcase.filemanager.Utils.isFileHidden;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,15 +17,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.TableView;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static atlantafx.sampler.page.showcase.filemanager.Utils.isFileHidden;
 
 final class FileList {
 

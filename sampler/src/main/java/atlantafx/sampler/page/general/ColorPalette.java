@@ -1,7 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.sampler.util.Controls.hyperlink;
+
 import atlantafx.base.theme.Styles;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -15,14 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static atlantafx.sampler.util.Controls.hyperlink;
 
 class ColorPalette extends VBox {
 

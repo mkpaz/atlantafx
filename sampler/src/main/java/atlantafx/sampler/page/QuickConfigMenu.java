@@ -1,9 +1,23 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TEXT_CAPTION;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_ZOOM;
+import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_ZOOM;
+import static javafx.geometry.Pos.CENTER_LEFT;
+import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
+import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.page.general.AccentColorSelector;
 import atlantafx.sampler.theme.ThemeManager;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
@@ -22,18 +36,6 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.theme.ThemeManager.DEFAULT_ZOOM;
-import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_ZOOM;
-import static javafx.geometry.Pos.CENTER_LEFT;
-import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
-import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
 
 // This should really be refactored to more generic control someday.
 // - the whole component to PopoverMenu, that reuses JavaFX MenuItem API

@@ -1,19 +1,18 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import static atlantafx.sampler.util.Controls.hyperlink;
+
 import atlantafx.sampler.page.showcase.ShowcasePage;
+import java.net.URI;
+import java.util.Objects;
+import java.util.Set;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-
-import java.net.URI;
-import java.util.Objects;
-import java.util.Set;
-
-import static atlantafx.sampler.util.Controls.hyperlink;
 
 public class MusicPlayerPage extends ShowcasePage {
 

@@ -1,13 +1,13 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.filemanager;
 
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
+
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 final class RightClickMenu extends ContextMenu {
 

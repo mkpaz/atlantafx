@@ -2,6 +2,8 @@
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.theme.Styles;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,9 +15,6 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.Objects;
-import java.util.function.Consumer;
 
 public class Message extends StackPane {
 

@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.HotkeyEvent;
@@ -11,6 +13,12 @@ import fr.brouillard.oss.cssfx.CSSFX;
 import fr.brouillard.oss.cssfx.api.URIToPathConverter;
 import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger;
 import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger.LogLevel;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Properties;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -20,15 +28,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Properties;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Launcher extends Application {
 

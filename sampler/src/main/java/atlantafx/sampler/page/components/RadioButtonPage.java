@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
@@ -8,8 +10,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class RadioButtonPage extends AbstractPage {
 

@@ -1,12 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.filemanager;
 
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 
 final class Model {
 

@@ -1,24 +1,34 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
-import atlantafx.base.theme.*;
+import static atlantafx.sampler.Resources.getResource;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.NordLight;
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.Theme;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.event.ThemeEvent.EventType;
 import atlantafx.sampler.util.JColor;
+import java.util.Base64;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static atlantafx.sampler.Resources.getResource;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class ThemeManager {
 

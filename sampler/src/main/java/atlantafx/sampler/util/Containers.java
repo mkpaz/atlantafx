@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.util;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
+
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -8,9 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 public final class Containers {
 

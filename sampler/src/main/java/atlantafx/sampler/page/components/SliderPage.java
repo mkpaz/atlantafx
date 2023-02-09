@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static javafx.geometry.Orientation.VERTICAL;
+
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
@@ -10,8 +12,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
-import static javafx.geometry.Orientation.VERTICAL;
 
 public class SliderPage extends AbstractPage {
 

@@ -1,6 +1,12 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
+
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
@@ -9,6 +15,8 @@ import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.JColor;
 import atlantafx.sampler.util.JColorUtils;
 import atlantafx.sampler.util.PlatformUtils;
+import java.util.Map;
+import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -19,7 +27,12 @@ import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,15 +40,6 @@ import javafx.scene.paint.Color;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.Map;
-import java.util.Objects;
-
-import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
-import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 // Inspired by the https://colourcontrast.cc/
 class ContrastChecker extends GridPane {

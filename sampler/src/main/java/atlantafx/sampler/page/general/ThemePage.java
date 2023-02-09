@@ -1,6 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.sampler.event.ThemeEvent.EventType.COLOR_CHANGE;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_ADD;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_CHANGE;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_REMOVE;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.util.Controls.hyperlink;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
@@ -8,6 +16,9 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
+import java.net.URI;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -21,15 +32,6 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
-
-import java.net.URI;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static atlantafx.sampler.event.ThemeEvent.EventType.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Controls.hyperlink;
 
 @SuppressWarnings("UnnecessaryLambda")
 public class ThemePage extends AbstractPage {

@@ -1,6 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.CENTER_PILL;
+import static atlantafx.base.theme.Styles.LEFT_PILL;
+import static atlantafx.base.theme.Styles.RIGHT_PILL;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.util.Controls.toggleButton;
+import static javafx.scene.layout.GridPane.REMAINING;
+
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
@@ -11,11 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.util.Controls.toggleButton;
-import static javafx.scene.layout.GridPane.REMAINING;
 
 public class ToggleButtonPage extends AbstractPage {
 

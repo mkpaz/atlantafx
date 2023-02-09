@@ -1,11 +1,25 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import static javafx.scene.layout.Priority.ALWAYS;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.theme.ThemeRepository;
 import atlantafx.sampler.util.Containers;
+import java.io.File;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import javafx.concurrent.Task;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
@@ -18,17 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
-
-import java.io.File;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.*;
-import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
-import static javafx.scene.layout.Priority.ALWAYS;
 
 @SuppressWarnings("UnnecessaryLambda")
 class ThemeRepoManager extends VBox {

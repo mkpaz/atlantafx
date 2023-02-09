@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.util;
 
+import java.text.DecimalFormat;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,8 +10,6 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
-
-import java.text.DecimalFormat;
 
 /**
  * Converts between user-edited strings and {@link Double} values.

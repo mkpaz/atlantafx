@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.event.DefaultEventBus;
@@ -15,8 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.HTMLEditor;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class HTMLEditorPage extends AbstractPage {
 

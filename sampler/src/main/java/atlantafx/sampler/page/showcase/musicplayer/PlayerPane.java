@@ -1,6 +1,30 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import static atlantafx.base.controls.Popover.ArrowLocation;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_IMAGE;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
+import static java.lang.Double.MAX_VALUE;
+import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.geometry.Pos.CENTER;
+import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
+import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
+import static org.kordamp.ikonli.material2.Material2MZ.PAUSE;
+import static org.kordamp.ikonli.material2.Material2MZ.PLAY_ARROW;
+import static org.kordamp.ikonli.material2.Material2MZ.SHUFFLE;
+import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_OFF;
+import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_UP;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
+
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.Spacer;
@@ -23,20 +47,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.controls.Popover.ArrowLocation;
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
-import static java.lang.Double.MAX_VALUE;
-import static javafx.geometry.Orientation.VERTICAL;
-import static javafx.geometry.Pos.CENTER;
-import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
-import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
-import static org.kordamp.ikonli.material2.Material2MZ.*;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
 
 final class PlayerPane extends VBox {
 

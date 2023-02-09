@@ -1,6 +1,16 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.BORDERED;
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.STRIPED;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.base.theme.Tweaks.ALIGN_CENTER;
+import static atlantafx.base.theme.Tweaks.ALIGN_LEFT;
+import static atlantafx.base.theme.Tweaks.ALIGN_RIGHT;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
@@ -8,25 +18,32 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.IntStream;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.CheckBoxTreeTableCell;
+import javafx.scene.control.cell.ChoiceBoxTreeTableCell;
+import javafx.scene.control.cell.ComboBoxTreeTableCell;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.base.theme.Tweaks.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TreeTablePage extends AbstractPage {
 

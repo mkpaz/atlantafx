@@ -1,6 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static javafx.geometry.Orientation.VERTICAL;
+
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
@@ -13,10 +17,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.Duration;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static javafx.geometry.Orientation.VERTICAL;
 
 public class TooltipPage extends AbstractPage {
 

@@ -1,13 +1,44 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.BUTTON_OUTLINED;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LEFT_PILL;
+import static atlantafx.base.theme.Styles.RIGHT_PILL;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.IntegerStringConverter;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
-import javafx.scene.control.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.stream.IntStream;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,14 +46,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class OverviewPage extends AbstractPage {
 

@@ -1,6 +1,13 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
+import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
@@ -10,14 +17,20 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.*;
-import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
-import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 public class TabPanePage extends AbstractPage {
 

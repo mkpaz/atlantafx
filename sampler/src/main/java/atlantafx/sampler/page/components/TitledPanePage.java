@@ -1,6 +1,15 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.ELEVATED_2;
+import static atlantafx.base.theme.Styles.INTERACTIVE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static javafx.geometry.HPos.RIGHT;
+import static javafx.scene.layout.Priority.NEVER;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
@@ -11,15 +20,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static javafx.geometry.HPos.RIGHT;
-import static javafx.scene.layout.Priority.NEVER;
 
 public class TitledPanePage extends AbstractPage {
 

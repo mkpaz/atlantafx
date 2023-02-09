@@ -1,12 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
-import javafx.scene.layout.Region;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.util.Base64;
 import java.util.Objects;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import javafx.scene.layout.Region;
 
 public final class CSSFragment {
 

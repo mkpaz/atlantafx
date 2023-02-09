@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+
 import atlantafx.sampler.theme.AccentColor;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.JColorUtils;
@@ -10,9 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.FLAT;
 
 public class AccentColorSelector extends HBox {
 

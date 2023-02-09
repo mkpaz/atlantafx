@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static javafx.scene.layout.GridPane.REMAINING;
+
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
@@ -8,6 +13,12 @@ import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.chrono.HijrahChronology;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,24 +32,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.chrono.HijrahChronology;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.FLAT;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static javafx.scene.layout.GridPane.REMAINING;
 
 public class DatePickerPage extends AbstractPage {
 

@@ -2,12 +2,11 @@
 package atlantafx.sampler.page.showcase.filemanager;
 
 import atlantafx.sampler.Resources;
-import javafx.scene.image.Image;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javafx.scene.image.Image;
 
 final class FileIconRepository {
 

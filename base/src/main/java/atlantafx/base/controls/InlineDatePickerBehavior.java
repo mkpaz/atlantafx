@@ -1,16 +1,15 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.controls;
 
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 import static atlantafx.base.util.PlatformUtils.isMac;
 import static java.time.temporal.ChronoUnit.MONTHS;
 import static java.time.temporal.ChronoUnit.YEARS;
 import static javafx.scene.input.KeyCode.ESCAPE;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class InlineDatePickerBehavior extends BehaviorBase<InlineDatePicker, InlineDatePickerSkin> {
 

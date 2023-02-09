@@ -1,12 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.util;
 
+import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
-import java.util.List;
 
 public final class NodeUtils {
 

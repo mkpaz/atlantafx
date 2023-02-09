@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.widget;
 
+import static atlantafx.sampler.page.Page.PAGE_HGAP;
+import static atlantafx.sampler.page.Page.PAGE_VGAP;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.theme.CSSFragment;
@@ -20,9 +23,6 @@ import javafx.scene.text.TextFlow;
 import net.datafaker.Faker;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.sampler.page.Page.PAGE_HGAP;
-import static atlantafx.sampler.page.Page.PAGE_VGAP;
 
 public class CardSample extends HBox {
 

@@ -1,6 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.Resources;
@@ -21,10 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
-import static atlantafx.base.theme.Styles.DENSE;
-import static atlantafx.base.theme.Styles.toggleStyleClass;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 public class AccordionPage extends AbstractPage {
 

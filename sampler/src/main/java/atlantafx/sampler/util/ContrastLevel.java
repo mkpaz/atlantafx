@@ -1,11 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.util;
 
-import javafx.scene.paint.Color;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 import java.util.Arrays;
-
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import javafx.scene.paint.Color;
 
 /**
  * The WCAG contrast measures the difference in brightness (luminance) between two colours.

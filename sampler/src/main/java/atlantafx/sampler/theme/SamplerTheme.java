@@ -1,28 +1,34 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.theme;
 
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
+import static atlantafx.sampler.Resources.resolve;
+import static atlantafx.sampler.theme.ThemeManager.APP_STYLESHEETS;
+import static atlantafx.sampler.theme.ThemeManager.DUMMY_STYLESHEET;
+import static atlantafx.sampler.theme.ThemeManager.PROJECT_THEMES;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.FileResource;
 import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
 import fr.brouillard.oss.cssfx.CSSFX;
-import javafx.application.Application;
-import javafx.scene.Scene;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.attribute.FileTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static atlantafx.sampler.Launcher.IS_DEV_MODE;
-import static atlantafx.sampler.Resources.resolve;
-import static atlantafx.sampler.theme.ThemeManager.*;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import javafx.application.Application;
+import javafx.scene.Scene;
 
 /**
  * The {@link Theme} decorator to work around some JavaFX CSS limitations.

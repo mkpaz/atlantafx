@@ -1,16 +1,19 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.util;
 
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
-import javafx.scene.control.*;
+import java.net.URI;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.net.URI;
-
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
 
 public final class Controls {
 

@@ -1,11 +1,11 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.widget;
 
+import static javafx.scene.control.ContentDisplay.RIGHT;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-
-import static javafx.scene.control.ContentDisplay.RIGHT;
 
 public class Tag extends Button {
 

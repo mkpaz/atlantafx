@@ -28,16 +28,24 @@
  */
 package atlantafx.base.controls;
 
-import javafx.beans.property.*;
+import java.util.UUID;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.Skin;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
-
-import java.util.UUID;
 
 /**
  * Represents a bread crumb bar. This control is useful to visualize and navigate

@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.layout;
 
+import static atlantafx.base.controls.Popover.ArrowLocation.TOP_CENTER;
+import static javafx.scene.layout.Priority.ALWAYS;
+
 import atlantafx.base.controls.Popover;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
@@ -10,6 +13,8 @@ import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.QuickConfigMenu;
 import atlantafx.sampler.page.components.OverviewPage;
 import atlantafx.sampler.theme.ThemeManager;
+import java.io.IOException;
+import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -18,12 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.Objects;
-
-import static atlantafx.base.controls.Popover.ArrowLocation.TOP_CENTER;
-import static javafx.scene.layout.Priority.ALWAYS;
 
 class MainLayer extends BorderPane {
 

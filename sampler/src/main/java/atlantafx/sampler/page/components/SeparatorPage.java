@@ -1,6 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static javafx.geometry.Orientation.HORIZONTAL;
+import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.geometry.Pos.CENTER;
+
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
@@ -8,11 +12,11 @@ import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.*;
-
-import static javafx.geometry.Orientation.HORIZONTAL;
-import static javafx.geometry.Orientation.VERTICAL;
-import static javafx.geometry.Pos.CENTER;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public final class SeparatorPage extends AbstractPage {
 

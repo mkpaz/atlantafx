@@ -1,10 +1,20 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.BUTTON_OUTLINED;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.stream.IntStream;
 import javafx.geometry.Side;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -15,12 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class MenuButtonPage extends AbstractPage {
 

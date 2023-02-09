@@ -24,9 +24,8 @@
  */
 package atlantafx.sampler.util;
 
-import javafx.scene.paint.Color;
-
 import java.util.regex.Pattern;
+import javafx.scene.paint.Color;
 
 /**
  * Color utilities with support for hex, RGB, arithmetic RGB, HSL, and integer colors.

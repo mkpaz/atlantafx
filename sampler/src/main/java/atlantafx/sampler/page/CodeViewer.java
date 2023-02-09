@@ -1,18 +1,17 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.util.Containers;
+import java.io.IOException;
+import java.io.InputStream;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class CodeViewer extends AnchorPane {
 

@@ -1,11 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.base.controls;
 
+import java.util.function.Consumer;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
 import javafx.scene.control.SkinBase;
-
-import java.util.function.Consumer;
 
 public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase<C, ?>> extends SkinBase<C> {
 

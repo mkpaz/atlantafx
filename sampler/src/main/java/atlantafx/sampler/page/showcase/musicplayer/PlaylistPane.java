@@ -1,26 +1,10 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import atlantafx.base.controls.Spacer;
-import atlantafx.base.theme.Tweaks;
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
-import javafx.concurrent.Task;
-import javafx.css.PseudoClass;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
-import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.io.File;
-import java.util.List;
-import java.util.Objects;
-
-import static atlantafx.base.theme.Styles.*;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.TEXT_CAPTION;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
 import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_IMAGE_ALT;
 import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.SUPPORTED_MEDIA_TYPES;
 import static java.lang.Double.MAX_VALUE;
@@ -29,6 +13,28 @@ import static javafx.scene.layout.Priority.ALWAYS;
 import static javafx.stage.FileChooser.ExtensionFilter;
 import static org.kordamp.ikonli.material2.Material2AL.ADD;
 import static org.kordamp.ikonli.material2.Material2MZ.PLAYLIST_PLAY;
+
+import atlantafx.base.controls.Spacer;
+import atlantafx.base.theme.Tweaks;
+import java.io.File;
+import java.util.List;
+import java.util.Objects;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.concurrent.Task;
+import javafx.css.PseudoClass;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 final class PlaylistPane extends VBox {
 

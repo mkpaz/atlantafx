@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
@@ -8,6 +11,8 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,12 +25,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class PopoverPage extends AbstractPage {
 

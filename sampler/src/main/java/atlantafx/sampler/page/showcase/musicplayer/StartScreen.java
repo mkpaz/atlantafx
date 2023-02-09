@@ -1,7 +1,14 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.SUPPORTED_MEDIA_TYPES;
+
 import atlantafx.base.theme.Styles;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,14 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.SUPPORTED_MEDIA_TYPES;
 
 final class StartScreen extends BorderPane {
 

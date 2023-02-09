@@ -1,13 +1,12 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.fake.domain;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import net.datafaker.Faker;
-
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import net.datafaker.Faker;
 
 public final class Book {
 

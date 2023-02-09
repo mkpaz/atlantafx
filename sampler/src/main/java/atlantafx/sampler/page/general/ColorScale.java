@@ -2,6 +2,8 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
+import java.util.Arrays;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -14,9 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-
-import java.util.Arrays;
-import java.util.List;
 
 class ColorScale extends VBox {
 

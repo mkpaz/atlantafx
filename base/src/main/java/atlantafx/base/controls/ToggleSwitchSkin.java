@@ -28,6 +28,9 @@
  */
 package atlantafx.base.controls;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.DoubleProperty;
@@ -42,10 +45,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
 

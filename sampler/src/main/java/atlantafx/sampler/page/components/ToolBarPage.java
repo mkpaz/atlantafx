@@ -1,32 +1,56 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BOTTOM;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.CENTER_PILL;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LEFT;
+import static atlantafx.base.theme.Styles.LEFT_PILL;
+import static atlantafx.base.theme.Styles.RIGHT;
+import static atlantafx.base.theme.Styles.RIGHT_PILL;
+import static atlantafx.base.theme.Styles.TOP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.util.Controls.button;
+import static atlantafx.sampler.util.Controls.iconButton;
+import static atlantafx.sampler.util.Controls.toggleButton;
+import static javafx.geometry.Orientation.HORIZONTAL;
+import static javafx.geometry.Orientation.VERTICAL;
+
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.fake.SampleMenuBar;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.ArrayList;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Controls.*;
-import static javafx.geometry.Orientation.HORIZONTAL;
-import static javafx.geometry.Orientation.VERTICAL;
 
 public class ToolBarPage extends AbstractPage {
 

@@ -1,11 +1,41 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.general;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.base.theme.Styles.TEXT;
+import static atlantafx.base.theme.Styles.TEXT_BOLD;
+import static atlantafx.base.theme.Styles.TEXT_BOLDER;
+import static atlantafx.base.theme.Styles.TEXT_CAPTION;
+import static atlantafx.base.theme.Styles.TEXT_ITALIC;
+import static atlantafx.base.theme.Styles.TEXT_LIGHTER;
+import static atlantafx.base.theme.Styles.TEXT_MUTED;
+import static atlantafx.base.theme.Styles.TEXT_NORMAL;
+import static atlantafx.base.theme.Styles.TEXT_OBLIQUE;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static atlantafx.base.theme.Styles.TEXT_STRIKETHROUGH;
+import static atlantafx.base.theme.Styles.TEXT_SUBTLE;
+import static atlantafx.base.theme.Styles.TEXT_UNDERLINED;
+import static atlantafx.base.theme.Styles.TITLE_1;
+import static atlantafx.base.theme.Styles.TITLE_2;
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.base.theme.Styles.TITLE_4;
+import static atlantafx.base.theme.Styles.WARNING;
+import static atlantafx.sampler.event.ThemeEvent.EventType.FONT_CHANGE;
+import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_CHANGE;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_FONT_FAMILY_NAME;
+import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_FONT_SIZE;
+
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.ThemeManager;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -16,22 +46,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.event.ThemeEvent.EventType.FONT_CHANGE;
-import static atlantafx.sampler.event.ThemeEvent.EventType.THEME_CHANGE;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.theme.ThemeManager.DEFAULT_FONT_FAMILY_NAME;
-import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_FONT_SIZE;
 
 public class TypographyPage extends AbstractPage {
 

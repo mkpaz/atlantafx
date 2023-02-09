@@ -1,9 +1,19 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.STATE_DANGER;
+import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.util.Containers.H_GROW_NEVER;
+import static javafx.collections.FXCollections.observableArrayList;
+
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -15,17 +25,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Containers.H_GROW_NEVER;
-import static javafx.collections.FXCollections.observableArrayList;
 
 public class ComboBoxPage extends AbstractPage {
 

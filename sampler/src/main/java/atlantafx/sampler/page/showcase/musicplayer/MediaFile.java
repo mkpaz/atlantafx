@@ -1,18 +1,19 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import atlantafx.sampler.Resources;
-import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
 
+import atlantafx.sampler.Resources;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 @SuppressWarnings("StringOperationCanBeSimplified")
 record MediaFile(File file) {

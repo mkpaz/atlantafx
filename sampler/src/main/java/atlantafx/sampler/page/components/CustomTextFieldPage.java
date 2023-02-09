@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
 package atlantafx.sampler.page.components;
 
+import static atlantafx.base.theme.Styles.STATE_DANGER;
+import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.util.PasswordTextFormatter;
 import atlantafx.sampler.page.AbstractPage;
@@ -9,9 +12,6 @@ import javafx.scene.Cursor;
 import javafx.scene.layout.FlowPane;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
 
 public class CustomTextFieldPage extends AbstractPage {
 

@@ -1,18 +1,21 @@
 package atlantafx.sampler.page.general;
 
-import atlantafx.base.theme.Tweaks;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.*;
-import org.kordamp.ikonli.Ikon;
-import org.kordamp.ikonli.javafx.FontIcon;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
 
+import atlantafx.base.theme.Tweaks;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import org.kordamp.ikonli.Ikon;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class IconBrowser extends TableView<List<Ikon>> {
 
