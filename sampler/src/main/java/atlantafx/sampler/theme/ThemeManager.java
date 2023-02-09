@@ -76,7 +76,7 @@ public final class ThemeManager {
         return getRepository().getAll().get(0);
     }
 
-    /** @see SamplerTheme */
+    /** See {@link SamplerTheme}. */
     public void setTheme(SamplerTheme theme) {
         Objects.requireNonNull(theme);
 

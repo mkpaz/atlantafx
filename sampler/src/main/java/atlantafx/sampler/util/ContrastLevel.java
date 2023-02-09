@@ -75,7 +75,7 @@ public enum ContrastLevel {
     }
 
     /**
-     * @see ContrastLevel#getColorLuminance(double[])
+     * See {@link ContrastLevel#getColorLuminance}.
      */
     public static double getColorLuminance(Color color) {
         return getColorLuminance(new double[]{color.getRed(), color.getGreen(), color.getBlue()});
