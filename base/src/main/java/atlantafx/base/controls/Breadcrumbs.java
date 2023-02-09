@@ -51,8 +51,8 @@ import javafx.util.Callback;
 /**
  * Represents a bread crumb bar. This control is useful to visualize and navigate
  * a hierarchical path structure, such as file systems.
- * <p>
- * A breadcrumbs consist of two types of elements: a button (default is a hyperlink)
+ *
+ * <p>A breadcrumbs consist of two types of elements: a button (default is a hyperlink)
  * and a divider (default is for Label). You can customize both by providing the
  * corresponding control factory.
  */
@@ -101,7 +101,7 @@ public class Breadcrumbs<T> extends Control {
 
     /**
      * Construct a tree model from the flat list which then can be set
-     * as selectedCrumb node to be shown
+     * as selectedCrumb node to be shown.
      */
     @SafeVarargs
     public static <T> BreadCrumbItem<T> buildTreeModel(T... crumbs) {
@@ -125,11 +125,10 @@ public class Breadcrumbs<T> extends Control {
      * terms of the bread crumb bar). The full path is then being constructed
      * using getParent() of the tree-items.
      *
-     * <p>
-     * Consider the following hierarchy:
+     * <p>Consider the following hierarchy:
      * [Root] &gt; [Folder] &gt; [SubFolder] &gt; [file.txt]
-     * <p>
-     * To show the above bread crumb bar, you have to set the [file.txt] tree-node as selected crumb.
+     *
+     * <p>To show the above bread crumb bar, you have to set the [file.txt] tree-node as selected crumb.
      */
     public final ObjectProperty<BreadCrumbItem<T>> selectedCrumbProperty() {
         return selectedCrumb;
@@ -171,12 +170,12 @@ public class Breadcrumbs<T> extends Control {
     /**
      * Crumb factory is used to create custom bread crumb instances.
      * <code>null</code> is not allowed and will result in a fallback to the default factory.
-     * <p>
-     * <code>BreadCrumbItem<T></code> specifies the tree item for creating bread crumb. Use
+     *
+     * <p><code>BreadCrumbItem&lt;T&gt;</code> specifies the tree item for creating bread crumb. Use
      * {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to create bread crumb
      * depending on item position.
-     * <p>
-     * <code>ButtonBase</code> stands for resulting bread crumb node. It CAN NOT be <code>null</code>.
+     *
+     * <p><code>ButtonBase</code> stands for resulting bread crumb node. It CAN NOT be <code>null</code>.
      */
     public final ObjectProperty<Callback<BreadCrumbItem<T>, ButtonBase>> crumbFactoryProperty() {
         return crumbFactory;
@@ -199,13 +198,13 @@ public class Breadcrumbs<T> extends Control {
     /**
      * Divider factory is used to create custom divider instances.
      * <code>null</code> is not allowed and will result in a fallback to the default factory.
-     * <p>
-     * <code>BreadCrumbItem<T></code> specifies the preceding tree item. It can be null, because this way
+     *
+     * <p><code>BreadCrumbItem&lt;T&gt;</code> specifies the preceding tree item. It can be null, because this way
      * you can insert divider before the first bread crumb, which can be used e.g. for creating a Unix path.
      * Use {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to create divider
      * depending on item position.
-     * <p>
-     * <code>? extends Node</code> stands for resulting divider node. It CAN be <code>null</code>, which
+     *
+     * <p><code>? extends Node</code> stands for resulting divider node. It CAN be <code>null</code>, which
      * means there will be no divider inserted after the specified bread crumb.
      */
     public final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactoryProperty() {

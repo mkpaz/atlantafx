@@ -56,14 +56,14 @@ import javafx.util.Callback;
  * The DatePicker control allows the user to select a date. The calendar is based on either
  * the standard ISO-8601 chronology or any of the other chronology classes defined in the
  * java.time.chrono package.
- * <p>
- * The {@link #valueProperty() value} property represents the currently selected
+ *
+ * <p>The {@link #valueProperty() value} property represents the currently selected
  * {@link LocalDate}. The default value is null.
- * <p>
- * The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
+ *
+ * <p>The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
  * for parsing, displaying, and choosing dates.
- * <p>
- * The {@link #valueProperty() value} property is always defined in the ISO calendar system,
+ *
+ * <p>The {@link #valueProperty() value} property is always defined in the ISO calendar system,
  * however, so applications based on a different chronology may use the conversion methods
  * provided in the {@link java.time.chrono.Chronology} API to get or set the corresponding
  * {@link java.time.chrono.ChronoLocalDate} value.
@@ -164,11 +164,11 @@ public class InlineDatePicker extends Control {
     /**
      * The calendar system used for parsing, displaying, and choosing dates in the DatePicker
      * control.
-     * <p>
-     * The default is usually {@link IsoChronology} unless provided explicitly
+     *
+     * <p>The default is usually {@link IsoChronology} unless provided explicitly
      * in the {@link Locale} by use of a Locale calendar extension.
-     * <p>
-     * Setting the value to <code>null</code> will restore the default chronology.
+     *
+     * <p>Setting the value to <code>null</code> will restore the default chronology.
      *
      * @return a property representing the Chronology being used
      */
@@ -200,11 +200,11 @@ public class InlineDatePicker extends Control {
 
     /**
      * Whether the DatePicker popup should display a column showing week numbers.
-     * <p>
-     * The default value is specified in a resource bundle, and depends on the country of the
+     *
+     * <p>The default value is specified in a resource bundle, and depends on the country of the
      * current locale.
      *
-     * @return true if popup should display a column showing week numbers
+     * @return "true" if popup should display a column showing week numbers
      */
     public final BooleanProperty showWeekNumbersProperty() {
         if (showWeekNumbers == null) {

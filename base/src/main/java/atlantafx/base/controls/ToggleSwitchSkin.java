@@ -103,7 +103,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
 
     /**
      * How many milliseconds it should take for the thumb to go from
-     * one edge to the other
+     * one edge to the other.
      */
     private DoubleProperty thumbMoveAnimationTime = null;
 

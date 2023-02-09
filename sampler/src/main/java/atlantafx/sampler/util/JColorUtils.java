@@ -1,20 +1,20 @@
 /**
  * MIT License
- * <p>
- * Copyright (c) 2022 National Geospatial-Intelligence Agency
+ *
+ * <p>Copyright (c) 2022 National Geospatial-Intelligence Agency
  * Source: https://github.com/ngageoint/color-java
- * <p>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p>
- * The above copyright notice and this permission notice shall be included in all
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * <p>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -36,19 +36,19 @@ import javafx.scene.paint.Color;
 public class JColorUtils {
 
     /**
-     * Hex color pattern
+     * Hex color pattern.
      */
     private static final Pattern hexColorPattern = Pattern
         .compile("^#?((\\p{XDigit}{3}){1,2}|(\\p{XDigit}{4}){1,2})$");
 
     /**
-     * Hex single color pattern
+     * Hex single color pattern.
      */
     private static final Pattern hexSingleColorPattern = Pattern
         .compile("^\\p{XDigit}{1,2}$");
 
     /**
-     * Convert the hex color values to a hex color
+     * Convert the hex color values to a hex color.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -60,7 +60,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color, shorthanded when possible
+     * Convert the hex color values to a hex color, shorthanded when possible.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -74,7 +74,7 @@ public class JColorUtils {
 
     /**
      * Convert the hex color values to a hex color including an opaque alpha
-     * value of FF
+     * value of FF.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -93,7 +93,7 @@ public class JColorUtils {
 
     /**
      * Convert the hex color values to a hex color including an opaque alpha
-     * value of FF or F, shorthanded when possible
+     * value of FF or F, shorthanded when possible.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -106,7 +106,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color
+     * Convert the hex color values to a hex color.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -132,7 +132,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color, shorthanded when possible
+     * Convert the hex color values to a hex color, shorthanded when possible.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -146,7 +146,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGB values to a color integer
+     * Convert the RGB values to a color integer.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -159,7 +159,7 @@ public class JColorUtils {
 
     /**
      * Convert the RGB values to a color integer including an opaque alpha value
-     * of 255
+     * of 255.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -171,7 +171,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGBA values to a color integer
+     * Convert the RGBA values to a color integer.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -194,7 +194,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGB integer to a hex single color
+     * Convert the RGB integer to a hex single color.
      *
      * @param color integer color inclusively between 0 and 255
      * @return hex single color in format FF
@@ -209,7 +209,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the arithmetic RGB float to a hex single color
+     * Convert the arithmetic RGB float to a hex single color.
      *
      * @param color float color inclusively between 0.0 and 1.0
      * @return hex single color in format FF
@@ -219,7 +219,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex single color to an RGB integer
+     * Convert the hex single color to an RGB integer.
      *
      * @param color hex single color in format FF or F
      * @return integer color inclusively between 0 and 255
@@ -233,7 +233,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the arithmetic RGB float to an RGB integer
+     * Convert the arithmetic RGB float to an RGB integer.
      *
      * @param color float color inclusively between 0.0 and 1.0
      * @return integer color inclusively between 0 and 255
@@ -244,7 +244,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex single color to an arithmetic RGB float
+     * Convert the hex single color to an arithmetic RGB float.
      *
      * @param color hex single color in format FF or F
      * @return float color inclusively between 0.0 and 1.0
@@ -254,7 +254,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGB integer to an arithmetic RGB float
+     * Convert the RGB integer to an arithmetic RGB float.
      *
      * @param color integer color inclusively between 0 and 255
      * @return float color inclusively between 0.0 and 1.0
@@ -266,7 +266,7 @@ public class JColorUtils {
 
     /**
      * Convert red, green, and blue arithmetic values to HSL (hue, saturation,
-     * lightness) values
+     * lightness) values.
      *
      * @param red   red color inclusively between 0.0 and 1.0
      * @param green green color inclusively between 0.0 and 1.0
@@ -320,7 +320,7 @@ public class JColorUtils {
 
     /**
      * Convert red, green, and blue integer values to HSL (hue, saturation,
-     * lightness) values
+     * lightness) values.
      *
      * @param red   red color inclusively between 0 and 255
      * @param green green color inclusively between 0 and 255
@@ -334,7 +334,7 @@ public class JColorUtils {
 
     /**
      * Convert HSL (hue, saturation, and lightness) values to RGB arithmetic
-     * values
+     * values.
      *
      * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
@@ -365,7 +365,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert HSL (hue, saturation, and lightness) values to RGB integer values
+     * Convert HSL (hue, saturation, and lightness) values to RGB integer values.
      *
      * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
@@ -378,7 +378,7 @@ public class JColorUtils {
     }
 
     /**
-     * HSL convert helper method
+     * HSL convert helper method.
      *
      * @param t1  t1
      * @param t2  t2
@@ -406,7 +406,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex red color from the hex string
+     * Get the hex red color from the hex string.
      *
      * @param hex hex color
      * @return hex red color in format RR
@@ -416,7 +416,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex green color from the hex string
+     * Get the hex green color from the hex string.
      *
      * @param hex hex color
      * @return hex green color in format GG
@@ -426,7 +426,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex blue color from the hex string
+     * Get the hex blue color from the hex string.
      *
      * @param hex hex color
      * @return hex blue color in format BB
@@ -436,7 +436,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex alpha color from the hex string if it exists
+     * Get the hex alpha color from the hex string if it exists.
      *
      * @param hex hex color
      * @return hex alpha color in format AA or null
@@ -446,7 +446,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex single color
+     * Get the hex single color.
      *
      * @param hex        hex color
      * @param colorIndex red=0, green=1, blue=2, alpha=-1
@@ -483,7 +483,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the red color from color integer
+     * Get the red color from color integer.
      *
      * @param color color integer
      * @return red color
@@ -493,7 +493,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the green color from color integer
+     * Get the green color from color integer.
      *
      * @param color color integer
      * @return green color
@@ -503,7 +503,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the blue color from color integer
+     * Get the blue color from color integer.
      *
      * @param color color integer
      * @return blue color
@@ -513,7 +513,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the alpha color from color integer
+     * Get the alpha color from color integer.
      *
      * @param color color integer
      * @return alpha color
@@ -523,7 +523,7 @@ public class JColorUtils {
     }
 
     /**
-     * Shorthand the hex color if possible
+     * Shorthand the hex color if possible.
      *
      * @param color hex color
      * @return shorthand hex color or original value
@@ -555,7 +555,7 @@ public class JColorUtils {
     }
 
     /**
-     * Expand the hex if it is in shorthand
+     * Expand the hex if it is in shorthand.
      *
      * @param color hex color
      * @return expanded hex color or original value
@@ -580,7 +580,7 @@ public class JColorUtils {
     }
 
     /**
-     * Shorthand the hex single color if possible
+     * Shorthand the hex single color if possible.
      *
      * @param color hex single color
      * @return shorthand hex color or original value
@@ -596,7 +596,7 @@ public class JColorUtils {
     }
 
     /**
-     * Expand the hex single if it is in shorthand
+     * Expand the hex single if it is in shorthand.
      *
      * @param color hex single color
      * @return expanded hex color or original value
@@ -610,7 +610,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the hex color value is valid
+     * Check if the hex color value is valid.
      *
      * @param color hex color
      * @return true if valid
@@ -620,7 +620,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the hex color value
+     * Validate the hex color value.
      *
      * @param color hex color
      */
@@ -633,7 +633,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the hex single color value is valid
+     * Check if the hex single color value is valid.
      *
      * @param color hex single color
      * @return true if valid
@@ -643,7 +643,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the hex single color value
+     * Validate the hex single color value.
      *
      * @param color hex single color
      */
@@ -655,7 +655,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the RGB integer color is valid, inclusively between 0 and 255
+     * Check if the RGB integer color is valid, inclusively between 0 and 255.
      *
      * @param color decimal color
      * @return true if valid
@@ -665,7 +665,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the RGB integer color is inclusively between 0 and 255
+     * Validate the RGB integer color is inclusively between 0 and 255.
      *
      * @param color decimal color
      */
@@ -678,8 +678,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the arithmetic RGB float color is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the arithmetic RGB float color is valid, inclusively between 0.0 and 1.0.
      *
      * @param color decimal color
      * @return true if valid
@@ -689,8 +688,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the arithmetic RGB float color is inclusively between 0.0 and
-     * 1.0
+     * Validate the arithmetic RGB float color is inclusively between 0.0 and 1.0.
      *
      * @param color decimal color
      */
@@ -703,8 +701,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the HSL hue float value is valid, inclusively between 0.0 and
-     * 360.0
+     * Check if the HSL hue float value is valid, inclusively between 0.0 and 360.0.
      *
      * @param hue hue value
      * @return true if valid
@@ -727,8 +724,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the HSL saturation float value is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the HSL saturation float value is valid, inclusively between 0.0 and 1.0.
      *
      * @param saturation saturation value
      * @return true if valid
@@ -738,8 +734,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the HSL saturation float value is inclusively between 0.0 and
-     * 1.0
+     * Validate the HSL saturation float value is inclusively between 0.0 and 1.0.
      *
      * @param saturation saturation value
      */
@@ -752,8 +747,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the HSL lightness float value is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the HSL lightness float value is valid, inclusively between 0.0 and 1.0.
      *
      * @param lightness lightness value
      * @return true if valid
@@ -763,7 +757,7 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the HSL lightness float value is inclusively between 0.0 and 1.0
+     * Validate the HSL lightness float value is inclusively between 0.0 and 1.0.
      *
      * @param lightness lightness value
      */

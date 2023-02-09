@@ -76,9 +76,6 @@ public final class Styles {
     public static final String TEXT_MUTED = "text-muted";
     public static final String TEXT_SUBTLE = "text-subtle";
 
-    /**
-     * Initialize a new Styles
-     */
     private Styles() {
         // Default constructor
     }

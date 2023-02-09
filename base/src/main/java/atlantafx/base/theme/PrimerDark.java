@@ -4,9 +4,6 @@ package atlantafx.base.theme;
 
 public final class PrimerDark implements Theme {
 
-    /**
-     * Initialize a new PrimerDark
-     */
     public PrimerDark() {
         // Default constructor
     }

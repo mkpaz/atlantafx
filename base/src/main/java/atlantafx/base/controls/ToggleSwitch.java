@@ -50,7 +50,7 @@ public class ToggleSwitch extends Labeled {
     }
 
     /**
-     * Creates a toggle switch with the specified label
+     * Creates a toggle switch with the specified label.
      *
      * @param text The label string of the control
      */

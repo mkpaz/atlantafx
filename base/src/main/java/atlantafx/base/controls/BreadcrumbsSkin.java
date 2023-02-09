@@ -133,7 +133,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
     }
 
     /**
-     * Construct a flat list for the crumbs
+     * Construct a flat list for the crumbs.
      *
      * @param bottomMost The crumb node at the end of the path
      */
@@ -189,7 +189,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
     }
 
     /**
-     * Occurs when a bread crumb gets the action event
+     * Occurs when a bread crumb gets the action event.
      *
      * @param crumbModel The crumb which received the action event
      */

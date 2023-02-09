@@ -8,9 +8,6 @@ package atlantafx.base.util;
  */
 public final class PlatformUtils {
 
-    /**
-     * Initialize a new PlatformUtils
-     */
     private PlatformUtils() {
         // Default constructor
     }

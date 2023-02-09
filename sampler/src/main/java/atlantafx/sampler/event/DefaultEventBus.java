@@ -11,11 +11,11 @@ import java.util.function.Consumer;
 
 /**
  * Simple event bus implementation.
- * <p>
- * Subscribe and publish events. Events are published in channels distinguished by event type.
+ *
+ * <p>Subscribe and publish events. Events are published in channels distinguished by event type.
  * Channels can be grouped using an event type hierarchy.
- * <p>
- * You can use the default event bus instance {@link #getInstance}, which is a singleton,
+ *
+ * <p>You can use the default event bus instance {@link #getInstance}, which is a singleton,
  * or you can create one or multiple instances of {@link DefaultEventBus}.
  */
 @SuppressWarnings({"unchecked", "rawtypes"})

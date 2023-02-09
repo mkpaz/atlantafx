@@ -1,20 +1,20 @@
 /**
  * MIT License
- * <p>
- * Copyright (c) 2022 National Geospatial-Intelligence Agency
+ *
+ * <p>Copyright (c) 2022 National Geospatial-Intelligence Agency
  * Source: https://github.com/ngageoint/color-java
- * <p>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p>
- * The above copyright notice and this permission notice shall be included in all
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * <p>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -34,27 +34,27 @@ package atlantafx.sampler.util;
 public class JColor {
 
     /**
-     * Red arithmetic color value
+     * Red arithmetic color value.
      */
     private float red = 0.0f;
 
     /**
-     * Green arithmetic color value
+     * Green arithmetic color value.
      */
     private float green = 0.0f;
 
     /**
-     * Blue arithmetic color value
+     * Blue arithmetic color value.
      */
     private float blue = 0.0f;
 
     /**
-     * Opacity arithmetic value
+     * Opacity arithmetic value.
      */
     private float opacity = 1.0f;
 
     /**
-     * Create the color in hex
+     * Create the color in hex.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -65,7 +65,7 @@ public class JColor {
     }
 
     /**
-     * Create the color in hex with an opacity
+     * Create the color in hex with an opacity.
      *
      * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *                AARRGGBB, #ARGB, or ARGB
@@ -77,7 +77,7 @@ public class JColor {
     }
 
     /**
-     * Create the color in hex with an alpha
+     * Create the color in hex with an alpha.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -89,7 +89,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors
+     * Create the color with individual hex colors.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -101,7 +101,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors and alpha
+     * Create the color with individual hex colors and alpha.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -115,7 +115,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors and opacity
+     * Create the color with individual hex colors and opacity.
      *
      * @param red     red hex color in format RR
      * @param green   green hex color in format GG
@@ -129,7 +129,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGB values
+     * Create the color with RGB values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -141,7 +141,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGBA values
+     * Create the color with RGBA values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -154,7 +154,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGBA values
+     * Create the color with RGBA values.
      *
      * @param red     red integer color inclusively between 0 and 255
      * @param green   green integer color inclusively between 0 and 255
@@ -167,7 +167,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with arithmetic RGB values
+     * Create the color with arithmetic RGB values.
      *
      * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
@@ -179,7 +179,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with arithmetic RGB values
+     * Create the color with arithmetic RGB values.
      *
      * @param red     red float color inclusively between 0.0 and 1.0
      * @param green   green float color inclusively between 0.0 and 1.0
@@ -194,7 +194,7 @@ public class JColor {
 
     /**
      * Create the color with HSL (hue, saturation, lightness) or HSL (alpha)
-     * values
+     * values.
      *
      * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness,
      *            optional 3 = alpha
@@ -205,7 +205,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with HSLA (hue, saturation, lightness, alpha) values
+     * Create the color with HSLA (hue, saturation, lightness, alpha) values.
      *
      * @param hsl   HSL array where: 0 = hue, 1 = saturation, 2 = lightness
      * @param alpha alpha inclusively between 0.0 and 1.0
@@ -216,7 +216,7 @@ public class JColor {
     }
 
     /**
-     * Create the color as a single integer
+     * Create the color as a single integer.
      *
      * @param color color integer
      * @return color
@@ -226,14 +226,14 @@ public class JColor {
     }
 
     /**
-     * Default color constructor, opaque black
+     * Default color constructor, opaque black.
      */
     public JColor() {
 
     }
 
     /**
-     * Create the color in hex
+     * Create the color in hex.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -243,7 +243,7 @@ public class JColor {
     }
 
     /**
-     * Create the color in hex with an opacity
+     * Create the color in hex with an opacity.
      *
      * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *                AARRGGBB, #ARGB, or ARGB
@@ -254,7 +254,7 @@ public class JColor {
     }
 
     /**
-     * Create the color in hex with an alpha
+     * Create the color in hex with an alpha.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -265,7 +265,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors
+     * Create the color with individual hex colors.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -276,7 +276,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors and alpha
+     * Create the color with individual hex colors and alpha.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -288,7 +288,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with individual hex colors and opacity
+     * Create the color with individual hex colors and opacity.
      *
      * @param red     red hex color in format RR
      * @param green   green hex color in format GG
@@ -300,7 +300,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGB values
+     * Create the color with RGB values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -311,7 +311,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGBA values
+     * Create the color with RGBA values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -323,7 +323,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with RGBA values
+     * Create the color with RGBA values.
      *
      * @param red     red integer color inclusively between 0 and 255
      * @param green   green integer color inclusively between 0 and 255
@@ -335,7 +335,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with arithmetic RGB values
+     * Create the color with arithmetic RGB values.
      *
      * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
@@ -346,7 +346,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with arithmetic RGB values
+     * Create the color with arithmetic RGB values.
      *
      * @param red     red float color inclusively between 0.0 and 1.0
      * @param green   green float color inclusively between 0.0 and 1.0
@@ -358,7 +358,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with HSL (hue, saturation, lightness) or HSL (alpha)
+     * Create the color with HSL (hue, saturation, lightness) or HSL (alpha).
      * values
      *
      * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness,
@@ -373,7 +373,7 @@ public class JColor {
     }
 
     /**
-     * Create the color with HSLA (hue, saturation, lightness, alpha) values
+     * Create the color with HSLA (hue, saturation, lightness, alpha) values.
      *
      * @param hsl   HSL array where: 0 = hue, 1 = saturation, 2 = lightness
      * @param alpha alpha inclusively between 0.0 and 1.0
@@ -383,7 +383,7 @@ public class JColor {
     }
 
     /**
-     * Create the color as a single integer
+     * Create the color as a single integer.
      *
      * @param color color integer
      */
@@ -392,7 +392,7 @@ public class JColor {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
      * @param color color to copy
      */
@@ -404,7 +404,7 @@ public class JColor {
     }
 
     /**
-     * Set the color in hex
+     * Set the color in hex.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -420,7 +420,7 @@ public class JColor {
     }
 
     /**
-     * Set the color in hex with an opacity
+     * Set the color in hex with an opacity.
      *
      * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *                AARRGGBB, #ARGB, or ARGB
@@ -432,7 +432,7 @@ public class JColor {
     }
 
     /**
-     * Set the color in hex with an alpha
+     * Set the color in hex with an alpha.
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
      *              AARRGGBB, #ARGB, or ARGB
@@ -444,7 +444,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with individual hex colors
+     * Set the color with individual hex colors.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -457,7 +457,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with individual hex colors and alpha
+     * Set the color with individual hex colors and alpha.
      *
      * @param red   red hex color in format RR
      * @param green green hex color in format GG
@@ -470,7 +470,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with individual hex colors and opacity
+     * Set the color with individual hex colors and opacity.
      *
      * @param red     red hex color in format RR
      * @param green   green hex color in format GG
@@ -483,7 +483,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with RGB values
+     * Set the color with RGB values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -496,7 +496,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with RGBA values
+     * Set the color with RGBA values.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -509,7 +509,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with RGBA values
+     * Set the color with RGBA values.
      *
      * @param red     red integer color inclusively between 0 and 255
      * @param green   green integer color inclusively between 0 and 255
@@ -522,7 +522,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with arithmetic RGB values
+     * Set the color with arithmetic RGB values.
      *
      * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
@@ -535,7 +535,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with arithmetic RGB values
+     * Set the color with arithmetic RGB values.
      *
      * @param red     red float color inclusively between 0.0 and 1.0
      * @param green   green float color inclusively between 0.0 and 1.0
@@ -548,7 +548,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with HSL (hue, saturation, lightness) values
+     * Set the color with HSL (hue, saturation, lightness) values.
      *
      * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
@@ -563,7 +563,7 @@ public class JColor {
     }
 
     /**
-     * Set the color with HSLA (hue, saturation, lightness, alpha) values
+     * Set the color with HSLA (hue, saturation, lightness, alpha) values.
      *
      * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
@@ -577,7 +577,7 @@ public class JColor {
     }
 
     /**
-     * Set the color as a single integer
+     * Set the color as a single integer.
      *
      * @param color color integer
      */
@@ -591,7 +591,7 @@ public class JColor {
     }
 
     /**
-     * Set the red color in hex
+     * Set the red color in hex.
      *
      * @param red red hex color in format RR or R
      */
@@ -600,7 +600,7 @@ public class JColor {
     }
 
     /**
-     * Set the green color in hex
+     * Set the green color in hex.
      *
      * @param green green hex color in format GG or G
      */
@@ -609,7 +609,7 @@ public class JColor {
     }
 
     /**
-     * Set the blue color in hex
+     * Set the blue color in hex.
      *
      * @param blue blue hex color in format BB or B
      */
@@ -618,7 +618,7 @@ public class JColor {
     }
 
     /**
-     * Set the alpha color in hex
+     * Set the alpha color in hex.
      *
      * @param alpha alpha hex color in format AA or A
      */
@@ -627,7 +627,7 @@ public class JColor {
     }
 
     /**
-     * Set the red color as an integer
+     * Set the red color as an integer.
      *
      * @param red red integer color inclusively between 0 and 255
      */
@@ -636,7 +636,7 @@ public class JColor {
     }
 
     /**
-     * Set the green color as an integer
+     * Set the green color as an integer.
      *
      * @param green green integer color inclusively between 0 and 255
      */
@@ -645,7 +645,7 @@ public class JColor {
     }
 
     /**
-     * Set the blue color as an integer
+     * Set the blue color as an integer.
      *
      * @param blue blue integer color inclusively between 0 and 255
      */
@@ -654,7 +654,7 @@ public class JColor {
     }
 
     /**
-     * Set the alpha color as an integer
+     * Set the alpha color as an integer.
      *
      * @param alpha alpha integer color inclusively between 0 and 255
      */
@@ -663,7 +663,7 @@ public class JColor {
     }
 
     /**
-     * Set the red color as an arithmetic float
+     * Set the red color as an arithmetic float.
      *
      * @param red red float color inclusively between 0.0 and 1.0
      */
@@ -673,7 +673,7 @@ public class JColor {
     }
 
     /**
-     * Set the green color as an arithmetic float
+     * Set the green color as an arithmetic float.
      *
      * @param green green float color inclusively between 0.0 and 1.0
      */
@@ -683,7 +683,7 @@ public class JColor {
     }
 
     /**
-     * Set the blue color as an arithmetic float
+     * Set the blue color as an arithmetic float.
      *
      * @param blue blue float color inclusively between 0.0 and 1.0
      */
@@ -693,7 +693,7 @@ public class JColor {
     }
 
     /**
-     * Set the opacity as an arithmetic float
+     * Set the opacity as an arithmetic float.
      *
      * @param opacity opacity float color inclusively between 0.0 and 1.0
      */
@@ -703,7 +703,7 @@ public class JColor {
     }
 
     /**
-     * Set the alpha color as an arithmetic float
+     * Set the alpha color as an arithmetic float.
      *
      * @param alpha alpha float color inclusively between 0.0 and 1.0
      */
@@ -721,7 +721,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as a hex string
+     * Get the color as a hex string.
      *
      * @return hex color in the format #RRGGBB
      */
@@ -730,7 +730,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as a hex string with alpha
+     * Get the color as a hex string with alpha.
      *
      * @return hex color in the format #AARRGGBB
      */
@@ -740,7 +740,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as a hex string, shorthanded when possible
+     * Get the color as a hex string, shorthanded when possible.
      *
      * @return hex color in the format #RGB or #RRGGBB
      */
@@ -750,7 +750,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as a hex string with alpha, shorthanded when possible
+     * Get the color as a hex string with alpha, shorthanded when possible.
      *
      * @return hex color in the format #ARGB or #AARRGGBB
      */
@@ -760,7 +760,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as an integer
+     * Get the color as an integer.
      *
      * @return integer color
      */
@@ -769,7 +769,7 @@ public class JColor {
     }
 
     /**
-     * Get the color as an integer including the alpha
+     * Get the color as an integer including the alpha.
      *
      * @return integer color
      */
@@ -779,7 +779,7 @@ public class JColor {
     }
 
     /**
-     * Get the red color in hex
+     * Get the red color in hex.
      *
      * @return red hex color in format RR
      */
@@ -788,7 +788,7 @@ public class JColor {
     }
 
     /**
-     * Get the green color in hex
+     * Get the green color in hex.
      *
      * @return green hex color in format GG
      */
@@ -797,7 +797,7 @@ public class JColor {
     }
 
     /**
-     * Get the blue color in hex
+     * Get the blue color in hex.
      *
      * @return blue hex color in format BB
      */
@@ -806,7 +806,7 @@ public class JColor {
     }
 
     /**
-     * Get the alpha color in hex
+     * Get the alpha color in hex.
      *
      * @return alpha hex color in format AA
      */
@@ -815,7 +815,7 @@ public class JColor {
     }
 
     /**
-     * Get the red color in hex, shorthand when possible
+     * Get the red color in hex, shorthand when possible.
      *
      * @return red hex color in format R or RR
      */
@@ -824,7 +824,7 @@ public class JColor {
     }
 
     /**
-     * Get the green color in hex, shorthand when possible
+     * Get the green color in hex, shorthand when possible.
      *
      * @return green hex color in format G or GG
      */
@@ -833,7 +833,7 @@ public class JColor {
     }
 
     /**
-     * Get the blue color in hex, shorthand when possible
+     * Get the blue color in hex, shorthand when possible.
      *
      * @return blue hex color in format B or BB
      */
@@ -842,7 +842,7 @@ public class JColor {
     }
 
     /**
-     * Get the alpha color in hex, shorthand when possible
+     * Get the alpha color in hex, shorthand when possible.
      *
      * @return alpha hex color in format A or AA
      */
@@ -851,7 +851,7 @@ public class JColor {
     }
 
     /**
-     * Get the red color as an integer
+     * Get the red color as an integer.
      *
      * @return red integer color inclusively between 0 and 255
      */
@@ -860,7 +860,7 @@ public class JColor {
     }
 
     /**
-     * Get the green color as an integer
+     * Get the green color as an integer.
      *
      * @return green integer color inclusively between 0 and 255
      */
@@ -869,7 +869,7 @@ public class JColor {
     }
 
     /**
-     * Get the blue color as an integer
+     * Get the blue color as an integer.
      *
      * @return blue integer color inclusively between 0 and 255
      */
@@ -878,7 +878,7 @@ public class JColor {
     }
 
     /**
-     * Get the alpha color as an integer
+     * Get the alpha color as an integer.
      *
      * @return alpha integer color inclusively between 0 and 255
      */
@@ -887,7 +887,7 @@ public class JColor {
     }
 
     /**
-     * Get the red color as an arithmetic float
+     * Get the red color as an arithmetic float.
      *
      * @return red float color inclusively between 0.0 and 1.0
      */
@@ -896,7 +896,7 @@ public class JColor {
     }
 
     /**
-     * Get the green color as an arithmetic float
+     * Get the green color as an arithmetic float.
      *
      * @return green float color inclusively between 0.0 and 1.0
      */
@@ -905,7 +905,7 @@ public class JColor {
     }
 
     /**
-     * Get the blue color as an arithmetic float
+     * Get the blue color as an arithmetic float.
      *
      * @return blue float color inclusively between 0.0 and 1.0
      */
@@ -914,7 +914,7 @@ public class JColor {
     }
 
     /**
-     * Get the opacity as an arithmetic float
+     * Get the opacity as an arithmetic float.
      *
      * @return opacity float inclusively between 0.0 and 1.0
      */
@@ -923,7 +923,7 @@ public class JColor {
     }
 
     /**
-     * Get the alpha color as an arithmetic float
+     * Get the alpha color as an arithmetic float.
      *
      * @return alpha float color inclusively between 0.0 and 1.0
      */
@@ -932,7 +932,7 @@ public class JColor {
     }
 
     /**
-     * Get the HSL (hue, saturation, lightness) values
+     * Get the HSL (hue, saturation, lightness) values.
      *
      * @return HSL array where: 0 = hue, 1 = saturation, 2 = lightness
      */
@@ -941,7 +941,7 @@ public class JColor {
     }
 
     /**
-     * Get the HSL hue value
+     * Get the HSL hue value.
      *
      * @return hue value
      */
@@ -950,7 +950,7 @@ public class JColor {
     }
 
     /**
-     * Get the HSL saturation value
+     * Get the HSL saturation value.
      *
      * @return saturation value
      */
@@ -959,7 +959,7 @@ public class JColor {
     }
 
     /**
-     * Get the HSL lightness value
+     * Get the HSL lightness value.
      *
      * @return lightness value
      */
@@ -968,7 +968,7 @@ public class JColor {
     }
 
     /**
-     * Copy the color
+     * Copy the color.
      *
      * @return color copy
      */

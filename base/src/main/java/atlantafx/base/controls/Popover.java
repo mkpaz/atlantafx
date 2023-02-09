@@ -68,8 +68,8 @@ import javafx.util.Duration;
  * window decorations) and an arrow pointing at the owner. Due to the nature of
  * popup windows the Popover will move around with the parent window when the
  * user drags it.
- * <p>
- * The Popover can be detached from the owning node by dragging it away from the
+ *
+ * <p>The Popover can be detached from the owning node by dragging it away from the
  * owner. It stops displaying an arrow and starts displaying a title and a close
  * icon.
  */
@@ -143,8 +143,8 @@ public class Popover extends PopupControl {
     /**
      * The root pane stores the content node of the popover. It is accessible
      * via this method in order to support proper styling.
-     * <p>
-     * Example:
+     *
+     * <p>Example:
      *
      * <pre>
      * Popover popOver = new Popover();
@@ -177,7 +177,7 @@ public class Popover extends PopupControl {
     }
 
     /**
-     * Returns the value of the content property
+     * Returns the value of the content property.
      *
      * @return the content node
      * @see #contentNodeProperty()
@@ -802,7 +802,7 @@ public class Popover extends PopupControl {
     }
 
     /**
-     * All possible arrow locations
+     * All possible arrow locations.
      */
     public enum ArrowLocation {
         LEFT_TOP,
