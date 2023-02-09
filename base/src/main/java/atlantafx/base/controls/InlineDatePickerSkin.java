@@ -283,7 +283,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
             final double left = snapSpaceX(getInsets().getLeft());
             final double right = snapSpaceX(getInsets().getRight());
             final double contentWidth = width - left - right - hGaps;
-            return ((snapSizeX(contentWidth / nCols)) * nCols) + left + right + hGaps;
+            return (snapSizeX(contentWidth / nCols) * nCols) + left + right + hGaps;
         }
 
         @Override
