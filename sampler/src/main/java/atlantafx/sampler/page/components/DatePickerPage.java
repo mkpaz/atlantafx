@@ -219,6 +219,7 @@ public class DatePickerPage extends AbstractPage {
 
     private static class FutureDateCell extends DateCell {
 
+        @Override
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
             setDisable(empty || date.compareTo(TODAY) < 0);

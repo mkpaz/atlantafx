@@ -63,6 +63,7 @@ public class CheckBoxPage extends AbstractPage {
     }
 
     // visually compare normal and indeterminate checkboxes size
+    @Override
     protected void onRendered() {
         var normalBox = basicCheck.lookup(".box");
         var indeterminateBox = indeterminateCheck.lookup(".box");
