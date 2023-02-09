@@ -252,7 +252,6 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
                 </plugin>
-
                 <plugin>
                     <groupId>io.github.wiverson</groupId>
                     <artifactId>jtoolprovider-plugin</artifactId>
@@ -342,6 +341,42 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>lint</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <showWarnings>true</showWarnings>
+                            <compilerArgs>
+                                <arg>-XDcompilePolicy=simple</arg>
+                                <arg>
+                                    -Xplugin:ErrorProne \
+                                    -Xep:NullAway:ERROR \
+                                    -XepOpt:NullAway:AnnotatedPackages=corf \
+                                    -XepExcludedPaths:.*/src/test/java/.*
+                                    -XepAllErrorsAsWarnings
+                                </arg>
+                            </compilerArgs>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>com.google.errorprone</groupId>
+                                    <artifactId>error_prone_core</artifactId>
+                                    <version>2.16</version>
+                                </path>
+                                <path>
+                                    <groupId>com.uber.nullaway</groupId>
+                                    <artifactId>nullaway</artifactId>
+                                    <version>0.10.4</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
