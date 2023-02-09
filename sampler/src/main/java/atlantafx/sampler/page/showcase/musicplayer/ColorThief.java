@@ -16,7 +16,7 @@ import java.util.*;
 import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "NarrowingCompoundAssignment"})
 final class ColorThief {
 
     private static final int DEFAULT_QUALITY = 10;
