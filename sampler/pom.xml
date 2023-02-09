@@ -68,6 +68,10 @@
             <artifactId>ikonli-material2-pack</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
+        <dependency>
             <groupId>fr.brouillard.oss</groupId>
             <artifactId>cssfx</artifactId>
         </dependency>

@@ -14,6 +14,7 @@ module atlantafx.sampler {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.feather;
     requires org.kordamp.ikonli.material2;
+    requires org.jetbrains.annotations;
 
     requires fr.brouillard.oss.cssfx;
     requires datafaker;
