@@ -106,7 +106,7 @@ public final class SamplerTheme implements Theme {
         // classpath resources are static, no need to parse project theme more than once
         if (colors != null) { return colors; }
 
-        try (var br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (var br = new BufferedReader(new InputStreamReader(file.getInputStream(), UTF_8))) {
             colors = parseColors(br);
         }
 

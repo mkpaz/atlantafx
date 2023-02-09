@@ -3,9 +3,10 @@ package atlantafx.sampler.theme;
 
 import javafx.scene.layout.Region;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class CSSFragment {
 
@@ -51,6 +52,6 @@ public final class CSSFragment {
     }
 
     public String toDataURI() {
-        return DATA_URI_PREFIX + new String(Base64.getEncoder().encode(css.getBytes()), StandardCharsets.UTF_8);
+        return DATA_URI_PREFIX + new String(Base64.getEncoder().encode(css.getBytes(UTF_8)), UTF_8);
     }
 }
