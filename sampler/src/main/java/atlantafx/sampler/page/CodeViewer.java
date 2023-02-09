@@ -6,6 +6,7 @@ import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.util.Containers;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 
 import java.io.IOException;
@@ -52,10 +53,7 @@ public class CodeViewer extends AnchorPane {
                     .append("<script>").append(new String(hljsLineNum.readAllBytes(), UTF_8)).append("</script>")
                     .append("<script>" + HLJS_SCRIPT + "</script>")
                     .append("</head>")
-                    // Transparent background is allowed starting from OpenJFX 18.
-                    // https://bugs.openjdk.org/browse/JDK-8090547
-                    // Until that it should match Highlight JS background.
-                    .append(String.format("<body style=\"background-color:%s;\">", theme.getBackground()))
+                    .append("<body>")
                     .append("<pre>")
                     .append("<code class=\"language-java\">")
                     .append(new String(source.readAllBytes(), UTF_8))
@@ -65,6 +63,7 @@ public class CodeViewer extends AnchorPane {
                     .append("</html>")
                     .toString();
 
+            webView.setPageFill(Color.TRANSPARENT);
             webView.getEngine().loadContent(content);
         } catch (IOException e) {
             throw new RuntimeException(e);
