@@ -317,9 +317,12 @@ public class InlineDatePicker extends Control {
         return false;
     }
 
+    @SuppressWarnings("ReturnValueIgnored")
     static boolean isValidDate(Chronology chrono, LocalDate date) {
         try {
-            if (date != null) { chrono.date(date); }
+            if (date != null) {
+                chrono.date(date);
+            }
             return true;
         } catch (DateTimeException e) {
             e.printStackTrace();
