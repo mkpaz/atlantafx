@@ -223,6 +223,7 @@ public final class ThemeManager {
         customCSSRules.put(selector, rule);
     }
 
+    @SuppressWarnings("unused")
     private void removeCustomRule(String selector) {
         customCSSRules.remove(selector);
     }
