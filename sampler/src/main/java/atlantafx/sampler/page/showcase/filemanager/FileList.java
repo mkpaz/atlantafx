@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
 
 import static atlantafx.sampler.page.showcase.filemanager.Utils.isFileHidden;
@@ -21,7 +22,7 @@ import javafx.scene.control.TableView;
 final class FileList {
 
     static final Comparator<Path> FILE_TYPE_COMPARATOR =
-            Comparator.comparing(path -> !Files.isDirectory(path));
+        Comparator.comparing(path -> !Files.isDirectory(path));
     static final Predicate<Path> PREDICATE_ANY = path -> true;
     static final Predicate<Path> PREDICATE_NOT_HIDDEN = path -> !isFileHidden(path);
 
@@ -36,8 +37,8 @@ final class FileList {
         sortedList.comparatorProperty().bind(Bindings.createObjectBinding(() -> {
             Comparator<Path> tableComparator = table.comparatorProperty().get();
             return tableComparator != null ?
-                    FILE_TYPE_COMPARATOR.thenComparing(tableComparator) :
-                    FILE_TYPE_COMPARATOR;
+                FILE_TYPE_COMPARATOR.thenComparing(tableComparator) :
+                FILE_TYPE_COMPARATOR;
         }, table.comparatorProperty()));
         table.setItems(sortedList);
     }

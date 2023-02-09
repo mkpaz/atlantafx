@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler;
 
 import java.io.FileInputStream;
@@ -50,7 +51,9 @@ public final class FileResource {
     public InputStream getInputStream() throws IOException {
         if (internal) {
             var is = anchor.getResourceAsStream(location);
-            if (is == null) { throw new IOException("Resource not found: " + location); }
+            if (is == null) {
+                throw new IOException("Resource not found: " + location);
+            }
             return is;
         }
         return new FileInputStream(toPath().toFile());

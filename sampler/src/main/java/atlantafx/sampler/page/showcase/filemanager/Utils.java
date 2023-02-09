@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
 
 import java.awt.Desktop;

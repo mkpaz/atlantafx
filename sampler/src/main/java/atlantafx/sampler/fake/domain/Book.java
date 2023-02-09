@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.fake.domain;
 
 import java.util.Objects;
@@ -28,35 +29,57 @@ public final class Book {
         this.isbn = isbn;
     }
 
-    public UUID getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 
-    public void setId(UUID id) { this.id = id; }
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-    public boolean getState() { return state.get(); }
+    public boolean getState() {
+        return state.get();
+    }
 
-    public void setState(boolean state) { this.state.set(state); }
+    public void setState(boolean state) {
+        this.state.set(state);
+    }
 
-    public BooleanProperty stateProperty() { return state; }
+    public BooleanProperty stateProperty() {
+        return state;
+    }
 
-    public String getAuthor() { return author; }
+    public String getAuthor() {
+        return author;
+    }
 
-    public void setAuthor(String author) { this.author = author; }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public String getIsbn() { return isbn; }
+    public String getIsbn() {
+        return isbn;
+    }
 
-    public void setIsbn(String isbn) { this.isbn = isbn; }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
     public static Book random(Faker faker) {
         return new Book(
-                UUID.randomUUID(),
-                new SimpleBooleanProperty(),
-                faker.book().author(),
-                faker.book().title(),
-                faker.code().isbn10()
+            UUID.randomUUID(),
+            new SimpleBooleanProperty(),
+            faker.book().author(),
+            faker.book().title(),
+            faker.code().isbn10()
         );
     }
 

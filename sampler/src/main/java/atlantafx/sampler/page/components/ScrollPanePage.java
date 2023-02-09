@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
@@ -17,16 +18,18 @@ public class ScrollPanePage extends AbstractPage {
     private static final int SPACING = 1;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ScrollPanePage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_VGAP, Page.PAGE_HGAP,
-                horizontalScrollSample(),
-                verticalScrollSample(),
-                gridScrollSample(),
-                disabledSample()
+            Page.PAGE_VGAP, Page.PAGE_HGAP,
+            horizontalScrollSample(),
+            verticalScrollSample(),
+            gridScrollSample(),
+            disabledSample()
         ));
     }
 
@@ -35,8 +38,8 @@ public class ScrollPanePage extends AbstractPage {
         scrollPane.setMaxHeight(100);
         scrollPane.setMaxWidth(300);
         scrollPane.setContent(new HBox(SPACING,
-                createRegion(200, 100, "-color-success-emphasis"),
-                createRegion(200, 100, "-color-danger-emphasis")
+            createRegion(200, 100, "-color-success-emphasis"),
+            createRegion(200, 100, "-color-danger-emphasis")
         ));
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -48,8 +51,8 @@ public class ScrollPanePage extends AbstractPage {
         scrollPane.setMaxHeight(100);
         scrollPane.setMaxWidth(300);
         scrollPane.setContent(new VBox(SPACING,
-                createRegion(300, 75, "-color-success-emphasis"),
-                createRegion(300, 75, "-color-danger-emphasis")
+            createRegion(300, 75, "-color-success-emphasis"),
+            createRegion(300, 75, "-color-danger-emphasis")
         ));
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 

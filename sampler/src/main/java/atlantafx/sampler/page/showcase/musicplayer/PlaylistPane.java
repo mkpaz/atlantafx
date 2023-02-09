@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import static atlantafx.base.theme.Styles.FLAT;
@@ -82,9 +83,9 @@ final class PlaylistPane extends VBox {
         controlsBox.setPadding(new Insets(0, 0, 10, 0));
         controlsBox.getStyleClass().add("controls");
         controlsBox.getChildren().setAll(
-                new VBox(5, headerLabel, sizeDescLabel),
-                new Spacer(),
-                addButton
+            new VBox(5, headerLabel, sizeDescLabel),
+            new Spacer(),
+            addButton
         );
         controlsBox.setAlignment(CENTER_LEFT);
 
@@ -118,11 +119,13 @@ final class PlaylistPane extends VBox {
             var extensions = SUPPORTED_MEDIA_TYPES.stream().map(s -> "*." + s).toList();
             var fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter(
-                    "MP3 files (" + String.join(", ", extensions) + ")",
-                    extensions
+                "MP3 files (" + String.join(", ", extensions) + ")",
+                extensions
             ));
             List<File> files = fileChooser.showOpenMultipleDialog(getScene().getWindow());
-            if (files == null || files.isEmpty()) { return; }
+            if (files == null || files.isEmpty()) {
+                return;
+            }
 
             loadProgress.setVisible(true);
             final Task<Void> task = new Task<>() {
@@ -182,7 +185,9 @@ final class PlaylistPane extends VBox {
             root = new HBox(10, coverImage, titleBox, playMark);
             root.setAlignment(CENTER_LEFT);
             root.setOnMouseClicked(e -> {
-                if (getItem() != null) { model.play(getItem()); }
+                if (getItem() != null) {
+                    model.play(getItem());
+                }
             });
         }
 
@@ -205,7 +210,7 @@ final class PlaylistPane extends VBox {
 
                 mediaFile.readMetadata(metadata -> {
                     coverImage.setFill(new ImagePattern(
-                            metadata.image() != null ? metadata.image() : NO_IMAGE_ALT
+                        metadata.image() != null ? metadata.image() : NO_IMAGE_ALT
                     ));
                     titleLabel.setText(metadata.title());
                     artistLabel.setText(metadata.artist());

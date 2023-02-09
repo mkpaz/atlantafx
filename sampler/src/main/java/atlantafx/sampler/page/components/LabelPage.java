@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -18,7 +19,9 @@ public class LabelPage extends AbstractPage {
     public static final String NAME = "Label";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public LabelPage() {
         super();
@@ -27,8 +30,8 @@ public class LabelPage extends AbstractPage {
 
     private void createView() {
         setUserContent(new VBox(
-                PAGE_VGAP,
-                expandingHBox(colorSample())
+            PAGE_VGAP,
+            expandingHBox(colorSample())
         ));
     }
 
@@ -54,14 +57,14 @@ public class LabelPage extends AbstractPage {
         subtleLabel.getStyleClass().add(Styles.TEXT_SUBTLE);
 
         var content = new VBox(
-                BLOCK_VGAP,
-                new Label("You can also use pseudo-classes to set Label color."),
-                new Label("Note that icon inherits label color by default."),
-                new FlowPane(
-                        BLOCK_HGAP, BLOCK_VGAP,
-                        defaultLabel, accentLabel, successLabel, warningLabel, dangerLabel,
-                        mutedLabel, subtleLabel
-                ));
+            BLOCK_VGAP,
+            new Label("You can also use pseudo-classes to set Label color."),
+            new Label("Note that icon inherits label color by default."),
+            new FlowPane(
+                BLOCK_HGAP, BLOCK_VGAP,
+                defaultLabel, accentLabel, successLabel, warningLabel, dangerLabel,
+                mutedLabel, subtleLabel
+            ));
 
         return new SampleBlock("Colors", content);
     }

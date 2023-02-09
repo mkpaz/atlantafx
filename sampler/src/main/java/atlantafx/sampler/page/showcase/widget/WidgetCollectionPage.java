@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.theme.Styles;
@@ -22,7 +23,9 @@ public class WidgetCollectionPage extends BorderPane implements Page {
     public static final String NAME = "Widgets";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final ListView<Example> toc = new ListView<>();
     private final VBox widgetWrapper = new VBox(PAGE_HGAP);
@@ -42,7 +45,9 @@ public class WidgetCollectionPage extends BorderPane implements Page {
         toc.getStyleClass().addAll("toc", Styles.DENSE, Tweaks.EDGE_TO_EDGE);
         toc.getItems().setAll(Example.values());
         toc.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             widgetWrapper.getChildren().setAll(val.getSupplier().get());
         });
 
@@ -72,12 +77,15 @@ public class WidgetCollectionPage extends BorderPane implements Page {
     }
 
     @Override
-    public void reset() { }
+    public void reset() {
+    }
 
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
-        if (isRendered) { return; }
+        if (isRendered) {
+            return;
+        }
 
         isRendered = true;
         toc.getSelectionModel().selectFirst();

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.sampler.page.SampleBlock;

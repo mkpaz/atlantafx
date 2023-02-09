@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.ACCENT;
@@ -45,7 +46,9 @@ public class ListPage extends AbstractPage {
     public static final String NAME = "ListView";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final List<Book> dataList = generate(() -> Book.random(FAKER), 50);
     private final StringConverter<Book> bookStringConverter = new BookStringConverter(dataList);
@@ -62,20 +65,26 @@ public class ListPage extends AbstractPage {
 
     private VBox createPlayground() {
         var borderedToggle = new ToggleSwitch("Bordered");
-        borderedToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, BORDERED)));
+        borderedToggle.selectedProperty()
+            .addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, BORDERED)));
 
         var denseToggle = new ToggleSwitch("Dense");
-        denseToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, DENSE)));
+        denseToggle.selectedProperty()
+            .addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, DENSE)));
 
         var stripedToggle = new ToggleSwitch("Striped");
-        stripedToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, STRIPED)));
+        stripedToggle.selectedProperty()
+            .addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, STRIPED)));
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
-        edge2edgeToggle.selectedProperty().addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, Tweaks.EDGE_TO_EDGE)));
+        edge2edgeToggle.selectedProperty()
+            .addListener((obs, old, value) -> toggleListProperty(lv -> toggleStyleClass(lv, Tweaks.EDGE_TO_EDGE)));
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedList().ifPresent(lv -> {
-            if (val != null) { lv.setDisable(val); }
+            if (val != null) {
+                lv.setDisable(val);
+            }
         }));
 
         var controls = new HBox(BLOCK_HGAP, borderedToggle, denseToggle, stripedToggle, edge2edgeToggle);
@@ -84,11 +93,11 @@ public class ListPage extends AbstractPage {
         VBox.setVgrow(listWrapper, Priority.ALWAYS);
 
         var playground = new VBox(
-                BLOCK_VGAP,
-                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
-                exampleSelect,
-                listWrapper,
-                controls
+            BLOCK_VGAP,
+            new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
+            exampleSelect,
+            listWrapper,
+            controls
         );
         playground.setMinHeight(100);
 
@@ -101,7 +110,9 @@ public class ListPage extends AbstractPage {
         select.getItems().setAll(Example.values());
 
         select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             ListView<?> newList = createList(val);
 
@@ -139,24 +150,38 @@ public class ListPage extends AbstractPage {
 
     private Optional<ListView<?>> findDisplayedList() {
         return listWrapper.getChildren().size() > 0 ?
-                Optional.of((ListView<?>) listWrapper.getChildren().get(0)) :
-                Optional.empty();
+            Optional.of((ListView<?>) listWrapper.getChildren().get(0)) :
+            Optional.empty();
     }
 
     private void toggleListProperty(Consumer<ListView<?>> consumer) {
         findDisplayedList().ifPresent(lv -> {
-            if (consumer != null) { consumer.accept(lv); }
+            if (consumer != null) {
+                consumer.accept(lv);
+            }
         });
     }
 
     private ListView<?> createList(Example example) {
         switch (example) {
-            case TEXT -> { return stringList(); }
-            case EDITABLE -> { return editableList(); }
-            case CHECK_BOX -> { return checkBoxList(); }
-            case CHOICE_BOX -> { return choiceBoxList(); }
-            case COMBO_BOX -> { return comboBoxList(); }
-            case NESTED_CONTROLS -> { return nestedControlsList(); }
+            case TEXT -> {
+                return stringList();
+            }
+            case EDITABLE -> {
+                return editableList();
+            }
+            case CHECK_BOX -> {
+                return checkBoxList();
+            }
+            case CHOICE_BOX -> {
+                return choiceBoxList();
+            }
+            case COMBO_BOX -> {
+                return comboBoxList();
+            }
+            case NESTED_CONTROLS -> {
+                return nestedControlsList();
+            }
             default -> throw new IllegalArgumentException("Unexpected enum value: " + example);
         }
     }
@@ -172,8 +197,8 @@ public class ListPage extends AbstractPage {
         lv.setEditable(true);
         lv.setCellFactory(TextFieldListCell.forListView());
         lv.getItems().setAll(
-                // small size to see the empty cells
-                dataList.stream().limit(5).map(bookStringConverter::toString).collect(Collectors.toList())
+            // small size to see the empty cells
+            dataList.stream().limit(5).map(bookStringConverter::toString).collect(Collectors.toList())
         );
         return lv;
     }
@@ -188,7 +213,8 @@ public class ListPage extends AbstractPage {
     private ListView<Book> choiceBoxList() {
         var lv = new ListView<Book>();
         lv.setEditable(true);
-        lv.setCellFactory(ChoiceBoxListCell.forListView(bookStringConverter, dataList.subList(0, 10).toArray(Book[]::new)));
+        lv.setCellFactory(
+            ChoiceBoxListCell.forListView(bookStringConverter, dataList.subList(0, 10).toArray(Book[]::new)));
         lv.getItems().setAll(dataList.stream().limit(10).collect(Collectors.toList()));
         return lv;
     }
@@ -196,7 +222,8 @@ public class ListPage extends AbstractPage {
     private ListView<Book> comboBoxList() {
         var lv = new ListView<Book>();
         lv.setEditable(true);
-        lv.setCellFactory(ComboBoxListCell.forListView(bookStringConverter, dataList.subList(0, 10).toArray(Book[]::new)));
+        lv.setCellFactory(
+            ComboBoxListCell.forListView(bookStringConverter, dataList.subList(0, 10).toArray(Book[]::new)));
         lv.getItems().setAll(dataList.stream().limit(10).collect(Collectors.toList()));
         return lv;
     }
@@ -230,9 +257,9 @@ public class ListPage extends AbstractPage {
 
         public static Example find(String name) {
             return Arrays.stream(Example.values())
-                    .filter(example -> Objects.equals(example.getName(), name))
-                    .findFirst()
-                    .orElse(null);
+                .filter(example -> Objects.equals(example.getName(), name))
+                .findFirst()
+                .orElse(null);
         }
     }
 
@@ -246,22 +273,26 @@ public class ListPage extends AbstractPage {
 
         @Override
         public String toString(Book book) {
-            if (book == null) { return null; }
+            if (book == null) {
+                return null;
+            }
             return String.format("\"%s\" by %s", book.getTitle(), book.getAuthor());
         }
 
         @Override
         public Book fromString(String s) {
-            if (s == null) { return null; }
+            if (s == null) {
+                return null;
+            }
 
             int sep = s.indexOf("\" by");
             String title = s.substring(1, sep);
             String author = s.substring(sep + "\" by".length());
 
             return dataList.stream()
-                    .filter(b -> Objects.equals(b.getTitle(), title) && Objects.equals(b.getAuthor(), author))
-                    .findFirst()
-                    .orElse(null);
+                .filter(b -> Objects.equals(b.getTitle(), title) && Objects.equals(b.getAuthor(), author))
+                .findFirst()
+                .orElse(null);
         }
     }
 
@@ -280,11 +311,11 @@ public class ListPage extends AbstractPage {
             purchaseBtn.setGraphic(new FontIcon(Feather.SHOPPING_CART));
 
             root = new HBox(5,
-                    titleLabel,
-                    new Label(" by"),
-                    authorLink,
-                    new Spacer(),
-                    purchaseBtn
+                titleLabel,
+                new Label(" by"),
+                authorLink,
+                new Spacer(),
+                purchaseBtn
             );
             root.setAlignment(Pos.CENTER_LEFT);
         }

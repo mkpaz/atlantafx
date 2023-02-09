@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package atlantafx.sampler.util;
 
 /**
@@ -56,8 +57,7 @@ public class JColor {
      * Create the color in hex
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
-     *
+     *              AARRGGBB, #ARGB, or ARGB
      * @return color
      */
     public static JColor color(String color) {
@@ -67,10 +67,9 @@ public class JColor {
     /**
      * Create the color in hex with an opacity
      *
-     * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
+     *                AARRGGBB, #ARGB, or ARGB
      * @param opacity opacity float inclusively between 0.0 and 1.0
-     *
      * @return color
      */
     public static JColor color(String color, float opacity) {
@@ -81,9 +80,8 @@ public class JColor {
      * Create the color in hex with an alpha
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     *              AARRGGBB, #ARGB, or ARGB
      * @param alpha alpha integer color inclusively between 0 and 255
-     *
      * @return color
      */
     public static JColor color(String color, int alpha) {
@@ -93,10 +91,9 @@ public class JColor {
     /**
      * Create the color with individual hex colors
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
-     *
+     * @param blue  blue hex color in format BB
      * @return color
      */
     public static JColor color(String red, String green, String blue) {
@@ -106,11 +103,10 @@ public class JColor {
     /**
      * Create the color with individual hex colors and alpha
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param blue  blue hex color in format BB
      * @param alpha alpha hex color in format AA
-     *
      * @return color
      */
     public static JColor color(String red, String green, String blue,
@@ -121,11 +117,10 @@ public class JColor {
     /**
      * Create the color with individual hex colors and opacity
      *
-     * @param red red hex color in format RR
-     * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param red     red hex color in format RR
+     * @param green   green hex color in format GG
+     * @param blue    blue hex color in format BB
      * @param opacity opacity float inclusively between 0.0 and 1.0
-     *
      * @return color
      */
     public static JColor color(String red, String green, String blue,
@@ -136,10 +131,9 @@ public class JColor {
     /**
      * Create the color with RGB values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
-     *
+     * @param blue  blue integer color inclusively between 0 and 255
      * @return color
      */
     public static JColor color(int red, int green, int blue) {
@@ -149,11 +143,10 @@ public class JColor {
     /**
      * Create the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
      * @param alpha alpha integer color inclusively between 0 and 255
-     *
      * @return color
      */
     public static JColor color(int red, int green, int blue, int alpha) {
@@ -163,11 +156,10 @@ public class JColor {
     /**
      * Create the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
-     * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param red     red integer color inclusively between 0 and 255
+     * @param green   green integer color inclusively between 0 and 255
+     * @param blue    blue integer color inclusively between 0 and 255
      * @param opacity opacity float inclusively between 0.0 and 1.0
-     *
      * @return color
      */
     public static JColor color(int red, int green, int blue, float opacity) {
@@ -177,10 +169,9 @@ public class JColor {
     /**
      * Create the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
+     * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
-     *
+     * @param blue  blue float color inclusively between 0.0 and 1.0
      * @return color
      */
     public static JColor color(float red, float green, float blue) {
@@ -190,11 +181,10 @@ public class JColor {
     /**
      * Create the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
-     * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
+     * @param red     red float color inclusively between 0.0 and 1.0
+     * @param green   green float color inclusively between 0.0 and 1.0
+     * @param blue    blue float color inclusively between 0.0 and 1.0
      * @param opacity opacity float inclusively between 0.0 and 1.0
-     *
      * @return color
      */
     public static JColor color(float red, float green, float blue,
@@ -207,8 +197,7 @@ public class JColor {
      * values
      *
      * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness,
-     * optional 3 = alpha
-     *
+     *            optional 3 = alpha
      * @return color
      */
     public static JColor color(float[] hsl) {
@@ -218,9 +207,8 @@ public class JColor {
     /**
      * Create the color with HSLA (hue, saturation, lightness, alpha) values
      *
-     * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness
+     * @param hsl   HSL array where: 0 = hue, 1 = saturation, 2 = lightness
      * @param alpha alpha inclusively between 0.0 and 1.0
-     *
      * @return color
      */
     public static JColor color(float[] hsl, float alpha) {
@@ -231,7 +219,6 @@ public class JColor {
      * Create the color as a single integer
      *
      * @param color color integer
-     *
      * @return color
      */
     public static JColor color(int color) {
@@ -249,7 +236,7 @@ public class JColor {
      * Create the color in hex
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     *              AARRGGBB, #ARGB, or ARGB
      */
     public JColor(String color) {
         setColor(color);
@@ -258,8 +245,8 @@ public class JColor {
     /**
      * Create the color in hex with an opacity
      *
-     * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
+     *                AARRGGBB, #ARGB, or ARGB
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public JColor(String color, float opacity) {
@@ -270,7 +257,7 @@ public class JColor {
      * Create the color in hex with an alpha
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     *              AARRGGBB, #ARGB, or ARGB
      * @param alpha alpha integer color inclusively between 0 and 255
      */
     public JColor(String color, int alpha) {
@@ -280,9 +267,9 @@ public class JColor {
     /**
      * Create the color with individual hex colors
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param blue  blue hex color in format BB
      */
     public JColor(String red, String green, String blue) {
         setColor(red, green, blue);
@@ -291,9 +278,9 @@ public class JColor {
     /**
      * Create the color with individual hex colors and alpha
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param blue  blue hex color in format BB
      * @param alpha alpha hex color in format AA
      */
     public JColor(String red, String green, String blue, String alpha) {
@@ -303,9 +290,9 @@ public class JColor {
     /**
      * Create the color with individual hex colors and opacity
      *
-     * @param red red hex color in format RR
-     * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param red     red hex color in format RR
+     * @param green   green hex color in format GG
+     * @param blue    blue hex color in format BB
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public JColor(String red, String green, String blue, float opacity) {
@@ -315,9 +302,9 @@ public class JColor {
     /**
      * Create the color with RGB values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
      */
     public JColor(int red, int green, int blue) {
         setColor(red, green, blue);
@@ -326,9 +313,9 @@ public class JColor {
     /**
      * Create the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
      * @param alpha alpha integer color inclusively between 0 and 255
      */
     public JColor(int red, int green, int blue, int alpha) {
@@ -338,9 +325,9 @@ public class JColor {
     /**
      * Create the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
-     * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param red     red integer color inclusively between 0 and 255
+     * @param green   green integer color inclusively between 0 and 255
+     * @param blue    blue integer color inclusively between 0 and 255
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public JColor(int red, int green, int blue, float opacity) {
@@ -350,9 +337,9 @@ public class JColor {
     /**
      * Create the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
+     * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
+     * @param blue  blue float color inclusively between 0.0 and 1.0
      */
     public JColor(float red, float green, float blue) {
         setColor(red, green, blue);
@@ -361,9 +348,9 @@ public class JColor {
     /**
      * Create the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
-     * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
+     * @param red     red float color inclusively between 0.0 and 1.0
+     * @param green   green float color inclusively between 0.0 and 1.0
+     * @param blue    blue float color inclusively between 0.0 and 1.0
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public JColor(float red, float green, float blue, float opacity) {
@@ -375,7 +362,7 @@ public class JColor {
      * values
      *
      * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness,
-     * optional 3 = alpha
+     *            optional 3 = alpha
      */
     public JColor(float[] hsl) {
         if (hsl.length > 3) {
@@ -388,7 +375,7 @@ public class JColor {
     /**
      * Create the color with HSLA (hue, saturation, lightness, alpha) values
      *
-     * @param hsl HSL array where: 0 = hue, 1 = saturation, 2 = lightness
+     * @param hsl   HSL array where: 0 = hue, 1 = saturation, 2 = lightness
      * @param alpha alpha inclusively between 0.0 and 1.0
      */
     public JColor(float[] hsl, float alpha) {
@@ -420,7 +407,7 @@ public class JColor {
      * Set the color in hex
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     *              AARRGGBB, #ARGB, or ARGB
      */
     public void setColor(String color) {
         setRed(JColorUtils.getRed(color));
@@ -435,8 +422,8 @@ public class JColor {
     /**
      * Set the color in hex with an opacity
      *
-     * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     * @param color   hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
+     *                AARRGGBB, #ARGB, or ARGB
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public void setColor(String color, float opacity) {
@@ -448,7 +435,7 @@ public class JColor {
      * Set the color in hex with an alpha
      *
      * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-     * AARRGGBB, #ARGB, or ARGB
+     *              AARRGGBB, #ARGB, or ARGB
      * @param alpha alpha integer color inclusively between 0 and 255
      */
     public void setColor(String color, int alpha) {
@@ -459,9 +446,9 @@ public class JColor {
     /**
      * Set the color with individual hex colors
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param blue  blue hex color in format BB
      */
     public void setColor(String red, String green, String blue) {
         setRed(red);
@@ -472,9 +459,9 @@ public class JColor {
     /**
      * Set the color with individual hex colors and alpha
      *
-     * @param red red hex color in format RR
+     * @param red   red hex color in format RR
      * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param blue  blue hex color in format BB
      * @param alpha alpha hex color in format AA
      */
     public void setColor(String red, String green, String blue, String alpha) {
@@ -485,9 +472,9 @@ public class JColor {
     /**
      * Set the color with individual hex colors and opacity
      *
-     * @param red red hex color in format RR
-     * @param green green hex color in format GG
-     * @param blue blue hex color in format BB
+     * @param red     red hex color in format RR
+     * @param green   green hex color in format GG
+     * @param blue    blue hex color in format BB
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public void setColor(String red, String green, String blue, float opacity) {
@@ -498,9 +485,9 @@ public class JColor {
     /**
      * Set the color with RGB values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
      */
     public void setColor(int red, int green, int blue) {
         setRed(red);
@@ -511,9 +498,9 @@ public class JColor {
     /**
      * Set the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
+     * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
      * @param alpha alpha integer color inclusively between 0 and 255
      */
     public void setColor(int red, int green, int blue, int alpha) {
@@ -524,9 +511,9 @@ public class JColor {
     /**
      * Set the color with RGBA values
      *
-     * @param red red integer color inclusively between 0 and 255
-     * @param green green integer color inclusively between 0 and 255
-     * @param blue blue integer color inclusively between 0 and 255
+     * @param red     red integer color inclusively between 0 and 255
+     * @param green   green integer color inclusively between 0 and 255
+     * @param blue    blue integer color inclusively between 0 and 255
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public void setColor(int red, int green, int blue, float opacity) {
@@ -537,9 +524,9 @@ public class JColor {
     /**
      * Set the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
+     * @param red   red float color inclusively between 0.0 and 1.0
      * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
+     * @param blue  blue float color inclusively between 0.0 and 1.0
      */
     public void setColor(float red, float green, float blue) {
         setRed(red);
@@ -550,9 +537,9 @@ public class JColor {
     /**
      * Set the color with arithmetic RGB values
      *
-     * @param red red float color inclusively between 0.0 and 1.0
-     * @param green green float color inclusively between 0.0 and 1.0
-     * @param blue blue float color inclusively between 0.0 and 1.0
+     * @param red     red float color inclusively between 0.0 and 1.0
+     * @param green   green float color inclusively between 0.0 and 1.0
+     * @param blue    blue float color inclusively between 0.0 and 1.0
      * @param opacity opacity float inclusively between 0.0 and 1.0
      */
     public void setColor(float red, float green, float blue, float opacity) {
@@ -563,13 +550,13 @@ public class JColor {
     /**
      * Set the color with HSL (hue, saturation, lightness) values
      *
-     * @param hue hue value inclusively between 0.0 and 360.0
+     * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness lightness inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
      */
     public void setColorByHSL(float hue, float saturation, float lightness) {
         float[] arithmeticRGB = JColorUtils.toArithmeticRGB(hue, saturation,
-                                                            lightness);
+            lightness);
         setRed(arithmeticRGB[0]);
         setGreen(arithmeticRGB[1]);
         setBlue(arithmeticRGB[2]);
@@ -578,10 +565,10 @@ public class JColor {
     /**
      * Set the color with HSLA (hue, saturation, lightness, alpha) values
      *
-     * @param hue hue value inclusively between 0.0 and 360.0
+     * @param hue        hue value inclusively between 0.0 and 360.0
      * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness lightness inclusively between 0.0 and 1.0
-     * @param alpha alpha inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
+     * @param alpha      alpha inclusively between 0.0 and 1.0
      */
     public void setColorByHSL(float hue, float saturation, float lightness,
                               float alpha) {
@@ -749,7 +736,7 @@ public class JColor {
      */
     public String getColorHexWithAlpha() {
         return JColorUtils.toColorWithAlpha(getRedHex(), getGreenHex(),
-                                            getBlueHex(), getAlphaHex());
+            getBlueHex(), getAlphaHex());
     }
 
     /**
@@ -759,7 +746,7 @@ public class JColor {
      */
     public String getColorHexShorthand() {
         return JColorUtils.toColorShorthand(getRedHex(), getGreenHex(),
-                                            getBlueHex());
+            getBlueHex());
     }
 
     /**
@@ -769,7 +756,7 @@ public class JColor {
      */
     public String getColorHexShorthandWithAlpha() {
         return JColorUtils.toColorShorthandWithAlpha(getRedHex(), getGreenHex(),
-                                                     getBlueHex(), getAlphaHex());
+            getBlueHex(), getAlphaHex());
     }
 
     /**
@@ -788,7 +775,7 @@ public class JColor {
      */
     public int getColorWithAlpha() {
         return JColorUtils.toColorWithAlpha(getRed(), getGreen(), getBlue(),
-                                            getAlpha());
+            getAlpha());
     }
 
     /**

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
 
 import static atlantafx.sampler.page.showcase.filemanager.Utils.fileMTime;
@@ -55,7 +56,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
     private TableView<Path> createTable() {
         var filenameCol = new TableColumn<Path, String>("Name");
         filenameCol.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue() != null ? param.getValue().getFileName().toString() : null
+            param.getValue() != null ? param.getValue().getFileName().toString() : null
         ));
         filenameCol.setComparator(Comparator.comparing(String::toLowerCase));
         filenameCol.setSortType(ASCENDING);
@@ -195,8 +196,8 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
                 setText(null);
             } else {
                 setText(fileTime != null ?
-                        HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
-                        UNKNOWN
+                    HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
+                    UNKNOWN
                 );
             }
         }

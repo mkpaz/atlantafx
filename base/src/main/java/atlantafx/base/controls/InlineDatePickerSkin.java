@@ -24,6 +24,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
+
 package atlantafx.base.controls;
 
 import static atlantafx.base.controls.InlineDatePicker.isValidDate;
@@ -101,11 +102,16 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
     private final ObjectProperty<YearMonth> displayedYearMonth = new SimpleObjectProperty<>(this, "displayedYearMonth");
 
-    public ObjectProperty<YearMonth> displayedYearMonthProperty() { return displayedYearMonth; }
+    public ObjectProperty<YearMonth> displayedYearMonthProperty() {
+        return displayedYearMonth;
+    }
 
-    private final ObjectBinding<LocalDate> firstDayOfMonth = Bindings.createObjectBinding(() -> displayedYearMonth.get().atDay(1), displayedYearMonth);
+    private final ObjectBinding<LocalDate> firstDayOfMonth =
+        Bindings.createObjectBinding(() -> displayedYearMonth.get().atDay(1), displayedYearMonth);
 
-    public LocalDate getFirstDayOfMonth() { return firstDayOfMonth.get(); }
+    public LocalDate getFirstDayOfMonth() {
+        return firstDayOfMonth.get();
+    }
 
     public InlineDatePickerSkin(InlineDatePicker datePicker) {
         super(datePicker);
@@ -115,7 +121,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         registerChangeListener(datePicker.valueProperty(), e -> {
             LocalDate date = datePicker.getValue();
             displayedYearMonthProperty().set(
-                    date != null ? YearMonth.from(date) : YearMonth.now(ZoneId.systemDefault())
+                date != null ? YearMonth.from(date) : YearMonth.now(ZoneId.systemDefault())
             );
             updateValues();
             datePicker.fireEvent(new ActionEvent());
@@ -197,7 +203,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
         LocalDate value = getControl().getValue();
         displayedYearMonth.set(
-                value != null ? YearMonth.from(value) : YearMonth.now(ZoneId.systemDefault())
+            value != null ? YearMonth.from(value) : YearMonth.now(ZoneId.systemDefault())
         );
         displayedYearMonth.addListener((observable, oldValue, newValue) -> updateValues());
 
@@ -381,9 +387,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
                 // use a formatter to ensure correct localization
                 // such as when Thai numerals are required.
                 String cellText = weekNumberFormatter
-                        .withLocale(locale)
-                        .withDecimalStyle(DecimalStyle.of(locale))
-                        .format(date);
+                    .withLocale(locale)
+                    .withDecimalStyle(DecimalStyle.of(locale))
+                    .format(date);
                 weekNumberCells.get(i).setText(cellText);
             }
         }
@@ -445,9 +451,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
                 }
 
                 String cellText = dayCellFormatter.withLocale(locale)
-                        .withChronology(chrono)
-                        .withDecimalStyle(DecimalStyle.of(locale))
-                        .format(cDate);
+                    .withChronology(chrono)
+                    .withDecimalStyle(DecimalStyle.of(locale))
+                    .format(cDate);
 
                 dayCell.setText(cellText);
                 dayCell.updateItem(date, false);
@@ -480,13 +486,13 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         try {
             ChronoLocalDate chronoDate = chrono.date(yearMonth.atDay(1));
             String str = monthFormatterSO.withLocale(getLocale())
-                    .withChronology(chrono)
-                    .format(chronoDate);
+                .withChronology(chrono)
+                .format(chronoDate);
             if (Character.isDigit(str.charAt(0))) {
                 // fallback: if standalone format returned a number, use standard format instead
                 str = monthFormatter.withLocale(getLocale())
-                        .withChronology(chrono)
-                        .format(chronoDate);
+                    .withChronology(chrono)
+                    .format(chronoDate);
             }
             return capitalize(str);
         } catch (DateTimeException ex) {
@@ -500,9 +506,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         try {
             ChronoLocalDate chronoDate = chrono.date(yearMonth.atDay(1));
             return yearFormatter.withLocale(getLocale())
-                    .withChronology(chrono)
-                    .withDecimalStyle(DecimalStyle.of(getLocale()))
-                    .format(chronoDate);
+                .withChronology(chrono)
+                .withDecimalStyle(DecimalStyle.of(getLocale()))
+                .format(chronoDate);
         } catch (DateTimeException ex) {
             // date is out of range
             return "";
@@ -550,7 +556,9 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
 
     protected void createDayCells() {
         EventHandler<MouseEvent> dayCellActionHandler = e -> {
-            if (e.getButton() != MouseButton.PRIMARY) { return; }
+            if (e.getButton() != MouseButton.PRIMARY) {
+                return;
+            }
             DateCell dayCell = (DateCell) e.getSource();
             selectDayCell(dayCell);
             lastFocusedDayCell = dayCell;
@@ -570,8 +578,8 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
     protected DateCell createDayCell() {
         Callback<InlineDatePicker, DateCell> factory = getControl().getDayCellFactory();
         return Objects.requireNonNullElseGet(
-                factory != null ? factory.call(getControl()) : null,
-                DateCell::new
+            factory != null ? factory.call(getControl()) : null,
+            DateCell::new
         );
     }
 
@@ -612,8 +620,8 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
             int firstChar = word.codePointAt(0);
             if (!Character.isTitleCase(firstChar)) {
                 word = new String(new int[] {
-                        Character.toTitleCase(firstChar) }, 0, 1) +
-                        word.substring(Character.offsetByCodePoints(word, 0, 1));
+                    Character.toTitleCase(firstChar)}, 0, 1) +
+                    word.substring(Character.offsetByCodePoints(word, 0, 1));
             }
         }
         return word;

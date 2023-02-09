@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.util;
 
 import java.util.function.UnaryOperator;
@@ -25,19 +26,24 @@ public class PasswordTextFormatter extends TextFormatter<String> {
                                     char bullet) {
         super(valueConverter, null, filter);
 
-        if (valueConverter == null)
+        if (valueConverter == null) {
             throw new NullPointerException("StringConverter cannot be null!");
-        if (filter == null)
+        }
+        if (filter == null) {
             throw new NullPointerException("UnaryOperator cannot be null!");
-        if (textField == null)
+        }
+        if (textField == null) {
             throw new NullPointerException("TextField cannot be null!");
+        }
 
         PasswordFilter passwordFilter = (PasswordFilter) getFilter();
         passwordFilter.setBullet(bullet);
         passwordFilter.setInitialText(textField.getText());
 
         revealPasswordProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             // Force text field update, because converter is only called on focus events by default.
             // Also, reset caret first, because otherwise its position won't be correct due to

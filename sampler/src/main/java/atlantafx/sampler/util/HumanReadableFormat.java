@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
 import java.text.CharacterIterator;
@@ -18,7 +19,9 @@ public final class HumanReadableFormat {
     public static final DateTimeFormatter HOUR_MINUTE = DateTimeFormatter.ofPattern("HH:mm");
 
     public static String byteCount(long bytes) {
-        if (-1000 < bytes && bytes < 1000) { return bytes + " B"; }
+        if (-1000 < bytes && bytes < 1000) {
+            return bytes + " B";
+        }
         CharacterIterator ci = new StringCharacterIterator("kMGTPE");
         while (bytes <= -999_950 || bytes >= 999_950) {
             bytes /= 1000;
@@ -32,16 +35,24 @@ public final class HumanReadableFormat {
         var now = LocalDateTime.now(ZoneId.systemDefault());
 
         // not this year
-        if (x.getYear() != now.getYear()) { return DAY_MONTH_YEAR.format(x); }
+        if (x.getYear() != now.getYear()) {
+            return DAY_MONTH_YEAR.format(x);
+        }
 
         // not this week
-        if (getWeekNumber(x) != getWeekNumber(now)) { return DAY_MONTH.format(x); }
+        if (getWeekNumber(x) != getWeekNumber(now)) {
+            return DAY_MONTH.format(x);
+        }
 
         // not today
         int xDay = x.getDayOfWeek().getValue();
         int nowDay = now.getDayOfWeek().getValue();
-        if (xDay == nowDay - 1) { return "Yesterday"; }
-        if (xDay != nowDay) { return DAY_OF_WEEK.format(x); }
+        if (xDay == nowDay - 1) {
+            return "Yesterday";
+        }
+        if (xDay != nowDay) {
+            return DAY_OF_WEEK.format(x);
+        }
 
         return HOUR_MINUTE.format(x);
     }

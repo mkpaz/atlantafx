@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import static atlantafx.base.controls.Popover.ArrowLocation;
@@ -183,12 +184,16 @@ final class PlayerPane extends VBox {
         setAlignment(CENTER);
         setSpacing(5);
         setMinWidth(300);
-        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle, trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider, timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
+        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle,
+            trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider,
+            timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
     }
 
     private void init() {
         heightProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             int size = val.intValue() < 600 ? 150 : 250;
             coverImage.setWidth(size);
             coverImage.setHeight(size);
@@ -196,26 +201,35 @@ final class PlayerPane extends VBox {
 
         playBtn.setOnAction(e -> {
             MediaPlayer player = currentPlayer.get();
-            if (player == null) { return; }
+            if (player == null) {
+                return;
+            }
             switch (player.getStatus()) {
                 case READY, PAUSED, STOPPED -> player.play();
                 case PLAYING -> player.pause();
-                default -> { }
+                default -> {
+                }
             }
         });
 
         InvalidationListener mediaTimeChangeListener = obs -> {
-            if (currentPlayer.get() == null) { return; }
+            if (currentPlayer.get() == null) {
+                return;
+            }
 
             var duration = currentPlayer.get().getCurrentTime();
             var seconds = duration != null && !duration.equals(Duration.ZERO) ? duration.toSeconds() : 0;
 
-            if (!timeSlider.isValueChanging()) { timeSlider.setValue(seconds); }
+            if (!timeSlider.isValueChanging()) {
+                timeSlider.setValue(seconds);
+            }
             currentTimeLabel.setText(seconds > 0 ? formatDuration(duration) : "0.0");
         };
 
         timeSlider.valueProperty().addListener(obs -> {
-            if (currentPlayer.get() == null) { return; }
+            if (currentPlayer.get() == null) {
+                return;
+            }
             long max = (long) currentPlayer.get().getMedia().getDuration().toSeconds();
             long sliderVal = (long) timeSlider.getValue();
             if (sliderVal <= max && timeSlider.isValueChanging()) {
@@ -249,7 +263,9 @@ final class PlayerPane extends VBox {
                 endTimeLabel.setText(formatDuration(media.getDuration()));
 
                 playIcon.iconCodeProperty().bind(Bindings.createObjectBinding(() -> {
-                    if (mediaPlayer.statusProperty().get() == null) { return EQUALS; }
+                    if (mediaPlayer.statusProperty().get() == null) {
+                        return EQUALS;
+                    }
                     return switch (mediaPlayer.getStatus()) {
                         case READY, PAUSED, STOPPED -> PLAY_ARROW;
                         case PLAYING -> PAUSE;
@@ -279,7 +295,9 @@ final class PlayerPane extends VBox {
     }
 
     private <T> T getTag(Media media, String key, Class<T> type, T defaultValue) {
-        if (media == null || key == null || type == null) { return defaultValue; }
+        if (media == null || key == null || type == null) {
+            return defaultValue;
+        }
         Object tag = media.getMetadata().get(key);
         return type.isInstance(tag) ? type.cast(tag) : defaultValue;
     }

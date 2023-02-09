@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import java.util.function.Consumer;
@@ -31,7 +32,8 @@ public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase
      * {@link SkinBase#registerChangeListener(ObservableValue, Consumer)} method,
      * because it will be done automatically from dispose method.
      */
-    protected void unregisterListeners() { }
+    protected void unregisterListeners() {
+    }
 
     /**
      * {@inheritDoc}

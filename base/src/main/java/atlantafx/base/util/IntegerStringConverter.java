@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.util;
 
 import javafx.application.Platform;
@@ -119,15 +120,15 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      */
     public static IntegerStringConverter createFor(Spinner<Integer> spinner) {
         final SpinnerValueFactory.IntegerSpinnerValueFactory factory =
-                (SpinnerValueFactory.IntegerSpinnerValueFactory) spinner.getValueFactory();
+            (SpinnerValueFactory.IntegerSpinnerValueFactory) spinner.getValueFactory();
 
         final IntegerStringConverter converter = new IntegerStringConverter(
-                spinner.getEditor(), factory.getMin(), factory.getMax());
+            spinner.getEditor(), factory.getMin(), factory.getMax());
 
         factory.setConverter(converter);
         spinner.setTooltip(new Tooltip(String.format(
-                "Enter a value between %d and %d",
-                factory.getMin(), factory.getMax())));
+            "Enter a value between %d and %d",
+            factory.getMin(), factory.getMax())));
 
         return converter;
     }

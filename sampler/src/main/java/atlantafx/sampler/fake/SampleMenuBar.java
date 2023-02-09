@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.fake;
 
 import static atlantafx.sampler.util.Controls.menuItem;
@@ -27,11 +28,11 @@ public class SampleMenuBar extends MenuBar {
 
     public SampleMenuBar(Faker faker) {
         getMenus().addAll(
-                fileMenu(faker),
-                editMenu(),
-                viewMenu(),
-                toolsMenu(),
-                aboutMenu()
+            fileMenu(faker),
+            editMenu(),
+            viewMenu(),
+            toolsMenu(),
+            aboutMenu()
         );
     }
 
@@ -48,19 +49,19 @@ public class SampleMenuBar extends MenuBar {
         openRecentMenu.setMnemonicParsing(true);
         openRecentMenu.setOnAction(PRINT_SOURCE);
         openRecentMenu.getItems().addAll(
-                IntStream.range(0, 10).mapToObj(x -> new MenuItem(faker.file().fileName())).toList()
+            IntStream.range(0, 10).mapToObj(x -> new MenuItem(faker.file().fileName())).toList()
         );
 
         fileMenu.getItems().addAll(
-                newMenu,
-                new SeparatorMenuItem(),
-                menuItem("Open", Feather.FOLDER, new KeyCodeCombination(KeyCode.O, CONTROL_DOWN)),
-                openRecentMenu,
-                new SeparatorMenuItem(),
-                menuItem("Save", Feather.SAVE, new KeyCodeCombination(KeyCode.S, CONTROL_DOWN)),
-                new MenuItem("Save As"),
-                new SeparatorMenuItem(),
-                new MenuItem("Exit")
+            newMenu,
+            new SeparatorMenuItem(),
+            menuItem("Open", Feather.FOLDER, new KeyCodeCombination(KeyCode.O, CONTROL_DOWN)),
+            openRecentMenu,
+            new SeparatorMenuItem(),
+            menuItem("Save", Feather.SAVE, new KeyCodeCombination(KeyCode.S, CONTROL_DOWN)),
+            new MenuItem("Save As"),
+            new SeparatorMenuItem(),
+            new MenuItem("Exit")
         );
         return fileMenu;
     }
@@ -71,12 +72,12 @@ public class SampleMenuBar extends MenuBar {
         editMenu.setOnAction(PRINT_SOURCE);
 
         editMenu.getItems().addAll(
-                menuItem("Undo", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.Z, CONTROL_DOWN)),
-                menuItem("Redo", Feather.CORNER_DOWN_RIGHT, new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN)),
-                new SeparatorMenuItem(),
-                menuItem("Cut", Feather.SCISSORS, new KeyCodeCombination(KeyCode.X, CONTROL_DOWN)),
-                menuItem("Copy", Feather.COPY, new KeyCodeCombination(KeyCode.C, CONTROL_DOWN), true),
-                menuItem("Paste", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.V, CONTROL_DOWN))
+            menuItem("Undo", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.Z, CONTROL_DOWN)),
+            menuItem("Redo", Feather.CORNER_DOWN_RIGHT, new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN)),
+            new SeparatorMenuItem(),
+            menuItem("Cut", Feather.SCISSORS, new KeyCodeCombination(KeyCode.X, CONTROL_DOWN)),
+            menuItem("Copy", Feather.COPY, new KeyCodeCombination(KeyCode.C, CONTROL_DOWN), true),
+            menuItem("Paste", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.V, CONTROL_DOWN))
         );
         return editMenu;
     }
@@ -105,12 +106,12 @@ public class SampleMenuBar extends MenuBar {
         toggleItem3.setToggleGroup(viewToggleGroup);
 
         viewMenu.getItems().addAll(
-                showToolbarItem,
-                showGridItem,
-                new SeparatorMenuItem(),
-                toggleItem1,
-                toggleItem2,
-                toggleItem3
+            showToolbarItem,
+            showGridItem,
+            new SeparatorMenuItem(),
+            toggleItem1,
+            toggleItem2,
+            toggleItem3
         );
         return viewMenu;
     }
@@ -129,21 +130,21 @@ public class SampleMenuBar extends MenuBar {
         aboutMenu.setOnAction(PRINT_SOURCE);
 
         var deeplyNestedMenu = new Menu("Very...", null,
-                new Menu("Very...", null,
-                        new Menu("Deeply", null,
-                                new Menu("Nested", null,
-                                        new MenuItem("Menu")
-                                ))));
+            new Menu("Very...", null,
+                new Menu("Deeply", null,
+                    new Menu("Nested", null,
+                        new MenuItem("Menu")
+                    ))));
         // NOTE: this won't be displayed because right container is reserved for submenu indication
         deeplyNestedMenu.setAccelerator(new KeyCodeCombination(
-                KeyCode.DIGIT1, SHIFT_DOWN, CONTROL_DOWN)
+            KeyCode.DIGIT1, SHIFT_DOWN, CONTROL_DOWN)
         );
 
         aboutMenu.getItems().addAll(
-                new MenuItem("Help"),
-                new MenuItem("About"),
-                new SeparatorMenuItem(),
-                deeplyNestedMenu
+            new MenuItem("Help"),
+            new MenuItem("About"),
+            new SeparatorMenuItem(),
+            deeplyNestedMenu
         );
         return aboutMenu;
     }

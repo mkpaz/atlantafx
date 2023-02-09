@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
 
 import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
@@ -48,9 +49,9 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
         headerBox.getStyleClass().add("header");
         headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getChildren().setAll(
-                titleLabel,
-                new Spacer(),
-                topCloseBtn
+            titleLabel,
+            new Spacer(),
+            topCloseBtn
         );
         VBox.setVgrow(headerBox, Priority.NEVER);
 
@@ -63,8 +64,8 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
         footerBox.getStyleClass().add("footer");
         footerBox.setAlignment(Pos.CENTER_RIGHT);
         footerBox.getChildren().setAll(
-                new Spacer(),
-                bottomCloseBtn
+            new Spacer(),
+            bottomCloseBtn
         );
         VBox.setVgrow(footerBox, Priority.NEVER);
 
@@ -91,7 +92,7 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
             getChildren().set(CONTENT_CHILD_INDEX, content);
         } else {
             throw new UnsupportedOperationException("Content cannot be placed because of unexpected children size. " +
-                    "You should override 'OverlayDialog#setContent()' and place it manually.");
+                "You should override 'OverlayDialog#setContent()' and place it manually.");
         }
     }
 

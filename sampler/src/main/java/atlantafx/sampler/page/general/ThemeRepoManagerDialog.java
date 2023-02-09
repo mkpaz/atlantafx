@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
@@ -26,7 +27,9 @@ class ThemeRepoManagerDialog extends OverlayDialog<ThemeRepoManager> {
             var fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CSS (*.css)", "*.css"));
             File file = fileChooser.showOpenDialog(getScene().getWindow());
-            if (file != null) { repoManager.addFromFile(file); }
+            if (file != null) {
+                repoManager.addFromFile(file);
+            }
         });
 
         footerBox.getChildren().add(0, addBtn);

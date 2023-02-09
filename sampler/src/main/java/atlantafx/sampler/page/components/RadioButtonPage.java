@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
@@ -16,15 +17,17 @@ public class RadioButtonPage extends AbstractPage {
     public static final String NAME = "RadioButton";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public RadioButtonPage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_HGAP, Page.PAGE_VGAP,
-                basicSample(),
-                groupSample(),
-                disabledSample()
+            Page.PAGE_HGAP, Page.PAGE_VGAP,
+            basicSample(),
+            groupSample(),
+            disabledSample()
         ));
     }
 

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.layout;
 
 import atlantafx.sampler.util.Animations;
@@ -51,8 +52,8 @@ public class Overlay extends StackPane {
 
         scrollPane = new ScrollPane();
         Containers.setScrollConstraints(scrollPane,
-                ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
-                ScrollPane.ScrollBarPolicy.NEVER, true
+            ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
+            ScrollPane.ScrollBarPolicy.NEVER, true
         );
         scrollPane.setMaxHeight(10_000); // scroll pane won't work without height specified
 
@@ -67,14 +68,17 @@ public class Overlay extends StackPane {
         // hide overlay by pressing ESC (only works when overlay or one of its children has focus,
         // that's why we requesting it in the toFront())
         addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.ESCAPE) { hideAndConsume.accept(e); }
+            if (e.getCode() == KeyCode.ESCAPE) {
+                hideAndConsume.accept(e);
+            }
         });
 
         // hide overlay by clicking outside content area
         setOnMouseClicked(e -> {
             Pane content = getContent();
             Node eventSource = e.getPickResult().getIntersectedNode();
-            if (e.getButton() == MouseButton.PRIMARY && content != null && !NodeUtils.isDescendant(content, eventSource)) {
+            if (e.getButton() == MouseButton.PRIMARY && content != null &&
+                !NodeUtils.isDescendant(content, eventSource)) {
                 hideAndConsume.accept(e);
             }
         });
@@ -125,13 +129,15 @@ public class Overlay extends StackPane {
 
     public boolean contains(Pane content) {
         return content != null &&
-                getContentWrapper().getChildren().size() > 0 &&
-                getContentWrapper().getChildren().get(0).equals(content);
+            getContentWrapper().getChildren().size() > 0 &&
+            getContentWrapper().getChildren().get(0).equals(content);
     }
 
     @Override
     public void toFront() {
-        if (onFrontProperty.get()) { return; }
+        if (onFrontProperty.get()) {
+            return;
+        }
         super.toFront();
         fadeInTransition.playFromStart();
         onFrontProperty.set(true);
@@ -139,7 +145,9 @@ public class Overlay extends StackPane {
 
     @Override
     public void toBack() {
-        if (!onFrontProperty.get()) { return; }
+        if (!onFrontProperty.get()) {
+            return;
+        }
         super.toBack();
         fadeOutTransition.playFromStart();
         onFrontProperty.set(false);

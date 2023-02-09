@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.layout;
 
 import static atlantafx.sampler.layout.MainModel.SubLayer.PAGE;

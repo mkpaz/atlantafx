@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.STATE_DANGER;
@@ -32,12 +33,14 @@ public class ComboBoxPage extends AbstractPage {
     private static final int PREF_WIDTH = 200;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ComboBoxPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Examples", createPlayground())
+            new SampleBlock("Examples", createPlayground())
         ));
     }
 
@@ -73,8 +76,8 @@ public class ComboBoxPage extends AbstractPage {
 
         // with icons
         var badges = IntStream.range(0, 5).boxed()
-                .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
         var badgeCombo = new ComboBox<>(badges);
         badgeCombo.setPrefWidth(PREF_WIDTH);
         badgeCombo.setButtonCell(new BadgeCell());
@@ -165,7 +168,9 @@ public class ComboBoxPage extends AbstractPage {
     private ComboBox<String> createComboBoxWith(Consumer<ComboBox<String>> mutator) {
         var c = new ComboBox<String>();
         c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) { mutator.accept(c); }
+        if (mutator != null) {
+            mutator.accept(c);
+        }
         return c;
     }
 
@@ -176,7 +181,9 @@ public class ComboBoxPage extends AbstractPage {
     private ChoiceBox<String> createChoiceBoxWith(Consumer<ChoiceBox<String>> mutator) {
         var c = new ChoiceBox<String>();
         c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) { mutator.accept(c); }
+        if (mutator != null) {
+            mutator.accept(c);
+        }
         return c;
     }
 
@@ -187,7 +194,8 @@ public class ComboBoxPage extends AbstractPage {
     ///////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unused")
-    private record Badge(String text, Ikon icon) { }
+    private record Badge(String text, Ikon icon) {
+    }
 
     private static class BadgeCell extends ListCell<Badge> {
 

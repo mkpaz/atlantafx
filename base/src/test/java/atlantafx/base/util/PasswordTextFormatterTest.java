@@ -12,7 +12,8 @@ public class PasswordTextFormatterTest {
 
     @BeforeAll
     public static void startup() {
-        Platform.startup(() -> { });
+        Platform.startup(() -> {
+        });
     }
 
     @Test

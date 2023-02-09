@@ -27,7 +27,7 @@ public class ThemeEvent extends Event {
     @Override
     public String toString() {
         return "ThemeEvent{" +
-                "eventType=" + eventType +
-                "} " + super.toString();
+            "eventType=" + eventType +
+            "} " + super.toString();
     }
 }

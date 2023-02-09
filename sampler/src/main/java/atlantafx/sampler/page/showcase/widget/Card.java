@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.theme.Styles;
@@ -18,19 +19,19 @@ import javafx.scene.layout.VBox;
 public class Card extends VBox {
 
     public static final String CSS = """
-            .card {
-               -fx-background-color: -color-bg-default;
-             }
-             .card > .subtitle {
-                -fx-text-fill: -color-fg-muted;
-                -fx-padding: 0px 15px 10px 15px;
-             }
-             .card > .title,
-             .card > .body,
-             .card > .footer {
-               -fx-padding: 10px 15px 10px 15px;
-             }
-             """;
+        .card {
+           -fx-background-color: -color-bg-default;
+         }
+         .card > .subtitle {
+            -fx-text-fill: -color-fg-muted;
+            -fx-padding: 0px 15px 10px 15px;
+         }
+         .card > .title,
+         .card > .body,
+         .card > .footer {
+           -fx-padding: 10px 15px 10px 15px;
+         }
+         """;
 
     private final StringProperty title = new SimpleStringProperty();
     private final StringProperty subtitle = new SimpleStringProperty();
@@ -47,32 +48,32 @@ public class Card extends VBox {
         var footerSep = new Separator();
         footerSep.getStyleClass().add(Styles.SMALL);
         footerSep.managedProperty().bind(Bindings.createObjectBinding(
-                () -> footer.get() != null && footer.get().isManaged(), footer
+            () -> footer.get() != null && footer.get().isManaged(), footer
         ));
 
         getChildren().setAll(
-                createPlaceholder(), // title
-                createPlaceholder(), // subtitle
-                createPlaceholder(), // image
-                createPlaceholder(), // body
-                footerSep,
-                createPlaceholder()  // footer
+            createPlaceholder(), // title
+            createPlaceholder(), // subtitle
+            createPlaceholder(), // image
+            createPlaceholder(), // body
+            footerSep,
+            createPlaceholder()  // footer
         );
 
         image.addListener(
-                (obs, old, val) -> setChild(0, val, "image")
+            (obs, old, val) -> setChild(0, val, "image")
         );
         title.addListener(
-                (obs, old, val) -> setChild(1, val != null ? new Label(val) : null, "title", Styles.TITLE_4)
+            (obs, old, val) -> setChild(1, val != null ? new Label(val) : null, "title", Styles.TITLE_4)
         );
         subtitle.addListener(
-                (obs, old, val) -> setChild(2, val != null ? new Label(val) : null, "subtitle")
+            (obs, old, val) -> setChild(2, val != null ? new Label(val) : null, "subtitle")
         );
         body.addListener(
-                (obs, old, val) -> setChild(3, val, "body")
+            (obs, old, val) -> setChild(3, val, "body")
         );
         footer.addListener(
-                (obs, old, val) -> setChild(5, val, "footer")
+            (obs, old, val) -> setChild(5, val, "footer")
         );
 
         getStyleClass().addAll("card", Styles.BORDERED);

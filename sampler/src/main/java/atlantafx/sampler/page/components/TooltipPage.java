@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -23,17 +24,19 @@ public class TooltipPage extends AbstractPage {
     public static final String NAME = "Tooltip";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public TooltipPage() {
         super();
         setUserContent(new VBox(Page.PAGE_VGAP,
-                expandingHBox(
-                        basicSample(),
-                        textWrapSample(),
-                        indefiniteSample()
-                ),
-                positionSample()
+            expandingHBox(
+                basicSample(),
+                textWrapSample(),
+                indefiniteSample()
+            ),
+            positionSample()
         ));
     }
 
@@ -83,14 +86,14 @@ public class TooltipPage extends AbstractPage {
         bottomRightLabel.setTooltip(createTooltip("Bottom Right", AnchorLocation.WINDOW_TOP_LEFT));
 
         var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                topLeftLabel,
-                new Separator(VERTICAL),
-                topRightLabel,
-                new Separator(VERTICAL),
-                bottomLeftLabel,
-                new Separator(VERTICAL),
-                bottomRightLabel
+            BLOCK_HGAP, BLOCK_VGAP,
+            topLeftLabel,
+            new Separator(VERTICAL),
+            topRightLabel,
+            new Separator(VERTICAL),
+            bottomLeftLabel,
+            new Separator(VERTICAL),
+            bottomRightLabel
         );
 
         return new SampleBlock("Position", flowPane);

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -23,12 +24,14 @@ public class PaginationPage extends AbstractPage {
     private static final int PREF_CONTROL_WIDTH = 120;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public PaginationPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Playground", createPlayground())
+            new SampleBlock("Playground", createPlayground())
         ));
     }
 
@@ -57,18 +60,22 @@ public class PaginationPage extends AbstractPage {
 
         var bulletToggle = new ToggleSwitch();
         bulletToggle.selectedProperty().addListener(
-                (obs, old, val) -> Styles.toggleStyleClass(pagination, Pagination.STYLE_CLASS_BULLET)
+            (obs, old, val) -> Styles.toggleStyleClass(pagination, Pagination.STYLE_CLASS_BULLET)
         );
 
         var showArrowsToggle = new ToggleSwitch();
         showArrowsToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { pagination.setStyle(String.format("-fx-arrows-visible: %s;", val)); }
+            if (val != null) {
+                pagination.setStyle(String.format("-fx-arrows-visible: %s;", val));
+            }
         });
         showArrowsToggle.setSelected(true);
 
         var showPageInfoToggle = new ToggleSwitch();
         showPageInfoToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { pagination.setStyle(String.format("-fx-page-information-visible: %s;", val)); }
+            if (val != null) {
+                pagination.setStyle(String.format("-fx-page-information-visible: %s;", val));
+            }
         });
         showPageInfoToggle.setSelected(true);
 

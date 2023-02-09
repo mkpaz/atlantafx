@@ -70,8 +70,8 @@ public class IconBrowser extends TableView<List<Ikon>> {
 
     private void updateData(String filterString) {
         var displayedIcons = filterString == null || filterString.isBlank() || filterString.length() < FILTER_LEN
-                ? icons
-                : icons.stream().filter(icon -> containsString(icon.getDescription(), filterString)).toList();
+            ? icons
+            : icons.stream().filter(icon -> containsString(icon.getDescription(), filterString)).toList();
 
         var data = partitionList(displayedIcons, colNum);
         getItems().setAll(data);

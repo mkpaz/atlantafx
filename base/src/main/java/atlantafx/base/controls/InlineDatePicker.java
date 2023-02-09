@@ -24,6 +24,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
+
 package atlantafx.base.controls;
 
 import java.time.DateTimeException;
@@ -72,7 +73,9 @@ public class InlineDatePicker extends Control {
     protected LocalDate lastValidDate = null;
     protected Chronology lastValidChronology = IsoChronology.INSTANCE;
 
-    /** Creates a default DatePicker instance with a <code>null</code> date value set. */
+    /**
+     * Creates a default DatePicker instance with a <code>null</code> date value set.
+     */
     public InlineDatePicker() {
         this(null);
 
@@ -111,7 +114,9 @@ public class InlineDatePicker extends Control {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new InlineDatePickerSkin(this);
@@ -131,7 +136,9 @@ public class InlineDatePicker extends Control {
         valueProperty().set(value);
     }
 
-    public ObjectProperty<LocalDate> valueProperty() { return value; }
+    public ObjectProperty<LocalDate> valueProperty() {
+        return value;
+    }
 
     /**
      * A custom cell factory can be provided to customize individual day cells
@@ -270,18 +277,18 @@ public class InlineDatePicker extends Control {
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         private static final CssMetaData<InlineDatePicker, Boolean> SHOW_WEEK_NUMBERS =
-                new CssMetaData<>("-fx-show-week-numbers", BooleanConverter.getInstance(), false) {
-                    @Override
-                    public boolean isSettable(InlineDatePicker n) {
-                        return n.showWeekNumbers == null || !n.showWeekNumbers.isBound();
-                    }
+            new CssMetaData<>("-fx-show-week-numbers", BooleanConverter.getInstance(), false) {
+                @Override
+                public boolean isSettable(InlineDatePicker n) {
+                    return n.showWeekNumbers == null || !n.showWeekNumbers.isBound();
+                }
 
-                    @Override
-                    @SuppressWarnings("RedundantCast")
-                    public StyleableProperty<Boolean> getStyleableProperty(InlineDatePicker n) {
-                        return (StyleableProperty<Boolean>) (WritableValue<Boolean>) n.showWeekNumbersProperty();
-                    }
-                };
+                @Override
+                @SuppressWarnings("RedundantCast")
+                public StyleableProperty<Boolean> getStyleableProperty(InlineDatePicker n) {
+                    return (StyleableProperty<Boolean>) (WritableValue<Boolean>) n.showWeekNumbersProperty();
+                }
+            };
 
         static {
             final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(Control.getClassCssMetaData());
@@ -298,7 +305,9 @@ public class InlineDatePicker extends Control {
         return StyleableProperties.STYLEABLES;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return getClassCssMetaData();

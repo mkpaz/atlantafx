@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
@@ -25,7 +26,9 @@ public class HTMLEditorPage extends AbstractPage {
     public static final String NAME = "HTMLEditor";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private HTMLEditor editor = createEditor();
 
@@ -46,9 +49,9 @@ public class HTMLEditorPage extends AbstractPage {
 
     private SampleBlock editorSample() {
         var description = new Text(
-                "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. " +
-                        "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. " +
-                        "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
+            "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. " +
+                "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. " +
+                "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
         );
 
         var fixToggle = new ToggleSwitch("Apply Fix");
@@ -84,15 +87,15 @@ public class HTMLEditorPage extends AbstractPage {
         Theme samplerTheme = tm.getTheme();
         HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(samplerTheme);
         return "<!DOCTYPE html>" +
-                "<html>" +
-                "<body style=\"" +
-                "background-color:" + hlTheme.getBackground() + ";" +
-                "color:" + hlTheme.getForeground() + ";" +
-                "font-family:" + tm.getFontFamily() + ";" +
-                "font-size:" + tm.getFontSize() + "px;" +
-                "\">" +
-                String.join("<br/><br/>", FAKER.lorem().paragraphs(10)) +
-                "</body>" +
-                "</html>";
+            "<html>" +
+            "<body style=\"" +
+            "background-color:" + hlTheme.getBackground() + ";" +
+            "color:" + hlTheme.getForeground() + ";" +
+            "font-family:" + tm.getFontFamily() + ";" +
+            "font-size:" + tm.getFontSize() + "px;" +
+            "\">" +
+            String.join("<br/><br/>", FAKER.lorem().paragraphs(10)) +
+            "</body>" +
+            "</html>";
     }
 }

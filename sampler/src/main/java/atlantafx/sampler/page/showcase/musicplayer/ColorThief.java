@@ -7,6 +7,7 @@
  * Creative Commons Attribution 2.5 License:
  * http://creativecommons.org/licenses/by/2.5/
  */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
@@ -28,13 +29,17 @@ final class ColorThief {
 
     public static int[] getColor(BufferedImage source) {
         int[][] palette = getPalette(source, 5);
-        if (palette == null) { return null; }
+        if (palette == null) {
+            return null;
+        }
         return palette[0];
     }
 
     public static int[][] getPalette(BufferedImage source, int colorCount) {
         MMCQ.ColorMap colorMap = getColorMap(source, colorCount);
-        if (colorMap == null) { return null; }
+        if (colorMap == null) {
+            return null;
+        }
         return colorMap.palette();
     }
 
@@ -60,9 +65,9 @@ final class ColorThief {
     }
 
     private static int[][] getPixelsFast(
-            BufferedImage sourceImage,
-            int quality,
-            boolean ignoreWhite) {
+        BufferedImage sourceImage,
+        int quality,
+        boolean ignoreWhite) {
         DataBufferByte imageData = (DataBufferByte) sourceImage.getRaster().getDataBuffer();
         byte[] pixels = imageData.getData();
         int pixelCount = sourceImage.getWidth() * sourceImage.getHeight();
@@ -78,7 +83,7 @@ final class ColorThief {
         int expectedDataLength = pixelCount * colorDepth;
         if (expectedDataLength != pixels.length) {
             throw new IllegalArgumentException(
-                    "(expectedDataLength = " + expectedDataLength + ") != (pixels.length = " + pixels.length + ")"
+                "(expectedDataLength = " + expectedDataLength + ") != (pixels.length = " + pixels.length + ")"
             );
         }
 
@@ -97,7 +102,7 @@ final class ColorThief {
                     r = pixels[offset + 2] & 0xFF;
 
                     if (!(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                        pixelArray[numUsedPixels] = new int[] { r, g, b };
+                        pixelArray[numUsedPixels] = new int[] {r, g, b};
                         numUsedPixels++;
                     }
                 }
@@ -112,7 +117,7 @@ final class ColorThief {
                     r = pixels[offset + 3] & 0xFF;
 
                     if (a >= 125 && !(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                        pixelArray[numUsedPixels] = new int[] { r, g, b };
+                        pixelArray[numUsedPixels] = new int[] {r, g, b};
                         numUsedPixels++;
                     }
                 }
@@ -126,9 +131,9 @@ final class ColorThief {
     }
 
     private static int[][] getPixelsSlow(
-            BufferedImage sourceImage,
-            int quality,
-            boolean ignoreWhite) {
+        BufferedImage sourceImage,
+        int quality,
+        boolean ignoreWhite) {
         int width = sourceImage.getWidth();
         int height = sourceImage.getHeight();
 
@@ -148,7 +153,7 @@ final class ColorThief {
             g = (rgb >> 8) & 0xFF;
             b = rgb & 0xFF;
             if (!(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                res[numUsedPixels] = new int[] { r, g, b };
+                res[numUsedPixels] = new int[] {r, g, b};
                 numUsedPixels++;
             }
         }
@@ -254,9 +259,10 @@ final class ColorThief {
                     }
 
                     if (ntot > 0) {
-                        _avg = new int[] { (rsum / ntot), (gsum / ntot), (bsum / ntot) };
+                        _avg = new int[] {(rsum / ntot), (gsum / ntot), (bsum / ntot)};
                     } else {
-                        _avg = new int[] { (MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2), (MULT * (b1 + b2 + 1) / 2) };
+                        _avg = new int[] {(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
+                            (MULT * (b1 + b2 + 1) / 2)};
                     }
                 }
 
@@ -311,8 +317,8 @@ final class ColorThief {
                 for (VBox vbox : vboxes) {
                     int[] vbColor = vbox.avg(false);
                     d2 = Math.sqrt(Math.pow(color[0] - vbColor[0], 2) +
-                                           Math.pow(color[1] - vbColor[1], 2) +
-                                           Math.pow(color[2] - vbColor[2], 2)
+                        Math.pow(color[1] - vbColor[1], 2) +
+                        Math.pow(color[2] - vbColor[2], 2)
                     );
                     if (d2 < d1) {
                         d1 = d2;
@@ -380,7 +386,7 @@ final class ColorThief {
             }
 
             if (vbox.count(false) == 1) {
-                return new VBox[] { vbox.clone(), null };
+                return new VBox[] {vbox.clone(), null};
             }
 
             int rw = vbox.r2 - vbox.r1 + 1;
@@ -440,16 +446,16 @@ final class ColorThief {
             }
 
             return maxw == rw ? doCut('r', vbox, partialSum, lookAheadSum, total)
-                    : maxw == gw ? doCut('g', vbox, partialSum, lookAheadSum, total)
-                    : doCut('b', vbox, partialSum, lookAheadSum, total);
+                : maxw == gw ? doCut('g', vbox, partialSum, lookAheadSum, total)
+                : doCut('b', vbox, partialSum, lookAheadSum, total);
         }
 
         private static VBox[] doCut(
-                char color,
-                VBox vbox,
-                int[] partialSum,
-                int[] lookAheadSum,
-                int total
+            char color,
+            VBox vbox,
+            int[] partialSum,
+            int[] lookAheadSum,
+            int total
         ) {
             int vbox_dim1;
             int vbox_dim2;
@@ -502,7 +508,7 @@ final class ColorThief {
                         vbox2.b1 = d2 + 1;
                     }
 
-                    return new VBox[] { vbox1, vbox2 };
+                    return new VBox[] {vbox1, vbox2};
                 }
             }
 
@@ -510,7 +516,9 @@ final class ColorThief {
         }
 
         public static ColorMap quantize(int[][] pixels, int maxcolors) {
-            if (pixels.length == 0 || maxcolors < 2 || maxcolors > 256) { return null; }
+            if (pixels.length == 0 || maxcolors < 2 || maxcolors > 256) {
+                return null;
+            }
 
             int[] histo = getHisto(pixels);
 
@@ -568,7 +576,9 @@ final class ColorThief {
                 if (lh.size() >= target) {
                     return;
                 }
-                if (niters++ > MAX_ITERATIONS) { return; }
+                if (niters++ > MAX_ITERATIONS) {
+                    return;
+                }
             }
         }
 
@@ -580,7 +590,9 @@ final class ColorThief {
             int aVolume = a.volume(false);
             int bVolume = b.volume(false);
 
-            if (aCount == bCount) { return aVolume - bVolume; }
+            if (aCount == bCount) {
+                return aVolume - bVolume;
+            }
 
             return Long.compare((long) aCount * aVolume, (long) bCount * bVolume);
         };

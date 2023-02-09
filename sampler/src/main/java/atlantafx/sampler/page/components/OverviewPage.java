@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.ACCENT;
@@ -55,19 +56,21 @@ public class OverviewPage extends AbstractPage {
     private static final int COMBO_BOX_WIDTH = 150;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public OverviewPage() {
         super();
         setUserContent(new VBox(
-                PAGE_VGAP,
-                buttonSample(),
-                expandingHBox(iconButtonSample(), dropdownMenuSample()),
-                expandingHBox(checkBoxSample(), radioButtonSample(), toggleSwitchSample()),
-                comboBoxSample(),
-                sliderSample(),
-                expandingHBox(textFieldSample(), spinnerSample()),
-                textAreaSample()
+            PAGE_VGAP,
+            buttonSample(),
+            expandingHBox(iconButtonSample(), dropdownMenuSample()),
+            expandingHBox(checkBoxSample(), radioButtonSample(), toggleSwitchSample()),
+            comboBoxSample(),
+            sliderSample(),
+            expandingHBox(textFieldSample(), spinnerSample()),
+            textAreaSample()
         ));
     }
 
@@ -306,7 +309,9 @@ public class OverviewPage extends AbstractPage {
                                             boolean selected,
                                             String... styleClasses) {
         var toggleButton = new ToggleButton(text);
-        if (group != null) { toggleButton.setToggleGroup(group); }
+        if (group != null) {
+            toggleButton.setToggleGroup(group);
+        }
         toggleButton.setSelected(selected);
         toggleButton.getStyleClass().addAll(styleClasses);
 
@@ -315,7 +320,7 @@ public class OverviewPage extends AbstractPage {
 
     private MenuItem[] createMenuItems() {
         return IntStream.range(0, 5)
-                .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
-                .toArray(MenuItem[]::new);
+            .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
+            .toArray(MenuItem[]::new);
     }
 }

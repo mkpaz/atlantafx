@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.theme;
 
 import static atlantafx.sampler.Resources.getResource;
@@ -34,10 +35,10 @@ public final class ThemeManager {
 
     static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
     static final String[] APP_STYLESHEETS = new String[] {
-            Resources.resolve("assets/styles/index.css")
+        Resources.resolve("assets/styles/index.css")
     };
     static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
-            PrimerLight.class, PrimerDark.class, NordLight.class, NordDark.class
+        PrimerLight.class, PrimerDark.class, NordLight.class, NordDark.class
     );
 
     private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");
@@ -86,7 +87,9 @@ public final class ThemeManager {
         return getRepository().getAll().get(0);
     }
 
-    /** See {@link SamplerTheme}. */
+    /**
+     * See {@link SamplerTheme}.
+     */
     public void setTheme(SamplerTheme theme) {
         Objects.requireNonNull(theme);
 
@@ -127,11 +130,11 @@ public final class ThemeManager {
     public void setFontSize(int size) {
         if (!SUPPORTED_FONT_SIZE.contains(size)) {
             throw new IllegalArgumentException(
-                    String.format("Font size must in the range %d-%dpx. Actual value is %d.",
-                                  SUPPORTED_FONT_SIZE.get(0),
-                                  SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
-                                  size
-                    ));
+                String.format("Font size must in the range %d-%dpx. Actual value is %d.",
+                    SUPPORTED_FONT_SIZE.get(0),
+                    SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
+                    size
+                ));
         }
 
         setCustomDeclaration("-fx-font-size", size + "px");
@@ -141,8 +144,8 @@ public final class ThemeManager {
 
         var rawZoom = (int) Math.ceil((size * 1.0 / DEFAULT_FONT_SIZE) * 100);
         this.zoom = SUPPORTED_ZOOM.stream()
-                .min(Comparator.comparingInt(i -> Math.abs(i - rawZoom)))
-                .orElseThrow(NoSuchElementException::new);
+            .min(Comparator.comparingInt(i -> Math.abs(i - rawZoom)))
+            .orElseThrow(NoSuchElementException::new);
 
         reloadCustomCSS();
         EVENT_BUS.publish(new ThemeEvent(EventType.FONT_CHANGE));
@@ -159,7 +162,7 @@ public final class ThemeManager {
     public void setZoom(int zoom) {
         if (!SUPPORTED_ZOOM.contains(zoom)) {
             throw new IllegalArgumentException(
-                    String.format("Zoom value must one of %s. Actual value is %d.", SUPPORTED_ZOOM, zoom)
+                String.format("Zoom value must one of %s. Actual value is %d.", SUPPORTED_ZOOM, zoom)
             );
         }
 
@@ -214,8 +217,12 @@ public final class ThemeManager {
 
     public HighlightJSTheme getMatchingSourceCodeHighlightTheme(Theme theme) {
         Objects.requireNonNull(theme);
-        if ("Nord Light".equals(theme.getName())) { return HighlightJSTheme.nordLight(); }
-        if ("Nord Dark".equals(theme.getName())) { return HighlightJSTheme.nordDark(); }
+        if ("Nord Light".equals(theme.getName())) {
+            return HighlightJSTheme.nordLight();
+        }
+        if ("Nord Dark".equals(theme.getName())) {
+            return HighlightJSTheme.nordDark();
+        }
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }
 
@@ -242,10 +249,10 @@ public final class ThemeManager {
         Objects.requireNonNull(colorName);
         if (color != null) {
             setCustomDeclaration(colorName, JColor.color(
-                    (float) color.getRed(),
-                    (float) color.getGreen(),
-                    (float) color.getBlue(),
-                    (float) color.getOpacity()).getColorHexWithAlpha()
+                (float) color.getRed(),
+                (float) color.getGreen(),
+                (float) color.getBlue(),
+                (float) color.getOpacity()).getColorHexWithAlpha()
             );
         } else {
             removeCustomDeclaration(colorName);
@@ -282,7 +289,7 @@ public final class ThemeManager {
 
         getScene().getRoot().getStylesheets().removeIf(uri -> uri.startsWith("data:text/css"));
         getScene().getRoot().getStylesheets().add(
-                "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
+            "data:text/css;base64," + Base64.getEncoder().encodeToString(css.toString().getBytes(UTF_8))
         );
         getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, true);
     }
@@ -297,7 +304,8 @@ public final class ThemeManager {
     // Singleton                                                             //
     ///////////////////////////////////////////////////////////////////////////
 
-    private ThemeManager() { }
+    private ThemeManager() {
+    }
 
     private static class InstanceHolder {
 

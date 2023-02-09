@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.DENSE;
@@ -35,7 +36,9 @@ public class TitledPanePage extends AbstractPage {
     private static final String ELEVATED_PREFIX = "elevated-";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public TitledPanePage() {
         super();
@@ -44,17 +47,17 @@ public class TitledPanePage extends AbstractPage {
 
     private void createView() {
         var samples = new HBox(
-                PAGE_HGAP,
-                interactivePane(),
-                disabledPane(),
-                untitledPane()
+            PAGE_HGAP,
+            interactivePane(),
+            disabledPane(),
+            untitledPane()
         );
         samples.getChildren().forEach(c -> ((TitledPane) c).setPrefSize(500, 120));
 
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                createPlayground(),
-                samples
+            Page.PAGE_VGAP,
+            createPlayground(),
+            samples
         ));
     }
 
@@ -80,11 +83,15 @@ public class TitledPanePage extends AbstractPage {
         elevationSlider.setMaxWidth(150);
         elevationSlider.valueProperty().addListener((obs, old, val) -> {
             playground.getStyleClass().removeAll(
-                    playground.getStyleClass().stream().filter(c -> c.startsWith(ELEVATED_PREFIX)).toList()
+                playground.getStyleClass().stream().filter(c -> c.startsWith(ELEVATED_PREFIX)).toList()
             );
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             int level = val.intValue();
-            if (level > 0) { playground.getStyleClass().add(ELEVATED_PREFIX + level); }
+            if (level > 0) {
+                playground.getStyleClass().add(ELEVATED_PREFIX + level);
+            }
         });
 
         // NOTE:
@@ -108,8 +115,8 @@ public class TitledPanePage extends AbstractPage {
         toggles.setVgap(10);
         toggles.setHgap(BLOCK_HGAP);
         toggles.getColumnConstraints().setAll(
-                new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false),
-                new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false)
+            new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false),
+            new ColumnConstraints(-1, -1, -1, NEVER, RIGHT, false)
         );
         toggles.add(collapseToggle, 0, 0);
         toggles.add(animateToggle, 1, 0);
@@ -121,10 +128,10 @@ public class TitledPanePage extends AbstractPage {
         controls.setFillHeight(false);
         controls.setAlignment(Pos.CENTER_LEFT);
         controls.getChildren().setAll(
-                new Label("Elevation"),
-                elevationSlider,
-                new Spacer(),
-                toggles
+            new Label("Elevation"),
+            elevationSlider,
+            new Spacer(),
+            toggles
         );
 
         var content = new VBox(BLOCK_VGAP, textFlow, controls);

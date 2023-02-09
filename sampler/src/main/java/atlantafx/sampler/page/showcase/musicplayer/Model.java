@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import java.util.Objects;
@@ -21,14 +22,16 @@ final class Model {
 
     public Model() {
         canGoBack.bind(Bindings.createBooleanBinding(
-                () -> playlist.size() > 1 && getPlaylistPosition() > 0, currentTrack)
+            () -> playlist.size() > 1 && getPlaylistPosition() > 0, currentTrack)
         );
         canGoForward.bind(Bindings.createBooleanBinding(
-                () -> playlist.size() > 0 && getPlaylistPosition() < playlist.size() - 1, currentTrack));
+            () -> playlist.size() > 0 && getPlaylistPosition() < playlist.size() - 1, currentTrack));
     }
 
     private int getPlaylistPosition() {
-        if (currentTrack.get() == null) { return -1; }
+        if (currentTrack.get() == null) {
+            return -1;
+        }
         return playlist.indexOf(currentTrack.get());
     }
 
@@ -36,15 +39,25 @@ final class Model {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    public ObservableList<MediaFile> playlist() { return playlist; }
+    public ObservableList<MediaFile> playlist() {
+        return playlist;
+    }
 
-    public ReadOnlyBooleanProperty canGoBackProperty() { return canGoBack.getReadOnlyProperty(); }
+    public ReadOnlyBooleanProperty canGoBackProperty() {
+        return canGoBack.getReadOnlyProperty();
+    }
 
-    public ReadOnlyBooleanProperty canGoForwardProperty() { return canGoForward.getReadOnlyProperty(); }
+    public ReadOnlyBooleanProperty canGoForwardProperty() {
+        return canGoForward.getReadOnlyProperty();
+    }
 
-    public ReadOnlyObjectProperty<MediaFile> currentTrackProperty() { return currentTrack.getReadOnlyProperty(); }
+    public ReadOnlyObjectProperty<MediaFile> currentTrackProperty() {
+        return currentTrack.getReadOnlyProperty();
+    }
 
-    public ReadOnlyObjectProperty<Color> backgroundColorProperty() { return backgroundColor.getReadOnlyProperty(); }
+    public ReadOnlyObjectProperty<Color> backgroundColorProperty() {
+        return backgroundColor.getReadOnlyProperty();
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Commands                                                              //
@@ -55,11 +68,15 @@ final class Model {
     }
 
     public void playPrevious() {
-        if (canGoBack.get()) { currentTrack.set(playlist.get(getPlaylistPosition() - 1)); }
+        if (canGoBack.get()) {
+            currentTrack.set(playlist.get(getPlaylistPosition() - 1));
+        }
     }
 
     public void playNext() {
-        if (canGoForward.get()) { currentTrack.set(playlist.get(getPlaylistPosition() + 1)); }
+        if (canGoForward.get()) {
+            currentTrack.set(playlist.get(getPlaylistPosition() + 1));
+        }
     }
 
     public void reset() {

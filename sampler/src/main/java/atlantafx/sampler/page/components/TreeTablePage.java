@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.BORDERED;
@@ -50,7 +51,9 @@ public class TreeTablePage extends AbstractPage {
     public static final String NAME = "TreeTableView";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private TreeTableView<Product> treeTable;
 
@@ -79,7 +82,7 @@ public class TreeTablePage extends AbstractPage {
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-                (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
+            (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
         );
 
         var footer = new HBox(BLOCK_HGAP, bordersToggle, denseToggle, stripesToggle, altIconToggle, edge2edgeToggle);
@@ -98,7 +101,7 @@ public class TreeTablePage extends AbstractPage {
 
             var group = new TreeItem<>(groupVal);
             group.getChildren().setAll(
-                    createTreeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
+                createTreeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
             );
             root.getChildren().add(group);
         }
@@ -143,15 +146,17 @@ public class TreeTablePage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { treeTable.setDisable(val); }
+            if (val != null) {
+                treeTable.setDisable(val);
+            }
         });
 
         var header = new HBox(
-                createPropertiesMenu(treeTable),
-                new Spacer(),
-                alignBox,
-                new Spacer(),
-                disableToggle
+            createPropertiesMenu(treeTable),
+            new Spacer(),
+            alignBox,
+            new Spacer(),
+            disableToggle
         );
         header.setAlignment(Pos.CENTER_LEFT);
 
@@ -165,9 +170,9 @@ public class TreeTablePage extends AbstractPage {
 
     private List<TreeItem<Product>> createTreeItems(int startId, int count, String brand) {
         return IntStream.range(startId, startId + count + 1).boxed()
-                .map(id -> Product.random(id, brand, FAKER))
-                .map(TreeItem::new)
-                .toList();
+            .map(id -> Product.random(id, brand, FAKER))
+            .map(TreeItem::new)
+            .toList();
     }
 
     @SuppressWarnings("unchecked")
@@ -189,7 +194,7 @@ public class TreeTablePage extends AbstractPage {
         idCol.setCellValueFactory(cell -> {
             Product product = cell.getValue().getValue();
             return new SimpleStringProperty(
-                    product != null && product.getId() != 0 ? String.valueOf(product.getId()) : ""
+                product != null && product.getId() != 0 ? String.valueOf(product.getId()) : ""
             );
         });
         idCol.setEditable(false);
@@ -198,14 +203,14 @@ public class TreeTablePage extends AbstractPage {
         var brandCol = new TreeTableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTreeTableCell.forTreeTableColumn(
-                generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
         var nameCol = new TreeTableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTreeTableCell.forTreeTableColumn(
-                generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
         ));
         nameCol.setEditable(true);
         nameCol.setMinWidth(200);
@@ -281,17 +286,17 @@ public class TreeTablePage extends AbstractPage {
 
         return new MenuButton("Properties") {{
             getItems().setAll(
-                    resizePolicyCaption,
-                    unconstrainedResizeItem,
-                    constrainedResizeItem,
-                    selectionModeCaption,
-                    singleSelectionItem,
-                    multiSelectionItem,
-                    new SeparatorMenuItem(),
-                    showRootItem,
-                    editCellsItem,
-                    cellSelectionItem,
-                    menuButtonItem
+                resizePolicyCaption,
+                unconstrainedResizeItem,
+                constrainedResizeItem,
+                selectionModeCaption,
+                singleSelectionItem,
+                multiSelectionItem,
+                new SeparatorMenuItem(),
+                showRootItem,
+                editCellsItem,
+                cellSelectionItem,
+                menuButtonItem
             );
         }};
     }

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import static atlantafx.sampler.page.Page.PAGE_HGAP;
@@ -36,20 +37,20 @@ public class CardSample extends HBox {
         setAlignment(Pos.TOP_CENTER);
         setMinWidth(CARD_WIDTH * 2 + PAGE_HGAP);
         getChildren().setAll(
-                // column 0
-                new VBox(
-                        PAGE_VGAP,
-                        textFooterCard(),
-                        titleTextCard(),
-                        quoteCard()
-                ),
-                // column 1
-                new VBox(
-                        PAGE_VGAP,
-                        imageTextCard(),
-                        titleImageCard(),
-                        statisticCard()
-                )
+            // column 0
+            new VBox(
+                PAGE_VGAP,
+                textFooterCard(),
+                titleTextCard(),
+                quoteCard()
+            ),
+            // column 1
+            new VBox(
+                PAGE_VGAP,
+                imageTextCard(),
+                titleImageCard(),
+                statisticCard()
+            )
         );
     }
 
@@ -134,14 +135,14 @@ public class CardSample extends HBox {
         var authorText = new Text("Bojack Horseman");
 
         card.setBody(new VBox(
-                10,
-                new TextFlow(quoteText),
-                authorText
+            10,
+            new TextFlow(quoteText),
+            authorText
         ));
 
         card.setFooter(new TextFlow(
-                new Text("Share on "),
-                new Hyperlink("Twitter")
+            new Text("Share on "),
+            new Hyperlink("Twitter")
         ));
 
         return card;

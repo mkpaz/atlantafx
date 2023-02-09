@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -32,11 +33,11 @@ import javafx.stage.Stage;
 public class Launcher extends Application {
 
     public static final boolean IS_DEV_MODE = "DEV".equalsIgnoreCase(
-            Resources.getPropertyOrEnv("atlantafx.mode", "ATLANTAFX_MODE")
+        Resources.getPropertyOrEnv("atlantafx.mode", "ATLANTAFX_MODE")
     );
 
     public static final List<KeyCodeCombination> SUPPORTED_HOTKEYS = List.of(
-            new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)
+        new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN)
     );
 
     public static void main(String[] args) {
@@ -91,11 +92,12 @@ public class Launcher extends Application {
 
     private void loadApplicationProperties() {
         Properties properties = new Properties();
-        try (InputStreamReader in = new InputStreamReader(Resources.getResourceAsStream("application.properties"), UTF_8)) {
+        try (InputStreamReader in = new InputStreamReader(Resources.getResourceAsStream("application.properties"),
+            UTF_8)) {
             properties.load(in);
             properties.forEach((key, value) -> System.setProperty(
-                    String.valueOf(key),
-                    String.valueOf(value)
+                String.valueOf(key),
+                String.valueOf(value)
             ));
         } catch (IOException e) {
             throw new RuntimeException(e);

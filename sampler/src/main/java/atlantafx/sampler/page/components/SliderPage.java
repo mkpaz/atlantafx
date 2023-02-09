@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static javafx.geometry.Orientation.VERTICAL;
@@ -20,16 +21,18 @@ public class SliderPage extends AbstractPage {
     private static final int SPACING = 20;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public SliderPage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_HGAP, Page.PAGE_VGAP,
-                basicSample(),
-                smallSample(),
-                largeSample(),
-                disabledSample()
+            Page.PAGE_HGAP, Page.PAGE_VGAP,
+            basicSample(),
+            smallSample(),
+            largeSample(),
+            disabledSample()
         ));
     }
 

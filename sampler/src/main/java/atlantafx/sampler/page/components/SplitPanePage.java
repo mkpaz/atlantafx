@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
@@ -18,16 +19,18 @@ public class SplitPanePage extends AbstractPage {
     public static final String NAME = "SplitPane";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public SplitPanePage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_VGAP, Page.PAGE_HGAP,
-                hSplitSample(),
-                vSplitSample(),
-                disabledSample(),
-                gridSample()
+            Page.PAGE_VGAP, Page.PAGE_HGAP,
+            hSplitSample(),
+            vSplitSample(),
+            disabledSample(),
+            gridSample()
         ));
     }
 
@@ -68,8 +71,12 @@ public class SplitPanePage extends AbstractPage {
         doubleSplitPane.setOrientation(Orientation.VERTICAL);
         doubleSplitPane.setDividerPositions(0.5);
         doubleSplitPane.getItems().setAll(
-                new VBox(topSplitPane) {{ setAlignment(Pos.CENTER); }},
-                new VBox(bottomSplitPane) {{ setAlignment(Pos.CENTER); }}
+            new VBox(topSplitPane) {{
+                setAlignment(Pos.CENTER);
+            }},
+            new VBox(bottomSplitPane) {{
+                setAlignment(Pos.CENTER);
+            }}
         );
         doubleSplitPane.setMinSize(400, 200);
         doubleSplitPane.setMaxSize(400, 200);

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
@@ -28,15 +29,17 @@ public class InputGroupPage extends AbstractPage {
     public static final String NAME = "Input Group";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public InputGroupPage() {
         super();
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                expandingHBox(httpMethodSample(), passwordSample()),
-                expandingHBox(networkSample(), dropdownSample()),
-                labelSample()
+            Page.PAGE_VGAP,
+            expandingHBox(httpMethodSample(), passwordSample()),
+            expandingHBox(networkSample(), dropdownSample()),
+            labelSample()
         ));
     }
 
@@ -156,10 +159,10 @@ public class InputGroupPage extends AbstractPage {
         // ~
 
         var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                sample1,
-                sample2,
-                sample3
+            BLOCK_HGAP, BLOCK_VGAP,
+            sample1,
+            sample2,
+            sample3
         );
 
         return new SampleBlock("Label & TextField", flowPane);

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
@@ -23,13 +24,15 @@ public class MenuPage extends AbstractPage {
     public static final String NAME = "Menu";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public MenuPage() {
         super();
         setUserContent(new VBox(Page.PAGE_VGAP,
-                menuBarSample(),
-                contextMenuExample()
+            menuBarSample(),
+            contextMenuExample()
         ));
     }
 
@@ -40,19 +43,21 @@ public class MenuPage extends AbstractPage {
     private SampleBlock contextMenuExample() {
         var contextMenu = new ContextMenu();
 
-        var undoItem = Controls.menuItem("_Undo", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.Z, CONTROL_DOWN));
+        var undoItem =
+            Controls.menuItem("_Undo", Feather.CORNER_DOWN_LEFT, new KeyCodeCombination(KeyCode.Z, CONTROL_DOWN));
         undoItem.setMnemonicParsing(true);
 
-        var redoItem = Controls.menuItem("_Redo", Feather.CORNER_DOWN_RIGHT, new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN));
+        var redoItem =
+            Controls.menuItem("_Redo", Feather.CORNER_DOWN_RIGHT, new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN));
         redoItem.setMnemonicParsing(true);
 
         contextMenu.getItems().addAll(
-                undoItem,
-                redoItem,
-                new SeparatorMenuItem(),
-                Controls.menuItem("Cut", Feather.SCISSORS, new KeyCodeCombination(KeyCode.X, CONTROL_DOWN)),
-                Controls.menuItem("Copy", Feather.COPY, new KeyCodeCombination(KeyCode.C, CONTROL_DOWN)),
-                Controls.menuItem("Paste", null, new KeyCodeCombination(KeyCode.V, CONTROL_DOWN))
+            undoItem,
+            redoItem,
+            new SeparatorMenuItem(),
+            Controls.menuItem("Cut", Feather.SCISSORS, new KeyCodeCombination(KeyCode.X, CONTROL_DOWN)),
+            Controls.menuItem("Copy", Feather.COPY, new KeyCodeCombination(KeyCode.C, CONTROL_DOWN)),
+            Controls.menuItem("Paste", null, new KeyCodeCombination(KeyCode.V, CONTROL_DOWN))
         );
 
         var content = new Label("Right-Click Here");

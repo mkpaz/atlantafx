@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import static atlantafx.base.util.PlatformUtils.isMac;
@@ -56,7 +57,9 @@ public class InlineDatePickerBehavior extends BehaviorBase<InlineDatePicker, Inl
         }
 
         // prevents any other key events but ESC from reaching the control owner
-        if (e.getCode() != ESCAPE) { e.consume(); }
+        if (e.getCode() != ESCAPE) {
+            e.consume();
+        }
     }
 
     public void moveForward(MouseEvent e) {

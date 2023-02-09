@@ -26,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
 import java.util.ArrayList;
@@ -76,8 +77,9 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         thumbArea.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         thumb.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         control.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.booleanValue() != oldValue.booleanValue())
+            if (newValue.booleanValue() != oldValue.booleanValue()) {
                 selectedStateChanged();
+            }
         });
     }
 
@@ -206,21 +208,21 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
     }
 
     private static final CssMetaData<ToggleSwitch, Number> THUMB_MOVE_ANIMATION_TIME =
-            new CssMetaData<>("-fx-thumb-move-animation-time", SizeConverter.getInstance(), 200) {
+        new CssMetaData<>("-fx-thumb-move-animation-time", SizeConverter.getInstance(), 200) {
 
-                @Override
-                public boolean isSettable(ToggleSwitch toggleSwitch) {
-                    final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
-                    return skin.thumbMoveAnimationTime == null || skin.thumbMoveAnimationTime.isBound();
-                }
+            @Override
+            public boolean isSettable(ToggleSwitch toggleSwitch) {
+                final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
+                return skin.thumbMoveAnimationTime == null || skin.thumbMoveAnimationTime.isBound();
+            }
 
-                @Override
-                @SuppressWarnings("RedundantCast")
-                public StyleableProperty<Number> getStyleableProperty(ToggleSwitch toggleSwitch) {
-                    final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
-                    return (StyleableProperty<Number>) (WritableValue<Number>) skin.thumbMoveAnimationTimeProperty();
-                }
-            };
+            @Override
+            @SuppressWarnings("RedundantCast")
+            public StyleableProperty<Number> getStyleableProperty(ToggleSwitch toggleSwitch) {
+                final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
+                return (StyleableProperty<Number>) (WritableValue<Number>) skin.thumbMoveAnimationTimeProperty();
+            }
+        };
 
     private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 

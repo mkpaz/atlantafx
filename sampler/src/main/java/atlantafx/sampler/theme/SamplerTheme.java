@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.theme;
 
 import static atlantafx.sampler.Launcher.IS_DEV_MODE;
@@ -57,7 +58,7 @@ public final class SamplerTheme implements Theme {
 
     private static final int PARSE_LIMIT = 250;
     private static final Pattern COLOR_PATTERN =
-            Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger)-.+?):\s*?(.+?);");
+        Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger)-.+?):\s*?(.+?);");
 
     private final Theme theme;
 
@@ -110,7 +111,9 @@ public final class SamplerTheme implements Theme {
 
     private Map<String, String> parseColorsForClasspath(FileResource file) throws IOException {
         // classpath resources are static, no need to parse project theme more than once
-        if (colors != null) { return colors; }
+        if (colors != null) {
+            return colors;
+        }
 
         try (var br = new BufferedReader(new InputStreamReader(file.getInputStream(), UTF_8))) {
             colors = parseColors(br);
@@ -150,7 +153,9 @@ public final class SamplerTheme implements Theme {
             }
 
             lineCount++;
-            if (lineCount > PARSE_LIMIT) { break; }
+            if (lineCount > PARSE_LIMIT) {
+                break;
+            }
         }
 
         return colors;
@@ -166,17 +171,22 @@ public final class SamplerTheme implements Theme {
         }
 
         FileResource classpathTheme = FileResource.internal(theme.getUserAgentStylesheet(), Theme.class);
-        if (!IS_DEV_MODE) { return classpathTheme; }
+        if (!IS_DEV_MODE) {
+            return classpathTheme;
+        }
 
         String filename = classpathTheme.getFilename();
 
         try {
             FileResource testTheme = FileResource.internal(Resources.resolve("theme-test/" + filename), Launcher.class);
-            if (!testTheme.exists()) { throw new IOException(); }
+            if (!testTheme.exists()) {
+                throw new IOException();
+            }
             return testTheme;
         } catch (Exception e) {
             var failedPath = resolve("theme-test/" + filename);
-            System.err.println("[WARNING] Unable to find theme file \"" + failedPath + "\". Fall back to the classpath.");
+            System.err.println(
+                "[WARNING] Unable to find theme file \"" + failedPath + "\". Fall back to the classpath.");
             return classpathTheme;
         }
     }

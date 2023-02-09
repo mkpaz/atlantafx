@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.layout;
 
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
@@ -180,17 +181,23 @@ class Sidebar extends StackPane {
         }
 
         public Optional<NavLink> findLink(Class<? extends Page> pageClass) {
-            if (pageClass == null) { return Optional.empty(); }
+            if (pageClass == null) {
+                return Optional.empty();
+            }
             return Optional.ofNullable(registry.get(pageClass));
         }
 
         public Optional<NavLink> getPrevious() {
             var current = content.indexOf(registry.get(model.selectedPageProperty().get()));
-            if (!(current > 0)) { return Optional.empty(); }
+            if (!(current > 0)) {
+                return Optional.empty();
+            }
 
             for (int i = current - 1; i >= 0; i--) {
                 var r = content.get(i);
-                if (r instanceof NavLink link) { return Optional.of(link); }
+                if (r instanceof NavLink link) {
+                    return Optional.of(link);
+                }
             }
 
             return Optional.empty();
@@ -198,11 +205,15 @@ class Sidebar extends StackPane {
 
         public Optional<NavLink> getNext() {
             var current = content.indexOf(registry.get(model.selectedPageProperty().get()));
-            if (!(current >= 0 && current < content.size() - 1)) { return Optional.empty(); } // has next
+            if (!(current >= 0 && current < content.size() - 1)) {
+                return Optional.empty();
+            } // has next
 
             for (int i = current + 1; i < content.size(); i++) {
                 var r = content.get(i);
-                if (r instanceof NavLink link) { return Optional.of(link); }
+                if (r instanceof NavLink link) {
+                    return Optional.of(link);
+                }
             }
 
             return Optional.empty();
@@ -210,56 +221,56 @@ class Sidebar extends StackPane {
 
         private ObservableList<Region> create() {
             return FXCollections.observableArrayList(
-                    caption("GENERAL"),
-                    navLink(ThemePage.NAME, ThemePage.class),
-                    navLink(TypographyPage.NAME, TypographyPage.class),
-                    navLink(IconsPage.NAME, IconsPage.class),
-                    caption("COMPONENTS"),
-                    navLink(OverviewPage.NAME, OverviewPage.class),
-                    navLink(InputGroupPage.NAME, InputGroupPage.class),
-                    new Spacer(10, Orientation.VERTICAL),
-                    navLink(AccordionPage.NAME, AccordionPage.class),
-                    navLink(BreadcrumbsPage.NAME, BreadcrumbsPage.class),
-                    navLink(ButtonPage.NAME, ButtonPage.class),
-                    navLink(ChartPage.NAME, ChartPage.class),
-                    navLink(CheckBoxPage.NAME, CheckBoxPage.class),
-                    navLink(ColorPickerPage.NAME, ColorPickerPage.class),
-                    navLink(ComboBoxPage.NAME, ComboBoxPage.class, "ChoiceBox"),
-                    navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class),
-                    navLink(DatePickerPage.NAME, DatePickerPage.class),
-                    navLink(DialogPage.NAME, DialogPage.class),
-                    navLink(HTMLEditorPage.NAME, HTMLEditorPage.class),
-                    navLink(LabelPage.NAME, LabelPage.class),
-                    navLink(ListPage.NAME, ListPage.class),
-                    navLink(MenuPage.NAME, MenuPage.class),
-                    navLink(MenuButtonPage.NAME, MenuButtonPage.class, "SplitMenuButton"),
-                    navLink(PaginationPage.NAME, PaginationPage.class),
-                    navLink(PopoverPage.NAME, PopoverPage.class),
-                    navLink(ProgressPage.NAME, ProgressPage.class),
-                    navLink(RadioButtonPage.NAME, RadioButtonPage.class),
-                    navLink(ScrollPanePage.NAME, ScrollPanePage.class),
-                    navLink(SeparatorPage.NAME, SeparatorPage.class),
-                    navLink(SliderPage.NAME, SliderPage.class),
-                    navLink(SpinnerPage.NAME, SpinnerPage.class),
-                    navLink(SplitPanePage.NAME, SplitPanePage.class),
-                    navLink(TablePage.NAME, TablePage.class),
-                    navLink(TabPanePage.NAME, TabPanePage.class),
-                    navLink(TextAreaPage.NAME, TextAreaPage.class),
-                    navLink(TextFieldPage.NAME, TextFieldPage.class, "PasswordField"),
-                    navLink(TitledPanePage.NAME, TitledPanePage.class),
-                    navLink(ToggleButtonPage.NAME, ToggleButtonPage.class),
-                    navLink(ToggleSwitchPage.NAME, ToggleSwitchPage.class),
-                    navLink(ToolBarPage.NAME, ToolBarPage.class),
-                    navLink(TooltipPage.NAME, TooltipPage.class),
-                    navLink(TreePage.NAME, TreePage.class),
-                    navLink(TreeTablePage.NAME, TreeTablePage.class),
-                    caption("SHOWCASE"),
-                    navLink(FileManagerPage.NAME, FileManagerPage.class),
-                    navLink(MusicPlayerPage.NAME, MusicPlayerPage.class),
-                    navLink(WidgetCollectionPage.NAME,
-                            WidgetCollectionPage.class,
-                            "Card", "Message", "Stepper", "Tag"
-                    )
+                caption("GENERAL"),
+                navLink(ThemePage.NAME, ThemePage.class),
+                navLink(TypographyPage.NAME, TypographyPage.class),
+                navLink(IconsPage.NAME, IconsPage.class),
+                caption("COMPONENTS"),
+                navLink(OverviewPage.NAME, OverviewPage.class),
+                navLink(InputGroupPage.NAME, InputGroupPage.class),
+                new Spacer(10, Orientation.VERTICAL),
+                navLink(AccordionPage.NAME, AccordionPage.class),
+                navLink(BreadcrumbsPage.NAME, BreadcrumbsPage.class),
+                navLink(ButtonPage.NAME, ButtonPage.class),
+                navLink(ChartPage.NAME, ChartPage.class),
+                navLink(CheckBoxPage.NAME, CheckBoxPage.class),
+                navLink(ColorPickerPage.NAME, ColorPickerPage.class),
+                navLink(ComboBoxPage.NAME, ComboBoxPage.class, "ChoiceBox"),
+                navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class),
+                navLink(DatePickerPage.NAME, DatePickerPage.class),
+                navLink(DialogPage.NAME, DialogPage.class),
+                navLink(HTMLEditorPage.NAME, HTMLEditorPage.class),
+                navLink(LabelPage.NAME, LabelPage.class),
+                navLink(ListPage.NAME, ListPage.class),
+                navLink(MenuPage.NAME, MenuPage.class),
+                navLink(MenuButtonPage.NAME, MenuButtonPage.class, "SplitMenuButton"),
+                navLink(PaginationPage.NAME, PaginationPage.class),
+                navLink(PopoverPage.NAME, PopoverPage.class),
+                navLink(ProgressPage.NAME, ProgressPage.class),
+                navLink(RadioButtonPage.NAME, RadioButtonPage.class),
+                navLink(ScrollPanePage.NAME, ScrollPanePage.class),
+                navLink(SeparatorPage.NAME, SeparatorPage.class),
+                navLink(SliderPage.NAME, SliderPage.class),
+                navLink(SpinnerPage.NAME, SpinnerPage.class),
+                navLink(SplitPanePage.NAME, SplitPanePage.class),
+                navLink(TablePage.NAME, TablePage.class),
+                navLink(TabPanePage.NAME, TabPanePage.class),
+                navLink(TextAreaPage.NAME, TextAreaPage.class),
+                navLink(TextFieldPage.NAME, TextFieldPage.class, "PasswordField"),
+                navLink(TitledPanePage.NAME, TitledPanePage.class),
+                navLink(ToggleButtonPage.NAME, ToggleButtonPage.class),
+                navLink(ToggleSwitchPage.NAME, ToggleSwitchPage.class),
+                navLink(ToolBarPage.NAME, ToolBarPage.class),
+                navLink(TooltipPage.NAME, TooltipPage.class),
+                navLink(TreePage.NAME, TreePage.class),
+                navLink(TreeTablePage.NAME, TreeTablePage.class),
+                caption("SHOWCASE"),
+                navLink(FileManagerPage.NAME, FileManagerPage.class),
+                navLink(MusicPlayerPage.NAME, MusicPlayerPage.class),
+                navLink(WidgetCollectionPage.NAME,
+                    WidgetCollectionPage.class,
+                    "Card", "Message", "Stepper", "Tag"
+                )
             );
         }
 
@@ -310,7 +321,8 @@ class Sidebar extends StackPane {
 
         public boolean matches(String filter) {
             Objects.requireNonNull(filter);
-            return contains(getText(), filter) || searchKeywords.stream().anyMatch(keyword -> contains(keyword, filter));
+            return contains(getText(), filter) ||
+                searchKeywords.stream().anyMatch(keyword -> contains(keyword, filter));
         }
 
         private boolean contains(String text, String filter) {

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.theme;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -34,8 +35,12 @@ public final class CSSFragment {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CSSFragment cssFragment = (CSSFragment) o;
         return css.equals(cssFragment.css);
     }

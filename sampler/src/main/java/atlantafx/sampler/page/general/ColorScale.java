@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
@@ -21,12 +22,12 @@ class ColorScale extends VBox {
 
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final List<ColorScaleBlock> blocks = Arrays.asList(
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-base-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-accent-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-success-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-warning-", 10),
-            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-danger-", 10),
-            ColorScaleBlock.forColorName(bgBaseColor, "-color-dark", "-color-light")
+        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-base-", 10),
+        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-accent-", 10),
+        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-success-", 10),
+        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-warning-", 10),
+        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-danger-", 10),
+        ColorScaleBlock.forColorName(bgBaseColor, "-color-dark", "-color-light")
     );
 
     public ColorScale() {
@@ -44,18 +45,20 @@ class ColorScale extends VBox {
         headerBox.getStyleClass().add("header");
 
         var noteText = new TextFlow(
-                new Text("Avoid referencing scale variables directly when building UI that needs to adapt to different color themes. Instead, use the functional variables listed above.")
+            new Text(
+                "Avoid referencing scale variables directly when building UI that needs to adapt to different color themes. Instead, use the functional variables listed above."
+            )
         );
 
         backgroundProperty().addListener((obs, old, val) -> bgBaseColor.set(
-                val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
+            val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
         ));
 
         setId("color-scale");
         getChildren().setAll(
-                headerBox,
-                noteText,
-                colorTable()
+            headerBox,
+            noteText,
+            colorTable()
         );
     }
 

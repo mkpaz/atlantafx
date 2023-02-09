@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -32,7 +33,9 @@ public class IconsPage extends AbstractPage {
     public static final String NAME = "Icons";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public IconsPage() {
         super();
@@ -41,15 +44,15 @@ public class IconsPage extends AbstractPage {
 
     private void createView() {
         var headerText = new TextFlow(
-                new Text("AtlantaFX supports "),
-                hyperlink("Ikonli", URI.create("https://kordamp.org/ikonli")),
-                new Text(" iconic fonts that can be used together with some JavaFX components.")
+            new Text("AtlantaFX supports "),
+            hyperlink("Ikonli", URI.create("https://kordamp.org/ikonli")),
+            new Text(" iconic fonts that can be used together with some JavaFX components.")
         );
 
         var browserText = new TextFlow(
-                new Text("There's a variety of icon packs. Sampler app uses "),
-                hyperlink("Material Icons", URI.create("https://kordamp.org/ikonli/cheat-sheet-material2.html")),
-                new Text(" you can preview below.")
+            new Text("There's a variety of icon packs. Sampler app uses "),
+            hyperlink("Material Icons", URI.create("https://kordamp.org/ikonli/cheat-sheet-material2.html")),
+            new Text(" you can preview below.")
         );
 
         var filterText = new CustomTextField();
@@ -68,12 +71,12 @@ public class IconsPage extends AbstractPage {
         iconBrowser.filterProperty().bind(filterText.textProperty());
 
         setUserContent(new VBox(
-                PAGE_VGAP,
-                headerText,
-                expandingHBox(colorSample(), stackingSample()),
-                browserText,
-                filterBox,
-                iconBrowser
+            PAGE_VGAP,
+            headerText,
+            expandingHBox(colorSample(), stackingSample()),
+            browserText,
+            filterBox,
+            iconBrowser
         ));
     }
 
@@ -91,9 +94,9 @@ public class IconsPage extends AbstractPage {
         dangerIcon.getStyleClass().add(Styles.DANGER);
 
         var content = new VBox(
-                BLOCK_VGAP,
-                new Label("You can also use pseudo-classes to set icon color."),
-                new HBox(BLOCK_HGAP, accentIcon, successIcon, warningIcon, dangerIcon)
+            BLOCK_VGAP,
+            new Label("You can also use pseudo-classes to set icon color."),
+            new HBox(BLOCK_HGAP, accentIcon, successIcon, warningIcon, dangerIcon)
         );
 
         return new SampleBlock("Colors", content);
@@ -109,14 +112,14 @@ public class IconsPage extends AbstractPage {
         var stackIcon1 = new StackedFontIcon();
         stackIcon1.getChildren().addAll(innerIcon1, outerIcon1);
         new CSSFragment("""
-                        .stacked-ikonli-font-icon > .outer-icon {
-                            -fx-icon-size: 48px;
-                            -fx-icon-color: -color-danger-emphasis;
-                        }
-                        .stacked-ikonli-font-icon > .inner-icon {
-                            -fx-icon-size: 24px;
-                        }
-                        """).addTo(stackIcon1);
+            .stacked-ikonli-font-icon > .outer-icon {
+                -fx-icon-size: 48px;
+                -fx-icon-color: -color-danger-emphasis;
+            }
+            .stacked-ikonli-font-icon > .inner-icon {
+                -fx-icon-size: 24px;
+            }
+            """).addTo(stackIcon1);
 
         var outerIcon2 = new FontIcon(Material2OutlinedAL.CHECK_BOX_OUTLINE_BLANK);
         outerIcon2.getStyleClass().add("outer-icon");
@@ -127,13 +130,13 @@ public class IconsPage extends AbstractPage {
         var stackIcon2 = new StackedFontIcon();
         stackIcon2.getChildren().addAll(outerIcon2, innerIcon2);
         new CSSFragment("""
-                        .stacked-ikonli-font-icon > .outer-icon {
-                            -fx-icon-size: 48px;
-                        }
-                        .stacked-ikonli-font-icon > .inner-icon {
-                            -fx-icon-size: 24px;
-                        }
-                        """).addTo(stackIcon2);
+            .stacked-ikonli-font-icon > .outer-icon {
+                -fx-icon-size: 48px;
+            }
+            .stacked-ikonli-font-icon > .inner-icon {
+                -fx-icon-size: 24px;
+            }
+            """).addTo(stackIcon2);
 
         var content = new HBox(BLOCK_HGAP, stackIcon1, stackIcon2);
 

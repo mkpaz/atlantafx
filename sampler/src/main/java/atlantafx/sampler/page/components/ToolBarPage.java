@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.ACCENT;
@@ -57,7 +58,9 @@ public class ToolBarPage extends AbstractPage {
     public static final String NAME = "ToolBar";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private Side toolbarPos = Side.TOP;
 
@@ -149,7 +152,9 @@ public class ToolBarPage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch();
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { toolbar.setDisable(val); }
+            if (val != null) {
+                toolbar.setDisable(val);
+            }
         });
 
         var togglesGrid = new GridPane();
@@ -178,13 +183,17 @@ public class ToolBarPage extends AbstractPage {
     }
 
     private void rotateToolbar(BorderPane borderPane, ToolBar toolbar, Side pos) {
-        if (toolbarPos == pos) { return; }
+        if (toolbarPos == pos) {
+            return;
+        }
 
         var topBar = (TopBar) borderPane.getTop();
         toolbarPos = pos;
 
         boolean changed = borderPane.getChildren().removeAll(toolbar);
-        if (!changed) { topBar.removeToolBar(); }
+        if (!changed) {
+            topBar.removeToolBar();
+        }
 
         // WARNING:
         // Rotating existing buttons seems tempting, but it won't work.
@@ -270,7 +279,8 @@ public class ToolBarPage extends AbstractPage {
     }
 
     public static MenuItem[] createItems(int count) {
-        return IntStream.range(0, count).mapToObj(i -> new MenuItem(FAKER.babylon5().character())).toArray(MenuItem[]::new);
+        return IntStream.range(0, count).mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
+            .toArray(MenuItem[]::new);
     }
 
     ///////////////////////////////////////////////////////////////////////////

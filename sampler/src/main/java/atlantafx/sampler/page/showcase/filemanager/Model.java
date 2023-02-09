@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
 
 import java.nio.file.Path;
@@ -23,9 +24,13 @@ final class Model {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    public ReadOnlyObjectProperty<Path> currentPathProperty() { return currentPath.getReadOnlyProperty(); }
+    public ReadOnlyObjectProperty<Path> currentPathProperty() {
+        return currentPath.getReadOnlyProperty();
+    }
 
-    public NavigationHistory getHistory() { return history; }
+    public NavigationHistory getHistory() {
+        return history;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Commands                                                              //
@@ -41,6 +46,8 @@ final class Model {
 
     public void navigate(Path path, boolean saveInHistory) {
         currentPath.set(Objects.requireNonNullElse(path, USER_HOME));
-        if (saveInHistory) { history.append(path); }
+        if (saveInHistory) {
+            history.append(path);
+        }
     }
 }

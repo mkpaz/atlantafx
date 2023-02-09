@@ -26,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
 import java.util.UUID;
@@ -61,11 +62,13 @@ public class Breadcrumbs<T> extends Control {
     protected static final String DEFAULT_STYLE_CLASS = "breadcrumbs";
 
     protected final Callback<BreadCrumbItem<T>, ButtonBase> defaultCrumbNodeFactory =
-            item -> new Hyperlink(item.getStringValue());
+        item -> new Hyperlink(item.getStringValue());
     protected final Callback<BreadCrumbItem<T>, ? extends Node> defaultDividerFactory =
-            item -> item != null && !item.isLast() ? new Label("/") : null;
+        item -> item != null && !item.isLast() ? new Label("/") : null;
 
-    /** Creates an empty bread crumb bar. */
+    /**
+     * Creates an empty bread crumb bar.
+     */
     public Breadcrumbs() {
         this(null);
     }
@@ -88,7 +91,9 @@ public class Breadcrumbs<T> extends Control {
         setDividerFactory(defaultDividerFactory);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new BreadcrumbsSkin<>(this);
@@ -131,7 +136,7 @@ public class Breadcrumbs<T> extends Control {
     }
 
     protected final ObjectProperty<BreadCrumbItem<T>> selectedCrumb =
-            new SimpleObjectProperty<>(this, "selectedCrumb");
+        new SimpleObjectProperty<>(this, "selectedCrumb");
 
     public final BreadCrumbItem<T> getSelectedCrumb() {
         return selectedCrumb.get();
@@ -153,7 +158,7 @@ public class Breadcrumbs<T> extends Control {
     }
 
     protected final BooleanProperty autoNavigation =
-            new SimpleBooleanProperty(this, "autoNavigationEnabled", true);
+        new SimpleBooleanProperty(this, "autoNavigationEnabled", true);
 
     public final boolean isAutoNavigationEnabled() {
         return autoNavigation.get();
@@ -178,7 +183,7 @@ public class Breadcrumbs<T> extends Control {
     }
 
     protected final ObjectProperty<Callback<BreadCrumbItem<T>, ButtonBase>> crumbFactory =
-            new SimpleObjectProperty<>(this, "crumbFactory");
+        new SimpleObjectProperty<>(this, "crumbFactory");
 
     public final void setCrumbFactory(Callback<BreadCrumbItem<T>, ButtonBase> value) {
         if (value == null) {
@@ -208,7 +213,7 @@ public class Breadcrumbs<T> extends Control {
     }
 
     protected final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactory =
-            new SimpleObjectProperty<>(this, "dividerFactory");
+        new SimpleObjectProperty<>(this, "dividerFactory");
 
     public final void setDividerFactory(Callback<BreadCrumbItem<T>, ? extends Node> value) {
         if (value == null) {
@@ -228,7 +233,9 @@ public class Breadcrumbs<T> extends Control {
         return onCrumbAction;
     }
 
-    /** Set a new EventHandler for when a user selects a crumb. */
+    /**
+     * Set a new EventHandler for when a user selects a crumb.
+     */
     public final void setOnCrumbAction(EventHandler<BreadCrumbActionEvent<T>> value) {
         onCrumbActionProperty().set(value);
     }
@@ -239,7 +246,7 @@ public class Breadcrumbs<T> extends Control {
 
     protected final ObjectProperty<EventHandler<BreadCrumbActionEvent<T>>> onCrumbAction = new ObjectPropertyBase<>() {
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
+        @SuppressWarnings({"unchecked", "rawtypes"})
         @Override
         protected void invalidated() {
             setEventHandler(BreadCrumbActionEvent.CRUMB_ACTION, (EventHandler<BreadCrumbActionEvent>) (Object) get());
@@ -289,7 +296,9 @@ public class Breadcrumbs<T> extends Control {
         }
     }
 
-    /** Represents an Event which is fired when a bread crumb was activated. */
+    /**
+     * Represents an Event which is fired when a bread crumb was activated.
+     */
     public static class BreadCrumbActionEvent<TE> extends Event {
 
         /**
@@ -298,11 +307,13 @@ public class Breadcrumbs<T> extends Control {
          * has changed.
          */
         public static final EventType<BreadCrumbActionEvent<?>> CRUMB_ACTION
-                = new EventType<>("CRUMB_ACTION" + UUID.randomUUID());
+            = new EventType<>("CRUMB_ACTION" + UUID.randomUUID());
 
         private final BreadCrumbItem<TE> selectedCrumb;
 
-        /** Creates a new event that can subsequently be fired. */
+        /**
+         * Creates a new event that can subsequently be fired.
+         */
         public BreadCrumbActionEvent(BreadCrumbItem<TE> selectedCrumb) {
             super(CRUMB_ACTION);
             this.selectedCrumb = selectedCrumb;

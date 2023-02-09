@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import static atlantafx.sampler.event.ThemeEvent.EventType.COLOR_CHANGE;
@@ -42,10 +43,10 @@ public class ThemePage extends AbstractPage {
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler = colorBlock -> {
         ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
         dialog.getContent().setValues(
-                colorBlock.getFgColorName(),
-                colorBlock.getFgColor(),
-                colorBlock.getBgColorName(),
-                colorBlock.getBgColor()
+            colorBlock.getFgColorName(),
+            colorBlock.getFgColor(),
+            colorBlock.getBgColorName(),
+            colorBlock.getBgColor()
         );
         overlay.setContent(dialog, HPos.CENTER);
         overlay.toFront();
@@ -59,13 +60,19 @@ public class ThemePage extends AbstractPage {
     private ContrastCheckerDialog contrastCheckerDialog;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     @Override
-    public boolean canDisplaySourceCode() { return false; }
+    public boolean canDisplaySourceCode() {
+        return false;
+    }
 
     @Override
-    public boolean canChangeThemeSettings() { return false; }
+    public boolean canChangeThemeSettings() {
+        return false;
+    }
 
     public ThemePage() {
         super();
@@ -93,17 +100,18 @@ public class ThemePage extends AbstractPage {
 
     private void createView() {
         var noteText = new TextFlow(
-                new Text("AtlantaFX follows "),
-                hyperlink("Github Primer interface guidelines", URI.create("https://primer.style/design/foundations/color")),
-                new Text(" and color system.")
+            new Text("AtlantaFX follows "),
+            hyperlink("Github Primer interface guidelines",
+                URI.create("https://primer.style/design/foundations/color")),
+            new Text(" and color system.")
         );
 
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                createOptionsGrid(),
-                noteText,
-                colorPalette,
-                colorScale
+            Page.PAGE_VGAP,
+            createOptionsGrid(),
+            noteText,
+            colorPalette,
+            colorScale
         ));
 
         selectCurrentTheme();
@@ -141,7 +149,9 @@ public class ThemePage extends AbstractPage {
         var selector = new ChoiceBox<SamplerTheme>();
         selector.getItems().setAll(TM.getRepository().getAll());
         selector.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val != null && getScene() != null) { TM.setTheme(val); }
+            if (val != null && getScene() != null) {
+                TM.setTheme(val);
+            }
         });
         selector.setPrefWidth(250);
 
@@ -154,9 +164,9 @@ public class ThemePage extends AbstractPage {
             @Override
             public SamplerTheme fromString(String themeName) {
                 return TM.getRepository().getAll().stream()
-                        .filter(t -> Objects.equals(themeName, t.getName()))
-                        .findFirst()
-                        .orElse(null);
+                    .filter(t -> Objects.equals(themeName, t.getName()))
+                    .findFirst()
+                    .orElse(null);
             }
         });
 
@@ -164,11 +174,13 @@ public class ThemePage extends AbstractPage {
     }
 
     private void selectCurrentTheme() {
-        if (TM.getTheme() == null) { return; }
+        if (TM.getTheme() == null) {
+            return;
+        }
         themeSelector.getItems().stream()
-                .filter(t -> Objects.equals(TM.getTheme().getName(), t.getName()))
-                .findFirst()
-                .ifPresent(t -> themeSelector.getSelectionModel().select(t));
+            .filter(t -> Objects.equals(TM.getTheme().getName(), t.getName()))
+            .findFirst()
+            .ifPresent(t -> themeSelector.getSelectionModel().select(t));
     }
 
     private ThemeRepoManagerDialog getOrCreateThemeRepoManagerDialog() {

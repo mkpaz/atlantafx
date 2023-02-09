@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
@@ -53,19 +54,21 @@ public class DatePickerPage extends AbstractPage {
     private static final int INLINE_DATE_PICKER_COL = 0;
     private static final int INLINE_DATE_PICKER_ROW = 4;
     private static final CSSFragment NO_YEAR_MONTH_STYLE = new CSSFragment("""
-                                                                           .date-picker-popup >.month-year-pane {
-                                                                             visibility: hidden;
-                                                                             -fx-min-width: 0;
-                                                                             -fx-pref-width: 0;
-                                                                             -fx-max-width: 0;
-                                                                             -fx-min-height: 0;
-                                                                             -fx-pref-height: 0;
-                                                                             -fx-max-height: 0;
-                                                                           }
-                                                                           """);
+        .date-picker-popup >.month-year-pane {
+          visibility: hidden;
+          -fx-min-width: 0;
+          -fx-pref-width: 0;
+          -fx-max-width: 0;
+          -fx-min-height: 0;
+          -fx-pref-height: 0;
+          -fx-max-height: 0;
+        }
+        """);
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BooleanProperty weekNumProperty = new SimpleBooleanProperty();
     private final BooleanProperty showClockProperty = new SimpleBooleanProperty();
@@ -78,7 +81,7 @@ public class DatePickerPage extends AbstractPage {
     public DatePickerPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Playground", createPlayground())
+            new SampleBlock("Playground", createPlayground())
         ));
     }
 
@@ -114,14 +117,14 @@ public class DatePickerPage extends AbstractPage {
 
         var chronologyToggle = new ToggleSwitch("Second chronology");
         chronologyToggle.selectedProperty().addListener(
-                (obs, old, val) -> popupDatePicker.setChronology(val ? HijrahChronology.INSTANCE : null)
+            (obs, old, val) -> popupDatePicker.setChronology(val ? HijrahChronology.INSTANCE : null)
         );
 
         var editableToggle = new ToggleSwitch("Editable");
         editableProperty.bind(editableToggle.selectedProperty());
         // clear selected value to demonstrate prompt text
         editableProperty.addListener(
-                (obs, old, val) -> popupDatePicker.setValue(val ? null : TODAY)
+            (obs, old, val) -> popupDatePicker.setValue(val ? null : TODAY)
         );
 
         var offPastDatesToggle = new ToggleSwitch("No past dates");
@@ -140,14 +143,14 @@ public class DatePickerPage extends AbstractPage {
         disableProperty.bind(disablePickerToggle.selectedProperty());
 
         var controls = new VBox(
-                BLOCK_VGAP,
-                weekNumToggle,
-                showClockToggle,
-                showYearMonthToggle,
-                chronologyToggle,
-                editableToggle,
-                offPastDatesToggle,
-                disablePickerToggle
+            BLOCK_VGAP,
+            weekNumToggle,
+            showClockToggle,
+            showYearMonthToggle,
+            chronologyToggle,
+            editableToggle,
+            offPastDatesToggle,
+            disablePickerToggle
         );
         controls.setAlignment(Pos.CENTER_RIGHT);
 
@@ -193,7 +196,7 @@ public class DatePickerPage extends AbstractPage {
         datePicker.setBottomNode(colorSelector);
 
         datePicker.topNodeProperty().bind(Bindings.createObjectBinding(
-                () -> showClockProperty.get() ? clock : null, showClockProperty)
+            () -> showClockProperty.get() ? clock : null, showClockProperty)
         );
 
         return datePicker;
@@ -205,13 +208,17 @@ public class DatePickerPage extends AbstractPage {
 
         @Override
         public String toString(LocalDate localDate) {
-            if (localDate == null) { return ""; }
+            if (localDate == null) {
+                return "";
+            }
             return DATE_FORMATTER.format(localDate);
         }
 
         @Override
         public LocalDate fromString(String dateString) {
-            if (dateString == null || dateString.trim().isEmpty()) { return null; }
+            if (dateString == null || dateString.trim().isEmpty()) {
+                return null;
+            }
             try {
                 return LocalDate.parse(dateString, DATE_FORMATTER);
             } catch (Exception e) {
@@ -233,26 +240,26 @@ public class DatePickerPage extends AbstractPage {
 
         public Clock() {
             var clockLabel = new Label(
-                    TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
+                TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
             );
             clockLabel.getStyleClass().add(Styles.TITLE_2);
 
             var dateLabel = new Label(
-                    DateTimeFormatter.ofPattern("EEEE, LLLL dd, yyyy").format(LocalDate.now(ZoneId.systemDefault()))
+                DateTimeFormatter.ofPattern("EEEE, LLLL dd, yyyy").format(LocalDate.now(ZoneId.systemDefault()))
             );
 
             setStyle("""
-                     -fx-border-width: 0 0 0.5 0;
-                     -fx-border-color: -color-border-default;"""
+                -fx-border-width: 0 0 0.5 0;
+                -fx-border-color: -color-border-default;"""
             );
             setSpacing(BLOCK_VGAP);
             getChildren().setAll(clockLabel, dateLabel);
 
             var t = new Timeline(new KeyFrame(
-                    Duration.seconds(1),
-                    e -> clockLabel.setText(
-                            TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
-                    )
+                Duration.seconds(1),
+                e -> clockLabel.setText(
+                    TIME_FORMATTER.format(LocalTime.now(ZoneId.systemDefault()))
+                )
             ));
             t.setCycleCount(Animation.INDEFINITE);
             t.playFromStart();
@@ -277,16 +284,20 @@ public class DatePickerPage extends AbstractPage {
             resetBtn.setOnAction(e -> style.set(null));
 
             style.addListener((obs, old, val) -> {
-                if (old != null) { old.removeFrom(parent); }
-                if (val != null) { val.addTo(parent); }
+                if (old != null) {
+                    old.removeFrom(parent);
+                }
+                if (val != null) {
+                    val.addTo(parent);
+                }
             });
 
             setAlignment(Pos.CENTER);
             getChildren().setAll(
-                    colorButton("-color-accent-emphasis", "-color-fg-emphasis"),
-                    colorButton("-color-success-emphasis", "-color-fg-emphasis"),
-                    colorButton("-color-danger-emphasis", "-color-fg-emphasis"),
-                    resetBtn
+                colorButton("-color-accent-emphasis", "-color-fg-emphasis"),
+                colorButton("-color-success-emphasis", "-color-fg-emphasis"),
+                colorButton("-color-danger-emphasis", "-color-fg-emphasis"),
+                resetBtn
             );
             getStyleClass().add("color-selector");
         }
@@ -305,19 +316,19 @@ public class DatePickerPage extends AbstractPage {
 
         private void updateStyle(String bgColorName, String fgColorName) {
             style.set(new CSSFragment(String.format("""
-                                                    .date-picker-popup {
-                                                      -color-date-border: %s;
-                                                      -color-date-month-year-bg: %s;
-                                                      -color-date-month-year-fg: %s;
-                                                    }
-                                                    .date-picker-popup >.top-node {
-                                                        -fx-background-color: %s;
-                                                        -color-fg-default: %s;
-                                                        -color-border-default: %s;
-                                                        -fx-border-color:  %s;
-                                                    }""",
-                                                    bgColorName, bgColorName, fgColorName,
-                                                    bgColorName, fgColorName, fgColorName, fgColorName
+                    .date-picker-popup {
+                      -color-date-border: %s;
+                      -color-date-month-year-bg: %s;
+                      -color-date-month-year-fg: %s;
+                    }
+                    .date-picker-popup >.top-node {
+                        -fx-background-color: %s;
+                        -color-fg-default: %s;
+                        -color-border-default: %s;
+                        -fx-border-color:  %s;
+                    }""",
+                bgColorName, bgColorName, fgColorName,
+                bgColorName, fgColorName, fgColorName, fgColorName
             )));
         }
     }

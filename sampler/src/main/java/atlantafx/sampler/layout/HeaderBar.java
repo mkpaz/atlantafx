@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.layout;
 
 import static atlantafx.base.theme.Styles.TEXT_SMALL;
@@ -97,16 +98,18 @@ class HeaderBar extends HBox {
         var quickConfigBtn = new FontIcon(Material2OutlinedMZ.STYLE);
         quickConfigBtn.mouseTransparentProperty().bind(model.themeChangeToggleProperty().not());
         quickConfigBtn.opacityProperty().bind(Bindings.createDoubleBinding(
-                () -> model.themeChangeToggleProperty().get() ? 1.0 : 0.5, model.themeChangeToggleProperty()
+            () -> model.themeChangeToggleProperty().get() ? 1.0 : 0.5, model.themeChangeToggleProperty()
         ));
         quickConfigBtn.setOnMouseClicked(e -> {
-            if (quickConfigActionHandler != null) { quickConfigActionHandler.accept(popoverAnchor); }
+            if (quickConfigActionHandler != null) {
+                quickConfigActionHandler.accept(popoverAnchor);
+            }
         });
 
         var sourceCodeBtn = new FontIcon(ICON_CODE);
         sourceCodeBtn.mouseTransparentProperty().bind(model.sourceCodeToggleProperty().not());
         sourceCodeBtn.opacityProperty().bind(Bindings.createDoubleBinding(
-                () -> model.sourceCodeToggleProperty().get() ? 1.0 : 0.5, model.sourceCodeToggleProperty()
+            () -> model.sourceCodeToggleProperty().get() ? 1.0 : 0.5, model.sourceCodeToggleProperty()
         ));
         sourceCodeBtn.setOnMouseClicked(e -> model.nextSubLayer());
 
@@ -133,14 +136,14 @@ class HeaderBar extends HBox {
         setPrefHeight(HEADER_HEIGHT);
         setAlignment(Pos.CENTER_LEFT);
         getChildren().setAll(
-                logoBox,
-                titleLabel,
-                new Spacer(),
-                searchField,
-                popoverAnchor,
-                quickConfigBtn,
-                sourceCodeBtn,
-                githubLink
+            logoBox,
+            titleLabel,
+            new Spacer(),
+            searchField,
+            popoverAnchor,
+            quickConfigBtn,
+            sourceCodeBtn,
+            githubLink
         );
 
         if (IS_DEV_MODE) {

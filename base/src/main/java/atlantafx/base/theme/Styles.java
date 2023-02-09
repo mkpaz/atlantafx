@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.theme;
 
 import javafx.css.PseudoClass;
@@ -83,10 +84,12 @@ public final class Styles {
     }
 
     public static void toggleStyleClass(Node node, String styleClass) {
-        if (node == null)
+        if (node == null) {
             throw new NullPointerException("Node cannot be null!");
-        if (styleClass == null)
+        }
+        if (styleClass == null) {
             throw new NullPointerException("Style class cannot be null!");
+        }
 
         int idx = node.getStyleClass().indexOf(styleClass);
         if (idx > 0) {
@@ -97,10 +100,12 @@ public final class Styles {
     }
 
     public static void addStyleClass(Node node, String styleClass, String... excludes) {
-        if (node == null)
+        if (node == null) {
             throw new NullPointerException("Node cannot be null!");
-        if (styleClass == null)
+        }
+        if (styleClass == null) {
             throw new NullPointerException("Style class cannot be null!");
+        }
 
         if (excludes != null && excludes.length > 0) {
             node.getStyleClass().removeAll(excludes);
@@ -109,10 +114,12 @@ public final class Styles {
     }
 
     public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
-        if (node == null)
+        if (node == null) {
             throw new NullPointerException("Node cannot be null!");
-        if (pseudoClass == null)
+        }
+        if (pseudoClass == null) {
             throw new NullPointerException("PseudoClass cannot be null!");
+        }
 
         if (excludes != null && excludes.length > 0) {
             for (PseudoClass exclude : excludes) {

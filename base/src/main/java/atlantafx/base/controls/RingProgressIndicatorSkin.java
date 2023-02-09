@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     protected final Arc progressArc = new Arc();
     protected final Label progressLabel = new Label();
     protected final RotateTransition transition = new RotateTransition(
-            Duration.seconds(DEFAULT_ANIMATION_TIME), progressArc
+        Duration.seconds(DEFAULT_ANIMATION_TIME), progressArc
     );
 
     public RingProgressIndicatorSkin(RingProgressIndicator indicator) {
@@ -230,26 +231,27 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     private static class StyleableProperties {
 
         private static final CssMetaData<RingProgressIndicator, Number> INDETERMINATE_ANIMATION_TIME =
-                new CssMetaData<>("-fx-indeterminate-animation-time", SizeConverter.getInstance(), DEFAULT_ANIMATION_TIME) {
+            new CssMetaData<>("-fx-indeterminate-animation-time", SizeConverter.getInstance(), DEFAULT_ANIMATION_TIME) {
 
-                    @Override
-                    public boolean isSettable(RingProgressIndicator n) {
-                        return n.getSkin() instanceof RingProgressIndicatorSkin s &&
-                                (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
-                    }
+                @Override
+                public boolean isSettable(RingProgressIndicator n) {
+                    return n.getSkin() instanceof RingProgressIndicatorSkin s &&
+                        (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
+                }
 
-                    @Override
-                    @SuppressWarnings("RedundantCast")
-                    public StyleableProperty<Number> getStyleableProperty(RingProgressIndicator n) {
-                        final RingProgressIndicatorSkin skin = (RingProgressIndicatorSkin) n.getSkin();
-                        return (StyleableProperty<Number>) (WritableValue<Number>) skin.indeterminateAnimationTimeProperty();
-                    }
-                };
+                @Override
+                @SuppressWarnings("RedundantCast")
+                public StyleableProperty<Number> getStyleableProperty(RingProgressIndicator n) {
+                    final RingProgressIndicatorSkin skin = (RingProgressIndicatorSkin) n.getSkin();
+                    return (StyleableProperty<Number>) (WritableValue<Number>) skin.indeterminateAnimationTimeProperty();
+                }
+            };
 
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
-            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(SkinBase.getClassCssMetaData());
+            final List<CssMetaData<? extends Styleable, ?>> styleables =
+                new ArrayList<>(SkinBase.getClassCssMetaData());
             styleables.add(INDETERMINATE_ANIMATION_TIME);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }

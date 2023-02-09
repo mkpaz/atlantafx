@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
 import javafx.animation.Interpolator;
@@ -14,50 +15,50 @@ public final class Animations {
 
     public static Timeline fadeIn(Node node, Duration duration) {
         return new Timeline(
-                new KeyFrame(Duration.millis(0), new KeyValue(node.opacityProperty(), 0, EASE)),
-                new KeyFrame(duration, new KeyValue(node.opacityProperty(), 1, EASE))
+            new KeyFrame(Duration.millis(0), new KeyValue(node.opacityProperty(), 0, EASE)),
+            new KeyFrame(duration, new KeyValue(node.opacityProperty(), 1, EASE))
         );
     }
 
     public static Timeline fadeOut(Node node, Duration duration) {
         return new Timeline(
-                new KeyFrame(Duration.millis(0), new KeyValue(node.opacityProperty(), 1, EASE)),
-                new KeyFrame(duration, new KeyValue(node.opacityProperty(), 0, EASE))
+            new KeyFrame(Duration.millis(0), new KeyValue(node.opacityProperty(), 1, EASE)),
+            new KeyFrame(duration, new KeyValue(node.opacityProperty(), 0, EASE))
         );
     }
 
     public static Timeline zoomIn(Node node, Duration duration) {
         return new Timeline(
-                new KeyFrame(Duration.millis(0),
-                        new KeyValue(node.opacityProperty(), 0, EASE),
-                        new KeyValue(node.scaleXProperty(), 0.3, EASE),
-                        new KeyValue(node.scaleYProperty(), 0.3, EASE),
-                        new KeyValue(node.scaleZProperty(), 0.3, EASE)
-                ),
-                new KeyFrame(duration,
-                        new KeyValue(node.opacityProperty(), 1, EASE),
-                        new KeyValue(node.scaleXProperty(), 1, EASE),
-                        new KeyValue(node.scaleYProperty(), 1, EASE),
-                        new KeyValue(node.scaleZProperty(), 1, EASE)
-                )
+            new KeyFrame(Duration.millis(0),
+                new KeyValue(node.opacityProperty(), 0, EASE),
+                new KeyValue(node.scaleXProperty(), 0.3, EASE),
+                new KeyValue(node.scaleYProperty(), 0.3, EASE),
+                new KeyValue(node.scaleZProperty(), 0.3, EASE)
+            ),
+            new KeyFrame(duration,
+                new KeyValue(node.opacityProperty(), 1, EASE),
+                new KeyValue(node.scaleXProperty(), 1, EASE),
+                new KeyValue(node.scaleYProperty(), 1, EASE),
+                new KeyValue(node.scaleZProperty(), 1, EASE)
+            )
         );
     }
 
     public static Timeline zoomOut(Node node, Duration duration) {
         return new Timeline(
-                new KeyFrame(Duration.millis(0),
-                        new KeyValue(node.opacityProperty(), 1, EASE),
-                        new KeyValue(node.scaleXProperty(), 1, EASE),
-                        new KeyValue(node.scaleYProperty(), 1, EASE),
-                        new KeyValue(node.scaleZProperty(), 0.3, EASE)
-                ),
-                new KeyFrame(duration.divide(2),
-                        new KeyValue(node.opacityProperty(), 0, EASE),
-                        new KeyValue(node.scaleXProperty(), 0.3, EASE),
-                        new KeyValue(node.scaleYProperty(), 0.3, EASE),
-                        new KeyValue(node.scaleZProperty(), 0.3, EASE)
-                ),
-                new KeyFrame(duration, new KeyValue(node.opacityProperty(), 0, EASE))
+            new KeyFrame(Duration.millis(0),
+                new KeyValue(node.opacityProperty(), 1, EASE),
+                new KeyValue(node.scaleXProperty(), 1, EASE),
+                new KeyValue(node.scaleYProperty(), 1, EASE),
+                new KeyValue(node.scaleZProperty(), 0.3, EASE)
+            ),
+            new KeyFrame(duration.divide(2),
+                new KeyValue(node.opacityProperty(), 0, EASE),
+                new KeyValue(node.scaleXProperty(), 0.3, EASE),
+                new KeyValue(node.scaleYProperty(), 0.3, EASE),
+                new KeyValue(node.scaleZProperty(), 0.3, EASE)
+            ),
+            new KeyFrame(duration, new KeyValue(node.opacityProperty(), 0, EASE))
         );
     }
 }

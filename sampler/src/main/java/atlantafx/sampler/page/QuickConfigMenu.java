@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
 
 import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
@@ -80,12 +81,16 @@ public class QuickConfigMenu extends StackPane {
     }
 
     private MainMenu getOrCreateMainMenu() {
-        if (mainMenu == null) { mainMenu = new MainMenu(navHandler); }
+        if (mainMenu == null) {
+            mainMenu = new MainMenu(navHandler);
+        }
         return mainMenu;
     }
 
     private ThemeSelectionMenu getOrCreateThemeSelectionMenu() {
-        if (themeSelectionMenu == null) { themeSelectionMenu = new ThemeSelectionMenu(navHandler); }
+        if (themeSelectionMenu == null) {
+            themeSelectionMenu = new ThemeSelectionMenu(navHandler);
+        }
         return themeSelectionMenu;
     }
 
@@ -124,10 +129,10 @@ public class QuickConfigMenu extends StackPane {
 
         private final IntegerProperty zoom = new SimpleIntegerProperty(DEFAULT_ZOOM);
         private final BooleanBinding canZoomIn = Bindings.createBooleanBinding(
-                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) < SUPPORTED_ZOOM.size() - 1, zoom
+            () -> SUPPORTED_ZOOM.indexOf(zoom.get()) < SUPPORTED_ZOOM.size() - 1, zoom
         );
         private final BooleanBinding canZoomOut = Bindings.createBooleanBinding(
-                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) >= 1, zoom
+            () -> SUPPORTED_ZOOM.indexOf(zoom.get()) >= 1, zoom
         );
 
         public MainMenu(Consumer<String> navHandler) {
@@ -178,11 +183,11 @@ public class QuickConfigMenu extends StackPane {
             // ~
 
             getChildren().setAll(
-                    themeSelectionMenu,
-                    new Separator(),
-                    accentSelector,
-                    new Separator(),
-                    zoomBox
+                themeSelectionMenu,
+                new Separator(),
+                accentSelector,
+                new Separator(),
+                zoomBox
             );
         }
 
@@ -234,8 +239,8 @@ public class QuickConfigMenu extends StackPane {
         @Override
         public void update() {
             items.forEach(item -> item.pseudoClassStateChanged(
-                    SELECTED,
-                    Objects.equals(item.getUserData(), ThemeManager.getInstance().getTheme().getName())
+                SELECTED,
+                Objects.equals(item.getUserData(), ThemeManager.getInstance().getTheme().getName())
             ));
         }
 

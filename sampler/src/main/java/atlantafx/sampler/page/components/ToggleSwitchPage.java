@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
@@ -12,13 +13,15 @@ public class ToggleSwitchPage extends AbstractPage {
     public static final String NAME = "ToggleSwitch";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ToggleSwitchPage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_HGAP, Page.PAGE_VGAP,
-                basicSample()
+            Page.PAGE_HGAP, Page.PAGE_VGAP,
+            basicSample()
         ));
     }
 

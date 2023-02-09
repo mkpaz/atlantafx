@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import atlantafx.sampler.page.OverlayDialog;
@@ -25,8 +26,8 @@ class ContrastCheckerDialog extends OverlayDialog<ContrastChecker> {
 
     private void updateStyle() {
         setStyle(String.format("-color-dialog-bg:%s;-color-dialog-fg:%s;",
-                JColorUtils.toHexWithAlpha(contrastChecker.getBgColor()),
-                JColorUtils.toHexWithAlpha(contrastChecker.getSafeFgColor())
+            JColorUtils.toHexWithAlpha(contrastChecker.getBgColor()),
+            JColorUtils.toHexWithAlpha(contrastChecker.getSafeFgColor())
         ));
     }
 

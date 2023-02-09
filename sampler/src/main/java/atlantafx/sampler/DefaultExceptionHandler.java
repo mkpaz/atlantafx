@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler;
 
 import static java.lang.Double.MAX_VALUE;
@@ -27,7 +28,9 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         e.printStackTrace();
 
         var dialog = createExceptionDialog(e);
-        if (dialog != null) { dialog.showAndWait(); }
+        if (dialog != null) {
+            dialog.showAndWait();
+        }
     }
 
     private Alert createExceptionDialog(Throwable throwable) {

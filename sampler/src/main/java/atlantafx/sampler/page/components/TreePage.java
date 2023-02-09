@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.DENSE;
@@ -38,10 +39,12 @@ public class TreePage extends AbstractPage {
 
     public static final String NAME = "TreeView";
     private static final int MAX_TREE_DEPTH = 3;
-    private static final int[] TREE_DICE = { -1, 0, 1 };
+    private static final int[] TREE_DICE = {-1, 0, 1};
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BorderPane treeWrapper = new BorderPane();
     private final ComboBox<Example> exampleSelect = createExampleSelect();
@@ -57,28 +60,32 @@ public class TreePage extends AbstractPage {
     private VBox createPlayground() {
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-                (obs, old, value) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, DENSE))
+            (obs, old, value) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, DENSE))
         );
 
         var showRootToggle = new ToggleSwitch("Show root");
         showRootToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedTree().ifPresent(tv -> {
-            if (val != null) { tv.setShowRoot(val); }
+            if (val != null) {
+                tv.setShowRoot(val);
+            }
         }));
         showRootToggle.setSelected(true);
 
         var altIconToggle = new ToggleSwitch("Alt icon");
         altIconToggle.selectedProperty().addListener((obs, old, val) ->
-                findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.ALT_ICON))
+            findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.ALT_ICON))
         );
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-                (obs, old, val) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.EDGE_TO_EDGE))
+            (obs, old, val) -> findDisplayedTree().ifPresent(tv -> toggleStyleClass(tv, Tweaks.EDGE_TO_EDGE))
         );
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedTree().ifPresent(tv -> {
-            if (val != null) { tv.setDisable(val); }
+            if (val != null) {
+                tv.setDisable(val);
+            }
         }));
 
         var controls = new HBox(BLOCK_HGAP, denseToggle, showRootToggle, altIconToggle, edge2edgeToggle);
@@ -87,11 +94,11 @@ public class TreePage extends AbstractPage {
         VBox.setVgrow(treeWrapper, Priority.ALWAYS);
 
         var playground = new VBox(
-                BLOCK_VGAP,
-                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
-                exampleSelect,
-                treeWrapper,
-                controls
+            BLOCK_VGAP,
+            new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
+            exampleSelect,
+            treeWrapper,
+            controls
         );
         playground.setMinHeight(100);
 
@@ -103,7 +110,9 @@ public class TreePage extends AbstractPage {
         select.setMaxWidth(Double.MAX_VALUE);
         select.getItems().setAll(Example.values());
         select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             TreeView<String> newTree = createTree(val);
 
@@ -142,24 +151,38 @@ public class TreePage extends AbstractPage {
 
     private Optional<TreeView<?>> findDisplayedTree() {
         return treeWrapper.getChildren().size() > 0 ?
-                Optional.of((TreeView<?>) treeWrapper.getChildren().get(0)) :
-                Optional.empty();
+            Optional.of((TreeView<?>) treeWrapper.getChildren().get(0)) :
+            Optional.empty();
     }
 
     private TreeView<String> createTree(Example example) {
         switch (example) {
-            case TEXT -> { return stringTree(); }
-            case GRAPHIC -> { return graphicTree(); }
-            case EDITABLE -> { return editableTree(); }
-            case CHECK_BOX -> { return checkBoxTree(); }
-            case CHOICE_BOX -> { return choiceBoxTree(); }
-            case COMBO_BOX -> { return comboBoxTree(); }
+            case TEXT -> {
+                return stringTree();
+            }
+            case GRAPHIC -> {
+                return graphicTree();
+            }
+            case EDITABLE -> {
+                return editableTree();
+            }
+            case CHECK_BOX -> {
+                return checkBoxTree();
+            }
+            case CHOICE_BOX -> {
+                return choiceBoxTree();
+            }
+            case COMBO_BOX -> {
+                return comboBoxTree();
+            }
             default -> throw new IllegalArgumentException("Unexpected enum value: " + example);
         }
     }
 
     private <T> void generateTree(TreeItem<T> parent, Supplier<TreeItem<T>> supplier, int limit, int depth) {
-        if (limit == 0) { return; }
+        if (limit == 0) {
+            return;
+        }
 
         var item = supplier.get();
         parent.getChildren().add(item);
@@ -239,7 +262,7 @@ public class TreePage extends AbstractPage {
 
         var tree = new TreeView<String>();
         tree.setCellFactory(ChoiceBoxTreeCell.forTreeView(
-                generate(() -> FAKER.internet().domainWord(), 10).toArray(String[]::new)
+            generate(() -> FAKER.internet().domainWord(), 10).toArray(String[]::new)
         ));
         tree.setEditable(true);
 
@@ -255,7 +278,7 @@ public class TreePage extends AbstractPage {
 
         var tree = new TreeView<String>();
         tree.setCellFactory(ComboBoxTreeCell.forTreeView(
-                generate(() -> FAKER.internet().domainWord(), 10).toArray(String[]::new)
+            generate(() -> FAKER.internet().domainWord(), 10).toArray(String[]::new)
         ));
         tree.setEditable(true);
 
@@ -287,9 +310,9 @@ public class TreePage extends AbstractPage {
 
         public static Example find(String name) {
             return Arrays.stream(Example.values())
-                    .filter(example -> Objects.equals(example.getName(), name))
-                    .findFirst()
-                    .orElse(null);
+                .filter(example -> Objects.equals(example.getName(), name))
+                .findFirst()
+                .orElse(null);
         }
     }
 }

@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package atlantafx.sampler.util;
 
 import java.util.regex.Pattern;
@@ -38,13 +39,13 @@ public class JColorUtils {
      * Hex color pattern
      */
     private static final Pattern hexColorPattern = Pattern
-            .compile("^#?((\\p{XDigit}{3}){1,2}|(\\p{XDigit}{4}){1,2})$");
+        .compile("^#?((\\p{XDigit}{3}){1,2}|(\\p{XDigit}{4}){1,2})$");
 
     /**
      * Hex single color pattern
      */
     private static final Pattern hexSingleColorPattern = Pattern
-            .compile("^\\p{XDigit}{1,2}$");
+        .compile("^\\p{XDigit}{1,2}$");
 
     /**
      * Convert the hex color values to a hex color
@@ -84,7 +85,7 @@ public class JColorUtils {
                                           String blue) {
         String defaultAlpha = "FF";
         if (red != null && !red.isEmpty()
-                && Character.isLowerCase(red.charAt(0))) {
+            && Character.isLowerCase(red.charAt(0))) {
             defaultAlpha = defaultAlpha.toLowerCase();
         }
         return toColorWithAlpha(red, green, blue, defaultAlpha);
@@ -314,7 +315,7 @@ public class JColorUtils {
             }
         }
 
-        return new float[] { hue, saturation, lightness };
+        return new float[] {hue, saturation, lightness};
     }
 
     /**
@@ -328,7 +329,7 @@ public class JColorUtils {
      */
     public static float[] toHSL(int red, int green, int blue) {
         return toHSL(toArithmeticRGB(red), toArithmeticRGB(green),
-                toArithmeticRGB(blue));
+            toArithmeticRGB(blue));
     }
 
     /**
@@ -360,7 +361,7 @@ public class JColorUtils {
         float green = hslConvert(t1, t2, hue);
         float blue = hslConvert(t1, t2, hue - 2);
 
-        return new float[] { red, green, blue };
+        return new float[] {red, green, blue};
     }
 
     /**
@@ -373,7 +374,7 @@ public class JColorUtils {
      */
     public static int[] toRGB(float hue, float saturation, float lightness) {
         float[] arithmeticRGB = toArithmeticRGB(hue, saturation, lightness);
-        return new int[] { toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2]) };
+        return new int[] {toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2])};
     }
 
     /**
@@ -538,7 +539,7 @@ public class JColorUtils {
             }
             for (; startIndex < color.length(); startIndex += 2) {
                 String shorthand = shorthandHexSingle(
-                        color.substring(startIndex, startIndex + 2));
+                    color.substring(startIndex, startIndex + 2));
                 if (shorthand.length() > 1) {
                     shorthandColor = null;
                     break;
@@ -570,7 +571,7 @@ public class JColorUtils {
             }
             for (; startIndex < color.length(); startIndex++) {
                 String expand = expandShorthandHexSingle(
-                        color.substring(startIndex, startIndex + 1));
+                    color.substring(startIndex, startIndex + 1));
                 expandColor.append(expand);
             }
             color = expandColor.toString();
@@ -587,8 +588,8 @@ public class JColorUtils {
     public static String shorthandHexSingle(String color) {
         validateHexSingle(color);
         if (color.length() > 1
-                && Character.toUpperCase(color.charAt(0)) == Character
-                .toUpperCase(color.charAt(1))) {
+            && Character.toUpperCase(color.charAt(0)) == Character
+            .toUpperCase(color.charAt(1))) {
             color = color.substring(0, 1);
         }
         return color;
@@ -626,8 +627,8 @@ public class JColorUtils {
     public static void validateHex(String color) {
         if (!isValidHex(color)) {
             throw new IllegalArgumentException(
-                    "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: "
-                            + color);
+                "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: "
+                    + color);
         }
     }
 
@@ -649,7 +650,7 @@ public class JColorUtils {
     public static void validateHexSingle(String color) {
         if (!isValidHexSingle(color)) {
             throw new IllegalArgumentException(
-                    "Must be in format FF or F, invalid value: " + color);
+                "Must be in format FF or F, invalid value: " + color);
         }
     }
 
@@ -671,8 +672,8 @@ public class JColorUtils {
     public static void validateRGB(int color) {
         if (!isValidRGB(color)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0 and 255, invalid value: "
-                            + color);
+                "Must be inclusively between 0 and 255, invalid value: "
+                    + color);
         }
     }
 
@@ -696,8 +697,8 @@ public class JColorUtils {
     public static void validateArithmeticRGB(float color) {
         if (!isValidArithmeticRGB(color)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + color);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + color);
         }
     }
 
@@ -720,8 +721,8 @@ public class JColorUtils {
     public static void validateHue(float hue) {
         if (!isValidHue(hue)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 360.0, invalid value: "
-                            + hue);
+                "Must be inclusively between 0.0 and 360.0, invalid value: "
+                    + hue);
         }
     }
 
@@ -745,8 +746,8 @@ public class JColorUtils {
     public static void validateSaturation(float saturation) {
         if (!isValidSaturation(saturation)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + saturation);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + saturation);
         }
     }
 
@@ -769,8 +770,8 @@ public class JColorUtils {
     public static void validateLightness(float lightness) {
         if (!isValidLightness(lightness)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + lightness);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + lightness);
         }
     }
 
@@ -804,16 +805,16 @@ public class JColorUtils {
     public static double[] flattenColor(Color bg, Color fgColor) {
         var opacity = fgColor.getOpacity();
         return opacity < 1 ?
-                new double[] {
-                        opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
-                        opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
-                        opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
-                } :
-                new double[] {
-                        fgColor.getRed(),
-                        fgColor.getGreen(),
-                        fgColor.getBlue(),
-                };
+            new double[] {
+                opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
+                opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
+                opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
+            } :
+            new double[] {
+                fgColor.getRed(),
+                fgColor.getGreen(),
+                fgColor.getBlue(),
+            };
     }
 
     /**
@@ -822,35 +823,35 @@ public class JColorUtils {
      */
     public static Color opaqueColor(Color bgColor, Color targetColor, double targetOpacity) {
         return Color.color(
-                bgColor.getRed() + (targetColor.getRed() - bgColor.getRed()) * targetOpacity,
-                bgColor.getGreen() + (targetColor.getGreen() - bgColor.getGreen()) * targetOpacity,
-                bgColor.getBlue() + (targetColor.getBlue() - bgColor.getBlue()) * targetOpacity,
-                targetOpacity
+            bgColor.getRed() + (targetColor.getRed() - bgColor.getRed()) * targetOpacity,
+            bgColor.getGreen() + (targetColor.getGreen() - bgColor.getGreen()) * targetOpacity,
+            bgColor.getBlue() + (targetColor.getBlue() - bgColor.getBlue()) * targetOpacity,
+            targetOpacity
         );
     }
 
     public static float[] toHSL(Color color) {
         return JColorUtils.toHSL(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue()
         );
     }
 
     public static String toHexWithAlpha(Color color) {
         return JColor.color(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue(),
-                (float) color.getOpacity()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue(),
+            (float) color.getOpacity()
         ).getColorHexShorthandWithAlpha();
     }
 
     public static String toHexOpaque(Color color) {
         return JColor.color(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue()
         ).getColorHexShorthandWithAlpha();
     }
 }

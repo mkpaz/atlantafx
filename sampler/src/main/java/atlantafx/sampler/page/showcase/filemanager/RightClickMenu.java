@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
 
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
@@ -33,15 +34,15 @@ final class RightClickMenu extends ContextMenu {
         var properties = new MenuItem("Properties");
 
         getItems().setAll(
-                open,
-                new SeparatorMenuItem(),
-                cut,
-                copy,
-                rename,
-                new SeparatorMenuItem(),
-                compress,
-                new SeparatorMenuItem(),
-                properties
+            open,
+            new SeparatorMenuItem(),
+            cut,
+            copy,
+            rename,
+            new SeparatorMenuItem(),
+            compress,
+            new SeparatorMenuItem(),
+            properties
         );
     }
 }

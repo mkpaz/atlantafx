@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -31,13 +32,15 @@ public class PopoverPage extends AbstractPage {
     public static final String NAME = "Popover";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public PopoverPage() {
         super();
         setUserContent(new VBox(Page.PAGE_VGAP,
-                new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
-                positionSample()
+            new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
+            positionSample()
         ));
     }
 
@@ -64,14 +67,14 @@ public class PopoverPage extends AbstractPage {
         var link = createHyperlink("Click me");
         link.setOnAction(e -> popover.show(link));
         new CSSFragment("""
-                .popover .date-picker-popup {
-                  -color-date-border: transparent;
-                  -color-date-bg: transparent;
-                  -color-date-day-bg: transparent;
-                  -color-date-month-year-bg: transparent;
-                  -color-date-day-bg-hover: -color-bg-subtle;
-                }
-                """
+            .popover .date-picker-popup {
+              -color-date-border: transparent;
+              -color-date-bg: transparent;
+              -color-date-day-bg: transparent;
+              -color-date-month-year-bg: transparent;
+              -color-date-day-bg-hover: -color-bg-subtle;
+            }
+            """
         ).addTo(link);
 
         return new SampleBlock("Date Picker", link);
@@ -86,7 +89,8 @@ public class PopoverPage extends AbstractPage {
 
         var icon = new FontIcon(Feather.ALERT_TRIANGLE);
         icon.setIconSize(32); // not always works
-        icon.setStyle("-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
+        icon.setStyle(
+            "-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
 
         var label = new Label(FAKER.chuckNorris().fact(), icon);
         label.setStyle("-fx-graphic-text-gap:10;");

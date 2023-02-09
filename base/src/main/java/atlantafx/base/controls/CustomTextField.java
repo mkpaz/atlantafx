@@ -26,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
 import javafx.beans.property.ObjectProperty;
@@ -41,7 +42,9 @@ import javafx.scene.control.TextField;
 @SuppressWarnings("unused")
 public class CustomTextField extends TextField {
 
-    /** Instantiates a default CustomTextField. */
+    /**
+     * Instantiates a default CustomTextField.
+     */
     public CustomTextField() {
         getStyleClass().add("custom-text-field");
     }
@@ -106,7 +109,9 @@ public class CustomTextField extends TextField {
     // Methods                                                               //
     ///////////////////////////////////////////////////////////////////////////
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new CustomTextFieldSkin(this) {

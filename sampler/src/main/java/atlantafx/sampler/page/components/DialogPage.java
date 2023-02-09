@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
@@ -37,7 +38,9 @@ public class DialogPage extends AbstractPage {
     public static final String NAME = "Dialog";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BooleanProperty showHeaderProperty = new SimpleBooleanProperty(true);
     private final BooleanProperty minDecorationsProperty = new SimpleBooleanProperty(true);
@@ -60,21 +63,21 @@ public class DialogPage extends AbstractPage {
         controls.setAlignment(Pos.CENTER);
 
         var samples = new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                infoDialogSample(),
-                warningDialogSample(),
-                errorDialogSample(),
-                exceptionDialogSample(),
-                confirmationDialogSample(),
-                textInputDialogSample(),
-                choiceDialogSample()
+            PAGE_HGAP, PAGE_VGAP,
+            infoDialogSample(),
+            warningDialogSample(),
+            errorDialogSample(),
+            exceptionDialogSample(),
+            confirmationDialogSample(),
+            textInputDialogSample(),
+            choiceDialogSample()
         );
 
         setUserContent(new VBox(
-                10,
-                controls,
-                new Separator(Orientation.HORIZONTAL),
-                samples
+            10,
+            controls,
+            new Separator(Orientation.HORIZONTAL),
+            samples
         ));
     }
 

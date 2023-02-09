@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -17,10 +18,18 @@ public final class Containers {
     public static final ColumnConstraints H_GROW_NEVER = columnConstraints(Priority.NEVER);
 
     public static void setAnchors(Node node, Insets insets) {
-        if (insets.getTop() >= 0) { AnchorPane.setTopAnchor(node, insets.getTop()); }
-        if (insets.getRight() >= 0) { AnchorPane.setRightAnchor(node, insets.getRight()); }
-        if (insets.getBottom() >= 0) { AnchorPane.setBottomAnchor(node, insets.getBottom()); }
-        if (insets.getLeft() >= 0) { AnchorPane.setLeftAnchor(node, insets.getLeft()); }
+        if (insets.getTop() >= 0) {
+            AnchorPane.setTopAnchor(node, insets.getTop());
+        }
+        if (insets.getRight() >= 0) {
+            AnchorPane.setRightAnchor(node, insets.getRight());
+        }
+        if (insets.getBottom() >= 0) {
+            AnchorPane.setBottomAnchor(node, insets.getBottom());
+        }
+        if (insets.getLeft() >= 0) {
+            AnchorPane.setLeftAnchor(node, insets.getLeft());
+        }
     }
 
     public static void setScrollConstraints(ScrollPane scrollPane,

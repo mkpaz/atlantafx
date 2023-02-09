@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.BORDERED;
@@ -59,12 +60,14 @@ public class TablePage extends AbstractPage {
     public static final String NAME = "TableView";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private TableView<Product> table;
     private final List<Product> dataList = IntStream.range(1, 51).boxed()
-            .map(i -> Product.random(i, FAKER))
-            .toList();
+        .map(i -> Product.random(i, FAKER))
+        .toList();
 
     public TablePage() {
         super();
@@ -88,7 +91,7 @@ public class TablePage extends AbstractPage {
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-                (obs, old, value) -> toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
+            (obs, old, value) -> toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
         );
 
         var maxRowCount = 100;
@@ -99,14 +102,14 @@ public class TablePage extends AbstractPage {
         rowCountBox.setAlignment(Pos.CENTER_LEFT);
 
         var footer = new HBox(
-                BLOCK_HGAP,
-                new Spacer(),
-                bordersToggle,
-                denseToggle,
-                stripesToggle,
-                edge2edgeToggle,
-                new Spacer(),
-                rowCountBox
+            BLOCK_HGAP,
+            new Spacer(),
+            bordersToggle,
+            denseToggle,
+            stripesToggle,
+            edge2edgeToggle,
+            new Spacer(),
+            rowCountBox
         );
         footer.setAlignment(Pos.CENTER_LEFT);
 
@@ -114,8 +117,8 @@ public class TablePage extends AbstractPage {
 
         var filteredData = new FilteredList<>(observableArrayList(dataList));
         filteredData.predicateProperty().bind(Bindings.createObjectBinding(
-                () -> product -> product.getId() <= rowCountChoice.getValue(),
-                rowCountChoice.valueProperty()
+            () -> product -> product.getId() <= rowCountChoice.getValue(),
+            rowCountChoice.valueProperty()
         ));
 
         var sortedData = new SortedList<>(filteredData);
@@ -161,15 +164,17 @@ public class TablePage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { table.setDisable(val); }
+            if (val != null) {
+                table.setDisable(val);
+            }
         });
 
         var header = new HBox(
-                createTablePropertiesMenu(table),
-                new Spacer(),
-                alignBox,
-                new Spacer(),
-                disableToggle
+            createTablePropertiesMenu(table),
+            new Spacer(),
+            alignBox,
+            new Spacer(),
+            disableToggle
         );
         header.setAlignment(Pos.CENTER_LEFT);
 
@@ -194,8 +199,8 @@ public class TablePage extends AbstractPage {
         indexCol.setCellFactory(col -> {
             TableCell<Product, String> cell = new TableCell<>();
             StringBinding value = Bindings.when(cell.emptyProperty())
-                    .then("")
-                    .otherwise(cell.indexProperty().add(1).asString());
+                .then("")
+                .otherwise(cell.indexProperty().add(1).asString());
             cell.textProperty().bind(value);
             return cell;
         });
@@ -208,14 +213,14 @@ public class TablePage extends AbstractPage {
         var brandCol = new TableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTableCell.forTableColumn(
-                generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
         var nameCol = new TableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTableCell.forTableColumn(
-                generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
         ));
         nameCol.setEditable(true);
 
@@ -298,16 +303,16 @@ public class TablePage extends AbstractPage {
 
         return new MenuButton("Properties") {{
             getItems().setAll(
-                    resizePolicyCaption,
-                    unconstrainedResizeItem,
-                    constrainedResizeItem,
-                    selectionModeCaption,
-                    singleSelectionItem,
-                    multiSelectionItem,
-                    new SeparatorMenuItem(),
-                    editCellsItem,
-                    cellSelectionItem,
-                    menuButtonItem
+                resizePolicyCaption,
+                unconstrainedResizeItem,
+                constrainedResizeItem,
+                selectionModeCaption,
+                singleSelectionItem,
+                multiSelectionItem,
+                new SeparatorMenuItem(),
+                editCellsItem,
+                cellSelectionItem,
+                menuButtonItem
             );
         }};
     }

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.LARGE;
@@ -21,16 +22,18 @@ public class TextFieldPage extends AbstractPage {
     public static final String NAME = "TextField";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public TextFieldPage() {
         super();
         setUserContent(new VBox(
-                PAGE_VGAP,
-                expandingHBox(basicSample(), promptSample(), passwordSample()),
-                expandingHBox(readonlySample(), successSample(), dangerSample()),
-                expandingHBox(sizeSample(), roundedSample()),
-                disabledSample()
+            PAGE_VGAP,
+            expandingHBox(basicSample(), promptSample(), passwordSample()),
+            expandingHBox(readonlySample(), successSample(), dangerSample()),
+            expandingHBox(sizeSample(), roundedSample()),
+            disabledSample()
         ));
     }
 

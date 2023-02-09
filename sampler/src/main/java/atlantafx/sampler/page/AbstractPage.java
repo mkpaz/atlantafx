@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
 
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
@@ -66,12 +67,15 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     @Override
-    public void reset() { }
+    public void reset() {
+    }
 
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
-        if (isRendered) { return; }
+        if (isRendered) {
+            return;
+        }
 
         isRendered = true;
         onRendered();

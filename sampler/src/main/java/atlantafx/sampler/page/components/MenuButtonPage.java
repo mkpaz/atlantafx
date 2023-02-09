@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.ACCENT;
@@ -32,16 +33,18 @@ public class MenuButtonPage extends AbstractPage {
     private static final int PREF_WIDTH = 150;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public MenuButtonPage() {
         super();
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                expandingHBox(basicSample(), iconOnlySample()),
-                expandingHBox(coloredSample(), outlinedSample()),
-                expandingHBox(popupSideSample(), noArrowSample()),
-                disabledSample()
+            Page.PAGE_VGAP,
+            expandingHBox(basicSample(), iconOnlySample()),
+            expandingHBox(coloredSample(), outlinedSample()),
+            expandingHBox(popupSideSample(), noArrowSample()),
+            disabledSample()
 
         ));
     }
@@ -272,7 +275,7 @@ public class MenuButtonPage extends AbstractPage {
     @SuppressWarnings("SameParameterValue")
     private MenuItem[] createItems(int count) {
         return IntStream.range(0, count)
-                .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
-                .toArray(MenuItem[]::new);
+            .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
+            .toArray(MenuItem[]::new);
     }
 }

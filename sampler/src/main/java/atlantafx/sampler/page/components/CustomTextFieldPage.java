@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.STATE_DANGER;
@@ -19,18 +20,20 @@ public class CustomTextFieldPage extends AbstractPage {
     private static final int PREF_WIDTH = 120;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public CustomTextFieldPage() {
         super();
         setUserContent(new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                leftIconSample(),
-                rightIconSample(),
-                bothIconsSample(),
-                successSample(),
-                dangerSample(),
-                passwordSample()
+            PAGE_HGAP, PAGE_VGAP,
+            leftIconSample(),
+            rightIconSample(),
+            bothIconsSample(),
+            successSample(),
+            dangerSample(),
+            passwordSample()
         ));
     }
 

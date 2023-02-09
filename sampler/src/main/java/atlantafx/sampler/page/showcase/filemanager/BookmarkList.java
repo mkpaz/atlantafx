@@ -18,12 +18,12 @@ final class BookmarkList extends ListView<Bookmark> {
 
         // this is Linux specific and only for EN locale
         getItems().setAll(
-                new Bookmark("Home", USER_HOME, Feather.HOME),
-                new Bookmark("Documents", USER_HOME.resolve("Documents"), Feather.FILE),
-                new Bookmark("Downloads", USER_HOME.resolve("Downloads"), Feather.DOWNLOAD),
-                new Bookmark("Music", USER_HOME.resolve("Music"), Feather.MUSIC),
-                new Bookmark("Pictures", USER_HOME.resolve("Pictures"), Feather.IMAGE),
-                new Bookmark("Videos", USER_HOME.resolve("Videos"), Feather.VIDEO)
+            new Bookmark("Home", USER_HOME, Feather.HOME),
+            new Bookmark("Documents", USER_HOME.resolve("Documents"), Feather.FILE),
+            new Bookmark("Downloads", USER_HOME.resolve("Downloads"), Feather.DOWNLOAD),
+            new Bookmark("Music", USER_HOME.resolve("Music"), Feather.MUSIC),
+            new Bookmark("Pictures", USER_HOME.resolve("Pictures"), Feather.IMAGE),
+            new Bookmark("Videos", USER_HOME.resolve("Videos"), Feather.VIDEO)
         );
 
         setCellFactory(param -> {
