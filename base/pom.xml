@@ -31,12 +31,6 @@
 
     <build>
         <resources>
-            <!-- place all resources under module package prefix -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <targetPath>atlantafx/base</targetPath>
-                <filtering>false</filtering>
-            </resource>
             <!-- copy compiled CSS to the classpath -->
             <resource>
                 <directory>../styles/dist</directory>
