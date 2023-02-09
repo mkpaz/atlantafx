@@ -232,7 +232,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
     }
 
     /**
-     * @return The CssMetaData associated with this class, which may include the
+     * Returns the CssMetaData associated with this class, which may include the
      * CssMetaData of its super classes.
      */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {

@@ -291,7 +291,7 @@ public class InlineDatePicker extends Control {
     }
 
     /**
-     * @return The CssMetaData associated with this class, which may include the
+     * Returns the CssMetaData associated with this class, which may include the
      * CssMetaData of its superclasses.
      */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
