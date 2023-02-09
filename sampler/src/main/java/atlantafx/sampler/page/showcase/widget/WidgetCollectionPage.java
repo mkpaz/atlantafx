@@ -87,6 +87,7 @@ public class WidgetCollectionPage extends BorderPane implements Page {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    @SuppressWarnings("ImmutableEnumChecker")
     public enum Example {
         CARD("Card", () -> new CardSample()),
         MESSAGE("Message", () -> new MessageSample()),
