@@ -230,7 +230,7 @@ public class TreeTablePage extends AbstractPage {
         final var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
         final var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
-            if (val != null && val.getUserData() instanceof Callback policy) {
+            if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 treeTable.setColumnResizePolicy((Callback<TreeTableView.ResizeFeatures, Boolean>) policy);
             }

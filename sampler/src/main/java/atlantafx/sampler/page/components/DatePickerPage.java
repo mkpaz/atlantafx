@@ -232,7 +232,7 @@ public class DatePickerPage extends AbstractPage {
         @Override
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
-            setDisable(empty || date.compareTo(TODAY) < 0);
+            setDisable(empty || date.isBefore(TODAY));
         }
     }
 

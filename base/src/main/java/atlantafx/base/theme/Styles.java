@@ -118,7 +118,7 @@ public final class Styles {
             throw new NullPointerException("PseudoClass cannot be null!");
         }
 
-        if (excludes != null && excludes.length > 0) {
+        if (excludes != null) {
             for (PseudoClass exclude : excludes) {
                 node.pseudoClassStateChanged(exclude, false);
             }

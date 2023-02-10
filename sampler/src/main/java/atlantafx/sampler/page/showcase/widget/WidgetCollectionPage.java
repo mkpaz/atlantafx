@@ -96,10 +96,10 @@ public class WidgetCollectionPage extends BorderPane implements Page {
 
     @SuppressWarnings("ImmutableEnumChecker")
     public enum Example {
-        CARD("Card", () -> new CardSample()),
-        MESSAGE("Message", () -> new MessageSample()),
-        STEPPER("Stepper", () -> new StepperSample()),
-        TAG("Tag", () -> new TagSample());
+        CARD("Card", CardSample::new),
+        MESSAGE("Message", MessageSample::new),
+        STEPPER("Stepper", StepperSample::new),
+        TAG("Tag", TagSample::new);
 
         private final String name;
         private final Supplier<Pane> supplier;
