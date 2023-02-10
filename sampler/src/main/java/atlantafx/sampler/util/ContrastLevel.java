@@ -48,10 +48,10 @@ public enum ContrastLevel {
     }
 
     public static double getContrastRatio(double luminance1, double luminance2) {
-        return 1 / (luminance1 > luminance2
+        var x = luminance1 > luminance2
             ? (luminance2 + 0.05) / (luminance1 + 0.05)
-            : (luminance1 + 0.05) / (luminance2 + 0.05)
-        );
+            : (luminance1 + 0.05) / (luminance2 + 0.05);
+        return 1 / x;
     }
 
     public static double getContrastRatioOpacityAware(Color bgColor, Color fgColor, Color bgBaseColor) {

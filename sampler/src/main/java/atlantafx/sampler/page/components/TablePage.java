@@ -301,20 +301,21 @@ public class TablePage extends AbstractPage {
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Properties") {{
-            getItems().setAll(
-                resizePolicyCaption,
-                unconstrainedResizeItem,
-                constrainedResizeItem,
-                selectionModeCaption,
-                singleSelectionItem,
-                multiSelectionItem,
-                new SeparatorMenuItem(),
-                editCellsItem,
-                cellSelectionItem,
-                menuButtonItem
-            );
-        }};
+        var propertiesMenu = new MenuButton("Properties");
+        propertiesMenu.getItems().setAll(
+            resizePolicyCaption,
+            unconstrainedResizeItem,
+            constrainedResizeItem,
+            selectionModeCaption,
+            singleSelectionItem,
+            multiSelectionItem,
+            new SeparatorMenuItem(),
+            editCellsItem,
+            cellSelectionItem,
+            menuButtonItem
+        );
+
+        return propertiesMenu;
     }
 
     private static void addStyleClass(TableColumn<?, ?> c, String styleClass, String... excludes) {

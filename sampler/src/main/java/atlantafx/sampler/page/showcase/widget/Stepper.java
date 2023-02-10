@@ -122,8 +122,8 @@ public class Stepper extends HBox {
     }
 
     private void createView() {
-        alignmentProperty().bind(Bindings.createObjectBinding(() ->
-            switch (textPositionProperty().get()) {
+        alignmentProperty().bind(Bindings.createObjectBinding(
+            () -> switch (textPositionProperty().get()) {
                 case TOP -> Pos.TOP_LEFT;
                 case BOTTOM -> Pos.BOTTOM_LEFT;
                 default -> Pos.CENTER_LEFT;
@@ -138,8 +138,8 @@ public class Stepper extends HBox {
         var children = new ArrayList<Node>();
         for (int i = 0; i < items.size(); i++) {
             var item = items.get(i);
-            item.contentDisplayProperty().bind(Bindings.createObjectBinding(() ->
-                switch (textPositionProperty().get()) {
+            item.contentDisplayProperty().bind(Bindings.createObjectBinding(
+                () -> switch (textPositionProperty().get()) {
                     case TOP -> ContentDisplay.TOP;
                     case BOTTOM -> ContentDisplay.BOTTOM;
                     case LEFT -> ContentDisplay.LEFT;

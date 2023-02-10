@@ -284,21 +284,22 @@ public class TreeTablePage extends AbstractPage {
         treeTable.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Properties") {{
-            getItems().setAll(
-                resizePolicyCaption,
-                unconstrainedResizeItem,
-                constrainedResizeItem,
-                selectionModeCaption,
-                singleSelectionItem,
-                multiSelectionItem,
-                new SeparatorMenuItem(),
-                showRootItem,
-                editCellsItem,
-                cellSelectionItem,
-                menuButtonItem
-            );
-        }};
+        var propertiesMenu = new MenuButton("Properties");
+        propertiesMenu.getItems().setAll(
+            resizePolicyCaption,
+            unconstrainedResizeItem,
+            constrainedResizeItem,
+            selectionModeCaption,
+            singleSelectionItem,
+            multiSelectionItem,
+            new SeparatorMenuItem(),
+            showRootItem,
+            editCellsItem,
+            cellSelectionItem,
+            menuButtonItem
+        );
+
+        return propertiesMenu;
     }
 
     private static void addStyleClass(TreeTableColumn<?, ?> c, String styleClass, String... excludes) {
