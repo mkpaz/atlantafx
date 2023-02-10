@@ -61,15 +61,15 @@ public final class FileResource {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    public static FileResource internal(String location) {
-        return internal(location, FileResource.class);
+    public static FileResource createInternal(String location) {
+        return createInternal(location, FileResource.class);
     }
 
-    public static FileResource internal(String location, Class<?> anchor) {
+    public static FileResource createInternal(String location, Class<?> anchor) {
         return new FileResource(location, true, Objects.requireNonNull(anchor));
     }
 
-    public static FileResource external(String location) {
+    public static FileResource createExternal(String location) {
         return new FileResource(location, false, null);
     }
 }

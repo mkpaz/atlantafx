@@ -548,6 +548,20 @@ public class JColor {
     }
 
     /**
+     * Set the color as a single integer.
+     *
+     * @param color color integer
+     */
+    public void setColor(int color) {
+        setRed(JColorUtils.getRed(color));
+        setGreen(JColorUtils.getGreen(color));
+        setBlue(JColorUtils.getBlue(color));
+        if (color > 16777215 || color < 0) {
+            setAlpha(JColorUtils.getAlpha(color));
+        }
+    }
+
+    /**
      * Set the color with HSL (hue, saturation, lightness) values.
      *
      * @param hue        hue value inclusively between 0.0 and 360.0
@@ -577,20 +591,6 @@ public class JColor {
     }
 
     /**
-     * Set the color as a single integer.
-     *
-     * @param color color integer
-     */
-    public void setColor(int color) {
-        setRed(JColorUtils.getRed(color));
-        setGreen(JColorUtils.getGreen(color));
-        setBlue(JColorUtils.getBlue(color));
-        if (color > 16777215 || color < 0) {
-            setAlpha(JColorUtils.getAlpha(color));
-        }
-    }
-
-    /**
      * Set the red color in hex.
      *
      * @param red red hex color in format RR or R
@@ -600,66 +600,12 @@ public class JColor {
     }
 
     /**
-     * Set the green color in hex.
-     *
-     * @param green green hex color in format GG or G
-     */
-    public void setGreen(String green) {
-        setGreen(JColorUtils.toArithmeticRGB(green));
-    }
-
-    /**
-     * Set the blue color in hex.
-     *
-     * @param blue blue hex color in format BB or B
-     */
-    public void setBlue(String blue) {
-        setBlue(JColorUtils.toArithmeticRGB(blue));
-    }
-
-    /**
-     * Set the alpha color in hex.
-     *
-     * @param alpha alpha hex color in format AA or A
-     */
-    public void setAlpha(String alpha) {
-        setOpacity(JColorUtils.toArithmeticRGB(alpha));
-    }
-
-    /**
      * Set the red color as an integer.
      *
      * @param red red integer color inclusively between 0 and 255
      */
     public void setRed(int red) {
         setRed(JColorUtils.toHex(red));
-    }
-
-    /**
-     * Set the green color as an integer.
-     *
-     * @param green green integer color inclusively between 0 and 255
-     */
-    public void setGreen(int green) {
-        setGreen(JColorUtils.toHex(green));
-    }
-
-    /**
-     * Set the blue color as an integer.
-     *
-     * @param blue blue integer color inclusively between 0 and 255
-     */
-    public void setBlue(int blue) {
-        setBlue(JColorUtils.toHex(blue));
-    }
-
-    /**
-     * Set the alpha color as an integer.
-     *
-     * @param alpha alpha integer color inclusively between 0 and 255
-     */
-    public void setAlpha(int alpha) {
-        setOpacity(JColorUtils.toArithmeticRGB(alpha));
     }
 
     /**
@@ -673,6 +619,24 @@ public class JColor {
     }
 
     /**
+     * Set the green color in hex.
+     *
+     * @param green green hex color in format GG or G
+     */
+    public void setGreen(String green) {
+        setGreen(JColorUtils.toArithmeticRGB(green));
+    }
+
+    /**
+     * Set the green color as an integer.
+     *
+     * @param green green integer color inclusively between 0 and 255
+     */
+    public void setGreen(int green) {
+        setGreen(JColorUtils.toHex(green));
+    }
+
+    /**
      * Set the green color as an arithmetic float.
      *
      * @param green green float color inclusively between 0.0 and 1.0
@@ -680,6 +644,24 @@ public class JColor {
     public void setGreen(float green) {
         JColorUtils.validateArithmeticRGB(green);
         this.green = green;
+    }
+
+    /**
+     * Set the blue color in hex.
+     *
+     * @param blue blue hex color in format BB or B
+     */
+    public void setBlue(String blue) {
+        setBlue(JColorUtils.toArithmeticRGB(blue));
+    }
+
+    /**
+     * Set the blue color as an integer.
+     *
+     * @param blue blue integer color inclusively between 0 and 255
+     */
+    public void setBlue(int blue) {
+        setBlue(JColorUtils.toHex(blue));
     }
 
     /**
@@ -693,13 +675,21 @@ public class JColor {
     }
 
     /**
-     * Set the opacity as an arithmetic float.
+     * Set the alpha color in hex.
      *
-     * @param opacity opacity float color inclusively between 0.0 and 1.0
+     * @param alpha alpha hex color in format AA or A
      */
-    public void setOpacity(float opacity) {
-        JColorUtils.validateArithmeticRGB(opacity);
-        this.opacity = opacity;
+    public void setAlpha(String alpha) {
+        setOpacity(JColorUtils.toArithmeticRGB(alpha));
+    }
+
+    /**
+     * Set the alpha color as an integer.
+     *
+     * @param alpha alpha integer color inclusively between 0 and 255
+     */
+    public void setAlpha(int alpha) {
+        setOpacity(JColorUtils.toArithmeticRGB(alpha));
     }
 
     /**
@@ -709,6 +699,16 @@ public class JColor {
      */
     public void setAlpha(float alpha) {
         setOpacity(alpha);
+    }
+
+    /**
+     * Set the opacity as an arithmetic float.
+     *
+     * @param opacity opacity float color inclusively between 0.0 and 1.0
+     */
+    public void setOpacity(float opacity) {
+        JColorUtils.validateArithmeticRGB(opacity);
+        this.opacity = opacity;
     }
 
     /**

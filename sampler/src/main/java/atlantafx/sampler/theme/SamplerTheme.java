@@ -109,6 +109,27 @@ public final class SamplerTheme implements Theme {
         return file.internal() ? parseColorsForClasspath(file) : parseColorsForFilesystem(file);
     }
 
+    private Map<String, String> parseColors(BufferedReader br) throws IOException {
+        Map<String, String> colors = new HashMap<>();
+
+        String line;
+        int lineCount = 0;
+
+        while ((line = br.readLine()) != null) {
+            Matcher matcher = COLOR_PATTERN.matcher(line);
+            if (matcher.matches()) {
+                colors.put(matcher.group(1), matcher.group(3));
+            }
+
+            lineCount++;
+            if (lineCount > PARSE_LIMIT) {
+                break;
+            }
+        }
+
+        return colors;
+    }
+
     private Map<String, String> parseColorsForClasspath(FileResource file) throws IOException {
         // classpath resources are static, no need to parse project theme more than once
         if (colors != null) {
@@ -140,37 +161,16 @@ public final class SamplerTheme implements Theme {
         return colors;
     }
 
-    private Map<String, String> parseColors(BufferedReader br) throws IOException {
-        Map<String, String> colors = new HashMap<>();
-
-        String line;
-        int lineCount = 0;
-
-        while ((line = br.readLine()) != null) {
-            Matcher matcher = COLOR_PATTERN.matcher(line);
-            if (matcher.matches()) {
-                colors.put(matcher.group(1), matcher.group(3));
-            }
-
-            lineCount++;
-            if (lineCount > PARSE_LIMIT) {
-                break;
-            }
-        }
-
-        return colors;
-    }
-
     public String getPath() {
         return getThemeFile().toPath().toString();
     }
 
     private FileResource getThemeFile() {
         if (!isProjectTheme()) {
-            return FileResource.external(theme.getUserAgentStylesheet());
+            return FileResource.createExternal(theme.getUserAgentStylesheet());
         }
 
-        FileResource classpathTheme = FileResource.internal(theme.getUserAgentStylesheet(), Theme.class);
+        FileResource classpathTheme = FileResource.createInternal(theme.getUserAgentStylesheet(), Theme.class);
         if (!IS_DEV_MODE) {
             return classpathTheme;
         }
@@ -178,7 +178,9 @@ public final class SamplerTheme implements Theme {
         String filename = classpathTheme.getFilename();
 
         try {
-            FileResource testTheme = FileResource.internal(Resources.resolve("theme-test/" + filename), Launcher.class);
+            FileResource testTheme = FileResource.createInternal(
+                Resources.resolve("theme-test/" + filename), Launcher.class
+            );
             if (!testTheme.exists()) {
                 throw new IOException();
             }

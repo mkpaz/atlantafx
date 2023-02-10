@@ -60,6 +60,18 @@ public class JColorUtils {
     }
 
     /**
+     * Convert the RGB values to a color integer.
+     *
+     * @param red   red integer color inclusively between 0 and 255
+     * @param green green integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
+     * @return integer color
+     */
+    public static int toColor(int red, int green, int blue) {
+        return toColorWithAlpha(red, green, blue, -1);
+    }
+
+    /**
      * Convert the hex color values to a hex color, shorthanded when possible.
      *
      * @param red   red hex color in format RR or R
@@ -92,20 +104,6 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color including an opaque alpha
-     * value of FF or F, shorthanded when possible.
-     *
-     * @param red   red hex color in format RR or R
-     * @param green green hex color in format GG or G
-     * @param blue  blue hex color in format BB or B
-     * @return hex color in format #ARGB or #AARRGGBB
-     */
-    public static String toColorShorthandWithAlpha(String red, String green,
-                                                   String blue) {
-        return shorthandHex(toColorWithAlpha(red, green, blue));
-    }
-
-    /**
      * Convert the hex color values to a hex color.
      *
      * @param red   red hex color in format RR or R
@@ -129,32 +127,6 @@ public class JColorUtils {
             color.append(expandShorthandHexSingle(alpha));
         }
         return color.toString();
-    }
-
-    /**
-     * Convert the hex color values to a hex color, shorthanded when possible.
-     *
-     * @param red   red hex color in format RR or R
-     * @param green green hex color in format GG or G
-     * @param blue  blue hex color in format BB or B
-     * @param alpha alpha hex color in format AA or A, null to not include alpha
-     * @return hex color in format #ARGB, #RGB, #AARRGGBB, or #RRGGBB
-     */
-    public static String toColorShorthandWithAlpha(String red, String green,
-                                                   String blue, String alpha) {
-        return shorthandHex(toColorWithAlpha(red, green, blue, alpha));
-    }
-
-    /**
-     * Convert the RGB values to a color integer.
-     *
-     * @param red   red integer color inclusively between 0 and 255
-     * @param green green integer color inclusively between 0 and 255
-     * @param blue  blue integer color inclusively between 0 and 255
-     * @return integer color
-     */
-    public static int toColor(int red, int green, int blue) {
-        return toColorWithAlpha(red, green, blue, -1);
     }
 
     /**
@@ -191,6 +163,34 @@ public class JColorUtils {
             color = (alpha & 0xff) << 24 | color;
         }
         return color;
+    }
+
+    /**
+     * Convert the hex color values to a hex color including an opaque alpha
+     * value of FF or F, shorthanded when possible.
+     *
+     * @param red   red hex color in format RR or R
+     * @param green green hex color in format GG or G
+     * @param blue  blue hex color in format BB or B
+     * @return hex color in format #ARGB or #AARRGGBB
+     */
+    public static String toColorShorthandWithAlpha(String red, String green,
+                                                   String blue) {
+        return shorthandHex(toColorWithAlpha(red, green, blue));
+    }
+
+    /**
+     * Convert the hex color values to a hex color, shorthanded when possible.
+     *
+     * @param red   red hex color in format RR or R
+     * @param green green hex color in format GG or G
+     * @param blue  blue hex color in format BB or B
+     * @param alpha alpha hex color in format AA or A, null to not include alpha
+     * @return hex color in format #ARGB, #RGB, #AARRGGBB, or #RRGGBB
+     */
+    public static String toColorShorthandWithAlpha(String red, String green,
+                                                   String blue, String alpha) {
+        return shorthandHex(toColorWithAlpha(red, green, blue, alpha));
     }
 
     /**
@@ -244,6 +244,19 @@ public class JColorUtils {
     }
 
     /**
+     * Convert HSL (hue, saturation, and lightness) values to RGB integer values.
+     *
+     * @param hue        hue value inclusively between 0.0 and 360.0
+     * @param saturation saturation inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
+     * @return RGB integer array where: 0 = red, 1 = green, 2 = blue
+     */
+    public static int[] toRGB(float hue, float saturation, float lightness) {
+        float[] arithmeticRGB = toArithmeticRGB(hue, saturation, lightness);
+        return new int[] {toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2])};
+    }
+
+    /**
      * Convert the hex single color to an arithmetic RGB float.
      *
      * @param color hex single color in format FF or F
@@ -262,6 +275,36 @@ public class JColorUtils {
     public static float toArithmeticRGB(int color) {
         validateRGB(color);
         return color / 255.0f;
+    }
+
+    /**
+     * Convert HSL (hue, saturation, and lightness) values to RGB arithmetic
+     * values.
+     *
+     * @param hue        hue value inclusively between 0.0 and 360.0
+     * @param saturation saturation inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
+     * @return arithmetic RGB array where: 0 = red, 1 = green, 2 = blue
+     */
+    public static float[] toArithmeticRGB(float hue, float saturation, float lightness) {
+        validateHue(hue);
+        validateSaturation(saturation);
+        validateLightness(lightness);
+
+        hue /= 60.0f;
+        float t2;
+        if (lightness <= 0.5f) {
+            t2 = lightness * (saturation + 1);
+        } else {
+            t2 = lightness + saturation - (lightness * saturation);
+        }
+        float t1 = lightness * 2.0f - t2;
+
+        float red = hslConvert(t1, t2, hue + 2);
+        float green = hslConvert(t1, t2, hue);
+        float blue = hslConvert(t1, t2, hue - 2);
+
+        return new float[] {red, green, blue};
     }
 
     /**
@@ -333,51 +376,6 @@ public class JColorUtils {
     }
 
     /**
-     * Convert HSL (hue, saturation, and lightness) values to RGB arithmetic
-     * values.
-     *
-     * @param hue        hue value inclusively between 0.0 and 360.0
-     * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness  lightness inclusively between 0.0 and 1.0
-     * @return arithmetic RGB array where: 0 = red, 1 = green, 2 = blue
-     */
-    public static float[] toArithmeticRGB(float hue, float saturation,
-                                          float lightness) {
-
-        validateHue(hue);
-        validateSaturation(saturation);
-        validateLightness(lightness);
-
-        hue /= 60.0f;
-        float t2;
-        if (lightness <= 0.5f) {
-            t2 = lightness * (saturation + 1);
-        } else {
-            t2 = lightness + saturation - (lightness * saturation);
-        }
-        float t1 = lightness * 2.0f - t2;
-
-        float red = hslConvert(t1, t2, hue + 2);
-        float green = hslConvert(t1, t2, hue);
-        float blue = hslConvert(t1, t2, hue - 2);
-
-        return new float[] {red, green, blue};
-    }
-
-    /**
-     * Convert HSL (hue, saturation, and lightness) values to RGB integer values.
-     *
-     * @param hue        hue value inclusively between 0.0 and 360.0
-     * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness  lightness inclusively between 0.0 and 1.0
-     * @return RGB integer array where: 0 = red, 1 = green, 2 = blue
-     */
-    public static int[] toRGB(float hue, float saturation, float lightness) {
-        float[] arithmeticRGB = toArithmeticRGB(hue, saturation, lightness);
-        return new int[] {toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2])};
-    }
-
-    /**
      * HSL convert helper method.
      *
      * @param t1  t1
@@ -416,6 +414,16 @@ public class JColorUtils {
     }
 
     /**
+     * Get the red color from color integer.
+     *
+     * @param color color integer
+     * @return red color
+     */
+    public static int getRed(int color) {
+        return (color >> 16) & 0xff;
+    }
+
+    /**
      * Get the hex green color from the hex string.
      *
      * @param hex hex color
@@ -423,6 +431,16 @@ public class JColorUtils {
      */
     public static String getGreen(String hex) {
         return getHexSingle(hex, 1);
+    }
+
+    /**
+     * Get the green color from color integer.
+     *
+     * @param color color integer
+     * @return green color
+     */
+    public static int getGreen(int color) {
+        return (color >> 8) & 0xff;
     }
 
     /**
@@ -436,6 +454,16 @@ public class JColorUtils {
     }
 
     /**
+     * Get the blue color from color integer.
+     *
+     * @param color color integer
+     * @return blue color
+     */
+    public static int getBlue(int color) {
+        return color & 0xff;
+    }
+
+    /**
      * Get the hex alpha color from the hex string if it exists.
      *
      * @param hex hex color
@@ -443,6 +471,16 @@ public class JColorUtils {
      */
     public static String getAlpha(String hex) {
         return getHexSingle(hex, -1);
+    }
+
+    /**
+     * Get the alpha color from color integer.
+     *
+     * @param color color integer
+     * @return alpha color
+     */
+    public static int getAlpha(int color) {
+        return (color >> 24) & 0xff;
     }
 
     /**
@@ -480,46 +518,6 @@ public class JColorUtils {
         }
 
         return color;
-    }
-
-    /**
-     * Get the red color from color integer.
-     *
-     * @param color color integer
-     * @return red color
-     */
-    public static int getRed(int color) {
-        return (color >> 16) & 0xff;
-    }
-
-    /**
-     * Get the green color from color integer.
-     *
-     * @param color color integer
-     * @return green color
-     */
-    public static int getGreen(int color) {
-        return (color >> 8) & 0xff;
-    }
-
-    /**
-     * Get the blue color from color integer.
-     *
-     * @param color color integer
-     * @return blue color
-     */
-    public static int getBlue(int color) {
-        return color & 0xff;
-    }
-
-    /**
-     * Get the alpha color from color integer.
-     *
-     * @param color color integer
-     * @return alpha color
-     */
-    public static int getAlpha(int color) {
-        return (color >> 24) & 0xff;
     }
 
     /**
