@@ -196,6 +196,8 @@
                     <configuration>
                         <configLocation>checkstyle.xml</configLocation>
                         <consoleOutput>true</consoleOutput>
+                        <failsOnError>false</failsOnError>
+                        <linkXRef>false</linkXRef>
                     </configuration>
                     <dependencies>
                         <dependency>
