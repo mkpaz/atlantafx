@@ -149,6 +149,8 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
   }
 
   >.label {
+    -fx-text-fill: -color-fg-muted;
+
     >.text {
       -fx-font-weight: bold;
     }
