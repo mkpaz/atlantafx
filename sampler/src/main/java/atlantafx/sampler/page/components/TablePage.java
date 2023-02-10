@@ -248,8 +248,8 @@ public class TablePage extends AbstractPage {
     }
 
     private MenuButton createTablePropertiesMenu(TableView<Product> table) {
-        var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
-        var resizePolicyGroup = new ToggleGroup();
+        final var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
+        final var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof Callback policy) {
                 //noinspection rawtypes,unchecked
@@ -257,51 +257,51 @@ public class TablePage extends AbstractPage {
             }
         });
 
-        var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
+        final var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
         unconstrainedResizeItem.setToggleGroup(resizePolicyGroup);
         unconstrainedResizeItem.setUserData(TableView.UNCONSTRAINED_RESIZE_POLICY);
         unconstrainedResizeItem.setSelected(true);
 
-        var constrainedResizeItem = new RadioMenuItem("Constrained");
+        final var constrainedResizeItem = new RadioMenuItem("Constrained");
         constrainedResizeItem.setToggleGroup(resizePolicyGroup);
         constrainedResizeItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // ~
 
-        var selectionModeCaption = new CaptionMenuItem("Selection Mode");
-        var selectionModeGroup = new ToggleGroup();
+        final var selectionModeCaption = new CaptionMenuItem("Selection Mode");
+        final var selectionModeGroup = new ToggleGroup();
         selectionModeGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof SelectionMode mode) {
                 table.getSelectionModel().setSelectionMode(mode);
             }
         });
 
-        var singleSelectionItem = new RadioMenuItem("Single");
+        final var singleSelectionItem = new RadioMenuItem("Single");
         singleSelectionItem.setToggleGroup(selectionModeGroup);
         singleSelectionItem.setUserData(SelectionMode.SINGLE);
 
-        var multiSelectionItem = new RadioMenuItem("Multiple");
+        final var multiSelectionItem = new RadioMenuItem("Multiple");
         multiSelectionItem.setToggleGroup(selectionModeGroup);
         multiSelectionItem.setUserData(SelectionMode.MULTIPLE);
         multiSelectionItem.setSelected(true);
 
         // ~
 
-        var editCellsItem = new CheckMenuItem("Editable");
+        final var editCellsItem = new CheckMenuItem("Editable");
         table.editableProperty().bind(editCellsItem.selectedProperty());
         editCellsItem.setSelected(true);
 
-        var cellSelectionItem = new CheckMenuItem("Enable cell selection");
+        final var cellSelectionItem = new CheckMenuItem("Enable cell selection");
         table.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
         // ~
 
-        var menuButtonItem = new CheckMenuItem("Show menu button");
+        final var menuButtonItem = new CheckMenuItem("Show menu button");
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        var propertiesMenu = new MenuButton("Properties");
+        final var propertiesMenu = new MenuButton("Properties");
         propertiesMenu.getItems().setAll(
             resizePolicyCaption,
             unconstrainedResizeItem,

@@ -36,9 +36,6 @@ public class MusicPlayerPage extends ShowcasePage {
     }
 
     private void createView() {
-        var startScreen = new StartScreen(model);
-        var playerScreen = new PlayerScreen(model);
-
         var aboutBox = new HBox(new Text("Simple music player that able to play MP3 files."));
         aboutBox.setPadding(new Insets(5, 0, 5, 0));
         aboutBox.getStyleClass().add("about");
@@ -52,6 +49,8 @@ public class MusicPlayerPage extends ShowcasePage {
         creditsBox.setPadding(new Insets(5, 0, 5, 0));
 
         // ~
+        var startScreen = new StartScreen(model);
+        var playerScreen = new PlayerScreen(model);
 
         var root = new BorderPane();
         root.setCenter(startScreen);

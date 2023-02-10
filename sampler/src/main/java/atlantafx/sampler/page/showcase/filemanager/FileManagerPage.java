@@ -64,8 +64,6 @@ public class FileManagerPage extends ShowcasePage {
     }
 
     private void createView() {
-        var topBar = new ToolBar();
-
         var backBtn = iconButton(Feather.ARROW_LEFT, false);
         backBtn.setOnAction(e -> model.back());
         backBtn.disableProperty().bind(model.getHistory().canGoBackProperty().not());
@@ -92,6 +90,7 @@ public class FileManagerPage extends ShowcasePage {
         menuBtn.getItems().setAll(toggleHiddenCheck);
         menuBtn.getStyleClass().addAll(BUTTON_ICON, Tweaks.NO_ARROW);
 
+        var topBar = new ToolBar();
         topBar.getItems().setAll(
             backBtn,
             forthBtn,

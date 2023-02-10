@@ -140,8 +140,6 @@ public class DialogPage extends AbstractPage {
             var printWriter = new PrintWriter(stringWriter);
             exception.printStackTrace(printWriter);
 
-            var label = new Label("Full stacktrace:");
-
             var textArea = new TextArea(stringWriter.toString());
             textArea.setEditable(false);
             textArea.setWrapText(false);
@@ -152,7 +150,7 @@ public class DialogPage extends AbstractPage {
 
             var content = new GridPane();
             content.setMaxWidth(Double.MAX_VALUE);
-            content.add(label, 0, 0);
+            content.add(new Label("Full stacktrace:"), 0, 0);
             content.add(textArea, 0, 1);
 
             alert.getDialogPane().setExpandableContent(content);

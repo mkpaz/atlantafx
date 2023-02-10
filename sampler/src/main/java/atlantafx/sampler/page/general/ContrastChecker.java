@@ -159,7 +159,7 @@ class ContrastChecker extends GridPane {
         var aaaLargeLabel = contrastLevelLabel();
         var aaaLargeBox = contrastLevelBox(aaaLargeLabel, "AAA Large");
 
-        var contrastLevels = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
+        final var contrastLevels = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
 
         contrastRatio.addListener((obs, old, val) -> {
             if (val == null) {

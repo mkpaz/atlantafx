@@ -232,9 +232,9 @@ public class ProgressPage extends AbstractPage {
     }
 
     private SampleBlock colorChangeSample() {
-        var stateSuccess = PseudoClass.getPseudoClass("state-success");
-        var stateDanger = PseudoClass.getPseudoClass("state-danger");
-        var width = 300;
+        final var stateSuccess = PseudoClass.getPseudoClass("state-success");
+        final var stateDanger = PseudoClass.getPseudoClass("state-danger");
+        final var width = 300;
 
         var bar = new ProgressBar(0);
         bar.getStyleClass().add(LARGE);
