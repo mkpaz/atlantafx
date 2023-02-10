@@ -125,7 +125,9 @@ public class FileManagerPage extends ShowcasePage {
         );
 
         var aboutBox = new HBox(new Text(
-            "Simple file manager. You can traverse through the file system and open files via default system application."));
+            "Simple file manager. You can traverse through the file system and open files"
+                + " via default system application."
+        ));
         aboutBox.setPadding(new Insets(5, 0, 5, 0));
         aboutBox.getStyleClass().add("about");
 

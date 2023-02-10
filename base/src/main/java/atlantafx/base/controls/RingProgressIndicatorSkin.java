@@ -240,10 +240,10 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
                 }
 
                 @Override
-                @SuppressWarnings("RedundantCast")
+                @SuppressWarnings("unchecked")
                 public StyleableProperty<Number> getStyleableProperty(RingProgressIndicator n) {
                     final RingProgressIndicatorSkin skin = (RingProgressIndicatorSkin) n.getSkin();
-                    return (StyleableProperty<Number>) (WritableValue<Number>) skin.indeterminateAnimationTimeProperty();
+                    return (StyleableProperty<Number>) skin.indeterminateAnimationTimeProperty();
                 }
             };
 

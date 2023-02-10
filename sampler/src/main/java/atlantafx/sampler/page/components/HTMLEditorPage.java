@@ -48,10 +48,12 @@ public class HTMLEditorPage extends AbstractPage {
     }
 
     private SampleBlock editorSample() {
-        var description = new Text(
-            "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. "
-                + "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. "
-                + "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
+        var description = new Text("""
+            HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'.
+            In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images.
+            Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX
+            'module-info'.
+            """
         );
 
         var fixToggle = new ToggleSwitch("Apply Fix");

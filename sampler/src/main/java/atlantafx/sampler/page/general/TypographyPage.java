@@ -323,8 +323,9 @@ public class TypographyPage extends AbstractPage {
             new Hyperlink("consectetur"),
             new Text(" "),
             new Hyperlink("ipsum"),
-            new Text(
-                ", eget facilisis enim. Suspendisse potenti. Nulla euismod, nisl sed dapibus pretium, augue ligula finibus arcu, in iaculis nulla neque a est. Sed in rutrum diam. Donec quis arcu molestie, facilisis ex fringilla, "),
+            new Text(", eget facilisis enim. Suspendisse potenti. Nulla euismod, nisl sed dapibus pretium,"
+                + " augue ligula finibus arcu, in iaculis nulla neque a est. Sed in rutrum diam."
+                + " Donec quis arcu molestie, facilisis ex fringilla, "),
             new Hyperlink("volutpat velit"),
             new Text(".")
         );

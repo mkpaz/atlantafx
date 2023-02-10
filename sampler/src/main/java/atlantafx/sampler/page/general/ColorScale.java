@@ -46,7 +46,8 @@ class ColorScale extends VBox {
 
         var noteText = new TextFlow(
             new Text(
-                "Avoid referencing scale variables directly when building UI that needs to adapt to different color themes. Instead, use the functional variables listed above."
+                "Avoid referencing scale variables directly when building UI that needs "
+                    + "to adapt to different color themes. Instead, use the functional variables listed above."
             )
         );
 

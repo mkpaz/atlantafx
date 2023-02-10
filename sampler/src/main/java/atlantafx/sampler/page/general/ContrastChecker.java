@@ -521,22 +521,28 @@ class ContrastChecker extends GridPane {
                 var c = JColor.color(
                     new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
                 PlatformUtils.copyToClipboard(color.getAlpha() < 1
-                    ? String.format(
+                        ? String.format(
                         "rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()
                     )
-                    : String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
+                        : String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
                 );
             });
 
             var hslItem = new MenuItem("Copy as HSL");
             hslItem.setOnAction(e -> {
-                var c = JColor.color(
-                    new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1
-                    ? String.format(
-                        "hsla(%.0f,%.2f,%.2f, %.1f)", c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()
+                var c = JColor.color(new float[] {
+                    color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()
+                });
+                PlatformUtils.copyToClipboard(
+                    color.getAlpha() < 1
+                        ? String.format(
+                        "hsla(%.0f,%.2f,%.2f, %.1f)",
+                        c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()
                     )
-                    : String.format("hsl(%.0f,%.2f,%.2f)", c.getHue(), c.getSaturation(), c.getLightness())
+                        : String.format(
+                        "hsl(%.0f,%.2f,%.2f)",
+                        c.getHue(), c.getSaturation(), c.getLightness()
+                    )
                 );
             });
 

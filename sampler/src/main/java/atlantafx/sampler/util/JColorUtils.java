@@ -627,8 +627,9 @@ public class JColorUtils {
     public static void validateHex(String color) {
         if (!isValidHex(color)) {
             throw new IllegalArgumentException(
-                "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: "
-                    + color);
+                "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB,"
+                    + " or ARGB, invalid value: " + color
+            );
         }
     }
 
