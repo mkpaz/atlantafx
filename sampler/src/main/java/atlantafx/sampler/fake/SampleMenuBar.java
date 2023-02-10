@@ -6,6 +6,7 @@ import static atlantafx.sampler.util.Controls.menuItem;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
 
+import atlantafx.base.controls.CaptionMenuItem;
 import java.util.stream.IntStream;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +22,7 @@ import javafx.scene.input.KeyCodeCombination;
 import net.datafaker.Faker;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 public class SampleMenuBar extends MenuBar {
 
@@ -93,22 +95,25 @@ public class SampleMenuBar extends MenuBar {
 
         var showGridItem = new CheckMenuItem("Show Grid", new FontIcon(Feather.GRID));
 
+        var captionItem = new CaptionMenuItem("Layout");
+
         var viewToggleGroup = new ToggleGroup();
 
-        var toggleItem1 = new RadioMenuItem("Single");
+        var toggleItem1 = new RadioMenuItem("Single", new FontIcon(Material2OutlinedAL.LOOKS_ONE));
         toggleItem1.setSelected(true);
         toggleItem1.setToggleGroup(viewToggleGroup);
 
-        var toggleItem2 = new RadioMenuItem("Two Columns");
+        var toggleItem2 = new RadioMenuItem("Two Columns", new FontIcon(Material2OutlinedAL.LOOKS_TWO));
         toggleItem2.setToggleGroup(viewToggleGroup);
 
-        var toggleItem3 = new RadioMenuItem("Three Columns");
+        var toggleItem3 = new RadioMenuItem("Three Columns", new FontIcon(Material2OutlinedAL.LOOKS_3));
         toggleItem3.setToggleGroup(viewToggleGroup);
 
         viewMenu.getItems().addAll(
             showToolbarItem,
             showGridItem,
             new SeparatorMenuItem(),
+            captionItem,
             toggleItem1,
             toggleItem2,
             toggleItem3
