@@ -39,7 +39,7 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
