@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2023-02-11
+
+This is a bugfix/maintenance release that also contains a few style improvements.
+
+### Chores
+
+- (Build) JavaFX version updated to 19 (September 2022).
+- (Build) Added ErrorProne plugin.
+- (Build) Added Checkstyle plugin.
+
+### Improvements
+
+- (Build) SceneBuilder theme pack generation (#28) (thanks to **ennerf**).
+- (CSS) Add inner border radius to improve controls border corners (#24) (thanks to **mimoguz**).
+- (CSS) Hover effect for `CheckBox` and `RadioButton`.
+- (CSS) Setting `Label` color via pseudo-classes support.
+- (CSS) Setting `FontIcon` color support.
+- (CSS) Increased `Menu`/`Menubar` paddings.
+
+### Bugfixes
+
+- (CSS) Fix text inputs borders color (#21).
+- (CSS) Fix `Tooltip` text not showing for circular buttons.
+- (CSS) Prevent context menu from inheriting text input font properties.
+- (Base) Fix `PasswordTextFormatter` garbled input.
+
 ## [1.1.0] - 2022-10-10
 
 ### Features
