@@ -67,7 +67,7 @@ public class ToggleSwitch extends Labeled {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    /**
+    /*
      * Indicates whether this switch is selected.
      */
     private BooleanProperty selected;
