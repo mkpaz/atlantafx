@@ -298,7 +298,7 @@ public class Breadcrumbs<T> extends Control {
     /**
      * Represents an Event which is fired when a bread crumb was activated.
      */
-    public static class BreadCrumbActionEvent<TE> extends Event {
+    public static class BreadCrumbActionEvent<T> extends Event {
 
         /**
          * The event type that should be listened to by people interested in
@@ -308,17 +308,17 @@ public class Breadcrumbs<T> extends Control {
         public static final EventType<BreadCrumbActionEvent<?>> CRUMB_ACTION
             = new EventType<>("CRUMB_ACTION" + UUID.randomUUID());
 
-        private final BreadCrumbItem<TE> selectedCrumb;
+        private final BreadCrumbItem<T> selectedCrumb;
 
         /**
          * Creates a new event that can subsequently be fired.
          */
-        public BreadCrumbActionEvent(BreadCrumbItem<TE> selectedCrumb) {
+        public BreadCrumbActionEvent(BreadCrumbItem<T> selectedCrumb) {
             super(CRUMB_ACTION);
             this.selectedCrumb = selectedCrumb;
         }
 
-        public BreadCrumbItem<TE> getSelectedCrumb() {
+        public BreadCrumbItem<T> getSelectedCrumb() {
             return selectedCrumb;
         }
     }

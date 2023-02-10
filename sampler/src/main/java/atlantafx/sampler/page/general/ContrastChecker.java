@@ -56,8 +56,8 @@ class ContrastChecker extends GridPane {
     private String bgColorName;
     private String fgColorName;
 
-    private final ObservableHSLAColor bgColor = new ObservableHSLAColor(Color.WHITE);
-    private final ObservableHSLAColor fgColor = new ObservableHSLAColor(Color.BLACK);
+    private final ObservableHslaColor bgColor = new ObservableHslaColor(Color.WHITE);
+    private final ObservableHslaColor fgColor = new ObservableHslaColor(Color.BLACK);
     private final ReadOnlyObjectProperty<Color> bgBaseColor;
     private final DoubleBinding contrastRatio;
 
@@ -418,15 +418,15 @@ class ContrastChecker extends GridPane {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    private static class ObservableHSLAColor {
+    private static class ObservableHslaColor {
 
         private final ObservableList<Float> values = FXCollections.observableArrayList(0f, 0f, 0f, 0f);
         private final ReadOnlyObjectWrapper<Color> color = new ReadOnlyObjectWrapper<>() {
         };
 
-        public ObservableHSLAColor(Color initialColor) {
+        public ObservableHslaColor(Color initialColor) {
             values.addListener((ListChangeListener<Float>) c -> {
-                float[] rgb = getRGBAArithmeticColor();
+                float[] rgb = getRgbaArithmeticColor();
                 color.set(Color.color(rgb[0], rgb[1], rgb[2], getAlpha()));
             });
             setColor(initialColor);
@@ -477,7 +477,7 @@ class ContrastChecker extends GridPane {
             values.set(3, value);
         }
 
-        public float[] getRGBAArithmeticColor() {
+        public float[] getRgbaArithmeticColor() {
             float[] hsl = new float[] {getHue(), getSaturation(), getLightness()};
             var color = JColor.color(hsl, getAlpha());
             return new float[] {
@@ -496,9 +496,9 @@ class ContrastChecker extends GridPane {
 
     private static class RightClickMenu extends ContextMenu {
 
-        private final ObservableHSLAColor color;
+        private final ObservableHslaColor color;
 
-        public RightClickMenu(ObservableHSLAColor color) {
+        public RightClickMenu(ObservableHslaColor color) {
             super();
 
             this.color = color;

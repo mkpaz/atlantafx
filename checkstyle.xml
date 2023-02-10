@@ -336,7 +336,7 @@
       <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>
     </module>
     <module name="MethodName">
-      <property name="format" value="^[a-z][a-z0-9]\w*$"/>
+      <property name="format" value="^[a-z]\w*$"/>
       <message key="name.invalidPattern"
              value="Method name ''{0}'' must match pattern ''{1}''."/>
     </module>

@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.HTMLEditor;
 
-public class HTMLEditorPage extends AbstractPage {
+public class HtmlEditorPage extends AbstractPage {
 
     private static final PseudoClass USE_LOCAL_URL = PseudoClass.getPseudoClass("use-local-url");
 
@@ -32,7 +32,7 @@ public class HTMLEditorPage extends AbstractPage {
 
     private HTMLEditor editor = createEditor();
 
-    public HTMLEditorPage() {
+    public HtmlEditorPage() {
         super();
 
         setUserContent(new VBox(editorSample()));

@@ -185,9 +185,9 @@ final class ColorThief {
 
             private final int[] histo;
 
-            private int[] _avg;
-            private Integer _volume;
-            private Integer _count;
+            private int[] gAvg;
+            private Integer gVolume;
+            private Integer gCount;
 
             public VBox(int r1, int r2, int g1, int g2, int b1, int b2, int[] histo) {
                 this.r1 = r1;
@@ -205,14 +205,14 @@ final class ColorThief {
             }
 
             public int volume(boolean force) {
-                if (_volume == null || force) {
-                    _volume = ((r2 - r1 + 1) * (g2 - g1 + 1) * (b2 - b1 + 1));
+                if (gVolume == null || force) {
+                    gVolume = ((r2 - r1 + 1) * (g2 - g1 + 1) * (b2 - b1 + 1));
                 }
-                return _volume;
+                return gVolume;
             }
 
             public int count(boolean force) {
-                if (_count == null || force) {
+                if (gCount == null || force) {
                     int npix = 0;
                     int i, j, k, index;
 
@@ -225,10 +225,10 @@ final class ColorThief {
                         }
                     }
 
-                    _count = npix;
+                    gCount = npix;
                 }
 
-                return _count;
+                return gCount;
             }
 
             @Override
@@ -238,7 +238,7 @@ final class ColorThief {
             }
 
             public int[] avg(boolean force) {
-                if (_avg == null || force) {
+                if (gAvg == null || force) {
                     int ntot = 0;
                     int rsum = 0;
                     int gsum = 0;
@@ -259,14 +259,14 @@ final class ColorThief {
                     }
 
                     if (ntot > 0) {
-                        _avg = new int[] {(rsum / ntot), (gsum / ntot), (bsum / ntot)};
+                        gAvg = new int[] {(rsum / ntot), (gsum / ntot), (bsum / ntot)};
                     } else {
-                        _avg = new int[] {(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
+                        gAvg = new int[] {(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
                             (MULT * (b1 + b2 + 1) / 2)};
                     }
                 }
 
-                return _avg;
+                return gAvg;
             }
 
             public boolean contains(int[] pixel) {
@@ -457,36 +457,36 @@ final class ColorThief {
             int[] lookAheadSum,
             int total
         ) {
-            int vbox_dim1;
-            int vbox_dim2;
+            int vboxDim1;
+            int vboxDim2;
 
             if (color == 'r') {
-                vbox_dim1 = vbox.r1;
-                vbox_dim2 = vbox.r2;
+                vboxDim1 = vbox.r1;
+                vboxDim2 = vbox.r2;
             } else if (color == 'g') {
-                vbox_dim1 = vbox.g1;
-                vbox_dim2 = vbox.g2;
+                vboxDim1 = vbox.g1;
+                vboxDim2 = vbox.g2;
             } else {
-                vbox_dim1 = vbox.b1;
-                vbox_dim2 = vbox.b2;
+                vboxDim1 = vbox.b1;
+                vboxDim2 = vbox.b2;
             }
 
             int left, right;
             VBox vbox1, vbox2;
             int d2, count2;
 
-            for (int i = vbox_dim1; i <= vbox_dim2; i++) {
+            for (int i = vboxDim1; i <= vboxDim2; i++) {
                 if (partialSum[i] > total / 2) {
                     vbox1 = vbox.clone();
                     vbox2 = vbox.clone();
 
-                    left = i - vbox_dim1;
-                    right = vbox_dim2 - i;
+                    left = i - vboxDim1;
+                    right = vboxDim2 - i;
 
                     if (left <= right) {
-                        d2 = Math.min(vbox_dim2 - 1, (i + right / 2));
+                        d2 = Math.min(vboxDim2 - 1, (i + right / 2));
                     } else {
-                        d2 = Math.max(vbox_dim1, ((int) (i - 1 - left / 2.0)));
+                        d2 = Math.max(vboxDim1, ((int) (i - 1 - left / 2.0)));
                     }
 
                     while (d2 < 0 || partialSum[d2] <= 0) {

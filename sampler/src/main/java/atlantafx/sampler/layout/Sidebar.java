@@ -18,7 +18,7 @@ import atlantafx.sampler.page.components.ComboBoxPage;
 import atlantafx.sampler.page.components.CustomTextFieldPage;
 import atlantafx.sampler.page.components.DatePickerPage;
 import atlantafx.sampler.page.components.DialogPage;
-import atlantafx.sampler.page.components.HTMLEditorPage;
+import atlantafx.sampler.page.components.HtmlEditorPage;
 import atlantafx.sampler.page.components.InputGroupPage;
 import atlantafx.sampler.page.components.LabelPage;
 import atlantafx.sampler.page.components.ListPage;
@@ -239,7 +239,7 @@ class Sidebar extends StackPane {
                 navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class),
                 navLink(DatePickerPage.NAME, DatePickerPage.class),
                 navLink(DialogPage.NAME, DialogPage.class),
-                navLink(HTMLEditorPage.NAME, HTMLEditorPage.class),
+                navLink(HtmlEditorPage.NAME, HtmlEditorPage.class),
                 navLink(LabelPage.NAME, LabelPage.class),
                 navLink(ListPage.NAME, ListPage.class),
                 navLink(MenuPage.NAME, MenuPage.class),
