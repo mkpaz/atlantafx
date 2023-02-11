@@ -144,12 +144,14 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         double thumbAreaWidth = snapSizeX(thumbArea.prefWidth(-1));
         double thumbAreaHeight = snapSizeX(thumbArea.prefHeight(-1));
         double thumbAreaY = snapPositionX(contentY + (contentHeight / 2) - (thumbAreaHeight / 2));
+        double labelContainerWidth = label.getText() != null && !label.getText().isEmpty()
+            ? contentWidth - thumbAreaWidth : 0;
 
         thumbArea.resize(thumbAreaWidth, thumbAreaHeight);
-        thumbArea.setLayoutX(contentWidth - thumbAreaWidth);
+        thumbArea.setLayoutX(labelContainerWidth);
         thumbArea.setLayoutY(thumbAreaY);
 
-        labelContainer.resize(contentWidth - thumbAreaWidth, thumbAreaHeight);
+        labelContainer.resize(labelContainerWidth, thumbAreaHeight);
         labelContainer.setLayoutY(thumbAreaY);
 
         // layout the thumb on the "unselected" position

@@ -28,6 +28,7 @@ This is a bugfix/maintenance release that also contains a few style improvements
 - (CSS) Fix `Tooltip` text not showing for circular buttons.
 - (CSS) Prevent context menu from inheriting text input font properties.
 - (CSS) Fix invalid `DatePicker` cell size.
+- (Base) Remove `ToggleSwitch` left padding when text is empty.
 - (Base) Fix `PasswordTextFormatter` garbled input.
 
 ## [1.1.0] - 2022-10-10
