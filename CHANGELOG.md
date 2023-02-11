@@ -17,6 +17,7 @@ This is a bugfix/maintenance release that also contains a few style improvements
 - (Build) SceneBuilder theme pack generation (#28) (thanks to **ennerf**).
 - (CSS) Add inner border radius to improve controls border corners (#24) (thanks to **mimoguz**).
 - (CSS) Hover effect for `CheckBox` and `RadioButton`.
+- (CSS) Hover effect for `TabPane` close button.
 - (CSS) Setting `Label` color via pseudo-classes support.
 - (CSS) Setting `FontIcon` color support.
 - (CSS) Increased `Menu`/`Menubar` paddings.
