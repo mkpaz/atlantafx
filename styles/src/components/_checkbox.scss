@@ -3,7 +3,9 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
-$thickness: 1.3333 !default;
+$border-color:        -color-border-default !default;
+$indeterminate-color: -color-fg-muted !default;
+$thickness:           1.5px !default;
 
 .check-box {
 
@@ -12,7 +14,7 @@ $thickness: 1.3333 !default;
   -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
 
   >.box {
-    -fx-background-color: -color-fg-default, -color-bg-default;
+    -fx-background-color: $border-color, -color-bg-default;
     -fx-background-insets: 0, $thickness;
     -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
     -fx-padding: cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x;
@@ -35,7 +37,7 @@ $thickness: 1.3333 !default;
   &:indeterminate {
     >.box {
       >.mark {
-        -fx-background-color: -color-fg-default;
+        -fx-background-color: $indeterminate-color;
         @include icons.get("minus", false);
       }
     }
@@ -60,6 +62,6 @@ $thickness: 1.3333 !default;
   }
 
   &:show-mnemonics>.mnemonic-underline {
-    -fx-stroke: -color-fg-default;
+    -fx-stroke: $border-color;
   }
 }
