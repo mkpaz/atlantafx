@@ -1,0 +1,4 @@
+module:atlantafx.base
+atlantafx.base.controls
+atlantafx.base.theme
+atlantafx.base.util
