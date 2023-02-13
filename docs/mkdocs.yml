@@ -2,12 +2,12 @@ site_name: AtlantaFX
 repo_url: https://github.com/mkpaz/atlantafx
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-  - attr_list
-  - md_in_html
 theme:
   name: material
   features:
