@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import javafx.beans.property.ObjectProperty;
@@ -12,7 +13,8 @@ import javafx.util.StringConverter;
 
 public class RingProgressIndicator extends ProgressIndicator {
 
-    public RingProgressIndicator() { }
+    public RingProgressIndicator() {
+    }
 
     public RingProgressIndicator(double progress) {
         this(progress, false);
@@ -52,7 +54,8 @@ public class RingProgressIndicator extends ProgressIndicator {
 
     // ~
 
-    protected final ObjectProperty<StringConverter<Double>> stringConverter = new SimpleObjectProperty<>(this, "converter", null);
+    protected final ObjectProperty<StringConverter<Double>> stringConverter =
+        new SimpleObjectProperty<>(this, "converter", null);
 
     public StringConverter<Double> getStringConverter() {
         return stringConverterProperty().get();
@@ -62,7 +65,9 @@ public class RingProgressIndicator extends ProgressIndicator {
         this.stringConverterProperty().set(stringConverter);
     }
 
-    /** Optional converter to transform progress value to string. */
+    /**
+     * Optional converter to transform progress value to string.
+     */
     public ObjectProperty<StringConverter<Double>> stringConverterProperty() {
         return stringConverter;
     }

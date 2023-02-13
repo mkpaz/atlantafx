@@ -1,11 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.theme;
 
 public final class NordDark implements Theme {
 
-    /**
-     * Initialize a new NordDark
-     */
     public NordDark() {
         // Default constructor
     }

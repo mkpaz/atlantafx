@@ -1,16 +1,20 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
+
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
 
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
-import javafx.scene.control.*;
+import java.net.URI;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.net.URI;
-
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
 
 public final class Controls {
 
@@ -20,7 +24,9 @@ public final class Controls {
 
     public static Button button(String text, Ikon icon, boolean disable, String... styleClasses) {
         var button = new Button(text);
-        if (icon != null) { button.setGraphic(new FontIcon(icon)); }
+        if (icon != null) {
+            button.setGraphic(new FontIcon(icon));
+        }
         button.setDisable(disable);
         button.getStyleClass().addAll(styleClasses);
         return button;
@@ -33,8 +39,12 @@ public final class Controls {
     public static MenuItem menuItem(String text, Ikon graphic, KeyCombination accelerator, boolean disable) {
         var item = new MenuItem(text);
 
-        if (graphic != null) { item.setGraphic(new FontIcon(graphic)); }
-        if (accelerator != null) { item.setAccelerator(accelerator); }
+        if (graphic != null) {
+            item.setGraphic(new FontIcon(graphic));
+        }
+        if (accelerator != null) {
+            item.setAccelerator(accelerator);
+        }
         item.setDisable(disable);
 
         return item;
@@ -46,8 +56,12 @@ public final class Controls {
                                             boolean selected,
                                             String... styleClasses) {
         var toggleButton = new ToggleButton(text);
-        if (icon != null) { toggleButton.setGraphic(new FontIcon(icon)); }
-        if (group != null) { toggleButton.setToggleGroup(group); }
+        if (icon != null) {
+            toggleButton.setGraphic(new FontIcon(icon));
+        }
+        if (group != null) {
+            toggleButton.setToggleGroup(group);
+        }
         toggleButton.setSelected(selected);
         toggleButton.getStyleClass().addAll(styleClasses);
 

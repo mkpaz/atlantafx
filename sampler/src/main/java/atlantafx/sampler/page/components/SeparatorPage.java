@@ -1,5 +1,10 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static javafx.geometry.Orientation.HORIZONTAL;
+import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.geometry.Pos.CENTER;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
@@ -8,11 +13,11 @@ import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.*;
-
-import static javafx.geometry.Orientation.HORIZONTAL;
-import static javafx.geometry.Orientation.VERTICAL;
-import static javafx.geometry.Pos.CENTER;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public final class SeparatorPage extends AbstractPage {
 
@@ -21,29 +26,31 @@ public final class SeparatorPage extends AbstractPage {
     private static final int PANE_SIZE = 100;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public SeparatorPage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_HGAP, Page.PAGE_VGAP,
-                orientationSample(),
-                sizeSample()
+            Page.PAGE_HGAP, Page.PAGE_VGAP,
+            orientationSample(),
+            sizeSample()
         ));
     }
 
     private SampleBlock orientationSample() {
         var hBox = new HBox(
-                createPane("Left", VERTICAL),
-                new Separator(VERTICAL),
-                createPane("Right", VERTICAL)
+            createPane("Left", VERTICAL),
+            new Separator(VERTICAL),
+            createPane("Right", VERTICAL)
         );
         hBox.setAlignment(CENTER);
 
         var vBox = new VBox(
-                createPane("Top", HORIZONTAL),
-                new Separator(HORIZONTAL),
-                createPane("Bottom", HORIZONTAL)
+            createPane("Top", HORIZONTAL),
+            new Separator(HORIZONTAL),
+            createPane("Bottom", HORIZONTAL)
         );
         vBox.setAlignment(CENTER);
 
@@ -54,27 +61,27 @@ public final class SeparatorPage extends AbstractPage {
         var smallSep = new Separator(VERTICAL);
         smallSep.getStyleClass().add(Styles.SMALL);
         var smallBox = new HBox(
-                createPane("Left", VERTICAL),
-                smallSep,
-                createPane("Right", VERTICAL)
+            createPane("Left", VERTICAL),
+            smallSep,
+            createPane("Right", VERTICAL)
         );
         smallBox.setAlignment(CENTER);
 
         var mediumSep = new Separator(VERTICAL);
         mediumSep.getStyleClass().add(Styles.MEDIUM);
         var mediumBox = new HBox(
-                createPane("Left", VERTICAL),
-                mediumSep,
-                createPane("Right", VERTICAL)
+            createPane("Left", VERTICAL),
+            mediumSep,
+            createPane("Right", VERTICAL)
         );
         mediumBox.setAlignment(CENTER);
 
         var largeSep = new Separator(VERTICAL);
         largeSep.getStyleClass().add(Styles.LARGE);
         var largeBox = new HBox(
-                createPane("Left", VERTICAL),
-                largeSep,
-                createPane("Right", VERTICAL)
+            createPane("Left", VERTICAL),
+            largeSep,
+            createPane("Right", VERTICAL)
         );
         largeBox.setAlignment(CENTER);
 

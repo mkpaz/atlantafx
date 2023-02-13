@@ -3,6 +3,7 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 @use "../settings/icons";
+@use "sass:math";
 
 ///////////////////////////////////////////////////////////////////////////////
 //  MenuBar                                                                  //
@@ -14,6 +15,8 @@ $color-menuitem-bg:       -color-bg-default !default;
 $color-menuitem-bg-hover: if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
 
 $separator-padding:       map-get(cfg.$separators, "small") !default;
+$menu-button-padding-x:   cfg.$menu-padding-x - math.div(cfg.$menubar-padding-x, 2) !default;
+$menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y, 2) !default;
 
 .menu-bar {
 
@@ -23,11 +26,13 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
   -fx-padding: 0;
 
   >.container {
+    -fx-padding: cfg.$menubar-padding-y cfg.$menubar-padding-x cfg.$menubar-padding-y cfg.$menubar-padding-x;
+
     >.menu-button {
       -fx-background-color: transparent;
       -fx-background-insets: 0 0 cfg.$border-width 0;
-      -fx-background-radius: 0;
-      -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
+      -fx-background-radius: cfg.$popup-radius;
+      -fx-padding: $menu-button-padding-y $menu-button-padding-x $menu-button-padding-y $menu-button-padding-x;
 
       // reset padding of menu buttons when in menu bar
       >.label {
@@ -91,6 +96,7 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
 .menu-item {
   -fx-background-color: $color-menuitem-bg;
   -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
+  -fx-background-radius: cfg.$popup-radius;
 
   >.graphic-container {
     -fx-padding: 0 cfg.$graphic-gap 0 0;
@@ -143,6 +149,8 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
   }
 
   >.label {
+    -fx-text-fill: -color-fg-muted;
+
     >.text {
       -fx-font-weight: bold;
     }
@@ -157,7 +165,7 @@ $separator-padding:       map-get(cfg.$separators, "small") !default;
   -fx-background-color: -color-border-muted, $color-menuitem-bg;
   -fx-background-insets: 0, 1;
   -fx-padding: cfg.$popup-padding-y cfg.$popup-padding-x cfg.$popup-padding-y cfg.$popup-padding-x;
-  -fx-background-radius: cfg.$border-radius;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 
   // no idea what's that thing and how to trigger its appearance

@@ -1,5 +1,30 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
+
+import static atlantafx.base.controls.Popover.ArrowLocation;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_IMAGE;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
+import static java.lang.Double.MAX_VALUE;
+import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.geometry.Pos.CENTER;
+import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
+import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
+import static org.kordamp.ikonli.material2.Material2MZ.PAUSE;
+import static org.kordamp.ikonli.material2.Material2MZ.PLAY_ARROW;
+import static org.kordamp.ikonli.material2.Material2MZ.SHUFFLE;
+import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_OFF;
+import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_UP;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
 
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.ProgressSliderSkin;
@@ -23,20 +48,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.controls.Popover.ArrowLocation;
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
-import static java.lang.Double.MAX_VALUE;
-import static javafx.geometry.Orientation.VERTICAL;
-import static javafx.geometry.Pos.CENTER;
-import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
-import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
-import static org.kordamp.ikonli.material2.Material2MZ.*;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
 
 final class PlayerPane extends VBox {
 
@@ -173,12 +184,16 @@ final class PlayerPane extends VBox {
         setAlignment(CENTER);
         setSpacing(5);
         setMinWidth(300);
-        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle, trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider, timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
+        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle,
+            trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider,
+            timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
     }
 
     private void init() {
         heightProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             int size = val.intValue() < 600 ? 150 : 250;
             coverImage.setWidth(size);
             coverImage.setHeight(size);
@@ -186,30 +201,39 @@ final class PlayerPane extends VBox {
 
         playBtn.setOnAction(e -> {
             MediaPlayer player = currentPlayer.get();
-            if (player == null) { return; }
+            if (player == null) {
+                return;
+            }
             switch (player.getStatus()) {
                 case READY, PAUSED, STOPPED -> player.play();
                 case PLAYING -> player.pause();
-                default -> { }
+                default -> {
+                }
             }
         });
 
         InvalidationListener mediaTimeChangeListener = obs -> {
-            if (currentPlayer.get() == null) { return; }
+            if (currentPlayer.get() == null) {
+                return;
+            }
 
             var duration = currentPlayer.get().getCurrentTime();
             var seconds = duration != null && !duration.equals(Duration.ZERO) ? duration.toSeconds() : 0;
 
-            if (!timeSlider.isValueChanging()) { timeSlider.setValue(seconds); }
+            if (!timeSlider.isValueChanging()) {
+                timeSlider.setValue(seconds);
+            }
             currentTimeLabel.setText(seconds > 0 ? formatDuration(duration) : "0.0");
         };
 
         timeSlider.valueProperty().addListener(obs -> {
-            if (currentPlayer.get() == null) { return; }
+            if (currentPlayer.get() == null) {
+                return;
+            }
             long max = (long) currentPlayer.get().getMedia().getDuration().toSeconds();
             long sliderVal = (long) timeSlider.getValue();
             if (sliderVal <= max && timeSlider.isValueChanging()) {
-                currentPlayer.get().seek(Duration.seconds(sliderVal));
+                currentPlayer.get().seek(Duration.seconds((double) sliderVal));
             }
         });
 
@@ -239,7 +263,9 @@ final class PlayerPane extends VBox {
                 endTimeLabel.setText(formatDuration(media.getDuration()));
 
                 playIcon.iconCodeProperty().bind(Bindings.createObjectBinding(() -> {
-                    if (mediaPlayer.statusProperty().get() == null) { return EQUALS; }
+                    if (mediaPlayer.statusProperty().get() == null) {
+                        return EQUALS;
+                    }
                     return switch (mediaPlayer.getStatus()) {
                         case READY, PAUSED, STOPPED -> PLAY_ARROW;
                         case PLAYING -> PAUSE;
@@ -269,7 +295,9 @@ final class PlayerPane extends VBox {
     }
 
     private <T> T getTag(Media media, String key, Class<T> type, T defaultValue) {
-        if (media == null || key == null || type == null) { return defaultValue; }
+        if (media == null || key == null || type == null) {
+            return defaultValue;
+        }
         Object tag = media.getMetadata().get(key);
         return type.isInstance(tag) ? type.cast(tag) : defaultValue;
     }

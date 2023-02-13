@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import javafx.scene.control.Control;
@@ -22,7 +23,9 @@ public abstract class BehaviorBase<C extends Control, S extends SkinBase<C>> {
         return skin;
     }
 
-    /** Called from {@link SkinBase#dispose()} to clean up the behavior state */
+    /**
+     * Called from {@link SkinBase#dispose()} to clean up the behavior state.
+     */
     public void dispose() {
         this.control = null;
         this.skin = null;

@@ -1,10 +1,25 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.filemanager;
+
+import static atlantafx.sampler.page.showcase.filemanager.Utils.fileMTime;
+import static atlantafx.sampler.page.showcase.filemanager.Utils.fileSize;
+import static atlantafx.sampler.page.showcase.filemanager.Utils.isFileHidden;
+import static atlantafx.sampler.util.HumanReadableFormat.byteCount;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import static javafx.scene.control.TableColumn.SortType.ASCENDING;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.HumanReadableFormat;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
+import java.time.ZoneId;
+import java.util.Comparator;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,19 +32,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.FileTime;
-import java.time.ZoneId;
-import java.util.Comparator;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-
-import static atlantafx.sampler.page.showcase.filemanager.Utils.*;
-import static atlantafx.sampler.util.HumanReadableFormat.byteCount;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static javafx.scene.control.TableColumn.SortType.ASCENDING;
 
 final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
@@ -54,7 +56,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
     private TableView<Path> createTable() {
         var filenameCol = new TableColumn<Path, String>("Name");
         filenameCol.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue() != null ? param.getValue().getFileName().toString() : null
+            param.getValue() != null ? param.getValue().getFileName().toString() : null
         ));
         filenameCol.setComparator(Comparator.comparing(String::toLowerCase));
         filenameCol.setSortType(ASCENDING);
@@ -193,9 +195,9 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
             if (empty) {
                 setText(null);
             } else {
-                setText(fileTime != null ?
-                        HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()) :
-                        UNKNOWN
+                setText(fileTime != null
+                    ? HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                    : UNKNOWN
                 );
             }
         }

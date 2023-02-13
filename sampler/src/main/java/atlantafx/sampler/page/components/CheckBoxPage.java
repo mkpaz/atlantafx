@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
@@ -13,7 +14,9 @@ public class CheckBoxPage extends AbstractPage {
     public static final String NAME = "CheckBox";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private CheckBox basicCheck;
     private CheckBox indeterminateCheck;
@@ -25,10 +28,10 @@ public class CheckBoxPage extends AbstractPage {
 
     private void createView() {
         setUserContent(new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                basicSample(),
-                indeterminateSample(),
-                disabledSample()
+            PAGE_HGAP, PAGE_VGAP,
+            basicSample(),
+            indeterminateSample(),
+            disabledSample()
         ));
     }
 
@@ -57,30 +60,33 @@ public class CheckBoxPage extends AbstractPage {
         indeterminateCheck.setDisable(true);
 
         return new SampleBlock(
-                "Disabled",
-                new HBox(SampleBlock.BLOCK_HGAP, basicCheck, indeterminateCheck)
+            "Disabled",
+            new HBox(SampleBlock.BLOCK_HGAP, basicCheck, indeterminateCheck)
         );
     }
 
     // visually compare normal and indeterminate checkboxes size
+    @Override
     protected void onRendered() {
         var normalBox = basicCheck.lookup(".box");
         var indeterminateBox = indeterminateCheck.lookup(".box");
 
-        if (normalBox == null || indeterminateBox == null) { return; }
+        if (normalBox == null || indeterminateBox == null) {
+            return;
+        }
 
         // force layout to obtain node bounds
         ((StackPane) normalBox).layout();
         ((StackPane) indeterminateBox).layout();
 
         System.out.printf("Basic: height = %.2f , width = %.2f\n",
-                          normalBox.getBoundsInParent().getHeight(),
-                          normalBox.getBoundsInParent().getWidth()
+            normalBox.getBoundsInParent().getHeight(),
+            normalBox.getBoundsInParent().getWidth()
         );
 
         System.out.printf("Indeterminate: height = %.2f , width = %.2f\n",
-                          indeterminateBox.getBoundsInParent().getHeight(),
-                          indeterminateBox.getBoundsInParent().getWidth()
+            indeterminateBox.getBoundsInParent().getHeight(),
+            indeterminateBox.getBoundsInParent().getWidth()
         );
     }
 }

@@ -24,8 +24,18 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
+
 package atlantafx.base.controls;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.chrono.Chronology;
+import java.time.chrono.IsoChronology;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -42,28 +52,18 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.Skin;
 import javafx.util.Callback;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.chrono.Chronology;
-import java.time.chrono.IsoChronology;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
 /**
  * The DatePicker control allows the user to select a date. The calendar is based on either
  * the standard ISO-8601 chronology or any of the other chronology classes defined in the
  * java.time.chrono package.
- * <p>
- * The {@link #valueProperty() value} property represents the currently selected
+ *
+ * <p>The {@link #valueProperty() value} property represents the currently selected
  * {@link LocalDate}. The default value is null.
- * <p>
- * The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
+ *
+ * <p>The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
  * for parsing, displaying, and choosing dates.
- * <p>
- * The {@link #valueProperty() value} property is always defined in the ISO calendar system,
+ *
+ * <p>The {@link #valueProperty() value} property is always defined in the ISO calendar system,
  * however, so applications based on a different chronology may use the conversion methods
  * provided in the {@link java.time.chrono.Chronology} API to get or set the corresponding
  * {@link java.time.chrono.ChronoLocalDate} value.
@@ -73,7 +73,9 @@ public class InlineDatePicker extends Control {
     protected LocalDate lastValidDate = null;
     protected Chronology lastValidChronology = IsoChronology.INSTANCE;
 
-    /** Creates a default DatePicker instance with a <code>null</code> date value set. */
+    /**
+     * Creates a default DatePicker instance with a <code>null</code> date value set.
+     */
     public InlineDatePicker() {
         this(null);
 
@@ -112,7 +114,9 @@ public class InlineDatePicker extends Control {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new InlineDatePickerSkin(this);
@@ -132,7 +136,9 @@ public class InlineDatePicker extends Control {
         valueProperty().set(value);
     }
 
-    public ObjectProperty<LocalDate> valueProperty() { return value; }
+    public ObjectProperty<LocalDate> valueProperty() {
+        return value;
+    }
 
     /**
      * A custom cell factory can be provided to customize individual day cells
@@ -158,11 +164,11 @@ public class InlineDatePicker extends Control {
     /**
      * The calendar system used for parsing, displaying, and choosing dates in the DatePicker
      * control.
-     * <p>
-     * The default is usually {@link IsoChronology} unless provided explicitly
+     *
+     * <p>The default is usually {@link IsoChronology} unless provided explicitly
      * in the {@link Locale} by use of a Locale calendar extension.
-     * <p>
-     * Setting the value to <code>null</code> will restore the default chronology.
+     *
+     * <p>Setting the value to <code>null</code> will restore the default chronology.
      *
      * @return a property representing the Chronology being used
      */
@@ -172,6 +178,7 @@ public class InlineDatePicker extends Control {
 
     private final ObjectProperty<Chronology> chronology = new SimpleObjectProperty<>(this, "chronology", null);
 
+    @SuppressWarnings("CatchAndPrintStackTrace")
     public final Chronology getChronology() {
         Chronology chrono = chronology.get();
         if (chrono == null) {
@@ -193,11 +200,11 @@ public class InlineDatePicker extends Control {
 
     /**
      * Whether the DatePicker popup should display a column showing week numbers.
-     * <p>
-     * The default value is specified in a resource bundle, and depends on the country of the
+     *
+     * <p>The default value is specified in a resource bundle, and depends on the country of the
      * current locale.
      *
-     * @return true if popup should display a column showing week numbers
+     * @return "true" if popup should display a column showing week numbers
      */
     public final BooleanProperty showWeekNumbersProperty() {
         if (showWeekNumbers == null) {
@@ -270,18 +277,18 @@ public class InlineDatePicker extends Control {
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         private static final CssMetaData<InlineDatePicker, Boolean> SHOW_WEEK_NUMBERS =
-                new CssMetaData<>("-fx-show-week-numbers", BooleanConverter.getInstance(), false) {
-                    @Override
-                    public boolean isSettable(InlineDatePicker n) {
-                        return n.showWeekNumbers == null || !n.showWeekNumbers.isBound();
-                    }
+            new CssMetaData<>("-fx-show-week-numbers", BooleanConverter.getInstance(), false) {
+                @Override
+                public boolean isSettable(InlineDatePicker n) {
+                    return n.showWeekNumbers == null || !n.showWeekNumbers.isBound();
+                }
 
-                    @Override
-                    @SuppressWarnings("RedundantCast")
-                    public StyleableProperty<Boolean> getStyleableProperty(InlineDatePicker n) {
-                        return (StyleableProperty<Boolean>) (WritableValue<Boolean>) n.showWeekNumbersProperty();
-                    }
-                };
+                @Override
+                @SuppressWarnings("RedundantCast")
+                public StyleableProperty<Boolean> getStyleableProperty(InlineDatePicker n) {
+                    return (StyleableProperty<Boolean>) (WritableValue<Boolean>) n.showWeekNumbersProperty();
+                }
+            };
 
         static {
             final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(Control.getClassCssMetaData());
@@ -291,19 +298,22 @@ public class InlineDatePicker extends Control {
     }
 
     /**
-     * @return The CssMetaData associated with this class, which may include the
+     * Returns the CssMetaData associated with this class, which may include the
      * CssMetaData of its superclasses.
      */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
         return StyleableProperties.STYLEABLES;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return getClassCssMetaData();
     }
 
+    @SuppressWarnings("CatchAndPrintStackTrace")
     static boolean isValidDate(Chronology chrono, LocalDate date, int offset, ChronoUnit unit) {
         if (date != null) {
             try {
@@ -315,9 +325,12 @@ public class InlineDatePicker extends Control {
         return false;
     }
 
+    @SuppressWarnings("ReturnValueIgnored")
     static boolean isValidDate(Chronology chrono, LocalDate date) {
         try {
-            if (date != null) { chrono.date(date); }
+            if (date != null) {
+                chrono.date(date);
+            }
             return true;
         } catch (DateTimeException e) {
             e.printStackTrace();

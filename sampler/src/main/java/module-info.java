@@ -14,6 +14,7 @@ module atlantafx.sampler {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.feather;
     requires org.kordamp.ikonli.material2;
+    requires org.jetbrains.annotations;
 
     requires fr.brouillard.oss.cssfx;
     requires datafaker;
@@ -33,8 +34,9 @@ module atlantafx.sampler {
     opens atlantafx.sampler.fake.domain;
 
     // resources
-    opens atlantafx.sampler.assets;
+    opens atlantafx.sampler;
     opens atlantafx.sampler.assets.highlightjs;
     opens atlantafx.sampler.assets.styles;
+    opens atlantafx.sampler.images;
     opens atlantafx.sampler.images.modena;
 }

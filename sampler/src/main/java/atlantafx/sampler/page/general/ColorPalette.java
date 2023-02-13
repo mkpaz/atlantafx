@@ -1,7 +1,15 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
+import static atlantafx.sampler.util.Controls.hyperlink;
+
 import atlantafx.base.theme.Styles;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -15,14 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static atlantafx.sampler.util.Controls.hyperlink;
 
 class ColorPalette extends VBox {
 
@@ -48,25 +48,26 @@ class ColorPalette extends VBox {
 
         var noteText = new VBox(6);
         noteText.getChildren().setAll(
-                new TextFlow(
-                        new Text("Color contrast between text and its background must meet "),
-                        hyperlink("required WCAG standards",
-                                  URI.create("https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html")
-                        ),
-                        new Text(":")
+            new TextFlow(
+                new Text("Color contrast between text and its background must meet "),
+                hyperlink(
+                    "required WCAG standards",
+                    URI.create("https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html")
                 ),
-                new Text("  • 4.5:1 for normal text"),
-                new Text("  • 3:1 for large text (>24px)"),
-                new Text("  • 3:1 for UI elements and graphics"),
-                new Text("  • no contrast requirement for decorative and disabled elements"),
-                new Text(),
-                new Text("Click on any color block to observe and modify color combination via built-in contrast checker.")
+                new Text(":")
+            ),
+            new Text("  • 4.5:1 for normal text"),
+            new Text("  • 3:1 for large text (>24px)"),
+            new Text("  • 3:1 for UI elements and graphics"),
+            new Text("  • no contrast requirement for decorative and disabled elements"),
+            new Text(),
+            new Text("Click on any color block to observe and modify color combination via built-in contrast checker.")
         );
 
         var colorGrid = colorGrid();
 
         backgroundProperty().addListener((obs, old, val) -> bgBaseColor.set(
-                val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
+            val != null && !val.getFills().isEmpty() ? (Color) val.getFills().get(0).getFill() : Color.WHITE
         ));
 
         getChildren().setAll(headerBox, noteText, colorGrid);
@@ -87,7 +88,9 @@ class ColorPalette extends VBox {
         grid.add(colorBlock("-color-fg-default", "-color-accent-muted", "-color-accent-emphasis"), 2, 1);
         grid.add(colorBlock("-color-accent-fg", "-color-accent-subtle", "-color-accent-emphasis"), 3, 1);
 
-        grid.add(colorBlock("-color-fg-emphasis", "-color-neutral-emphasis-plus", "-color-neutral-emphasis-plus"), 0, 2);
+        grid.add(
+            colorBlock("-color-fg-emphasis", "-color-neutral-emphasis-plus", "-color-neutral-emphasis-plus"), 0, 2
+        );
         grid.add(colorBlock("-color-fg-emphasis", "-color-neutral-emphasis", "-color-neutral-emphasis"), 1, 2);
         grid.add(colorBlock("-color-fg-default", "-color-neutral-muted", "-color-neutral-emphasis"), 2, 2);
         grid.add(colorBlock("-color-fg-default", "-color-neutral-subtle", "-color-neutral-emphasis"), 3, 2);

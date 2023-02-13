@@ -1,5 +1,17 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.BORDERED;
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.STRIPED;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.base.theme.Tweaks.ALIGN_CENTER;
+import static atlantafx.base.theme.Tweaks.ALIGN_LEFT;
+import static atlantafx.base.theme.Tweaks.ALIGN_RIGHT;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static javafx.collections.FXCollections.observableArrayList;
 
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
@@ -8,14 +20,33 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.IntStream;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.ProgressBarTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -24,27 +55,19 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.javafx.FontIconTableCell;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.base.theme.Tweaks.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static javafx.collections.FXCollections.observableArrayList;
-
 public class TablePage extends AbstractPage {
 
     public static final String NAME = "TableView";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private TableView<Product> table;
     private final List<Product> dataList = IntStream.range(1, 51).boxed()
-            .map(i -> Product.random(i, FAKER))
-            .toList();
+        .map(i -> Product.random(i, FAKER))
+        .toList();
 
     public TablePage() {
         super();
@@ -68,7 +91,7 @@ public class TablePage extends AbstractPage {
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-                (obs, old, value) -> toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
+            (obs, old, value) -> toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
         );
 
         var maxRowCount = 100;
@@ -79,14 +102,14 @@ public class TablePage extends AbstractPage {
         rowCountBox.setAlignment(Pos.CENTER_LEFT);
 
         var footer = new HBox(
-                BLOCK_HGAP,
-                new Spacer(),
-                bordersToggle,
-                denseToggle,
-                stripesToggle,
-                edge2edgeToggle,
-                new Spacer(),
-                rowCountBox
+            BLOCK_HGAP,
+            new Spacer(),
+            bordersToggle,
+            denseToggle,
+            stripesToggle,
+            edge2edgeToggle,
+            new Spacer(),
+            rowCountBox
         );
         footer.setAlignment(Pos.CENTER_LEFT);
 
@@ -94,8 +117,8 @@ public class TablePage extends AbstractPage {
 
         var filteredData = new FilteredList<>(observableArrayList(dataList));
         filteredData.predicateProperty().bind(Bindings.createObjectBinding(
-                () -> product -> product.getId() <= rowCountChoice.getValue(),
-                rowCountChoice.valueProperty()
+            () -> product -> product.getId() <= rowCountChoice.getValue(),
+            rowCountChoice.valueProperty()
         ));
 
         var sortedData = new SortedList<>(filteredData);
@@ -141,15 +164,17 @@ public class TablePage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { table.setDisable(val); }
+            if (val != null) {
+                table.setDisable(val);
+            }
         });
 
         var header = new HBox(
-                createTablePropertiesMenu(table),
-                new Spacer(),
-                alignBox,
-                new Spacer(),
-                disableToggle
+            createTablePropertiesMenu(table),
+            new Spacer(),
+            alignBox,
+            new Spacer(),
+            disableToggle
         );
         header.setAlignment(Pos.CENTER_LEFT);
 
@@ -174,8 +199,8 @@ public class TablePage extends AbstractPage {
         indexCol.setCellFactory(col -> {
             TableCell<Product, String> cell = new TableCell<>();
             StringBinding value = Bindings.when(cell.emptyProperty())
-                    .then("")
-                    .otherwise(cell.indexProperty().add(1).asString());
+                .then("")
+                .otherwise(cell.indexProperty().add(1).asString());
             cell.textProperty().bind(value);
             return cell;
         });
@@ -188,14 +213,14 @@ public class TablePage extends AbstractPage {
         var brandCol = new TableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTableCell.forTableColumn(
-                generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
         var nameCol = new TableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTableCell.forTableColumn(
-                generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
         ));
         nameCol.setEditable(true);
 
@@ -223,73 +248,74 @@ public class TablePage extends AbstractPage {
     }
 
     private MenuButton createTablePropertiesMenu(TableView<Product> table) {
-        var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
-        var resizePolicyGroup = new ToggleGroup();
+        final var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
+        final var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
-            if (val != null && val.getUserData() instanceof Callback policy) {
+            if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 table.setColumnResizePolicy((Callback<TableView.ResizeFeatures, Boolean>) policy);
             }
         });
 
-        var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
+        final var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
         unconstrainedResizeItem.setToggleGroup(resizePolicyGroup);
         unconstrainedResizeItem.setUserData(TableView.UNCONSTRAINED_RESIZE_POLICY);
         unconstrainedResizeItem.setSelected(true);
 
-        var constrainedResizeItem = new RadioMenuItem("Constrained");
+        final var constrainedResizeItem = new RadioMenuItem("Constrained");
         constrainedResizeItem.setToggleGroup(resizePolicyGroup);
         constrainedResizeItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // ~
 
-        var selectionModeCaption = new CaptionMenuItem("Selection Mode");
-        var selectionModeGroup = new ToggleGroup();
+        final var selectionModeCaption = new CaptionMenuItem("Selection Mode");
+        final var selectionModeGroup = new ToggleGroup();
         selectionModeGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof SelectionMode mode) {
                 table.getSelectionModel().setSelectionMode(mode);
             }
         });
 
-        var singleSelectionItem = new RadioMenuItem("Single");
+        final var singleSelectionItem = new RadioMenuItem("Single");
         singleSelectionItem.setToggleGroup(selectionModeGroup);
         singleSelectionItem.setUserData(SelectionMode.SINGLE);
 
-        var multiSelectionItem = new RadioMenuItem("Multiple");
+        final var multiSelectionItem = new RadioMenuItem("Multiple");
         multiSelectionItem.setToggleGroup(selectionModeGroup);
         multiSelectionItem.setUserData(SelectionMode.MULTIPLE);
         multiSelectionItem.setSelected(true);
 
         // ~
 
-        var editCellsItem = new CheckMenuItem("Editable");
+        final var editCellsItem = new CheckMenuItem("Editable");
         table.editableProperty().bind(editCellsItem.selectedProperty());
         editCellsItem.setSelected(true);
 
-        var cellSelectionItem = new CheckMenuItem("Enable cell selection");
+        final var cellSelectionItem = new CheckMenuItem("Enable cell selection");
         table.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
         // ~
 
-        var menuButtonItem = new CheckMenuItem("Show menu button");
+        final var menuButtonItem = new CheckMenuItem("Show menu button");
         table.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Properties") {{
-            getItems().setAll(
-                    resizePolicyCaption,
-                    unconstrainedResizeItem,
-                    constrainedResizeItem,
-                    selectionModeCaption,
-                    singleSelectionItem,
-                    multiSelectionItem,
-                    new SeparatorMenuItem(),
-                    editCellsItem,
-                    cellSelectionItem,
-                    menuButtonItem
-            );
-        }};
+        final var propertiesMenu = new MenuButton("Properties");
+        propertiesMenu.getItems().setAll(
+            resizePolicyCaption,
+            unconstrainedResizeItem,
+            constrainedResizeItem,
+            selectionModeCaption,
+            singleSelectionItem,
+            multiSelectionItem,
+            new SeparatorMenuItem(),
+            editCellsItem,
+            cellSelectionItem,
+            menuButtonItem
+        );
+
+        return propertiesMenu;
     }
 
     private static void addStyleClass(TableColumn<?, ?> c, String styleClass, String... excludes) {

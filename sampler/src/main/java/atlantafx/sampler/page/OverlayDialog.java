@@ -1,8 +1,15 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
+
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TITLE_4;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.util.Containers;
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,10 +19,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.Objects;
-
-import static atlantafx.base.theme.Styles.*;
 
 public abstract class OverlayDialog<T extends Region> extends VBox {
 
@@ -46,9 +49,9 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
         headerBox.getStyleClass().add("header");
         headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getChildren().setAll(
-                titleLabel,
-                new Spacer(),
-                topCloseBtn
+            titleLabel,
+            new Spacer(),
+            topCloseBtn
         );
         VBox.setVgrow(headerBox, Priority.NEVER);
 
@@ -61,8 +64,8 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
         footerBox.getStyleClass().add("footer");
         footerBox.setAlignment(Pos.CENTER_RIGHT);
         footerBox.getChildren().setAll(
-                new Spacer(),
-                bottomCloseBtn
+            new Spacer(),
+            bottomCloseBtn
         );
         VBox.setVgrow(footerBox, Priority.NEVER);
 
@@ -88,8 +91,8 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
             // overwrite existing content
             getChildren().set(CONTENT_CHILD_INDEX, content);
         } else {
-            throw new UnsupportedOperationException("Content cannot be placed because of unexpected children size. " +
-                    "You should override 'OverlayDialog#setContent()' and place it manually.");
+            throw new UnsupportedOperationException("Content cannot be placed because of unexpected children size. "
+                + "You should override 'OverlayDialog#setContent()' and place it manually.");
         }
     }
 

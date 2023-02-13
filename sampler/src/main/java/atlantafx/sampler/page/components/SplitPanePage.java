@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.sampler.page.AbstractPage;
@@ -18,16 +19,18 @@ public class SplitPanePage extends AbstractPage {
     public static final String NAME = "SplitPane";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public SplitPanePage() {
         super();
         setUserContent(new FlowPane(
-                Page.PAGE_VGAP, Page.PAGE_HGAP,
-                hSplitSample(),
-                vSplitSample(),
-                disabledSample(),
-                gridSample()
+            Page.PAGE_VGAP, Page.PAGE_HGAP,
+            hSplitSample(),
+            vSplitSample(),
+            disabledSample(),
+            gridSample()
         ));
     }
 
@@ -58,19 +61,22 @@ public class SplitPanePage extends AbstractPage {
         topSplitPane.getItems().setAll(createBox("Quarter 4"), createBox("Quarter 1"));
         VBox.setVgrow(topSplitPane, Priority.ALWAYS);
 
+        var topBox = new VBox(topSplitPane);
+        topBox.setAlignment(Pos.CENTER);
+
         var bottomSplitPane = new SplitPane();
         bottomSplitPane.setOrientation(Orientation.HORIZONTAL);
         bottomSplitPane.setDividerPositions(0.5);
         bottomSplitPane.getItems().setAll(createBox("Quarter 3"), createBox("Quarter 2"));
         VBox.setVgrow(bottomSplitPane, Priority.ALWAYS);
 
+        var bottomBox = new VBox(bottomSplitPane);
+        bottomBox.setAlignment(Pos.CENTER);
+
         var doubleSplitPane = new SplitPane();
         doubleSplitPane.setOrientation(Orientation.VERTICAL);
         doubleSplitPane.setDividerPositions(0.5);
-        doubleSplitPane.getItems().setAll(
-                new VBox(topSplitPane) {{ setAlignment(Pos.CENTER); }},
-                new VBox(bottomSplitPane) {{ setAlignment(Pos.CENTER); }}
-        );
+        doubleSplitPane.getItems().setAll(topBox, bottomBox);
         doubleSplitPane.setMinSize(400, 200);
         doubleSplitPane.setMaxSize(400, 200);
 

@@ -27,6 +27,10 @@ $month-year-font-size: 1.1em !default;
 
 $cell-padding-x: 4px !default;
 $cell-padding-y: 8px !default;
+// default cell size is 24px (36px if second chronology), see DateCellSkin
+$cell-size: 2.5em !default;
+$cell-hgap: 5px   !default;
+$cell-vgap: 0     !default;
 $day-name-font-size: 0.9em !default;
 
 // secondary chronology
@@ -122,6 +126,8 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
   >.calendar-grid {
     -fx-background-color: -color-date-bg;
     -fx-padding: $content-padding-x;
+    -fx-hgap: $cell-hgap;
+    -fx-vgap: $cell-vgap;
 
     >.date-cell {
       -fx-background-color: transparent;
@@ -129,13 +135,13 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       -fx-alignment: BASELINE_CENTER;
       -fx-opacity: 1.0;
       -fx-text-fill: -color-date-day-fg;
+      -fx-cell-size: $cell-size;
     }
 
     >.week-number-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
       -fx-background-color: -color-date-week-bg;
       -fx-text-fill: -color-date-week-fg;
-      -fx-font-size: $day-name-font-size;
     }
 
     >.day-cell {

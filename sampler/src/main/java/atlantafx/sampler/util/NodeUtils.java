@@ -1,12 +1,12 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
+import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
-import java.util.List;
 
 public final class NodeUtils {
 
@@ -21,16 +21,22 @@ public final class NodeUtils {
 
     public static <T> T getChildByIndex(Parent parent, int index, Class<T> contentType) {
         List<Node> children = parent.getChildrenUnmodifiable();
-        if (index < 0 || index >= children.size()) { return null; }
+        if (index < 0 || index >= children.size()) {
+            return null;
+        }
         Node node = children.get(index);
         return contentType.isInstance(node) ? contentType.cast(node) : null;
     }
 
     public static boolean isDescendant(Node ancestor, Node descendant) {
-        if (ancestor == null) { return true; }
+        if (ancestor == null) {
+            return true;
+        }
 
         while (descendant != null) {
-            if (descendant == ancestor) { return true; }
+            if (descendant == ancestor) {
+                return true;
+            }
             descendant = descendant.getParent();
         }
         return false;

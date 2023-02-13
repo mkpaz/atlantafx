@@ -26,13 +26,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
+import static java.util.Objects.requireNonNull;
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
+
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
-import javafx.beans.property.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.event.EventHandler;
@@ -48,21 +62,14 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static java.util.Objects.requireNonNull;
-import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
-
 /**
  * The Popover control provides detailed information about an owning node in a
  * popup window. The popup window has a very lightweight appearance (no default
  * window decorations) and an arrow pointing at the owner. Due to the nature of
  * popup windows the Popover will move around with the parent window when the
  * user drags it.
- * <p>
- * The Popover can be detached from the owning node by dragging it away from the
+ *
+ * <p>The Popover can be detached from the owning node by dragging it away from the
  * owner. It stops displaying an arrow and starts displaying a title and a close
  * icon.
  */
@@ -136,8 +143,8 @@ public class Popover extends PopupControl {
     /**
      * The root pane stores the content node of the popover. It is accessible
      * via this method in order to support proper styling.
-     * <p>
-     * Example:
+     *
+     * <p>Example:
      *
      * <pre>
      * Popover popOver = new Popover();
@@ -170,7 +177,7 @@ public class Popover extends PopupControl {
     }
 
     /**
-     * Returns the value of the content property
+     * Returns the value of the content property.
      *
      * @return the content node
      * @see #contentNodeProperty()
@@ -216,7 +223,7 @@ public class Popover extends PopupControl {
     private Window ownerWindow;
     private final EventHandler<WindowEvent> closePopoverOnOwnerWindowCloseLambda = event -> ownerWindowHiding();
     private final WeakEventHandler<WindowEvent> closePopoverOnOwnerWindowClose =
-            new WeakEventHandler<>(closePopoverOnOwnerWindowCloseLambda);
+        new WeakEventHandler<>(closePopoverOnOwnerWindowCloseLambda);
 
     /**
      * Shows the popover in a position relative to the edges of the given owner
@@ -251,16 +258,16 @@ public class Popover extends PopupControl {
 
         switch (getArrowLocation()) {
             case BOTTOM_CENTER, BOTTOM_LEFT, BOTTOM_RIGHT -> show(
-                    owner, bounds.getMinX() + bounds.getWidth() / 2, bounds.getMinY() + offset
+                owner, bounds.getMinX() + bounds.getWidth() / 2, bounds.getMinY() + offset
             );
             case LEFT_BOTTOM, LEFT_CENTER, LEFT_TOP -> show(
-                    owner, bounds.getMaxX() - offset, bounds.getMinY() + bounds.getHeight() / 2
+                owner, bounds.getMaxX() - offset, bounds.getMinY() + bounds.getHeight() / 2
             );
             case RIGHT_BOTTOM, RIGHT_CENTER, RIGHT_TOP -> show(
-                    owner, bounds.getMinX() + offset, bounds.getMinY() + bounds.getHeight() / 2
+                owner, bounds.getMinX() + offset, bounds.getMinY() + bounds.getHeight() / 2
             );
             case TOP_CENTER, TOP_LEFT, TOP_RIGHT -> show(
-                    owner, bounds.getMinX() + bounds.getWidth() / 2, bounds.getMinY() + bounds.getHeight() - offset
+                owner, bounds.getMinX() + bounds.getWidth() / 2, bounds.getMinY() + bounds.getHeight() - offset
             );
         }
     }
@@ -371,7 +378,8 @@ public class Popover extends PopupControl {
             // due to JavaFX async nature. The only way seems to start popover as invisible (not opaque)
             // and then restore its visibility after a fixed delay to hide window repositioning.
             // Still it's not a 100% guarantee,but better than nothing.
-            int delay = Math.min((int) Objects.requireNonNullElse(fadeInDuration, DEFAULT_FADE_DURATION).toMillis() / 2, 250);
+            int delay =
+                Math.min((int) Objects.requireNonNullElse(fadeInDuration, DEFAULT_FADE_DURATION).toMillis() / 2, 250);
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -471,13 +479,13 @@ public class Popover extends PopupControl {
     private double computeXOffset() {
         return switch (getArrowLocation()) {
             case TOP_LEFT, BOTTOM_LEFT -> (
-                    getCornerRadius() + getArrowIndent() + getArrowSize()
+                getCornerRadius() + getArrowIndent() + getArrowSize()
             );
             case TOP_CENTER, BOTTOM_CENTER -> (
-                    getContentNode().prefWidth(-1) / 2
+                getContentNode().prefWidth(-1) / 2
             );
             case TOP_RIGHT, BOTTOM_RIGHT -> (
-                    getContentNode().prefWidth(-1) - getArrowIndent() - getCornerRadius() - getArrowSize()
+                getContentNode().prefWidth(-1) - getArrowIndent() - getCornerRadius() - getArrowSize()
             );
             default -> 0;
         };
@@ -487,16 +495,13 @@ public class Popover extends PopupControl {
         double prefContentHeight = getContentNode().prefHeight(-1);
 
         return switch (getArrowLocation()) {
-            case LEFT_TOP, RIGHT_TOP -> (
-                    getCornerRadius() + getArrowIndent() + getArrowSize()
-            );
-            case LEFT_CENTER, RIGHT_CENTER -> (
-                    Math.max(prefContentHeight, 2 * (getCornerRadius() + getArrowIndent() + getArrowSize())) / 2
-            );
-            case LEFT_BOTTOM, RIGHT_BOTTOM -> (
-                    Math.max(prefContentHeight - getCornerRadius() - getArrowIndent() - getArrowSize(),
-                            getCornerRadius() + getArrowIndent() + getArrowSize()
-                    )
+            case LEFT_TOP, RIGHT_TOP -> getCornerRadius() + getArrowIndent() + getArrowSize();
+            case LEFT_CENTER, RIGHT_CENTER -> Math.max(
+                prefContentHeight, 2 * (getCornerRadius() + getArrowIndent() + getArrowSize())
+            ) / 2;
+            case LEFT_BOTTOM, RIGHT_BOTTOM -> Math.max(
+                prefContentHeight - getCornerRadius() - getArrowIndent() - getArrowSize(),
+                getCornerRadius() + getArrowIndent() + getArrowSize()
             );
             default -> 0;
         };
@@ -762,7 +767,8 @@ public class Popover extends PopupControl {
         titleProperty().set(title);
     }
 
-    private final ObjectProperty<ArrowLocation> arrowLocation = new SimpleObjectProperty<>(this, "arrowLocation", ArrowLocation.LEFT_TOP);
+    private final ObjectProperty<ArrowLocation> arrowLocation =
+        new SimpleObjectProperty<>(this, "arrowLocation", ArrowLocation.LEFT_TOP);
 
     /**
      * Stores the preferred arrow location. This might not be the actual
@@ -796,7 +802,7 @@ public class Popover extends PopupControl {
     }
 
     /**
-     * All possible arrow locations
+     * All possible arrow locations.
      */
     public enum ArrowLocation {
         LEFT_TOP,

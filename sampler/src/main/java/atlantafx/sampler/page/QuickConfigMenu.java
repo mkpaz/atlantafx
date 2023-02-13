@@ -1,9 +1,24 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
+
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TEXT_CAPTION;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_ZOOM;
+import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_ZOOM;
+import static javafx.geometry.Pos.CENTER_LEFT;
+import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
+import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.page.general.AccentColorSelector;
 import atlantafx.sampler.theme.ThemeManager;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
@@ -23,21 +38,10 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.theme.ThemeManager.DEFAULT_ZOOM;
-import static atlantafx.sampler.theme.ThemeManager.SUPPORTED_ZOOM;
-import static javafx.geometry.Pos.CENTER_LEFT;
-import static org.kordamp.ikonli.material2.Material2AL.ARROW_BACK;
-import static org.kordamp.ikonli.material2.Material2AL.ARROW_FORWARD;
-
 // This should really be refactored to more generic control someday.
 // - the whole component to PopoverMenu, that reuses JavaFX MenuItem API
 // - font size switcher to flat SpinnerMenuItem
+@SuppressWarnings("UnnecessaryLambda")
 public class QuickConfigMenu extends StackPane {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
@@ -77,12 +81,16 @@ public class QuickConfigMenu extends StackPane {
     }
 
     private MainMenu getOrCreateMainMenu() {
-        if (mainMenu == null) { mainMenu = new MainMenu(navHandler); }
+        if (mainMenu == null) {
+            mainMenu = new MainMenu(navHandler);
+        }
         return mainMenu;
     }
 
     private ThemeSelectionMenu getOrCreateThemeSelectionMenu() {
-        if (themeSelectionMenu == null) { themeSelectionMenu = new ThemeSelectionMenu(navHandler); }
+        if (themeSelectionMenu == null) {
+            themeSelectionMenu = new ThemeSelectionMenu(navHandler);
+        }
         return themeSelectionMenu;
     }
 
@@ -121,10 +129,10 @@ public class QuickConfigMenu extends StackPane {
 
         private final IntegerProperty zoom = new SimpleIntegerProperty(DEFAULT_ZOOM);
         private final BooleanBinding canZoomIn = Bindings.createBooleanBinding(
-                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) < SUPPORTED_ZOOM.size() - 1, zoom
+            () -> SUPPORTED_ZOOM.indexOf(zoom.get()) < SUPPORTED_ZOOM.size() - 1, zoom
         );
         private final BooleanBinding canZoomOut = Bindings.createBooleanBinding(
-                () -> SUPPORTED_ZOOM.indexOf(zoom.get()) >= 1, zoom
+            () -> SUPPORTED_ZOOM.indexOf(zoom.get()) >= 1, zoom
         );
 
         public MainMenu(Consumer<String> navHandler) {
@@ -175,11 +183,11 @@ public class QuickConfigMenu extends StackPane {
             // ~
 
             getChildren().setAll(
-                    themeSelectionMenu,
-                    new Separator(),
-                    accentSelector,
-                    new Separator(),
-                    zoomBox
+                themeSelectionMenu,
+                new Separator(),
+                accentSelector,
+                new Separator(),
+                zoomBox
             );
         }
 
@@ -231,8 +239,8 @@ public class QuickConfigMenu extends StackPane {
         @Override
         public void update() {
             items.forEach(item -> item.pseudoClassStateChanged(
-                    SELECTED,
-                    Objects.equals(item.getUserData(), ThemeManager.getInstance().getTheme().getName())
+                SELECTED,
+                Objects.equals(item.getUserData(), ThemeManager.getInstance().getTheme().getName())
             ));
         }
 

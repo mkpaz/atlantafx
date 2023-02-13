@@ -1,36 +1,45 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 public class InputGroupPage extends AbstractPage {
 
     public static final String NAME = "Input Group";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public InputGroupPage() {
         super();
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                expandingHBox(httpMethodSample(), passwordSample()),
-                expandingHBox(networkSample(), dropdownSample()),
-                labelSample()
+            Page.PAGE_VGAP,
+            expandingHBox(httpMethodSample(), passwordSample()),
+            expandingHBox(networkSample(), dropdownSample()),
+            labelSample()
         ));
     }
 
@@ -150,10 +159,10 @@ public class InputGroupPage extends AbstractPage {
         // ~
 
         var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                sample1,
-                sample2,
-                sample3
+            BLOCK_HGAP, BLOCK_VGAP,
+            sample1,
+            sample2,
+            sample3
         );
 
         return new SampleBlock("Label & TextField", flowPane);

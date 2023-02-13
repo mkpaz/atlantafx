@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.controls.Spacer;
@@ -56,7 +57,7 @@ public class StepperSample extends SampleBlock {
 
         var stepper = new Stepper(firstItem, secondItem, thirdItem);
         stepper.selectedItemProperty().addListener(
-                (obs, old, val) -> stackContent.setText(val != null ? val.getText() : null)
+            (obs, old, val) -> stackContent.setText(val != null ? val.getText() : null)
         );
         stepper.setSelectedItem(stepper.getItems().get(0));
 
@@ -70,7 +71,7 @@ public class StepperSample extends SampleBlock {
             stepper.forward();
         });
         nextBtn.textProperty().bind(Bindings.createStringBinding(
-                () -> stepper.canGoForwardProperty().get() ? "Next" : "Done", stepper.canGoForwardProperty())
+            () -> stepper.canGoForwardProperty().get() ? "Next" : "Done", stepper.canGoForwardProperty())
         );
 
         var prevBtn = new Button("Previous");
@@ -105,12 +106,12 @@ public class StepperSample extends SampleBlock {
         });
 
         var controls = new HBox(
-                BLOCK_HGAP,
-                nextBtn,
-                prevBtn,
-                new Spacer(),
-                iconToggle,
-                rotateBtn
+            BLOCK_HGAP,
+            nextBtn,
+            prevBtn,
+            new Spacer(),
+            iconToggle,
+            rotateBtn
         );
         controls.setAlignment(Pos.CENTER_LEFT);
 

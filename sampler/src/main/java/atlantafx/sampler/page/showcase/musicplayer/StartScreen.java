@@ -1,7 +1,15 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.SUPPORTED_MEDIA_TYPES;
+
 import atlantafx.base.theme.Styles;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,14 +23,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage.SUPPORTED_MEDIA_TYPES;
 
 final class StartScreen extends BorderPane {
 
@@ -40,7 +40,7 @@ final class StartScreen extends BorderPane {
         var jumboIcon = new FontIcon(Feather.MUSIC);
 
         var noteText = new TextFlow(new Text(
-                "Select a file or a folder."
+            "Select a file or a folder."
         ));
         noteText.setMaxWidth(400);
         noteText.setTextAlignment(TextAlignment.CENTER);
@@ -72,11 +72,13 @@ final class StartScreen extends BorderPane {
         var extensions = SUPPORTED_MEDIA_TYPES.stream().map(s -> "*." + s).toList();
         var fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new ExtensionFilter(
-                "MP3 files (" + String.join(", ", extensions) + ")",
-                extensions
+            "MP3 files (" + String.join(", ", extensions) + ")",
+            extensions
         ));
         List<File> files = fileChooser.showOpenMultipleDialog(getScene().getWindow());
-        if (files == null || files.isEmpty()) { return; }
+        if (files == null || files.isEmpty()) {
+            return;
+        }
 
         for (File file : files) {
             model.addFile(new MediaFile(file));
@@ -86,15 +88,21 @@ final class StartScreen extends BorderPane {
     private void addFolder() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File dir = directoryChooser.showDialog(getScene().getWindow());
-        if (dir == null) { return; }
+        if (dir == null) {
+            return;
+        }
 
         var path = dir.toPath();
-        if (!Files.isDirectory(path) || !Files.isReadable(path)) { return; }
+        if (!Files.isDirectory(path) || !Files.isReadable(path)) {
+            return;
+        }
 
         try (Stream<Path> stream = Files.list(path)) {
             stream.forEach(p -> {
                 for (String s : SUPPORTED_MEDIA_TYPES) {
-                    if (!p.toAbsolutePath().toString().endsWith(s)) { continue; }
+                    if (!p.toAbsolutePath().toString().endsWith(s)) {
+                        continue;
+                    }
                     model.addFile(new MediaFile(p.toFile()));
                 }
             });

@@ -1,5 +1,7 @@
 package atlantafx.sampler.page.showcase;
 
+import static atlantafx.base.theme.Styles.ACCENT;
+
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.util.NodeUtils;
 import javafx.css.PseudoClass;
@@ -15,8 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.ACCENT;
 
 public abstract class ShowcasePage extends AbstractPage {
 

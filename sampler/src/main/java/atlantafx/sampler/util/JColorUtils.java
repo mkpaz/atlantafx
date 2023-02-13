@@ -1,20 +1,20 @@
 /**
  * MIT License
- * <p>
- * Copyright (c) 2022 National Geospatial-Intelligence Agency
+ *
+ * <p>Copyright (c) 2022 National Geospatial-Intelligence Agency
  * Source: https://github.com/ngageoint/color-java
- * <p>
- * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * <p>
- * The above copyright notice and this permission notice shall be included in all
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * <p>
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -22,11 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package atlantafx.sampler.util;
 
-import javafx.scene.paint.Color;
-
 import java.util.regex.Pattern;
+import javafx.scene.paint.Color;
 
 /**
  * Color utilities with support for hex, RGB, arithmetic RGB, HSL, and integer colors.
@@ -36,19 +36,19 @@ import java.util.regex.Pattern;
 public class JColorUtils {
 
     /**
-     * Hex color pattern
+     * Hex color pattern.
      */
     private static final Pattern hexColorPattern = Pattern
-            .compile("^#?((\\p{XDigit}{3}){1,2}|(\\p{XDigit}{4}){1,2})$");
+        .compile("^#?((\\p{XDigit}{3}){1,2}|(\\p{XDigit}{4}){1,2})$");
 
     /**
-     * Hex single color pattern
+     * Hex single color pattern.
      */
     private static final Pattern hexSingleColorPattern = Pattern
-            .compile("^\\p{XDigit}{1,2}$");
+        .compile("^\\p{XDigit}{1,2}$");
 
     /**
-     * Convert the hex color values to a hex color
+     * Convert the hex color values to a hex color.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -60,7 +60,19 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color, shorthanded when possible
+     * Convert the RGB values to a color integer.
+     *
+     * @param red   red integer color inclusively between 0 and 255
+     * @param green green integer color inclusively between 0 and 255
+     * @param blue  blue integer color inclusively between 0 and 255
+     * @return integer color
+     */
+    public static int toColor(int red, int green, int blue) {
+        return toColorWithAlpha(red, green, blue, -1);
+    }
+
+    /**
+     * Convert the hex color values to a hex color, shorthanded when possible.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -74,7 +86,7 @@ public class JColorUtils {
 
     /**
      * Convert the hex color values to a hex color including an opaque alpha
-     * value of FF
+     * value of FF.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -85,28 +97,14 @@ public class JColorUtils {
                                           String blue) {
         String defaultAlpha = "FF";
         if (red != null && !red.isEmpty()
-                && Character.isLowerCase(red.charAt(0))) {
+            && Character.isLowerCase(red.charAt(0))) {
             defaultAlpha = defaultAlpha.toLowerCase();
         }
         return toColorWithAlpha(red, green, blue, defaultAlpha);
     }
 
     /**
-     * Convert the hex color values to a hex color including an opaque alpha
-     * value of FF or F, shorthanded when possible
-     *
-     * @param red   red hex color in format RR or R
-     * @param green green hex color in format GG or G
-     * @param blue  blue hex color in format BB or B
-     * @return hex color in format #ARGB or #AARRGGBB
-     */
-    public static String toColorShorthandWithAlpha(String red, String green,
-                                                   String blue) {
-        return shorthandHex(toColorWithAlpha(red, green, blue));
-    }
-
-    /**
-     * Convert the hex color values to a hex color
+     * Convert the hex color values to a hex color.
      *
      * @param red   red hex color in format RR or R
      * @param green green hex color in format GG or G
@@ -132,34 +130,8 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex color values to a hex color, shorthanded when possible
-     *
-     * @param red   red hex color in format RR or R
-     * @param green green hex color in format GG or G
-     * @param blue  blue hex color in format BB or B
-     * @param alpha alpha hex color in format AA or A, null to not include alpha
-     * @return hex color in format #ARGB, #RGB, #AARRGGBB, or #RRGGBB
-     */
-    public static String toColorShorthandWithAlpha(String red, String green,
-                                                   String blue, String alpha) {
-        return shorthandHex(toColorWithAlpha(red, green, blue, alpha));
-    }
-
-    /**
-     * Convert the RGB values to a color integer
-     *
-     * @param red   red integer color inclusively between 0 and 255
-     * @param green green integer color inclusively between 0 and 255
-     * @param blue  blue integer color inclusively between 0 and 255
-     * @return integer color
-     */
-    public static int toColor(int red, int green, int blue) {
-        return toColorWithAlpha(red, green, blue, -1);
-    }
-
-    /**
      * Convert the RGB values to a color integer including an opaque alpha value
-     * of 255
+     * of 255.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -171,7 +143,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGBA values to a color integer
+     * Convert the RGBA values to a color integer.
      *
      * @param red   red integer color inclusively between 0 and 255
      * @param green green integer color inclusively between 0 and 255
@@ -194,7 +166,35 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGB integer to a hex single color
+     * Convert the hex color values to a hex color including an opaque alpha
+     * value of FF or F, shorthanded when possible.
+     *
+     * @param red   red hex color in format RR or R
+     * @param green green hex color in format GG or G
+     * @param blue  blue hex color in format BB or B
+     * @return hex color in format #ARGB or #AARRGGBB
+     */
+    public static String toColorShorthandWithAlpha(String red, String green,
+                                                   String blue) {
+        return shorthandHex(toColorWithAlpha(red, green, blue));
+    }
+
+    /**
+     * Convert the hex color values to a hex color, shorthanded when possible.
+     *
+     * @param red   red hex color in format RR or R
+     * @param green green hex color in format GG or G
+     * @param blue  blue hex color in format BB or B
+     * @param alpha alpha hex color in format AA or A, null to not include alpha
+     * @return hex color in format #ARGB, #RGB, #AARRGGBB, or #RRGGBB
+     */
+    public static String toColorShorthandWithAlpha(String red, String green,
+                                                   String blue, String alpha) {
+        return shorthandHex(toColorWithAlpha(red, green, blue, alpha));
+    }
+
+    /**
+     * Convert the RGB integer to a hex single color.
      *
      * @param color integer color inclusively between 0 and 255
      * @return hex single color in format FF
@@ -209,7 +209,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the arithmetic RGB float to a hex single color
+     * Convert the arithmetic RGB float to a hex single color.
      *
      * @param color float color inclusively between 0.0 and 1.0
      * @return hex single color in format FF
@@ -219,7 +219,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex single color to an RGB integer
+     * Convert the hex single color to an RGB integer.
      *
      * @param color hex single color in format FF or F
      * @return integer color inclusively between 0 and 255
@@ -233,7 +233,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the arithmetic RGB float to an RGB integer
+     * Convert the arithmetic RGB float to an RGB integer.
      *
      * @param color float color inclusively between 0.0 and 1.0
      * @return integer color inclusively between 0 and 255
@@ -244,7 +244,20 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the hex single color to an arithmetic RGB float
+     * Convert HSL (hue, saturation, and lightness) values to RGB integer values.
+     *
+     * @param hue        hue value inclusively between 0.0 and 360.0
+     * @param saturation saturation inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
+     * @return RGB integer array where: 0 = red, 1 = green, 2 = blue
+     */
+    public static int[] toRGB(float hue, float saturation, float lightness) {
+        float[] arithmeticRGB = toArithmeticRGB(hue, saturation, lightness);
+        return new int[] {toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2])};
+    }
+
+    /**
+     * Convert the hex single color to an arithmetic RGB float.
      *
      * @param color hex single color in format FF or F
      * @return float color inclusively between 0.0 and 1.0
@@ -254,7 +267,7 @@ public class JColorUtils {
     }
 
     /**
-     * Convert the RGB integer to an arithmetic RGB float
+     * Convert the RGB integer to an arithmetic RGB float.
      *
      * @param color integer color inclusively between 0 and 255
      * @return float color inclusively between 0.0 and 1.0
@@ -265,8 +278,38 @@ public class JColorUtils {
     }
 
     /**
+     * Convert HSL (hue, saturation, and lightness) values to RGB arithmetic
+     * values.
+     *
+     * @param hue        hue value inclusively between 0.0 and 360.0
+     * @param saturation saturation inclusively between 0.0 and 1.0
+     * @param lightness  lightness inclusively between 0.0 and 1.0
+     * @return arithmetic RGB array where: 0 = red, 1 = green, 2 = blue
+     */
+    public static float[] toArithmeticRGB(float hue, float saturation, float lightness) {
+        validateHue(hue);
+        validateSaturation(saturation);
+        validateLightness(lightness);
+
+        hue /= 60.0f;
+        float t2;
+        if (lightness <= 0.5f) {
+            t2 = lightness * (saturation + 1);
+        } else {
+            t2 = lightness + saturation - (lightness * saturation);
+        }
+        float t1 = lightness * 2.0f - t2;
+
+        float red = hslConvert(t1, t2, hue + 2);
+        float green = hslConvert(t1, t2, hue);
+        float blue = hslConvert(t1, t2, hue - 2);
+
+        return new float[] {red, green, blue};
+    }
+
+    /**
      * Convert red, green, and blue arithmetic values to HSL (hue, saturation,
-     * lightness) values
+     * lightness) values.
      *
      * @param red   red color inclusively between 0.0 and 1.0
      * @param green green color inclusively between 0.0 and 1.0
@@ -315,12 +358,12 @@ public class JColorUtils {
             }
         }
 
-        return new float[] { hue, saturation, lightness };
+        return new float[] {hue, saturation, lightness};
     }
 
     /**
      * Convert red, green, and blue integer values to HSL (hue, saturation,
-     * lightness) values
+     * lightness) values.
      *
      * @param red   red color inclusively between 0 and 255
      * @param green green color inclusively between 0 and 255
@@ -329,56 +372,11 @@ public class JColorUtils {
      */
     public static float[] toHSL(int red, int green, int blue) {
         return toHSL(toArithmeticRGB(red), toArithmeticRGB(green),
-                toArithmeticRGB(blue));
+            toArithmeticRGB(blue));
     }
 
     /**
-     * Convert HSL (hue, saturation, and lightness) values to RGB arithmetic
-     * values
-     *
-     * @param hue        hue value inclusively between 0.0 and 360.0
-     * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness  lightness inclusively between 0.0 and 1.0
-     * @return arithmetic RGB array where: 0 = red, 1 = green, 2 = blue
-     */
-    public static float[] toArithmeticRGB(float hue, float saturation,
-                                          float lightness) {
-
-        validateHue(hue);
-        validateSaturation(saturation);
-        validateLightness(lightness);
-
-        hue /= 60.0f;
-        float t2;
-        if (lightness <= 0.5f) {
-            t2 = lightness * (saturation + 1);
-        } else {
-            t2 = lightness + saturation - (lightness * saturation);
-        }
-        float t1 = lightness * 2.0f - t2;
-
-        float red = hslConvert(t1, t2, hue + 2);
-        float green = hslConvert(t1, t2, hue);
-        float blue = hslConvert(t1, t2, hue - 2);
-
-        return new float[] { red, green, blue };
-    }
-
-    /**
-     * Convert HSL (hue, saturation, and lightness) values to RGB integer values
-     *
-     * @param hue        hue value inclusively between 0.0 and 360.0
-     * @param saturation saturation inclusively between 0.0 and 1.0
-     * @param lightness  lightness inclusively between 0.0 and 1.0
-     * @return RGB integer array where: 0 = red, 1 = green, 2 = blue
-     */
-    public static int[] toRGB(float hue, float saturation, float lightness) {
-        float[] arithmeticRGB = toArithmeticRGB(hue, saturation, lightness);
-        return new int[] { toRGB(arithmeticRGB[0]), toRGB(arithmeticRGB[1]), toRGB(arithmeticRGB[2]) };
-    }
-
-    /**
-     * HSL convert helper method
+     * HSL convert helper method.
      *
      * @param t1  t1
      * @param t2  t2
@@ -406,7 +404,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex red color from the hex string
+     * Get the hex red color from the hex string.
      *
      * @param hex hex color
      * @return hex red color in format RR
@@ -416,7 +414,17 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex green color from the hex string
+     * Get the red color from color integer.
+     *
+     * @param color color integer
+     * @return red color
+     */
+    public static int getRed(int color) {
+        return (color >> 16) & 0xff;
+    }
+
+    /**
+     * Get the hex green color from the hex string.
      *
      * @param hex hex color
      * @return hex green color in format GG
@@ -426,7 +434,17 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex blue color from the hex string
+     * Get the green color from color integer.
+     *
+     * @param color color integer
+     * @return green color
+     */
+    public static int getGreen(int color) {
+        return (color >> 8) & 0xff;
+    }
+
+    /**
+     * Get the hex blue color from the hex string.
      *
      * @param hex hex color
      * @return hex blue color in format BB
@@ -436,7 +454,17 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex alpha color from the hex string if it exists
+     * Get the blue color from color integer.
+     *
+     * @param color color integer
+     * @return blue color
+     */
+    public static int getBlue(int color) {
+        return color & 0xff;
+    }
+
+    /**
+     * Get the hex alpha color from the hex string if it exists.
      *
      * @param hex hex color
      * @return hex alpha color in format AA or null
@@ -446,7 +474,17 @@ public class JColorUtils {
     }
 
     /**
-     * Get the hex single color
+     * Get the alpha color from color integer.
+     *
+     * @param color color integer
+     * @return alpha color
+     */
+    public static int getAlpha(int color) {
+        return (color >> 24) & 0xff;
+    }
+
+    /**
+     * Get the hex single color.
      *
      * @param hex        hex color
      * @param colorIndex red=0, green=1, blue=2, alpha=-1
@@ -483,47 +521,7 @@ public class JColorUtils {
     }
 
     /**
-     * Get the red color from color integer
-     *
-     * @param color color integer
-     * @return red color
-     */
-    public static int getRed(int color) {
-        return (color >> 16) & 0xff;
-    }
-
-    /**
-     * Get the green color from color integer
-     *
-     * @param color color integer
-     * @return green color
-     */
-    public static int getGreen(int color) {
-        return (color >> 8) & 0xff;
-    }
-
-    /**
-     * Get the blue color from color integer
-     *
-     * @param color color integer
-     * @return blue color
-     */
-    public static int getBlue(int color) {
-        return color & 0xff;
-    }
-
-    /**
-     * Get the alpha color from color integer
-     *
-     * @param color color integer
-     * @return alpha color
-     */
-    public static int getAlpha(int color) {
-        return (color >> 24) & 0xff;
-    }
-
-    /**
-     * Shorthand the hex color if possible
+     * Shorthand the hex color if possible.
      *
      * @param color hex color
      * @return shorthand hex color or original value
@@ -539,7 +537,7 @@ public class JColorUtils {
             }
             for (; startIndex < color.length(); startIndex += 2) {
                 String shorthand = shorthandHexSingle(
-                        color.substring(startIndex, startIndex + 2));
+                    color.substring(startIndex, startIndex + 2));
                 if (shorthand.length() > 1) {
                     shorthandColor = null;
                     break;
@@ -555,7 +553,7 @@ public class JColorUtils {
     }
 
     /**
-     * Expand the hex if it is in shorthand
+     * Expand the hex if it is in shorthand.
      *
      * @param color hex color
      * @return expanded hex color or original value
@@ -571,7 +569,7 @@ public class JColorUtils {
             }
             for (; startIndex < color.length(); startIndex++) {
                 String expand = expandShorthandHexSingle(
-                        color.substring(startIndex, startIndex + 1));
+                    color.substring(startIndex, startIndex + 1));
                 expandColor.append(expand);
             }
             color = expandColor.toString();
@@ -580,7 +578,7 @@ public class JColorUtils {
     }
 
     /**
-     * Shorthand the hex single color if possible
+     * Shorthand the hex single color if possible.
      *
      * @param color hex single color
      * @return shorthand hex color or original value
@@ -588,15 +586,15 @@ public class JColorUtils {
     public static String shorthandHexSingle(String color) {
         validateHexSingle(color);
         if (color.length() > 1
-                && Character.toUpperCase(color.charAt(0)) == Character
-                .toUpperCase(color.charAt(1))) {
+            && Character.toUpperCase(color.charAt(0)) == Character
+            .toUpperCase(color.charAt(1))) {
             color = color.substring(0, 1);
         }
         return color;
     }
 
     /**
-     * Expand the hex single if it is in shorthand
+     * Expand the hex single if it is in shorthand.
      *
      * @param color hex single color
      * @return expanded hex color or original value
@@ -610,7 +608,7 @@ public class JColorUtils {
     }
 
     /**
-     * Check if the hex color value is valid
+     * Check if the hex color value is valid.
      *
      * @param color hex color
      * @return true if valid
@@ -620,20 +618,21 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the hex color value
+     * Validate the hex color value.
      *
      * @param color hex color
      */
     public static void validateHex(String color) {
         if (!isValidHex(color)) {
             throw new IllegalArgumentException(
-                    "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: "
-                            + color);
+                "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB,"
+                    + " or ARGB, invalid value: " + color
+            );
         }
     }
 
     /**
-     * Check if the hex single color value is valid
+     * Check if the hex single color value is valid.
      *
      * @param color hex single color
      * @return true if valid
@@ -643,19 +642,19 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the hex single color value
+     * Validate the hex single color value.
      *
      * @param color hex single color
      */
     public static void validateHexSingle(String color) {
         if (!isValidHexSingle(color)) {
             throw new IllegalArgumentException(
-                    "Must be in format FF or F, invalid value: " + color);
+                "Must be in format FF or F, invalid value: " + color);
         }
     }
 
     /**
-     * Check if the RGB integer color is valid, inclusively between 0 and 255
+     * Check if the RGB integer color is valid, inclusively between 0 and 255.
      *
      * @param color decimal color
      * @return true if valid
@@ -665,21 +664,20 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the RGB integer color is inclusively between 0 and 255
+     * Validate the RGB integer color is inclusively between 0 and 255.
      *
      * @param color decimal color
      */
     public static void validateRGB(int color) {
         if (!isValidRGB(color)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0 and 255, invalid value: "
-                            + color);
+                "Must be inclusively between 0 and 255, invalid value: "
+                    + color);
         }
     }
 
     /**
-     * Check if the arithmetic RGB float color is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the arithmetic RGB float color is valid, inclusively between 0.0 and 1.0.
      *
      * @param color decimal color
      * @return true if valid
@@ -689,22 +687,20 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the arithmetic RGB float color is inclusively between 0.0 and
-     * 1.0
+     * Validate the arithmetic RGB float color is inclusively between 0.0 and 1.0.
      *
      * @param color decimal color
      */
     public static void validateArithmeticRGB(float color) {
         if (!isValidArithmeticRGB(color)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + color);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + color);
         }
     }
 
     /**
-     * Check if the HSL hue float value is valid, inclusively between 0.0 and
-     * 360.0
+     * Check if the HSL hue float value is valid, inclusively between 0.0 and 360.0.
      *
      * @param hue hue value
      * @return true if valid
@@ -721,14 +717,13 @@ public class JColorUtils {
     public static void validateHue(float hue) {
         if (!isValidHue(hue)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 360.0, invalid value: "
-                            + hue);
+                "Must be inclusively between 0.0 and 360.0, invalid value: "
+                    + hue);
         }
     }
 
     /**
-     * Check if the HSL saturation float value is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the HSL saturation float value is valid, inclusively between 0.0 and 1.0.
      *
      * @param saturation saturation value
      * @return true if valid
@@ -738,22 +733,20 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the HSL saturation float value is inclusively between 0.0 and
-     * 1.0
+     * Validate the HSL saturation float value is inclusively between 0.0 and 1.0.
      *
      * @param saturation saturation value
      */
     public static void validateSaturation(float saturation) {
         if (!isValidSaturation(saturation)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + saturation);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + saturation);
         }
     }
 
     /**
-     * Check if the HSL lightness float value is valid, inclusively between 0.0
-     * and 1.0
+     * Check if the HSL lightness float value is valid, inclusively between 0.0 and 1.0.
      *
      * @param lightness lightness value
      * @return true if valid
@@ -763,15 +756,15 @@ public class JColorUtils {
     }
 
     /**
-     * Validate the HSL lightness float value is inclusively between 0.0 and 1.0
+     * Validate the HSL lightness float value is inclusively between 0.0 and 1.0.
      *
      * @param lightness lightness value
      */
     public static void validateLightness(float lightness) {
         if (!isValidLightness(lightness)) {
             throw new IllegalArgumentException(
-                    "Must be inclusively between 0.0 and 1.0, invalid value: "
-                            + lightness);
+                "Must be inclusively between 0.0 and 1.0, invalid value: "
+                    + lightness);
         }
     }
 
@@ -804,17 +797,17 @@ public class JColorUtils {
      */
     public static double[] flattenColor(Color bg, Color fgColor) {
         var opacity = fgColor.getOpacity();
-        return opacity < 1 ?
-                new double[] {
-                        opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
-                        opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
-                        opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
-                } :
-                new double[] {
-                        fgColor.getRed(),
-                        fgColor.getGreen(),
-                        fgColor.getBlue(),
-                };
+        return opacity < 1
+            ? new double[] {
+                opacity * fgColor.getRed() + (1 - opacity) * bg.getRed(),
+                opacity * fgColor.getGreen() + (1 - opacity) * bg.getGreen(),
+                opacity * fgColor.getBlue() + (1 - opacity) * bg.getBlue(),
+            }
+            : new double[] {
+                fgColor.getRed(),
+                fgColor.getGreen(),
+                fgColor.getBlue(),
+            };
     }
 
     /**
@@ -823,35 +816,35 @@ public class JColorUtils {
      */
     public static Color opaqueColor(Color bgColor, Color targetColor, double targetOpacity) {
         return Color.color(
-                bgColor.getRed() + (targetColor.getRed() - bgColor.getRed()) * targetOpacity,
-                bgColor.getGreen() + (targetColor.getGreen() - bgColor.getGreen()) * targetOpacity,
-                bgColor.getBlue() + (targetColor.getBlue() - bgColor.getBlue()) * targetOpacity,
-                targetOpacity
+            bgColor.getRed() + (targetColor.getRed() - bgColor.getRed()) * targetOpacity,
+            bgColor.getGreen() + (targetColor.getGreen() - bgColor.getGreen()) * targetOpacity,
+            bgColor.getBlue() + (targetColor.getBlue() - bgColor.getBlue()) * targetOpacity,
+            targetOpacity
         );
     }
 
     public static float[] toHSL(Color color) {
         return JColorUtils.toHSL(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue()
         );
     }
 
     public static String toHexWithAlpha(Color color) {
         return JColor.color(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue(),
-                (float) color.getOpacity()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue(),
+            (float) color.getOpacity()
         ).getColorHexShorthandWithAlpha();
     }
 
     public static String toHexOpaque(Color color) {
         return JColor.color(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue()
+            (float) color.getRed(),
+            (float) color.getGreen(),
+            (float) color.getBlue()
         ).getColorHexShorthandWithAlpha();
     }
 }

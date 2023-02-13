@@ -1,5 +1,11 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
+
+import static atlantafx.sampler.page.Page.PAGE_HGAP;
+import static atlantafx.sampler.page.Page.PAGE_VGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.SampleBlock;
@@ -10,11 +16,6 @@ import javafx.scene.layout.GridPane;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.sampler.page.Page.PAGE_HGAP;
-import static atlantafx.sampler.page.Page.PAGE_VGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class TagSample extends GridPane {
 
@@ -120,24 +121,24 @@ public class TagSample extends GridPane {
         var content = new FlowPane(BLOCK_HGAP, BLOCK_VGAP);
         content.setPrefWidth(PREF_WIDTH);
         new CSSFragment("""
-                .brand {
-                  -color-button-fg:         -color-fg-emphasis;
-                  -color-button-bg-hover:   -color-button-bg;
-                  -color-button-bg-pressed: -color-button-bg;
-                }
-                .twitter {
-                  -color-button-bg:     rgb(85, 172, 238);
-                  -color-button-border: rgb(85, 172, 238);
-                }
-                .youtube {
-                  -color-button-bg:     rgb(205, 32, 31);
-                  -color-button-border: rgb(205, 32, 31);
-                }
-                .facebook {
-                  -color-button-bg:     rgb(59, 89, 153);
-                  -color-button-border: rgb(59, 89, 153);
-                }
-                """).addTo(content);
+            .brand {
+              -color-button-fg:         -color-fg-emphasis;
+              -color-button-bg-hover:   -color-button-bg;
+              -color-button-bg-pressed: -color-button-bg;
+            }
+            .twitter {
+              -color-button-bg:     rgb(85, 172, 238);
+              -color-button-border: rgb(85, 172, 238);
+            }
+            .youtube {
+              -color-button-bg:     rgb(205, 32, 31);
+              -color-button-border: rgb(205, 32, 31);
+            }
+            .facebook {
+              -color-button-bg:     rgb(59, 89, 153);
+              -color-button-border: rgb(59, 89, 153);
+            }
+            """).addTo(content);
 
         var twitterTag = new Tag("Twitter", new FontIcon(Feather.TWITTER));
         twitterTag.getStyleClass().addAll("brand", "twitter");

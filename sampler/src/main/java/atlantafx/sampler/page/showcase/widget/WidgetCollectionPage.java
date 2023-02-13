@@ -1,9 +1,11 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.Page;
+import java.util.function.Supplier;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -13,8 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.util.function.Supplier;
-
 // JavaFX Skin API is very complex and almost undocumented. In many cases it's much simpler
 // to create a small widget that just do the job than wasting hours to debug control behaviour.
 // Consider this as a cookbook of those widgets.
@@ -23,7 +23,9 @@ public class WidgetCollectionPage extends BorderPane implements Page {
     public static final String NAME = "Widgets";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final ListView<Example> toc = new ListView<>();
     private final VBox widgetWrapper = new VBox(PAGE_HGAP);
@@ -43,7 +45,9 @@ public class WidgetCollectionPage extends BorderPane implements Page {
         toc.getStyleClass().addAll("toc", Styles.DENSE, Tweaks.EDGE_TO_EDGE);
         toc.getItems().setAll(Example.values());
         toc.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             widgetWrapper.getChildren().setAll(val.getSupplier().get());
         });
 
@@ -73,12 +77,15 @@ public class WidgetCollectionPage extends BorderPane implements Page {
     }
 
     @Override
-    public void reset() { }
+    public void reset() {
+    }
 
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
-        if (isRendered) { return; }
+        if (isRendered) {
+            return;
+        }
 
         isRendered = true;
         toc.getSelectionModel().selectFirst();
@@ -87,11 +94,12 @@ public class WidgetCollectionPage extends BorderPane implements Page {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    @SuppressWarnings("ImmutableEnumChecker")
     public enum Example {
-        CARD("Card", () -> new CardSample()),
-        MESSAGE("Message", () -> new MessageSample()),
-        STEPPER("Stepper", () -> new StepperSample()),
-        TAG("Tag", () -> new TagSample());
+        CARD("Card", CardSample::new),
+        MESSAGE("Message", MessageSample::new),
+        STEPPER("Stepper", StepperSample::new),
+        TAG("Tag", TagSample::new);
 
         private final String name;
         private final Supplier<Pane> supplier;

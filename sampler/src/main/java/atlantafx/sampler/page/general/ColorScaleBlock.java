@@ -1,5 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
+
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 import atlantafx.sampler.util.JColorUtils;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -7,9 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 class ColorScaleBlock extends VBox {
 
@@ -34,8 +35,8 @@ class ColorScaleBlock extends VBox {
             if (c instanceof Label label) {
                 String colorName = (String) label.getUserData();
                 label.setStyle(String.format("-fx-background-color:%s;-fx-text-fill:%s;",
-                                             colorName,
-                                             JColorUtils.toHexWithAlpha(getSafeFgColor(label))
+                    colorName,
+                    JColorUtils.toHexWithAlpha(getSafeFgColor(label))
                 ));
             }
         });
@@ -66,8 +67,8 @@ class ColorScaleBlock extends VBox {
     }
 
     private Color getBgColor(Label label) {
-        return label.getBackground() != null && !label.getBackground().isEmpty() ?
-                (Color) label.getBackground().getFills().get(0).getFill() : Color.WHITE;
+        return label.getBackground() != null && !label.getBackground().isEmpty()
+            ? (Color) label.getBackground().getFills().get(0).getFill() : Color.WHITE;
     }
 
     ///////////////////////////////////////////////////////////////////////////

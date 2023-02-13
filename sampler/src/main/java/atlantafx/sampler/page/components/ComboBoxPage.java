@@ -1,9 +1,20 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.STATE_DANGER;
+import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
+import static atlantafx.sampler.util.Containers.H_GROW_NEVER;
+import static javafx.collections.FXCollections.observableArrayList;
 
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -16,29 +27,20 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Containers.H_GROW_NEVER;
-import static javafx.collections.FXCollections.observableArrayList;
-
 public class ComboBoxPage extends AbstractPage {
 
     public static final String NAME = "ComboBox";
     private static final int PREF_WIDTH = 200;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ComboBoxPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Examples", createPlayground())
+            new SampleBlock("Examples", createPlayground())
         ));
     }
 
@@ -74,8 +76,8 @@ public class ComboBoxPage extends AbstractPage {
 
         // with icons
         var badges = IntStream.range(0, 5).boxed()
-                .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
         var badgeCombo = new ComboBox<>(badges);
         badgeCombo.setPrefWidth(PREF_WIDTH);
         badgeCombo.setButtonCell(new BadgeCell());
@@ -166,7 +168,9 @@ public class ComboBoxPage extends AbstractPage {
     private ComboBox<String> createComboBoxWith(Consumer<ComboBox<String>> mutator) {
         var c = new ComboBox<String>();
         c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) { mutator.accept(c); }
+        if (mutator != null) {
+            mutator.accept(c);
+        }
         return c;
     }
 
@@ -177,7 +181,9 @@ public class ComboBoxPage extends AbstractPage {
     private ChoiceBox<String> createChoiceBoxWith(Consumer<ChoiceBox<String>> mutator) {
         var c = new ChoiceBox<String>();
         c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) { mutator.accept(c); }
+        if (mutator != null) {
+            mutator.accept(c);
+        }
         return c;
     }
 
@@ -187,7 +193,9 @@ public class ComboBoxPage extends AbstractPage {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    private record Badge(String text, Ikon icon) { }
+    @SuppressWarnings("unused")
+    private record Badge(String text, Ikon icon) {
+    }
 
     private static class BadgeCell extends ListCell<Badge> {
 

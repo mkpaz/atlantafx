@@ -1,11 +1,14 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.WritableValue;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableDoubleProperty;
@@ -21,10 +24,6 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
 
     protected static final double DEFAULT_ANIMATION_TIME = 3;
@@ -34,7 +33,7 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     protected final Arc progressArc = new Arc();
     protected final Label progressLabel = new Label();
     protected final RotateTransition transition = new RotateTransition(
-            Duration.seconds(DEFAULT_ANIMATION_TIME), progressArc
+        Duration.seconds(DEFAULT_ANIMATION_TIME), progressArc
     );
 
     public RingProgressIndicatorSkin(RingProgressIndicator indicator) {
@@ -231,26 +230,27 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     private static class StyleableProperties {
 
         private static final CssMetaData<RingProgressIndicator, Number> INDETERMINATE_ANIMATION_TIME =
-                new CssMetaData<>("-fx-indeterminate-animation-time", SizeConverter.getInstance(), DEFAULT_ANIMATION_TIME) {
+            new CssMetaData<>("-fx-indeterminate-animation-time", SizeConverter.getInstance(), DEFAULT_ANIMATION_TIME) {
 
-                    @Override
-                    public boolean isSettable(RingProgressIndicator n) {
-                        return n.getSkin() instanceof RingProgressIndicatorSkin s &&
-                                (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
-                    }
+                @Override
+                public boolean isSettable(RingProgressIndicator n) {
+                    return n.getSkin() instanceof RingProgressIndicatorSkin s
+                        && (s.indeterminateAnimationTime == null || !s.indeterminateAnimationTime.isBound());
+                }
 
-                    @Override
-                    @SuppressWarnings("RedundantCast")
-                    public StyleableProperty<Number> getStyleableProperty(RingProgressIndicator n) {
-                        final RingProgressIndicatorSkin skin = (RingProgressIndicatorSkin) n.getSkin();
-                        return (StyleableProperty<Number>) (WritableValue<Number>) skin.indeterminateAnimationTimeProperty();
-                    }
-                };
+                @Override
+                @SuppressWarnings("unchecked")
+                public StyleableProperty<Number> getStyleableProperty(RingProgressIndicator n) {
+                    final RingProgressIndicatorSkin skin = (RingProgressIndicatorSkin) n.getSkin();
+                    return (StyleableProperty<Number>) skin.indeterminateAnimationTimeProperty();
+                }
+            };
 
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
-            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(SkinBase.getClassCssMetaData());
+            final List<CssMetaData<? extends Styleable, ?>> styleables =
+                new ArrayList<>(SkinBase.getClassCssMetaData());
             styleables.add(INDETERMINATE_ANIMATION_TIME);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }

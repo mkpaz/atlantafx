@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -27,14 +28,16 @@ final class Utils {
 
     public static Color getDominantColor(Image image, double opacity) {
         int[] dominant = ColorThief.getColor(SwingFXUtils.fromFXImage(image, null));
-        if (dominant == null || dominant.length != 3) { return Color.TRANSPARENT; }
+        if (dominant == null || dominant.length != 3) {
+            return Color.TRANSPARENT;
+        }
         return Color.rgb(dominant[0], dominant[1], dominant[2], opacity);
     }
 
     public static String formatDuration(Duration duration) {
         long seconds = (long) duration.toSeconds();
-        return seconds < 3600 ?
-                String.format("%02d:%02d", (seconds % 3600) / 60, seconds % 60) :
-                String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
+        return seconds < 3600
+            ? String.format("%02d:%02d", (seconds % 3600) / 60, seconds % 60)
+            : String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, seconds % 60);
     }
 }

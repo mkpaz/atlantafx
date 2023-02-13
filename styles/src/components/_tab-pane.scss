@@ -50,10 +50,10 @@ $color-float-border: -color-border-default !default;
 $color-float-bg-selected:     -color-bg-default     !default;
 $color-float-border-selected: -color-border-default !default;
 
-$tab-float-label-padding-x:       0.55em !default;
-$tab-float-label-padding-x-dense: 0.35em  !default;
-$tab-float-label-padding-y:       0.55em !default;
-$tab-float-label-padding-y-dense: 0.35em !default;
+$tab-float-label-padding-x:       0.6em !default;
+$tab-float-label-padding-x-dense: 0.4em  !default;
+$tab-float-label-padding-y:       0.6em !default;
+$tab-float-label-padding-y-dense: 0.4em !default;
 
 $header-float-border-width: 1px   !default;
 $tab-float-spacing:         3px   !default;
@@ -93,6 +93,15 @@ $tab-float-width:           150px !default;
             -fx-background-color: $color-fg;
             -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
             -fx-scale-shape: false;
+
+            // Close button implemented as a single StackPane that transformed to the close icon via SVG path.
+            // Since there's no any wrapper around it, it's impossible to create background color hover effect.
+            // We can only manipulate icon color or scale or cursor.
+            &:hover {
+              -fx-cursor: hand;
+              -fx-scale-x: 1.1;
+              -fx-scale-y: 1.1;
+            }
           }
         }
 

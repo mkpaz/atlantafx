@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+
+.icon-browser {
+
+  -fx-border-color: transparent;
+  -color-cell-border: transparent;
+
+  >.column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+  }
+
+  .table-row-cell {
+    -fx-cell-size: 80px;
+
+    .icon-label {
+      -fx-padding: 10px;
+      -fx-cursor: hand;
+    }
+  }
+
+  .ikonli-font-icon {
+    -fx-icon-size: 36px;
+  }
+}

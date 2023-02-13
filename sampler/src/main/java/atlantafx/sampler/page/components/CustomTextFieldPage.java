@@ -1,5 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.STATE_DANGER;
+import static atlantafx.base.theme.Styles.STATE_SUCCESS;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.util.PasswordTextFormatter;
@@ -10,27 +14,26 @@ import javafx.scene.layout.FlowPane;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
-
 public class CustomTextFieldPage extends AbstractPage {
 
     public static final String NAME = "CustomTextField";
     private static final int PREF_WIDTH = 120;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public CustomTextFieldPage() {
         super();
         setUserContent(new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                leftIconSample(),
-                rightIconSample(),
-                bothIconsSample(),
-                successSample(),
-                dangerSample(),
-                passwordSample()
+            PAGE_HGAP, PAGE_VGAP,
+            leftIconSample(),
+            rightIconSample(),
+            bothIconsSample(),
+            successSample(),
+            dangerSample(),
+            passwordSample()
         ));
     }
 

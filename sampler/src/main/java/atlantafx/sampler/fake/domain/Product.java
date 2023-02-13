@@ -1,12 +1,12 @@
 /* SPDX-License-Identifier: MIT */
-package atlantafx.sampler.fake.domain;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import net.datafaker.Faker;
+package atlantafx.sampler.fake.domain;
 
 import java.util.Objects;
 import java.util.function.Function;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import net.datafaker.Faker;
 
 public final class Product {
 
@@ -34,31 +34,57 @@ public final class Product {
         this.count = count;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public boolean getState() { return state.get(); }
+    public boolean getState() {
+        return state.get();
+    }
 
-    public BooleanProperty stateProperty() { return state; }
+    public BooleanProperty stateProperty() {
+        return state;
+    }
 
-    public void setState(boolean state) { this.state.set(state); }
+    public void setState(boolean state) {
+        this.state.set(state);
+    }
 
-    public String getBrand() { return brand; }
+    public String getBrand() {
+        return brand;
+    }
 
-    public void setBrand(String brand) { this.brand = brand; }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getPrice() { return price; }
+    public String getPrice() {
+        return price;
+    }
 
-    public void setPrice(String price) { this.price = price; }
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
-    public Integer getCount() { return count; }
+    public Integer getCount() {
+        return count;
+    }
 
-    public void setCount(Integer count) { this.count = count; }
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public double getAvailability() {
         return count * 1.0 / MAX_STOCK_SIZE;
@@ -66,12 +92,12 @@ public final class Product {
 
     public static Product random(int id, Faker faker) {
         return new Product(
-                id,
-                new SimpleBooleanProperty(),
-                faker.commerce().brand(),
-                faker.commerce().productName(),
-                faker.commerce().price(),
-                faker.random().nextInt(0, MAX_STOCK_SIZE)
+            id,
+            new SimpleBooleanProperty(),
+            faker.commerce().brand(),
+            faker.commerce().productName(),
+            faker.commerce().price(),
+            faker.random().nextInt(0, MAX_STOCK_SIZE)
         );
     }
 

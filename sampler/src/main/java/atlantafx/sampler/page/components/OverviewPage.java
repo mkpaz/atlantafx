@@ -1,5 +1,18 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.BUTTON_OUTLINED;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LEFT_PILL;
+import static atlantafx.base.theme.Styles.RIGHT_PILL;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.ToggleSwitch;
@@ -7,7 +20,26 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.IntegerStringConverter;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
-import javafx.scene.control.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.stream.IntStream;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,13 +47,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.time.LocalDate;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 public class OverviewPage extends AbstractPage {
 
@@ -31,19 +56,21 @@ public class OverviewPage extends AbstractPage {
     private static final int COMBO_BOX_WIDTH = 150;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public OverviewPage() {
         super();
         setUserContent(new VBox(
-                PAGE_VGAP,
-                buttonSample(),
-                expandingHBox(iconButtonSample(), dropdownMenuSample()),
-                expandingHBox(checkBoxSample(), radioButtonSample(), toggleSwitchSample()),
-                comboBoxSample(),
-                sliderSample(),
-                expandingHBox(textFieldSample(), spinnerSample()),
-                textAreaSample()
+            PAGE_VGAP,
+            buttonSample(),
+            expandingHBox(iconButtonSample(), dropdownMenuSample()),
+            expandingHBox(checkBoxSample(), radioButtonSample(), toggleSwitchSample()),
+            comboBoxSample(),
+            sliderSample(),
+            expandingHBox(textFieldSample(), spinnerSample()),
+            textAreaSample()
         ));
     }
 
@@ -214,7 +241,7 @@ public class OverviewPage extends AbstractPage {
 
         var datePicker = new DatePicker();
         datePicker.setPrefWidth(COMBO_BOX_WIDTH);
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
 
         var colorPicker = new ColorPicker();
         colorPicker.setPrefWidth(COMBO_BOX_WIDTH);
@@ -282,7 +309,9 @@ public class OverviewPage extends AbstractPage {
                                             boolean selected,
                                             String... styleClasses) {
         var toggleButton = new ToggleButton(text);
-        if (group != null) { toggleButton.setToggleGroup(group); }
+        if (group != null) {
+            toggleButton.setToggleGroup(group);
+        }
         toggleButton.setSelected(selected);
         toggleButton.getStyleClass().addAll(styleClasses);
 
@@ -291,7 +320,7 @@ public class OverviewPage extends AbstractPage {
 
     private MenuItem[] createMenuItems() {
         return IntStream.range(0, 5)
-                .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
-                .toArray(MenuItem[]::new);
+            .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
+            .toArray(MenuItem[]::new);
     }
 }

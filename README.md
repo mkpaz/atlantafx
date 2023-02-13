@@ -39,7 +39,7 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -52,6 +52,23 @@ Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
 ```
 
 Check the [docs](https://mkpaz.github.io/atlantafx/) for more information.
+
+## SceneBuilder Integration
+
+While SceneBuilder does not support adding custom themes, it is possible to overwrite looked up css paths to make the existing buttons load custom css files. In order to use AtlantaFX in SceneBuilder you need to
+
+1. run `mvn package -pl styles` to generate theme css files with the correct path names
+2. copy `styles/target/AtlantaFX-${version}-scenebuilder.zip` to the SceneBuilder `$APPDIR` (e.g. `%HOMEPATH%/Local/SceneBuilder/app/` on Windows) or another directory of your choice
+3. open `SceneBuilder.cfg` in the SceneBuilder app directory and add the zip file to the beginning of the `app.classpath` variable (e.g.  `app.classpath=$APPDIR\AtlantaFX-${version}-scenebuilder.zip;$APPDIR\scenebuilder-18.0.0-all.jar` on Windows)
+
+After restarting SceneBuilder you can now select AtlantaFX themes in the menu `Preview -> Themes -> Caspian Embedded (FX2)`. The themes are mapped as follows
+
+| SceneBuilder                | Modifier                    | AtlantaFX Theme |
+|-----------------------------|-----------------------------|-----------------|
+| Caspian Embedded (FX2)      | None                        | Primer Light    |
+| Caspian Embedded (FX2)      | Caspian High Contrast (FX2) | Primer Dark     |
+| Caspian Embedded QVGA (FX2) | None                        | Nord Light      |
+| Caspian Embedded QVGA (FX2) | Caspian High Contrast (FX2) | Nord Dark       |
 
 ## Contributing
 

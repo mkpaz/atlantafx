@@ -77,7 +77,7 @@ $margin-content-dense: 10px !default;
   // and '.content' and then remove one of those adjacent borders.
   &:expanded {
     >.title {
-      -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
+      -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0, cfg.$inner-border-radius cfg.$inner-border-radius 0 0;
       -fx-background-insets: 0, cfg.$border-width cfg.$border-width 0 cfg.$border-width;
     }
   }
@@ -85,7 +85,7 @@ $margin-content-dense: 10px !default;
   &:collapsed {
     >.title {
       -fx-background-insets: 0, cfg.$border-width;
-      -fx-background-radius: cfg.$border-radius;
+      -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
     }
   }
 

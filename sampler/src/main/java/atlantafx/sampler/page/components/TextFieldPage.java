@@ -1,5 +1,13 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.LARGE;
+import static atlantafx.base.theme.Styles.ROUNDED;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.STATE_DANGER;
+import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
@@ -9,24 +17,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-
 public class TextFieldPage extends AbstractPage {
 
     public static final String NAME = "TextField";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public TextFieldPage() {
         super();
         setUserContent(new VBox(
-                PAGE_VGAP,
-                expandingHBox(basicSample(), promptSample(), passwordSample()),
-                expandingHBox(readonlySample(), successSample(), dangerSample()),
-                expandingHBox(sizeSample(), roundedSample()),
-                disabledSample()
+            PAGE_VGAP,
+            expandingHBox(basicSample(), promptSample(), passwordSample()),
+            expandingHBox(readonlySample(), successSample(), dangerSample()),
+            expandingHBox(sizeSample(), roundedSample()),
+            disabledSample()
         ));
     }
 

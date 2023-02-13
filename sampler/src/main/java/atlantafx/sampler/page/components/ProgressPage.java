@@ -1,5 +1,15 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LARGE;
+import static atlantafx.base.theme.Styles.MEDIUM;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.TITLE_4;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.RingProgressIndicator;
 import atlantafx.sampler.page.AbstractPage;
@@ -12,16 +22,23 @@ import javafx.css.PseudoClass;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 // #javafx-bug Indeterminate (animated) progress bar and also progress indicator
 // are very resource expensive. It consumes a single CPU core and a lot of memory.
@@ -30,7 +47,9 @@ public class ProgressPage extends AbstractPage {
     public static final String NAME = "Progress";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ProgressPage() {
         super();
@@ -53,11 +72,11 @@ public class ProgressPage extends AbstractPage {
 
     private SampleBlock basicBarSample() {
         var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                createBar(0, false),
-                createBar(0.5, false),
-                createBar(1, false),
-                createBar(0.5, true)
+            BLOCK_HGAP, BLOCK_VGAP,
+            createBar(0, false),
+            createBar(0.5, false),
+            createBar(1, false),
+            createBar(0.5, true)
         );
         flowPane.setAlignment(Pos.CENTER_LEFT);
 
@@ -66,11 +85,11 @@ public class ProgressPage extends AbstractPage {
 
     private SampleBlock basicIndicatorSample() {
         var flowPane = new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                createIndicator(0, false),
-                createIndicator(0.5, false),
-                createIndicator(1, false),
-                createIndicator(0.5, true)
+            BLOCK_HGAP, BLOCK_VGAP,
+            createIndicator(0, false),
+            createIndicator(0.5, false),
+            createIndicator(1, false),
+            createIndicator(0.5, true)
         );
         flowPane.setAlignment(Pos.TOP_LEFT);
 
@@ -79,10 +98,10 @@ public class ProgressPage extends AbstractPage {
 
     private SampleBlock barSizeSample() {
         var container = new VBox(
-                BLOCK_VGAP,
-                new HBox(20, createBar(0.5, false, SMALL), new Text("small")),
-                new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")),
-                new HBox(20, createBar(0.5, false, LARGE), new Text("large"))
+            BLOCK_VGAP,
+            new HBox(20, createBar(0.5, false, SMALL), new Text("small")),
+            new HBox(20, createBar(0.5, false, MEDIUM), new Text("medium")),
+            new HBox(20, createBar(0.5, false, LARGE), new Text("large"))
         );
         container.setAlignment(Pos.TOP_LEFT);
         container.getChildren().forEach(c -> ((HBox) c).setAlignment(Pos.CENTER_LEFT));
@@ -163,59 +182,59 @@ public class ProgressPage extends AbstractPage {
         grid.setHgap(40);
         grid.setVgap(BLOCK_VGAP);
         grid.getColumnConstraints().setAll(
-                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
-                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
-                new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true)
+            new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
+            new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
+            new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true)
         );
         grid.getRowConstraints().setAll(
-                new RowConstraints(-1, -1, -1, Priority.ALWAYS, VPos.CENTER, true),
-                new RowConstraints(-1, -1, -1, Priority.NEVER, VPos.CENTER, true)
+            new RowConstraints(-1, -1, -1, Priority.ALWAYS, VPos.CENTER, true),
+            new RowConstraints(-1, -1, -1, Priority.NEVER, VPos.CENTER, true)
         );
 
         var barToggle = new ToggleButton("Start");
         barToggle.textProperty().bind(Bindings.createStringBinding(
-                () -> barToggle.isSelected() ? "Stop" : "Start", barToggle.selectedProperty())
+            () -> barToggle.isSelected() ? "Stop" : "Start", barToggle.selectedProperty())
         );
         var bar = createBar(0, false);
         bar.progressProperty().bind(Bindings.createDoubleBinding(
-                () -> barToggle.isSelected() ? -1d : 0d, barToggle.selectedProperty())
+            () -> barToggle.isSelected() ? -1d : 0d, barToggle.selectedProperty())
         );
         grid.add(bar, 0, 0);
         grid.add(barToggle, 0, 1);
 
         var indicatorToggle = new ToggleButton("Start");
         indicatorToggle.textProperty().bind(Bindings.createStringBinding(
-                () -> indicatorToggle.isSelected() ? "Stop" : "Start", indicatorToggle.selectedProperty())
+            () -> indicatorToggle.isSelected() ? "Stop" : "Start", indicatorToggle.selectedProperty())
         );
         var indicator = createIndicator(0, false);
         indicator.setPrefSize(75, 75);
         indicator.progressProperty().bind(Bindings.createDoubleBinding(
-                () -> indicatorToggle.isSelected() ? -1d : 0d, indicatorToggle.selectedProperty())
+            () -> indicatorToggle.isSelected() ? -1d : 0d, indicatorToggle.selectedProperty())
         );
         grid.add(indicator, 1, 0);
         grid.add(indicatorToggle, 1, 1);
 
         var ringToggle = new ToggleButton("Start");
         ringToggle.textProperty().bind(Bindings.createStringBinding(
-                () -> ringToggle.isSelected() ? "Stop" : "Start", ringToggle.selectedProperty())
+            () -> ringToggle.isSelected() ? "Stop" : "Start", ringToggle.selectedProperty())
         );
         var ring = new RingProgressIndicator(0, false);
         ring.setMinSize(75, 75);
         ring.progressProperty().bind(Bindings.createDoubleBinding(
-                () -> ringToggle.isSelected() ? -1d : 0d, ringToggle.selectedProperty())
+            () -> ringToggle.isSelected() ? -1d : 0d, ringToggle.selectedProperty())
         );
         grid.add(ring, 2, 0);
         grid.add(ringToggle, 2, 1);
 
         return new SampleBlock("Indeterminate", grid,
-                               "Animated JavaFX progress indicators aren't cheap. They can consume quite a lot of CPU time."
+            "Animated JavaFX progress indicators aren't cheap. They can consume quite a lot of CPU time."
         );
     }
 
     private SampleBlock colorChangeSample() {
-        var stateSuccess = PseudoClass.getPseudoClass("state-success");
-        var stateDanger = PseudoClass.getPseudoClass("state-danger");
-        var width = 300;
+        final var stateSuccess = PseudoClass.getPseudoClass("state-success");
+        final var stateDanger = PseudoClass.getPseudoClass("state-danger");
+        final var width = 300;
 
         var bar = new ProgressBar(0);
         bar.getStyleClass().add(LARGE);
@@ -240,7 +259,9 @@ public class ProgressPage extends AbstractPage {
         content.setPrefHeight(200);
 
         bar.progressProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             if (val.floatValue() > 0.80) {
                 barStack.pseudoClassStateChanged(stateDanger, true);
@@ -250,17 +271,17 @@ public class ProgressPage extends AbstractPage {
         });
 
         new CSSFragment("""
-                        .example:state-success .progress-bar {
-                             -color-progress-bar-fill: -color-success-emphasis;
-                         }
-                         .example:state-danger  .progress-bar {
-                             -color-progress-bar-fill: -color-danger-emphasis;
-                         }
-                         .example:state-success .label,
-                         .example:state-danger  .label {
-                             -fx-text-fill: -color-fg-emphasis;
-                         }
-                         """).addTo(content);
+            .example:state-success .progress-bar {
+                 -color-progress-bar-fill: -color-success-emphasis;
+             }
+             .example:state-danger  .progress-bar {
+                 -color-progress-bar-fill: -color-danger-emphasis;
+             }
+             .example:state-success .label,
+             .example:state-danger  .label {
+                 -fx-text-fill: -color-fg-emphasis;
+             }
+             """).addTo(content);
 
         runBtn.setOnAction(e1 -> {
             var task = new Task<Void>() {

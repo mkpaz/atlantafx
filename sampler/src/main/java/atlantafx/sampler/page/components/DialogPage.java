@@ -1,33 +1,46 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
-
-import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.StageStyle;
-import org.kordamp.ikonli.feather.Feather;
-import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
 
 import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static javafx.scene.control.Alert.AlertType;
 import static javafx.scene.control.ButtonBar.ButtonData;
+
+import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.sampler.page.AbstractPage;
+import atlantafx.sampler.page.SampleBlock;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class DialogPage extends AbstractPage {
 
     public static final String NAME = "Dialog";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BooleanProperty showHeaderProperty = new SimpleBooleanProperty(true);
     private final BooleanProperty minDecorationsProperty = new SimpleBooleanProperty(true);
@@ -50,21 +63,21 @@ public class DialogPage extends AbstractPage {
         controls.setAlignment(Pos.CENTER);
 
         var samples = new FlowPane(
-                PAGE_HGAP, PAGE_VGAP,
-                infoDialogSample(),
-                warningDialogSample(),
-                errorDialogSample(),
-                exceptionDialogSample(),
-                confirmationDialogSample(),
-                textInputDialogSample(),
-                choiceDialogSample()
+            PAGE_HGAP, PAGE_VGAP,
+            infoDialogSample(),
+            warningDialogSample(),
+            errorDialogSample(),
+            exceptionDialogSample(),
+            confirmationDialogSample(),
+            textInputDialogSample(),
+            choiceDialogSample()
         );
 
         setUserContent(new VBox(
-                10,
-                controls,
-                new Separator(Orientation.HORIZONTAL),
-                samples
+            10,
+            controls,
+            new Separator(Orientation.HORIZONTAL),
+            samples
         ));
     }
 
@@ -127,8 +140,6 @@ public class DialogPage extends AbstractPage {
             var printWriter = new PrintWriter(stringWriter);
             exception.printStackTrace(printWriter);
 
-            var label = new Label("Full stacktrace:");
-
             var textArea = new TextArea(stringWriter.toString());
             textArea.setEditable(false);
             textArea.setWrapText(false);
@@ -139,7 +150,7 @@ public class DialogPage extends AbstractPage {
 
             var content = new GridPane();
             content.setMaxWidth(Double.MAX_VALUE);
-            content.add(label, 0, 0);
+            content.add(new Label("Full stacktrace:"), 0, 0);
             content.add(textArea, 0, 1);
 
             alert.getDialogPane().setExpandableContent(content);

@@ -1,5 +1,8 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Theme;
@@ -16,20 +19,20 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.HTMLEditor;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
-public class HTMLEditorPage extends AbstractPage {
+public class HtmlEditorPage extends AbstractPage {
 
     private static final PseudoClass USE_LOCAL_URL = PseudoClass.getPseudoClass("use-local-url");
 
     public static final String NAME = "HTMLEditor";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private HTMLEditor editor = createEditor();
 
-    public HTMLEditorPage() {
+    public HtmlEditorPage() {
         super();
 
         setUserContent(new VBox(editorSample()));
@@ -45,10 +48,12 @@ public class HTMLEditorPage extends AbstractPage {
     }
 
     private SampleBlock editorSample() {
-        var description = new Text(
-                "HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'. " +
-                        "In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images. " +
-                        "Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX 'module-info'."
+        var description = new Text("""
+            HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'.
+            In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images.
+            Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX
+            'module-info'.
+            """
         );
 
         var fixToggle = new ToggleSwitch("Apply Fix");
@@ -83,16 +88,16 @@ public class HTMLEditorPage extends AbstractPage {
         var tm = ThemeManager.getInstance();
         Theme samplerTheme = tm.getTheme();
         HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(samplerTheme);
-        return "<!DOCTYPE html>" +
-                "<html>" +
-                "<body style=\"" +
-                "background-color:" + hlTheme.getBackground() + ";" +
-                "color:" + hlTheme.getForeground() + ";" +
-                "font-family:" + tm.getFontFamily() + ";" +
-                "font-size:" + tm.getFontSize() + "px;" +
-                "\">" +
-                String.join("<br/><br/>", FAKER.lorem().paragraphs(10)) +
-                "</body>" +
-                "</html>";
+        return "<!DOCTYPE html>"
+            + "<html>"
+            + "<body style=\""
+            + "background-color:" + hlTheme.getBackground() + ";"
+            + "color:" + hlTheme.getForeground() + ";"
+            + "font-family:" + tm.getFontFamily() + ";"
+            + "font-size:" + tm.getFontSize() + "px;"
+            + "\">"
+            + String.join("<br/><br/>", FAKER.lorem().paragraphs(10))
+            + "</body>"
+            + "</html>";
     }
 }

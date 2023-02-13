@@ -1,5 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Popover;
@@ -8,6 +12,8 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.CSSFragment;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,23 +27,20 @@ import javafx.scene.text.TextFlow;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.time.LocalDate;
-
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 public class PopoverPage extends AbstractPage {
 
     public static final String NAME = "Popover";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public PopoverPage() {
         super();
         setUserContent(new VBox(Page.PAGE_VGAP,
-                new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
-                positionSample()
+            new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
+            positionSample()
         ));
     }
 
@@ -55,7 +58,7 @@ public class PopoverPage extends AbstractPage {
 
     private SampleBlock datePickerSample() {
         var datePicker = new InlineDatePicker();
-        datePicker.setValue(LocalDate.now());
+        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
 
         var popover = new Popover(datePicker);
         popover.setHeaderAlwaysVisible(false);
@@ -64,14 +67,14 @@ public class PopoverPage extends AbstractPage {
         var link = createHyperlink("Click me");
         link.setOnAction(e -> popover.show(link));
         new CSSFragment("""
-                .popover .date-picker-popup {
-                  -color-date-border: transparent;
-                  -color-date-bg: transparent;
-                  -color-date-day-bg: transparent;
-                  -color-date-month-year-bg: transparent;
-                  -color-date-day-bg-hover: -color-bg-subtle;
-                }
-                """
+            .popover .date-picker-popup {
+              -color-date-border: transparent;
+              -color-date-bg: transparent;
+              -color-date-day-bg: transparent;
+              -color-date-month-year-bg: transparent;
+              -color-date-day-bg-hover: -color-bg-subtle;
+            }
+            """
         ).addTo(link);
 
         return new SampleBlock("Date Picker", link);
@@ -86,7 +89,8 @@ public class PopoverPage extends AbstractPage {
 
         var icon = new FontIcon(Feather.ALERT_TRIANGLE);
         icon.setIconSize(32); // not always works
-        icon.setStyle("-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
+        icon.setStyle(
+            "-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
 
         var label = new Label(FAKER.chuckNorris().fact(), icon);
         label.setStyle("-fx-graphic-text-gap:10;");

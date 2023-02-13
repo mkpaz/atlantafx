@@ -1,11 +1,26 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
+
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import static javafx.scene.layout.Priority.ALWAYS;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.theme.ThemeRepository;
 import atlantafx.sampler.util.Containers;
+import java.io.File;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import javafx.concurrent.Task;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
@@ -19,17 +34,7 @@ import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
-import java.io.File;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.*;
-import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
-import static javafx.scene.layout.Priority.ALWAYS;
-
+@SuppressWarnings("UnnecessaryLambda")
 class ThemeRepoManager extends VBox {
 
     private static final Executor THREAD_POOL = Executors.newFixedThreadPool(3);
@@ -71,7 +76,9 @@ class ThemeRepoManager extends VBox {
 
     public void update() {
         themeList.getChildren().forEach(c -> {
-            if (c instanceof ThemeCell cell) { cell.update(); }
+            if (c instanceof ThemeCell cell) {
+                cell.update();
+            }
         });
     }
 
@@ -155,10 +162,10 @@ class ThemeRepoManager extends VBox {
                         previewBox.getStyleClass().add("preview");
                         previewBox.setStyle(style.toString());
                         previewBox.getChildren().setAll(
-                                previewLabel("A", "-color-bg-default", "-color-fg-default"),
-                                previewLabel("B", "-color-accent-emphasis", "-color-fg-emphasis"),
-                                previewLabel("C", "-color-success-emphasis", "-color-fg-emphasis"),
-                                previewLabel("D", "-color-danger-emphasis", "-color-fg-emphasis")
+                            previewLabel("A", "-color-bg-default", "-color-fg-default"),
+                            previewLabel("B", "-color-accent-emphasis", "-color-fg-emphasis"),
+                            previewLabel("C", "-color-success-emphasis", "-color-fg-emphasis"),
+                            previewLabel("D", "-color-danger-emphasis", "-color-fg-emphasis")
                         );
 
                         getChildren().set(2, previewBox);
@@ -167,7 +174,8 @@ class ThemeRepoManager extends VBox {
             });
 
             task.setOnFailed(
-                    e -> System.err.println("[ERROR] Unable to parse \"" + theme.getName() + "\" theme colors. Either CSS not valid or file isn't readable.")
+                e -> System.err.println("[ERROR] Unable to parse \"" + theme.getName()
+                    + "\" theme colors. Either CSS not valid or file isn't readable.")
             );
 
             THREAD_POOL.execute(task);
@@ -177,7 +185,9 @@ class ThemeRepoManager extends VBox {
             deleteBtn = new Button("", new FontIcon(Material2OutlinedAL.DELETE));
             deleteBtn.getStyleClass().addAll(BUTTON_ICON, BUTTON_CIRCLE, FLAT, DANGER);
             deleteBtn.setOnAction(e -> {
-                if (deleteHandler != null) { deleteHandler.accept(theme); }
+                if (deleteHandler != null) {
+                    deleteHandler.accept(theme);
+                }
             });
 
             var controlsBox = new HBox();

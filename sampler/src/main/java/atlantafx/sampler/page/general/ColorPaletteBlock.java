@@ -1,10 +1,19 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
+
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.page.general.ContrastChecker.LUMINANCE_THRESHOLD;
+import static atlantafx.sampler.page.general.ContrastChecker.PASSED;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.NodeUtils;
+import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -14,15 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.function.Consumer;
-
-import static atlantafx.base.theme.Styles.TITLE_3;
-import static atlantafx.sampler.page.general.ContrastChecker.LUMINANCE_THRESHOLD;
-import static atlantafx.sampler.page.general.ContrastChecker.PASSED;
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 class ColorPaletteBlock extends VBox {
 
@@ -65,7 +65,7 @@ class ColorPaletteBlock extends VBox {
 
         colorRectangle = new AnchorPane();
         colorRectangle.setStyle(
-                String.format("-fx-background-color:%s;-fx-border-color:%s;", bgColorName, borderColorName)
+            String.format("-fx-background-color:%s;-fx-border-color:%s;", bgColorName, borderColorName)
         );
         colorRectangle.getStyleClass().add("rectangle");
         colorRectangle.getChildren().setAll(contrastRatioText, contrastLevelLabel, editIcon);
@@ -78,8 +78,8 @@ class ColorPaletteBlock extends VBox {
             }
 
             toggleHover(true);
-            editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD ?
-                    Color.WHITE : Color.BLACK
+            editIcon.setFill(getColorLuminance(flattenColor(bgBaseColor.get(), bgFill)) < LUMINANCE_THRESHOLD
+                ? Color.WHITE : Color.BLACK
             );
         });
         colorRectangle.setOnMouseExited(e -> toggleHover(false));
@@ -90,10 +90,10 @@ class ColorPaletteBlock extends VBox {
         });
 
         getChildren().addAll(
-                colorRectangle,
-                colorNameText(fgColorName),
-                colorNameText(bgColorName),
-                colorNameText(borderColorName)
+            colorRectangle,
+            colorNameText(fgColorName),
+            colorNameText(bgColorName),
+            colorNameText(borderColorName)
         );
         getStyleClass().add("block");
     }
@@ -117,7 +117,9 @@ class ColorPaletteBlock extends VBox {
         colorRectangle.pseudoClassStateChanged(PASSED, ContrastLevel.AA_NORMAL.satisfies(contrastRatio));
 
         contrastRatioText.setText(String.format("%.2f", contrastRatio));
-        contrastLevelIcon.setIconCode(ContrastLevel.AA_NORMAL.satisfies(contrastRatio) ? Material2AL.CHECK : Material2AL.CLOSE);
+        contrastLevelIcon.setIconCode(
+            ContrastLevel.AA_NORMAL.satisfies(contrastRatio) ? Material2AL.CHECK : Material2AL.CLOSE
+        );
         contrastLevelLabel.setVisible(true);
         contrastLevelLabel.setText(ContrastLevel.AAA_NORMAL.satisfies(contrastRatio) ? "AAA" : "AA");
     }
@@ -127,8 +129,8 @@ class ColorPaletteBlock extends VBox {
     }
 
     public Color getBgColor() {
-        return colorRectangle.getBackground() != null && !colorRectangle.getBackground().isEmpty() ?
-                (Color) colorRectangle.getBackground().getFills().get(0).getFill() : null;
+        return colorRectangle.getBackground() != null && !colorRectangle.getBackground().isEmpty()
+            ? (Color) colorRectangle.getBackground().getFills().get(0).getFill() : null;
     }
 
     public String getFgColorName() {

@@ -1,13 +1,20 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.layout;
-
-import atlantafx.sampler.page.Page;
-import javafx.beans.property.*;
-
-import java.util.Objects;
 
 import static atlantafx.sampler.layout.MainModel.SubLayer.PAGE;
 import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
+
+import atlantafx.sampler.page.Page;
+import java.util.Objects;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class MainModel {
 

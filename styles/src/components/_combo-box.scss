@@ -20,7 +20,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 @mixin _combo-box-base() {
   -fx-background-color: -color-border-default, -color-bg-default;
   -fx-background-insets: 0, 1;
-  -fx-background-radius: cfg.$border-radius;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-text-fill: -color-fg-default;
   -fx-alignment: CENTER;
   -fx-content-display: LEFT;
@@ -45,7 +45,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
   // input group
   &.left-pill {
-    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;
     -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
 
     &:focused {
@@ -63,7 +63,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   }
 
   &.right-pill {
-    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
     -fx-background-insets: 0, cfg.$border-width cfg.$border-width cfg.$border-width 0;
 
     &:focused {
@@ -92,7 +92,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
   >.text-field {
     -fx-background-insets: 0, 1 0 1 1;
-    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0  cfg.$inner-border-radius;
   }
 
   &:success {
@@ -138,7 +138,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   >.list-view {
     -fx-background-color: -color-border-default, $color-list-bg;
     -fx-background-insets: 0, 1;
-    -fx-background-radius: cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
 
     >.virtual-flow {
       >.clipped-container {

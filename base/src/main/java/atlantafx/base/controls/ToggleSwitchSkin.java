@@ -26,8 +26,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.DoubleProperty;
@@ -42,10 +46,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
 
@@ -77,8 +77,9 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         thumbArea.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         thumb.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         control.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.booleanValue() != oldValue.booleanValue())
+            if (newValue.booleanValue() != oldValue.booleanValue()) {
                 selectedStateChanged();
+            }
         });
     }
 
@@ -102,7 +103,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
 
     /**
      * How many milliseconds it should take for the thumb to go from
-     * one edge to the other
+     * one edge to the other.
      */
     private DoubleProperty thumbMoveAnimationTime = null;
 
@@ -143,12 +144,14 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         double thumbAreaWidth = snapSizeX(thumbArea.prefWidth(-1));
         double thumbAreaHeight = snapSizeX(thumbArea.prefHeight(-1));
         double thumbAreaY = snapPositionX(contentY + (contentHeight / 2) - (thumbAreaHeight / 2));
+        double labelContainerWidth = label.getText() != null && !label.getText().isEmpty()
+            ? contentWidth - thumbAreaWidth : 0;
 
         thumbArea.resize(thumbAreaWidth, thumbAreaHeight);
-        thumbArea.setLayoutX(contentWidth - thumbAreaWidth);
+        thumbArea.setLayoutX(labelContainerWidth);
         thumbArea.setLayoutY(thumbAreaY);
 
-        labelContainer.resize(contentWidth - thumbAreaWidth, thumbAreaHeight);
+        labelContainer.resize(labelContainerWidth, thumbAreaHeight);
         labelContainer.setLayoutY(thumbAreaY);
 
         // layout the thumb on the "unselected" position
@@ -207,21 +210,21 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
     }
 
     private static final CssMetaData<ToggleSwitch, Number> THUMB_MOVE_ANIMATION_TIME =
-            new CssMetaData<>("-fx-thumb-move-animation-time", SizeConverter.getInstance(), 200) {
+        new CssMetaData<>("-fx-thumb-move-animation-time", SizeConverter.getInstance(), 200) {
 
-                @Override
-                public boolean isSettable(ToggleSwitch toggleSwitch) {
-                    final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
-                    return skin.thumbMoveAnimationTime == null || skin.thumbMoveAnimationTime.isBound();
-                }
+            @Override
+            public boolean isSettable(ToggleSwitch toggleSwitch) {
+                final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
+                return skin.thumbMoveAnimationTime == null || skin.thumbMoveAnimationTime.isBound();
+            }
 
-                @Override
-                @SuppressWarnings("RedundantCast")
-                public StyleableProperty<Number> getStyleableProperty(ToggleSwitch toggleSwitch) {
-                    final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
-                    return (StyleableProperty<Number>) (WritableValue<Number>) skin.thumbMoveAnimationTimeProperty();
-                }
-            };
+            @Override
+            @SuppressWarnings("RedundantCast")
+            public StyleableProperty<Number> getStyleableProperty(ToggleSwitch toggleSwitch) {
+                final ToggleSwitchSkin skin = (ToggleSwitchSkin) toggleSwitch.getSkin();
+                return (StyleableProperty<Number>) (WritableValue<Number>) skin.thumbMoveAnimationTimeProperty();
+            }
+        };
 
     private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
@@ -232,7 +235,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
     }
 
     /**
-     * @return The CssMetaData associated with this class, which may include the
+     * Returns the CssMetaData associated with this class, which may include the
      * CssMetaData of its super classes.
      */
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {

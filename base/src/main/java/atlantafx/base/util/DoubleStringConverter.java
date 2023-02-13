@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.util;
 
+import java.text.DecimalFormat;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,8 +11,6 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
-
-import java.text.DecimalFormat;
 
 /**
  * Converts between user-edited strings and {@link Double} values.
@@ -126,15 +126,15 @@ public class DoubleStringConverter extends StringConverter<Double> {
      */
     public static DoubleStringConverter createFor(Spinner<Double> spinner) {
         final SpinnerValueFactory.DoubleSpinnerValueFactory factory =
-                (SpinnerValueFactory.DoubleSpinnerValueFactory) spinner.getValueFactory();
+            (SpinnerValueFactory.DoubleSpinnerValueFactory) spinner.getValueFactory();
 
         final DoubleStringConverter converter = new DoubleStringConverter(
-                spinner.getEditor(), factory.getMin(), factory.getMax());
+            spinner.getEditor(), factory.getMin(), factory.getMax());
 
         factory.setConverter(converter);
         spinner.setTooltip(new Tooltip(String.format(
-                "Enter a value between %.2f and %.2f",
-                factory.getMin(), factory.getMax())));
+            "Enter a value between %.2f and %.2f",
+            factory.getMin(), factory.getMax())));
 
         return converter;
     }

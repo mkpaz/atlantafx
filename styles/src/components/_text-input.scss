@@ -38,7 +38,7 @@ $color-fg-password: -color-fg-muted !default;
 
   -fx-background-color: -color-input-border, -color-input-bg;
   -fx-background-insets: 0, cfg.$border-width;
-  -fx-background-radius: cfg.$border-radius;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-text-fill: -color-input-fg;
 
   -fx-highlight-fill: -color-input-bg-highlight;
@@ -78,7 +78,7 @@ $color-fg-password: -color-fg-muted !default;
 
   // input group
   &.left-pill {
-    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius;
+    -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;
     -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
 
     &:focused {
@@ -96,11 +96,23 @@ $color-fg-password: -color-fg-muted !default;
   }
 
   &.right-pill {
-    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0;
+    -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
     -fx-background-insets: 0, cfg.$border-width cfg.$border-width cfg.$border-width 0;
 
     &:focused {
       -fx-background-insets: 0, cfg.$border-width;
+    }
+  }
+
+  .context-menu {
+    // prevent context menu from inheriting text inputs font properties
+    -fx-font-size: cfg.$font-default;
+    -fx-font-weight: normal;
+
+    .menu-item {
+      // There's some #javafx-bug here. Setting this e.g. to 'hand' works as expected
+      // but 'default' changes nothing and cursor still has the 'text' shape.
+      -fx-cursor: default;
     }
   }
 }

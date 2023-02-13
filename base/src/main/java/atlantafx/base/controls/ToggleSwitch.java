@@ -26,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
 import javafx.beans.property.BooleanProperty;
@@ -41,13 +42,15 @@ public class ToggleSwitch extends Labeled {
     protected static final String DEFAULT_STYLE_CLASS = "toggle-switch";
     protected static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
 
-    /** Creates a toggle switch with empty string for its label. */
+    /**
+     * Creates a toggle switch with empty string for its label.
+     */
     public ToggleSwitch() {
         initialize();
     }
 
     /**
-     * Creates a toggle switch with the specified label
+     * Creates a toggle switch with the specified label.
      *
      * @param text The label string of the control
      */
@@ -64,20 +67,28 @@ public class ToggleSwitch extends Labeled {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    /** Indicates whether this switch is selected. */
+    /*
+     * Indicates whether this switch is selected.
+     */
     private BooleanProperty selected;
 
-    /** Sets the selected value. */
+    /**
+     * Sets the selected value.
+     */
     public final void setSelected(boolean value) {
         selectedProperty().set(value);
     }
 
-    /** Returns whether this Toggle Switch is selected. */
+    /**
+     * Returns whether this Toggle Switch is selected.
+     */
     public final boolean isSelected() {
         return selected != null && selected.get();
     }
 
-    /** Returns the selected property. */
+    /**
+     * Returns the selected property.
+     */
     public final BooleanProperty selectedProperty() {
         if (selected == null) {
             selected = new BooleanPropertyBase() {
@@ -117,7 +128,9 @@ public class ToggleSwitch extends Labeled {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new ToggleSwitchSkin(this);

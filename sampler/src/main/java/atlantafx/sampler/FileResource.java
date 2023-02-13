@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler;
 
 import java.io.FileInputStream;
@@ -50,7 +51,9 @@ public final class FileResource {
     public InputStream getInputStream() throws IOException {
         if (internal) {
             var is = anchor.getResourceAsStream(location);
-            if (is == null) { throw new IOException("Resource not found: " + location); }
+            if (is == null) {
+                throw new IOException("Resource not found: " + location);
+            }
             return is;
         }
         return new FileInputStream(toPath().toFile());
@@ -58,15 +61,15 @@ public final class FileResource {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    public static FileResource internal(String location) {
-        return internal(location, FileResource.class);
+    public static FileResource createInternal(String location) {
+        return createInternal(location, FileResource.class);
     }
 
-    public static FileResource internal(String location, Class<?> anchor) {
+    public static FileResource createInternal(String location, Class<?> anchor) {
         return new FileResource(location, true, Objects.requireNonNull(anchor));
     }
 
-    public static FileResource external(String location) {
+    public static FileResource createExternal(String location) {
         return new FileResource(location, false, null);
     }
 }

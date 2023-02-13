@@ -1,5 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
@@ -13,20 +17,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 public class ColorPickerPage extends AbstractPage {
 
     public static final String NAME = "ColorPicker";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public ColorPickerPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Playground", createPlayground())
+            new SampleBlock("Playground", createPlayground())
         ));
     }
 
@@ -38,7 +41,9 @@ public class ColorPickerPage extends AbstractPage {
         labelToggle.setSelected(true);
         labelToggle.selectedProperty().addListener((obs, old, val) -> {
             colorPicker.setStyle("-fx-color-label-visible: false;");
-            if (val) { colorPicker.setStyle("-fx-color-label-visible: true;"); }
+            if (val) {
+                colorPicker.setStyle("-fx-color-label-visible: true;");
+            }
         });
 
         var disableToggle = new ToggleSwitch();
@@ -56,9 +61,9 @@ public class ColorPickerPage extends AbstractPage {
         grid.add(disableToggle, 2, 2);
 
         grid.getColumnConstraints().setAll(
-                new ColumnConstraints(200),
-                new ColumnConstraints(),
-                new ColumnConstraints()
+            new ColumnConstraints(200),
+            new ColumnConstraints(),
+            new ColumnConstraints()
         );
 
         return grid;
@@ -78,11 +83,13 @@ public class ColorPickerPage extends AbstractPage {
         var choice = new ChoiceBox<String>();
         choice.getItems().setAll(optDefault, optButton, optSplitButton);
         choice.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             colorPicker.getStyleClass().removeAll(
-                    ColorPicker.STYLE_CLASS_BUTTON,
-                    ColorPicker.STYLE_CLASS_SPLIT_BUTTON
+                ColorPicker.STYLE_CLASS_BUTTON,
+                ColorPicker.STYLE_CLASS_SPLIT_BUTTON
             );
 
             if (optButton.equals(val)) {

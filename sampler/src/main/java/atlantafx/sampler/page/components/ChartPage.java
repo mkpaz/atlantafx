@@ -1,21 +1,11 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.chart.*;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
-
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Arrays;
@@ -23,13 +13,36 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.BubbleChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 public class ChartPage extends AbstractPage {
 
     public static final String NAME = "Chart";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BorderPane chartWrapper = new BorderPane();
     private final ComboBox<Example> exampleSelect = new ComboBox<>();
@@ -37,7 +50,7 @@ public class ChartPage extends AbstractPage {
     public ChartPage() {
         super();
         setUserContent(new VBox(
-                new SampleBlock("Playground", createPlayground())
+            new SampleBlock("Playground", createPlayground())
         ));
     }
 
@@ -45,7 +58,9 @@ public class ChartPage extends AbstractPage {
         exampleSelect.setMaxWidth(Double.MAX_VALUE);
         exampleSelect.getItems().setAll(Example.values());
         exampleSelect.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
 
             Chart newChart = createChart(val);
 
@@ -68,7 +83,9 @@ public class ChartPage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> findDisplayedChart().ifPresent(ch -> {
-            if (val != null) { ch.setDisable(val); }
+            if (val != null) {
+                ch.setDisable(val);
+            }
         }));
 
         var controls = new HBox(disableToggle);
@@ -76,9 +93,9 @@ public class ChartPage extends AbstractPage {
 
         VBox playground = new VBox(SampleBlock.BLOCK_VGAP);
         playground.getChildren().setAll(
-                new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
-                exampleSelect,
-                chartWrapper
+            new HBox(new Label("Select an example:"), new Spacer(), disableToggle),
+            exampleSelect,
+            chartWrapper
         );
 
         return playground;
@@ -91,21 +108,37 @@ public class ChartPage extends AbstractPage {
     }
 
     private Optional<Chart> findDisplayedChart() {
-        return chartWrapper.getChildren().size() > 0 ?
-                Optional.of((Chart) chartWrapper.getChildren().get(0)) :
-                Optional.empty();
+        return chartWrapper.getChildren().size() > 0
+            ? Optional.of((Chart) chartWrapper.getChildren().get(0))
+            : Optional.empty();
     }
 
     private Chart createChart(Example example) {
         switch (example) {
-            case AREA_CHART -> { return areaChart(false); }
-            case BAR_CHART -> { return barChart(false); }
-            case BUBBLE_CHART -> { return bubbleChart(); }
-            case LINE_CHART -> { return lineChart(); }
-            case PIE_CHART -> { return pieChart(); }
-            case SCATTER_CHART -> { return scatterChart(); }
-            case STACKED_AREA_CHART -> { return areaChart(true); }
-            case STACKED_BAR_CHART -> { return barChart(true); }
+            case AREA_CHART -> {
+                return areaChart(false);
+            }
+            case BAR_CHART -> {
+                return barChart(false);
+            }
+            case BUBBLE_CHART -> {
+                return bubbleChart();
+            }
+            case LINE_CHART -> {
+                return lineChart();
+            }
+            case PIE_CHART -> {
+                return pieChart();
+            }
+            case SCATTER_CHART -> {
+                return scatterChart();
+            }
+            case STACKED_AREA_CHART -> {
+                return areaChart(true);
+            }
+            case STACKED_BAR_CHART -> {
+                return barChart(true);
+            }
             default -> throw new IllegalArgumentException("Unexpected enum value: " + example);
         }
     }
@@ -121,13 +154,13 @@ public class ChartPage extends AbstractPage {
         var april = new XYChart.Series<Number, Number>();
         april.setName("April");
         IntStream.range(1, 30).forEach(i -> april.getData().add(
-                new XYChart.Data<>(i, FAKER.random().nextInt(15, 30))
+            new XYChart.Data<>(i, FAKER.random().nextInt(15, 30))
         ));
 
         var may = new XYChart.Series<Number, Number>();
         may.setName("May");
         IntStream.range(1, 30).forEach(i -> may.getData().add(
-                new XYChart.Data<>(i, FAKER.random().nextInt(15, 30))
+            new XYChart.Data<>(i, FAKER.random().nextInt(15, 30))
         ));
 
         var chart = stacked ? new StackedAreaChart<>(x, y) : new AreaChart<>(x, y);
@@ -141,8 +174,8 @@ public class ChartPage extends AbstractPage {
     private Chart barChart(boolean stacked) {
         final var rnd = FAKER.random();
         final var countries = IntStream.range(0, 5).boxed()
-                .map(i -> FAKER.country().countryCode3().toUpperCase())
-                .toList();
+            .map(i -> FAKER.country().countryCode3().toUpperCase())
+            .toList();
 
         var x = new CategoryAxis();
         x.setLabel("Country");
@@ -153,19 +186,19 @@ public class ChartPage extends AbstractPage {
         var january = new XYChart.Series<String, Number>();
         january.setName("January");
         IntStream.range(0, countries.size()).forEach(i -> january.getData().add(
-                new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
+            new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
         ));
 
         var february = new XYChart.Series<String, Number>();
         february.setName("February");
         IntStream.range(0, countries.size()).forEach(i -> february.getData().add(
-                new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
+            new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
         ));
 
         var march = new XYChart.Series<String, Number>();
         march.setName("March");
         IntStream.range(0, countries.size()).forEach(i -> march.getData().add(
-                new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
+            new XYChart.Data<>(countries.get(i), rnd.nextInt(10, 80))
         ));
 
         var chart = stacked ? new StackedBarChart<>(x, y) : new BarChart<>(x, y);
@@ -188,13 +221,13 @@ public class ChartPage extends AbstractPage {
         var series1 = new XYChart.Series<Number, Number>();
         series1.setName(FAKER.commerce().productName());
         IntStream.range(1, 10).forEach(i -> series1.getData().add(
-                new XYChart.Data<>(rnd.nextInt(1, 53), rnd.nextInt(10, 80), rnd.nextDouble(1, 10))
+            new XYChart.Data<>(rnd.nextInt(1, 53), rnd.nextInt(10, 80), rnd.nextDouble(1, 10))
         ));
 
         var series2 = new XYChart.Series<Number, Number>();
         series2.setName(FAKER.commerce().productName());
         IntStream.range(1, 10).forEach(i -> series2.getData().add(
-                new XYChart.Data<>(rnd.nextInt(1, 53), rnd.nextInt(10, 80), rnd.nextDouble(1, 10))
+            new XYChart.Data<>(rnd.nextInt(1, 53), rnd.nextInt(10, 80), rnd.nextDouble(1, 10))
         ));
 
         var chart = new BubbleChart<>(x, y);
@@ -217,13 +250,13 @@ public class ChartPage extends AbstractPage {
         var series1 = new XYChart.Series<String, Number>();
         series1.setName(FAKER.stock().nsdqSymbol());
         IntStream.range(1, 12).forEach(i -> series1.getData().add(
-                new XYChart.Data<>(Month.of(i).getDisplayName(TextStyle.SHORT, Locale.getDefault()), rnd.nextInt(10, 80))
+            new XYChart.Data<>(Month.of(i).getDisplayName(TextStyle.SHORT, Locale.getDefault()), rnd.nextInt(10, 80))
         ));
 
         var series2 = new XYChart.Series<String, Number>();
         series2.setName(FAKER.stock().nsdqSymbol());
         IntStream.range(1, 12).forEach(i -> series2.getData().add(
-                new XYChart.Data<>(Month.of(i).getDisplayName(TextStyle.SHORT, Locale.getDefault()), rnd.nextInt(10, 80))
+            new XYChart.Data<>(Month.of(i).getDisplayName(TextStyle.SHORT, Locale.getDefault()), rnd.nextInt(10, 80))
         ));
 
         var chart = new LineChart<>(x, y);
@@ -237,11 +270,11 @@ public class ChartPage extends AbstractPage {
         final var rnd = FAKER.random();
 
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
-                new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
-                new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
-                new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
-                new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
-                new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30))
+            new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
+            new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
+            new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
+            new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30)),
+            new PieChart.Data(FAKER.food().fruit(), rnd.nextInt(10, 30))
         );
 
         var chart = new PieChart(data);
@@ -263,13 +296,13 @@ public class ChartPage extends AbstractPage {
         var series1 = new XYChart.Series<Number, Number>();
         series1.setName("Equities");
         IntStream.range(1, 10).forEach(i -> series1.getData().add(
-                new XYChart.Data<>(rnd.nextDouble(0, 10), rnd.nextDouble(-100, 500))
+            new XYChart.Data<>(rnd.nextDouble(0, 10), rnd.nextDouble(-100, 500))
         ));
 
         var series2 = new XYChart.Series<Number, Number>();
         series2.setName("Mutual funds");
         IntStream.range(1, 10).forEach(i -> series2.getData().add(
-                new XYChart.Data<>(rnd.nextDouble(0, 10), rnd.nextDouble(-100, 500))
+            new XYChart.Data<>(rnd.nextDouble(0, 10), rnd.nextDouble(-100, 500))
         ));
 
         var chart = new ScatterChart<>(x, y);
@@ -301,9 +334,9 @@ public class ChartPage extends AbstractPage {
 
         public static Example find(String name) {
             return Arrays.stream(Example.values())
-                    .filter(example -> Objects.equals(example.getName(), name))
-                    .findFirst()
-                    .orElse(null);
+                .filter(example -> Objects.equals(example.getName(), name))
+                .findFirst()
+                .orElse(null);
         }
     }
 }

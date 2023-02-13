@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.event;
 
 import javafx.scene.input.KeyCodeCombination;
@@ -17,8 +18,8 @@ public class HotkeyEvent extends Event {
 
     @Override
     public String toString() {
-        return "HotkeyEvent{" +
-                "keys=" + keys +
-                "} " + super.toString();
+        return "HotkeyEvent{"
+            + "keys=" + keys
+            + "} " + super.toString();
     }
 }

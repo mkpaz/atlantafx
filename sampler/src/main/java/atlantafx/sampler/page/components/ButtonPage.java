@@ -1,5 +1,18 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.BUTTON_OUTLINED;
+import static atlantafx.base.theme.Styles.DANGER;
+import static atlantafx.base.theme.Styles.FLAT;
+import static atlantafx.base.theme.Styles.LARGE;
+import static atlantafx.base.theme.Styles.ROUNDED;
+import static atlantafx.base.theme.Styles.SMALL;
+import static atlantafx.base.theme.Styles.SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
@@ -14,9 +27,6 @@ import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 public class ButtonPage extends AbstractPage {
 
@@ -110,8 +120,8 @@ public class ButtonPage extends AbstractPage {
         flatDangerBtn.getStyleClass().addAll(BUTTON_ICON, FLAT, DANGER);
 
         var content = new HBox(BLOCK_HGAP,
-                basicBtn, accentBtn, successBtn, dangerBtn,
-                flatAccentBtn, flatSuccessBtn, flatDangerBtn
+            basicBtn, accentBtn, successBtn, dangerBtn,
+            flatAccentBtn, flatSuccessBtn, flatDangerBtn
         );
         return new SampleBlock("Icon", content);
     }
@@ -146,8 +156,8 @@ public class ButtonPage extends AbstractPage {
         flatDangerBtn.setShape(new Circle(50));
 
         var content = new HBox(BLOCK_HGAP,
-                basicBtn, accentBtn, successBtn, dangerBtn,
-                flatAccentBtn, flatSuccessBtn, flatDangerBtn
+            basicBtn, accentBtn, successBtn, dangerBtn,
+            flatAccentBtn, flatSuccessBtn, flatDangerBtn
         );
         return new SampleBlock("Circular", content);
     }
@@ -206,22 +216,22 @@ public class ButtonPage extends AbstractPage {
         var btn = new Button("DO SOMETHING!");
         btn.getStyleClass().addAll(SUCCESS, LARGE);
         btn.setStyle("""
-                  -color-button-bg:       linear-gradient(to bottom right, -color-success-emphasis, darkblue);
-                  -color-button-bg-hover:   -color-button-bg;
-                  -color-button-bg-focused: -color-button-bg;
-                  -color-button-bg-pressed: -color-button-bg;
-                """);
+              -color-button-bg:       linear-gradient(to bottom right, -color-success-emphasis, darkblue);
+              -color-button-bg-hover:   -color-button-bg;
+              -color-button-bg-focused: -color-button-bg;
+              -color-button-bg-pressed: -color-button-bg;
+            """);
 
         var iconBtn = new Button("", new FontIcon(Material2AL.FAVORITE));
         iconBtn.getStyleClass().addAll("favorite-button", BUTTON_CIRCLE, FLAT, DANGER);
         new CSSFragment("""
-                .favorite-button.button >.ikonli-font-icon {
-                    -fx-fill:       linear-gradient(to bottom right, pink, -color-danger-emphasis);
-                    -fx-icon-color: linear-gradient(to bottom right, pink, -color-danger-emphasis);
-                    -fx-font-size:  32px;
-                    -fx-icon-size:  32px;
-                }
-                """).addTo(iconBtn);
+            .favorite-button.button >.ikonli-font-icon {
+                -fx-fill:       linear-gradient(to bottom right, pink, -color-danger-emphasis);
+                -fx-icon-color: linear-gradient(to bottom right, pink, -color-danger-emphasis);
+                -fx-font-size:  32px;
+                -fx-icon-size:  32px;
+            }
+            """).addTo(iconBtn);
 
         var content = new HBox(BLOCK_HGAP, btn, iconBtn);
         content.setAlignment(Pos.CENTER_LEFT);

@@ -1,7 +1,10 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.widget;
 
 import atlantafx.base.theme.Styles;
+import java.util.Objects;
+import java.util.function.Consumer;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,9 +17,6 @@ import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-
 public class Message extends StackPane {
 
     private static final int ANIMATION_DURATION = 500;
@@ -26,41 +26,41 @@ public class Message extends StackPane {
     }
 
     public static final String CSS = """
-            .message {
-              -color-message-bg: -color-bg-default;
-              -color-message-fg: -color-fg-default;
-              -fx-background-color: -color-message-bg;
-              -fx-border-color:     -color-message-fg;
-              -fx-border-width: 0 0 0 5px;
-              -fx-pref-width: 600px;
-              -fx-alignment: TOP_LEFT;
-            }
-            .message > .header {
-              -fx-font-weight: bold;
-            }
-            .message Text {
-              -fx-fill: -color-message-fg;
-            }
-            .message > .button {
-              -color-button-fg: -color-message-fg;
-            }
-            .message.info {
-              -color-message-bg: -color-accent-subtle;
-              -color-message-fg: -color-accent-fg;
-            }
-            .message.success {
-              -color-message-bg: -color-success-subtle;
-              -color-message-fg: -color-success-fg;
-            }
-            .message.warning {
-              -color-message-bg: -color-warning-subtle;
-              -color-message-fg: -color-warning-fg;
-            }
-            .message.danger {
-              -color-message-bg: -color-danger-subtle;
-              -color-message-fg: -color-danger-fg;
-            }
-            """;
+        .message {
+          -color-message-bg: -color-bg-default;
+          -color-message-fg: -color-fg-default;
+          -fx-background-color: -color-message-bg;
+          -fx-border-color:     -color-message-fg;
+          -fx-border-width: 0 0 0 5px;
+          -fx-pref-width: 600px;
+          -fx-alignment: TOP_LEFT;
+        }
+        .message > .header {
+          -fx-font-weight: bold;
+        }
+        .message Text {
+          -fx-fill: -color-message-fg;
+        }
+        .message > .button {
+          -color-button-fg: -color-message-fg;
+        }
+        .message.info {
+          -color-message-bg: -color-accent-subtle;
+          -color-message-fg: -color-accent-fg;
+        }
+        .message.success {
+          -color-message-bg: -color-success-subtle;
+          -color-message-fg: -color-success-fg;
+        }
+        .message.warning {
+          -color-message-bg: -color-warning-subtle;
+          -color-message-fg: -color-warning-fg;
+        }
+        .message.danger {
+          -color-message-bg: -color-danger-subtle;
+          -color-message-fg: -color-danger-fg;
+        }
+        """;
 
     private final Type type;
     private final String header;
@@ -99,7 +99,9 @@ public class Message extends StackPane {
         getChildren().add(closeBtn);
 
         parentProperty().addListener((obs, old, val) -> {
-            if (val != null) { handleOpen(); }
+            if (val != null) {
+                handleOpen();
+            }
         });
 
         getStyleClass().setAll("message", type.name().toLowerCase());

@@ -26,9 +26,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package atlantafx.base.controls;
 
 import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -36,10 +40,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeItem.TreeModificationEvent;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
 
@@ -79,7 +79,9 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
                                      double bottomInset, double leftInset) {
         double width = 0;
         for (Node node : getChildren()) {
-            if (!node.isManaged()) { continue; }
+            if (!node.isManaged()) {
+                continue;
+            }
             width += snapSizeX(node.prefWidth(height));
         }
 
@@ -131,7 +133,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
     }
 
     /**
-     * Construct a flat list for the crumbs
+     * Construct a flat list for the crumbs.
      *
      * @param bottomMost The crumb node at the end of the path
      */
@@ -149,8 +151,12 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
         Collections.reverse(path);
 
         // if the path consists of a single item it considered as first, but not last
-        if (path.size() > 0) { path.get(0).setFirst(true); }
-        if (path.size() > 1) { path.get(path.size() - 1).setLast(true); }
+        if (path.size() > 0) {
+            path.get(0).setFirst(true);
+        }
+        if (path.size() > 1) {
+            path.get(path.size() - 1).setLast(true);
+        }
 
         return path;
     }
@@ -183,7 +189,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
     }
 
     /**
-     * Occurs when a bread crumb gets the action event
+     * Occurs when a bread crumb gets the action event.
      *
      * @param crumbModel The crumb which received the action event
      */

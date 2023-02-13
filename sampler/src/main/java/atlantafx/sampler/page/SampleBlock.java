@@ -1,6 +1,9 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page;
 
+import java.util.Objects;
+import java.util.Random;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,9 +14,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import net.datafaker.Faker;
 import org.kordamp.ikonli.feather.Feather;
-
-import java.util.Objects;
-import java.util.Random;
 
 public class SampleBlock extends VBox {
 

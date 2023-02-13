@@ -1,5 +1,12 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
+
+import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
+import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
+import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
@@ -9,6 +16,8 @@ import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.JColor;
 import atlantafx.sampler.util.JColorUtils;
 import atlantafx.sampler.util.PlatformUtils;
+import java.util.Map;
+import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -19,7 +28,12 @@ import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,15 +41,6 @@ import javafx.scene.paint.Color;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-
-import java.util.Map;
-import java.util.Objects;
-
-import static atlantafx.sampler.page.general.ColorPaletteBlock.validateColorName;
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
-import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 // Inspired by the https://colourcontrast.cc/
 class ContrastChecker extends GridPane {
@@ -51,8 +56,8 @@ class ContrastChecker extends GridPane {
     private String bgColorName;
     private String fgColorName;
 
-    private final ObservableHSLAColor bgColor = new ObservableHSLAColor(Color.WHITE);
-    private final ObservableHSLAColor fgColor = new ObservableHSLAColor(Color.BLACK);
+    private final ObservableHslaColor bgColor = new ObservableHslaColor(Color.WHITE);
+    private final ObservableHslaColor fgColor = new ObservableHslaColor(Color.BLACK);
     private final ReadOnlyObjectProperty<Color> bgBaseColor;
     private final DoubleBinding contrastRatio;
 
@@ -72,10 +77,10 @@ class ContrastChecker extends GridPane {
 
         this.bgBaseColor = bgBaseColor;
         this.contrastRatio = Bindings.createDoubleBinding(
-                () -> getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
-                bgColor.colorProperty(),
-                fgColor.colorProperty(),
-                bgBaseColor
+            () -> getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
+            bgColor.colorProperty(),
+            fgColor.colorProperty(),
+            bgBaseColor
         );
 
         createView();
@@ -92,22 +97,35 @@ class ContrastChecker extends GridPane {
         setForeground(fgColor);
     }
 
-    public String getBgColorName() { return bgColorName; }
+    public String getBgColorName() {
+        return bgColorName;
+    }
 
-    public String getFgColorName() { return fgColorName; }
+    public String getFgColorName() {
+        return fgColorName;
+    }
 
-    public Color getBgColor() { return bgColor.colorProperty().get(); }
+    public Color getBgColor() {
+        return bgColor.colorProperty().get();
+    }
 
-    public Color getFgColor() { return fgColor.colorProperty().get(); }
+    public Color getFgColor() {
+        return fgColor.colorProperty().get();
+    }
 
-    public ReadOnlyObjectProperty<Color> bgColorProperty() { return bgColor.colorProperty(); }
+    public ReadOnlyObjectProperty<Color> bgColorProperty() {
+        return bgColor.colorProperty();
+    }
 
-    public ReadOnlyObjectProperty<Color> fgColorProperty() { return fgColor.colorProperty(); }
+    public ReadOnlyObjectProperty<Color> fgColorProperty() {
+        return fgColor.colorProperty();
+    }
 
     // Returns fg color that guaranteed to be visible on the current bg.
     public Color getSafeFgColor() {
         if (contrastRatio.get() <= CONTRAST_RATIO_THRESHOLD) {
-            return getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD ? Color.WHITE : Color.BLACK;
+            return getColorLuminance(flattenColor(bgBaseColor.get(), bgColor.getColor())) < LUMINANCE_THRESHOLD
+                ? Color.WHITE : Color.BLACK;
         } else {
             return fgColor.getColor();
         }
@@ -120,7 +138,7 @@ class ContrastChecker extends GridPane {
         var contrastRatioLabel = new Label("0.0");
         contrastRatioLabel.getStyleClass().add("ratio");
         contrastRatioLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("%.2f", contrastRatio.get()), contrastRatio
+            () -> String.format("%.2f", contrastRatio.get()), contrastRatio
         ));
 
         var contrastRatioBox = new HBox(20, largeFontLabel, contrastRatioLabel);
@@ -141,10 +159,12 @@ class ContrastChecker extends GridPane {
         var aaaLargeLabel = contrastLevelLabel();
         var aaaLargeBox = contrastLevelBox(aaaLargeLabel, "AAA Large");
 
-        var contrastLevels = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
+        final var contrastLevels = new HBox(20, aaNormalBox, aaLargeBox, aaaNormalBox, aaaLargeBox);
 
         contrastRatio.addListener((obs, old, val) -> {
-            if (val == null) { return; }
+            if (val == null) {
+                return;
+            }
             float ratio = val.floatValue();
             updateContrastLevelLabel(aaNormalLabel, ContrastLevel.AA_NORMAL.satisfies(ratio));
             updateContrastLevelLabel(aaLargeLabel, ContrastLevel.AA_LARGE.satisfies(ratio));
@@ -162,7 +182,7 @@ class ContrastChecker extends GridPane {
         bgTextField.setEditable(false);
         bgTextField.setLeft(new FontIcon(Feather.HASH));
         bgTextField.textProperty().bind(Bindings.createStringBinding(
-                () -> bgColor.getColorHexWithAlpha().substring(1), bgColor.colorProperty()
+            () -> bgColor.getColorHexWithAlpha().substring(1), bgColor.colorProperty()
         ));
         bgTextField.setContextMenu(new RightClickMenu(bgColor));
 
@@ -174,82 +194,98 @@ class ContrastChecker extends GridPane {
         fgTextField.setEditable(false);
         fgTextField.setLeft(new FontIcon(Feather.HASH));
         fgTextField.textProperty().bind(Bindings.createStringBinding(
-                () -> fgColor.getColorHexWithAlpha().substring(1), fgColor.colorProperty()
+            () -> fgColor.getColorHexWithAlpha().substring(1), fgColor.colorProperty()
         ));
         fgTextField.setContextMenu(new RightClickMenu(fgColor));
 
         bgHueSlider = slider(1, 360, 1, 1);
         bgHueSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { bgColor.setHue(val.floatValue()); }
+            if (val != null) {
+                bgColor.setHue(val.floatValue());
+            }
         });
         var bgHueLabel = new Label("Hue °");
         bgHueLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Hue %.0f °", bgHueSlider.getValue()), bgHueSlider.valueProperty())
+            () -> String.format("Hue %.0f °", bgHueSlider.getValue()), bgHueSlider.valueProperty())
         );
 
         bgSaturationSlider = slider(0, 1, 0, 0.01);
         bgSaturationSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { bgColor.setSaturation(val.floatValue()); }
+            if (val != null) {
+                bgColor.setSaturation(val.floatValue());
+            }
         });
         var bgSaturationLabel = new Label("Saturation");
         bgSaturationLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Saturation %.2f", bgSaturationSlider.getValue()), bgSaturationSlider.valueProperty())
+            () -> String.format("Saturation %.2f", bgSaturationSlider.getValue()), bgSaturationSlider.valueProperty())
         );
 
         bgLightnessSlider = slider(0, 1, 0, 0.01);
         bgLightnessSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { bgColor.setLightness(val.floatValue()); }
+            if (val != null) {
+                bgColor.setLightness(val.floatValue());
+            }
         });
         var bgLightnessLabel = new Label("Lightness");
         bgLightnessLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Lightness %.2f", bgLightnessSlider.getValue()), bgLightnessSlider.valueProperty())
+            () -> String.format("Lightness %.2f", bgLightnessSlider.getValue()), bgLightnessSlider.valueProperty())
         );
 
         bgAlphaSlider = slider(0, 1, 0, 0.01);
         bgAlphaSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { bgColor.setAlpha(val.floatValue()); }
+            if (val != null) {
+                bgColor.setAlpha(val.floatValue());
+            }
         });
         var bgAlphaLabel = new Label("Alpha");
         bgAlphaLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Alpha %.2f", bgAlphaSlider.getValue()), bgAlphaSlider.valueProperty())
+            () -> String.format("Alpha %.2f", bgAlphaSlider.getValue()), bgAlphaSlider.valueProperty())
         );
 
         // ~
 
         fgHueSlider = slider(1, 360, 1, 1);
         fgHueSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { fgColor.setHue(val.floatValue()); }
+            if (val != null) {
+                fgColor.setHue(val.floatValue());
+            }
         });
         var fgHueLabel = new Label("Hue °");
         fgHueLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Hue %.0f °", fgHueSlider.getValue()), fgHueSlider.valueProperty())
+            () -> String.format("Hue %.0f °", fgHueSlider.getValue()), fgHueSlider.valueProperty())
         );
 
         fgSaturationSlider = slider(0, 1, 0, 0.01);
         fgSaturationSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { fgColor.setSaturation(val.floatValue()); }
+            if (val != null) {
+                fgColor.setSaturation(val.floatValue());
+            }
         });
         var fgSaturationLabel = new Label("Saturation");
         fgSaturationLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Saturation %.2f", fgSaturationSlider.getValue()), fgSaturationSlider.valueProperty())
+            () -> String.format("Saturation %.2f", fgSaturationSlider.getValue()), fgSaturationSlider.valueProperty())
         );
 
         fgLightnessSlider = slider(0, 1, 0, 0.01);
         fgLightnessSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { fgColor.setLightness(val.floatValue()); }
+            if (val != null) {
+                fgColor.setLightness(val.floatValue());
+            }
         });
         var fgLightnessLabel = new Label("Lightness");
         fgLightnessLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Lightness %.2f", fgLightnessSlider.getValue()), fgLightnessSlider.valueProperty())
+            () -> String.format("Lightness %.2f", fgLightnessSlider.getValue()), fgLightnessSlider.valueProperty())
         );
 
         fgAlphaSlider = slider(0, 1, 0, 0.01);
         fgAlphaSlider.valueProperty().addListener((obs, old, val) -> {
-            if (val != null) { fgColor.setAlpha(val.floatValue()); }
+            if (val != null) {
+                fgColor.setAlpha(val.floatValue());
+            }
         });
         var fgAlphaLabel = new Label("Alpha");
         fgAlphaLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.format("Alpha %.2f", fgAlphaSlider.getValue()), fgAlphaSlider.valueProperty())
+            () -> String.format("Alpha %.2f", fgAlphaSlider.getValue()), fgAlphaSlider.valueProperty())
         );
 
         // ~
@@ -265,8 +301,8 @@ class ContrastChecker extends GridPane {
 
         var applyBtn = new Button("Apply");
         applyBtn.setOnAction(e -> ThemeManager.getInstance().setNamedColors(Map.of(
-                getBgColorName(), bgColor.getColor(),
-                getFgColorName(), fgColor.getColor()
+            getBgColorName(), bgColor.getColor(),
+            getFgColorName(), fgColor.getColor()
         )));
 
         var actionsBox = new HBox(20, new Spacer(), flattenBtn, applyBtn);
@@ -308,18 +344,22 @@ class ContrastChecker extends GridPane {
         add(fgAlphaSlider, 1, 11);
 
         bgColor.colorProperty().addListener((obs, old, val) -> {
-            if (val != null) { updateStyle(); }
+            if (val != null) {
+                updateStyle();
+            }
         });
 
         fgColor.colorProperty().addListener((obs, old, val) -> {
-            if (val != null) { updateStyle(); }
+            if (val != null) {
+                updateStyle();
+            }
         });
     }
 
     private void updateStyle() {
         setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
-                toHexWithAlpha(bgColor.getColor()),
-                toHexWithAlpha(getSafeFgColor())
+            toHexWithAlpha(bgColor.getColor()),
+            toHexWithAlpha(getSafeFgColor())
         ));
     }
 
@@ -378,14 +418,15 @@ class ContrastChecker extends GridPane {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    private static class ObservableHSLAColor {
+    private static class ObservableHslaColor {
 
         private final ObservableList<Float> values = FXCollections.observableArrayList(0f, 0f, 0f, 0f);
-        private final ReadOnlyObjectWrapper<Color> color = new ReadOnlyObjectWrapper<>() { };
+        private final ReadOnlyObjectWrapper<Color> color = new ReadOnlyObjectWrapper<>() {
+        };
 
-        public ObservableHSLAColor(Color initialColor) {
+        public ObservableHslaColor(Color initialColor) {
             values.addListener((ListChangeListener<Float>) c -> {
-                float[] rgb = getRGBAArithmeticColor();
+                float[] rgb = getRgbaArithmeticColor();
                 color.set(Color.color(rgb[0], rgb[1], rgb[2], getAlpha()));
             });
             setColor(initialColor);
@@ -436,28 +477,28 @@ class ContrastChecker extends GridPane {
             values.set(3, value);
         }
 
-        public float[] getRGBAArithmeticColor() {
-            float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
+        public float[] getRgbaArithmeticColor() {
+            float[] hsl = new float[] {getHue(), getSaturation(), getLightness()};
             var color = JColor.color(hsl, getAlpha());
             return new float[] {
-                    color.getRedArithmetic(),
-                    color.getGreenArithmetic(),
-                    color.getBlueArithmetic(),
-                    getAlpha()
+                color.getRedArithmetic(),
+                color.getGreenArithmetic(),
+                color.getBlueArithmetic(),
+                getAlpha()
             };
         }
 
         public String getColorHexWithAlpha() {
-            float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
+            float[] hsl = new float[] {getHue(), getSaturation(), getLightness()};
             return JColor.color(hsl, getAlpha()).getColorHexWithAlpha();
         }
     }
 
     private static class RightClickMenu extends ContextMenu {
 
-        private final ObservableHSLAColor color;
+        private final ObservableHslaColor color;
 
-        public RightClickMenu(ObservableHSLAColor color) {
+        public RightClickMenu(ObservableHslaColor color) {
             super();
 
             this.color = color;
@@ -468,28 +509,40 @@ class ContrastChecker extends GridPane {
         private void createMenu() {
             var hexItem = new MenuItem("Copy as HEX");
             hexItem.setOnAction(e -> {
-                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                        toHexWithAlpha(color.getColor()) :
-                        c.getColorHex()
+                var c = JColor.color(
+                    new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1
+                    ? toHexWithAlpha(color.getColor()) : c.getColorHex()
                 );
             });
 
             var rgbItem = new MenuItem("Copy as RGB");
             rgbItem.setOnAction(e -> {
-                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                        String.format("rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()) :
-                        String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
+                var c = JColor.color(
+                    new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                PlatformUtils.copyToClipboard(color.getAlpha() < 1
+                        ? String.format(
+                        "rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()
+                    )
+                        : String.format("rgb(%d,%d,%d)", c.getGreen(), c.getGreen(), c.getBlue())
                 );
             });
 
             var hslItem = new MenuItem("Copy as HSL");
             hslItem.setOnAction(e -> {
-                var c = JColor.color(new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
-                PlatformUtils.copyToClipboard(color.getAlpha() < 1 ?
-                        String.format("hsla(%.0f,%.2f,%.2f, %.1f)", c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()) :
-                        String.format("hsl(%.0f,%.2f,%.2f)", c.getHue(), c.getSaturation(), c.getLightness())
+                var c = JColor.color(new float[] {
+                    color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()
+                });
+                PlatformUtils.copyToClipboard(
+                    color.getAlpha() < 1
+                        ? String.format(
+                        "hsla(%.0f,%.2f,%.2f, %.1f)",
+                        c.getHue(), c.getSaturation(), c.getLightness(), c.getAlphaArithmetic()
+                    )
+                        : String.format(
+                        "hsl(%.0f,%.2f,%.2f)",
+                        c.getHue(), c.getSaturation(), c.getLightness()
+                    )
                 );
             });
 

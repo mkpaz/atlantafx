@@ -1,5 +1,16 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.BORDERED;
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.STRIPED;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.base.theme.Tweaks.ALIGN_CENTER;
+import static atlantafx.base.theme.Tweaks.ALIGN_LEFT;
+import static atlantafx.base.theme.Tweaks.ALIGN_RIGHT;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
@@ -8,10 +19,26 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.IntStream;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.*;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.CheckBoxTreeTableCell;
+import javafx.scene.control.cell.ChoiceBoxTreeTableCell;
+import javafx.scene.control.cell.ComboBoxTreeTableCell;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -19,21 +46,14 @@ import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
-
-import static atlantafx.base.theme.Styles.*;
-import static atlantafx.base.theme.Tweaks.*;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 public class TreeTablePage extends AbstractPage {
 
     public static final String NAME = "TreeTableView";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private TreeTableView<Product> treeTable;
 
@@ -62,7 +82,7 @@ public class TreeTablePage extends AbstractPage {
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-                (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
+            (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
         );
 
         var footer = new HBox(BLOCK_HGAP, bordersToggle, denseToggle, stripesToggle, altIconToggle, edge2edgeToggle);
@@ -81,7 +101,7 @@ public class TreeTablePage extends AbstractPage {
 
             var group = new TreeItem<>(groupVal);
             group.getChildren().setAll(
-                    createTreeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
+                createTreeItems(idx * 100, FAKER.random().nextInt(5, 10), brand)
             );
             root.getChildren().add(group);
         }
@@ -126,15 +146,17 @@ public class TreeTablePage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch("Disable");
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { treeTable.setDisable(val); }
+            if (val != null) {
+                treeTable.setDisable(val);
+            }
         });
 
         var header = new HBox(
-                createPropertiesMenu(treeTable),
-                new Spacer(),
-                alignBox,
-                new Spacer(),
-                disableToggle
+            createPropertiesMenu(treeTable),
+            new Spacer(),
+            alignBox,
+            new Spacer(),
+            disableToggle
         );
         header.setAlignment(Pos.CENTER_LEFT);
 
@@ -148,9 +170,9 @@ public class TreeTablePage extends AbstractPage {
 
     private List<TreeItem<Product>> createTreeItems(int startId, int count, String brand) {
         return IntStream.range(startId, startId + count + 1).boxed()
-                .map(id -> Product.random(id, brand, FAKER))
-                .map(TreeItem::new)
-                .toList();
+            .map(id -> Product.random(id, brand, FAKER))
+            .map(TreeItem::new)
+            .toList();
     }
 
     @SuppressWarnings("unchecked")
@@ -172,7 +194,7 @@ public class TreeTablePage extends AbstractPage {
         idCol.setCellValueFactory(cell -> {
             Product product = cell.getValue().getValue();
             return new SimpleStringProperty(
-                    product != null && product.getId() != 0 ? String.valueOf(product.getId()) : ""
+                product != null && product.getId() != 0 ? String.valueOf(product.getId()) : ""
             );
         });
         idCol.setEditable(false);
@@ -181,14 +203,14 @@ public class TreeTablePage extends AbstractPage {
         var brandCol = new TreeTableColumn<Product, String>("Brand  🖉");
         brandCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("brand"));
         brandCol.setCellFactory(ChoiceBoxTreeTableCell.forTreeTableColumn(
-                generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().brand(), 10).toArray(String[]::new)
         ));
         brandCol.setEditable(true);
 
         var nameCol = new TreeTableColumn<Product, String>("Name  🖉");
         nameCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("name"));
         nameCol.setCellFactory(ComboBoxTreeTableCell.forTreeTableColumn(
-                generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
+            generate(() -> FAKER.commerce().productName(), 10).toArray(String[]::new)
         ));
         nameCol.setEditable(true);
         nameCol.setMinWidth(200);
@@ -205,78 +227,79 @@ public class TreeTablePage extends AbstractPage {
     }
 
     private MenuButton createPropertiesMenu(TreeTableView<Product> treeTable) {
-        var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
-        var resizePolicyGroup = new ToggleGroup();
+        final var resizePolicyCaption = new CaptionMenuItem("Resize Policy");
+        final var resizePolicyGroup = new ToggleGroup();
         resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
-            if (val != null && val.getUserData() instanceof Callback policy) {
+            if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 treeTable.setColumnResizePolicy((Callback<TreeTableView.ResizeFeatures, Boolean>) policy);
             }
         });
 
-        var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
+        final var unconstrainedResizeItem = new RadioMenuItem("Unconstrained");
         unconstrainedResizeItem.setToggleGroup(resizePolicyGroup);
         unconstrainedResizeItem.setUserData(TreeTableView.UNCONSTRAINED_RESIZE_POLICY);
         unconstrainedResizeItem.setSelected(true);
 
-        var constrainedResizeItem = new RadioMenuItem("Constrained");
+        final var constrainedResizeItem = new RadioMenuItem("Constrained");
         constrainedResizeItem.setToggleGroup(resizePolicyGroup);
         constrainedResizeItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY);
 
         // ~
 
-        var selectionModeCaption = new CaptionMenuItem("Selection Mode");
-        var selectionModeGroup = new ToggleGroup();
+        final var selectionModeCaption = new CaptionMenuItem("Selection Mode");
+        final var selectionModeGroup = new ToggleGroup();
         selectionModeGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof SelectionMode mode) {
                 treeTable.getSelectionModel().setSelectionMode(mode);
             }
         });
 
-        var singleSelectionItem = new RadioMenuItem("Single");
+        final var singleSelectionItem = new RadioMenuItem("Single");
         singleSelectionItem.setToggleGroup(selectionModeGroup);
         singleSelectionItem.setUserData(SelectionMode.SINGLE);
 
-        var multiSelectionItem = new RadioMenuItem("Multiple");
+        final var multiSelectionItem = new RadioMenuItem("Multiple");
         multiSelectionItem.setToggleGroup(selectionModeGroup);
         multiSelectionItem.setUserData(SelectionMode.MULTIPLE);
         multiSelectionItem.setSelected(true);
 
         // ~
 
-        var showRootItem = new CheckMenuItem("Show root");
+        final var showRootItem = new CheckMenuItem("Show root");
         treeTable.showRootProperty().bind(showRootItem.selectedProperty());
         showRootItem.setSelected(true);
 
-        var editCellsItem = new CheckMenuItem("Editable");
+        final var editCellsItem = new CheckMenuItem("Editable");
         treeTable.editableProperty().bind(editCellsItem.selectedProperty());
         editCellsItem.setSelected(true);
 
-        var cellSelectionItem = new CheckMenuItem("Enable cell selection");
+        final var cellSelectionItem = new CheckMenuItem("Enable cell selection");
         treeTable.getSelectionModel().cellSelectionEnabledProperty().bind(cellSelectionItem.selectedProperty());
         cellSelectionItem.setSelected(false);
 
         // ~
 
-        var menuButtonItem = new CheckMenuItem("Show menu button");
+        final var menuButtonItem = new CheckMenuItem("Show menu button");
         treeTable.tableMenuButtonVisibleProperty().bind(menuButtonItem.selectedProperty());
         menuButtonItem.setSelected(true);
 
-        return new MenuButton("Properties") {{
-            getItems().setAll(
-                    resizePolicyCaption,
-                    unconstrainedResizeItem,
-                    constrainedResizeItem,
-                    selectionModeCaption,
-                    singleSelectionItem,
-                    multiSelectionItem,
-                    new SeparatorMenuItem(),
-                    showRootItem,
-                    editCellsItem,
-                    cellSelectionItem,
-                    menuButtonItem
-            );
-        }};
+        final var propertiesMenu = new MenuButton("Properties");
+        propertiesMenu.getItems().setAll(
+            resizePolicyCaption,
+            unconstrainedResizeItem,
+            constrainedResizeItem,
+            selectionModeCaption,
+            singleSelectionItem,
+            multiSelectionItem,
+            new SeparatorMenuItem(),
+            showRootItem,
+            editCellsItem,
+            cellSelectionItem,
+            menuButtonItem
+        );
+
+        return propertiesMenu;
     }
 
     private static void addStyleClass(TreeTableColumn<?, ?> c, String styleClass, String... excludes) {

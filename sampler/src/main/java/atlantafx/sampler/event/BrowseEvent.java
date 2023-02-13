@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.event;
 
 import java.net.URI;
@@ -17,8 +18,8 @@ public class BrowseEvent extends Event {
 
     @Override
     public String toString() {
-        return "BrowseEvent{" +
-                "uri=" + uri +
-                "} " + super.toString();
+        return "BrowseEvent{"
+            + "uri=" + uri
+            + "} " + super.toString();
     }
 }

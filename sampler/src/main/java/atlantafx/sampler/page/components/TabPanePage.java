@@ -1,5 +1,13 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.ACCENT;
+import static atlantafx.base.theme.Styles.BUTTON_ICON;
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
+import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
@@ -10,14 +18,20 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import static atlantafx.base.theme.Styles.*;
-import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
-import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 public class TabPanePage extends AbstractPage {
 
@@ -25,7 +39,9 @@ public class TabPanePage extends AbstractPage {
     private static final double TAB_MIN_HEIGHT = 60;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private Side tabSide = Side.TOP;
     private boolean fullWidth = false;
@@ -109,7 +125,9 @@ public class TabPanePage extends AbstractPage {
 
         var floatingToggle = new ToggleSwitch();
         floatingToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { Styles.toggleStyleClass(tabs, TabPane.STYLE_CLASS_FLOATING); }
+            if (val != null) {
+                Styles.toggleStyleClass(tabs, TabPane.STYLE_CLASS_FLOATING);
+            }
         });
 
         var animatedToggle = new ToggleSwitch();
@@ -135,7 +153,9 @@ public class TabPanePage extends AbstractPage {
 
         var disableToggle = new ToggleSwitch();
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) { tabs.setDisable(val); }
+            if (val != null) {
+                tabs.setDisable(val);
+            }
         });
 
         var togglesGrid = new GridPane();
@@ -163,10 +183,10 @@ public class TabPanePage extends AbstractPage {
         // == LAYOUT ==
 
         var controls = new HBox(40,
-                new Spacer(),
-                buttonsPane,
-                togglesGrid,
-                new Spacer()
+            new Spacer(),
+            buttonsPane,
+            togglesGrid,
+            new Spacer()
         );
         controls.setAlignment(Pos.CENTER);
 
@@ -195,16 +215,16 @@ public class TabPanePage extends AbstractPage {
 
         if (tabs.getSide() == Side.TOP || tabs.getSide() == Side.BOTTOM) {
             tabs.tabMinWidthProperty().bind(borderPane.widthProperty()
-                    .subtract(18) // .control-buttons-tab width
-                    .divide(tabs.getTabs().size())
-                    .subtract(28) // .tab paddings
+                .subtract(18) // .control-buttons-tab width
+                .divide(tabs.getTabs().size())
+                .subtract(28) // .tab paddings
             );
         }
         if (tabs.getSide() == Side.LEFT || tabs.getSide() == Side.RIGHT) {
             tabs.tabMinWidthProperty().bind(borderPane.heightProperty()
-                    .subtract(18) // same as above
-                    .divide(tabs.getTabs().size())
-                    .subtract(28)
+                .subtract(18) // same as above
+                .divide(tabs.getTabs().size())
+                .subtract(28)
             );
         }
     }
@@ -218,16 +238,18 @@ public class TabPanePage extends AbstractPage {
         //       like disabled. To prevent it from closing one can use "black hole"
         //       event handler. #javafx-bug
         tabs.getTabs().addAll(
-                createRandomTab(),
-                createRandomTab(),
-                createRandomTab()
+            createRandomTab(),
+            createRandomTab(),
+            createRandomTab()
         );
 
         return tabs;
     }
 
     private void rotateTabs(BorderPane borderPane, TabPane tabs, Side side) {
-        if (tabSide == side) { return; }
+        if (tabSide == side) {
+            return;
+        }
 
         borderPane.getChildren().removeAll(tabs);
         tabSide = side;

@@ -1,5 +1,10 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
+
+import static atlantafx.base.theme.Styles.DENSE;
+import static atlantafx.base.theme.Styles.toggleStyleClass;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
@@ -22,16 +27,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import static atlantafx.base.theme.Styles.DENSE;
-import static atlantafx.base.theme.Styles.toggleStyleClass;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-
 public class AccordionPage extends AbstractPage {
 
     public static final String NAME = "Accordion";
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     private final BooleanProperty expandedProperty = new SimpleBooleanProperty(true);
     private final BooleanProperty animatedProperty = new SimpleBooleanProperty(true);
@@ -43,8 +46,8 @@ public class AccordionPage extends AbstractPage {
 
         accordion = createPlayground();
         var sample = new SampleBlock(
-                "Playground",
-                new VBox(SampleBlock.BLOCK_VGAP, createControls(), accordion)
+            "Playground",
+            new VBox(SampleBlock.BLOCK_VGAP, createControls(), accordion)
         );
         sample.setFillHeight(true);
         setUserContent(sample);
@@ -61,20 +64,20 @@ public class AccordionPage extends AbstractPage {
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-                (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, DENSE))
+            (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, DENSE))
         );
 
         var altIconToggle = new ToggleSwitch("Alt icon");
         altIconToggle.selectedProperty().addListener(
-                (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, Tweaks.ALT_ICON))
+            (obs, old, val) -> accordion.getPanes().forEach(p -> toggleStyleClass(p, Tweaks.ALT_ICON))
         );
 
         var controls = new HBox(
-                BLOCK_HGAP,
-                animatedToggle,
-                expandedToggle,
-                denseToggle,
-                altIconToggle
+            BLOCK_HGAP,
+            animatedToggle,
+            expandedToggle,
+            denseToggle,
+            altIconToggle
         );
         controls.setAlignment(Pos.CENTER);
         controls.setPadding(new Insets(0, 0, 0, 2));
@@ -101,8 +104,8 @@ public class AccordionPage extends AbstractPage {
         disabledBlock.setDisable(true);
 
         var imageBlock = new TitledPane("_Image", new VBox(10,
-                new ImageView(new Image(Resources.getResourceAsStream("images/20_min_adventure.jpg"))),
-                new TextFlow(new Text(FAKER.rickAndMorty().quote()))
+            new ImageView(new Image(Resources.getResourceAsStream("images/20_min_adventure.jpg"))),
+            new TextFlow(new Text(FAKER.rickAndMorty().quote()))
         ));
         imageBlock.animatedProperty().bind(animatedProperty);
         imageBlock.setMnemonicParsing(true);
@@ -110,10 +113,10 @@ public class AccordionPage extends AbstractPage {
         // ~
 
         var accordion = new Accordion(
-                textBlock,
-                scrollableTextBlock,
-                disabledBlock,
-                imageBlock
+            textBlock,
+            scrollableTextBlock,
+            disabledBlock,
+            imageBlock
         );
 
         // prevents accordion from being completely collapsed

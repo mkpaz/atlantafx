@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Breadcrumbs;
@@ -25,15 +26,17 @@ public class BreadcrumbsPage extends AbstractPage {
     private static final int CRUMB_COUNT = 5;
 
     @Override
-    public String getName() { return NAME; }
+    public String getName() {
+        return NAME;
+    }
 
     public BreadcrumbsPage() {
         super();
         setUserContent(new VBox(
-                Page.PAGE_VGAP,
-                basicSample(),
-                customCrumbSample(),
-                customDividerSample()
+            Page.PAGE_VGAP,
+            basicSample(),
+            customCrumbSample(),
+            customDividerSample()
         ));
     }
 
@@ -54,7 +57,9 @@ public class BreadcrumbsPage extends AbstractPage {
 
     private SampleBlock customDividerSample() {
         Callback<BreadCrumbItem<String>, ? extends Node> dividerFactory = item -> {
-            if (item == null) { return new Label("", new FontIcon(Material2AL.HOME)); }
+            if (item == null) {
+                return new Label("", new FontIcon(Material2AL.HOME));
+            }
             return !item.isLast() ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT)) : null;
         };
 
@@ -64,7 +69,7 @@ public class BreadcrumbsPage extends AbstractPage {
     private HBox createBreadcrumbs(Callback<BreadCrumbItem<String>, ButtonBase> crumbFactory,
                                    Callback<BreadCrumbItem<String>, ? extends Node> dividerFactory) {
         BreadCrumbItem<String> model = Breadcrumbs.buildTreeModel(
-                generate(() -> FAKER.science().element(), CRUMB_COUNT).toArray(String[]::new)
+            generate(() -> FAKER.science().element(), CRUMB_COUNT).toArray(String[]::new)
         );
 
         var nextBtn = new Button("Next");
@@ -72,8 +77,12 @@ public class BreadcrumbsPage extends AbstractPage {
 
         var breadcrumbs = new Breadcrumbs<>(model);
         breadcrumbs.setSelectedCrumb(getAncestor(model, CRUMB_COUNT / 2));
-        if (crumbFactory != null) { breadcrumbs.setCrumbFactory(crumbFactory); }
-        if (dividerFactory != null) { breadcrumbs.setDividerFactory(dividerFactory); }
+        if (crumbFactory != null) {
+            breadcrumbs.setCrumbFactory(crumbFactory);
+        }
+        if (dividerFactory != null) {
+            breadcrumbs.setDividerFactory(dividerFactory);
+        }
 
         nextBtn.setOnAction(e -> {
             BreadCrumbItem<String> selected = breadcrumbs.getSelectedCrumb();

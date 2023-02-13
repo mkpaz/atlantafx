@@ -1,28 +1,35 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.theme;
+
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
+import static atlantafx.sampler.Resources.resolve;
+import static atlantafx.sampler.theme.ThemeManager.APP_STYLESHEETS;
+import static atlantafx.sampler.theme.ThemeManager.DUMMY_STYLESHEET;
+import static atlantafx.sampler.theme.ThemeManager.PROJECT_THEMES;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.FileResource;
 import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
 import fr.brouillard.oss.cssfx.CSSFX;
-import javafx.application.Application;
-import javafx.scene.Scene;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.attribute.FileTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static atlantafx.sampler.Launcher.IS_DEV_MODE;
-import static atlantafx.sampler.Resources.resolve;
-import static atlantafx.sampler.theme.ThemeManager.*;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import javafx.application.Application;
+import javafx.scene.Scene;
 
 /**
  * The {@link Theme} decorator to work around some JavaFX CSS limitations.
@@ -51,7 +58,7 @@ public final class SamplerTheme implements Theme {
 
     private static final int PARSE_LIMIT = 250;
     private static final Pattern COLOR_PATTERN =
-            Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger)-.+?):\s*?(.+?);");
+        Pattern.compile("\s*?(-color-(fg|bg|accent|success|danger)-.+?):\s*?(.+?);");
 
     private final Theme theme;
 
@@ -102,11 +109,34 @@ public final class SamplerTheme implements Theme {
         return file.internal() ? parseColorsForClasspath(file) : parseColorsForFilesystem(file);
     }
 
+    private Map<String, String> parseColors(BufferedReader br) throws IOException {
+        Map<String, String> colors = new HashMap<>();
+
+        String line;
+        int lineCount = 0;
+
+        while ((line = br.readLine()) != null) {
+            Matcher matcher = COLOR_PATTERN.matcher(line);
+            if (matcher.matches()) {
+                colors.put(matcher.group(1), matcher.group(3));
+            }
+
+            lineCount++;
+            if (lineCount > PARSE_LIMIT) {
+                break;
+            }
+        }
+
+        return colors;
+    }
+
     private Map<String, String> parseColorsForClasspath(FileResource file) throws IOException {
         // classpath resources are static, no need to parse project theme more than once
-        if (colors != null) { return colors; }
+        if (colors != null) {
+            return colors;
+        }
 
-        try (var br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (var br = new BufferedReader(new InputStreamReader(file.getInputStream(), UTF_8))) {
             colors = parseColors(br);
         }
 
@@ -131,46 +161,34 @@ public final class SamplerTheme implements Theme {
         return colors;
     }
 
-    private Map<String, String> parseColors(BufferedReader br) throws IOException {
-        Map<String, String> colors = new HashMap<>();
-
-        String line;
-        int lineCount = 0;
-
-        while ((line = br.readLine()) != null) {
-            Matcher matcher = COLOR_PATTERN.matcher(line);
-            if (matcher.matches()) {
-                colors.put(matcher.group(1), matcher.group(3));
-            }
-
-            lineCount++;
-            if (lineCount > PARSE_LIMIT) { break; }
-        }
-
-        return colors;
-    }
-
     public String getPath() {
         return getThemeFile().toPath().toString();
     }
 
     private FileResource getThemeFile() {
         if (!isProjectTheme()) {
-            return FileResource.external(theme.getUserAgentStylesheet());
+            return FileResource.createExternal(theme.getUserAgentStylesheet());
         }
 
-        FileResource classpathTheme = FileResource.internal(theme.getUserAgentStylesheet(), Theme.class);
-        if (!IS_DEV_MODE) { return classpathTheme; }
+        FileResource classpathTheme = FileResource.createInternal(theme.getUserAgentStylesheet(), Theme.class);
+        if (!IS_DEV_MODE) {
+            return classpathTheme;
+        }
 
         String filename = classpathTheme.getFilename();
 
         try {
-            FileResource testTheme = FileResource.internal(Resources.resolve("theme-test/" + filename), Launcher.class);
-            if (!testTheme.exists()) { throw new IOException(); }
+            FileResource testTheme = FileResource.createInternal(
+                Resources.resolve("theme-test/" + filename), Launcher.class
+            );
+            if (!testTheme.exists()) {
+                throw new IOException();
+            }
             return testTheme;
         } catch (Exception e) {
             var failedPath = resolve("theme-test/" + filename);
-            System.err.println("[WARNING] Unable to find theme file \"" + failedPath + "\". Fall back to the classpath.");
+            System.err.println(
+                "[WARNING] Unable to find theme file \"" + failedPath + "\". Fall back to the classpath.");
             return classpathTheme;
         }
     }

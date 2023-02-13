@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.controls;
 
 import javafx.geometry.Orientation;
@@ -6,7 +7,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.skin.SliderSkin;
 import javafx.scene.layout.StackPane;
 
-/** {@link Slider} skin that supports progress color. */
+/**
+ * {@link Slider} skin that supports progress color.
+ */
 public class ProgressSliderSkin extends SliderSkin {
 
     protected final StackPane thumb;
@@ -45,7 +48,8 @@ public class ProgressSliderSkin extends SliderSkin {
         } else {
             progressY = thumb.getLayoutY();
             progressWidth = track.getWidth();
-            progressHeight = track.getLayoutBounds().getMaxY() + track.getLayoutY() - thumb.getLayoutY() - snappedBottomInset();
+            progressHeight =
+                track.getLayoutBounds().getMaxY() + track.getLayoutY() - thumb.getLayoutY() - snappedBottomInset();
         }
 
         progressTrack.resizeRelocate(progressX, progressY, progressWidth, progressHeight);

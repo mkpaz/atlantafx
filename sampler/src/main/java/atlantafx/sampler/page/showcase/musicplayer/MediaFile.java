@@ -1,18 +1,20 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import atlantafx.sampler.Resources;
-import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
 
+import atlantafx.sampler.Resources;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 @SuppressWarnings("StringOperationCanBeSimplified")
 record MediaFile(File file) {
@@ -36,11 +38,11 @@ record MediaFile(File file) {
                 var image = getTag(metadata, "image", Image.class, null);
                 // clone everything to make sure media player will be garbage collected
                 return new Metadata(
-                        new String(getTag(metadata, "title", String.class, NO_TITLE)),
-                        image != null ? copyImage(image) : null,
-                        new String(getTag(metadata, "artist", String.class, NO_ARTIST)),
-                        new String(getTag(metadata, "album", String.class, NO_ALBUM)),
-                        media.getDuration().toMillis()
+                    new String(getTag(metadata, "title", String.class, NO_TITLE)),
+                    image != null ? copyImage(image) : null,
+                    new String(getTag(metadata, "artist", String.class, NO_ARTIST)),
+                    new String(getTag(metadata, "album", String.class, NO_ALBUM)),
+                    media.getDuration().toMillis()
                 );
             }));
 
@@ -62,11 +64,11 @@ record MediaFile(File file) {
     record Metadata(String title, Image image, String artist, String album, double duration) {
 
         static final Image NO_IMAGE = new Image(
-                Resources.getResourceAsStream("images/no-image.png"), 150, 150, true, false
+            Resources.getResourceAsStream("images/no-image.png"), 150, 150, true, false
         );
 
         static final Image NO_IMAGE_ALT = new Image(
-                Resources.getResourceAsStream("images/papirus/mimetypes/audio-mp3.png"), 150, 150, true, false
+            Resources.getResourceAsStream("images/papirus/mimetypes/audio-mp3.png"), 150, 150, true, false
         );
 
         static final String NO_TITLE = "Unknown title";

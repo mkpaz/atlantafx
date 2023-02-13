@@ -29,8 +29,14 @@ jobs:
     - name: Build | Package styles
       run: mvn clean install -B --file styles/pom.xml
 
-    - name: Build | Package other modules
+    - name: Build | Package other modules (Unix)
+      # some tests won't start without X11
+      run: xvfb-run mvn clean install -B -pl '!styles' --file pom.xml
+      if: matrix.os == 'ubuntu-latest'
+
+    - name: Build | Package other modules (Windows)
       run: mvn clean install -B -pl '!styles' --file pom.xml
+      if: matrix.os == 'windows-latest'
 
     - name: Build | List artifacts (Unix)
       shell: sh

@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.util;
 
 /**
@@ -7,9 +8,6 @@ package atlantafx.base.util;
  */
 public final class PlatformUtils {
 
-    /**
-     * Initialize a new PlatformUtils
-     */
     private PlatformUtils() {
         // Default constructor
     }

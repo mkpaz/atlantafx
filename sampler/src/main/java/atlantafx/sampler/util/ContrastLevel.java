@@ -1,11 +1,11 @@
 /* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
-import javafx.scene.paint.Color;
+import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 import java.util.Arrays;
-
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
+import javafx.scene.paint.Color;
 
 /**
  * The WCAG contrast measures the difference in brightness (luminance) between two colours.
@@ -48,10 +48,10 @@ public enum ContrastLevel {
     }
 
     public static double getContrastRatio(double luminance1, double luminance2) {
-        return 1 / (luminance1 > luminance2 ?
-                (luminance2 + 0.05) / (luminance1 + 0.05) :
-                (luminance1 + 0.05) / (luminance2 + 0.05)
-        );
+        var x = luminance1 > luminance2
+            ? (luminance2 + 0.05) / (luminance1 + 0.05)
+            : (luminance1 + 0.05) / (luminance2 + 0.05);
+        return 1 / x;
     }
 
     public static double getContrastRatioOpacityAware(Color bgColor, Color fgColor, Color bgBaseColor) {
@@ -69,15 +69,15 @@ public enum ContrastLevel {
      */
     public static double getColorLuminance(double[] rgb) {
         double[] tmp = Arrays.stream(rgb)
-                .map(v -> v <= 0.03928 ? (v / 12.92) : Math.pow((v + 0.055) / 1.055, 2.4))
-                .toArray();
+            .map(v -> v <= 0.03928 ? (v / 12.92) : Math.pow((v + 0.055) / 1.055, 2.4))
+            .toArray();
         return (tmp[0] * 0.2126) + (tmp[1] * 0.7152) + (tmp[2] * 0.0722);
     }
 
     /**
-     * @see ContrastLevel#getColorLuminance(double[])
+     * See {@link ContrastLevel#getColorLuminance}.
      */
     public static double getColorLuminance(Color color) {
-        return getColorLuminance(new double[]{color.getRed(), color.getGreen(), color.getBlue()});
+        return getColorLuminance(new double[] {color.getRed(), color.getGreen(), color.getBlue()});
     }
 }
