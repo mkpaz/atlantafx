@@ -21,8 +21,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 import javafx.application.Application;
+import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -54,7 +56,11 @@ public class Launcher extends Application {
         }
 
         var root = new ApplicationWindow();
-        var scene = new Scene(root, 1200, 768);
+
+        var antialiasing = Platform.isSupported(ConditionalFeature.SCENE3D)
+            ? SceneAntialiasing.BALANCED
+            : SceneAntialiasing.DISABLED;
+        var scene = new Scene(root, 1200, 768, false, antialiasing);
         scene.setOnKeyPressed(this::dispatchHotkeys);
 
         var tm = ThemeManager.getInstance();
