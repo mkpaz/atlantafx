@@ -84,7 +84,9 @@
 }
 
 #sidebar {
-  -fx-border-color: -color-border-default;
+  // border is necessary when scrollbar is hidden
+  // e.g. when displaying search result
+  -fx-border-color: -color-border-subtle;
   -fx-border-width: 0 1px 0 0;
 
   >.scroll-pane {

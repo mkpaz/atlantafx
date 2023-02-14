@@ -4,6 +4,10 @@
 @use "../settings/icons";
 @use "button";
 
+$color-split-arrow-bg: -color-neutral-emphasis-plus !default;
+$color-split-arrow-fg: -color-fg-emphasis !default;
+$color-split-arrow-opacity: 0.75 !default;
+
 $arrow-button-width: 0.5em  !default;
 $separator-width:    0.75px !default;
 
@@ -122,6 +126,13 @@ $separator-width:    0.75px !default;
   &.flat {
     @include button.flat();
   }
+
+  // prevent opacity from being applied twice
+  &:disabled {
+    >.label {
+      -fx-opacity: 1;
+    }
+  }
 }
 
 .menu-button {
@@ -149,14 +160,14 @@ $separator-width:    0.75px !default;
   &:hover,
   &:focused:hover {
     >.arrow-button {
-      -fx-background-color: -color-neutral-emphasis-plus;
+      -fx-background-color: $color-split-arrow-bg;
       -fx-background-insets: cfg.$border-width;
       -fx-background-radius: cfg.$inner-border-radius;
       -fx-border-color: transparent;
-      -fx-opacity: 0.75;
+      -fx-opacity: $color-split-arrow-opacity;
 
       >.arrow {
-        -fx-background-color: -color-fg-emphasis;
+        -fx-background-color: $color-split-arrow-fg;
         -fx-opacity: 1.0;
       }
     }

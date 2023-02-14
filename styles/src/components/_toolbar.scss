@@ -26,6 +26,7 @@ $border-width: cfg.$border-width !default;
     >.split-menu-button {
       -color-button-bg: $color-bg;
       -fx-background-insets: 0;
+      -fx-effect: none;
     }
 
     .toggle-button {
@@ -33,6 +34,7 @@ $border-width: cfg.$border-width !default;
       -color-button-bg-selected: $color-bg-selected;
       -color-button-fg-selected: -color-fg-default;
       -fx-background-insets: 0;
+      -fx-effect: none;
     }
 
     >.separator {
@@ -40,12 +42,23 @@ $border-width: cfg.$border-width !default;
     }
   }
 
+  // When toolbar doesn't have enough size to place all elements, it creates additional
+  // menu button (the ToolBarOverflowMenu) and roughly hides all overflown elements
+  // in there. It's end-up as a normal button (or combo-box etc) inside a menu item, which
+  // is a very unlucky implementation that's pretty hard to style nicely.
+  // Given the very rare use case and the fact that the implementation is a complete non-sense,
+  // there are no reasons to support it. So, expect that hover, focused etc effects may not work
+  // inside the overflow menu.
   >.tool-bar-overflow-button {
     -fx-padding: 0 $padding-x 0 $spacing;
 
     >.arrow {
       @include icons.get("arrow-double-right", false);
       -fx-background-color: -color-fg-default;
+    }
+
+    .menu-item:hover {
+      -fx-background-color: transparent;
     }
   }
 

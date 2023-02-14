@@ -3,9 +3,22 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
-$border-color:        -color-border-default !default;
-$indeterminate-color: -color-fg-muted !default;
-$thickness:           1.5px !default;
+$color-box:                  -color-bg-default !default;
+$color-box-hover:            -color-bg-subtle  !default;
+$color-box-selected:         -color-accent-emphasis !default;
+$color-box-indeterminate:    -color-bg-default !default;
+
+$color-border:               -color-border-default  !default;
+$color-border-hover:         -color-fg-subtle       !default;
+$color-border-selected:      -color-accent-emphasis !default;
+$color-border-indeterminate: -color-border-default  !default;
+
+$color-mark-selected:        -color-fg-emphasis !default;
+$color-mark-indeterminate:   -color-fg-subtle   !default;
+
+$border-width:        1.5px !default;
+// $border-color:        -color-border-default !default;
+// $indeterminate-color: -color-fg-muted !default;
 
 .check-box {
 
@@ -14,14 +27,14 @@ $thickness:           1.5px !default;
   -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
 
   >.box {
-    -fx-background-color: $border-color, -color-bg-default;
-    -fx-background-insets: 0, $thickness;
+    -fx-background-color: $color-border, $color-box;
+    -fx-background-insets: 0, $border-width;
     -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
     -fx-padding: cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x cfg.$checkbox-mark-padding-y cfg.$checkbox-mark-padding-x;
     -fx-alignment: CENTER;
 
     >.mark {
-      -fx-background-color: -color-bg-default; // mark is hidden
+      -fx-background-color: $color-box; // mark is hidden
       @include icons.get("check", true);
       -fx-min-height: cfg.$checkbox-mark-size;
       -fx-max-height: cfg.$checkbox-mark-size;
@@ -30,14 +43,16 @@ $thickness:           1.5px !default;
     }
 
     &:hover {
-      -fx-background-color: -color-fg-muted, -color-bg-subtle;
+      -fx-background-color: $color-border-hover, $color-box-hover;
     }
   }
 
   &:indeterminate {
     >.box {
+      -fx-background-color: $color-border-indeterminate, $color-box-indeterminate;
+
       >.mark {
-        -fx-background-color: $indeterminate-color;
+        -fx-background-color: $color-mark-indeterminate;
         @include icons.get("minus", false);
       }
     }
@@ -53,15 +68,15 @@ $thickness:           1.5px !default;
 
   &:selected {
     >.box {
-      -fx-background-color: -color-accent-emphasis, -color-accent-emphasis;
+      -fx-background-color: $color-border-selected, $color-box-selected;
 
       >.mark {
-        -fx-background-color: -color-fg-emphasis;
+        -fx-background-color: $color-mark-selected;
       }
     }
   }
 
   &:show-mnemonics>.mnemonic-underline {
-    -fx-stroke: $border-color;
+    -fx-stroke: -color-fg-muted;
   }
 }

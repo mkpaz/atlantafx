@@ -34,21 +34,31 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
 ## Themes
 
 <figure markdown>
-  ![Image title](assets/images/primer-light.png){ width="800" }
+  ![Primer Light](assets/images/primer-light.png){ width="800" }
   <figcaption>Primer Light</figcaption>
 </figure>
 
 <figure markdown>
-  ![Image title](assets/images/primer-dark.png){ width="800" }
+  ![Primer Dark](assets/images/primer-dark.png){ width="800" }
   <figcaption>Primer Dark</figcaption>
 </figure>
 
 <figure markdown>
-  ![Image title](assets/images/nord-light.png){ width="800" }
+  ![Nord Light](assets/images/nord-light.png){ width="800" }
   <figcaption>Nord Light</figcaption>
 </figure>
 
 <figure markdown>
-  ![Image title](assets/images/nord-dark.png){ width="800" }
+  ![Nord Dark](assets/images/nord-dark.png){ width="800" }
   <figcaption>Nord Dark</figcaption>
+</figure>
+
+<figure markdown>
+  ![Cupertino Light](assets/images/cupertino-light.png){ width="800" }
+  <figcaption>Cupertino Light</figcaption>
+</figure>
+
+<figure markdown>
+  ![Cupertino Dark](assets/images/cupertino-dark.png){ width="800" }
+  <figcaption>Cupertino Dark</figcaption>
 </figure>

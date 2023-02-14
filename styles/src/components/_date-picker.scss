@@ -20,9 +20,11 @@ $color-today-bg:        -color-accent-subtle   !default;
 $color-today-fg:        -color-accent-fg       !default;
 $color-other-month-fg:  -color-fg-subtle       !default;
 $color-chrono-fg:       -color-success-fg      !default;
+$color-icon:            -color-fg-muted        !default;
 
 $content-padding-x: 8px !default;
 $content-padding-y: 8px !default;
+$day-cell-font-size:   1em !default;
 $month-year-font-size: 1.1em !default;
 
 $cell-padding-x: 4px !default;
@@ -63,7 +65,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
     >.arrow {
       @include icons.get("calendar", true);
-      -fx-background-color: -color-fg-default;
+      -fx-background-color: $color-icon;
       -fx-padding: 0.416667em; // icon size
     }
   }
@@ -136,12 +138,14 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       -fx-opacity: 1.0;
       -fx-text-fill: -color-date-day-fg;
       -fx-cell-size: $cell-size;
+      -fx-font-size: $day-cell-font-size;
     }
 
     >.week-number-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
       -fx-background-color: -color-date-week-bg;
       -fx-text-fill: -color-date-week-fg;
+      -fx-font-size: $day-cell-font-size;
     }
 
     >.day-cell {

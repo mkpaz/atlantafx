@@ -3,7 +3,7 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
-$color-button-bg:    -color-bg-subtle   !default;
+$color-button-bg:    -color-bg-subtle  !default;
 $color-button-fg:    -color-fg-default !default;
 $color-button-hover: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
 $icon-padding-x:     0.25em !default;

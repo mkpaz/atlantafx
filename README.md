@@ -13,9 +13,9 @@
 <p align="center">
 Modern JavaFX CSS theme collection with additional controls.
 </p>
-<h5 align="center">
-See the <a href=""https://mkpaz.github.io/atlantafx/>docs</a> for more info.
-</h5>
+<p align="center"><b>
+See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
+</b></p>
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/demo.gif" alt="Logo"/><br/>

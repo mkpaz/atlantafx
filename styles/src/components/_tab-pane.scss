@@ -44,6 +44,8 @@ $tab-lr-label-padding-y-dense: 0.15em !default;
 $header-border-width: 2px !default;
 
 // floating tabs
+$color-float-header-area: -color-bg-inset  !default;
+
 $color-float-bg:     -color-bg-inset       !default;
 $color-float-border: -color-border-default !default;
 
@@ -229,7 +231,7 @@ $tab-float-width:           150px !default;
   &.floating {
 
     >.tab-header-area {
-      -fx-background-color: $color-float-border, $color-float-bg;
+      -fx-background-color: $color-float-border, $color-float-header-area;
       -fx-background-insets: 0, 0 0 $header-float-border-width 0;
 
       // NOTE: Floating TabPane doesn't have '.tab-header-background'.
@@ -241,7 +243,7 @@ $tab-float-width:           150px !default;
           -fx-padding: $tab-padding-y 0 $tab-padding-y $tab-float-spacing;
 
           >.tab-container {
-            -fx-background-color: transparent;
+            -fx-background-color: $color-float-bg;
             -fx-background-insets: 0;
             -fx-background-radius: cfg.$border-radius;
             -fx-border-radius: cfg.$border-radius;

@@ -5,6 +5,8 @@ package atlantafx.sampler.theme;
 import static atlantafx.sampler.Resources.getResource;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.NordDark;
 import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
@@ -38,7 +40,9 @@ public final class ThemeManager {
         Resources.resolve("assets/styles/index.css")
     };
     static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
-        PrimerLight.class, PrimerDark.class, NordLight.class, NordDark.class
+        PrimerLight.class, PrimerDark.class,
+        NordLight.class, NordDark.class,
+        CupertinoLight.class, CupertinoDark.class
     );
 
     private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");

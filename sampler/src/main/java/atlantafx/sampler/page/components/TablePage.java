@@ -16,6 +16,7 @@ import static javafx.collections.FXCollections.observableArrayList;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.AbstractPage;
@@ -133,7 +134,7 @@ public class TablePage extends AbstractPage {
         var alignGroup = new ToggleGroup();
 
         var alignLeftBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_LEFT));
-        alignLeftBtn.getStyleClass().add(".left-pill");
+        alignLeftBtn.getStyleClass().add(Styles.LEFT_PILL);
         alignLeftBtn.setToggleGroup(alignGroup);
         alignLeftBtn.setSelected(true);
         alignLeftBtn.setOnAction(e -> {
@@ -143,7 +144,7 @@ public class TablePage extends AbstractPage {
         });
 
         var alignCenterBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_CENTER));
-        alignCenterBtn.getStyleClass().add(".center-pill");
+        alignCenterBtn.getStyleClass().add(Styles.CENTER_PILL);
         alignCenterBtn.setToggleGroup(alignGroup);
         alignCenterBtn.selectedProperty().addListener((obs, old, val) -> {
             for (TableColumn<?, ?> c : table.getColumns()) {
@@ -152,7 +153,7 @@ public class TablePage extends AbstractPage {
         });
 
         var alignRightBtn = new ToggleButton("", new FontIcon(Feather.ALIGN_RIGHT));
-        alignRightBtn.getStyleClass().add(".right-pill");
+        alignRightBtn.getStyleClass().add(Styles.RIGHT_PILL);
         alignRightBtn.setToggleGroup(alignGroup);
         alignRightBtn.selectedProperty().addListener((obs, old, val) -> {
             for (TableColumn<?, ?> c : table.getColumns()) {

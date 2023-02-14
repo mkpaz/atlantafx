@@ -35,6 +35,8 @@
                         <arg>${scss.inputDir}/primer-dark.scss:${css.outputDir}/primer-dark.css</arg>
                         <arg>${scss.inputDir}/nord-light.scss:${css.outputDir}/nord-light.css</arg>
                         <arg>${scss.inputDir}/nord-dark.scss:${css.outputDir}/nord-dark.css</arg>
+                        <arg>${scss.inputDir}/cupertino-light.scss:${css.outputDir}/cupertino-light.css</arg>
+                        <arg>${scss.inputDir}/cupertino-dark.scss:${css.outputDir}/cupertino-dark.css</arg>
                         <arg>--no-source-map</arg>
                     </args>
                 </configuration>

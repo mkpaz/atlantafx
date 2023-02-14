@@ -1,25 +1,34 @@
 // SPDX-License-Identifier: MIT
 
 @use "../settings/config" as cfg;
+@use "../settings/effects";
 @use "../settings/icons";
 
+$color-arrow-button-fg:  -color-fg-muted   !default;
 $color-list-bg:          -color-bg-default !default;
 $color-list-bg-hover:    if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
 $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
+$color-list-fg:          -color-fg-default !default;
+$color-list-fg-hover:    -color-fg-default !default;
+$color-list-fg-selected: -color-fg-default !default;
+$use-alt-icon:           false !default;
 
-@mixin _arrow() {
-  @include icons.get("arrow-drop-down", false);
-  -fx-background-color: -color-fg-muted;
-}
+@mixin _arrow($is-alt: false) {
+  @if $use-alt-icon {
+    $is-alt: not $is-alt;
+  }
 
-// alt icon to make combo-box not to be confused with menu button, if matters
-@mixin _alt-arrow() {
-  @include icons.get("unfold-more", false);
+  @if $is-alt {
+    @include icons.get("unfold-more", false);
+  }
+  @else {
+    @include icons.get("arrow-drop-down", false);
+  }
 }
 
 @mixin _combo-box-base() {
   -fx-background-color: -color-border-default, -color-bg-default;
-  -fx-background-insets: 0, 1;
+  -fx-background-insets: 0, cfg.$border-width;
   -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-text-fill: -color-fg-default;
   -fx-alignment: CENTER;
@@ -87,11 +96,12 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
     >.arrow {
       @include _arrow();
+      -fx-background-color: $color-arrow-button-fg;
     }
   }
 
   >.text-field {
-    -fx-background-insets: 0, 1 0 1 1;
+    -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
     -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0  cfg.$inner-border-radius;
   }
 
@@ -110,14 +120,14 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   // #tweaks/alt-icon
   &.alt-icon {
     >.arrow-button>.arrow {
-      @include _alt-arrow();
+      @include _arrow(true);
     }
   }
 }
 
 .combo-box {
 
-  // customise the ListCell that appears in the ComboBox button itself
+  // customize the ListCell that appears in the ComboBox button itself
   >.list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: -color-fg-default;
@@ -138,7 +148,10 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   >.list-view {
     -fx-background-color: -color-border-default, $color-list-bg;
     -fx-background-insets: 0, 1;
+    -fx-border-radius: cfg.$border-radius, cfg.$inner-border-radius;
     -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+    -fx-padding: cfg.$popup-padding-y cfg.$popup-padding-x cfg.$popup-padding-y cfg.$popup-padding-x;
+    @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 
     >.virtual-flow {
       >.clipped-container {
@@ -148,16 +161,35 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
             // to use the same values as ChoiceBox
             -fx-cell-size: 0;
             -fx-background-color: $color-list-bg;
+            -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
             -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
             -fx-graphic-text-gap: cfg.$graphic-gap;
+            -fx-text-fill: $color-list-fg;
+
+            #{cfg.$font-icon-selector} {
+              -fx-icon-color: $color-list-fg;
+              -fx-fill: $color-list-fg;
+            }
 
             &:filled:hover {
               -fx-background-color: $color-list-bg-hover;
+              -fx-text-fill: $color-list-fg-hover;
+
+              #{cfg.$font-icon-selector} {
+                -fx-icon-color: $color-list-fg-hover;
+                -fx-fill: $color-list-fg-hover;
+              }
             }
 
             &:filled:selected,
             &:filled:selected:hover {
               -fx-background-color: $color-list-bg-selected;
+              -fx-text-fill: $color-list-fg-selected;
+
+              #{cfg.$font-icon-selector} {
+                -fx-icon-color: $color-list-fg-selected;
+                -fx-fill: $color-list-fg-selected;
+              }
             }
           }
         }
@@ -191,6 +223,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
 
     >.arrow {
       @include _arrow();
+      -fx-background-color: $color-arrow-button-fg;
     }
   }
 
@@ -217,7 +250,7 @@ $color-list-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !defaul
   // #tweaks/alt-icon
   &.alt-icon {
     >.open-button>.arrow {
-      @include _alt-arrow();
+      @include _arrow(true);
     }
   }
 }

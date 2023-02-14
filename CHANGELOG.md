@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+### Features
+
+- (CSS) 🚀 New MacOS-like Cupertino theme in light and dark variants.
+
+### Improvements
+
+- (CSS) `Button` shadow support (`-color-button-shadow`). Only for themes compiled with the `button.$use-shadow` flag enabled.  
+
+### Bugfixes
+
+- (CSS) Added border radius/shadow to `ComboBox` popup menu to match other controls.
+
 ## [1.2.0] - 2023-02-11
 
 This is a bugfix/maintenance release that also contains a few style improvements.

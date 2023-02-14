@@ -75,7 +75,7 @@ public class ToggleButtonPage extends AbstractPage {
         var group = new ToggleGroup();
 
         var prevBtn = new Button("\f", new FontIcon(Feather.CHEVRON_LEFT));
-        prevBtn.getStyleClass().addAll(BUTTON_ICON, LEFT_PILL);
+        prevBtn.getStyleClass().addAll(BUTTON_ICON, LEFT_PILL, "toggle-button");
         prevBtn.setOnAction(e -> {
             int selected = group.getToggles().indexOf(group.getSelectedToggle());
             if (selected > 0) {
@@ -84,7 +84,7 @@ public class ToggleButtonPage extends AbstractPage {
         });
 
         var nextBtn = new Button("\f", new FontIcon(Feather.CHEVRON_RIGHT));
-        nextBtn.getStyleClass().addAll(BUTTON_ICON, RIGHT_PILL);
+        nextBtn.getStyleClass().addAll(BUTTON_ICON, RIGHT_PILL, "toggle-button");
         nextBtn.setContentDisplay(ContentDisplay.RIGHT);
         nextBtn.setOnAction(e -> {
             int selected = group.getToggles().indexOf(group.getSelectedToggle());
