@@ -5,7 +5,7 @@
 // text nodes
 .text {
   // enable LCD text rendering
-  -fx-font-smoothing-type: lcd;
+  -fx-font-smoothing-type: gray;
 
   // adjust text alignment within the bounds of text nodes,
   // so that the text is always vertically centered within the bounds
