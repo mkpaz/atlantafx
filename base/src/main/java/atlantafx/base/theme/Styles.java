@@ -4,6 +4,7 @@ package atlantafx.base.theme;
 
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
+import javafx.scene.control.TabPane;
 
 @SuppressWarnings("unused")
 public final class Styles {
@@ -53,6 +54,9 @@ public final class Styles {
     public static final String INTERACTIVE = "interactive";
     public static final String ROUNDED = "rounded";
     public static final String STRIPED = "striped";
+
+    public static final String TABS_CLASSIC = "classic";
+    public static final String TABS_FLOATING = TabPane.STYLE_CLASS_FLOATING;
 
     // Text
 

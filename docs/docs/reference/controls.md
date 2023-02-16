@@ -245,7 +245,10 @@ Color variables:
 CSS classes:
 
 * `.dense`
-* `.floating` (`TabPane.STYLE_CLASS_FLOATING`)
+* `.floating` (`TabPane.STYLE_CLASS_FLOATING` or `Styles.TABS_FLOATING`)
+* `.classic` (`Styles.TABS_CLASSIC`)
+
+Floating and classic styles are mutually exclusive. 
 
 ## Titled Pane
 

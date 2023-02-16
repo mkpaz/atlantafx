@@ -14,6 +14,7 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
@@ -23,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -71,6 +74,7 @@ public class TabPanePage extends AbstractPage {
         setUserContent(new SampleBlock("Playground", root));
     }
 
+    @SuppressWarnings("unchecked")
     private TitledPane createController(BorderPane borderPane, TabPane tabs) {
         // == BUTTONS ==
 
@@ -123,13 +127,6 @@ public class TabPanePage extends AbstractPage {
             }
         });
 
-        var floatingToggle = new ToggleSwitch();
-        floatingToggle.selectedProperty().addListener((obs, old, val) -> {
-            if (val != null) {
-                Styles.toggleStyleClass(tabs, TabPane.STYLE_CLASS_FLOATING);
-            }
-        });
-
         var animatedToggle = new ToggleSwitch();
         animatedToggle.setSelected(true);
         animatedToggle.selectedProperty().addListener((obs, old, val) -> {
@@ -165,20 +162,48 @@ public class TabPanePage extends AbstractPage {
         togglesGrid.add(createGridLabel("Closeable"), 0, 0);
         togglesGrid.add(closeableToggle, 1, 0);
 
-        togglesGrid.add(createGridLabel("Floating"), 0, 1);
-        togglesGrid.add(floatingToggle, 1, 1);
+        togglesGrid.add(createGridLabel("Animated"), 0, 1);
+        togglesGrid.add(animatedToggle, 1, 1);
 
-        togglesGrid.add(createGridLabel("Animated"), 0, 2);
-        togglesGrid.add(animatedToggle, 1, 2);
+        togglesGrid.add(createGridLabel("Full width"), 0, 2);
+        togglesGrid.add(fullWidthToggle, 1, 2);
 
-        togglesGrid.add(createGridLabel("Full width"), 0, 3);
-        togglesGrid.add(fullWidthToggle, 1, 3);
+        togglesGrid.add(createGridLabel("Dense"), 0, 3);
+        togglesGrid.add(denseToggle, 1, 3);
 
-        togglesGrid.add(createGridLabel("Dense"), 0, 4);
-        togglesGrid.add(denseToggle, 1, 4);
+        togglesGrid.add(createGridLabel("Disable"), 0, 4);
+        togglesGrid.add(disableToggle, 1, 4);
 
-        togglesGrid.add(createGridLabel("Disable"), 0, 5);
-        togglesGrid.add(disableToggle, 1, 5);
+        // == TAB STYLE ==
+
+        var styleToggleGroup = new ToggleGroup();
+
+        var defaultStyleToggle = new ToggleButton("Default");
+        defaultStyleToggle.setToggleGroup(styleToggleGroup);
+        defaultStyleToggle.setUserData(List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC));
+        defaultStyleToggle.getStyleClass().add(Styles.LEFT_PILL);
+        defaultStyleToggle.setSelected(true);
+
+        var floatingStyleToggle = new ToggleButton("Floating");
+        floatingStyleToggle.setToggleGroup(styleToggleGroup);
+        floatingStyleToggle.setUserData(List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC));
+        floatingStyleToggle.getStyleClass().add(Styles.CENTER_PILL);
+
+        var classicStyleToggle = new ToggleButton("Classic");
+        classicStyleToggle.setToggleGroup(styleToggleGroup);
+        classicStyleToggle.setUserData(List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING));
+        classicStyleToggle.getStyleClass().add(Styles.RIGHT_PILL);
+
+        styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                List<String> classes = (List<String>) val.getUserData();
+                Styles.addStyleClass(tabs, classes.get(0), classes.get(1), classes.get(2));
+            }
+        });
+
+
+        var styleBox = new HBox(defaultStyleToggle, floatingStyleToggle, classicStyleToggle);
+        styleBox.setAlignment(Pos.CENTER);
 
         // == LAYOUT ==
 
@@ -190,7 +215,7 @@ public class TabPanePage extends AbstractPage {
         );
         controls.setAlignment(Pos.CENTER);
 
-        var root = new TitledPane("Controller", controls);
+        var root = new TitledPane("Controller", new VBox(30, controls, styleBox));
         root.setCollapsible(false);
 
         return root;

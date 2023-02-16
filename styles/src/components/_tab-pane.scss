@@ -8,7 +8,7 @@ $color-bg:     -color-bg-default     !default;
 $color-fg:     -color-fg-default     !default;
 $color-border: -color-border-default !default;
 
-// horizontal tabs (tb, top+bottom)
+// horizontal tabs (tb = top+bottom)
 $color-tb-bg-hover:     -color-bg-subtle      !default;
 $color-tb-fg-hover:     -color-fg-default     !default;
 $color-tb-border-hover: -color-border-default !default;
@@ -17,7 +17,7 @@ $color-tb-bg-selected:     -color-bg-default      !default;
 $color-tb-fg-selected:     -color-fg-default      !default;
 $color-tb-border-selected: -color-accent-emphasis !default;
 
-// vertical tabs (lr, left+right)
+// vertical tabs (lr = left+right)
 $color-lr-bg-hover:     -color-bg-subtle      !default;
 $color-lr-fg-hover:     -color-fg-default     !default;
 $color-lr-border-hover: -color-border-default !default;
@@ -53,13 +53,20 @@ $color-float-bg-selected:     -color-bg-default     !default;
 $color-float-border-selected: -color-border-default !default;
 
 $tab-float-label-padding-x:       0.6em !default;
-$tab-float-label-padding-x-dense: 0.4em  !default;
+$tab-float-label-padding-x-dense: 0.4em !default;
 $tab-float-label-padding-y:       0.6em !default;
 $tab-float-label-padding-y-dense: 0.4em !default;
 
 $header-float-border-width: 1px   !default;
 $tab-float-spacing:         3px   !default;
 $tab-float-width:           150px !default;
+
+// classic tabs
+$color-classic-bg:          -color-bg-subtle    !default;
+$color-classic-bg-selected: -color-bg-default   !default;
+$color-classic-border:      -color-border-muted !default;
+$header-classic-padding-x:   5px !default;
+$header-classic-padding-y:   5px !default;
 
 .tab-pane {
 
@@ -227,7 +234,7 @@ $tab-float-width:           150px !default;
     }
   }
 
-  // TabPane.STYLE_CLASS_FLOATING
+  // TabPane.STYLE_CLASS_FLOATING or Styles.TABS_FLOATING
   &.floating {
 
     >.tab-header-area {
@@ -284,6 +291,60 @@ $tab-float-width:           150px !default;
             }
           }
         }
+      }
+    }
+  }
+
+  // Styles.TABS_CLASSIC
+  &.classic {
+    >.tab-header-area {
+      -fx-padding: $header-classic-padding-y 0 0 $header-classic-padding-x;
+
+      >.tab-header-background {
+        -fx-background-insets: 0 0 0 0, 0 0 $header-border-width 0;
+        -fx-background-color: $color-classic-border, $color-classic-bg;
+      }
+
+      >.headers-region {
+        >.tab {
+          -fx-background-insets: 0;
+          -fx-background-color: transparent;
+
+          >.tab-container {
+            -fx-padding: 0;
+          }
+
+          &:top:selected,
+          &:bottom:selected {
+            -fx-background-insets: 0 0 0 0, $header-border-width $header-border-width 0 $header-border-width;
+            -fx-background-color: $color-classic-border, $color-classic-bg-selected;
+          }
+
+          &:left:selected,
+          &:right:selected {
+            -fx-background-insets: 0 0 0 0, $header-border-width $header-border-width 0 $header-border-width;
+            -fx-background-color: $color-classic-border, $color-classic-bg-selected;
+          }
+
+          &:hover,
+          &:selected {
+            >.tab-container {
+              -fx-border-color: none;
+            }
+          }
+        }
+      }
+    }
+
+    &:bottom {
+      >.tab-header-area {
+        -fx-padding: 0 0 $header-classic-padding-y $header-classic-padding-x;
+      }
+    }
+
+    &:right {
+      >.tab-header-area {
+        -fx-padding: $header-classic-padding-y $header-classic-padding-x 0 0;
       }
     }
   }
