@@ -84,7 +84,7 @@ public final class SamplerTheme implements Theme {
     // any external file path must have "file://" prefix
     @Override
     public String getUserAgentStylesheet() {
-        return IS_DEV_MODE ? DUMMY_STYLESHEET : getThemeFile().toURI().toString();
+        return IS_DEV_MODE ? DUMMY_STYLESHEET : getResource().toURI().toString();
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class SamplerTheme implements Theme {
     }
 
     public Set<String> getAllStylesheets() {
-        return IS_DEV_MODE ? merge(getThemeFile().toURI().toString(), APP_STYLESHEETS) : Set.of(APP_STYLESHEETS);
+        return IS_DEV_MODE ? merge(getResource().toURI().toString(), APP_STYLESHEETS) : Set.of(APP_STYLESHEETS);
     }
 
     // Checks whether wrapped theme is a project theme or user external theme.
@@ -105,7 +105,7 @@ public final class SamplerTheme implements Theme {
     // - minified CSS files are not supported
     // - only first PARSE_LIMIT lines will be read
     public Map<String, String> parseColors() throws IOException {
-        FileResource file = getThemeFile();
+        FileResource file = getResource();
         return file.internal() ? parseColorsForClasspath(file) : parseColorsForFilesystem(file);
     }
 
@@ -162,10 +162,10 @@ public final class SamplerTheme implements Theme {
     }
 
     public String getPath() {
-        return getThemeFile().toPath().toString();
+        return getResource().toPath().toString();
     }
 
-    private FileResource getThemeFile() {
+    public FileResource getResource() {
         if (!isProjectTheme()) {
             return FileResource.createExternal(theme.getUserAgentStylesheet());
         }

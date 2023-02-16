@@ -11,6 +11,7 @@ import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
 import static atlantafx.sampler.util.Controls.hyperlink;
 
 import atlantafx.base.theme.Styles;
+import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
@@ -25,6 +26,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -38,7 +41,11 @@ import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 public class ThemePage extends AbstractPage {
 
     public static final String NAME = "Theme";
+
     private static final ThemeManager TM = ThemeManager.getInstance();
+    private static final Image SCENE_BUILDER_ICON = new Image(
+        Resources.getResourceAsStream("images/scene-builder_32.png")
+    );
 
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler = colorBlock -> {
         ContrastCheckerDialog dialog = getOrCreateContrastCheckerDialog();
@@ -58,6 +65,7 @@ public class ThemePage extends AbstractPage {
 
     private ThemeRepoManagerDialog themeRepoManagerDialog;
     private ContrastCheckerDialog contrastCheckerDialog;
+    private SceneBuilderDialog sceneBuilderDialog;
 
     @Override
     public String getName() {
@@ -130,6 +138,14 @@ public class ThemePage extends AbstractPage {
 
         var accentSelector = new AccentColorSelector();
 
+        var sceneBuilderBtn = new Button("SceneBuilder Integration");
+        sceneBuilderBtn.setGraphic(new ImageView(SCENE_BUILDER_ICON));
+        sceneBuilderBtn.setOnAction(e -> {
+            SceneBuilderDialog dialog = getOrCreateScneBuilderDialog();
+            overlay.setContent(dialog, HPos.CENTER);
+            overlay.toFront();
+        });
+
         // ~
 
         var grid = new GridPane();
@@ -141,6 +157,7 @@ public class ThemePage extends AbstractPage {
         grid.add(themeRepoBtn, 2, 0);
         grid.add(new Label("Accent color"), 0, 1);
         grid.add(accentSelector, 1, 1);
+        grid.add(sceneBuilderBtn, 0, 2, GridPane.REMAINING, 1);
 
         return grid;
     }
@@ -207,5 +224,19 @@ public class ThemePage extends AbstractPage {
         });
 
         return contrastCheckerDialog;
+    }
+
+    private SceneBuilderDialog getOrCreateScneBuilderDialog() {
+        if (sceneBuilderDialog == null) {
+            sceneBuilderDialog = new SceneBuilderDialog();
+        }
+
+        sceneBuilderDialog.setOnCloseRequest(() -> {
+            overlay.removeContent();
+            overlay.toBack();
+            sceneBuilderDialog.reset();
+        });
+
+        return sceneBuilderDialog;
     }
 }
