@@ -71,12 +71,17 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
   }
 }
 
+.combo-box-popup>.date-picker-popup {
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+}
+
 .date-picker-popup {
   @include _color-variables();
 
   -fx-background-color: -color-date-border, -color-date-bg;
   -fx-background-insets: 0, 1;
-  -fx-background-radius: 0;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-alignment: CENTER;
   -fx-spacing: 0;
   -fx-padding: cfg.$border-width;
@@ -85,6 +90,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     -fx-padding: $content-padding-y $content-padding-x $content-padding-y $content-padding-x;
     -fx-background-color: -color-date-month-year-bg;
     -fx-background-insets: 0;
+    -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
 
     // this one is actually HBox, but because of the class name it uses Spinner styles
     >.spinner {
@@ -130,6 +136,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     -fx-padding: $content-padding-x;
     -fx-hgap: $cell-hgap;
     -fx-vgap: $cell-vgap;
+    -fx-background-radius: cfg.$border-radius;
 
     >.date-cell {
       -fx-background-color: transparent;
