@@ -13,6 +13,7 @@
 ### Bugfixes
 
 - (CSS) Added border radius/shadow to `ComboBox` popup menu to match other controls.
+- (CSS) Fixed `Popover` arrow background color.
 
 ## [1.2.0] - 2023-02-11
 
