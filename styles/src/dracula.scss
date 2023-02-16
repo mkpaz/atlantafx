@@ -1,0 +1,268 @@
+// SPDX-License-Identifier: MIT)
+
+@use "sass:color";
+@use "settings/utils" as utils;
+
+// Dracula color palette
+// https://spec.draculatheme.com
+$background:  #282a36;
+$currentLine: #44475a;
+$foreground:  #f8f8f2;
+$comment:     #6272a4;
+$cyan:        #8be9fd;
+$green:	      #50fa7b;
+$orange:	    #ffb86c;
+$pink:	      #ff79c6;
+$purple:	    #bd93f9;
+$red:	        #ff5555;
+$yellow:	    #f1fa8c;
+
+// Dracula UI color palette
+// https: //ui.draculatheme.com/
+$ui-black:           hsl(230, 15%, 15%);
+$ui-blackSecondary:  hsl(230, 15%, 30%);
+$ui-blackTernary:    hsl(230, 15%, 70%);
+$ui-blackLight:      hsla(230, 15%, 15%, 5%);
+$ui-grey:            hsl(230, 15%, 30%);
+$ui-greySecondary:   hsl(230, 15%, 45%);
+$ui-greyTernary:     hsl(230, 15%, 75%);
+$ui-greyLight:       hsla(230, 15%, 30%, 5%);
+$ui-white:           hsl(60, 30%, 96%);
+$ui-whiteSecondary:  hsl(60,  30%, 100%);
+$ui-whiteLight:      hsla(60, 30%, 96%, 5%);
+$ui-cyan:            hsl(170, 100%, 75%);
+$ui-cyanSecondary:   hsl(170, 100%, 90%);
+$ui-cyanLight:       hsla(170, 100%, 75%, 5%);
+$ui-green:           hsl(115, 100%, 75%);
+$ui-greenSecondary:  hsl(115, 100%, 90%);
+$ui-greenLight:      hsla(115, 100%, 75%, 5%);
+$ui-orange:          hsl(35, 100%, 75%);
+$ui-orangeSecondary: hsl(35, 100%, 90%);
+$ui-orangeLight:     hsla(35, 100%, 75%, 5%);
+$ui-pink:            hsl(330, 100%, 75%);
+$ui-pinkSecondary:   hsl(330, 100%, 90%);
+$ui-pinkLight:       hsla(330, 100%, 75%, 5%);
+$ui-purple:          hsl(250, 100%, 75%);
+$ui-purpleSecondary: hsl(250, 100%, 90%);
+$ui-purpleLight:     hsl(250, 100%, 75%, 5%);
+$ui-red:             hsl(10, 100%, 75%);
+$ui-redSecondary:    hsl(10, 100%, 90%);
+$ui-redLight:        hsla(10, 100%, 75%, 5%);
+$ui-yellow:          hsl(60, 100%, 75%);
+$ui-yellowSecondary: hsl(60, 100%, 90%);
+$ui-yellowLight:     hsla(60, 100%, 75%, 5%);
+
+@forward "settings/color-scale" with (
+
+  $dark:      #0d0e12,
+  $light:     $foreground, // $ui-white
+
+  $base-0:    #d4d4d7,
+  $base-1:    #bfbfc3,
+  $base-2:    #94959b,
+  $base-3:    #7e7f86,
+  $base-4:    #696a72,
+  $base-5:    #53555e,
+  $base-6:    #3d3f4a,
+  $base-7:    $background,
+  $base-8:    #181920,
+  $base-9:    #0d0e12,
+
+  $accent-0:  #e5dfff,
+  $accent-1:  #d5ccff,
+  $accent-2:  #c5b9ff,
+  $accent-3:  #b5a6ff,
+  $accent-4:  #a593ff,
+  $accent-5:  #9580ff, // $ui-purple
+  $accent-6:  #7f6dd9,
+  $accent-7:  #685ab3,
+  $accent-8:  #52468c,
+  $accent-9:  #3c3366,
+
+  $success-0: #e2ffdf,
+  $success-1: #d0ffcc,
+  $success-2: #bfffb9,
+  $success-3: #adffa6,
+  $success-4: #9cff93,
+  $success-5: #8AFF80, // $ui-green
+  $success-6: #75d96d,
+  $success-7: #61b35a,
+  $success-8: #4c8c46,
+  $success-9: #376633,
+
+  $warning-0: #fff2df,
+  $warning-1: #ffeacc,
+  $warning-2: #ffe2b9,
+  $warning-3: #ffdaa6,
+  $warning-4: #ffd293,
+  $warning-5: #FFCA80, // $ui-orange
+  $warning-6: #d9ac6d,
+  $warning-7: #b38d5a,
+  $warning-8: #8c6f46,
+  $warning-9: #665133,
+
+  $danger-0:  #ffe5df,
+  $danger-1:  #ffd5cc,
+  $danger-2:  #ffc5b9,
+  $danger-3:  #ffb5a6,
+  $danger-4:  #ffa593,
+  $danger-5:  #FF9580, // $ui-red
+  $danger-6:  #d97f6d,
+  $danger-7:  #b3685a,
+  $danger-8:  #8c5246,
+  $danger-9:  #663c33
+);
+
+@use "settings/color-scale" as scale;
+
+@forward "settings/color-vars" with (
+
+  $fg-default:           $foreground,
+  $fg-muted:             scale.$base-1,
+  $fg-subtle:            scale.$base-3,
+  $fg-onEmphasis:        scale.$dark,
+
+  $canvas-default:       $background,
+  $canvas-overlay:       $background,
+  $canvas-inset:         scale.$base-8,
+  $canvas-subtle:        scale.$base-6,
+
+  $border-default:       scale.$accent-7,
+  $border-muted:         scale.$accent-8,
+  $border-subtle:        scale.$accent-9,
+  $shadow-default:       scale.$dark,
+
+  $neutral-emphasisPlus: scale.$base-2,
+  $neutral-emphasis:     scale.$base-3,
+  $neutral-muted:        color.change(scale.$base-3, $alpha: 0.4),
+  $neutral-subtle:       color.change(scale.$base-2, $alpha: 0.1),
+
+  $accent-fg:            scale.$accent-5,
+  $accent-emphasis:      scale.$accent-5,
+  $accent-muted:         color.change(scale.$accent-5, $alpha: 0.4),
+  $accent-subtle:        color.change(scale.$accent-5, $alpha: 0.1),
+
+  $success-fg:           scale.$success-5,
+  $success-emphasis:     scale.$success-5,
+  $success-muted:        color.change(scale.$success-5, $alpha: 0.4),
+  $success-subtle:       color.change(scale.$success-5, $alpha: 0.1),
+
+  $warning-fg:           scale.$warning-5,
+  $warning-emphasis:     scale.$warning-5,
+  $warning-muted:        color.change(scale.$warning-5, $alpha: 0.4),
+  $warning-subtle:       color.change(scale.$warning-5, $alpha: 0.1),
+
+  $danger-fg:            scale.$danger-5,
+  $danger-emphasis:      scale.$danger-5,
+  $danger-muted:         color.change(scale.$danger-5, $alpha: 0.4),
+  $danger-subtle:        color.change(scale.$danger-5, $alpha: 0.1)
+);
+
+@forward "settings/config" with (
+  $darkMode:      true,
+  $border-radius: 6px,
+  $checkbox-mark-size: 0.85em,
+  $scrollbar-color-thumb: -color-accent-4
+);
+
+@use "general";
+
+@forward "components/button" as button-* with (
+  $color-bg-hover: -color-base-5
+);
+
+@forward "components/checkbox" as checkbox-* with (
+  $color-box-indeterminate:    -color-accent-emphasis,
+  $color-border-indeterminate: -color-accent-emphasis,
+  $color-mark-indeterminate:   -color-fg-emphasis
+);
+
+@forward "components/combo-box" as combo-box-* with (
+  $use-alt-icon:            true,
+  $color-arrow-button-fg:  -color-accent-fg,
+  $color-list-bg-hover:    -color-accent-emphasis,
+  $color-list-bg-selected: -color-accent-emphasis,
+  $color-list-fg-hover:    -color-fg-emphasis,
+  $color-list-fg-selected: -color-fg-emphasis
+);
+
+@forward "components/data" as data-* with (
+  $color-header-bg: -color-bg-default,
+  $color-header-fg: -color-fg-muted,
+  $color-cell-bg-selected: -color-accent-subtle
+);
+
+@forward "components/date-picker" as date-picker-* with (
+  $cell-padding-x: 2px,
+  $cell-padding-y: 2px,
+  $cell-size:      2.5em,
+  $color-icon:     -color-accent-fg,
+  $day-cell-font-size: 0.85em,
+  $day-name-font-size: 0.9em,
+  $month-year-font-size: 1em
+);
+
+@forward "components/menu" as menu-* with (
+  $color-menuitem-bg-hover: -color-accent-emphasis,
+  $color-menuitem-fg-hover: -color-fg-emphasis,
+  $color-menubar-bg-hover:  -color-base-5
+);
+
+@forward "components/menu-button" as menu-button-* with (
+  $color-split-arrow-bg: -color-accent-emphasis,
+  $color-split-arrow-fg: -color-fg-emphasis
+);
+
+@forward "components/radio" as radio-* with (
+  $dot-width-selected: 3px,
+  $color-dot-selected: -color-accent-emphasis,
+  $color-dot-border-selected: -color-bg-default
+);
+
+@forward "components/slider" as slider-* with (
+  $color-track: scale.$accent-8
+);
+
+@forward "components/spinner" as spinner-* with (
+  $color-button-hover: -color-accent-muted
+);
+
+@forward "components/split-pane" as split-pane-* with (
+  $divider-thickness: 1px,
+  $grabber-length:    15px
+);
+
+@forward "components/tab-pane" as tab-pane-* with (
+  $color-lr-bg-selected: -color-base-6
+);
+
+@forward "components/text-input" as text-input-* with (
+  $color-bg-highlight: $currentLine
+);
+
+@forward "components/toggle-button" as toggle-button-* with (
+  $color-bg-selected:     -color-accent-emphasis,
+  $color-fg-selected:     -color-fg-emphasis,
+  $color-border-selected: scale.$accent-6
+);
+
+@forward "components/toggle-switch" as toggle-switch-* with (
+  $thumb-padding:               0.75em,
+  $thumb-area-border-width:     2px,
+  $thumb-opacity:               1,
+  $thumb-border-width:          4px,
+  $color-thumb:                 -color-fg-default,
+  $color-thumb-border:          transparent,
+  $color-thumb-selected:        -color-accent-emphasis,
+  $color-thumb-border-selected: transparent,
+  $color-thumb-area:            -color-bg-default,
+  $color-thumb-area-border:     -color-accent-emphasis,
+  $color-thumb-area-selected:   -color-bg-default
+);
+
+@forward "components/toolbar" as toolbar-* with (
+  $color-bg-selected: -color-base-4,
+  $color-separator:   -color-accent-8
+);
+
+@use "components";

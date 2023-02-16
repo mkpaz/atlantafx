@@ -62,3 +62,8 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
   ![Cupertino Dark](assets/images/cupertino-dark.png){ width="800" }
   <figcaption>Cupertino Dark</figcaption>
 </figure>
+
+<figure markdown>
+  ![Dracula](assets/images/dracula.png){ width="800" }
+  <figcaption>Dracula</figcaption>
+</figure>

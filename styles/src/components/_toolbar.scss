@@ -4,8 +4,9 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$color-bg:          -color-bg-subtle !default;
+$color-bg:          -color-bg-subtle    !default;
 $color-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
+$color-separator:   -color-border-muted !default;
 
 $padding-x:    0.3em !default;
 $padding-y:    4px   !default;
@@ -38,7 +39,8 @@ $border-width: cfg.$border-width !default;
     }
 
     >.separator {
-      -fx-orientation: vertical;
+      -fx-orientation:  vertical;
+      -color-separator: $color-separator;
     }
   }
 

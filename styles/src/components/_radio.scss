@@ -2,7 +2,16 @@
 
 @use "../settings/config" as cfg;
 
-$color-border:        -color-border-default !default;
+$color-bg:              -color-bg-default      !default;
+$color-bg-selected:     -color-accent-emphasis !default;
+$color-border:          -color-border-default  !default;
+$color-border-selected: -color-accent-emphasis !default;
+
+$color-dot:                    transparent !default;
+$color-dot-selected:           -color-fg-emphasis !default;
+$color-dot-border:             transparent !default;
+$color-dot-border-selected:    -color-accent-emphasis !default;
+
 $border-width:        1.5px !default;
 $dot-width:           1px !default;
 $dot-width-selected:  1px !default;
@@ -15,14 +24,14 @@ $dot-width-selected:  1px !default;
   -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
 
   >.radio {
-    -fx-background-color: $color-border, -color-bg-default;
+    -fx-background-color: $color-border, $color-bg;
     -fx-background-insets: 0, $border-width;
     -fx-background-radius: 1em; // large value to make sure this remains circular
     -fx-padding: cfg.$checkbox-mark-padding-y;
     -fx-alignment: CENTER;
 
     >.dot {
-      -fx-background-color: transparent, transparent;
+      -fx-background-color: $color-dot-border, $color-dot;
       -fx-background-insets: 0, $dot-width;
       -fx-background-radius: 1em; // large value to make sure this remains circular
       -fx-min-height: cfg.$checkbox-mark-size;
@@ -46,10 +55,10 @@ $dot-width-selected:  1px !default;
 
   &:selected {
     >.radio {
-      -fx-background-color: -color-accent-emphasis;
+      -fx-background-color: $color-border-selected, $color-bg-selected;
 
       >.dot {
-        -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
+        -fx-background-color: $color-dot-border-selected, $color-dot-selected;
         -fx-background-insets: 0, $dot-width-selected;
       }
     }

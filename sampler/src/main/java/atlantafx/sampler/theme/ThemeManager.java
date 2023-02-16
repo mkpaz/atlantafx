@@ -7,6 +7,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import atlantafx.base.theme.CupertinoDark;
 import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
 import atlantafx.base.theme.NordDark;
 import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
@@ -42,7 +43,8 @@ public final class ThemeManager {
     static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
         PrimerLight.class, PrimerDark.class,
         NordLight.class, NordDark.class,
-        CupertinoLight.class, CupertinoDark.class
+        CupertinoLight.class, CupertinoDark.class,
+        Dracula.class
     );
 
     private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");
@@ -226,6 +228,9 @@ public final class ThemeManager {
         }
         if ("Nord Dark".equals(theme.getName())) {
             return HighlightJSTheme.nordDark();
+        }
+        if ("Dracula".equals(theme.getName())) {
+            return HighlightJSTheme.dracula();
         }
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }

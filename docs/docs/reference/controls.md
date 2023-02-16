@@ -183,6 +183,12 @@ Color variables:
 * `-color-progress-indicator-track`
 * `-color-progress-indicator-fill`
 
+## Separator
+
+Color variables:
+
+* `-color-separator`
+
 ## Slider
 
 CSS classes

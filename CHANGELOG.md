@@ -5,14 +5,16 @@
 ### Features
 
 - (CSS) 🚀 New MacOS-like Cupertino theme in light and dark variants.
+- (CSS) 🚀 New [Dracula](https://ui.draculatheme.com/) theme.
 
 ### Improvements
 
 - (CSS) `Button` shadow support (`-color-button-shadow`). Only for themes compiled with the `button.$use-shadow` flag enabled.  
+- (CSS) Looked-up color variables support: `Separator`.
 
 ### Bugfixes
 
-- (CSS) Added border radius/shadow to `ComboBox` popup menu to match other controls.
+- (CSS) Added border radius/shadow to popup menu for `ComboBox` (and `ComboBox`-based) controls.
 - (CSS) Fixed `Popover` arrow background color.
 
 ## [1.2.0] - 2023-02-11
