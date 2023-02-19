@@ -2,21 +2,16 @@ package atlantafx.base.layout;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import atlantafx.base.JavaFXTest;
 import java.util.function.Consumer;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith({JavaFXTest.class})
 public class DeckPaneTest {
-
-    @BeforeAll
-    public static void startup() {
-        Platform.startup(() -> {
-        });
-    }
 
     @Test
     public void testTopNodeOnNewlyCreatedDeck() {

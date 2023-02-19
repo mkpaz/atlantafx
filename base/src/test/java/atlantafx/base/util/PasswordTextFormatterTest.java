@@ -3,18 +3,13 @@ package atlantafx.base.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import javafx.application.Platform;
+import atlantafx.base.JavaFXTest;
 import javafx.scene.control.TextField;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith({JavaFXTest.class})
 public class PasswordTextFormatterTest {
-
-    @BeforeAll
-    public static void startup() {
-        Platform.startup(() -> {
-        });
-    }
 
     @Test
     public void testTextIsMaskedByDefault() {
