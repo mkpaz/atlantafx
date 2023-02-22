@@ -14,16 +14,25 @@ public class Dracula implements Theme {
         // Default constructor
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return "Dracula";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getUserAgentStylesheet() {
         return "/atlantafx/base/theme/dracula.css";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isDarkMode() {
         return true;

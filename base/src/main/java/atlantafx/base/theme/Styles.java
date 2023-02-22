@@ -6,6 +6,10 @@ import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 
+/**
+ * A set of constants and utility methods that simplifies adding
+ * CSS classes programmatically.
+ */
 @SuppressWarnings("unused")
 public final class Styles {
 
@@ -84,6 +88,10 @@ public final class Styles {
         // Default constructor
     }
 
+    /**
+     * Adds given style class to the node if it's not present, otherwise
+     * removes it.
+     */
     public static void toggleStyleClass(Node node, String styleClass) {
         if (node == null) {
             throw new NullPointerException("Node cannot be null!");
@@ -100,6 +108,11 @@ public final class Styles {
         }
     }
 
+    /**
+     * Adds given style class to the node and removes the excluded classes.
+     * This method is supposed to be used when only one from a set of classes
+     * have to be present at once.
+     */
     public static void addStyleClass(Node node, String styleClass, String... excludes) {
         if (node == null) {
             throw new NullPointerException("Node cannot be null!");
@@ -114,6 +127,11 @@ public final class Styles {
         node.getStyleClass().add(styleClass);
     }
 
+    /**
+     * Activates given pseudo-class to the node and deactivates the excluded pseudo-classes.
+     * This method is supposed to be used when only one from a set of pseudo-classes
+     * have to be present at once.
+     */
     public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
         if (node == null) {
             throw new NullPointerException("Node cannot be null!");
