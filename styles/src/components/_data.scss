@@ -182,6 +182,10 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   &.bordered {
     .list-cell {
       -fx-border-color: -color-cell-border;
+
+      &:empty {
+        -fx-border-color: transparent;
+      }
     }
   }
 
