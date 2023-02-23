@@ -6,7 +6,9 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.SampleBlock;
+import javafx.geometry.HorizontalDirection;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 public class ToggleSwitchPage extends AbstractPage {
 
@@ -26,9 +28,19 @@ public class ToggleSwitchPage extends AbstractPage {
     }
 
     private SampleBlock basicSample() {
-        var toggle = new ToggleSwitch();
-        toggle.selectedProperty().addListener((obs, old, val) -> toggle.setText(val ? "Disable" : "Enable"));
-        toggle.setSelected(true);
-        return new SampleBlock("Basic", toggle);
+        var leftToggle = new ToggleSwitch("Enable");
+        leftToggle.selectedProperty().addListener(
+            (obs, old, val) -> leftToggle.setText(val ? "Enabled" : "Disabled")
+        );
+        leftToggle.setSelected(true);
+
+        var rightToggle = new ToggleSwitch("Disable");
+        rightToggle.selectedProperty().addListener(
+            (obs, old, val) -> rightToggle.setText(val ? "Enabled" : "Disabled")
+        );
+        rightToggle.setLabelPosition(HorizontalDirection.RIGHT);
+        rightToggle.setSelected(false);
+
+        return new SampleBlock("Basic", new VBox(SampleBlock.BLOCK_VGAP, leftToggle, rightToggle));
     }
 }

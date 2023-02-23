@@ -249,8 +249,9 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
-            final List<CssMetaData<? extends Styleable, ?>> styleables =
-                new ArrayList<>(SkinBase.getClassCssMetaData());
+            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(
+                SkinBase.getClassCssMetaData()
+            );
             styleables.add(INDETERMINATE_ANIMATION_TIME);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }

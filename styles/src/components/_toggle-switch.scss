@@ -62,6 +62,14 @@ $thumb-area-padding:       0.85em 1.4em 0.85em 1.4em !default;
     }
   }
 
+  &:right {
+    >.label-container {
+      >.label {
+        -fx-padding: cfg.$checkbox-label-padding 0 cfg.$checkbox-label-padding cfg.$graphic-gap;
+      }
+    }
+  }
+
   &:disabled {
     -fx-opacity: cfg.$opacity-disabled;
   }

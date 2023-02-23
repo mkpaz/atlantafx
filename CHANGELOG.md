@@ -12,13 +12,17 @@
 
 ### Improvements
 
+- (Base) Improved Javadoc. See full API reference in [docs](https://mkpaz.github.io/atlantafx/apidocs/atlantafx.base/module-summary.html).
+- (Base) `ToggleSwitch` label position support (left or right).
 - (CSS) `Button` shadow support (`-color-button-shadow`). Only for themes compiled with the `button.$use-shadow` flag enabled.  
 - (CSS) Looked-up color variables support: `Separator`.
+- (CSS) Added border radius/shadow to popup menu for `ComboBox` (and all `ComboBox`-based) controls.
 
 ### Bugfixes
 
-- (CSS) Added border radius/shadow to popup menu for `ComboBox` (and `ComboBox`-based) controls.
+- (Base) Fixed incorrect `Slider` progress track length calculation.
 - (CSS) Fixed `Popover` arrow background color.
+- (CSS) Fixed `ListView` with `.bordered` class displays borders on empty cells.
 
 ## [1.2.0] - 2023-02-11
 
