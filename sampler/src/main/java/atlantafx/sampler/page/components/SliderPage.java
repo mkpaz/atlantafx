@@ -113,7 +113,7 @@ public class SliderPage extends AbstractPage {
     }
 
     private Slider createTickSlider() {
-        var slider = new Slider(0, 5, 3);
+        var slider = new Slider(1, 5, 3);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setMajorTickUnit(1);
