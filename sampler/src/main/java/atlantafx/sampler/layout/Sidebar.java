@@ -236,7 +236,7 @@ class Sidebar extends StackPane {
                 navLink(CheckBoxPage.NAME, CheckBoxPage.class),
                 navLink(ColorPickerPage.NAME, ColorPickerPage.class),
                 navLink(ComboBoxPage.NAME, ComboBoxPage.class, "ChoiceBox"),
-                navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class),
+                navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class, "MaskTextField"),
                 navLink(DatePickerPage.NAME, DatePickerPage.class),
                 navLink(DialogPage.NAME, DialogPage.class),
                 navLink(HtmlEditorPage.NAME, HtmlEditorPage.class),

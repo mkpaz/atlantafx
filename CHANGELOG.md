@@ -5,6 +5,7 @@
 ### Features
 
 - (Base) New `DeckPane` component with swipe and slide transition support.
+- (Base) New `MaskTextField` (and `MaskTextFormatter`) component to support masked text input.
 - (CSS) 🚀 New MacOS-like Cupertino theme in light and dark variants.
 - (CSS) 🚀 New [Dracula](https://ui.draculatheme.com/) theme.
 - (CSS) New `TabPane` style. There are three styles supported: default, floating and classic (new one).

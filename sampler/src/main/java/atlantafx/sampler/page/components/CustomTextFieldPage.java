@@ -4,15 +4,25 @@ package atlantafx.sampler.page.components;
 
 import static atlantafx.base.theme.Styles.STATE_DANGER;
 import static atlantafx.base.theme.Styles.STATE_SUCCESS;
+import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 import atlantafx.base.controls.CustomTextField;
+import atlantafx.base.controls.MaskTextField;
 import atlantafx.base.util.PasswordTextFormatter;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
+import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
 public class CustomTextFieldPage extends AbstractPage {
 
@@ -33,7 +43,8 @@ public class CustomTextFieldPage extends AbstractPage {
             bothIconsSample(),
             successSample(),
             dangerSample(),
-            passwordSample()
+            passwordSample(),
+            maskSample()
         ));
     }
 
@@ -98,5 +109,42 @@ public class CustomTextFieldPage extends AbstractPage {
         tf.setRight(icon);
 
         return new SampleBlock("Password", tf);
+    }
+
+    private SampleBlock maskSample() {
+        var phoneField = new MaskTextField("(999) 999 99 99");
+        phoneField.setPromptText("(999) 999 99 99");
+        phoneField.setLeft(new FontIcon(Material2OutlinedMZ.PHONE));
+        phoneField.setPrefWidth(180);
+
+        var cardField = new MaskTextField("9999-9999-9999-9999");
+        cardField.setLeft(new FontIcon(Material2OutlinedAL.CREDIT_CARD));
+        cardField.setPrefWidth(200);
+
+        var timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        var timeField = new MaskTextField("29:59");
+        timeField.setText(LocalTime.now().format(timeFormatter));
+        timeField.setLeft(new FontIcon(Material2OutlinedMZ.TIMER));
+        timeField.setPrefWidth(120);
+        timeField.textProperty().addListener((obs, old, val) -> {
+            if (val != null) {
+                try {
+                    LocalTime.parse(val, timeFormatter);
+                    timeField.pseudoClassStateChanged(STATE_DANGER, false);
+                } catch (Exception e) {
+                    timeField.pseudoClassStateChanged(STATE_DANGER, true);
+                }
+            }
+        });
+
+        var content = new HBox(
+            BLOCK_HGAP,
+            new VBox(5, new Label("Phone Number"), phoneField),
+            new VBox(5, new Label("Bank Card"), cardField),
+            new VBox(5, new Label("Time"), timeField)
+        );
+        content.setAlignment(Pos.CENTER_LEFT);
+
+        return new SampleBlock("Input Mask", content);
     }
 }
