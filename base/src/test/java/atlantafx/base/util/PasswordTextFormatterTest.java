@@ -15,7 +15,6 @@ public class PasswordTextFormatterTest {
     public void testTextIsMaskedByDefault() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         assertEquals("+".repeat(3), field.getText());
@@ -26,7 +25,6 @@ public class PasswordTextFormatterTest {
     public void testTextCanBeRevealed() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         fmt.setRevealPassword(true);
@@ -38,7 +36,6 @@ public class PasswordTextFormatterTest {
     public void testPrependText() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.insertText(0, "456");
@@ -50,7 +47,6 @@ public class PasswordTextFormatterTest {
     public void testAppendText() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.appendText("456");
@@ -62,7 +58,6 @@ public class PasswordTextFormatterTest {
     public void testInsertText() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.insertText(2, "456");
@@ -74,7 +69,6 @@ public class PasswordTextFormatterTest {
     public void testNoInitialText() {
         var field = new TextField(null);
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
 
         field.appendText("456");
         assertEquals("+".repeat(3), field.getText());
@@ -85,7 +79,6 @@ public class PasswordTextFormatterTest {
     public void testDeleteSomeText() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.deleteText(0, 2);
@@ -97,7 +90,6 @@ public class PasswordTextFormatterTest {
     public void testDeleteAllText() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.deleteText(0, field.getText().length());
@@ -109,7 +101,6 @@ public class PasswordTextFormatterTest {
     public void testSetTextToNull() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.setText(null);
@@ -121,7 +112,6 @@ public class PasswordTextFormatterTest {
     public void testReplaceSelection() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.selectRange(1, field.getText().length());
@@ -134,7 +124,6 @@ public class PasswordTextFormatterTest {
     public void testReplaceAll() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123");
 
         field.selectRange(0, field.getText().length());
@@ -147,7 +136,6 @@ public class PasswordTextFormatterTest {
     public void testCanContainBullets() {
         var field = new TextField();
         var fmt = PasswordTextFormatter.create(field, '+');
-        field.setTextFormatter(fmt);
         field.setText("123++");
 
         assertEquals("+".repeat(5), field.getText());

@@ -22,7 +22,7 @@ public class PasswordTextFormatter extends TextFormatter<String> {
 
     protected PasswordTextFormatter(StringConverter<String> valueConverter,
                                     UnaryOperator<Change> filter,
-                                    TextField textField,
+                                    TextField field,
                                     char bullet) {
         super(valueConverter, null, filter);
 
@@ -32,13 +32,13 @@ public class PasswordTextFormatter extends TextFormatter<String> {
         if (filter == null) {
             throw new NullPointerException("UnaryOperator cannot be null!");
         }
-        if (textField == null) {
+        if (field == null) {
             throw new NullPointerException("TextField cannot be null!");
         }
 
         PasswordFilter passwordFilter = (PasswordFilter) getFilter();
         passwordFilter.setBullet(bullet);
-        passwordFilter.setInitialText(textField.getText());
+        passwordFilter.setInitialText(field.getText());
 
         revealPasswordProperty().addListener((obs, old, val) -> {
             if (val == null) {
@@ -48,41 +48,68 @@ public class PasswordTextFormatter extends TextFormatter<String> {
             // Force text field update, because converter is only called on focus events by default.
             // Also, reset caret first, because otherwise its position won't be correct due to
             // #javafx-bug (https://bugs.openjdk.org/browse/JDK-8248914).
-            textField.positionCaret(0);
-            textField.commitValue();
+            field.positionCaret(0);
+            field.commitValue();
         });
 
         // force text field update on scene show
-        Platform.runLater(textField::commitValue);
+        Platform.runLater(field::commitValue);
     }
 
+    /**
+     * Always returns the unmasked password text regardless of
+     * the {@link #revealPasswordProperty} state.
+     */
     public ReadOnlyStringProperty passwordProperty() {
         return ((PasswordFilter) getFilter()).password.getReadOnlyProperty();
     }
 
+    /**
+     * See {@link #passwordProperty()}.
+     */
     public String getPassword() {
         return passwordProperty().get();
     }
 
+    /**
+     * Specifies whether the unmasked password text is revealed or not.
+     */
     public BooleanProperty revealPasswordProperty() {
         return ((PasswordFilter) getFilter()).revealPassword;
     }
 
+    /**
+     * See {@link #revealPasswordProperty}.
+     */
     public boolean isRevealPassword() {
         return revealPasswordProperty().get();
     }
 
+    /**
+     * See {@link #revealPasswordProperty}.
+     */
     public void setRevealPassword(boolean reveal) {
         revealPasswordProperty().set(reveal);
     }
 
-    // Life would be easier if TextFormatter had the default constructor.
-    public static PasswordTextFormatter create(TextField textField, char bullet) {
+    /**
+     * Creates a new password text formatter with the provided mask character and
+     * applies itself to the specified text field.
+     */
+    public static PasswordTextFormatter create(TextField field, char bullet) {
         var filter = new PasswordFilter();
         var converter = new PasswordStringConverter(filter);
-        return new PasswordTextFormatter(converter, filter, textField, bullet);
+
+        var formatter = new PasswordTextFormatter(converter, filter, field, bullet);
+        field.setTextFormatter(formatter);
+
+        return formatter;
     }
 
+    /**
+     * Creates a new password text formatter with the default mask character and
+     * applies itself to the specified text field.
+     */
     public static PasswordTextFormatter create(TextField textField) {
         return create(textField, BULLET);
     }

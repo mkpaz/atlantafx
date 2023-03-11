@@ -8,7 +8,7 @@ import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.MaskTextField;
-import atlantafx.base.util.PasswordTextFormatter;
+import atlantafx.base.controls.PasswordTextField;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import java.time.LocalTime;
@@ -89,20 +89,17 @@ public class CustomTextFieldPage extends AbstractPage {
     }
 
     private SampleBlock passwordSample() {
-        var tf = new CustomTextField("qwerty");
+        var tf = new PasswordTextField("qwerty");
         tf.setPrefWidth(PREF_WIDTH);
-
-        var passwordFormatter = PasswordTextFormatter.create(tf);
-        tf.setTextFormatter(passwordFormatter);
 
         var icon = new FontIcon(Feather.EYE_OFF);
         icon.setCursor(Cursor.HAND);
         icon.setOnMouseClicked(e -> {
-            if (passwordFormatter.revealPasswordProperty().get()) {
-                passwordFormatter.revealPasswordProperty().set(false);
+            if (tf.revealPasswordProperty().get()) {
+                tf.revealPasswordProperty().set(false);
                 icon.setIconCode(Feather.EYE_OFF);
             } else {
-                passwordFormatter.revealPasswordProperty().set(true);
+                tf.revealPasswordProperty().set(true);
                 icon.setIconCode(Feather.EYE);
             }
         });
