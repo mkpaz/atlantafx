@@ -280,3 +280,9 @@ Color variables:
 
 * `-color-button-bg-selected`
 * `-color-button-fg-selected`
+
+## Toggle Switch
+
+Pseudo-classes:
+
+* `:success`, `:danger`

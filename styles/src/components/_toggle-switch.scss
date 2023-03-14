@@ -60,6 +60,26 @@ $thumb-area-padding:       0.85em 1.4em 0.85em 1.4em !default;
     >.thumb-area {
       -fx-background-color: $color-thumb-area-border-selected, $color-thumb-area-selected;
     }
+
+    &:success {
+      >.thumb {
+        -fx-background-color: -color-success-emphasis, $color-thumb-selected;
+      }
+
+      >.thumb-area {
+        -fx-background-color: -color-success-emphasis, -color-success-emphasis;
+      }
+    }
+
+    &:danger {
+      >.thumb {
+          -fx-background-color: -color-danger-emphasis, $color-thumb-selected;
+      }
+
+      >.thumb-area {
+        -fx-background-color: -color-danger-emphasis, -color-danger-emphasis;
+      }
+    }
   }
 
   &:right {
