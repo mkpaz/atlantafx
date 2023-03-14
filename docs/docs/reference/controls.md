@@ -250,6 +250,20 @@ CSS classes:
 
 Floating and classic styles are mutually exclusive. 
 
+Color variables:
+
+* `-color-tab-bg-selected`
+* `-color-tab-fg-selected`
+* `-color-tab-border-selected`
+
+To apply these variables ensure that your custom CSS rule has more specificity, e.g.:
+
+```css
+.my-tab-pane.floating {
+    -color-tab-fg-selected: red;
+}
+```
+
 ## Titled Pane
 
 Also applied to the Accordion.

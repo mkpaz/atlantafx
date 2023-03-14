@@ -19,6 +19,7 @@
 - (CSS) `Button` shadow support (`-color-button-shadow`). Only for themes compiled with the `button.$use-shadow` flag enabled.  
 - (CSS) Looked-up color variables support: `Separator`.
 - (CSS) Added border radius/shadow to popup menu for `ComboBox` (and all `ComboBox`-based) controls.
+- (CSS) Looked-up colors to style selected `TabPane` tab.
 
 ### Bugfixes
 
