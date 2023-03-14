@@ -4,9 +4,10 @@
 @use "../settings/effects";
 @use "../settings/icons";
 
-$color-bg:     -color-bg-default     !default;
-$color-fg:     -color-fg-default     !default;
-$color-border: -color-border-default !default;
+$color-bg:        -color-bg-default     !default;
+$color-fg:        -color-fg-default     !default;
+$color-border:    -color-border-default !default;
+$color-separator: -color-border-subtle  !default;
 
 // horizontal tabs (tb = top+bottom)
 $color-tb-bg-hover:     -color-bg-subtle      !default;
@@ -267,9 +268,9 @@ $header-classic-padding-y:   5px !default;
           -fx-padding: $tab-padding-y 0 $tab-padding-y $tab-float-spacing;
 
           >.tab-container {
-            -fx-background-color: $color-float-bg;
-            -fx-background-insets: 0;
-            -fx-background-radius: cfg.$border-radius;
+            -fx-background-color: $color-separator, $color-float-bg;
+            -fx-background-insets: 0, 0 1 0 0;
+            -fx-background-radius: 0;
             -fx-border-radius: cfg.$border-radius;
             // an ugly hack to create right padding for the close button
             // sadly, it's not possible other way
