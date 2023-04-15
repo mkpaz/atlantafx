@@ -8,12 +8,12 @@ AtlantaFX is based on GitHub Primer color system. You can check [GitHub Primer i
 
 ### Foreground Colors
 
-| Color                |Usage                           |
-|----------------------|--------------------------------|
-| `-color-fg-default`  | Primary color for text and icons. It should be used for body content, titles and labels. |
+| Color                | Usage                                                                                                                            |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `-color-fg-default`  | Primary color for text and icons. It should be used for body content, titles and labels.                                         |
 | `-color-fg-muted`    | For content that is secondary or that provides additional context but is not critical to understanding the flow of an interface. |
-| `-color-fg-subtle`   | For placeholders or decorative foregrounds. |
-| `-color-fg-emphasis` | The text color designed to combine with `*-emphasis` backgrounds for optimal contrast. |
+| `-color-fg-subtle`   | For placeholders or decorative foregrounds.                                                                                      |
+| `-color-fg-emphasis` | The text color designed to combine with `*-emphasis` backgrounds for optimal contrast.                                           |
 
 ### Background Colors
 

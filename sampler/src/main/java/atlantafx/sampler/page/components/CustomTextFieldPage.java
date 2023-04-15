@@ -13,6 +13,8 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -126,9 +128,10 @@ public class CustomTextFieldPage extends AbstractPage {
         timeField.textProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 try {
+                    //noinspection ResultOfMethodCallIgnored
                     LocalTime.parse(val, timeFormatter);
                     timeField.pseudoClassStateChanged(STATE_DANGER, false);
-                } catch (Exception e) {
+                } catch (DateTimeParseException e) {
                     timeField.pseudoClassStateChanged(STATE_DANGER, true);
                 }
             }
