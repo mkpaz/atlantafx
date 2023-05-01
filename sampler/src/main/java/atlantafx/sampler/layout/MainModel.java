@@ -7,6 +7,7 @@ import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
 
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.AccordionPage;
+import atlantafx.sampler.page.components.BBCodePage;
 import atlantafx.sampler.page.components.BreadcrumbsPage;
 import atlantafx.sampler.page.components.ButtonPage;
 import atlantafx.sampler.page.components.ChartPage;
@@ -186,6 +187,7 @@ public class MainModel {
         var extras = NavTree.Item.group("Extras", new FontIcon(Material2OutlinedMZ.TOGGLE_ON));
         extras.getChildren().setAll(
             NAV_TREE.get(InputGroupPage.class),
+            NAV_TREE.get(BBCodePage.class),
             NAV_TREE.get(BreadcrumbsPage.class),
             NAV_TREE.get(CustomTextFieldPage.class),
             NAV_TREE.get(PopoverPage.class),
@@ -221,6 +223,7 @@ public class MainModel {
         map.put(AccordionPage.class, NavTree.Item.page(AccordionPage.NAME, AccordionPage.class));
         map.put(BreadcrumbsPage.class, NavTree.Item.page(BreadcrumbsPage.NAME, BreadcrumbsPage.class));
         map.put(ButtonPage.class, NavTree.Item.page(ButtonPage.NAME, ButtonPage.class));
+        map.put(BBCodePage.class, NavTree.Item.page(BBCodePage.NAME, BBCodePage.class));
         map.put(ChartPage.class, NavTree.Item.page(ChartPage.NAME, ChartPage.class));
         map.put(CheckBoxPage.class, NavTree.Item.page(CheckBoxPage.NAME, CheckBoxPage.class));
         map.put(ColorPickerPage.class, NavTree.Item.page(ColorPickerPage.NAME, ColorPickerPage.class));
@@ -267,9 +270,9 @@ public class MainModel {
         map.put(TreeTablePage.class, NavTree.Item.page(TreeTablePage.NAME, TreeTablePage.class));
 
         map.put(FileManagerPage.class, NavTree.Item.page(FileManagerPage.NAME, FileManagerPage.class));
-        map.put(MusicPlayerPage.class, NavTree.Item.page(FileManagerPage.NAME, MusicPlayerPage.class));
+        map.put(MusicPlayerPage.class, NavTree.Item.page(MusicPlayerPage.NAME, MusicPlayerPage.class));
         map.put(WidgetCollectionPage.class, NavTree.Item.page(
-            FileManagerPage.NAME,
+            WidgetCollectionPage.NAME,
             WidgetCollectionPage.class, "Card", "Message", "Stepper", "Tag")
         );
 

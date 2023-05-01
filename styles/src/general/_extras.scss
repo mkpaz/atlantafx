@@ -15,6 +15,41 @@ $radius in cfg.$elevation {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// BBCode                                                                    //
+///////////////////////////////////////////////////////////////////////////////
+
+.bb-code {
+  .sub {
+    -fx-translate-y: 0.3em;
+  }
+
+  .sup {
+    -fx-translate-y: -0.3em;
+  }
+
+  .hr {
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+    -fx-border-insets: 10px 0 10px 0
+  }
+
+  .code {
+    -fx-font-family: monospace;
+    -fx-border-color: -color-border-default;
+    -fx-border-width: 1;
+    -fx-background-color: -color-bg-subtle;
+    -fx-padding: 0 3 0 3;
+  }
+
+  .abbr {
+    -fx-border-color: -color-fg-default;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: dashed;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
 // Ikonli                                                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
