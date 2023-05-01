@@ -24,22 +24,28 @@ import java.util.List;
 @SuppressWarnings({"unused", "NarrowingCompoundAssignment"})
 final class ColorThief {
 
+    private ColorThief() {
+        // Default constructor
+    }
+
     private static final int DEFAULT_QUALITY = 10;
     private static final boolean DEFAULT_IGNORE_WHITE = true;
 
     public static int[] getColor(BufferedImage source) {
         int[][] palette = getPalette(source, 5);
-        if (palette == null) {
+
+        if (palette == null)
             return null;
-        }
+
         return palette[0];
     }
 
     public static int[][] getPalette(BufferedImage source, int colorCount) {
         MMCQ.ColorMap colorMap = getColorMap(source, colorCount);
-        if (colorMap == null) {
+
+        if (colorMap == null)
             return null;
-        }
+
         return colorMap.palette();
     }
 
@@ -49,12 +55,10 @@ final class ColorThief {
 
     public static MMCQ.ColorMap getColorMap(BufferedImage sourceImage, int colorCount, int quality,
                                             boolean ignoreWhite) {
-        if (colorCount < 2 || colorCount > 256) {
+        if (colorCount < 2 || colorCount > 256)
             throw new IllegalArgumentException("Specified colorCount must be between 2 and 256.");
-        }
-        if (quality < 1) {
+        if (quality < 1)
             throw new IllegalArgumentException("Specified quality should be greater then 0.");
-        }
 
         int[][] pixelArray = switch (sourceImage.getType()) {
             case TYPE_3BYTE_BGR, TYPE_4BYTE_ABGR -> getPixelsFast(sourceImage, quality, ignoreWhite);
@@ -65,9 +69,9 @@ final class ColorThief {
     }
 
     private static int[][] getPixelsFast(
-        BufferedImage sourceImage,
-        int quality,
-        boolean ignoreWhite) {
+            BufferedImage sourceImage,
+            int quality,
+            boolean ignoreWhite) {
         DataBufferByte imageData = (DataBufferByte) sourceImage.getRaster().getDataBuffer();
         byte[] pixels = imageData.getData();
         int pixelCount = sourceImage.getWidth() * sourceImage.getHeight();
@@ -83,7 +87,7 @@ final class ColorThief {
         int expectedDataLength = pixelCount * colorDepth;
         if (expectedDataLength != pixels.length) {
             throw new IllegalArgumentException(
-                "(expectedDataLength = " + expectedDataLength + ") != (pixels.length = " + pixels.length + ")"
+                    "(expectedDataLength = " + expectedDataLength + ") != (pixels.length = " + pixels.length + ")"
             );
         }
 
@@ -94,7 +98,7 @@ final class ColorThief {
         int offset, r, g, b, a;
 
         switch (type) {
-            case TYPE_3BYTE_BGR:
+            case TYPE_3BYTE_BGR -> {
                 for (int i = 0; i < pixelCount; i += quality) {
                     offset = i * 3;
                     b = pixels[offset] & 0xFF;
@@ -102,13 +106,12 @@ final class ColorThief {
                     r = pixels[offset + 2] & 0xFF;
 
                     if (!(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                        pixelArray[numUsedPixels] = new int[] {r, g, b};
+                        pixelArray[numUsedPixels] = new int[]{r, g, b};
                         numUsedPixels++;
                     }
                 }
-                break;
-
-            case TYPE_4BYTE_ABGR:
+            }
+            case TYPE_4BYTE_ABGR -> {
                 for (int i = 0; i < pixelCount; i += quality) {
                     offset = i * 4;
                     a = pixels[offset] & 0xFF;
@@ -117,23 +120,21 @@ final class ColorThief {
                     r = pixels[offset + 3] & 0xFF;
 
                     if (a >= 125 && !(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                        pixelArray[numUsedPixels] = new int[] {r, g, b};
+                        pixelArray[numUsedPixels] = new int[]{r, g, b};
                         numUsedPixels++;
                     }
                 }
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unhandled type: " + type);
+            }
+            default -> throw new IllegalArgumentException("Unhandled type: " + type);
         }
 
         return Arrays.copyOfRange(pixelArray, 0, numUsedPixels);
     }
 
     private static int[][] getPixelsSlow(
-        BufferedImage sourceImage,
-        int quality,
-        boolean ignoreWhite) {
+            BufferedImage sourceImage,
+            int quality,
+            boolean ignoreWhite) {
         int width = sourceImage.getWidth();
         int height = sourceImage.getHeight();
 
@@ -153,7 +154,7 @@ final class ColorThief {
             g = (rgb >> 8) & 0xFF;
             b = rgb & 0xFF;
             if (!(ignoreWhite && r > 250 && g > 250 && b > 250)) {
-                res[numUsedPixels] = new int[] {r, g, b};
+                res[numUsedPixels] = new int[]{r, g, b};
                 numUsedPixels++;
             }
         }
@@ -259,10 +260,10 @@ final class ColorThief {
                     }
 
                     if (ntot > 0) {
-                        gAvg = new int[] {(rsum / ntot), (gsum / ntot), (bsum / ntot)};
+                        gAvg = new int[]{(rsum / ntot), (gsum / ntot), (bsum / ntot)};
                     } else {
-                        gAvg = new int[] {(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
-                            (MULT * (b1 + b2 + 1) / 2)};
+                        gAvg = new int[]{(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
+                                (MULT * (b1 + b2 + 1) / 2)};
                     }
                 }
 
@@ -279,7 +280,7 @@ final class ColorThief {
 
         public static class ColorMap {
 
-            public final ArrayList<VBox> vboxes = new ArrayList<>();
+            public final List<VBox> vboxes = new ArrayList<>();
 
             public void push(VBox box) {
                 vboxes.add(box);
@@ -317,8 +318,8 @@ final class ColorThief {
                 for (VBox vbox : vboxes) {
                     int[] vbColor = vbox.avg(false);
                     d2 = Math.sqrt(Math.pow(color[0] - vbColor[0], 2)
-                        + Math.pow(color[1] - vbColor[1], 2)
-                        + Math.pow(color[2] - vbColor[2], 2)
+                            + Math.pow(color[1] - vbColor[1], 2)
+                            + Math.pow(color[2] - vbColor[2], 2)
                     );
                     if (d2 < d1) {
                         d1 = d2;
@@ -386,7 +387,7 @@ final class ColorThief {
             }
 
             if (vbox.count(false) == 1) {
-                return new VBox[] {vbox.clone(), null};
+                return new VBox[]{vbox.clone(), null};
             }
 
             int rw = vbox.r2 - vbox.r1 + 1;
@@ -446,16 +447,16 @@ final class ColorThief {
             }
 
             return maxw == rw ? doCut('r', vbox, partialSum, lookAheadSum, total)
-                : maxw == gw ? doCut('g', vbox, partialSum, lookAheadSum, total)
-                : doCut('b', vbox, partialSum, lookAheadSum, total);
+                    : maxw == gw ? doCut('g', vbox, partialSum, lookAheadSum, total)
+                    : doCut('b', vbox, partialSum, lookAheadSum, total);
         }
 
         private static VBox[] doCut(
-            char color,
-            VBox vbox,
-            int[] partialSum,
-            int[] lookAheadSum,
-            int total
+                char color,
+                VBox vbox,
+                int[] partialSum,
+                int[] lookAheadSum,
+                int total
         ) {
             int vboxDim1;
             int vboxDim2;
@@ -508,7 +509,7 @@ final class ColorThief {
                         vbox2.b1 = d2 + 1;
                     }
 
-                    return new VBox[] {vbox1, vbox2};
+                    return new VBox[]{vbox1, vbox2};
                 }
             }
 
