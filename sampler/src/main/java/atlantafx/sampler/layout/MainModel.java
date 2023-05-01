@@ -23,6 +23,7 @@ import atlantafx.sampler.page.components.LabelPage;
 import atlantafx.sampler.page.components.ListPage;
 import atlantafx.sampler.page.components.MenuButtonPage;
 import atlantafx.sampler.page.components.MenuPage;
+import atlantafx.sampler.page.components.ModalPanePage;
 import atlantafx.sampler.page.components.OverviewPage;
 import atlantafx.sampler.page.components.PaginationPage;
 import atlantafx.sampler.page.components.PopoverPage;
@@ -190,6 +191,7 @@ public class MainModel {
             NAV_TREE.get(BBCodePage.class),
             NAV_TREE.get(BreadcrumbsPage.class),
             NAV_TREE.get(CustomTextFieldPage.class),
+            NAV_TREE.get(ModalPanePage.class),
             NAV_TREE.get(PopoverPage.class),
             NAV_TREE.get(ToggleSwitchPage.class)
         );
@@ -245,6 +247,7 @@ public class MainModel {
             MenuButtonPage.NAME,
             MenuButtonPage.class, "SplitMenuButton")
         );
+        map.put(ModalPanePage.class, NavTree.Item.page(ModalPanePage.NAME, ModalPanePage.class));
         map.put(PaginationPage.class, NavTree.Item.page(PaginationPage.NAME, PaginationPage.class));
         map.put(PopoverPage.class, NavTree.Item.page(PopoverPage.NAME, PopoverPage.class));
         map.put(ProgressPage.class, NavTree.Item.page(ProgressPage.NAME, ProgressPage.class));
