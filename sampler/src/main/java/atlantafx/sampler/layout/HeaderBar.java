@@ -8,26 +8,30 @@ import static atlantafx.base.theme.Styles.TITLE_4;
 import static atlantafx.sampler.Launcher.IS_DEV_MODE;
 import static atlantafx.sampler.layout.MainLayer.SIDEBAR_WIDTH;
 
-import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.HotkeyEvent;
 import java.net.URI;
+import java.util.Objects;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCombination.ModifierValue;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -42,10 +46,14 @@ class HeaderBar extends HBox {
 
     private final MainModel model;
     private Consumer<Node> quickConfigActionHandler;
+    private Overlay overlay;
+    private SearchDialog searchDialog;
 
     public HeaderBar(MainModel model) {
         super();
+
         this.model = model;
+
         createView();
     }
 
@@ -80,14 +88,24 @@ class HeaderBar extends HBox {
         titleLabel.getStyleClass().addAll("page-title", TITLE_4);
         titleLabel.textProperty().bind(model.titleProperty());
 
-        var searchField = new CustomTextField();
-        searchField.setLeft(new FontIcon(Material2MZ.SEARCH));
-        searchField.setPromptText("Search");
-        model.searchTextProperty().bind(searchField.textProperty());
+        var searchBox = new HBox(10,
+            new FontIcon(Material2MZ.SEARCH),
+            new Text("Search"),
+            new Spacer(5),
+            new Label("/")
+        );
+        searchBox.getStyleClass().add("box");
+        searchBox.setAlignment(Pos.CENTER_LEFT);
+
+        var searchButton = new Button();
+        searchButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        searchButton.getStyleClass().add("search-button");
+        searchButton.setGraphic(searchBox);
+        searchButton.setOnAction(e -> openSearchDialog());
 
         DefaultEventBus.getInstance().subscribe(HotkeyEvent.class, e -> {
-            if (e.getKeys().getControl() == ModifierValue.DOWN && e.getKeys().getCode() == KeyCode.F) {
-                searchField.requestFocus();
+            if (e.getKeys().getCode() == KeyCode.SLASH) {
+                openSearchDialog();
             }
         });
 
@@ -139,7 +157,7 @@ class HeaderBar extends HBox {
             logoBox,
             titleLabel,
             new Spacer(),
-            searchField,
+            searchButton,
             popoverAnchor,
             quickConfigBtn,
             sourceCodeBtn,
@@ -155,5 +173,27 @@ class HeaderBar extends HBox {
 
     void setQuickConfigActionHandler(Consumer<Node> handler) {
         this.quickConfigActionHandler = handler;
+    }
+
+    private Overlay lookupOverlay() {
+        return Objects.requireNonNullElse(overlay,
+            overlay = getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay o ? o : null
+        );
+    }
+
+    private void openSearchDialog() {
+        if (searchDialog == null) {
+            searchDialog = new SearchDialog(model);
+            searchDialog.setOnCloseRequest(() -> {
+                var overlay = lookupOverlay();
+                overlay.removeContent();
+                overlay.toBack();
+            });
+        }
+
+        var overlay = lookupOverlay();
+        overlay.setContent(searchDialog, HPos.CENTER);
+        overlay.toFront();
+        Platform.runLater(() -> searchDialog.begForFocus());
     }
 }

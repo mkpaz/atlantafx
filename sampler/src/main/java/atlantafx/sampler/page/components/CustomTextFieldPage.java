@@ -12,6 +12,7 @@ import atlantafx.base.controls.PasswordTextField;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.SampleBlock;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -120,7 +121,7 @@ public class CustomTextFieldPage extends AbstractPage {
 
         var timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         var timeField = new MaskTextField("29:59");
-        timeField.setText(LocalTime.now().format(timeFormatter));
+        timeField.setText(LocalTime.now(ZoneId.systemDefault()).format(timeFormatter));
         timeField.setLeft(new FontIcon(Material2OutlinedMZ.TIMER));
         timeField.setPrefWidth(120);
         timeField.textProperty().addListener((obs, old, val) -> {

@@ -12,7 +12,6 @@ import atlantafx.sampler.layout.MainModel.SubLayer;
 import atlantafx.sampler.page.CodeViewer;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.QuickConfigMenu;
-import atlantafx.sampler.page.components.OverviewPage;
 import atlantafx.sampler.theme.ThemeManager;
 import java.io.IOException;
 import java.util.Objects;
@@ -27,7 +26,7 @@ import javafx.util.Duration;
 
 class MainLayer extends BorderPane {
 
-    static final int SIDEBAR_WIDTH = 220;
+    static final int SIDEBAR_WIDTH = 250;
     static final int PAGE_TRANSITION_DURATION = 500; // ms
 
     private final MainModel model = new MainModel();
@@ -45,13 +44,15 @@ class MainLayer extends BorderPane {
         createView();
         initListeners();
 
-        model.navigate(OverviewPage.class);
+        model.navigate(MainModel.DEFAULT_PAGE);
+
         // keyboard navigation won't work without focus
         Platform.runLater(sidebar::begForFocus);
     }
 
     private void createView() {
         sidebar.setMinWidth(SIDEBAR_WIDTH);
+        sidebar.setMaxWidth(SIDEBAR_WIDTH);
 
         codeViewer = new CodeViewer();
 

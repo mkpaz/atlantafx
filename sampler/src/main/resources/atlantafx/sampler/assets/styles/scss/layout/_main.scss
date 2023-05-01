@@ -66,6 +66,38 @@
     }
   }
 
+  >.search-button {
+    -color-button-bg: -color-accent-emphasis;
+    -color-button-fg: -color-fg-emphasis;
+    -color-button-border: transparent;
+    -color-button-bg-hover: -color-accent-6;
+    -color-button-fg-hover: -color-fg-emphasis;
+    -color-button-border-hover: transparent;
+    -color-button-bg-focused: -color-accent-emphasis;
+    -color-button-fg-focused: -color-fg-emphasis;
+    -color-button-border-focused: transparent;
+    -color-button-bg-pressed: -color-accent-emphasis;
+    -color-button-fg-pressed: -color-fg-emphasis;
+    -color-button-border-pressed: transparent;
+    -color-button-shadow: transparent;
+
+    -fx-padding: 6px 16px 6px 12px;
+
+    >.box {
+      >* {
+        -fx-fill: -color-fg-emphasis;
+      }
+
+      >.label {
+        -fx-text-fill: -color-fg-emphasis;
+        -fx-border-color: -color-fg-emphasis;
+        -fx-border-width: 1;
+        -fx-padding: 2px 6px 2px 6px;
+        -fx-opacity: 0.5;
+      }
+    }
+  }
+
   >.page-title {
     -fx-text-fill: -color-fg-emphasis;
     -fx-padding: 0 0 0 30px;
@@ -84,40 +116,61 @@
 }
 
 #sidebar {
-  // border is necessary when scrollbar is hidden
-  // e.g. when displaying search result
-  -fx-border-color: -color-border-subtle;
-  -fx-border-width: 0 1px 0 0;
 
-  >.scroll-pane {
-    -fx-background-color: -color-bg-inset;
-    -fx-padding: 0 16px 10px 16px;
-  }
+  .nav-tree-cell {
+    -fx-padding: 0;
+    -fx-indent: 8px;
+    -color-cell-bg: -color-bg-inset;
+    -color-cell-bg-selected: -color-bg-inset;
+    -color-cell-bg-selected-focused: -color-bg-inset;
+    -fx-background-radius: 5px;
 
-  &:filtered {
-    >.scroll-pane {
-      -fx-padding: 10px 16px 10px 16px;
+    >.tree-disclosure-node,
+    >.tree-disclosure-node>.arrow {
+      -fx-min-width: 0;
+      -fx-pref-width: 0;
+      -fx-max-width: 0;
+      -fx-min-height: 0;
+      -fx-pref-height: 0;
+      -fx-max-height: 0;
+      visibility: hidden;
     }
-  }
 
-  .nav-menu {
-    >.caption {
-      -fx-padding: 18px 0 10px 0;
+    >.container {
+      -fx-min-height: 2.1em;
+      -fx-pref-height: 2.1em;
+      -fx-max-height: 2.1em;
+      -fx-padding: 0 0 0 8px;
+    }
+
+    &:selected >.container >.title {
       -fx-font-weight: bold;
-      -fx-text-fill: -color-fg-muted;
+      -fx-text-fill: -color-accent-fg;
     }
 
-    >.nav-link {
-      -fx-padding: 6px 8px 6px 8px;
+    &:hover:filled {
+      -color-cell-bg: -color-accent-subtle;
+    }
 
-      &:hover {
-        -fx-background-color: -color-accent-muted;
-        -fx-background-radius: 6px;
+    &:group {
+      >.container {
+        -fx-min-height: 2.5em;
+        -fx-pref-height: 2.5em;
+        -fx-max-height: 2.5em;
+        -fx-padding: 0 0 0 8px;
+
+        .ikonli-font-icon {
+          -fx-fill: -color-accent-fg;
+          -fx-icon-color: -color-accent-fg;
+        }
+
+        >.arrow {
+          -fx-icon-code: mdal-expand_more;
+        }
       }
 
-      &:selected {
-        -fx-text-fill: -color-accent-fg;
-        -fx-font-weight: bold;
+      &:expanded>.container>.arrow {
+        -fx-icon-code: mdal-chevron_right;
       }
     }
   }
