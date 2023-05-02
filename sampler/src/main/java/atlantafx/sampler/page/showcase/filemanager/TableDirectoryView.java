@@ -74,7 +74,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         // ~
 
         var table = new TableView<Path>();
-        table.getStyleClass().add(Styles.STRIPED);
+        table.getStyleClass().addAll(Styles.STRIPED, Tweaks.EDGE_TO_EDGE);
         table.getColumns().setAll(filenameCol, sizeCol, mtimeCol);
         table.getSortOrder().add(filenameCol);
         table.setSortPolicy(param -> true);

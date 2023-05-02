@@ -5,38 +5,35 @@ $color-wcag-bg-failed: #ef5350;
 $color-wcag-fg:        white;
 
 #color-palette {
+  -fx-vgap: 20px;
+  -fx-hgap: 25px;
 
-  -fx-spacing: 20px;
-  -fx-background-color: -color-bg-default; // mandatory base bg for flatten color calc
+  // mandatory base bg for flatten color calc
+  -fx-background-color: -color-bg-default;
 
-  >.grid {
-    -fx-vgap: 20px;
-    -fx-hgap: 40px;
+  >.block {
+    -fx-spacing: 5px;
 
-    >.block {
-      -fx-spacing: 5px;
+    >.rectangle {
+      -fx-min-width: 150px;
+      -fx-min-height: 70px;
+      -fx-max-width: 150px;
+      -fx-max-height: 70px;
+      -fx-cursor: hand;
 
-      >.rectangle {
-        -fx-min-width: 12em;
-        -fx-min-height: 5em;
-        -fx-max-width: 12em;
-        -fx-max-height: 5em;
-        -fx-cursor: hand;
+      &:passed>.contrast-level-label {
+        -fx-background-color: $color-wcag-bg-passed;
+      }
 
-        &:passed>.contrast-level-label {
-          -fx-background-color: $color-wcag-bg-passed;
-        }
+      >.contrast-level-label {
+        -fx-text-fill: $color-wcag-fg;
+        -fx-background-color: $color-wcag-bg-failed;
+        -fx-background-radius: 6px;
+        -fx-padding: 3px;
 
-        >.contrast-level-label {
-          -fx-text-fill: $color-wcag-fg;
-          -fx-background-color: $color-wcag-bg-failed;
-          -fx-background-radius: 6px;
-          -fx-padding: 3px;
-
-          >.ikonli-font-icon {
-            -fx-fill: $color-wcag-fg;
-            -fx-icon-color: $color-wcag-fg;
-          }
+        >.ikonli-font-icon {
+          -fx-fill: $color-wcag-fg;
+          -fx-icon-color: $color-wcag-fg;
         }
       }
     }

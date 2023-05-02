@@ -2,12 +2,9 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 import atlantafx.base.theme.Styles;
+import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -25,17 +22,16 @@ public class LabelPage extends AbstractPage {
 
     public LabelPage() {
         super();
-        createView();
+
+        addFormattedText("""
+            Label is a non-editable text control. A [i]Label[/i] is useful for displaying text that \
+            is required to fit within a specific space, and thus may need to use an ellipsis \
+            or truncation to size the string to fit."""
+        );
+        addNode(colorExample());
     }
 
-    private void createView() {
-        setUserContent(new VBox(
-            PAGE_VGAP,
-            expandingHBox(colorSample())
-        ));
-    }
-
-    private SampleBlock colorSample() {
+    private VBox colorExample() {
         var defaultLabel = new Label("default", createFontIcon());
 
         var accentLabel = new Label("accent", createFontIcon());
@@ -56,17 +52,23 @@ public class LabelPage extends AbstractPage {
         var subtleLabel = new Label("subtle", createFontIcon());
         subtleLabel.getStyleClass().add(Styles.TEXT_SUBTLE);
 
-        var content = new VBox(
-            BLOCK_VGAP,
-            new Label("You can also use pseudo-classes to set Label color."),
-            new Label("Note that icon inherits label color by default."),
-            new FlowPane(
-                BLOCK_HGAP, BLOCK_VGAP,
-                defaultLabel, accentLabel, successLabel, warningLabel, dangerLabel,
-                mutedLabel, subtleLabel
-            ));
+        var description = BBCodeParser.createFormattedText("""
+            You can use pseudo-classes to set the [i]Label[/i] color. Note that icon \
+            inherits label color by default."""
+        );
 
-        return new SampleBlock("Colors", content);
+        var labels = new FlowPane(
+            20, 20,
+            defaultLabel,
+            accentLabel,
+            successLabel,
+            warningLabel,
+            dangerLabel,
+            mutedLabel,
+            subtleLabel
+        );
+
+        return new VBox(20, description, labels);
     }
 
     private FontIcon createFontIcon(String... stylesClass) {

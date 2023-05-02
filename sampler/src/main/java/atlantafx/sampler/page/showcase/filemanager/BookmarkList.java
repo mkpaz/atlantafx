@@ -2,6 +2,7 @@ package atlantafx.sampler.page.showcase.filemanager;
 
 import static atlantafx.sampler.page.showcase.filemanager.Model.USER_HOME;
 
+import atlantafx.base.theme.Tweaks;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javafx.scene.control.Alert;
@@ -14,7 +15,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 final class BookmarkList extends ListView<Bookmark> {
 
     public BookmarkList(Model model) {
-        getStyleClass().add("bookmark-list");
+        getStyleClass().addAll("bookmark-list", Tweaks.EDGE_TO_EDGE);
 
         // this is Linux specific and only for EN locale
         getItems().setAll(

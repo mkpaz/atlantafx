@@ -184,8 +184,9 @@ public class ModalPane extends Control {
 
     /**
      * Specifies whether content should be treated as persistent or not.
-     * By default, modal pane exits when on ESC button or mouse click outside the contenbt are.
-     * This property prevents this behavior and plays bouncing animation instead.
+     * By default, the modal pane exits when the ESC button is pressed or when
+     * the mouse is clicked outside the content area. This property prevents
+     * this behavior and plays bouncing animation instead.
      */
     public BooleanProperty persistentProperty() {
         return persistent;

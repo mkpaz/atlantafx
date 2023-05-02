@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.sampler.fake.domain.Metric?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Listing Metrics on Queries &amp; Mutations">
+            <VBox.margin>
+                <Insets left="5.0" />
+            </VBox.margin>
+         <styleClass>
+            <String fx:value="text-muted" />
+            <String fx:value="text-caption" />
+         </styleClass>
+        </Label>
+        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab closable="false" text="Last week">
+                    <content>
+                        <VBox maxHeight="1.7976931348623157E308">
+                            <children>
+                                <TableView prefHeight="250.0" styleClass="striped" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn minWidth="100.0" prefWidth="100.0" text="Queries">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="queries" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="30.0" prefWidth="30.0" styleClass="align-right" text="Latency">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="latency" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="75.0" styleClass="align-right" text="Requests">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="requests" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <Metric cacheHitRate="67.4%" latency="116ms" queries="activeCart" requests="26.1K" />
+                                            <Metric cacheHitRate="97.6%" latency="284ms" queries="getUserShippingAddress" requests="16.3K" />
+                                            <Metric cacheHitRate="14.8%" latency="456ms" queries="getPromotionCollection" requests="10.2K" />
+                                            <Metric cacheHitRate="41.3%" latency="451ms" queries="getUserPersonalDiscount" requests="8,764" />
+                                            <Metric cacheHitRate="92.4%" latency="123ms" queries="getActiveCoupons" requests="5,456" />
+                                        </FXCollections>
+                                    </items>
+                                </TableView>
+                            </children>
+                            <padding>
+                                <Insets top="10.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab closable="false" text="This month">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab closable="false" text="This year">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

@@ -65,7 +65,7 @@ public class NavTree extends TreeView<Nav> {
             root.getChildren().setAll(titleLabel, new Spacer(), arrowIcon);
             root.setCursor(Cursor.HAND);
             root.getStyleClass().add("container");
-            root.setMaxWidth(MainLayer.SIDEBAR_WIDTH - 10);
+            root.setMaxWidth(ApplicationWindow.SIDEBAR_WIDTH - 10);
 
             root.setOnMouseClicked(e -> {
                 if (!(getTreeItem() instanceof Item item)) {

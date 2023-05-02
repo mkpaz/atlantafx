@@ -4,29 +4,22 @@ package atlantafx.sampler.page;
 
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
+import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.layout.Overlay;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import net.datafaker.Faker;
-import org.kordamp.ikonli.feather.Feather;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-public abstract class AbstractPage extends BorderPane implements Page {
+public abstract class AbstractPage extends StackPane implements Page {
 
-    protected static final Faker FAKER = new Faker();
-    protected static final Random RANDOM = new Random();
-
-    protected final StackPane userContent = new StackPane();
+    protected final VBox userContent = new VBox();
     protected Overlay overlay;
     protected boolean isRendered = false;
 
@@ -40,11 +33,16 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     protected void createPageLayout() {
-        var scrollPane = new ScrollPane(userContent);
-        setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
-        scrollPane.setMaxHeight(10_000);
+        var userContentArea = new StackPane(userContent);
+        userContentArea.setAlignment(Pos.TOP_CENTER);
+        userContent.setMinWidth(Math.min(Page.MAX_WIDTH, 800));
+        userContent.setMaxWidth(Math.min(Page.MAX_WIDTH, 800));
 
-        setCenter(scrollPane);
+        var scrollPane = new ScrollPane(userContentArea);
+        setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
+        scrollPane.setMaxHeight(20_000);
+
+        getChildren().setAll(scrollPane);
     }
 
     protected void setUserContent(Node content) {
@@ -87,23 +85,20 @@ public abstract class AbstractPage extends BorderPane implements Page {
         this.overlay = lookupOverlay();
     }
 
+    protected void addNode(Node node) {
+        userContent.getChildren().add(node);
+    }
+
+    protected void addPlainText(String text) {
+        userContent.getChildren().add(new TextFlow(new Text(text)));
+    }
+
+    protected void addFormattedText(String text) {
+        userContent.getChildren().add(BBCodeParser.createFormattedText(text));
+    }
+
     protected Overlay lookupOverlay() {
-        return getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay ov ? ov : null;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    protected HBox expandingHBox(Node... nodes) {
-        var box = new HBox(PAGE_HGAP, nodes);
-        Arrays.stream(nodes).forEach(n -> HBox.setHgrow(n, Priority.ALWAYS));
-        return box;
-    }
-
-    protected <T> List<T> generate(Supplier<T> supplier, int count) {
-        return Stream.generate(supplier).limit(count).toList();
-    }
-
-    protected Feather randomIcon() {
-        return Feather.values()[RANDOM.nextInt(Feather.values().length)];
+        return getScene() != null
+            && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay ov ? ov : null;
     }
 }

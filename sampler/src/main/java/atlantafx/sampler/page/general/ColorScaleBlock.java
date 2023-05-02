@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 class ColorScaleBlock extends VBox {
 
-    private static final double BLOCK_WIDTH = 250;
+    private static final double BLOCK_WIDTH = 200;
     private static final double BLOCK_HEIGHT = 40;
 
     private final ReadOnlyObjectProperty<Color> bgBaseColor;

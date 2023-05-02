@@ -2,18 +2,15 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.base.theme.Styles.ACCENT;
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.DENSE;
-import static atlantafx.base.theme.Styles.toggleStyleClass;
-import static javafx.scene.control.TabPane.TabClosingPolicy.ALL_TABS;
-import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
+import static javafx.scene.control.TabPane.TabClosingPolicy;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -29,49 +26,219 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class TabPanePage extends AbstractPage {
+public class TabPanePage extends OutlinePage {
 
     public static final String NAME = "TabPane";
-    private static final double TAB_MIN_HEIGHT = 60;
 
     @Override
     public String getName() {
         return NAME;
     }
 
+    public TabPanePage() {
+        super();
+
+        addFormattedText("""
+            [i]TabPane[/i] is a control that provides a container for a group of tabs. By clicking \
+            on a tab, the content of that tab becomes visible, while the content of the previously \
+            selected tab gets hidden."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Tab Style", tabStyleExample());
+        addSection("Vertical Tabs", verticalTabsExample());
+        addSection("Dense", denseExample());
+        addSection("Playground", playground());
+    }
+
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var tab1 = new Tab("One");
+        tab1.setGraphic(new FontIcon(randomIcon()));
+
+        var tab2 = new Tab("Two");
+        tab2.setGraphic(new FontIcon(randomIcon()));
+
+        var tab3 = new Tab("Three");
+        tab3.setGraphic(new FontIcon(randomIcon()));
+
+        var tabs = new TabPane(tab1, tab2, tab3);
+        tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        tabs.setMinWidth(450);
+        //snippet_1:end
+
+        var box = new HBox(tabs);
+        box.setMinHeight(50);
+
+        var description = BBCodeParser.createFormattedText("""
+            Tabs are placed within a [font=monospace]TabPane[/font], where each tab represents a single \
+            "page". Any node such as controls or groups of nodes added to a tab layout container. When \
+            the user clicks on a tab in the tab content becomes visible."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+    }
+
+    private ExampleBox tabStyleExample() {
+        //snippet_2:start
+        var defaultTabs = new TabPane(
+            new Tab("One"), new Tab("Two"), new Tab("Three")
+        );
+        defaultTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        defaultTabs.setMinWidth(450);
+
+        var floatingTabs = new TabPane(
+            new Tab("One"), new Tab("Two"), new Tab("Three")
+        );
+        floatingTabs.getStyleClass().add(Styles.TABS_FLOATING);
+        floatingTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        floatingTabs.setMinWidth(450);
+
+        var classicTabs = new TabPane(
+            new Tab("One"), new Tab("Two"), new Tab("Three")
+        );
+        classicTabs.getStyleClass().add(Styles.TABS_CLASSIC);
+        classicTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        classicTabs.setMinWidth(450);
+        //snippet_2:end
+
+        var box = new VBox(VGAP_20, defaultTabs, floatingTabs, classicTabs);
+        box.setMinHeight(200);
+
+        var description = BBCodeParser.createFormattedText("""
+            You can use two additional styles classes to modify tab pane style:
+                        
+            [ul]
+            [li][code]Styles.TABS_FLOATING[/code][/li]
+            [li][code]Styles.TABS_CLASSIC[/code][/li][/ul]"""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
+    }
+
+    private ExampleBox verticalTabsExample() {
+        //snippet_3:start
+        var defaultTabsLeft = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        defaultTabsLeft.setSide(Side.LEFT);
+        defaultTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
+        var floatingTabsLeft = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        floatingTabsLeft.setSide(Side.LEFT);
+        floatingTabsLeft.getStyleClass().add(Styles.TABS_FLOATING);
+        floatingTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
+        var classicTabsLeft = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        classicTabsLeft.setSide(Side.LEFT);
+        classicTabsLeft.getStyleClass().add(Styles.TABS_CLASSIC);
+        classicTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
+        var defaultTabsRight = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        defaultTabsRight.setSide(Side.RIGHT);
+        defaultTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
+        var floatingTabsRight = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        floatingTabsRight.setSide(Side.RIGHT);
+        floatingTabsRight.getStyleClass().add(Styles.TABS_FLOATING);
+        floatingTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+
+        var classicTabsRight = new TabPane(
+            new Tab("One"), new Tab("Two")
+        );
+        classicTabsRight.setSide(Side.RIGHT);
+        classicTabsRight.getStyleClass().add(Styles.TABS_CLASSIC);
+        classicTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        //snippet_3:end
+
+        var box = new HBox(
+            HGAP_20,
+            defaultTabsLeft, floatingTabsLeft, classicTabsLeft,
+            new Spacer(),
+            classicTabsRight, floatingTabsRight, defaultTabsRight
+        );
+        box.setMinHeight(450);
+
+        var description = BBCodeParser.createFormattedText("""
+            Tabs in a tab pane can be positioned at any of the four sides by specifying the side."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 3), description);
+    }
+
+    private ExampleBox denseExample() {
+        //snippet_4:start
+        var tab1 = new Tab("One");
+        tab1.setGraphic(new FontIcon(randomIcon()));
+
+        var tab2 = new Tab("Two");
+        tab2.setGraphic(new FontIcon(randomIcon()));
+
+        var tab3 = new Tab("Three");
+        tab3.setGraphic(new FontIcon(randomIcon()));
+
+        var tabs = new TabPane(tab1, tab2, tab3);
+        tabs.getStyleClass().add(Styles.DENSE);
+        tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        tabs.setMinWidth(450);
+        //snippet_4:end
+
+        var box = new HBox(tabs);
+        box.setMinHeight(50);
+
+        var description = BBCodeParser.createFormattedText("""
+            There's also [code]Styles.DENSE[/code] to make tabs look more compact by cutting label padding."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 4), description);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Playground                                                            //
+    ///////////////////////////////////////////////////////////////////////////
+
     private Side tabSide = Side.TOP;
     private boolean fullWidth = false;
 
-    public TabPanePage() {
-        super();
-        createView();
-    }
-
-    private void createView() {
+    private Pane playground() {
         var tabs = createTabPane();
+
         var tabsLayer = new BorderPane();
         tabsLayer.setTop(tabs);
-        tabs.getTabs().addListener((ListChangeListener<Tab>) c -> updateTabsWidth(tabsLayer, tabs, fullWidth));
+        tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
+            updateTabsWidth(tabsLayer, tabs, fullWidth)
+        );
 
         var controller = createController(tabsLayer, tabs);
-        controller.setPrefSize(500, 300);
-        var controllerLayer = new BorderPane();
-        controllerLayer.setCenter(controller);
+
+        var controllerLayer = new BorderPane(controller);
+        controllerLayer.setMinSize(500, 300);
         controllerLayer.setMaxSize(500, 300);
 
-        var root = new StackPane();
-        root.getStyleClass().add(Styles.BORDERED);
-        root.getChildren().addAll(tabsLayer, controllerLayer);
-        VBox.setVgrow(root, Priority.ALWAYS);
+        var description = BBCodeParser.createFormattedText("""
+            The playground demonstrates the most important [i]TabPane[/i] features \
+            and also serves as an object for monkey testing."""
+        );
 
-        setUserContent(new SampleBlock("Playground", root));
+        var stack = new StackPane(tabsLayer, controllerLayer);
+        stack.getStyleClass().add(Styles.BORDERED);
+        stack.setMinSize(600, 500);
+
+        return new VBox(VGAP_10, description, stack);
     }
 
     @SuppressWarnings("unchecked")
@@ -79,28 +246,30 @@ public class TabPanePage extends AbstractPage {
         // == BUTTONS ==
 
         var toTopBtn = new Button("", new FontIcon(Feather.ARROW_UP));
-        toTopBtn.getStyleClass().addAll(BUTTON_ICON);
+        toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toTopBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.TOP));
 
         var toRightBtn = new Button("", new FontIcon(Feather.ARROW_RIGHT));
-        toRightBtn.getStyleClass().addAll(BUTTON_ICON);
+        toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toRightBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.RIGHT));
 
         var toBottomBtn = new Button("", new FontIcon(Feather.ARROW_DOWN));
-        toBottomBtn.getStyleClass().addAll(BUTTON_ICON);
+        toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toBottomBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.BOTTOM));
 
         var toLeftBtn = new Button("", new FontIcon(Feather.ARROW_LEFT));
-        toLeftBtn.getStyleClass().addAll(BUTTON_ICON);
+        toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toLeftBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.LEFT));
 
         var appendBtn = new Button("", new FontIcon(Feather.PLUS));
-        appendBtn.getStyleClass().addAll(BUTTON_ICON, ACCENT);
+        appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
         appendBtn.setOnAction(e -> tabs.getTabs().add(createRandomTab()));
 
         var buttonsPane = new BorderPane();
         buttonsPane.setMinSize(120, 120);
         buttonsPane.setMaxSize(120, 120);
+
+        buttonsPane.setCenter(appendBtn);
 
         buttonsPane.setTop(toTopBtn);
         BorderPane.setAlignment(toTopBtn, Pos.CENTER);
@@ -114,16 +283,14 @@ public class TabPanePage extends AbstractPage {
         buttonsPane.setLeft(toLeftBtn);
         BorderPane.setAlignment(toLeftBtn, Pos.CENTER);
 
-        buttonsPane.setCenter(appendBtn);
-
         // == TOGGLES ==
 
         var closeableToggle = new ToggleSwitch();
         closeableToggle.selectedProperty().addListener((obs, old, val) -> {
             if (val) {
-                tabs.setTabClosingPolicy(ALL_TABS);
+                tabs.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
             } else {
-                tabs.setTabClosingPolicy(UNAVAILABLE);
+                tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
             }
         });
 
@@ -133,7 +300,10 @@ public class TabPanePage extends AbstractPage {
             if (val != null && val) {
                 tabs.setStyle("");
             } else {
-                tabs.setStyle("-fx-open-tab-animation:none;-fx-close-tab-animation:none;");
+                tabs.setStyle("""
+                    -fx-open-tab-animation:none;\
+                    -fx-close-tab-animation:none;"""
+                );
             }
         });
 
@@ -146,7 +316,9 @@ public class TabPanePage extends AbstractPage {
         });
 
         var denseToggle = new ToggleSwitch();
-        denseToggle.selectedProperty().addListener((obs, old, val) -> toggleStyleClass(tabs, DENSE));
+        denseToggle.selectedProperty().addListener(
+            (obs, old, val) -> Styles.toggleStyleClass(tabs, Styles.DENSE)
+        );
 
         var disableToggle = new ToggleSwitch();
         disableToggle.selectedProperty().addListener((obs, old, val) -> {
@@ -158,21 +330,11 @@ public class TabPanePage extends AbstractPage {
         var togglesGrid = new GridPane();
         togglesGrid.setHgap(10);
         togglesGrid.setVgap(10);
-
-        togglesGrid.add(createGridLabel("Closeable"), 0, 0);
-        togglesGrid.add(closeableToggle, 1, 0);
-
-        togglesGrid.add(createGridLabel("Animated"), 0, 1);
-        togglesGrid.add(animatedToggle, 1, 1);
-
-        togglesGrid.add(createGridLabel("Full width"), 0, 2);
-        togglesGrid.add(fullWidthToggle, 1, 2);
-
-        togglesGrid.add(createGridLabel("Dense"), 0, 3);
-        togglesGrid.add(denseToggle, 1, 3);
-
-        togglesGrid.add(createGridLabel("Disable"), 0, 4);
-        togglesGrid.add(disableToggle, 1, 4);
+        togglesGrid.addRow(0, createGridLabel("Closeable"), closeableToggle);
+        togglesGrid.addRow(1, createGridLabel("Animated"), animatedToggle);
+        togglesGrid.addRow(2, createGridLabel("Full width"), fullWidthToggle);
+        togglesGrid.addRow(3, createGridLabel("Dense"), denseToggle);
+        togglesGrid.addRow(4, createGridLabel("Disable"), disableToggle);
 
         // == TAB STYLE ==
 
@@ -180,18 +342,24 @@ public class TabPanePage extends AbstractPage {
 
         var defaultStyleToggle = new ToggleButton("Default");
         defaultStyleToggle.setToggleGroup(styleToggleGroup);
-        defaultStyleToggle.setUserData(List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC));
+        defaultStyleToggle.setUserData(
+            List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC)
+        );
         defaultStyleToggle.getStyleClass().add(Styles.LEFT_PILL);
         defaultStyleToggle.setSelected(true);
 
         var floatingStyleToggle = new ToggleButton("Floating");
         floatingStyleToggle.setToggleGroup(styleToggleGroup);
-        floatingStyleToggle.setUserData(List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC));
+        floatingStyleToggle.setUserData(
+            List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC)
+        );
         floatingStyleToggle.getStyleClass().add(Styles.CENTER_PILL);
 
         var classicStyleToggle = new ToggleButton("Classic");
         classicStyleToggle.setToggleGroup(styleToggleGroup);
-        classicStyleToggle.setUserData(List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING));
+        classicStyleToggle.setUserData(
+            List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING)
+        );
         classicStyleToggle.getStyleClass().add(Styles.RIGHT_PILL);
 
         styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
@@ -201,17 +369,13 @@ public class TabPanePage extends AbstractPage {
             }
         });
 
-
         var styleBox = new HBox(defaultStyleToggle, floatingStyleToggle, classicStyleToggle);
         styleBox.setAlignment(Pos.CENTER);
 
         // == LAYOUT ==
 
-        var controls = new HBox(40,
-            new Spacer(),
-            buttonsPane,
-            togglesGrid,
-            new Spacer()
+        var controls = new HBox(
+            40, new Spacer(), buttonsPane, togglesGrid, new Spacer()
         );
         controls.setAlignment(Pos.CENTER);
 
@@ -256,8 +420,8 @@ public class TabPanePage extends AbstractPage {
 
     private TabPane createTabPane() {
         var tabs = new TabPane();
-        tabs.setTabClosingPolicy(UNAVAILABLE);
-        tabs.setMinHeight(TAB_MIN_HEIGHT);
+        tabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+        tabs.setMinHeight(60);
 
         // NOTE: Individually disabled tab is still closeable even while it looks
         //       like disabled. To prevent it from closing one can use "black hole"

@@ -1,65 +1,163 @@
 // SPDX-License-Identifier: MIT
 
 .page {
+  -fx-alignment: TOP_CENTER;
+
   >.scroll-pane {
-    -fx-background-color: -color-bg-default;
+    -fx-padding: 50px 50px 50px 50px;
 
-    // stack pane to center user content
     .user-content {
-      -fx-padding: 40px 0 40px 0; // vertical paddings
-      -fx-min-width: 860px; // horizontal paddings
+      -fx-alignment: TOP_CENTER;
+      -fx-spacing: 20px;
+    }
+  }
+}
 
-      >* {
-        // limit user content width
-        -fx-min-width: 800px;
-        -fx-max-width: 800px;
+.outline-page {
+  -fx-alignment: TOP_CENTER;
+
+  >.body {
+    >.scroll-pane {
+      -fx-padding: 30px 0 50px 30px;
+
+      .user-content {
+        -fx-spacing: 20px;
+      }
+
+      .tab-pane>.tab-content-area>* {
+        -fx-padding: 20px 0 0 0;
+      }
+
+      .snippet {
+        >TextFlow {
+          -fx-padding: 10px;
+          -fx-background-color: -color-bg-inset;
+          -fx-font-family: monospace;
+        }
+
+        .keyword {
+          -fx-fill: -color-danger-fg;
+        }
+
+        .paren {
+          -fx-fill: -color-accent-fg;
+        }
+
+        .string {
+          -fx-fill: -color-success-fg;
+        }
+
+        .comment {
+          -fx-fill: -color-fg-subtle;
+        }
+      }
+
+      .example-box {
+        -fx-spacing: 20px;
+
+        >.tabs {
+          -fx-alignment: CENTER_LEFT;
+          -fx-background-insets: 0, 0 0 1 0;
+          -fx-background-color: -color-border-default, -color-bg-default;
+
+          >.label {
+            -fx-padding: 8 12 8 12;
+            -fx-background-insets: 0, 0 0 1 0;
+            -fx-background-color: -color-border-default, -color-bg-default;
+            -fx-text-fill: -color-fg-muted;
+
+            &:selected {
+              -fx-background-insets: 0, 0 0 3 0;
+              -fx-background-color: -color-accent-emphasis, -color-bg-default;
+              -fx-text-fill: -color-fg-default;
+            }
+
+            &:hover,
+            &:hover:selected {
+              -fx-text-fill: -color-fg-default;
+            }
+          }
+        }
       }
     }
   }
 
-  &.widget-collection {
-    -fx-padding: 40px;
-    -fx-min-width: 800px;
-    -fx-max-width: 1200px;
+  .outline {
+    -fx-spacing: 10px;
 
-    >.toc {
-      -fx-pref-width: 150px;
-      -color-cell-bg-selected: -color-cell-bg;
-      -color-cell-fg-selected: -color-accent-fg;
+    >.label {
+      -fx-text-fill: -color-fg-muted;
+      -fx-cursor: hand;
 
-      .list-cell {
-        &:filled {
-          -fx-border-width: 0 0 0 2;
-          -fx-border-color: -color-border-muted;
+      &:selected {
+        -fx-text-fill: -color-accent-fg;
+      }
+
+      &:hover {
+        -fx-text-fill: -color-fg-default;
+      }
+    }
+  }
+}
+
+#overview {
+  -fx-background-color: -color-bg-inset;
+
+  .sample {
+    -fx-background-color: -color-border-subtle, -color-bg-default;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 10px;
+  }
+
+  .date-picker-popup {
+    -color-date-border: transparent;
+  }
+
+  .no-border {
+    -fx-background-insets: 0;
+  }
+}
+
+.showcase-page {
+
+  >.window {
+    -fx-border-color: -color-accent-emphasis;
+    -fx-border-width: 1;
+    -fx-border-radius: 5px 5px 0 0;
+
+    >.header {
+      -fx-background-color: -color-accent-emphasis;
+      -fx-alignment: CENTER_LEFT;
+      -fx-padding: 10px;
+
+      >.title {
+        -fx-font-size: 1.2em;
+        -fx-text-fill: -color-fg-emphasis;
+        -fx-font-weight: bold;
+        -fx-graphic-text-gap: 10;
+
+        >.ikonli-font-icon {
+          -fx-icon-color: -color-fg-emphasis;
+          -fx-fill: -color-fg-emphasis;
         }
-        &:selected {
-          -color-cell-fg: -color-cell-fg-selected;
-          -fx-border-color: -color-accent-emphasis;
+      }
+
+      >.ikonli-font-icon {
+        -fx-icon-color: -color-fg-emphasis;
+        -fx-fill: -color-fg-emphasis;
+
+        &:hover {
+          -fx-effect: dropshadow(gaussian, -color-fg-emphasis, 20, 0.1, 0, 0)
         }
       }
     }
   }
 }
 
-.sample-block {
-  -fx-background-color: -color-bg-default;
-  -fx-effect: dropshadow(gaussian, -color-shadow-default, 10, 0.4, 0, 0);
-  -fx-border-color: -color-border-muted;
-  -fx-border-width: 1px;
-  -fx-padding: 15px 20px 15px 20px;
-  -fx-spacing: 20px;
-  -fx-min-width: 220px;
+.root:showcase-mode {
 
-  >.title {
-    >.label {
-      -fx-padding: 5px 15px 5px 10px;
-      -fx-background-color: -color-accent-subtle;
-      -fx-text-fill: -color-fg-default;
-      -fx-font-size: 1.1em;
-    }
-
-    >.polygon {
-      -fx-fill: -color-accent-muted;
-    }
+  .showcase-page>.window {
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
   }
 }

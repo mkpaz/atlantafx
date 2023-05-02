@@ -59,7 +59,7 @@ public class Launcher extends Application {
         var antialiasing = Platform.isSupported(ConditionalFeature.SCENE3D)
             ? SceneAntialiasing.BALANCED
             : SceneAntialiasing.DISABLED;
-        var scene = new Scene(root, 1200, 768, false, antialiasing);
+        var scene = new Scene(root, ApplicationWindow.MIN_WIDTH + 80, 768, false, antialiasing);
         scene.setOnKeyPressed(this::dispatchHotkeys);
 
         var tm = ThemeManager.getInstance();

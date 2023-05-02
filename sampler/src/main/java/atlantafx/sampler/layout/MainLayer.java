@@ -26,7 +26,6 @@ import javafx.util.Duration;
 
 class MainLayer extends BorderPane {
 
-    static final int SIDEBAR_WIDTH = 250;
     static final int PAGE_TRANSITION_DURATION = 500; // ms
 
     private final MainModel model = new MainModel();
@@ -51,8 +50,8 @@ class MainLayer extends BorderPane {
     }
 
     private void createView() {
-        sidebar.setMinWidth(SIDEBAR_WIDTH);
-        sidebar.setMaxWidth(SIDEBAR_WIDTH);
+        sidebar.setMinWidth(ApplicationWindow.SIDEBAR_WIDTH);
+        sidebar.setMaxWidth(ApplicationWindow.SIDEBAR_WIDTH);
 
         codeViewer = new CodeViewer();
 

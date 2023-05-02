@@ -6,7 +6,6 @@ import static atlantafx.base.theme.Styles.TEXT_SMALL;
 import static atlantafx.base.theme.Styles.TITLE_3;
 import static atlantafx.base.theme.Styles.TITLE_4;
 import static atlantafx.sampler.Launcher.IS_DEV_MODE;
-import static atlantafx.sampler.layout.MainLayer.SIDEBAR_WIDTH;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.Resources;
@@ -80,9 +79,9 @@ class HeaderBar extends HBox {
         var logoBox = new HBox(10, logoImageBox, logoLabel, versionLabel);
         logoBox.getStyleClass().add("logo");
         logoBox.setAlignment(Pos.CENTER_LEFT);
-        logoBox.setMinWidth(SIDEBAR_WIDTH);
-        logoBox.setPrefWidth(SIDEBAR_WIDTH);
-        logoBox.setMaxWidth(SIDEBAR_WIDTH);
+        logoBox.setMinWidth(ApplicationWindow.SIDEBAR_WIDTH);
+        logoBox.setPrefWidth(ApplicationWindow.SIDEBAR_WIDTH);
+        logoBox.setMaxWidth(ApplicationWindow.SIDEBAR_WIDTH);
 
         var titleLabel = new Label();
         titleLabel.getStyleClass().addAll("page-title", TITLE_4);

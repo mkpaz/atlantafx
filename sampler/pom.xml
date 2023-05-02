@@ -45,6 +45,10 @@
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
         </dependency>
         <dependency>
@@ -162,7 +166,7 @@
                 <executions>
                     <execution>
                         <id>validate</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -243,7 +247,7 @@
                         <configuration>
                             <toolName>jlink</toolName>
                             <addModules>
-                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.swing,javafx.web
+                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web
                             </addModules>
                             <modulePath>${build.platformModulesDir}</modulePath>
                             <output>${build.package.runtimeImageDir}</output>

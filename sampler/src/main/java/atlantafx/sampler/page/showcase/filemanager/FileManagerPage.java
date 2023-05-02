@@ -7,7 +7,6 @@ import static atlantafx.base.theme.Styles.FLAT;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_ANY;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_NOT_HIDDEN;
 import static atlantafx.sampler.page.showcase.filemanager.Utils.openFile;
-import static atlantafx.sampler.util.Controls.hyperlink;
 import static atlantafx.sampler.util.Controls.iconButton;
 
 import atlantafx.base.controls.Breadcrumbs;
@@ -16,7 +15,6 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.showcase.ShowcasePage;
 import atlantafx.sampler.util.Containers;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
@@ -35,9 +32,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -123,27 +118,12 @@ public class FileManagerPage extends ShowcasePage {
             (obs, old, val) -> splitPane.setDividerPosition(0, 200 / splitPane.getWidth())
         );
 
-        var aboutBox = new HBox(new Text(
-            "Simple file manager. You can traverse through the file system and open files"
-                + " via default system application."
-        ));
-        aboutBox.setPadding(new Insets(5, 0, 5, 0));
-        aboutBox.getStyleClass().add("about");
-
-        var creditsBox = new HBox(5,
-            new Text("Inspired by ©"),
-            hyperlink("Gnome Files", URI.create("https://gitlab.gnome.org/GNOME/nautilus"))
-        );
-        creditsBox.getStyleClass().add("credits");
-        creditsBox.setAlignment(Pos.CENTER_RIGHT);
-        creditsBox.setPadding(new Insets(5, 0, 5, 0));
-
         var root = new BorderPane();
         root.getStyleClass().add("file-manager-showcase");
         root.getStylesheets().add(STYLESHEET_URL);
-        root.setTop(new VBox(aboutBox, topBar));
+        root.setTop(new VBox(topBar));
         root.setCenter(splitPane);
-        root.setBottom(creditsBox);
+        //root.setBottom(creditsBox);
 
         toggleHiddenCheck.selectedProperty().addListener((obs, old, val) -> directoryView.getFileList()
             .predicateProperty()
@@ -164,7 +144,9 @@ public class FileManagerPage extends ShowcasePage {
             directoryView.setDirectory(val);
         });
 
-        showcase.getChildren().setAll(root);
+        setWindowTitle("File Manager", new FontIcon(Material2AL.FOLDER));
+        setShowCaseContent(root);
+
         Containers.setAnchors(root, Insets.EMPTY);
     }
 
