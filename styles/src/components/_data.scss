@@ -390,21 +390,21 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     >.table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
       -fx-text-fill: -color-cell-fg;
-      -fx-alignment: CENTER_LEFT;
+      -fx-alignment: BASELINE_LEFT;
 
       // #tweak/align-left
       &.table-column.align-left {
-        -fx-alignment: CENTER_LEFT;
+        -fx-alignment: BASELINE_LEFT;
       }
 
       // #tweak/align-center
       &.table-column.align-center {
-        -fx-alignment: CENTER;
+        -fx-alignment: BASELINE_CENTER;
       }
 
       // #tweak/align-right
       &.table-column.align-right {
-        -fx-alignment: CENTER-RIGHT;
+        -fx-alignment: BASELINE_RIGHT;
       }
     }
   }
@@ -429,7 +429,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 .table-view .table-row-cell>.table-cell.check-box-table-cell,
 .table-view .table-row-cell>.table-cell.font-icon-table-cell,
 .tree-table-view .tree-table-row-cell>.tree-table-cell.check-box-tree-table-cell {
-  -fx-alignment: CENTER_LEFT;
+  -fx-alignment: BASELINE_LEFT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -568,21 +568,21 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     >.tree-table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
       -fx-text-fill: -color-cell-fg;
-      -fx-alignment: CENTER_LEFT;
+      -fx-alignment: BASELINE_LEFT;
 
       // #tweak/align-left
       &.table-column.align-left {
-        -fx-alignment: CENTER_LEFT;
+        -fx-alignment: BASELINE_LEFT;
       }
 
       // #tweak/align-center
       &.table-column.align-center {
-        -fx-alignment: CENTER;
+        -fx-alignment: BASELINE_CENTER;
       }
 
       // #tweak/align-right
       &.table-column.align-right {
-        -fx-alignment: CENTER-RIGHT;
+        -fx-alignment: BASELINE_RIGHT;
       }
     }
   }
