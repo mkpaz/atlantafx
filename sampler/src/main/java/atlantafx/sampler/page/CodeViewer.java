@@ -56,7 +56,7 @@ public class CodeViewer extends AnchorPane {
                 .append("<body>")
                 .append("<pre>")
                 .append("<code class=\"language-java\">")
-                .append(new String(source.readAllBytes(), UTF_8))
+                .append(escapeHtml(new String(source.readAllBytes(), UTF_8)))
                 .append("</code>")
                 .append("</pre>")
                 .append("</body>")
@@ -68,5 +68,20 @@ public class CodeViewer extends AnchorPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String escapeHtml(String s) {
+        var out = new StringBuilder(Math.max(128, s.length()));
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c > 127 || c == '"' || c == '\'' || c == '<' || c == '>' || c == '&') {
+                out.append("&#");
+                out.append((int) c);
+                out.append(';');
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
     }
 }
