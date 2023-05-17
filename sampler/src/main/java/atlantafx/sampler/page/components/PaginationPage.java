@@ -11,8 +11,10 @@ import atlantafx.sampler.page.Snippet;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -37,6 +39,7 @@ public class PaginationPage extends OutlinePage {
         addSection("Usage", usageExample());
         addSection("Bullet Style", bulletStyleExample());
         addSection("No Arrows", noArrowsExample());
+        addSection("Page Info Alignment", pageInfoAlignmentExample());
         addSection("Playground", playground());
     }
 
@@ -102,6 +105,60 @@ public class PaginationPage extends OutlinePage {
         );
 
         return new ExampleBox(box, new Snippet(getClass(), 3), description);
+    }
+
+    private ExampleBox pageInfoAlignmentExample() {
+        //snippet_4:start
+        var pg = new Pagination(25, 0);
+        pg.setMaxPageIndicatorCount(5);
+
+        // Note this. It's another ancient #javafx-bug:
+        // https://bugs.openjdk.org/browse/JDK-8088711
+        // Pagination doesn't calculate its size correctly.
+        // To work around this issue, you should adjust the pagination
+        // width to include page info label manually.
+        pg.setPrefWidth(300);
+
+        pg.setPageFactory(index -> {
+            var label = new Label("Page #" + (index + 1));
+            label.setStyle("-fx-font-size: 2em;");
+            return new BorderPane(label);
+        });
+
+        var topRadio = new RadioButton("Top");
+        topRadio.setUserData("-fx-page-information-alignment:top;");
+
+        var rightRadio = new RadioButton("Right");
+        rightRadio.setUserData("-fx-page-information-alignment:right;");
+
+        var bottomRadio = new RadioButton("Bottom");
+        bottomRadio.setUserData("-fx-page-information-alignment:bottom;");
+        bottomRadio.setSelected(true);
+
+        var leftRadio = new RadioButton("Left");
+        leftRadio.setUserData("-fx-page-information-alignment:left;");
+
+        var sideGroup = new ToggleGroup();
+        sideGroup.getToggles().setAll(
+            topRadio, rightRadio, bottomRadio, leftRadio
+        );
+        sideGroup.selectedToggleProperty().addListener(
+            (obs, old, val) -> pg.setStyle(String.valueOf(val.getUserData()))
+        );
+        //snippet_4:end
+
+        var toggleBox = new VBox(
+            VGAP_10, topRadio, rightRadio, bottomRadio, leftRadio
+        );
+
+        var box = new HBox(50, pg, toggleBox);
+        box.setAlignment(Pos.TOP_LEFT);
+        var description = BBCodeParser.createFormattedText("""
+            Page information alignment can be changed via [code]-fx-page-information-alignment[/code] \
+            CSS variables. Unfortunately, it's not implemented as an observable property."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 4), description);
     }
 
     ///////////////////////////////////////////////////////////////////////////
