@@ -447,21 +447,19 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
   &.alt-icon {
     .tree-cell {
-      -fx-indent: 1.6em;
-
       >.tree-disclosure-node {
-          -fx-padding: 0.229em $tree-cell-padding-x 0 $tree-cell-padding-x;
+        -fx-padding: 0.3em $tree-cell-padding-x 0 $tree-cell-padding-x;
       }
     }
 
     .tree-cell>.tree-disclosure-node>.arrow {
-      @include icons.get("plus-box", true);
-      -fx-padding: 0.4em;
+      @include icons.get("chevron-right", false);
+      -fx-padding: 0.333333em;
     }
 
     .tree-cell:expanded>.tree-disclosure-node>.arrow {
-      @include icons.get("minus-box", true);
-      -fx-padding: 0.4em;
+      @include icons.get("expand-more", false);
+      -fx-padding: 0.333333em;
     }
   }
 }
@@ -589,13 +587,13 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
   &.alt-icon {
     .tree-table-row-cell>.tree-disclosure-node>.arrow {
-      @include icons.get("plus-box", true);
-      -fx-padding: 0.5em;
+      @include icons.get("chevron-right", false);
+      -fx-padding: 0.333333em;
     }
 
     .tree-table-row-cell:expanded>.tree-disclosure-node>.arrow {
-      @include icons.get("minus-box", true);
-      -fx-padding: 0.5em;
+      @include icons.get("expand-more", false);
+      -fx-padding: 0.333333em;
     }
   }
 }
