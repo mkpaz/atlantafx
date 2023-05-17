@@ -69,6 +69,16 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       -fx-padding: 0.416667em; // icon size
     }
   }
+
+  >.text-field {
+    &:readonly {
+      -fx-background-color: -color-input-border, -color-input-bg;
+    }
+
+    &:readonly:focused {
+      -fx-background-color: -color-input-border-focused, -color-input-bg-focused;
+    }
+  }
 }
 
 .combo-box-popup>.date-picker-popup {

@@ -22,6 +22,14 @@ $icon-padding-x:     0.25em !default;
                  calc(cfg.$padding-x - cfg.$border-width)
                  calc(cfg.$padding-y - cfg.$border-width)
                  calc(cfg.$padding-x - cfg.$border-width);
+
+    &:readonly {
+      -fx-background-color: -color-input-border, -color-input-bg;
+    }
+
+    &:readonly:focused {
+      -fx-background-color: -color-input-border-focused, -color-input-bg-focused;
+    }
   }
 
   >.increment-arrow-button {

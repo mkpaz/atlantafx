@@ -43,6 +43,7 @@ public class DatePickerPage extends OutlinePage {
         var today = LocalDate.now(ZoneId.systemDefault());
 
         var dp1 = new DatePicker(today);
+        dp1.setEditable(false);
         dp1.setPrefWidth(200);
 
         var dp2 = new DatePicker(today.plusDays(10));
