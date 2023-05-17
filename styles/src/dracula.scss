@@ -261,6 +261,7 @@ $ui-yellowLight:     hsla(60, 100%, 75%, 5%);
 );
 
 @forward "components/toolbar" as toolbar-* with (
+  $color-bg-hover:    -color-base-5,
   $color-bg-selected: -color-base-4,
   $color-separator:   -color-accent-8
 );

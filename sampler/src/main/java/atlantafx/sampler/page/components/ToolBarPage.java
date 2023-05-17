@@ -340,9 +340,9 @@ public class ToolBarPage extends OutlinePage {
             result.add(new Button("Undo"));
             result.add(new Button("Redo"));
             result.add(new Separator());
-            result.add(toggleIconButton(Feather.BOLD, true, Styles.LEFT_PILL));
-            result.add(toggleIconButton(Feather.ITALIC, Styles.CENTER_PILL));
-            result.add(toggleIconButton(Feather.UNDERLINE, Styles.RIGHT_PILL));
+            result.add(toggleIconButton(Feather.BOLD, true));
+            result.add(toggleIconButton(Feather.ITALIC));
+            result.add(toggleIconButton(Feather.UNDERLINE));
         }
 
         if (orientation == Orientation.VERTICAL) {

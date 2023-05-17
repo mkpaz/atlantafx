@@ -157,7 +157,7 @@ $color-shadow: -color-shadow-default !default;
   }
 
   // Button calculates its height based on the internal text font size.
-  // So, button that has no text (or icon) will appear lower than regulat
+  // So, button that has no text (or icon) will appear lower than regular
   // buttons. There're no workarounds, but you can set escape char like
   // \s or \f as button text.
   &.button-icon {

@@ -4,9 +4,11 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$color-bg:          -color-bg-subtle    !default;
-$color-bg-selected: if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
-$color-separator:   -color-border-muted !default;
+$color-bg:           -color-bg-subtle    !default;
+$color-bg-hover:     if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
+$color-border-hover: -color-accent-muted !default;
+$color-bg-selected:  $color-bg-hover     !default;
+$color-separator:    -color-border-muted !default;
 
 $padding-x:    0.3em !default;
 $padding-y:    4px   !default;
@@ -26,21 +28,38 @@ $border-width: cfg.$border-width !default;
     >.menu-button,
     >.split-menu-button {
       -color-button-bg: $color-bg;
+      -color-button-bg-hover: $color-bg-hover;
+      -color-button-border-hover: $color-border-hover;
+      -color-button-border-focused: $color-border-hover;
       -fx-background-insets: 0;
       -fx-effect: none;
+
+      &:hover {
+        -fx-background-insets: 0, cfg.$border-width;
+      }
+
+      &.button-icon {
+        // all toolbar buttons should have the same size
+        -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+      }
     }
 
     .toggle-button {
       -color-button-bg: $color-bg;
-      -color-button-bg-selected: $color-bg-selected;
-      -color-button-fg-selected: -color-fg-default;
+      -color-button-border-hover: $color-border-hover;
+      -color-button-bg-selected:  $color-bg-selected;
+      -color-button-fg-selected:  -color-fg-default;
       -fx-background-insets: 0;
       -fx-effect: none;
-    }
 
-    >.separator {
-      -fx-orientation:  vertical;
-      -color-separator: $color-separator;
+      &:hover {
+        -fx-background-insets: 0, cfg.$border-width;
+        -fx-background-color: -color-button-border-hover, $color-bg;
+      }
+
+      &:hover:selected {
+        -fx-background-color: -color-button-border-hover, $color-bg-selected;
+      }
     }
   }
 
