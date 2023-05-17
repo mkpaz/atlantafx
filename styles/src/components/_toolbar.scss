@@ -4,16 +4,19 @@
 @use "../settings/icons";
 @use "../settings/utils";
 
-$color-bg:           -color-bg-subtle    !default;
+$color-bg:           -color-bg-subtle !default;
 $color-bg-hover:     if(cfg.$darkMode, -color-base-6, -color-base-2) !default;
 $color-border-hover: -color-accent-muted !default;
-$color-bg-selected:  $color-bg-hover     !default;
+$color-bg-selected:  $color-bg-hover !default;
 $color-separator:    -color-border-muted !default;
 
-$padding-x:    0.3em !default;
-$padding-y:    4px   !default;
-$spacing:      4px   !default;
+$padding-x: 0.3em !default;
+$padding-y: 4px !default;
+$spacing:   4px !default;
 $border-width: cfg.$border-width !default;
+$breadcrumbs-padding-x:      1em   !default;
+$breadcrumbs-link-padding-x: 0.5em !default;
+$breadcrumbs-link-padding-y: 2px   !default;
 
 .tool-bar {
   -fx-background-color: -color-border-muted, $color-bg;
@@ -47,8 +50,8 @@ $border-width: cfg.$border-width !default;
     .toggle-button {
       -color-button-bg: $color-bg;
       -color-button-border-hover: $color-border-hover;
-      -color-button-bg-selected:  $color-bg-selected;
-      -color-button-fg-selected:  -color-fg-default;
+      -color-button-bg-selected: $color-bg-selected;
+      -color-button-fg-selected: -color-fg-default;
       -fx-background-insets: 0;
       -fx-effect: none;
 
@@ -59,6 +62,29 @@ $border-width: cfg.$border-width !default;
 
       &:hover:selected {
         -fx-background-color: -color-button-border-hover, $color-bg-selected;
+      }
+    }
+
+    .breadcrumbs {
+      -fx-background-color: -color-border-default, -color-bg-default;
+      -fx-background-insets: 0, cfg.$border-width;
+      -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+      -fx-padding: (cfg.$padding-y - $breadcrumbs-link-padding-y) $breadcrumbs-padding-x
+                   (cfg.$padding-y - $breadcrumbs-link-padding-y) $breadcrumbs-padding-x;
+
+      >.hyperlink {
+        -color-link-fg: -color-fg-default;
+        -color-link-fg-visited: -color-fg-default;
+        -color-link-fg-armed: -color-fg-default;
+        -fx-padding: $breadcrumbs-link-padding-y $breadcrumbs-link-padding-x
+                     $breadcrumbs-link-padding-y $breadcrumbs-link-padding-x;
+        -fx-underline: false;
+        -fx-cursor: default;
+
+        &:hover {
+          -fx-background-color: $color-bg-hover;
+          -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+        }
       }
     }
   }

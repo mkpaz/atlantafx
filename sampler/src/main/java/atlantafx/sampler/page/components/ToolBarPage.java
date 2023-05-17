@@ -2,6 +2,7 @@
 
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
@@ -54,6 +55,7 @@ import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
+import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
 public class ToolBarPage extends OutlinePage {
 
@@ -140,9 +142,32 @@ public class ToolBarPage extends OutlinePage {
             iconButton(Feather.USER),
             dropdown
         );
+
+        // ~
+        var root = new Breadcrumbs.BreadCrumbItem<>("Home");
+        var l1Item = new Breadcrumbs.BreadCrumbItem<>("Documents");
+        var l2Item = new Breadcrumbs.BreadCrumbItem<>("Bills");
+        root.getChildren().add(l1Item);
+        l1Item.getChildren().add(l2Item);
+
+        var crumbs = new Breadcrumbs<>(root);
+        crumbs.setSelectedCrumb(l2Item);
+        crumbs.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(crumbs, Priority.ALWAYS);
+
+        var toolbar4 = new ToolBar(
+            iconButton(Feather.CHEVRON_LEFT),
+            iconButton(Feather.CHEVRON_RIGHT),
+            new Spacer(10),
+            crumbs,
+            new Spacer(10),
+            iconButton(Feather.SEARCH),
+            iconButton(Material2OutlinedAL.FORMAT_LIST_NUMBERED),
+            iconButton(Material2OutlinedMZ.SETTINGS)
+        );
         //snippet_1:end
 
-        var box = new VBox(VGAP_20, toolbar1, toolbar2, toolbar3);
+        var box = new VBox(VGAP_20, toolbar1, toolbar2, toolbar3, toolbar4);
 
         var description = BBCodeParser.createFormattedText("""
             The most common items to place within a toolbar are [i]Button[/i], [i]ToggleButtons[/i] \
