@@ -3,7 +3,7 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.OverlayDialog;
+import atlantafx.sampler.layout.OverlayDialog;
 import java.io.File;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

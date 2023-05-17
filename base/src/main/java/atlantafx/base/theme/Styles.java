@@ -2,6 +2,7 @@
 
 package atlantafx.base.theme;
 
+import java.util.Objects;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
@@ -146,5 +147,19 @@ public final class Styles {
             }
         }
         node.pseudoClassStateChanged(pseudoClass, true);
+    }
+
+    public static void appendStyle(Node node, String prop, String value) {
+        if (prop == null || prop.isBlank() || value == null || value.isBlank()) {
+            System.err.printf("Ignoring invalid style: property='%s', value='%s'%n", prop, value);
+            return;
+        }
+
+        var style = Objects.requireNonNullElse(node.getStyle(), "");
+        if (!style.endsWith(";")) {
+            style += ";";
+        }
+        style = style + prop.trim() + ":" + value.trim() + ";";
+        node.setStyle(style);
     }
 }

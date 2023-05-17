@@ -6,6 +6,7 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -24,7 +25,7 @@ import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
-public class ChartPage extends OutlinePage {
+public final class ChartPage extends OutlinePage {
 
     public static final String NAME = "Chart";
 
@@ -33,10 +34,16 @@ public class ChartPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create("https://openjfx.io/javadoc/20/javafx.controls/javafx/scene/chart/package-summary.html");
+    }
+
     public ChartPage() {
         super();
 
-        addPlainText("""
+        addPageHeader();
+        addFormattedText("""
             JavaFX provides a set of chart components specifically designed \
             for data visualization. The charts include common types such as \
             Bar, Line, Area, Pie, Scatter, and Bubble charts."""

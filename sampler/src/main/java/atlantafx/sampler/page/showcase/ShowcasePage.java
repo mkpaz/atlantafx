@@ -3,6 +3,7 @@ package atlantafx.sampler.page.showcase;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.Page;
+import java.net.URI;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -103,6 +104,11 @@ public abstract class ShowcasePage extends StackPane implements Page {
     @Override
     public boolean canChangeThemeSettings() {
         return true;
+    }
+
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
     }
 
     @Override

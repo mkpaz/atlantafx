@@ -8,14 +8,14 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.layout.Overlay;
+import java.net.URI;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractPage extends StackPane implements Page {
 
@@ -45,10 +45,6 @@ public abstract class AbstractPage extends StackPane implements Page {
         getChildren().setAll(scrollPane);
     }
 
-    protected void setUserContent(Node content) {
-        userContent.getChildren().setAll(content);
-    }
-
     @Override
     public Pane getView() {
         return this;
@@ -62,6 +58,11 @@ public abstract class AbstractPage extends StackPane implements Page {
     @Override
     public boolean canChangeThemeSettings() {
         return true;
+    }
+
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
     }
 
     @Override
@@ -85,12 +86,13 @@ public abstract class AbstractPage extends StackPane implements Page {
         this.overlay = lookupOverlay();
     }
 
-    protected void addNode(Node node) {
-        userContent.getChildren().add(node);
+    protected void addPageHeader() {
+        var pageHeader = new PageHeader(this);
+        userContent.getChildren().add(pageHeader);
     }
 
-    protected void addPlainText(String text) {
-        userContent.getChildren().add(new TextFlow(new Text(text)));
+    protected void addNode(Node node) {
+        userContent.getChildren().add(node);
     }
 
     protected void addFormattedText(String text) {

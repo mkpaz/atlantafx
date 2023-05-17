@@ -2,22 +2,19 @@
 
 package atlantafx.sampler.layout;
 
-import static atlantafx.base.controls.Popover.ArrowLocation.TOP_CENTER;
+import static atlantafx.sampler.event.PageEvent.Action;
 import static javafx.scene.layout.Priority.ALWAYS;
 
-import atlantafx.base.controls.Popover;
 import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.PageEvent;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.layout.MainModel.SubLayer;
-import atlantafx.sampler.page.CodeViewer;
 import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.QuickConfigMenu;
 import atlantafx.sampler.theme.ThemeManager;
 import java.io.IOException;
 import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -29,11 +26,9 @@ class MainLayer extends BorderPane {
     static final int PAGE_TRANSITION_DURATION = 500; // ms
 
     private final MainModel model = new MainModel();
-    private final HeaderBar headerBar = new HeaderBar(model);
     private final Sidebar sidebar = new Sidebar(model);
     private final StackPane subLayerPane = new StackPane();
 
-    private Popover quickConfigPopover;
     private CodeViewer codeViewer;
     private StackPane codeViewerWrapper;
 
@@ -65,14 +60,12 @@ class MainLayer extends BorderPane {
         // ~
 
         setId("main");
-        setTop(headerBar);
+        //setTop(headerBar);
         setLeft(sidebar);
         setCenter(subLayerPane);
     }
 
     private void initListeners() {
-        headerBar.setQuickConfigActionHandler(this::showThemeConfigPopover);
-
         model.selectedPageProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 loadPage(val);
@@ -91,6 +84,16 @@ class MainLayer extends BorderPane {
             if (ThemeManager.getInstance().getTheme() != null
                 && model.currentSubLayerProperty().get() == SubLayer.SOURCE_CODE) {
                 showSourceCode();
+            }
+        });
+
+        // switch to the source code and back
+        DefaultEventBus.getInstance().subscribe(PageEvent.class, e -> {
+            if (e.getAction() == Action.SOURCE_CODE_ON) {
+                model.showSourceCode();
+            }
+            if (e.getAction() == Action.SOURCE_CODE_OFF) {
+                model.hideSourceCode();
             }
         });
     }
@@ -135,21 +138,6 @@ class MainLayer extends BorderPane {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void showThemeConfigPopover(Node source) {
-        if (quickConfigPopover == null) {
-            var content = new QuickConfigMenu();
-            content.setExitHandler(() -> quickConfigPopover.hide());
-
-            quickConfigPopover = new Popover(content);
-            quickConfigPopover.setHeaderAlwaysVisible(false);
-            quickConfigPopover.setDetachable(false);
-            quickConfigPopover.setArrowLocation(TOP_CENTER);
-            quickConfigPopover.setOnShowing(e -> content.update());
-        }
-
-        quickConfigPopover.show(source);
     }
 
     private void showSourceCode() {

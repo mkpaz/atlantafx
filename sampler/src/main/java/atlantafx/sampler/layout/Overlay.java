@@ -24,7 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class Overlay extends StackPane {
+public final class Overlay extends StackPane {
 
     public static final String STYLE_CLASS = "overlay";
 

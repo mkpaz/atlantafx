@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 
-public class DatePickerPage extends OutlinePage {
+public final class DatePickerPage extends OutlinePage {
 
     public static final String NAME = "DatePicker";
 
@@ -28,6 +28,7 @@ public class DatePickerPage extends OutlinePage {
     public DatePickerPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A date picker control that allows the user to enter a date as text or to select \
             a date from a calendar popup. The calendar is based on either the standard \

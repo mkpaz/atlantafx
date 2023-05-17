@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class TextFieldPage extends OutlinePage {
+public final class TextFieldPage extends OutlinePage {
 
     public static final String NAME = "TextField";
 
@@ -24,6 +24,7 @@ public class TextFieldPage extends OutlinePage {
     public TextFieldPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             Text input component that allows a user to enter a single line of unformatted text."""
         );

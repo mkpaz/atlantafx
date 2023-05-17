@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 .page {
+  -fx-background-color: -color-bg-default;
   -fx-alignment: TOP_CENTER;
 
   >.scroll-pane {
@@ -14,6 +15,8 @@
 }
 
 .outline-page {
+
+  -fx-background-color: -color-bg-default;
   -fx-alignment: TOP_CENTER;
 
   >.body {
@@ -22,6 +25,10 @@
 
       .user-content {
         -fx-spacing: 20px;
+
+        >.header {
+          -fx-padding: 0 0 10px 0;
+        }
       }
 
       .tab-pane>.tab-content-area>* {
@@ -109,64 +116,4 @@
   }
 }
 
-#overview {
-  -fx-background-color: -color-bg-inset;
 
-  .sample {
-    -fx-background-color: -color-border-subtle, -color-bg-default;
-    -fx-background-insets: 0, 1;
-    -fx-background-radius: 10px;
-  }
-
-  .date-picker-popup {
-    -color-date-border: transparent;
-  }
-
-  .no-border {
-    -fx-background-insets: 0;
-  }
-}
-
-.showcase-page {
-
-  >.window {
-    -fx-border-color: -color-accent-emphasis;
-    -fx-border-width: 1;
-    -fx-border-radius: 5px 5px 0 0;
-
-    >.header {
-      -fx-background-color: -color-accent-emphasis;
-      -fx-alignment: CENTER_LEFT;
-      -fx-padding: 10px;
-
-      >.title {
-        -fx-font-size: 1.2em;
-        -fx-text-fill: -color-fg-emphasis;
-        -fx-font-weight: bold;
-        -fx-graphic-text-gap: 10;
-
-        >.ikonli-font-icon {
-          -fx-icon-color: -color-fg-emphasis;
-          -fx-fill: -color-fg-emphasis;
-        }
-      }
-
-      >.ikonli-font-icon {
-        -fx-icon-color: -color-fg-emphasis;
-        -fx-fill: -color-fg-emphasis;
-
-        &:hover {
-          -fx-effect: dropshadow(gaussian, -color-fg-emphasis, 20, 0.1, 0, 0)
-        }
-      }
-    }
-  }
-}
-
-.root:showcase-mode {
-
-  .showcase-page>.window {
-    -fx-border-width: 0;
-    -fx-border-radius: 0;
-  }
-}

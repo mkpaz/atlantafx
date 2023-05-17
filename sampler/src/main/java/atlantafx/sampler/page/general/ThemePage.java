@@ -13,7 +13,9 @@ import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.Lazy;
+import java.net.URI;
 import java.util.Objects;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
@@ -33,11 +35,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
 @SuppressWarnings("UnnecessaryLambda")
-public class ThemePage extends OutlinePage {
+public final class ThemePage extends OutlinePage {
 
     public static final String NAME = "Theme";
 
@@ -60,6 +63,11 @@ public class ThemePage extends OutlinePage {
     @Override
     public boolean canChangeThemeSettings() {
         return false;
+    }
+
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -131,12 +139,13 @@ public class ThemePage extends OutlinePage {
             }
         });
 
-        addSection("Theme", createThemeManagementSection());
+        addPageHeader();
+        addNode(createThemeManagementSection());
         addSection("Scene Builder", createSceneBuilderSection());
         addSection("Color Palette", createColorPaletteSection());
         addSection("Color Scale", createColorScaleSection());
 
-        selectCurrentTheme();
+        Platform.runLater(this::selectCurrentTheme);
     }
 
     @Override

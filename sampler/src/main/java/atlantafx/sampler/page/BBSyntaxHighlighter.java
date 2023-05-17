@@ -8,7 +8,7 @@ import javafx.scene.text.TextFlow;
 
 // This code is adapted from RichTextFX JavaKeywordsDemo:
 // https://github.com/FXMisc/RichTextFX/blob/master/richtextfx-demos
-public class BBSyntaxHighlighter {
+public final class BBSyntaxHighlighter {
 
     private static final String[] KEYWORDS = new String[] {
         "abstract", "assert", "boolean", "break", "byte",

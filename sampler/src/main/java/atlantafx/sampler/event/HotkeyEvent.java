@@ -4,7 +4,7 @@ package atlantafx.sampler.event;
 
 import javafx.scene.input.KeyCodeCombination;
 
-public class HotkeyEvent extends Event {
+public final class HotkeyEvent extends Event {
 
     private final KeyCodeCombination keys;
 

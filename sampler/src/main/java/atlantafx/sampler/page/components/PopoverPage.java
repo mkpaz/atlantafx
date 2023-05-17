@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Popover;
@@ -10,6 +10,7 @@ import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
 import atlantafx.sampler.theme.CSSFragment;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import javafx.geometry.Insets;
@@ -20,7 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class PopoverPage extends OutlinePage {
+public final class PopoverPage extends OutlinePage {
 
     public static final String NAME = "Popover";
 
@@ -29,15 +30,22 @@ public class PopoverPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public PopoverPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]Popover[/i] is a control used to display additional information \
             or perform actions. It appears as a small popup window that overlays the \
             main interface, triggered by a user action such as a mouseover or tap. \
             It provides contextual information or options related to a specific object \
-            or feature on the interface.""");
+            or feature on the interface."""
+        );
         addSection("Usage", usageExample());
         addSection("Position", positionExample());
     }

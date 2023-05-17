@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-class ColorPaletteBlock extends VBox {
+final class ColorPaletteBlock extends VBox {
 
     private final String fgColorName;
     private final String bgColorName;

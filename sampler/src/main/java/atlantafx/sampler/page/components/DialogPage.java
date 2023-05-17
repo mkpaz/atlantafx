@@ -25,7 +25,7 @@ import javafx.scene.layout.Priority;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class DialogPage extends OutlinePage {
+public final class DialogPage extends OutlinePage {
 
     public static final String NAME = "Dialog";
 
@@ -37,6 +37,7 @@ public class DialogPage extends OutlinePage {
     public DialogPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             Dialog is a user interface component that allows to create dialog windows \
             that can be used to prompt users for information or to display messages or warnings."""

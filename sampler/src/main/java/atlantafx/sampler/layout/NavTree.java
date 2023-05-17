@@ -3,6 +3,7 @@
 package atlantafx.sampler.layout;
 
 import atlantafx.base.controls.Spacer;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.Page;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class NavTree extends TreeView<Nav> {
+final class NavTree extends TreeView<Nav> {
 
     public NavTree(MainModel model) {
         super();
@@ -35,6 +36,7 @@ public class NavTree extends TreeView<Nav> {
             }
         });
 
+        getStyleClass().addAll(Tweaks.EDGE_TO_EDGE);
         setShowRoot(false);
         rootProperty().bind(model.navTreeProperty());
         setCellFactory(p -> new NavTreeCell());

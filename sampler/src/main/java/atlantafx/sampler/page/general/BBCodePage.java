@@ -1,18 +1,20 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.OutlinePage;
+import java.net.URI;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.jetbrains.annotations.Nullable;
 
-public class BBCodePage extends OutlinePage {
+public final class BBCodePage extends OutlinePage {
 
     public static final String NAME = "BBCode Markup";
 
@@ -21,15 +23,21 @@ public class BBCodePage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "util/BBCodeParser"));
+    }
+
     public BBCodePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""                       
             BBCode (Bulletin Board Code) is a lightweight markup language used to \
             format messages in many Internet forum software. The available tags of \
             BBCode are indicated by square brackets surrounding a keyword, and are \
-            parsed before being translated into [s]HTML[/s] JavaFX layout :)""");
-
+            parsed before being translated into [s]HTML[/s] JavaFX layout :)"""
+        );
         addSection("Text Type", textTypeReference());
         addSection("Text Style", textStyleReference());
         addSection("Subscript and Superscript", subscriptReference());

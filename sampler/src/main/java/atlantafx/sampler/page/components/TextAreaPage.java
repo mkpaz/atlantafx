@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 
-public class TextAreaPage extends OutlinePage {
+public final class TextAreaPage extends OutlinePage {
 
     public static final String NAME = "TextArea";
 
@@ -24,6 +24,7 @@ public class TextAreaPage extends OutlinePage {
     public TextAreaPage() {
         super();
 
+        addPageHeader();
         addFormattedText(
             "Text input component that allows a user to enter multiple lines of plain text."
         );

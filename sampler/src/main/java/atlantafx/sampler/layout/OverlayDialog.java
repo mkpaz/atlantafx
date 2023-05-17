@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page;
+package atlantafx.sampler.layout;
 
 import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
 import static atlantafx.base.theme.Styles.BUTTON_ICON;

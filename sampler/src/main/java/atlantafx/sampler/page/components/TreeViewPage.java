@@ -37,7 +37,7 @@ import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class TreeViewPage extends OutlinePage {
+public final class TreeViewPage extends OutlinePage {
 
     public static final String NAME = "TreeView";
 
@@ -49,6 +49,7 @@ public class TreeViewPage extends OutlinePage {
     public TreeViewPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]TreeView[/i] provides a way to present tree structures. A tree has \
             a root node which contains all the hierarchical values."""

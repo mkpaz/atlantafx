@@ -10,7 +10,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
-public class RadioButtonPage extends OutlinePage {
+public final class RadioButtonPage extends OutlinePage {
 
     public static final String NAME = "RadioButton";
 
@@ -22,8 +22,10 @@ public class RadioButtonPage extends OutlinePage {
     public RadioButtonPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
-            [i]RadioButton[/i]'s create a series of items where only one item can be selected.""");
+            [i]RadioButton[/i]'s create a series of items where only one item can be selected."""
+        );
         addSection("Usage", usageExample());
         addSection("Toggle Group", toggleGroupExample());
     }

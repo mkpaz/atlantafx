@@ -19,7 +19,7 @@ import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ContextMenuPage extends AbstractPage {
+public final class ContextMenuPage extends AbstractPage {
 
     public static final String NAME = "ContextMenu";
 
@@ -31,6 +31,7 @@ public class ContextMenuPage extends AbstractPage {
     public ContextMenuPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A popup control containing a list of menu items. It allows for any [i]MenuItem[/i], \
             including its subclasses, to be inserted. A common use case for this class is \

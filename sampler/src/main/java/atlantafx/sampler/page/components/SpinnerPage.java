@@ -24,7 +24,8 @@ public final class SpinnerPage extends OutlinePage {
     public SpinnerPage() {
         super();
 
-        addPlainText("""
+        addPageHeader();
+        addFormattedText("""
             A single line text field that lets the user select a number or an object \
             value from an ordered sequence. The user may also be allowed to type a (legal) \
             value directly into the spinner."""

@@ -11,7 +11,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-class ColorScale extends FlowPane {
+final class ColorScale extends FlowPane {
 
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final List<ColorScaleBlock> blocks = Arrays.asList(

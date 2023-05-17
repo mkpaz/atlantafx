@@ -11,7 +11,7 @@ import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
-import atlantafx.sampler.page.OverlayDialog;
+import atlantafx.sampler.layout.OverlayDialog;
 import atlantafx.sampler.page.general.SceneBuilderDialogModel.Screen;
 import atlantafx.sampler.util.NodeUtils;
 import java.io.File;

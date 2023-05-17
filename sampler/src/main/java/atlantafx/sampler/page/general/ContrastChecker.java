@@ -43,7 +43,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
 // Inspired by the https://colourcontrast.cc/
-class ContrastChecker extends GridPane {
+final class ContrastChecker extends GridPane {
 
     public static final double CONTRAST_RATIO_THRESHOLD = 1.5;
     public static final double LUMINANCE_THRESHOLD = 0.55;

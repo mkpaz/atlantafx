@@ -33,7 +33,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 // #javafx-bug Indeterminate (animated) progress bar and also progress indicator
 // are very resource expensive. It consumes a single CPU core and a lot of memory.
-public class ProgressIndicatorPage extends OutlinePage {
+public final class ProgressIndicatorPage extends OutlinePage {
 
     public static final String NAME = "ProgressIndicator";
 
@@ -45,6 +45,7 @@ public class ProgressIndicatorPage extends OutlinePage {
     public ProgressIndicatorPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             JavaFX provides the two types of progress indicators: the [i]ProgressIndicator[/i] and \
             the [i]ProgressBar[/i]. In addition to them AtlantaFX also provides the \

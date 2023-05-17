@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-class ColorPalette extends GridPane {
+final class ColorPalette extends GridPane {
 
     private final List<ColorPaletteBlock> blocks = new ArrayList<>();
     private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);

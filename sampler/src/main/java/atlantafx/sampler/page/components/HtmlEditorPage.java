@@ -10,13 +10,14 @@ import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.theme.ThemeManager;
+import java.net.URI;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 
-public class HtmlEditorPage extends AbstractPage {
+public final class HtmlEditorPage extends AbstractPage {
 
     private static final PseudoClass USE_LOCAL_URL = PseudoClass.getPseudoClass("use-local-url");
 
@@ -27,11 +28,17 @@ public class HtmlEditorPage extends AbstractPage {
         return NAME;
     }
 
-    private HTMLEditor editor = createHTMLEditor();
+    @Override
+    public URI getJavadocUri() {
+        return URI.create("https://openjfx.io/javadoc/20/javafx.web/javafx/scene/web/HTMLEditor.html");
+    }
+
+    private HTMLEditor editor = createHtmlEditor();
 
     public HtmlEditorPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A control that allows for users to edit text, and apply styling to this text. \
             The underlying data model is HTML, although this is not shown visually to the end-user."""
@@ -67,7 +74,7 @@ public class HtmlEditorPage extends AbstractPage {
         fixToggle.selectedProperty().addListener((obs, old, val) -> {
             // toolbar icons can't be changed back without creating new editor instance #javafx-bug
             try {
-                editor = createHTMLEditor();
+                editor = createHtmlEditor();
                 editor.pseudoClassStateChanged(USE_LOCAL_URL, val);
                 content.getChildren().set(0, editor);
                 editor.requestFocus();
@@ -80,7 +87,7 @@ public class HtmlEditorPage extends AbstractPage {
         return content;
     }
 
-    private HTMLEditor createHTMLEditor() {
+    private HTMLEditor createHtmlEditor() {
         var editor = new HTMLEditor();
         editor.setPrefHeight(400);
         editor.setHtmlText(generateContent());

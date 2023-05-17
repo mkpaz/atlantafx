@@ -11,7 +11,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 
-public class SliderPage extends OutlinePage {
+public final class SliderPage extends OutlinePage {
 
     public static final String NAME = "Slider";
 
@@ -23,6 +23,7 @@ public class SliderPage extends OutlinePage {
     public SliderPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]Slider[/i] control is used to display a continuous or discrete range of valid numeric \
             choices. It is typically represented visually as having a [i]track[/i] and a [i]knob[/i] \

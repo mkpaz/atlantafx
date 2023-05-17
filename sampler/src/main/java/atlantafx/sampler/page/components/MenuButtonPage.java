@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class MenuButtonPage extends OutlinePage {
+public final class MenuButtonPage extends OutlinePage {
 
     public static final String NAME = "MenuButton";
 
@@ -31,6 +31,7 @@ public class MenuButtonPage extends OutlinePage {
     public MenuButtonPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             [i]MenuButton[/i] is a button which, when clicked or pressed, will \
             show a context (dropdown) menu.

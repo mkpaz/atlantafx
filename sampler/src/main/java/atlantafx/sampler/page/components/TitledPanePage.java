@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class TitledPanePage extends OutlinePage {
+public final class TitledPanePage extends OutlinePage {
 
     public static final String NAME = "TitledPane";
 
@@ -39,6 +39,7 @@ public class TitledPanePage extends OutlinePage {
     public TitledPanePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             [i]TitledPane[/i] is a panel with a title that can be opened and closed. \
             It holds one or more user interface elements and you can expand and collapse it. \

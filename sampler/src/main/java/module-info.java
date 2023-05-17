@@ -27,7 +27,6 @@ module atlantafx.sampler {
     exports atlantafx.sampler.page;
     exports atlantafx.sampler.page.general;
     exports atlantafx.sampler.page.components;
-    exports atlantafx.sampler.page.extras;
     exports atlantafx.sampler.page.showcase;
     exports atlantafx.sampler.theme;
     exports atlantafx.sampler.util;
@@ -41,4 +40,5 @@ module atlantafx.sampler {
     opens atlantafx.sampler.images;
     opens atlantafx.sampler.images.modena;
     opens atlantafx.sampler.page.general;
+    opens atlantafx.sampler.page.showcase;
 }

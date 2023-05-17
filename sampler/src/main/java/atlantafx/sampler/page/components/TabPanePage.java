@@ -33,7 +33,7 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class TabPanePage extends OutlinePage {
+public final class TabPanePage extends OutlinePage {
 
     public static final String NAME = "TabPane";
 
@@ -45,6 +45,7 @@ public class TabPanePage extends OutlinePage {
     public TabPanePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             [i]TabPane[/i] is a control that provides a container for a group of tabs. By clicking \
             on a tab, the content of that tab becomes visible, while the content of the previously \

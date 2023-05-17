@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
@@ -9,14 +9,16 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-public class BreadcrumbsPage extends OutlinePage {
+public final class BreadcrumbsPage extends OutlinePage {
 
     public static final String NAME = "Breadcrumbs";
 
@@ -25,9 +27,15 @@ public class BreadcrumbsPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public BreadcrumbsPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             Represents a bread crumb bar. This control is useful to visualize and navigate \
             a hierarchical path structure, such as file systems."""

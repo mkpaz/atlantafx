@@ -28,6 +28,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -38,7 +39,8 @@ public class Launcher extends Application {
     );
 
     public static final List<KeyCodeCombination> SUPPORTED_HOTKEYS = List.of(
-        new KeyCodeCombination(KeyCode.SLASH)
+        new KeyCodeCombination(KeyCode.SLASH),
+        new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN)
     );
 
     public static void main(String[] args) {

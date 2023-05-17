@@ -58,7 +58,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIconTableCell;
 
 @SuppressWarnings("unchecked")
-public class TableViewPage extends OutlinePage {
+public final class TableViewPage extends OutlinePage {
 
     public static final String NAME = "TableView";
 
@@ -117,6 +117,7 @@ public class TableViewPage extends OutlinePage {
     public TableViewPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]TableView[/i] control is designed to visualize an unlimited number of rows of data, \
             broken out into columns."""

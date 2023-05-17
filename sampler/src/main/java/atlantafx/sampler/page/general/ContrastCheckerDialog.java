@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.page.general;
 
-import atlantafx.sampler.page.OverlayDialog;
+import atlantafx.sampler.layout.OverlayDialog;
 import atlantafx.sampler.util.JColorUtils;
 import atlantafx.sampler.util.NodeUtils;
 import javafx.beans.property.ReadOnlyObjectProperty;

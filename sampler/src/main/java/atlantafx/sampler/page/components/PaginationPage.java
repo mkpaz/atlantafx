@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PaginationPage extends OutlinePage {
+public final class PaginationPage extends OutlinePage {
 
     public static final String NAME = "Pagination";
 
@@ -32,6 +32,7 @@ public class PaginationPage extends OutlinePage {
     public PaginationPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A [i]Pagination[/i] control is used for navigation between pages of a single content, \
             which has been divided into smaller parts."""

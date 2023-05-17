@@ -57,7 +57,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
-public class ToolBarPage extends OutlinePage {
+public final class ToolBarPage extends OutlinePage {
 
     public static final String NAME = "ToolBar";
 
@@ -69,6 +69,7 @@ public class ToolBarPage extends OutlinePage {
     public ToolBarPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A [i]ToolBar[/i] is a control which displays items horizontally or vertically."""
         );

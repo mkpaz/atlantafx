@@ -27,7 +27,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
-public class MenuBarPage extends AbstractPage {
+public final class MenuBarPage extends AbstractPage {
 
     public static final String NAME = "MenuBar";
 
@@ -39,6 +39,7 @@ public class MenuBarPage extends AbstractPage {
     public MenuBarPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A menu bar is a user interface component that typically appears at the top of \
             an application window or screen, and provides a series of drop-down menus that \

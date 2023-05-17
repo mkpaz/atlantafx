@@ -13,6 +13,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
+@Deprecated
 public final class Containers {
 
     public static final ColumnConstraints H_GROW_NEVER = columnConstraints(Priority.NEVER);

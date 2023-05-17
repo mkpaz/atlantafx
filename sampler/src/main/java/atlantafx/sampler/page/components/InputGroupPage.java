@@ -1,12 +1,13 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,10 +19,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class InputGroupPage extends OutlinePage {
+public final class InputGroupPage extends OutlinePage {
 
     public static final String NAME = "Input Group";
 
@@ -30,14 +32,21 @@ public class InputGroupPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
+    }
+
     public InputGroupPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             You can use the following utility classes: [code]Styles.LEFT_PILL[/code], \
             [code]Styles.CENTER_PILL[/code], and [code]Styles.RIGHT_PILL[/code] to combine \
             various input controls into input groups that allow them to appear as a single \
-            control. This is entirely a CSS feature and does not require any additional wrappers.""");
+            control. This is entirely a CSS feature and does not require any additional wrappers."""
+        );
         addSection("ComboBox", comboBoxExample());
         addSection("Button", buttonExample());
         addSection("Text Field", textFieldExample());

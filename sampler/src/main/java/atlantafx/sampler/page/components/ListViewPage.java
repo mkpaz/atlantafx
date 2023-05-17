@@ -37,7 +37,7 @@ import javafx.util.StringConverter;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ListViewPage extends OutlinePage {
+public final class ListViewPage extends OutlinePage {
 
     public static final String NAME = "ListView";
 
@@ -49,10 +49,12 @@ public class ListViewPage extends OutlinePage {
     public ListViewPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A [i]ListView[/i] displays a horizontal or vertical list of items from which the \
             user may select, or with which the user may interact. A ListView is able to \
-            have its generic type set to represent the type of data in the backing model.""");
+            have its generic type set to represent the type of data in the backing model."""
+        );
         addSection("Usage", usageExample());
         addSection("Row Style", rowStyleExample());
         addSection("Selection Color", selectionColorExample());

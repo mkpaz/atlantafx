@@ -18,7 +18,7 @@ import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-public class ButtonPage extends OutlinePage {
+public final class ButtonPage extends OutlinePage {
 
     public static final String NAME = "Button";
 
@@ -30,6 +30,7 @@ public class ButtonPage extends OutlinePage {
     public ButtonPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A simple button control. The button control can contain text and/or a graphic.
             A button control has three different modes:

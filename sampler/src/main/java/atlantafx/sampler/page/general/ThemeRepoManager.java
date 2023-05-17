@@ -35,7 +35,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 @SuppressWarnings("UnnecessaryLambda")
-class ThemeRepoManager extends VBox {
+final class ThemeRepoManager extends VBox {
 
     private static final Executor THREAD_POOL = Executors.newFixedThreadPool(3);
     private static final ThemeRepository REPO = ThemeManager.getInstance().getRepository();

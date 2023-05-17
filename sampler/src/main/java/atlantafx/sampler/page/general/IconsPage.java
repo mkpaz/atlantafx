@@ -9,6 +9,7 @@ import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
 import atlantafx.sampler.theme.CSSFragment;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.javafx.StackedFontIcon;
@@ -23,7 +25,7 @@ import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
-public class IconsPage extends OutlinePage {
+public final class IconsPage extends OutlinePage {
 
     public static final String NAME = "Icons";
 
@@ -32,12 +34,20 @@ public class IconsPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
+    }
+
     public IconsPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             AtlantaFX supports [url=https://kordamp.org/ikonli]Ikonli[/url] iconic fonts out \
-            of the box, which can be used in conjunction with certain JavaFX components.""", true);
+            of the box, which can be used in conjunction with certain JavaFX components.""",
+            true
+        );
         addSection("Color", colorExample());
         addSection("Stacking", stackingExample());
         addSection("Icon Pack", iconBrowser());

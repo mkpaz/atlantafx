@@ -10,7 +10,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class Snippet {
+public final class Snippet {
 
     private final Class<?> sourceClass;
     private final int id;

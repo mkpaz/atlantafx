@@ -33,6 +33,7 @@ public class ComboBoxPage extends OutlinePage {
     public ComboBoxPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A user interface component which shows a list of items out of which \
             user can select at most one item. JavaFX provides two pretty similar \

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 // This widget emulates TabPane behavior, because TabPane itself doesn't work as it should:
 // https://bugs.openjdk.org/browse/JDK-8145490
-public class ExampleBox extends VBox {
+public final class ExampleBox extends VBox {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
     private final ObjectProperty<Label> selectedTab = new SimpleObjectProperty<>();

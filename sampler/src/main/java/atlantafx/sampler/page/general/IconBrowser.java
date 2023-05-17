@@ -17,7 +17,7 @@ import javafx.scene.control.TableView;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class IconBrowser extends TableView<List<Ikon>> {
+final class IconBrowser extends TableView<List<Ikon>> {
 
     static final int FILTER_LEN = 2;
 

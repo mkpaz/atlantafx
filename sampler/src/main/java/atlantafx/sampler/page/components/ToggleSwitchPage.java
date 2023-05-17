@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
@@ -8,11 +8,12 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
-public class ToggleSwitchPage extends OutlinePage {
+public final class ToggleSwitchPage extends OutlinePage {
 
     public static final String NAME = "ToggleSwitch";
 
@@ -21,9 +22,15 @@ public class ToggleSwitchPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public ToggleSwitchPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]ToggleSwitch[/i] is a control used to activate or deactivate a feature. \
             It consists of a horizontal bar with a small knob that can be moved to turn on \

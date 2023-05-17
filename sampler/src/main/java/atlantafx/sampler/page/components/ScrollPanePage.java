@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-public class ScrollPanePage extends AbstractPage {
+public final class ScrollPanePage extends AbstractPage {
 
     public static final String NAME = "ScrollPane";
 
@@ -22,6 +22,7 @@ public class ScrollPanePage extends AbstractPage {
     public ScrollPanePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A control that provides a scrolled, clipped viewport of its contents. \
             It allows the user to scroll the content around either directly (panning) \

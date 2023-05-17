@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ToggleButtonPage extends OutlinePage {
+public final class ToggleButtonPage extends OutlinePage {
 
     public static final String NAME = "ToggleButton";
 
@@ -28,6 +28,7 @@ public class ToggleButtonPage extends OutlinePage {
     public ToggleButtonPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A [i]ToggleButton[/i] is a special control having the ability to be selected."""
         );

@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.util.Duration;
 
-public class TooltipPage extends OutlinePage {
+public final class TooltipPage extends OutlinePage {
 
     public static final String NAME = "Tooltip";
 
@@ -26,13 +26,15 @@ public class TooltipPage extends OutlinePage {
     public TooltipPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             Tooltips are used for showing additional information when the node is hovered over by the mouse.
                         
             [ul]
             [li]Any node can show a tooltip.[/li]
             [li]A Tooltip is able to show within it an arbitrary scenegraph of nodes.[/li]
-            [li]A single tooltip can be installed on multiple target nodes or multiple controls.[/li][/ul]""");
+            [li]A single tooltip can be installed on multiple target nodes or multiple controls.[/li][/ul]"""
+        );
         addSection("Usage", usageExample());
         addSection("Position", positionExample());
     }

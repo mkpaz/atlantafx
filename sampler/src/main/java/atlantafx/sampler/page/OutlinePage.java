@@ -8,6 +8,7 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.layout.Overlay;
+import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,7 +27,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -126,12 +126,13 @@ public abstract class OutlinePage extends StackPane implements Page {
         return lastHeading != null ? lastHeading.getText() : null;
     }
 
-    protected void addNode(Node node) {
-        userContent.getChildren().add(node);
+    protected void addPageHeader() {
+        var pageHeader = new PageHeader(this);
+        userContent.getChildren().add(pageHeader);
     }
 
-    protected void addPlainText(String text) {
-        userContent.getChildren().add(new TextFlow(new Text(text)));
+    protected void addNode(Node node) {
+        userContent.getChildren().add(node);
     }
 
     protected void addFormattedText(String text) {
@@ -169,6 +170,11 @@ public abstract class OutlinePage extends StackPane implements Page {
     @Override
     public boolean canChangeThemeSettings() {
         return true;
+    }
+
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
     }
 
     @Override

@@ -7,7 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-public class ApplicationWindow extends AnchorPane {
+public final class ApplicationWindow extends AnchorPane {
 
     public static final int MIN_WIDTH = 1200;
     public static final int SIDEBAR_WIDTH = 250;

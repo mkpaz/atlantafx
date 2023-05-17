@@ -43,7 +43,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-public class TreeTableViewPage extends OutlinePage {
+public final class TreeTableViewPage extends OutlinePage {
 
     public static final String NAME = "TreeTableView";
 
@@ -57,10 +57,12 @@ public class TreeTableViewPage extends OutlinePage {
     public TreeTableViewPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The [i]TreeTableView[/i] control is conceptually very similar to the \
             [i]TreeView[/i] and [i]TableView[/i] controls and basically supports the \
-            same features. Please, see the corresponding pages for more examples.""");
+            same features. Please, see the corresponding pages for more examples."""
+        );
         addSection("Usage", usageExample());
         addSection("Playground", playground());
     }

@@ -20,7 +20,7 @@ import javafx.concurrent.Task;
 import javafx.scene.control.ToggleGroup;
 import org.jetbrains.annotations.Nullable;
 
-class SceneBuilderDialogModel {
+final class SceneBuilderDialogModel {
 
     public enum Screen {
         // order matters as it determines swipe direction when switching between screens

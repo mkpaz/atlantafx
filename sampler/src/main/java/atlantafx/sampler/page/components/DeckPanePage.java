@@ -1,11 +1,12 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.layout.DeckPane;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.AbstractPage;
+import java.net.URI;
 import java.util.function.Supplier;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,7 +24,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 
-public class DeckPanePage extends AbstractPage {
+public final class DeckPanePage extends AbstractPage {
 
     public static final String NAME = "DeckPane";
 
@@ -32,18 +33,25 @@ public class DeckPanePage extends AbstractPage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "layout/" + getName()));
+    }
+
     public DeckPanePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             [i]DeckPane[/i] represents a pane that displays all of its child nodes in a deck, \
             where only one node can be visible at a time. It does not maintain any sequence \
             (model), but only cares about the top node, which can be changed by various \
             transition effects.
-            
+                        
             Using the control is as simple as calling the [code]swipeX(Node)[/code] and \
             [code]slideX(Node)[/code] methods, where [code]X[/code] represents the direction \
-            of the transition that you want to achieve.""");
+            of the transition that you want to achieve."""
+        );
         addNode(createGallery());
     }
 

@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class SplitPanePage extends OutlinePage {
+public final class SplitPanePage extends OutlinePage {
 
     public static final String NAME = "SplitPane";
 
@@ -25,6 +25,7 @@ public class SplitPanePage extends OutlinePage {
     public SplitPanePage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A control that has two or more sides, each separated by a divider, which can be \
             dragged by the user to give more space to one of the sides, resulting in the other \

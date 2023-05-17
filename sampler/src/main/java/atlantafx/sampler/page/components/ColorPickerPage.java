@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class ColorPickerPage extends OutlinePage {
+public final class ColorPickerPage extends OutlinePage {
 
     public static final String NAME = "ColorPicker";
 
@@ -23,6 +23,7 @@ public class ColorPickerPage extends OutlinePage {
     public ColorPickerPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             ColorPicker control allows the user to select a color from either \
             a standard palette of colors with a simple one click selection or \

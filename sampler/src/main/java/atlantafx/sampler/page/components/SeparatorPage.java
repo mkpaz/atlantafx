@@ -27,6 +27,7 @@ public final class SeparatorPage extends OutlinePage {
     public SeparatorPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A horizontal or vertical separator line. A horizontal separator occupies \
             the full horizontal space allocated to it (less padding), and a vertical \

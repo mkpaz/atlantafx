@@ -1,20 +1,26 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page;
+package atlantafx.sampler.layout;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.PageEvent;
 import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.util.Containers;
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
-public class CodeViewer extends AnchorPane {
+final class CodeViewer extends AnchorPane {
 
     private static final String HLJS_LIB = "assets/highlightjs/highlight.min.js";
     private static final String HLJS_SCRIPT = "hljs.highlightAll();hljs.initLineNumbersOnLoad();";
@@ -25,6 +31,17 @@ public class CodeViewer extends AnchorPane {
     private WebView webView;
 
     public CodeViewer() {
+        super();
+
+        var closeBtn = new Button("Return", new FontIcon(Material2AL.ARROW_BACK));
+        closeBtn.getStyleClass().addAll(Styles.BUTTON_OUTLINED, Styles.SMALL, Styles.ACCENT);
+        AnchorPane.setTopAnchor(closeBtn, 20d);
+        AnchorPane.setRightAnchor(closeBtn, 20d);
+        closeBtn.setOnAction(e ->
+            DefaultEventBus.getInstance().publish(new PageEvent(PageEvent.Action.SOURCE_CODE_OFF))
+        );
+
+        getChildren().add(closeBtn);
         getStyleClass().add("code-viewer");
     }
 
@@ -32,7 +49,7 @@ public class CodeViewer extends AnchorPane {
         if (webView == null) {
             webView = new WebView();
             Containers.setAnchors(webView, Insets.EMPTY);
-            getChildren().setAll(webView);
+            getChildren().add(0, webView);
         }
     }
 

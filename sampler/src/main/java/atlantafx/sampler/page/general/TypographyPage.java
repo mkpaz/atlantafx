@@ -11,6 +11,7 @@ import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
@@ -23,9 +24,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
+import org.jetbrains.annotations.Nullable;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 
-public class TypographyPage extends OutlinePage {
+public final class TypographyPage extends OutlinePage {
 
     public static final String NAME = "Typography";
 
@@ -36,24 +39,32 @@ public class TypographyPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
+    }
+
     public TypographyPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             Because AtlantaFX is also distributed as a single CSS file, it does not come \
             with any fonts. However, it does support several utility classes demonstrated \
             below that can be used to manipulate font properties. If you need a formatted \
-            text support have a look at [i]BBCodeParser[/i].""");
+            text support have a look at [i]BBCodeParser[/i]."""
+        );
         addSection("Font Size", fontSizeExample());
         addSection("Font Weight", fontWeightExample());
         addSection("Font Style", fontStyleExample());
         addSection("Text Color", textColorExample());
+        addSection("Label", labelExample());
         addSection("Hyperlink", hyperlinkExample());
 
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             var eventType = e.getEventType();
             if (eventType == EventType.THEME_CHANGE || eventType == EventType.FONT_CHANGE) {
-                updateFontInfo(Duration.seconds(1));
+                updateFontInfo();
             }
         });
     }
@@ -62,10 +73,10 @@ public class TypographyPage extends OutlinePage {
     protected void onRendered() {
         super.onRendered();
         // font metrics can only be obtained by requesting from a rendered node
-        updateFontInfo(Duration.seconds(1));
+        updateFontInfo();
     }
 
-    private void updateFontInfo(Duration delay) {
+    private void updateFontInfo() {
         if (fontSizeGridPane == null) {
             return;
         }
@@ -309,7 +320,62 @@ public class TypographyPage extends OutlinePage {
         );
         box.setAlignment(Pos.BASELINE_LEFT);
 
-        var example = new ExampleBox(box, new Snippet(getClass(), 5));
+        var description = BBCodeParser.createFormattedText("""
+            An HTML like label which can be a graphic and/or text which responds to \
+            rollovers and clicks. When a hyperlink is clicked/pressed [code]#isVisited[/code] \
+            becomes "true".  A Hyperlink behaves just like a [i]Button[/i]."""
+        );
+
+        var example = new ExampleBox(box, new Snippet(getClass(), 5), description);
+        example.setAllowDisable(false);
+
+        return example;
+    }
+
+    private ExampleBox labelExample() {
+        //snippet_6:start
+        var defaultLabel = new Label("default", createFontIcon());
+
+        var accentLabel = new Label("accent", createFontIcon());
+        accentLabel.getStyleClass().add(Styles.ACCENT);
+
+        var successLabel = new Label("success", createFontIcon());
+        successLabel.getStyleClass().add(Styles.SUCCESS);
+
+        var warningLabel = new Label("warning", createFontIcon());
+        warningLabel.getStyleClass().add(Styles.WARNING);
+
+        var dangerLabel = new Label("danger", createFontIcon());
+        dangerLabel.getStyleClass().add(Styles.DANGER);
+
+        var mutedLabel = new Label("muted", createFontIcon());
+        mutedLabel.getStyleClass().add(Styles.TEXT_MUTED);
+
+        var subtleLabel = new Label("subtle", createFontIcon());
+        subtleLabel.getStyleClass().add(Styles.TEXT_SUBTLE);
+        //snippet_6:end
+
+        var box = new FlowPane(
+            20, 20,
+            defaultLabel,
+            accentLabel,
+            successLabel,
+            warningLabel,
+            dangerLabel,
+            mutedLabel,
+            subtleLabel
+        );
+
+        var description = BBCodeParser.createFormattedText("""
+            Label is a non-editable text control. A [i]Label[/i] is useful for displaying text \
+            that is required to fit within a specific space, and thus may need to use an ellipsis \
+            or truncation to size the string to fit.
+                        
+            You can use pseudo-classes to set the [i]Label[/i] color. Note that icon \
+            inherits label color by default."""
+        );
+
+        var example = new ExampleBox(box, new Snippet(getClass(), 6), description);
         example.setAllowDisable(false);
 
         return example;
@@ -320,5 +386,11 @@ public class TypographyPage extends OutlinePage {
         label.setPadding(new Insets(5, 40, 5, 10));
         label.setStyle("-fx-font-family:monospace;");
         return label;
+    }
+
+    private FontIcon createFontIcon(String... stylesClass) {
+        var icon = new FontIcon(Material2AL.LABEL);
+        icon.getStyleClass().addAll(stylesClass);
+        return icon;
     }
 }

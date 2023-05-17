@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
+@Deprecated
 public final class Animations {
 
     public static final Interpolator EASE = Interpolator.SPLINE(0.25, 0.1, 0.25, 1);

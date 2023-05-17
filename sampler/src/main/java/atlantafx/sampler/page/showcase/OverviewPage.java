@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.general;
+package atlantafx.sampler.page.showcase;
 
 import static atlantafx.sampler.util.Containers.setScrollConstraints;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
@@ -8,6 +8,7 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.Page;
 import java.io.IOException;
+import java.net.URI;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -15,8 +16,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Nullable;
 
-public class OverviewPage extends ScrollPane implements Page {
+public final class OverviewPage extends ScrollPane implements Page {
 
     public static final String NAME = "Overview";
 
@@ -63,6 +65,11 @@ public class OverviewPage extends ScrollPane implements Page {
     @Override
     public boolean canChangeThemeSettings() {
         return true;
+    }
+
+    @Override
+    public @Nullable URI getJavadocUri() {
+        return null;
     }
 
     @Override

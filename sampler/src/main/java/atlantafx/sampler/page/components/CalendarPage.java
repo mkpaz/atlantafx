@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.theme.Styles;
@@ -9,6 +9,7 @@ import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
 import atlantafx.sampler.theme.CSSFragment;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -22,7 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class CalendarPage extends OutlinePage {
+public final class CalendarPage extends OutlinePage {
 
     public static final String NAME = "Calendar";
     private static final LocalDate TODAY = LocalDate.now(ZoneId.systemDefault());
@@ -32,9 +33,15 @@ public class CalendarPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public CalendarPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             The date picker control that allows the user to select a date. Unlike standard JavaFX \
             [font=monospace]javafx.scene.control.DatePicker[/font] the [i]Calendar[/i] is not concealed \

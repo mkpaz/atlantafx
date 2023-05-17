@@ -4,7 +4,7 @@ package atlantafx.sampler.event;
 
 import java.net.URI;
 
-public class BrowseEvent extends Event {
+public final class BrowseEvent extends Event {
 
     private final URI uri;
 

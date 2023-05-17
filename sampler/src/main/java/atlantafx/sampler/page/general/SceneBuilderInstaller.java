@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-class SceneBuilderInstaller {
+final class SceneBuilderInstaller {
 
     private static final String THEME_PACK_FILE_NAME = "atlantafx-scene-builder.zip";
 

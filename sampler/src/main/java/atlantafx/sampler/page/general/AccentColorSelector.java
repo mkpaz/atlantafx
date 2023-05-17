@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-public class AccentColorSelector extends HBox {
+final class AccentColorSelector extends HBox {
 
     public AccentColorSelector() {
         super();

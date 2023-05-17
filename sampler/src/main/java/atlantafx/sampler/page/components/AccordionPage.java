@@ -28,7 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class AccordionPage extends OutlinePage {
+public final class AccordionPage extends OutlinePage {
 
     public static final String NAME = "Accordion";
 
@@ -40,6 +40,7 @@ public class AccordionPage extends OutlinePage {
     public AccordionPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A user interface component that allows you to display a list of expandable \
             items and only one item can be open at a time. Each item in the [i]Accordion[/i] \

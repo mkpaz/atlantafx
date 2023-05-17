@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.MaskTextField;
@@ -10,6 +10,7 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -19,12 +20,13 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
-public class CustomTextFieldPage extends OutlinePage {
+public final class CustomTextFieldPage extends OutlinePage {
 
     public static final String NAME = "CustomTextField";
 
@@ -33,9 +35,15 @@ public class CustomTextFieldPage extends OutlinePage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public CustomTextFieldPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A base class for placing nodes inside the text field itself, without being \
             on top of the users typed-in text."""
@@ -143,7 +151,6 @@ public class CustomTextFieldPage extends OutlinePage {
         timeField.textProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 try {
-                    //noinspection ResultOfMethodCallIgnored
                     LocalTime.parse(val, timeFormatter);
                     timeField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
                 } catch (DateTimeParseException e) {

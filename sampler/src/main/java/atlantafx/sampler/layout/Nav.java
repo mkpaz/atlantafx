@@ -9,7 +9,7 @@ import java.util.Objects;
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
 
-public record Nav(String title,
+record Nav(String title,
                   @Nullable Node graphic,
                   @Nullable Class<? extends Page> pageClass,
                   @Nullable List<String> searchKeywords) {

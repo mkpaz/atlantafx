@@ -10,7 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-public class CheckBoxPage extends OutlinePage {
+public final class CheckBoxPage extends OutlinePage {
 
     public static final String NAME = "CheckBox";
 
@@ -25,6 +25,7 @@ public class CheckBoxPage extends OutlinePage {
     public CheckBoxPage() {
         super();
 
+        addPageHeader();
         addFormattedText("""
             A tri-state selection control is typically skinned as a box \
             with a checkmark or tick mark when checked."""

@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.page.components;
 
-public class ChoiceBoxPage extends ComboBoxPage {
+public final class ChoiceBoxPage extends ComboBoxPage {
 
     public static final String NAME = "ChoiceBox";
 

@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.extras;
+package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ModalPane;
 import atlantafx.base.util.BBCodeParser;
@@ -23,9 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class ModalPanePage extends OutlinePage {
+public final class ModalPanePage extends OutlinePage {
 
-    public static final String NAME = "Modal Pane";
+    public static final String NAME = "ModalPane";
 
     private final ModalPane modalPane = new ModalPane();
     private final ModalPane modalPaneTop = new ModalPane(-15);
@@ -50,10 +50,12 @@ public class ModalPanePage extends OutlinePage {
             }
         });
 
+        addPageHeader();
         addFormattedText("""
             A container for displaying application dialogs ot top of the current scene \
-            without opening a modal {@link javafx.stage.Stage}. It's a translucent (glass) pane \
-            that can hold arbitrary content as well as animate its appearance.""");
+            without opening a modal [code]javafx.stage.Stage[/code]. It's a translucent \
+            (glass) pane that can hold arbitrary content as well as animate its appearance."""
+        );
         addSection("Usage", usageExample());
         addSection("Content Position", contentPositionExample());
         addSection("Persistent", persistentExample());
@@ -346,7 +348,10 @@ public class ModalPanePage extends OutlinePage {
             implement the famous JS lightbox effect."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 7), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 7), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     ///////////////////////////////////////////////////////////////////////////
