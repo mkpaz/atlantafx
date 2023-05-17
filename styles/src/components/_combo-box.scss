@@ -247,6 +247,12 @@ $use-alt-icon:           false !default;
     }
   }
 
+  &:disabled {
+    >.label {
+      -fx-opacity: 1;
+    }
+  }
+
   // #tweaks/alt-icon
   &.alt-icon {
     >.open-button>.arrow {
