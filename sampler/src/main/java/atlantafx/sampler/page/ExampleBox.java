@@ -11,17 +11,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.Nullable;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 // This widget emulates TabPane behavior, because TabPane itself doesn't work as it should:
 // https://bugs.openjdk.org/browse/JDK-8145490
@@ -44,9 +42,9 @@ public class ExampleBox extends VBox {
         var previewTab = createTabLabel("Preview");
         var codeTab = createTabLabel("Code");
 
-        var copyBtn = new Button("", new FontIcon(Material2OutlinedAL.CODE));
-        copyBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT, Styles.SMALL);
-        copyBtn.setTooltip(new Tooltip("Copy source code"));
+        var copyBtn = new Button("copy source code");
+        copyBtn.setCursor(Cursor.HAND);
+        copyBtn.getStyleClass().addAll(Styles.FLAT, Styles.SMALL);
 
         stateToggle = new ToggleSwitch();
         HBox.setMargin(stateToggle, new Insets(0, 0, 0, 10));

@@ -29,9 +29,18 @@
       }
 
       .snippet {
+        -fx-border-radius: 8px;
+        -fx-border-color: transparent;
+        -fx-border-width: 3px;
+
+        &:hover {
+          -fx-border-color: -color-accent-muted;
+        }
+
         >TextFlow {
           -fx-padding: 10px;
           -fx-background-color: -color-bg-inset;
+          -fx-background-radius: 8px;
           -fx-font-family: monospace;
         }
 
