@@ -10,7 +10,7 @@ import java.util.function.UnaryOperator;
  * The default {@link MaskChar} implementation that should be suitable
  * for anything except heavily custom logic.
  */
-final class SimpleMaskChar implements MaskChar {
+public final class SimpleMaskChar implements MaskChar {
 
     private final Predicate<Character> matchExpr;
     private final UnaryOperator<Character> transform;
