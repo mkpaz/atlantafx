@@ -37,6 +37,7 @@ public abstract class OutlinePage extends StackPane implements Page {
 
     protected final ScrollPane scrollPane = new ScrollPane();
     protected final VBox userContent = new VBox();
+    protected final StackPane userContentArea = new StackPane(userContent);
     protected final Outline outline = new Outline(createOutlineHandler());
 
     protected Overlay overlay;
@@ -52,7 +53,6 @@ public abstract class OutlinePage extends StackPane implements Page {
     }
 
     protected void createPageLayout() {
-        var userContentArea = new StackPane(userContent);
         StackPane.setMargin(userContent, new Insets(0, OUTLINE_WIDTH, 0, 0));
         userContent.setMinWidth(Page.MAX_WIDTH - OUTLINE_WIDTH - 100);
         userContent.setMaxWidth(Page.MAX_WIDTH - OUTLINE_WIDTH - 100);
@@ -175,6 +175,11 @@ public abstract class OutlinePage extends StackPane implements Page {
     @Override
     public @Nullable URI getJavadocUri() {
         return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
+    }
+
+    @Override
+    public Node getSnapshotTarget() {
+        return userContentArea;
     }
 
     @Override

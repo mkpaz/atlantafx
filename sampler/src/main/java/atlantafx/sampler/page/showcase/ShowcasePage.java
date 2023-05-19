@@ -112,6 +112,11 @@ public abstract class ShowcasePage extends StackPane implements Page {
     }
 
     @Override
+    public Node getSnapshotTarget() {
+        return showCaseContent;
+    }
+
+    @Override
     public void reset() {
     }
 

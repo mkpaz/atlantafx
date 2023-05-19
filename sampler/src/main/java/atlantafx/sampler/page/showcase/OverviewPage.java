@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URI;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 public final class OverviewPage extends ScrollPane implements Page {
 
     public static final String NAME = "Overview";
+    private VBox wrapper;
 
     @Override
     public String getName() {
@@ -31,7 +33,7 @@ public final class OverviewPage extends ScrollPane implements Page {
         super();
 
         try {
-            var wrapper = new VBox();
+            wrapper = new VBox();
             wrapper.setAlignment(Pos.TOP_CENTER);
 
             var loader = new FXMLLoader(
@@ -70,6 +72,11 @@ public final class OverviewPage extends ScrollPane implements Page {
     @Override
     public @Nullable URI getJavadocUri() {
         return null;
+    }
+
+    @Override
+    public Node getSnapshotTarget() {
+        return wrapper;
     }
 
     @Override

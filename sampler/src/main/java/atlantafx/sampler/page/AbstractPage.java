@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 public abstract class AbstractPage extends StackPane implements Page {
 
     protected final VBox userContent = new VBox();
+    protected final StackPane userContentArea = new StackPane(userContent);
     protected Overlay overlay;
     protected boolean isRendered = false;
 
@@ -33,7 +34,6 @@ public abstract class AbstractPage extends StackPane implements Page {
     }
 
     protected void createPageLayout() {
-        var userContentArea = new StackPane(userContent);
         userContentArea.setAlignment(Pos.TOP_CENTER);
         userContent.setMinWidth(Math.min(Page.MAX_WIDTH, 800));
         userContent.setMaxWidth(Math.min(Page.MAX_WIDTH, 800));
@@ -63,6 +63,11 @@ public abstract class AbstractPage extends StackPane implements Page {
     @Override
     public @Nullable URI getJavadocUri() {
         return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
+    }
+
+    @Override
+    public Node getSnapshotTarget() {
+        return userContentArea;
     }
 
     @Override

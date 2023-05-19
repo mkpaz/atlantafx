@@ -6,20 +6,30 @@ import static atlantafx.sampler.event.PageEvent.Action;
 import static javafx.scene.layout.Priority.ALWAYS;
 
 import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.HotkeyEvent;
 import atlantafx.sampler.event.PageEvent;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.layout.MainModel.SubLayer;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.theme.ThemeManager;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Objects;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 
 class MainLayer extends BorderPane {
 
@@ -42,6 +52,38 @@ class MainLayer extends BorderPane {
 
         // keyboard navigation won't work without focus
         Platform.runLater(sidebar::begForFocus);
+
+        var snapshotKeys = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
+        DefaultEventBus.getInstance().subscribe(HotkeyEvent.class, e -> {
+            if (Objects.equals(e.getKeys(), snapshotKeys)) {
+                final Page page = (Page) subLayerPane.getChildren().stream()
+                    .filter(c -> c instanceof Page)
+                    .findFirst()
+                    .orElse(null);
+                if (page == null || page.getSnapshotTarget() == null) {
+                    return;
+                }
+
+                var fileChooser = new FileChooser();
+                fileChooser.setInitialDirectory(Paths.get(System.getProperty("user.home")).toFile());
+                fileChooser.setInitialFileName("snapshot.png");
+                fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png")
+                );
+
+                var file = fileChooser.showSaveDialog(getScene().getWindow());
+                if (file == null) {
+                    return;
+                }
+
+                try {
+                    WritableImage img = page.getSnapshotTarget().snapshot(new SnapshotParameters(), null);
+                    ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
     private void createView() {

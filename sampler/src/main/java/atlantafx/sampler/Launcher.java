@@ -40,7 +40,8 @@ public class Launcher extends Application {
 
     public static final List<KeyCodeCombination> SUPPORTED_HOTKEYS = List.of(
         new KeyCodeCombination(KeyCode.SLASH),
-        new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN)
+        new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN),
+        new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN)
     );
 
     public static void main(String[] args) {

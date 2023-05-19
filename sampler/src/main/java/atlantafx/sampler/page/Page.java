@@ -27,6 +27,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import net.datafaker.Faker;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
@@ -57,6 +58,8 @@ public interface Page {
     boolean canChangeThemeSettings();
 
     @Nullable URI getJavadocUri();
+
+    @Nullable Node getSnapshotTarget();
 
     void reset();
 
