@@ -184,9 +184,22 @@ final class PlayerPane extends VBox {
         setAlignment(CENTER);
         setSpacing(5);
         setMinWidth(300);
-        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle,
-            trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider,
-            timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
+        getChildren().setAll(
+            new Spacer(VERTICAL),
+            new StackPane(coverImage),
+            new Spacer(10, VERTICAL),
+            trackTitle,
+            trackArtist,
+            trackAlbum,
+            new Spacer(20, VERTICAL),
+            mediaControls,
+            new Spacer(10, VERTICAL),
+            timeSlider,
+            timeMarkersBox,
+            new Spacer(10, VERTICAL),
+            extraControls,
+            new Spacer(VERTICAL)
+        );
     }
 
     private void init() {

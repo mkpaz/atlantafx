@@ -2,12 +2,12 @@
 
 package atlantafx.sampler.page;
 
-import static atlantafx.sampler.util.Containers.setScrollConstraints;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.layout.Overlay;
+import atlantafx.sampler.util.NodeUtils;
 import java.net.URI;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -39,7 +39,7 @@ public abstract class AbstractPage extends StackPane implements Page {
         userContent.setMaxWidth(Math.min(Page.MAX_WIDTH, 800));
 
         var scrollPane = new ScrollPane(userContentArea);
-        setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
+        NodeUtils.setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
         scrollPane.setMaxHeight(20_000);
 
         getChildren().setAll(scrollPane);

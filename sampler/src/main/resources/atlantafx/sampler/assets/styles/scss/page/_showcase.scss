@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 .showcase-page {
+  -fx-background-color: -color-bg-default;
 
   >.window {
     -fx-border-color: -color-accent-emphasis;
@@ -44,7 +45,7 @@
   }
 }
 
-#overview {
+#blueprints {
   -fx-background-color: -color-bg-inset;
 
   .sample {

@@ -77,7 +77,8 @@ class MainLayer extends BorderPane {
                 }
 
                 try {
-                    WritableImage img = page.getSnapshotTarget().snapshot(new SnapshotParameters(), null);
+                    SnapshotParameters sp = new SnapshotParameters();
+                    WritableImage img = page.getSnapshotTarget().snapshot(sp, null);
                     ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);

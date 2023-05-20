@@ -1,50 +1,76 @@
 /** SPDX-License-Identifier: MIT */
 
-.music-player-showcase > .start-screen {
-    -fx-border-color: -color-border-muted;
-    -fx-border-width: 1;
-}
-.music-player-showcase > .start-screen > .content > .ikonli-font-icon {
+#music-player-showcase > .start-screen > .content > .ikonli-font-icon {
     -fx-icon-color: -color-fg-muted;
-    -fx-fill: -color-fg-muted;
-    -fx-icon-size: 64px;
+    -fx-fill:       -color-fg-muted;
+    -fx-icon-size:  64px;
 }
 
-.music-player-showcase > .player-screen {
-    -fx-border-color: -color-border-muted;
-    -fx-border-width: 1;
-    -color-dominant:    transparent;
-    -color-dominant-20: transparent;
-    -color-dominant-50: transparent;
-    -color-dominant-70: transparent;
-    -color-dominant-border: -color-border-muted;
+#music-player-showcase > .player-screen {
+    /* default colors (when no artwork found) */
+    -color-dominant:        transparent;
+    -color-dominant-10:     transparent;
+    -color-dominant-20:     transparent;
+    -color-dominant-50:     transparent;
+    -color-dominant-70:     transparent;
+    -color-dominant-border: -color-border-default;
+
+    -fx-background-color:   radial-gradient(radius 100%, -color-dominant-20, -color-dominant-50);
 }
-.music-player-showcase > .player-screen > * > .player {
-    -fx-background-color: radial-gradient(radius 100%, -color-dominant-50, -color-dominant-20);
-}
-.music-player-showcase > .player-screen > * > .player > .media-controls > .play > .ikonli-font-icon {
-    -fx-icon-size: 32px;
-}
-.music-player-showcase > .player-screen > .split-pane-divider {
+
+#music-player-showcase > .player-screen > .split-pane-divider {
     -color-split-divider: -color-dominant-border;
     -color-split-grabber: -color-dominant-border;
 }
 
-.music-player-showcase > .player-screen > * > .playlist {
-    -fx-background-color: radial-gradient(radius 100%, -color-dominant-20, -color-dominant-50);
+/* == PLAYER == */
+
+#music-player-showcase .player > .media-controls > .play > .ikonli-font-icon {
+    -fx-icon-size: 32px;
 }
-.music-player-showcase > .player-screen > * > .playlist > .controls {
+
+#music-player-showcase .player .button {
+    -color-button-bg:             -color-dominant-10;
+    -color-button-bg-hover:       -color-dominant-20;
+    -color-button-bg-focused:     -color-dominant-10;
+    -color-button-bg-pressed:     -color-dominant-10;
+    -color-button-border:         transparent;
+    -color-button-border-hover:   transparent;
+    -color-button-border-focused: transparent;
+    -color-button-border-pressed: transparent;
+}
+
+#music-player-showcase .player .slider {
+    -color-slider-track: -color-dominant-50;
+}
+
+/* == PLAYLIST == */
+
+#music-player-showcase .playlist > .controls {
     -fx-border-color: -color-dominant-border;
     -fx-border-width: 0 0 0.75px 0;
 }
-.music-player-showcase > .player-screen > * > .playlist > .controls > .button {
-    -color-button-bg-hover: transparent;
-    -color-button-bg-focused: transparent;
-    -color-button-bg-pressed: transparent;
+
+#music-player-showcase .playlist > .controls > .button {
+    -color-button-bg-hover:       -color-dominant-20;
+    -color-button-bg-focused:     transparent;
+    -color-button-bg-pressed:     transparent;
+    -color-button-border:         transparent;
+    -color-button-border-hover:   transparent;
+    -color-button-border-focused: transparent;
+    -color-button-border-pressed: transparent;
 }
-.music-player-showcase > .player-screen > * > .playlist > .list-view .list-cell {
-    -color-cell-bg: transparent;
-    -color-cell-bg-selected: transparent;
-    -color-cell-border: transparent;
+
+#music-player-showcase .playlist .list-cell {
+    -color-cell-bg:                  transparent;
+    -color-cell-bg-selected:         transparent;
+    -color-cell-bg-selected-focused: transparent;
+    -color-cell-border:              transparent;
     -fx-cell-size: 4em;
+}
+
+#music-player-showcase .playlist .list-cell:filled:hover {
+  -color-cell-bg:                  -color-dominant-20;
+  -color-cell-bg-selected:         -color-dominant-20;
+  -color-cell-bg-selected-focused: -color-dominant-20;
 }

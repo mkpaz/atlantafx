@@ -18,7 +18,11 @@ See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
 </b></p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/demo.gif" alt="Logo"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/blueprints.png" alt="blueprints"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/fm.png" alt="apps"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/mp.png" alt="apps"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/page.png" alt="page"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/themes.png" alt="themes"/><br/>
 </p>
 
 * Flat interface inspired by the variety of Web component frameworks.

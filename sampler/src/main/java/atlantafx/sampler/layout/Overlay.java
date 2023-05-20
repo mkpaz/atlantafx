@@ -3,7 +3,6 @@
 package atlantafx.sampler.layout;
 
 import atlantafx.sampler.util.Animations;
-import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.NodeUtils;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -51,7 +50,7 @@ public final class Overlay extends StackPane {
         centerContentWrapper.setAlignment(Pos.CENTER);
 
         scrollPane = new ScrollPane();
-        Containers.setScrollConstraints(scrollPane,
+        NodeUtils.setScrollConstraints(scrollPane,
             ScrollPane.ScrollBarPolicy.AS_NEEDED, true,
             ScrollPane.ScrollBarPolicy.NEVER, true
         );
@@ -108,11 +107,11 @@ public final class Overlay extends StackPane {
         switch (pos) {
             case LEFT -> {
                 edgeContentWrapper.getChildren().setAll(content);
-                Containers.setAnchors(content, new Insets(0, -1, 0, 0));
+                NodeUtils.setAnchors(content, new Insets(0, -1, 0, 0));
             }
             case RIGHT -> {
                 edgeContentWrapper.getChildren().setAll(content);
-                Containers.setAnchors(content, new Insets(0, 0, 0, -1));
+                NodeUtils.setAnchors(content, new Insets(0, 0, 0, -1));
             }
             case CENTER -> {
                 centerContentWrapper.getChildren().setAll(content);

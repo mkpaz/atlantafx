@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <HBox spacing="20.0">
+      <fx:include source="checklist-proposal.fxml" />
+        <fx:include maxHeight="1.7976931348623157E308" source="message-editor.fxml" />
+        <fx:include maxHeight="1.7976931348623157E308" source="button-list.fxml" />
+    </HBox>
+    <HBox spacing="20.0">
+        <fx:include maxHeight="1.7976931348623157E308" source="calendar.fxml" HBox.hgrow="ALWAYS" />
+      <fx:include maxHeight="1.7976931348623157E308" source="share-project.fxml" />
+    </HBox>
+    <HBox spacing="20.0">
+        <fx:include source="music-player.fxml" />
+        <fx:include maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="dimensions-table.fxml" HBox.hgrow="ALWAYS" />
+    </HBox>
+</VBox>

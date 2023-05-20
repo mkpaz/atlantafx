@@ -26,6 +26,7 @@ record MediaFile(File file) {
     // is costly and that instance is not even reusable.
     public void readMetadata(Consumer<Metadata> callback) {
         var media = new Media(file.toURI().toString());
+        System.out.println(file.toURI().toString());
         var mediaPlayer = new MediaPlayer(media);
 
         // The media information is obtained asynchronously and so not necessarily

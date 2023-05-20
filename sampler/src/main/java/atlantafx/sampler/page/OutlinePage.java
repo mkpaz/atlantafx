@@ -2,12 +2,12 @@
 
 package atlantafx.sampler.page;
 
-import static atlantafx.sampler.util.Containers.setScrollConstraints;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.layout.Overlay;
+import atlantafx.sampler.util.NodeUtils;
 import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -58,7 +58,7 @@ public abstract class OutlinePage extends StackPane implements Page {
         userContent.setMaxWidth(Page.MAX_WIDTH - OUTLINE_WIDTH - 100);
 
         scrollPane.setContent(userContentArea);
-        setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
+        NodeUtils.setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
         scrollPane.setMaxHeight(20_000);
 
         // scroll spy

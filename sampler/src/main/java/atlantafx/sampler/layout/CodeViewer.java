@@ -9,7 +9,7 @@ import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.PageEvent;
 import atlantafx.sampler.theme.HighlightJSTheme;
-import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.NodeUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.geometry.Insets;
@@ -48,7 +48,7 @@ final class CodeViewer extends AnchorPane {
     private void lazyLoadWebView() {
         if (webView == null) {
             webView = new WebView();
-            Containers.setAnchors(webView, Insets.EMPTY);
+            NodeUtils.setAnchors(webView, Insets.EMPTY);
             getChildren().add(0, webView);
         }
     }

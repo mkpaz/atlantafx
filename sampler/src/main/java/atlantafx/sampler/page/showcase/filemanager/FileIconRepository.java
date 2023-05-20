@@ -11,11 +11,13 @@ import javafx.scene.image.Image;
 
 final class FileIconRepository {
 
-    private static final String IMAGE_DIRECTORY = "images/papirus/";
-    public static final Image UNKNOWN_FILE =
-        new Image(Resources.getResourceAsStream(IMAGE_DIRECTORY + "mimetypes/text-plain.png"));
-    public static final Image FOLDER =
-        new Image(Resources.getResourceAsStream(IMAGE_DIRECTORY + "places/folder-blue.png"));
+    public static final String IMAGE_DIRECTORY = "images/papirus/";
+    public static final Image UNKNOWN_FILE = new Image(
+        Resources.getResourceAsStream(IMAGE_DIRECTORY + "mimetypes/text-plain.png")
+    );
+    public static final Image FOLDER = new Image(
+        Resources.getResourceAsStream(IMAGE_DIRECTORY + "places/folder-paleorange.png")
+    );
 
     private final Map<String, Image> cache = new HashMap<>();
     private final Set<String> unknownMimeTypes = new HashSet<>();

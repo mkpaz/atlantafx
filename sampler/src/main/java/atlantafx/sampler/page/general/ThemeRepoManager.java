@@ -14,7 +14,7 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.theme.ThemeRepository;
-import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.NodeUtils;
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
@@ -63,7 +63,7 @@ final class ThemeRepoManager extends VBox {
         REPO.getAll().forEach(theme -> themeList.getChildren().add(themeCell(theme)));
 
         var scrollPane = new ScrollPane(themeList);
-        Containers.setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
+        NodeUtils.setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
         scrollPane.setMaxHeight(4000);
         VBox.setVgrow(scrollPane, ALWAYS);
 

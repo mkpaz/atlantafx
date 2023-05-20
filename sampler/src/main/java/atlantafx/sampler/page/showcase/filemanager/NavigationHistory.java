@@ -17,9 +17,11 @@ final class NavigationHistory {
     private final IntegerProperty cursor = new SimpleIntegerProperty(0);
     private final List<Path> history = new ArrayList<>();
     private final BooleanBinding canGoBack = Bindings.createBooleanBinding(
-        () -> cursor.get() > 0 && history.size() > 1, cursor);
+        () -> cursor.get() > 0 && history.size() > 1, cursor
+    );
     private final BooleanBinding canGoForth = Bindings.createBooleanBinding(
-        () -> cursor.get() < history.size() - 1, cursor);
+        () -> cursor.get() < history.size() - 1, cursor
+    );
 
     public void append(Path path) {
         if (path == null) {

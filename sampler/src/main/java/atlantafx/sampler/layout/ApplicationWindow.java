@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.layout;
 
-import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.NodeUtils;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -21,7 +21,7 @@ public final class ApplicationWindow extends AnchorPane {
             new Overlay(),
             new MainLayer()
         );
-        Containers.setAnchors(body, Insets.EMPTY);
+        NodeUtils.setAnchors(body, Insets.EMPTY);
 
         getChildren().setAll(body);
     }

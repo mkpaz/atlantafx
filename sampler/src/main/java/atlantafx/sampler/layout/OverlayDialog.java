@@ -8,7 +8,6 @@ import static atlantafx.base.theme.Styles.FLAT;
 import static atlantafx.base.theme.Styles.TITLE_4;
 
 import atlantafx.base.controls.Spacer;
-import atlantafx.sampler.util.Containers;
 import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -70,8 +69,10 @@ public abstract class OverlayDialog<T extends Region> extends VBox {
         VBox.setVgrow(footerBox, Priority.NEVER);
 
         // IMPORTANT: this guarantees client will use correct width and height
-        Containers.usePrefWidth(this);
-        Containers.usePrefHeight(this);
+        setMinWidth(USE_PREF_SIZE);
+        setMaxWidth(USE_PREF_SIZE);
+        setMinHeight(USE_PREF_SIZE);
+        setMaxHeight(USE_PREF_SIZE);
 
         // if you're updating this line, update setContent() method as well
         getChildren().setAll(headerBox, footerBox);

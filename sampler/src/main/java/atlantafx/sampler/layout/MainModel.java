@@ -48,7 +48,7 @@ import atlantafx.sampler.page.components.TreeTableViewPage;
 import atlantafx.sampler.page.components.TreeViewPage;
 import atlantafx.sampler.page.general.BBCodePage;
 import atlantafx.sampler.page.general.IconsPage;
-import atlantafx.sampler.page.showcase.OverviewPage;
+import atlantafx.sampler.page.showcase.BlueprintsPage;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
@@ -214,7 +214,7 @@ public class MainModel {
 
         var showcases = NavTree.Item.group("Showcase", new FontIcon(Material2OutlinedMZ.VISIBILITY));
         showcases.getChildren().setAll(
-            NAV_TREE.get(OverviewPage.class),
+            NAV_TREE.get(BlueprintsPage.class),
             NAV_TREE.get(FileManagerPage.class),
             NAV_TREE.get(MusicPlayerPage.class)
         );
@@ -310,7 +310,7 @@ public class MainModel {
         map.put(TreeViewPage.class, NavTree.Item.page(TreeViewPage.NAME, TreeViewPage.class));
 
         // showcases
-        map.put(OverviewPage.class, NavTree.Item.page(OverviewPage.NAME, OverviewPage.class));
+        map.put(BlueprintsPage.class, NavTree.Item.page(BlueprintsPage.NAME, BlueprintsPage.class));
         map.put(FileManagerPage.class, NavTree.Item.page(FileManagerPage.NAME, FileManagerPage.class));
         map.put(MusicPlayerPage.class, NavTree.Item.page(MusicPlayerPage.NAME, MusicPlayerPage.class));
 

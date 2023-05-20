@@ -11,6 +11,7 @@ import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -30,6 +31,7 @@ public abstract class ShowcasePage extends StackPane implements Page {
     protected VBox showcaseWindow = new VBox();
     protected Label windowTitle = new Label();
     protected VBox showCaseContent = new VBox();
+    protected FontIcon aboutBtn = new FontIcon(Feather.HELP_CIRCLE);
     protected int windowWidth = DEFAULT_WIDTH;
     protected int windowHeight = DEFAULT_HEIGHT;
     protected BooleanProperty maximized = new SimpleBooleanProperty();
@@ -43,11 +45,15 @@ public abstract class ShowcasePage extends StackPane implements Page {
     protected void createShowcaseLayout() {
         windowTitle.getStyleClass().addAll("title");
 
+        aboutBtn.getStyleClass().addAll(Styles.SMALL, Styles.FLAT);
+
         var maximizeBtn = new FontIcon(Feather.MAXIMIZE_2);
         maximizeBtn.getStyleClass().addAll(Styles.SMALL, Styles.FLAT);
         maximizeBtn.setOnMouseClicked(e -> maximized.set(!maximized.get()));
 
-        var windowHeader = new HBox(windowTitle, new Spacer(), maximizeBtn);
+        var windowHeader = new HBox(
+            20, windowTitle, new Spacer(), aboutBtn, maximizeBtn
+        );
         windowHeader.getStyleClass().add("header");
 
         showcaseWindow.getStyleClass().add("window");
@@ -73,6 +79,18 @@ public abstract class ShowcasePage extends StackPane implements Page {
         if (graphic != null) {
             windowTitle.setGraphic(graphic);
         }
+    }
+
+    protected void setAboutInfo(String text) {
+        var tooltip = new Tooltip(text);
+        tooltip.setWrapText(true);
+        tooltip.setMaxWidth(300);
+        aboutBtn.setOnMouseEntered(e -> {
+            var localBounds = aboutBtn.getBoundsInLocal();
+            var screenBounds = aboutBtn.localToScreen(localBounds);
+            tooltip.show(getScene().getWindow(), screenBounds.getCenterX(), screenBounds.getMaxY());
+        });
+        aboutBtn.setOnMouseExited(e -> tooltip.hide());
     }
 
     protected void setShowCaseContent(Node node) {
