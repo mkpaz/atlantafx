@@ -7,6 +7,7 @@ import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
 
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.AccordionPage;
+import atlantafx.sampler.page.components.AnimationsPage;
 import atlantafx.sampler.page.components.BreadcrumbsPage;
 import atlantafx.sampler.page.components.ButtonPage;
 import atlantafx.sampler.page.components.CalendarPage;
@@ -48,9 +49,9 @@ import atlantafx.sampler.page.components.TreeTableViewPage;
 import atlantafx.sampler.page.components.TreeViewPage;
 import atlantafx.sampler.page.general.BBCodePage;
 import atlantafx.sampler.page.general.IconsPage;
-import atlantafx.sampler.page.showcase.BlueprintsPage;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
+import atlantafx.sampler.page.showcase.BlueprintsPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import java.util.HashMap;
@@ -147,8 +148,9 @@ public class MainModel {
         general.getChildren().setAll(
             NAV_TREE.get(ThemePage.class),
             NAV_TREE.get(TypographyPage.class),
-            NAV_TREE.get(IconsPage.class),
-            NAV_TREE.get(BBCodePage.class)
+            NAV_TREE.get(BBCodePage.class),
+            NAV_TREE.get(AnimationsPage.class),
+            NAV_TREE.get(IconsPage.class)
         );
         general.setExpanded(true);
 
@@ -242,12 +244,13 @@ public class MainModel {
 
         // general
         map.put(ThemePage.class, NavTree.Item.page(ThemePage.NAME, ThemePage.class));
+        map.put(AnimationsPage.class, NavTree.Item.page(AnimationsPage.NAME, AnimationsPage.class));
+        map.put(BBCodePage.class, NavTree.Item.page(BBCodePage.NAME, BBCodePage.class));
+        map.put(IconsPage.class, NavTree.Item.page(IconsPage.NAME, IconsPage.class));
         map.put(
             TypographyPage.class,
             NavTree.Item.page(TypographyPage.NAME, TypographyPage.class, "Label", "Hyperlink")
         );
-        map.put(IconsPage.class, NavTree.Item.page(IconsPage.NAME, IconsPage.class));
-        map.put(BBCodePage.class, NavTree.Item.page(BBCodePage.NAME, BBCodePage.class));
 
         // components
         map.put(InputGroupPage.class, NavTree.Item.page(InputGroupPage.NAME, InputGroupPage.class));

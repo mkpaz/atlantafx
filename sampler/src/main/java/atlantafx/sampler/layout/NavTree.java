@@ -21,7 +21,7 @@ import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-final class NavTree extends TreeView<Nav> {
+public final class NavTree extends TreeView<Nav> {
 
     public NavTree(MainModel model) {
         super();

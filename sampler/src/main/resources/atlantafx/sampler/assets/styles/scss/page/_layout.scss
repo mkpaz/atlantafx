@@ -35,39 +35,6 @@
         -fx-padding: 20px 0 0 0;
       }
 
-      .snippet {
-        -fx-border-radius: 8px;
-        -fx-border-color: transparent;
-        -fx-border-width: 3px;
-
-        &:hover {
-          -fx-border-color: -color-accent-muted;
-        }
-
-        >TextFlow {
-          -fx-padding: 10px;
-          -fx-background-color: -color-bg-inset;
-          -fx-background-radius: 8px;
-          -fx-font-family: monospace;
-        }
-
-        .keyword {
-          -fx-fill: -color-danger-fg;
-        }
-
-        .paren {
-          -fx-fill: -color-accent-fg;
-        }
-
-        .string {
-          -fx-fill: -color-success-fg;
-        }
-
-        .comment {
-          -fx-fill: -color-fg-subtle;
-        }
-      }
-
       .example-box {
         -fx-spacing: 20px;
 
@@ -116,4 +83,35 @@
   }
 }
 
+.snippet {
+  -fx-border-radius: 8px;
+  -fx-border-color: transparent;
+  -fx-border-width: 3px;
 
+  &:hover {
+    -fx-border-color: -color-accent-muted;
+  }
+
+  >TextFlow {
+    -fx-padding: 10px;
+    -fx-background-color: -color-bg-inset;
+    -fx-background-radius: 8px;
+    -fx-font-family: monospace;
+  }
+
+  .keyword {
+    -fx-fill: -color-danger-fg;
+  }
+
+  .paren {
+    -fx-fill: -color-accent-fg;
+  }
+
+  .string {
+    -fx-fill: -color-success-fg;
+  }
+
+  .comment {
+    -fx-fill: -color-fg-subtle;
+  }
+}

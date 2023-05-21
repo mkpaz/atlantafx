@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.layout;
 
-import atlantafx.sampler.util.Animations;
+import atlantafx.base.util.Animations;
 import atlantafx.sampler.util.NodeUtils;
 import java.util.Objects;
 import java.util.function.Consumer;
