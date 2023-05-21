@@ -5,11 +5,11 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.InlineDatePicker;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
+import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import atlantafx.sampler.theme.CSSFragment;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -51,7 +51,7 @@ public final class PopoverPage extends OutlinePage {
     }
 
     private ExampleBox usageExample() {
-        var datePickerStyle = """
+        var dataClass = """
             .popover .date-picker-popup {
               -color-date-border: transparent;
               -color-date-bg: transparent;
@@ -84,7 +84,7 @@ public final class PopoverPage extends OutlinePage {
         // -color-date-day-bg: transparent;
         // -color-date-month-year-bg: transparent;
         // -color-date-day-bg-hover: -color-bg-subtle;
-        new CSSFragment(datePickerStyle).addTo(datePicker);
+        datePicker.getStylesheets().add(Styles.toDataURI(dataClass));
 
         var pop2 = new Popover(datePicker);
         pop2.setHeaderAlwaysVisible(false);

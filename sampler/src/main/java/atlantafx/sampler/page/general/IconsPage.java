@@ -8,7 +8,6 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import atlantafx.sampler.theme.CSSFragment;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,7 +79,7 @@ public final class IconsPage extends OutlinePage {
     }
 
     private ExampleBox stackingExample() {
-        var style1 = """
+        var dataClass1 = """
             .stacked-ikonli-font-icon > .outer-icon {
                 -fx-icon-size: 48px;
                 -fx-icon-color: -color-danger-emphasis;
@@ -90,7 +89,7 @@ public final class IconsPage extends OutlinePage {
             }
             """;
 
-        var style2 = """
+        var dataClass2 = """
             .stacked-ikonli-font-icon > .outer-icon {
                 -fx-icon-size: 48px;
             }
@@ -115,7 +114,7 @@ public final class IconsPage extends OutlinePage {
         // .stacked-ikonli-font-icon > .inner-icon {
         //   -fx-icon-size: 24px;
         // }
-        new CSSFragment(style1).addTo(stackIcon1);
+        stackIcon1.getStylesheets().add(Styles.toDataURI(dataClass1));
 
         var outerIcon2 = new FontIcon(
             Material2OutlinedAL.CHECK_BOX_OUTLINE_BLANK
@@ -133,7 +132,7 @@ public final class IconsPage extends OutlinePage {
         // .stacked-ikonli-font-icon > .inner-icon {
         //   -fx-icon-size: 24px;
         // }
-        new CSSFragment(style2).addTo(stackIcon2);
+        stackIcon2.getStylesheets().add(Styles.toDataURI(dataClass2));
         //snippet_2:end
 
         var box = new HBox(HGAP_20, stackIcon1, stackIcon2);

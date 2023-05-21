@@ -8,7 +8,6 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import atlantafx.sampler.theme.CSSFragment;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.geometry.HPos;
@@ -316,7 +315,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
         // .example:danger  .label {
         //     -fx-text-fill: -color-fg-emphasis;
         // }
-        new CSSFragment(dataClass).addTo(content);
+        content.getStylesheets().add(Styles.toDataURI(dataClass));
 
         bar.progressProperty().addListener((obs, old, val) -> {
             if (val == null) {

@@ -7,7 +7,6 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import atlantafx.sampler.theme.CSSFragment;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -395,7 +394,7 @@ public final class ButtonPage extends OutlinePage {
         //     -fx-font-size:  32px;
         //     -fx-icon-size:  32px;
         // }
-        new CSSFragment(dataClass).addTo(iconBtn);
+        iconBtn.getStylesheets().add(Styles.toDataURI(dataClass));
         //snippet_8:end
 
         var box = new HBox(HGAP_20, btn, iconBtn);

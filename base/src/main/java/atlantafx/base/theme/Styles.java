@@ -2,6 +2,9 @@
 
 package atlantafx.base.theme;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.util.Base64;
 import java.util.Objects;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
@@ -13,6 +16,8 @@ import javafx.scene.control.TabPane;
  */
 @SuppressWarnings("unused")
 public final class Styles {
+
+    public static final String DATA_URI_PREFIX = "data:base64,";
 
     // Colors
 
@@ -92,6 +97,10 @@ public final class Styles {
     /**
      * Adds given style class to the node if it's not present, otherwise
      * removes it.
+     *
+     * @param node       the target node
+     * @param styleClass the style class to be toggled
+     * @throws NullPointerException if node or style class is null
      */
     public static void toggleStyleClass(Node node, String styleClass) {
         if (node == null) {
@@ -102,7 +111,7 @@ public final class Styles {
         }
 
         int idx = node.getStyleClass().indexOf(styleClass);
-        if (idx > 0) {
+        if (idx >= 0) {
             node.getStyleClass().remove(idx);
         } else {
             node.getStyleClass().add(styleClass);
@@ -113,6 +122,11 @@ public final class Styles {
      * Adds given style class to the node and removes the excluded classes.
      * This method is supposed to be used when only one from a set of classes
      * have to be present at once.
+     *
+     * @param node       the target node
+     * @param styleClass the style class to be toggled
+     * @param excludes   the style classes to be excluded
+     * @throws NullPointerException if node or styleClass is null
      */
     public static void addStyleClass(Node node, String styleClass, String... excludes) {
         if (node == null) {
@@ -125,13 +139,21 @@ public final class Styles {
         if (excludes != null && excludes.length > 0) {
             node.getStyleClass().removeAll(excludes);
         }
-        node.getStyleClass().add(styleClass);
+
+        if (!node.getStyleClass().contains(styleClass)) {
+            node.getStyleClass().add(styleClass);
+        }
     }
 
     /**
      * Activates given pseudo-class to the node and deactivates the excluded pseudo-classes.
      * This method is supposed to be used when only one from a set of pseudo-classes
      * have to be present at once.
+     *
+     * @param node        the node to activate the pseudo-class on
+     * @param pseudoClass the pseudo-class to be activated
+     * @param excludes    the pseudo-classes to be deactivated
+     * @throws NullPointerException if node or pseudo-class is null
      */
     public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
         if (node == null) {
@@ -149,17 +171,88 @@ public final class Styles {
         node.pseudoClassStateChanged(pseudoClass, true);
     }
 
+    /**
+     * Appends CSS style declaration to the specified node.
+     * There's no check for duplicates, so the CSS declarations with the same property
+     * name can be appended multiple times.
+     *
+     * @param node  the node to append the new style declaration
+     * @param prop  CSS property name
+     * @param value CSS property value
+     * @throws NullPointerException if node is null
+     */
     public static void appendStyle(Node node, String prop, String value) {
+        if (node == null) {
+            throw new NullPointerException("Node cannot be null!");
+        }
+
         if (prop == null || prop.isBlank() || value == null || value.isBlank()) {
-            System.err.printf("Ignoring invalid style: property='%s', value='%s'%n", prop, value);
+            System.err.printf("Ignoring invalid style: property = '%s', value = '%s'%n", prop, value);
             return;
         }
 
         var style = Objects.requireNonNullElse(node.getStyle(), "");
-        if (!style.endsWith(";")) {
+        if (!style.isEmpty() && !style.endsWith(";")) {
             style += ";";
         }
         style = style + prop.trim() + ":" + value.trim() + ";";
         node.setStyle(style);
+    }
+
+    /**
+     * Removes the specified CSS style declaration from the specified node.
+     *
+     * @param node the node to remove the style from
+     * @param prop the name of the style property to remove
+     * @throws NullPointerException if node is null
+     */
+    public static void removeStyle(Node node, String prop) {
+        if (node == null) {
+            throw new NullPointerException("Node cannot be null!");
+        }
+
+        var currentStyle = node.getStyle();
+        if (currentStyle == null || currentStyle.isBlank()) {
+            return;
+        }
+
+        if (prop == null || prop.isBlank()) {
+            System.err.printf("Ignoring invalid property = '%s'%n", prop);
+            return;
+        }
+
+        String[] stylePairs = currentStyle.split(";");
+        var newStyle = new StringBuilder();
+
+        for (var s : stylePairs) {
+            String[] styleParts = s.split(":");
+            if (!styleParts[0].trim().equals(prop)) {
+                newStyle.append(s);
+                newStyle.append(";");
+            }
+        }
+
+        node.setStyle(newStyle.toString());
+    }
+
+    /**
+     * Converts a CSS string to a Base64-encoded data URI. The resulting string is
+     * an inline data URI that can be applied to any node in the following manner:
+     *
+     * <pre>{@code}
+     * var dataUri = Styles.toDataURI();
+     * node.getStylesheets().add(dataUri);
+     * node.getStylesheets().contains(dataUri);
+     * node.getStylesheets().remove(dataUri);
+     * </pre>
+     *
+     * @param css the CSS string to encode
+     * @return the resulting data URI string
+     */
+    public static String toDataURI(String css) {
+        if (css == null) {
+            throw new NullPointerException("CSS string cannot be null!");
+        }
+        return DATA_URI_PREFIX + new String(Base64.getEncoder().encode(css.getBytes(UTF_8)), UTF_8);
     }
 }

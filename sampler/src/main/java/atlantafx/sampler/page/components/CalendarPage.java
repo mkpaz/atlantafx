@@ -8,7 +8,6 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import atlantafx.sampler.theme.CSSFragment;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -148,7 +147,7 @@ public final class CalendarPage extends OutlinePage {
     }
 
     private ExampleBox styleExample() {
-        var style = """
+        var dataClass = """
             .date-picker-popup {
                 -color-date-border: -color-accent-emphasis;
                 -color-date-month-year-bg: -color-accent-emphasis;
@@ -161,7 +160,7 @@ public final class CalendarPage extends OutlinePage {
         // -color-date-border: -color-accent-emphasis;
         // -color-date-month-year-bg: -color-accent-emphasis;
         // -color-date-month-year-fg: -color-fg-emphasis;
-        new CSSFragment(style).addTo(dp);
+        dp.getStylesheets().add(Styles.toDataURI(dataClass));
         //snippet_4:end
 
         var box = new HBox(dp);
