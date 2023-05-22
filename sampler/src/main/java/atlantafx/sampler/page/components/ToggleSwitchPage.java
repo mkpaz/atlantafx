@@ -11,6 +11,9 @@ import atlantafx.sampler.page.Snippet;
 import java.net.URI;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public final class ToggleSwitchPage extends OutlinePage {
@@ -38,6 +41,7 @@ public final class ToggleSwitchPage extends OutlinePage {
         );
         addSection("Usage", usageExample());
         addSection("Color", colorExample());
+        addSection("Toggle Group", toggleGroupExample());
     }
 
     private ExampleBox usageExample() {
@@ -96,5 +100,35 @@ public final class ToggleSwitchPage extends OutlinePage {
             pseudo-classes to change the [i]ToggleSwitch[/i] color.""");
 
         return new ExampleBox(box, new Snippet(getClass(), 2), description);
+    }
+
+    private ExampleBox toggleGroupExample() {
+        //snippet_3:start
+        var group = new ToggleGroup();
+
+        var toggle1 = new ToggleSwitch();
+        toggle1.setToggleGroup(group);
+        toggle1.setSelected(true);
+
+        var toggle2 = new ToggleSwitch();
+        toggle2.setToggleGroup(group);
+
+        var toggle3 = new ToggleSwitch();
+        toggle3.setToggleGroup(group);
+        //snippet_3:end
+
+        var grid = new GridPane();
+        grid.setHgap(HGAP_20);
+        grid.setVgap(VGAP_10);
+        grid.addRow(0, new Label("Option 1"), toggle1);
+        grid.addRow(1, new Label("Option 2"), toggle2);
+        grid.addRow(2, new Label("Option 3"), toggle3);
+
+        var description = BBCodeParser.createFormattedText("""
+            Toggles can optionally be combined into a group where only one switch \
+            at a time can be selected."""
+        );
+
+        return new ExampleBox(grid, new Snippet(getClass(), 3), description);
     }
 }
