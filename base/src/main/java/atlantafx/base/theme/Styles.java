@@ -26,11 +26,6 @@ public final class Styles {
     public static final String WARNING = "warning";
     public static final String DANGER = "danger";
 
-    public static final PseudoClass STATE_ACCENT = PseudoClass.getPseudoClass(ACCENT);
-    public static final PseudoClass STATE_SUCCESS = PseudoClass.getPseudoClass(SUCCESS);
-    public static final PseudoClass STATE_WARNING = PseudoClass.getPseudoClass(WARNING);
-    public static final PseudoClass STATE_DANGER = PseudoClass.getPseudoClass(DANGER);
-
     // Controls
 
     public static final String TEXT = "text";
@@ -89,6 +84,14 @@ public final class Styles {
 
     public static final String TEXT_MUTED = "text-muted";
     public static final String TEXT_SUBTLE = "text-subtle";
+
+    // Pseudo-classes
+
+    public static final PseudoClass STATE_ACCENT = PseudoClass.getPseudoClass(ACCENT);
+    public static final PseudoClass STATE_SUCCESS = PseudoClass.getPseudoClass(SUCCESS);
+    public static final PseudoClass STATE_WARNING = PseudoClass.getPseudoClass(WARNING);
+    public static final PseudoClass STATE_DANGER = PseudoClass.getPseudoClass(DANGER);
+    public static final PseudoClass STATE_INTERACTIVE = PseudoClass.getPseudoClass(INTERACTIVE);
 
     private Styles() {
         // Default constructor

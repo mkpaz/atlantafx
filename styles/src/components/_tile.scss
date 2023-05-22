@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: MIT
+
+$color-interactive: -color-bg-subtle !default;
+
+@use "../settings/config" as cfg;
+
+.tile {
+  -fx-padding: 0.75em 1em 0.75em 1em;
+  -fx-alignment: CENTER_LEFT;
+  -fx-background-radius: cfg.$border-radius;
+
+  &:hover:interactive {
+    -fx-background-color: $color-interactive;
+    -fx-cursor: hand;
+  }
+
+  >.graphic {
+    &:filled {
+      -fx-padding: 0 1em 0 0;
+    }
+  }
+
+  >.header {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0;
+
+    >.title {
+      -fx-font-size: cfg.$font-title-4;
+    }
+
+    >.subtitle {
+      -fx-text-fill: -color-fg-muted;
+    }
+
+    &:filled {
+      -fx-spacing: 5px;
+      -fx-alignment: TOP_LEFT;
+    }
+  }
+
+  >.action {
+    &:filled {
+      -fx-padding: 0 0 0 1em;
+    }
+  }
+}

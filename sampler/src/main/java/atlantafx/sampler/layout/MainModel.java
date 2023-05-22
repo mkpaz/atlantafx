@@ -40,6 +40,7 @@ import atlantafx.sampler.page.components.TabPanePage;
 import atlantafx.sampler.page.components.TableViewPage;
 import atlantafx.sampler.page.components.TextAreaPage;
 import atlantafx.sampler.page.components.TextFieldPage;
+import atlantafx.sampler.page.components.TilePage;
 import atlantafx.sampler.page.components.TitledPanePage;
 import atlantafx.sampler.page.components.ToggleButtonPage;
 import atlantafx.sampler.page.components.ToggleSwitchPage;
@@ -164,6 +165,7 @@ public class MainModel {
             NAV_TREE.get(SeparatorPage.class),
             NAV_TREE.get(SplitPanePage.class),
             NAV_TREE.get(PopoverPage.class),
+            NAV_TREE.get(TilePage.class),
             NAV_TREE.get(TitledPanePage.class),
             NAV_TREE.get(ToolBarPage.class)
         );
@@ -297,6 +299,7 @@ public class MainModel {
         map.put(SliderPage.class, NavTree.Item.page(SliderPage.NAME, SliderPage.class));
         map.put(SpinnerPage.class, NavTree.Item.page(SpinnerPage.NAME, SpinnerPage.class));
         map.put(SplitPanePage.class, NavTree.Item.page(SplitPanePage.NAME, SplitPanePage.class));
+        map.put(TilePage.class, NavTree.Item.page(TilePage.NAME, TilePage.class));
         map.put(TableViewPage.class, NavTree.Item.page(TableViewPage.NAME, TableViewPage.class));
         map.put(TabPanePage.class, NavTree.Item.page(TabPanePage.NAME, TabPanePage.class));
         map.put(TextAreaPage.class, NavTree.Item.page(TextAreaPage.NAME, TextAreaPage.class));
