@@ -1,0 +1,55 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+$color-bg:     -color-bg-default !default;
+$color-border: -color-border-default !default;
+$padding-x:    0.75em !default;
+$padding-y:    1em    !default;
+$spacing:      10px   !default;
+
+.card {
+  -fx-background-color: $color-bg;
+  -fx-alignment: TOP_LEFT;
+  -fx-padding: $padding-y $padding-x $padding-y $padding-x;
+  -fx-spacing: $spacing;
+
+  -fx-border-color: $color-border;
+  -fx-border-width: cfg.$border-width;
+  -fx-border-radius: cfg.$border-radius;
+
+  >.header {
+    -fx-alignment: TOP_LEFT;
+  }
+
+  >.sub-header {
+    -fx-alignment: TOP_LEFT;
+  }
+
+  >.body {
+    // double spacing for body
+    -fx-padding: $spacing 0 $spacing 0;
+    -fx-alignment: TOP_LEFT;
+  }
+
+  >.footer {
+    -fx-alignment: TOP_LEFT;
+  }
+
+  @each $level, $radius in cfg.$elevation {
+    &.elevated-#{$level} {
+      @include effects.shadow(cfg.$elevation-color, $radius);
+    }
+  }
+
+  &.interactive:hover {
+    @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
+  }
+
+  .tile {
+    // prevent double indentation
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+  }
+}

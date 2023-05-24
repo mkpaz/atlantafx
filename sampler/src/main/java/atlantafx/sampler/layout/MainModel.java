@@ -11,6 +11,7 @@ import atlantafx.sampler.page.components.AnimationsPage;
 import atlantafx.sampler.page.components.BreadcrumbsPage;
 import atlantafx.sampler.page.components.ButtonPage;
 import atlantafx.sampler.page.components.CalendarPage;
+import atlantafx.sampler.page.components.CardPage;
 import atlantafx.sampler.page.components.ChartPage;
 import atlantafx.sampler.page.components.CheckBoxPage;
 import atlantafx.sampler.page.components.ChoiceBoxPage;
@@ -158,6 +159,7 @@ public class MainModel {
         var containers = NavTree.Item.group("Containers", new FontIcon(Material2OutlinedMZ.TABLE_CHART));
         containers.getChildren().setAll(
             NAV_TREE.get(AccordionPage.class),
+            NAV_TREE.get(CardPage.class),
             NAV_TREE.get(ContextMenuPage.class),
             NAV_TREE.get(DeckPanePage.class),
             NAV_TREE.get(ModalPanePage.class),
@@ -260,6 +262,7 @@ public class MainModel {
         map.put(BreadcrumbsPage.class, NavTree.Item.page(BreadcrumbsPage.NAME, BreadcrumbsPage.class));
         map.put(ButtonPage.class, NavTree.Item.page(ButtonPage.NAME, ButtonPage.class));
         map.put(CalendarPage.class, NavTree.Item.page(CalendarPage.NAME, CalendarPage.class));
+        map.put(CardPage.class, NavTree.Item.page(CardPage.NAME, CardPage.class));
         map.put(ChartPage.class, NavTree.Item.page(ChartPage.NAME, ChartPage.class));
         map.put(ChoiceBoxPage.class, NavTree.Item.page(ChoiceBoxPage.NAME, ChoiceBoxPage.class));
         map.put(CheckBoxPage.class, NavTree.Item.page(CheckBoxPage.NAME, CheckBoxPage.class));

@@ -53,6 +53,7 @@ public class TileSkin extends SkinBase<Tile> {
         headerBox.setMinHeight(Region.USE_COMPUTED_SIZE);
         headerBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
         headerBox.setMaxHeight(Region.USE_COMPUTED_SIZE);
+        headerBox.pseudoClassStateChanged(FILLED, control.getSubTitle() != null);
 
         registerChangeListener(control.subTitleProperty(), o -> {
             var value = getSkinnable().getSubTitle();

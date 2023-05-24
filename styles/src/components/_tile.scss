@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-$color-interactive: -color-bg-subtle !default;
-
 @use "../settings/config" as cfg;
+
+$color-interactive: -color-bg-subtle !default;
 
 .tile {
   -fx-padding: 0.75em 1em 0.75em 1em;
@@ -33,7 +33,7 @@ $color-interactive: -color-bg-subtle !default;
     }
 
     &:filled {
-      -fx-spacing: 5px;
+      -fx-spacing: 0.5em;
       -fx-alignment: TOP_LEFT;
     }
   }

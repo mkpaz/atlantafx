@@ -61,7 +61,10 @@ public class TilePage extends OutlinePage {
 
     private Node skeleton() {
         BiFunction<String, Pos, Node> cellBuilder = (s, pos) -> {
-            var cell = new VBox(new Label(s));
+            var lbl = new Label(s);
+            lbl.getStyleClass().add(Styles.TEXT_SMALL);
+
+            var cell = new VBox(lbl);
             cell.setPadding(new Insets(10));
             cell.setFillWidth(true);
             cell.setAlignment(pos);
