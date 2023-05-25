@@ -57,7 +57,7 @@
       <Separator orientation="VERTICAL" prefHeight="200.0" styleClass="large" />
       <VBox alignment="TOP_CENTER" spacing="10.0">
          <children>
-            <Calendar prefWidth="400.0" showWeekNumbers="true" VBox.vgrow="NEVER" />
+            <Calendar prefWidth="400.0" showWeekNumbers="true" VBox.vgrow="NEVER" styleClass="edge-to-edge" />
             <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="flat">
                <graphic>
                   <Label maxWidth="1.7976931348623157E308" styleClass="danger" text="Remove due date" />

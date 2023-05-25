@@ -252,6 +252,12 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
   }
 }
 
+.edge-to-edge>.calendar.date-picker-popup {
+  -fx-background-color: -color-date-bg;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
+}
+
 .date-picker-popup>.calendar-grid>.selected,
 .date-picker-popup>.calendar-grid>.selected>.secondary-text,
 .date-picker-popup>.calendar-grid>.previous-month.selected,

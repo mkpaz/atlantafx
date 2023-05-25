@@ -5,7 +5,7 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.Calendar;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
-import atlantafx.base.theme.Styles;
+import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
@@ -51,16 +51,6 @@ public final class PopoverPage extends OutlinePage {
     }
 
     private ExampleBox usageExample() {
-        var dataClass = """
-            .popover .date-picker-popup {
-              -color-date-border: transparent;
-              -color-date-bg: transparent;
-              -color-date-day-bg: transparent;
-              -color-date-month-year-bg: transparent;
-              -color-date-day-bg-hover: -color-bg-subtle;
-            }
-            """;
-
         //snippet_1:start
         var textFlow = new TextFlow(new Text(
             FAKER.lorem().sentence(30)
@@ -79,12 +69,7 @@ public final class PopoverPage extends OutlinePage {
         // ~
         var cal = new Calendar();
         cal.setValue(LocalDate.now(ZoneId.systemDefault()));
-        // -color-date-border: transparent;
-        // -color-date-bg: transparent;
-        // -color-date-day-bg: transparent;
-        // -color-date-month-year-bg: transparent;
-        // -color-date-day-bg-hover: -color-bg-subtle;
-        cal.getStylesheets().add(Styles.toDataURI(dataClass));
+        cal.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
 
         var pop2 = new Popover(cal);
         pop2.setHeaderAlwaysVisible(false);
