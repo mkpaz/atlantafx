@@ -14,10 +14,6 @@ $radius in cfg.$elevation {
   @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
 }
 
-.modal-pane>.scroll-pane>.viewport>*>.scrollable-content {
-  -fx-background-color: rgba(0, 0, 0, 0.25);
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 // BBCode                                                                    //
 ///////////////////////////////////////////////////////////////////////////////

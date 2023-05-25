@@ -3,6 +3,8 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ModalPane;
+import atlantafx.base.controls.Tile;
+import atlantafx.base.layout.DialogPane;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.ExampleBox;
@@ -15,9 +17,12 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -41,6 +46,9 @@ public final class ModalPanePage extends OutlinePage {
 
         // add modal pane to the root container, which is StackPane
         getChildren().addAll(modalPane, modalPaneTop, modalPaneTopmost);
+        modalPane.setId("modalPane");
+        modalPaneTop.setId("modalPaneTop");
+        modalPaneTopmost.setId("modalPaneTopmost");
 
         // reset side and transition to reuse a single modal pane between different examples
         modalPane.displayProperty().addListener((obs, old, val) -> {
@@ -62,6 +70,7 @@ public final class ModalPanePage extends OutlinePage {
         addSection("Nesting", nestingExample());
         addSection("Maximized", maximizedExample());
         addSection("Overflowed", overflowedExample());
+        addSection("DialogPane", dialogPaneExample());
         addSection("Lightbox", lightboxExample());
     }
 
@@ -294,6 +303,52 @@ public final class ModalPanePage extends OutlinePage {
             [i]ScrollPane[/i] for the content node if needed.""");
 
         return new ExampleBox(box, new Snippet(getClass(), 6), description);
+    }
+
+    private ExampleBox dialogPaneExample() {
+        //snippet_8:start
+        // you can use a selector
+        var dialog = new DialogPane("#modalPane");
+
+        // ... or your pass a ModalPane instance directly
+        //var dialog = new DialogPane(modalPane);
+
+        // ... or you can set your own close handler
+        //dialog.setOnClose(/* whatever */);
+
+        var ta = new TextArea();
+        ta.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        VBox.setVgrow(ta, Priority.ALWAYS);
+
+        var content = new VBox(
+            20,
+            new Tile("Example Dialog", FAKER.lorem().sentence(10)),
+            ta
+        );
+        content.setPadding(new Insets(20));
+        dialog.addContent(content);
+        AnchorPane.setTopAnchor(content, 0d);
+        AnchorPane.setRightAnchor(content, 0d);
+        AnchorPane.setBottomAnchor(content, 0d);
+        AnchorPane.setLeftAnchor(content, 0d);
+
+        var openBtn = new Button("Open Dialog");
+        openBtn.setOnAction(evt -> modalPane.show(dialog));
+        //snippet_8:end
+
+        dialog.setPrefSize(450, 450);
+        dialog.setMaxSize(450, 450);
+
+        var box = new HBox(openBtn);
+        box.setAlignment(Pos.CENTER);
+
+        var description = BBCodeParser.createFormattedText("""
+            The [i]DialogPane[/i] is a specialized control (or layout) designed to hold the \
+            [i]ModalPane[/i] dialog content. It includes the close button out-of-the-box \
+            and allows for the addition of arbitrary children."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 8), description);
     }
 
     private ExampleBox lightboxExample() {

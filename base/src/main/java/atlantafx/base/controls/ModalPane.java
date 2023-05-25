@@ -246,7 +246,7 @@ public class ModalPane extends Control {
             switch (side) {
                 case TOP -> {
                     setInTransitionFactory(node -> Animations.slideInDown(node, durIn));
-                    setOutTransitionFactory(node -> Animations.slideOutDown(node, durOut));
+                    setOutTransitionFactory(node -> Animations.slideOutUp(node, durOut));
                 }
                 case RIGHT -> {
                     setInTransitionFactory(node -> Animations.slideInRight(node, durIn));
@@ -254,7 +254,7 @@ public class ModalPane extends Control {
                 }
                 case BOTTOM -> {
                     setInTransitionFactory(node -> Animations.slideInUp(node, durIn));
-                    setOutTransitionFactory(node -> Animations.slideOutUp(node, durOut));
+                    setOutTransitionFactory(node -> Animations.slideOutDown(node, durOut));
                 }
                 case LEFT -> {
                     setInTransitionFactory(node -> Animations.slideInLeft(node, durIn));
