@@ -27,6 +27,7 @@ import atlantafx.sampler.page.components.InputGroupPage;
 import atlantafx.sampler.page.components.ListViewPage;
 import atlantafx.sampler.page.components.MenuBarPage;
 import atlantafx.sampler.page.components.MenuButtonPage;
+import atlantafx.sampler.page.components.MessagePage;
 import atlantafx.sampler.page.components.ModalPanePage;
 import atlantafx.sampler.page.components.PaginationPage;
 import atlantafx.sampler.page.components.PopoverPage;
@@ -184,6 +185,7 @@ public class MainModel {
         var feedback = NavTree.Item.group("Feedback", new FontIcon(Material2OutlinedAL.CHAT_BUBBLE_OUTLINE));
         feedback.getChildren().setAll(
             NAV_TREE.get(DialogPage.class),
+            NAV_TREE.get(MessagePage.class),
             NAV_TREE.get(ProgressIndicatorPage.class),
             NAV_TREE.get(TooltipPage.class)
         );
@@ -289,6 +291,7 @@ public class MainModel {
             MenuButtonPage.NAME,
             MenuButtonPage.class, "SplitMenuButton")
         );
+        map.put(MessagePage.class, NavTree.Item.page(MessagePage.NAME, MessagePage.class));
         map.put(ModalPanePage.class, NavTree.Item.page(ModalPanePage.NAME, ModalPanePage.class));
         map.put(PaginationPage.class, NavTree.Item.page(PaginationPage.NAME, PaginationPage.class));
         map.put(PopoverPage.class, NavTree.Item.page(PopoverPage.NAME, PopoverPage.class));

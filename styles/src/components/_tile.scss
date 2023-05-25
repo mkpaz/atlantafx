@@ -31,8 +31,10 @@ $color-interactive: -color-bg-subtle !default;
     >.subtitle {
       -fx-text-fill: -color-fg-muted;
     }
+  }
 
-    &:filled {
+  &:with-title:with-subtitle {
+    >.header {
       -fx-spacing: 0.5em;
       -fx-alignment: TOP_LEFT;
     }

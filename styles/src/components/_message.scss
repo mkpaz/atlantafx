@@ -1,0 +1,111 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$color-bg-accent:           -color-accent-subtle !default;
+$color-fg-accent-primary:   -color-accent-fg     !default;
+$color-fg-accent-secondary: -color-fg-default    !default;
+$color-border-accent:       -color-accent-muted  !default;
+$color-border-accent-hover: -color-accent-emphasis !default;
+
+$color-bg-success:           -color-success-subtle !default;
+$color-fg-success-primary:   -color-success-fg     !default;
+$color-fg-success-secondary: -color-fg-default     !default;
+$color-border-success:       -color-success-muted  !default;
+$color-border-success-hover: -color-success-emphasis !default;
+
+$color-bg-warning:           -color-warning-subtle !default;
+$color-fg-warning-primary:   -color-warning-fg     !default;
+$color-fg-warning-secondary: -color-fg-default     !default;
+$color-border-warning:       -color-warning-muted  !default;
+$color-border-warning-hover: -color-warning-emphasis !default;
+
+$color-bg-danger:            -color-danger-subtle !default;
+$color-fg-danger-primary:    -color-danger-fg     !default;
+$color-fg-danger-secondary:  -color-fg-default    !default;
+$color-border-danger:        -color-danger-muted  !default;
+$color-border-danger-hover:  -color-danger-emphasis !default;
+
+.message {
+
+  -color-message-bg: $color-bg-accent;
+  -color-message-fg-primary: $color-fg-accent-primary;
+  -color-message-fg-secondary: $color-fg-accent-secondary;
+  -color-message-border: $color-border-accent;
+  -color-message-border-interactive: $color-border-accent-hover;
+
+  &.success {
+    -color-message-bg: $color-bg-success;
+    -color-message-fg-primary: $color-fg-success-primary;
+    -color-message-fg-secondary: $color-fg-success-secondary;
+    -color-message-border: $color-border-success;
+    -color-message-border-interactive: $color-border-success-hover;
+  }
+
+  &.warning {
+    -color-message-bg: $color-bg-warning;
+    -color-message-fg-primary: $color-fg-warning-primary;
+    -color-message-fg-secondary: $color-fg-warning-secondary;
+    -color-message-border: $color-border-warning;
+    -color-message-border-interactive: $color-border-warning-hover;
+  }
+
+  &.danger {
+    -color-message-bg: $color-bg-danger;
+    -color-message-fg-primary: $color-fg-danger-primary;
+    -color-message-fg-secondary: $color-fg-danger-secondary;
+    -color-message-border: $color-border-danger;
+    -color-message-border-interactive: $color-border-danger-hover;
+  }
+
+  >.tile {
+    -fx-background-color: -color-message-bg;
+    -fx-alignment: TOP_LEFT;
+    -fx-border-color: -color-message-border;
+    -fx-border-width: cfg.$border-width;
+    -fx-border-radius: cfg.$border-radius;
+
+    &:hover:interactive {
+      -fx-background-color: -color-message-bg;
+      -fx-border-color: -color-message-border-interactive;
+    }
+
+    &:with-title:with-subtitle {
+      -fx-alignment: TOP_LEFT;
+    }
+
+    &:with-title,
+    &:with-subtitle {
+      -fx-alignment: CENTER_LEFT;
+    }
+
+    >.graphic {
+      -fx-alignment: TOP_LEFT;
+    }
+
+    >.header {
+      >.title {
+        -fx-text-fill: -color-message-fg-primary;
+      }
+
+      >.subtitle {
+        -fx-text-fill: -color-message-fg-secondary;
+      }
+    }
+
+    >.action {
+      -fx-alignment: TOP_LEFT;
+    }
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-message-fg-primary;
+      -fx-fill: -color-message-fg-primary;
+      -fx-icon-size: cfg.$icon-size-larger;
+    }
+  }
+
+  &.edge-to-edge > .tile {
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+  }
+}

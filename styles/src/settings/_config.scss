@@ -36,7 +36,8 @@ $font-icon-selector: ".font-icon, .ikonli-font-icon";
 $font-icon-selector-immediate: ">.font-icon, >.ikonli-font-icon";
 
 // Ikonli doesn't support 'em'
-$icon-size: 18px !default;
+$icon-size:        18px !default;
+$icon-size-larger: 24px !default;
 
 // elevation (level : radius)
 $elevation: (1: 2px, 2: 8px, 3: 16px, 4: 20px) !default;

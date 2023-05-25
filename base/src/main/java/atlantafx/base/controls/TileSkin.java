@@ -16,7 +16,8 @@ import javafx.scene.layout.VBox;
 
 public class TileSkin extends SkinBase<Tile> {
 
-    private static final PseudoClass FILLED = PseudoClass.getPseudoClass("filled");
+    private static final PseudoClass WITH_TITLE = PseudoClass.getPseudoClass("with-title");
+    private static final PseudoClass WITH_SUBTITLE = PseudoClass.getPseudoClass("with-subtitle");
 
     protected final HBox root = new HBox();
     protected final StackPane graphicSlot;
@@ -38,7 +39,8 @@ public class TileSkin extends SkinBase<Tile> {
 
         titleLbl = new Label(control.getTitle());
         titleLbl.getStyleClass().add("title");
-        titleLbl.textProperty().bind(control.titleProperty());
+        titleLbl.setVisible(control.getTitle() != null);
+        titleLbl.setManaged(control.getTitle() != null);
 
         subTitleLbl = new Label(control.getSubTitle());
         subTitleLbl.setWrapText(true);
@@ -53,17 +55,24 @@ public class TileSkin extends SkinBase<Tile> {
         headerBox.setMinHeight(Region.USE_COMPUTED_SIZE);
         headerBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
         headerBox.setMaxHeight(Region.USE_COMPUTED_SIZE);
-        headerBox.pseudoClassStateChanged(FILLED, control.getSubTitle() != null);
 
+
+        root.pseudoClassStateChanged(WITH_TITLE, control.getTitle() != null);
+        registerChangeListener(control.titleProperty(), o -> {
+            var value = getSkinnable().getSubTitle();
+            titleLbl.setText(value);
+            titleLbl.setVisible(value != null);
+            titleLbl.setManaged(value != null);
+            root.pseudoClassStateChanged(WITH_TITLE, value != null);
+        });
+
+        root.pseudoClassStateChanged(WITH_SUBTITLE, control.getSubTitle() != null);
         registerChangeListener(control.subTitleProperty(), o -> {
             var value = getSkinnable().getSubTitle();
             subTitleLbl.setText(value);
             subTitleLbl.setVisible(value != null);
             subTitleLbl.setManaged(value != null);
-
-            // header is considered to be “filled” when a subtitle is set
-            // because a tile without a title is nonsense
-            headerBox.pseudoClassStateChanged(FILLED, value != null);
+            root.pseudoClassStateChanged(WITH_SUBTITLE, value != null);
         });
 
         actionSlot = new StackPane();
@@ -125,7 +134,7 @@ public class TileSkin extends SkinBase<Tile> {
 
     @Override
     public void dispose() {
-        titleLbl.textProperty().unbind();
+        unregisterChangeListeners(getSkinnable().titleProperty());
         unregisterChangeListeners(getSkinnable().subTitleProperty());
         getSkinnable().graphicProperty().removeListener(graphicSlotListener);
         getSkinnable().actionProperty().removeListener(actionSlotListener);
