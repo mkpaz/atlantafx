@@ -86,6 +86,12 @@ $color-fg-password: -color-fg-muted !default;
     -fx-background-color: -color-input-border-focused, -color-input-bg-readonly;
   }
 
+  &.edge-to-edge {
+    -fx-background-color: -color-input-bg;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+  }
+
   // input group
   &.left-pill {
     -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;

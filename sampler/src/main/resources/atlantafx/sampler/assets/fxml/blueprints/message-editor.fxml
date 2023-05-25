@@ -15,7 +15,7 @@
    <children>
       <HBox spacing="10.0">
          <children>
-            <TextField promptText="Untitled paragraph" styleClass="no-border" HBox.hgrow="ALWAYS" />
+            <TextField promptText="Untitled paragraph" styleClass="edge-to-edge" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false">
                <graphic>
                   <FontIcon iconLiteral="mdomz-more_horiz" />
@@ -133,7 +133,7 @@
          </children>
       </HBox>
       <Separator prefWidth="200.0" styleClass="small" />
-      <TextArea prefHeight="100.0" promptText="It's great time to write your content" styleClass="no-border" VBox.vgrow="ALWAYS" />
+      <TextArea prefHeight="100.0" promptText="It's great time to write your content" styleClass="edge-to-edge" VBox.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
