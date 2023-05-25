@@ -27,7 +27,7 @@
 
 package atlantafx.base.controls;
 
-import static atlantafx.base.controls.InlineDatePicker.isValidDate;
+import static atlantafx.base.controls.Calendar.isValidDate;
 import static java.time.temporal.ChronoField.DAY_OF_WEEK;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -73,7 +73,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, InlineDatePickerBehavior> {
+public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
 
     // formatters
     final DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("y");
@@ -113,7 +113,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         return firstDayOfMonth.get();
     }
 
-    public InlineDatePickerSkin(InlineDatePicker datePicker) {
+    public CalendarSkin(Calendar datePicker) {
         super(datePicker);
 
         createUI();
@@ -158,8 +158,8 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
     }
 
     @Override
-    public InlineDatePickerBehavior createDefaultBehavior() {
-        return new InlineDatePickerBehavior(getControl(), this);
+    public CalendarBehavior createDefaultBehavior() {
+        return new CalendarBehavior(getControl(), this);
     }
 
     public Locale getLocale() {
@@ -236,7 +236,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
         updateGrid();
 
         // preserve default class name for compatibility reasons
-        rootPane.getStyleClass().addAll("date-picker-popup", "inline-date-picker");
+        rootPane.getStyleClass().addAll("date-picker-popup", "calendar");
         rootPane.getChildren().add(calendarGrid);
 
         if (getControl().getBottomNode() != null) {
@@ -576,7 +576,7 @@ public class InlineDatePickerSkin extends BehaviorSkinBase<InlineDatePicker, Inl
     }
 
     protected DateCell createDayCell() {
-        Callback<InlineDatePicker, DateCell> factory = getControl().getDayCellFactory();
+        Callback<Calendar, DateCell> factory = getControl().getDayCellFactory();
         return Objects.requireNonNullElseGet(
             factory != null ? factory.call(getControl()) : null,
             DateCell::new

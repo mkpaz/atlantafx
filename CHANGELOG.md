@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Breaking changes
+
+* The `InlineDatePicker` control renamed to `Calendar`.
+
 ### Features
 
 - (Base) New `DeckPane` component with swipe and slide transition support.

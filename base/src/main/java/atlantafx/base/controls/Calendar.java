@@ -68,7 +68,7 @@ import javafx.util.Callback;
  * provided in the {@link java.time.chrono.Chronology} API to get or set the corresponding
  * {@link java.time.chrono.ChronoLocalDate} value.
  */
-public class InlineDatePicker extends Control {
+public class Calendar extends Control {
 
     protected LocalDate lastValidDate = null;
     protected Chronology lastValidChronology = IsoChronology.INSTANCE;
@@ -76,7 +76,7 @@ public class InlineDatePicker extends Control {
     /**
      * Creates a default DatePicker instance with a <code>null</code> date value set.
      */
-    public InlineDatePicker() {
+    public Calendar() {
         this(null);
 
         valueProperty().addListener(obs -> {
@@ -109,7 +109,7 @@ public class InlineDatePicker extends Control {
      *
      * @param localDate to be set as the currently selected date in the DatePicker. Can be null.
      */
-    public InlineDatePicker(LocalDate localDate) {
+    public Calendar(LocalDate localDate) {
         setValue(localDate);
         getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
@@ -119,7 +119,7 @@ public class InlineDatePicker extends Control {
      */
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new InlineDatePickerSkin(this);
+        return new CalendarSkin(this);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -144,17 +144,17 @@ public class InlineDatePicker extends Control {
      * A custom cell factory can be provided to customize individual day cells
      * Refer to {@link DateCell} and {@link Cell} for more information on cell factories.
      */
-    private ObjectProperty<Callback<InlineDatePicker, DateCell>> dayCellFactory;
+    private ObjectProperty<Callback<Calendar, DateCell>> dayCellFactory;
 
-    public final void setDayCellFactory(Callback<InlineDatePicker, DateCell> value) {
+    public final void setDayCellFactory(Callback<Calendar, DateCell> value) {
         dayCellFactoryProperty().set(value);
     }
 
-    public final Callback<InlineDatePicker, DateCell> getDayCellFactory() {
+    public final Callback<Calendar, DateCell> getDayCellFactory() {
         return (dayCellFactory != null) ? dayCellFactory.get() : null;
     }
 
-    public final ObjectProperty<Callback<InlineDatePicker, DateCell>> dayCellFactoryProperty() {
+    public final ObjectProperty<Callback<Calendar, DateCell>> dayCellFactoryProperty() {
         if (dayCellFactory == null) {
             dayCellFactory = new SimpleObjectProperty<>(this, "dayCellFactory");
         }
@@ -210,13 +210,13 @@ public class InlineDatePicker extends Control {
         if (showWeekNumbers == null) {
             showWeekNumbers = new StyleableBooleanProperty(false) {
                 @Override
-                public CssMetaData<InlineDatePicker, Boolean> getCssMetaData() {
+                public CssMetaData<Calendar, Boolean> getCssMetaData() {
                     return StyleableProperties.SHOW_WEEK_NUMBERS;
                 }
 
                 @Override
                 public Object getBean() {
-                    return InlineDatePicker.this;
+                    return Calendar.this;
                 }
 
                 @Override
@@ -270,22 +270,22 @@ public class InlineDatePicker extends Control {
     // Stylesheet Handling                                                   //
     ///////////////////////////////////////////////////////////////////////////
 
-    private static final String DEFAULT_STYLE_CLASS = "inline-date-picker";
+    private static final String DEFAULT_STYLE_CLASS = "calendar";
 
     private static class StyleableProperties {
 
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
-        private static final CssMetaData<InlineDatePicker, Boolean> SHOW_WEEK_NUMBERS =
+        private static final CssMetaData<Calendar, Boolean> SHOW_WEEK_NUMBERS =
             new CssMetaData<>("-fx-show-week-numbers", BooleanConverter.getInstance(), false) {
                 @Override
-                public boolean isSettable(InlineDatePicker n) {
+                public boolean isSettable(Calendar n) {
                     return n.showWeekNumbers == null || !n.showWeekNumbers.isBound();
                 }
 
                 @Override
                 @SuppressWarnings("RedundantCast")
-                public StyleableProperty<Boolean> getStyleableProperty(InlineDatePicker n) {
+                public StyleableProperty<Boolean> getStyleableProperty(Calendar n) {
                     return (StyleableProperty<Boolean>) (WritableValue<Boolean>) n.showWeekNumbersProperty();
                 }
             };

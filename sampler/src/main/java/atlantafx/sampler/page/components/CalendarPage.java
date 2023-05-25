@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.InlineDatePicker;
+import atlantafx.base.controls.Calendar;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
@@ -47,18 +47,18 @@ public final class CalendarPage extends OutlinePage {
             within a popup window."""
         );
         addSection("Usage", usageExample());
-        addSection("No past dates", noPastDatesExample());
-        addSection("User slots", clockExample());
+        addSection("No Past Dates", noPastDatesExample());
+        addSection("User Slots", clockExample());
         addSection("Style", styleExample());
     }
 
     private ExampleBox usageExample() {
         //snippet_1:start
-        var dp = new InlineDatePicker(TODAY);
-        dp.setShowWeekNumbers(true);
+        var cal = new Calendar(TODAY);
+        cal.setShowWeekNumbers(true);
         //snippet_1:end
 
-        var box = new HBox(dp);
+        var box = new HBox(cal);
         var description = BBCodeParser.createFormattedText("""
             In the default state, no date is selected. You can modify this behavior \
             either by using the constructor or by utilizing the [font=monospace]setValue()[/font] \
@@ -78,11 +78,11 @@ public final class CalendarPage extends OutlinePage {
             }
         }
 
-        var dp = new InlineDatePicker(TODAY);
-        dp.setDayCellFactory(c -> new FutureDateCell());
+        var cal = new Calendar(TODAY);
+        cal.setDayCellFactory(c -> new FutureDateCell());
         //snippet_2:end
 
-        var box = new HBox(dp);
+        var box = new HBox(cal);
         var description = BBCodeParser.createFormattedText("""
             This example demonstrates how you can disable past dates in the [i]Calendar[/i]."""
         );
@@ -131,12 +131,12 @@ public final class CalendarPage extends OutlinePage {
             }
         }
 
-        var dp = new InlineDatePicker(TODAY);
-        dp.setTopNode(new Clock());
-        dp.setShowWeekNumbers(true);
+        var cal = new Calendar(TODAY);
+        cal.setTopNode(new Clock());
+        cal.setShowWeekNumbers(true);
         //snippet_3:end
 
-        var box = new HBox(dp);
+        var box = new HBox(cal);
         var description = BBCodeParser.createFormattedText("""
             The [i]Calendar[/i] comes equipped with two slots (top and bottom) where \
             users can place their own content. For example, you can use these slots to \
@@ -154,16 +154,16 @@ public final class CalendarPage extends OutlinePage {
                 -color-date-month-year-fg: -color-fg-emphasis;
             }""";
         //snippet_4:start
-        var dp = new InlineDatePicker(TODAY);
-        dp.setShowWeekNumbers(true);
+        var cal = new Calendar(TODAY);
+        cal.setShowWeekNumbers(true);
 
         // -color-date-border: -color-accent-emphasis;
         // -color-date-month-year-bg: -color-accent-emphasis;
         // -color-date-month-year-fg: -color-fg-emphasis;
-        dp.getStylesheets().add(Styles.toDataURI(dataClass));
+        cal.getStylesheets().add(Styles.toDataURI(dataClass));
         //snippet_4:end
 
-        var box = new HBox(dp);
+        var box = new HBox(cal);
         var description = BBCodeParser.createFormattedText("""
             You can alter the style of the [i]Calendar[/i] by using looked-up color variables."""
         );

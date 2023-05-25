@@ -12,9 +12,9 @@ import java.time.ZoneId;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class InlineDatePickerBehavior extends BehaviorBase<InlineDatePicker, InlineDatePickerSkin> {
+public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
 
-    public InlineDatePickerBehavior(InlineDatePicker control, InlineDatePickerSkin skin) {
+    public CalendarBehavior(Calendar control, CalendarSkin skin) {
         super(control, skin);
     }
 

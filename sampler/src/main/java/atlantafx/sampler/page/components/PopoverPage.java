@@ -2,7 +2,7 @@
 
 package atlantafx.sampler.page.components;
 
-import atlantafx.base.controls.InlineDatePicker;
+import atlantafx.base.controls.Calendar;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
 import atlantafx.base.theme.Styles;
@@ -77,20 +77,20 @@ public final class PopoverPage extends OutlinePage {
         link1.setOnAction(e -> pop1.show(link1));
 
         // ~
-        var datePicker = new InlineDatePicker();
-        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
+        var cal = new Calendar();
+        cal.setValue(LocalDate.now(ZoneId.systemDefault()));
         // -color-date-border: transparent;
         // -color-date-bg: transparent;
         // -color-date-day-bg: transparent;
         // -color-date-month-year-bg: transparent;
         // -color-date-day-bg-hover: -color-bg-subtle;
-        datePicker.getStylesheets().add(Styles.toDataURI(dataClass));
+        cal.getStylesheets().add(Styles.toDataURI(dataClass));
 
-        var pop2 = new Popover(datePicker);
+        var pop2 = new Popover(cal);
         pop2.setHeaderAlwaysVisible(false);
         pop2.setDetachable(true);
 
-        var link2 = new Hyperlink("DatePicker");
+        var link2 = new Hyperlink("Calendar");
         link2.setOnAction(e -> pop2.show(link2));
         //snippet_1:end
 
