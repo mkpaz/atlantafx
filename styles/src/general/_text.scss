@@ -61,6 +61,9 @@ Text {
 .text-subtle {
   -fx-fill: -color-fg-subtle;
 }
+.text-on-emphasis {
+  -fx-fill: -color-fg-emphasis;
+}
 
 // font weight
 // JavaFX CSS parser recognizes all values, but JavaFX engine

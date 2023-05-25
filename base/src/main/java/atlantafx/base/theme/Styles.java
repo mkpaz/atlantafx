@@ -84,6 +84,7 @@ public final class Styles {
 
     public static final String TEXT_MUTED = "text-muted";
     public static final String TEXT_SUBTLE = "text-subtle";
+    public static final String TEXT_ON_EMPHASIS = "text-on-emphasis";
 
     // Pseudo-classes
 
@@ -92,6 +93,39 @@ public final class Styles {
     public static final PseudoClass STATE_WARNING = PseudoClass.getPseudoClass(WARNING);
     public static final PseudoClass STATE_DANGER = PseudoClass.getPseudoClass(DANGER);
     public static final PseudoClass STATE_INTERACTIVE = PseudoClass.getPseudoClass(INTERACTIVE);
+
+    // Backgrounds
+
+    public static final String BG_DEFAULT = "bg-default";
+    public static final String BG_INSET = "bg-inset";
+    public static final String BG_SUBTLE = "bg-subtle";
+
+    public static final String BG_NEUTRAL_EMPHASIS_PLUS = "bg-neutral-emphasis-plus";
+    public static final String BG_NEUTRAL_EMPHASIS = "bg-neutral-emphasis";
+    public static final String BG_NEUTRAL_MUTED = "bg-neutral-muted";
+    public static final String BG_NEUTRAL_SUBTLE = "bg-neutral-subtle";
+
+    public static final String BG_ACCENT_EMPHASIS = "bg-accent-emphasis";
+    public static final String BG_ACCENT_MUTED = "bg-accent-muted";
+    public static final String BG_ACCENT_SUBTLE = "bg-accent-subtle";
+
+    public static final String BG_WARNING_EMPHASIS = "bg-warning-emphasis";
+    public static final String BG_WARNING_MUTED = "bg-warning-muted";
+    public static final String BG_WARNING_SUBTLE = "bg-warning-subtle";
+
+    public static final String BG_SUCCESS_EMPHASIS = "bg-success-emphasis";
+    public static final String BG_SUCCESS_MUTED = "bg-success-muted";
+    public static final String BG_SUCCESS_SUBTLE = "bg-success-subtle";
+
+    public static final String BG_DANGER_EMPHASIS = "bg-danger-emphasis";
+    public static final String BG_DANGER_MUTED = "bg-danger-muted";
+    public static final String BG_DANGER_SUBTLE = "bg-danger-subtle";
+
+    // Borders
+
+    public static final String BORDER_DEFAULT = "border-default";
+    public static final String BORDER_MUTED = "border-muted";
+    public static final String BORDER_SUBTLE = "border-subtle";
 
     private Styles() {
         // Default constructor
@@ -239,7 +273,7 @@ public final class Styles {
     }
 
     /**
-     * Converts a CSS string to a Base64-encoded data URI. The resulting string is
+     * Converts a CSS string to the Base64-encoded data URI. The resulting string is
      * an inline data URI that can be applied to any node in the following manner:
      *
      * <pre>{@code}

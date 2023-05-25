@@ -3,17 +3,6 @@
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
-@each $level,
-$radius in cfg.$elevation {
-  .elevated-#{$level} {
-    @include effects.shadow(cfg.$elevation-color, $radius);
-  }
-}
-
-.interactive:hover {
-  @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 // BBCode                                                                    //
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,6 +43,11 @@ $radius in cfg.$elevation {
 // Ikonli                                                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
+.ikonli-font-icon.text-on-emphasis {
+  -fx-fill: -color-fg-emphasis;
+  -fx-icon-color: -color-fg-emphasis;
+}
+
 .ikonli-font-icon.accent {
   -fx-fill: -color-accent-emphasis;
   -fx-icon-color: -color-accent-emphasis;
@@ -92,4 +86,94 @@ $radius in cfg.$elevation {
 .ikonli-font-icon:danger {
   -fx-fill: -color-danger-emphasis;
   -fx-icon-color: -color-danger-emphasis;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Utils                                                                     //
+///////////////////////////////////////////////////////////////////////////////
+
+.bg-default {
+  -fx-background-color: -color-bg-default;
+}
+.bg-inset {
+  -fx-background-color: -color-bg-inset;
+}
+.bg-subtle {
+  -fx-background-color: -color-bg-subtle;
+}
+
+.bg-neutral-emphasis-plus {
+  -fx-background-color: -color-neutral-emphasis-plus;
+}
+.bg-neutral-emphasis {
+  -fx-background-color: -color-neutral-emphasis;
+}
+.bg-neutral-muted {
+  -fx-background-color: -color-neutral-muted;
+}
+.bg-neutral-subtle {
+  -fx-background-color: -color-neutral-subtle;
+}
+
+.bg-accent-emphasis {
+  -fx-background-color: -color-accent-emphasis;
+}
+.bg-accent-muted {
+  -fx-background-color: -color-accent-muted;
+}
+.bg-accent-subtle {
+  -fx-background-color: -color-accent-subtle;
+}
+
+.bg-warning-emphasis {
+  -fx-background-color: -color-warning-emphasis;
+}
+.bg-warning-muted {
+  -fx-background-color: -color-warning-muted;
+}
+.bg-warning-subtle {
+  -fx-background-color: -color-warning-subtle;
+}
+
+.bg-success-emphasis {
+  -fx-background-color: -color-success-emphasis;
+}
+.bg-success-muted {
+  -fx-background-color: -color-success-muted;
+}
+.bg-success-subtle {
+  -fx-background-color: -color-success-subtle;
+}
+
+.bg-danger-emphasis {
+  -fx-background-color: -color-danger-emphasis;
+}
+.bg-danger-muted {
+  -fx-background-color: -color-danger-muted;
+}
+.bg-danger-subtle {
+  -fx-background-color: -color-danger-subtle;
+}
+
+.border-default {
+  -fx-border-color: -color-border-default;
+  -fx-border-width: cfg.$border-width;
+}
+.border-muted {
+  -fx-border-color: -color-border-muted;
+  -fx-border-width: cfg.$border-width;
+}
+.border-subtle {
+  -fx-border-color: -color-border-subtle;
+  -fx-border-width: cfg.$border-width;
+}
+
+@each $level, $radius in cfg.$elevation {
+  .elevated-#{$level} {
+    @include effects.shadow(cfg.$elevation-color, $radius);
+  }
+}
+
+.interactive:hover {
+  @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
 }
