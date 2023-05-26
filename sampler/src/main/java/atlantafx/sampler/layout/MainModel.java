@@ -163,6 +163,7 @@ public class MainModel {
             NAV_TREE.get(CardPage.class),
             NAV_TREE.get(ContextMenuPage.class),
             NAV_TREE.get(DeckPanePage.class),
+            NAV_TREE.get(InputGroupPage.class),
             NAV_TREE.get(ModalPanePage.class),
             NAV_TREE.get(ScrollPanePage.class),
             NAV_TREE.get(SeparatorPage.class),
@@ -200,7 +201,6 @@ public class MainModel {
             NAV_TREE.get(ComboBoxPage.class),
             NAV_TREE.get(CustomTextFieldPage.class),
             NAV_TREE.get(DatePickerPage.class),
-            NAV_TREE.get(InputGroupPage.class),
             NAV_TREE.get(HtmlEditorPage.class),
             NAV_TREE.get(MenuButtonPage.class),
             NAV_TREE.get(RadioButtonPage.class),
@@ -259,7 +259,6 @@ public class MainModel {
         );
 
         // components
-        map.put(InputGroupPage.class, NavTree.Item.page(InputGroupPage.NAME, InputGroupPage.class));
         map.put(AccordionPage.class, NavTree.Item.page(AccordionPage.NAME, AccordionPage.class));
         map.put(BreadcrumbsPage.class, NavTree.Item.page(BreadcrumbsPage.NAME, BreadcrumbsPage.class));
         map.put(ButtonPage.class, NavTree.Item.page(ButtonPage.NAME, ButtonPage.class));
@@ -285,6 +284,7 @@ public class MainModel {
         map.put(DeckPanePage.class, NavTree.Item.page(DeckPanePage.NAME, DeckPanePage.class));
         map.put(DialogPage.class, NavTree.Item.page(DialogPage.NAME, DialogPage.class));
         map.put(HtmlEditorPage.class, NavTree.Item.page(HtmlEditorPage.NAME, HtmlEditorPage.class));
+        map.put(InputGroupPage.class, NavTree.Item.page(InputGroupPage.NAME, InputGroupPage.class));
         map.put(ListViewPage.class, NavTree.Item.page(ListViewPage.NAME, ListViewPage.class));
         map.put(MenuBarPage.class, NavTree.Item.page(MenuBarPage.NAME, MenuBarPage.class));
         map.put(MenuButtonPage.class, NavTree.Item.page(

@@ -6,6 +6,7 @@ import static javafx.scene.control.TabPane.TabClosingPolicy;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.ToggleSwitch;
+import atlantafx.base.layout.InputGroup;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
@@ -346,7 +347,6 @@ public final class TabPanePage extends OutlinePage {
         defaultStyleToggle.setUserData(
             List.of("whatever", Styles.TABS_FLOATING, Styles.TABS_CLASSIC)
         );
-        defaultStyleToggle.getStyleClass().add(Styles.LEFT_PILL);
         defaultStyleToggle.setSelected(true);
 
         var floatingStyleToggle = new ToggleButton("Floating");
@@ -354,14 +354,12 @@ public final class TabPanePage extends OutlinePage {
         floatingStyleToggle.setUserData(
             List.of(Styles.TABS_FLOATING, "whatever", Styles.TABS_CLASSIC)
         );
-        floatingStyleToggle.getStyleClass().add(Styles.CENTER_PILL);
 
         var classicStyleToggle = new ToggleButton("Classic");
         classicStyleToggle.setToggleGroup(styleToggleGroup);
         classicStyleToggle.setUserData(
             List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING)
         );
-        classicStyleToggle.getStyleClass().add(Styles.RIGHT_PILL);
 
         styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null) {
@@ -370,7 +368,9 @@ public final class TabPanePage extends OutlinePage {
             }
         });
 
-        var styleBox = new HBox(defaultStyleToggle, floatingStyleToggle, classicStyleToggle);
+        var styleBox = new InputGroup(
+            defaultStyleToggle, floatingStyleToggle, classicStyleToggle
+        );
         styleBox.setAlignment(Pos.CENTER);
 
         // == LAYOUT ==

@@ -2,6 +2,7 @@
 
 package atlantafx.sampler.page.components;
 
+import atlantafx.base.layout.InputGroup;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
@@ -19,13 +20,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public final class InputGroupPage extends OutlinePage {
 
-    public static final String NAME = "Input Group";
+    public static final String NAME = "InputGroup";
 
     @Override
     public String getName() {
@@ -33,8 +33,8 @@ public final class InputGroupPage extends OutlinePage {
     }
 
     @Override
-    public @Nullable URI getJavadocUri() {
-        return null;
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "layout/" + getName()));
     }
 
     public InputGroupPage() {
@@ -42,10 +42,12 @@ public final class InputGroupPage extends OutlinePage {
 
         addPageHeader();
         addFormattedText("""
-            You can use the following utility classes: [code]Styles.LEFT_PILL[/code], \
-            [code]Styles.CENTER_PILL[/code], and [code]Styles.RIGHT_PILL[/code] to combine \
-            various input controls into input groups that allow them to appear as a single \
-            control. This is entirely a CSS feature and does not require any additional wrappers."""
+            [i]InputGroup[/i] is a layout that helps combine various controls into a group \
+            that allow them to appear as a single control. Without it, you would have \
+            to manually add the [font=monospace].left-pill[/font], [font=monospace].center-pill[/font], \
+            and [font=monospace].right-pill[/font] styles classes to each control in such combination. \
+            You still can, but the [i]InputGroup[/i] removes this ceremony. And since it inherits \
+            from [i]HBox[/i], you can use the same API."""
         );
         addSection("ComboBox", comboBoxExample());
         addSection("Button", buttonExample());
@@ -58,16 +60,15 @@ public final class InputGroupPage extends OutlinePage {
         //snippet_1:start
         var leftCmb = new ComboBox<>();
         leftCmb.getItems().addAll("POST", "GET", "PUT", "PATCH", "DELETE");
-        leftCmb.getStyleClass().add(Styles.LEFT_PILL);
         leftCmb.getSelectionModel().selectFirst();
 
         var rightTfd = new TextField("https://example.org");
-        rightTfd.getStyleClass().add(Styles.RIGHT_PILL);
         HBox.setHgrow(rightTfd, Priority.ALWAYS);
+
+        var group = new InputGroup(leftCmb, rightTfd);
         //snippet_1:end
 
-        var box = new HBox(leftCmb, rightTfd);
-        box.setAlignment(Pos.CENTER_LEFT);
+        var box = new HBox(group);
         box.setMinWidth(400);
         box.setMaxWidth(400);
 
@@ -82,7 +83,6 @@ public final class InputGroupPage extends OutlinePage {
         //snippet_2:start
         var leftTfd = new TextField();
         leftTfd.setText(FAKER.internet().password());
-        leftTfd.getStyleClass().add(Styles.LEFT_PILL);
         HBox.setHgrow(leftTfd, Priority.ALWAYS);
 
         var rightBtn = new Button(
@@ -92,11 +92,11 @@ public final class InputGroupPage extends OutlinePage {
         rightBtn.setOnAction(
             e -> leftTfd.setText(FAKER.internet().password())
         );
-        rightBtn.getStyleClass().add(Styles.RIGHT_PILL);
+
+        var group = new InputGroup(leftTfd, rightBtn);
         //snippet_2:end
 
-        var box = new HBox(leftTfd, rightBtn);
-        box.setAlignment(Pos.CENTER_LEFT);
+        var box = new HBox(group);
         box.setMinWidth(400);
         box.setMaxWidth(400);
 
@@ -110,18 +110,16 @@ public final class InputGroupPage extends OutlinePage {
     private ExampleBox textFieldExample() {
         //snippet_3:start
         var leftTfd = new TextField("192.168.1.10");
-        leftTfd.getStyleClass().add(Styles.LEFT_PILL);
 
         var centerTfd = new TextField("24");
-        centerTfd.getStyleClass().add(Styles.CENTER_PILL);
         centerTfd.setPrefWidth(70);
 
         var rightTfd = new TextField("192.168.1.1");
-        rightTfd.getStyleClass().add(Styles.RIGHT_PILL);
+
+        var group = new InputGroup(leftTfd, centerTfd, rightTfd);
         //snippet_3:end
 
-        var box = new HBox(leftTfd, centerTfd, rightTfd);
-        box.setAlignment(Pos.CENTER_LEFT);
+        var box = new HBox(group);
         box.setMinWidth(400);
         box.setMaxWidth(400);
 
@@ -135,7 +133,6 @@ public final class InputGroupPage extends OutlinePage {
     private ExampleBox menuButtonExample() {
         //snippet_4:start
         var rightTfd = new TextField(FAKER.harryPotter().spell());
-        rightTfd.getStyleClass().add(Styles.RIGHT_PILL);
         HBox.setHgrow(rightTfd, Priority.ALWAYS);
 
         var spellItem = new MenuItem("Spell");
@@ -155,11 +152,11 @@ public final class InputGroupPage extends OutlinePage {
 
         var leftMenu = new MenuButton("Dropdown");
         leftMenu.getItems().addAll(spellItem, characterItem, locationItem);
-        leftMenu.getStyleClass().add(Styles.LEFT_PILL);
+
+        var group = new InputGroup(leftMenu, rightTfd);
         //snippet_4:end
 
-        var box = new HBox(leftMenu, rightTfd);
-        box.setAlignment(Pos.CENTER_LEFT);
+        var box = new HBox(group);
         box.setMinWidth(400);
         box.setMaxWidth(400);
 
@@ -173,43 +170,33 @@ public final class InputGroupPage extends OutlinePage {
     private ExampleBox labelExample() {
         //snippet_5:start
         var leftLbl1 = new Label("", new CheckBox());
-        leftLbl1.getStyleClass().add(Styles.LEFT_PILL);
 
         var rightTfd1 = new TextField();
         rightTfd1.setPromptText("Username");
-        rightTfd1.getStyleClass().add(Styles.RIGHT_PILL);
         HBox.setHgrow(rightTfd1, Priority.ALWAYS);
 
-        var sample1 = new HBox(leftLbl1, rightTfd1);
-        sample1.setAlignment(Pos.CENTER_LEFT);
+        var sample1 = new InputGroup(leftLbl1, rightTfd1);
 
         // ~
         var leftTfd2 = new TextField("johndoe");
-        leftTfd2.getStyleClass().add(Styles.LEFT_PILL);
         HBox.setHgrow(leftTfd2, Priority.ALWAYS);
 
         var centerLbl2 = new Label("@");
         centerLbl2.setMinWidth(50);
         centerLbl2.setAlignment(Pos.CENTER);
-        centerLbl2.getStyleClass().add(Styles.CENTER_PILL);
 
         var rightTfd2 = new TextField("gmail.com");
-        rightTfd2.getStyleClass().add(Styles.RIGHT_PILL);
         HBox.setHgrow(rightTfd2, Priority.ALWAYS);
 
-        var sample2 = new HBox(leftTfd2, centerLbl2, rightTfd2);
-        sample2.setAlignment(Pos.CENTER_LEFT);
+        var sample2 = new InputGroup(leftTfd2, centerLbl2, rightTfd2);
 
         // ~
         var leftTfd3 = new TextField("+123456");
-        leftTfd3.getStyleClass().add(Styles.LEFT_PILL);
         HBox.setHgrow(leftTfd3, Priority.ALWAYS);
 
         var rightLbl3 = new Label("", new FontIcon(Feather.DOLLAR_SIGN));
-        rightLbl3.getStyleClass().add(Styles.RIGHT_PILL);
 
-        var sample3 = new HBox(leftTfd3, rightLbl3);
-        sample3.setAlignment(Pos.CENTER_LEFT);
+        var sample3 = new InputGroup(leftTfd3, rightLbl3);
         //snippet_5:end
 
         sample1.setMinWidth(400);
