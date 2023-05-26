@@ -116,7 +116,7 @@ public final class DeckPanePage extends AbstractPage {
             return deck.getChildren().get(next);
         };
 
-        var topBtn = new Button("", new FontIcon(Material2MZ.NORTH));
+        var topBtn = new Button(null, new FontIcon(Material2MZ.NORTH));
         topBtn.setOnAction(e -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeUp(nextItem.get());
@@ -127,7 +127,7 @@ public final class DeckPanePage extends AbstractPage {
         galleryPane.setTop(topBtn);
         BorderPane.setAlignment(topBtn, Pos.CENTER);
 
-        var rightBtn = new Button("", new FontIcon(Material2AL.EAST));
+        var rightBtn = new Button(null, new FontIcon(Material2AL.EAST));
         rightBtn.setOnAction(e -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeRight(nextItem.get());
@@ -138,7 +138,7 @@ public final class DeckPanePage extends AbstractPage {
         galleryPane.setRight(rightBtn);
         BorderPane.setAlignment(rightBtn, Pos.CENTER);
 
-        var bottomBtn = new Button("", new FontIcon(Material2MZ.SOUTH));
+        var bottomBtn = new Button(null, new FontIcon(Material2MZ.SOUTH));
         bottomBtn.setOnAction(e -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeDown(nextItem.get());
@@ -149,7 +149,7 @@ public final class DeckPanePage extends AbstractPage {
         galleryPane.setBottom(bottomBtn);
         BorderPane.setAlignment(bottomBtn, Pos.CENTER);
 
-        var leftBtn = new Button("", new FontIcon(Material2MZ.WEST));
+        var leftBtn = new Button(null, new FontIcon(Material2MZ.WEST));
         leftBtn.setOnAction(e -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeLeft(nextItem.get());

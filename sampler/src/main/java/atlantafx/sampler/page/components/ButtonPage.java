@@ -163,35 +163,35 @@ public final class ButtonPage extends OutlinePage {
 
     private ExampleBox iconButtonExample() {
         //snippet_3:start
-        var normalBtn = new Button("", new FontIcon(Feather.MORE_HORIZONTAL));
+        var normalBtn = new Button(null, new FontIcon(Feather.MORE_HORIZONTAL));
         normalBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
 
-        var accentBtn = new Button("", new FontIcon(Feather.MENU));
+        var accentBtn = new Button(null, new FontIcon(Feather.MENU));
         accentBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.ACCENT
         );
 
-        var successBtn = new Button("", new FontIcon(Feather.CHECK));
+        var successBtn = new Button(null, new FontIcon(Feather.CHECK));
         successBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.SUCCESS
         );
 
-        var dangerBtn = new Button("", new FontIcon(Feather.TRASH));
+        var dangerBtn = new Button(null, new FontIcon(Feather.TRASH));
         dangerBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED, Styles.DANGER
         );
 
-        var flatAccentBtn = new Button("", new FontIcon(Feather.MIC));
+        var flatAccentBtn = new Button(null, new FontIcon(Feather.MIC));
         flatAccentBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT
         );
 
-        var flatSuccessBtn = new Button("", new FontIcon(Feather.USER));
+        var flatSuccessBtn = new Button(null, new FontIcon(Feather.USER));
         flatSuccessBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.FLAT, Styles.SUCCESS
         );
 
-        var flatDangerBtn = new Button("", new FontIcon(Feather.CROSSHAIR));
+        var flatDangerBtn = new Button(null, new FontIcon(Feather.CROSSHAIR));
         flatDangerBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.FLAT, Styles.DANGER
         );
@@ -212,45 +212,38 @@ public final class ButtonPage extends OutlinePage {
 
     private ExampleBox circularButtonExample() {
         //snippet_4:start
-        var normalBtn = new Button("", new FontIcon(Feather.MORE_HORIZONTAL));
+        var normalBtn = new Button(null, new FontIcon(Feather.MORE_HORIZONTAL));
         normalBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE);
-        normalBtn.setShape(new Circle(50));
 
-        var accentBtn = new Button("", new FontIcon(Feather.MENU));
+        var accentBtn = new Button(null, new FontIcon(Feather.MENU));
         accentBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.ACCENT
         );
-        accentBtn.setShape(new Circle(50));
 
-        var successBtn = new Button("", new FontIcon(Feather.CHECK));
+        var successBtn = new Button(null, new FontIcon(Feather.CHECK));
         successBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.SUCCESS
         );
-        successBtn.setShape(new Circle(50));
 
-        var dangerBtn = new Button("", new FontIcon(Feather.TRASH));
+        var dangerBtn = new Button(null, new FontIcon(Feather.TRASH));
         dangerBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.BUTTON_OUTLINED, Styles.DANGER
         );
-        dangerBtn.setShape(new Circle(50));
 
-        var flatAccentBtn = new Button("", new FontIcon(Feather.MIC));
+        var flatAccentBtn = new Button(null, new FontIcon(Feather.MIC));
         flatAccentBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.FLAT, Styles.ACCENT
         );
-        flatAccentBtn.setShape(new Circle(50));
 
-        var flatSuccessBtn = new Button("", new FontIcon(Feather.USER));
+        var flatSuccessBtn = new Button(null, new FontIcon(Feather.USER));
         flatSuccessBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.FLAT, Styles.SUCCESS
         );
-        flatSuccessBtn.setShape(new Circle(50));
 
-        var flatDangerBtn = new Button("", new FontIcon(Feather.CROSSHAIR));
+        var flatDangerBtn = new Button(null, new FontIcon(Feather.CROSSHAIR));
         flatDangerBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.FLAT, Styles.DANGER
         );
-        flatDangerBtn.setShape(new Circle(50));
         //snippet_4:end
 
         var box = new HBox(HGAP_20,
@@ -379,7 +372,7 @@ public final class ButtonPage extends OutlinePage {
         // -color-button-bg-pressed: -color-button-bg;
         btn.setStyle(customStyle);
 
-        var iconBtn = new Button("", new FontIcon(Material2AL.FAVORITE));
+        var iconBtn = new Button(null, new FontIcon(Material2AL.FAVORITE));
         iconBtn.getStyleClass().addAll(
             "favorite-button",
             Styles.BUTTON_CIRCLE, Styles.FLAT, Styles.DANGER

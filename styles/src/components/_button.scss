@@ -162,20 +162,14 @@ $color-shadow: -color-shadow-default !default;
   // \s or \f as button text.
   &.button-icon {
     -fx-padding: cfg.$padding-y;
-
-    >.text {
-      visibility: hidden;
-    }
+    -fx-content-display: graphic-only;
   }
 
   &.button-circle {
     -fx-background-radius: 50;
     -fx-padding: 6px 8px 6px 8px;
+    -fx-content-display: graphic-only;
     -fx-effect:  none;
-
-    >.text {
-      visibility: hidden;
-    }
   }
 
   // toggle button + input group

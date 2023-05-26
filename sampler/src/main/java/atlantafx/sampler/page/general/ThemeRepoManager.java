@@ -182,7 +182,7 @@ final class ThemeRepoManager extends VBox {
 
             // == CONTROLS ==
 
-            deleteBtn = new Button("", new FontIcon(Material2OutlinedAL.DELETE));
+            deleteBtn = new Button(null, new FontIcon(Material2OutlinedAL.DELETE));
             deleteBtn.getStyleClass().addAll(BUTTON_ICON, BUTTON_CIRCLE, FLAT, DANGER);
             deleteBtn.setOnAction(e -> {
                 if (deleteHandler != null) {

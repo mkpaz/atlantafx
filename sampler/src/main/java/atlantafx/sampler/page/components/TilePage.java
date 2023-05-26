@@ -112,7 +112,7 @@ public class TilePage extends OutlinePage {
         tile2.setGraphic(img);
 
         var tile3 = new Tile("Photos", "Last updated: Jun 9, 2019");
-        var btn = new Button("", new FontIcon(Material2OutlinedAL.DELETE));
+        var btn = new Button(null, new FontIcon(Material2OutlinedAL.DELETE));
         btn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
         tile3.setAction(btn);
         //snippet_1:end

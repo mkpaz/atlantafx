@@ -159,7 +159,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
         var reverseLabel = new Label("25%");
         reverseLabel.getStyleClass().add(Styles.TITLE_4);
 
-        var reverseBtn = new Button("", new FontIcon(Feather.PLAY));
+        var reverseBtn = new Button(null, new FontIcon(Feather.PLAY));
         reverseBtn.getStyleClass().addAll(
             Styles.BUTTON_CIRCLE, Styles.FLAT
         );

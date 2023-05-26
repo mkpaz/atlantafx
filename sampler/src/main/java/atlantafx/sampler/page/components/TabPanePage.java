@@ -247,23 +247,23 @@ public final class TabPanePage extends OutlinePage {
     private TitledPane createController(BorderPane borderPane, TabPane tabs) {
         // == BUTTONS ==
 
-        var toTopBtn = new Button("", new FontIcon(Feather.ARROW_UP));
+        var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
         toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toTopBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.TOP));
 
-        var toRightBtn = new Button("", new FontIcon(Feather.ARROW_RIGHT));
+        var toRightBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toRightBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.RIGHT));
 
-        var toBottomBtn = new Button("", new FontIcon(Feather.ARROW_DOWN));
+        var toBottomBtn = new Button(null, new FontIcon(Feather.ARROW_DOWN));
         toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toBottomBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.BOTTOM));
 
-        var toLeftBtn = new Button("", new FontIcon(Feather.ARROW_LEFT));
+        var toLeftBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toLeftBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.LEFT));
 
-        var appendBtn = new Button("", new FontIcon(Feather.PLUS));
+        var appendBtn = new Button(null, new FontIcon(Feather.PLUS));
         appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
         appendBtn.setOnAction(e -> tabs.getTabs().add(createRandomTab()));
 

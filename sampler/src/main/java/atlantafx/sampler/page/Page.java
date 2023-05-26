@@ -123,7 +123,7 @@ public interface Page {
                 }
             });
 
-            var menuBtn = new MenuButton("", new FontIcon(Material2AL.EXPAND_MORE));
+            var menuBtn = new MenuButton(null, new FontIcon(Material2AL.EXPAND_MORE));
             menuBtn.getStyleClass().addAll(Styles.FLAT, Styles.BUTTON_ICON, Tweaks.NO_ARROW);
             menuBtn.getItems().setAll(sourceCodeItem, javadocItem);
 

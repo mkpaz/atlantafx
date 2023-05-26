@@ -211,30 +211,30 @@ public final class ToolBarPage extends OutlinePage {
     private TitledPane createController(BorderPane borderPane, ToolBar toolbar) {
         // == BUTTONS ==
 
-        var toTopBtn = new Button("", new FontIcon(Feather.ARROW_UP));
+        var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
         toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toTopBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.TOP));
 
-        var toRightBtn = new Button("", new FontIcon(Feather.ARROW_RIGHT));
+        var toRightBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toRightBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.RIGHT));
 
-        var toBottomBtn = new Button("", new FontIcon(Feather.ARROW_DOWN));
+        var toBottomBtn = new Button(null, new FontIcon(Feather.ARROW_DOWN));
         toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toBottomBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.BOTTOM));
 
-        var toLeftBtn = new Button("", new FontIcon(Feather.ARROW_LEFT));
+        var toLeftBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
         toLeftBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.LEFT));
 
-        var appendBtn = new Button("", new FontIcon(Feather.PLUS));
+        var appendBtn = new Button(null, new FontIcon(Feather.PLUS));
         appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
         appendBtn.setOnAction(e -> {
             if (toolbar.getOrientation() == Orientation.HORIZONTAL) {
                 var textBtn = new Button(FAKER.animal().name(), new FontIcon(randomIcon()));
                 toolbar.getItems().add(textBtn);
             } else {
-                var iconBtn = new Button("", new FontIcon(randomIcon()));
+                var iconBtn = new Button(null, new FontIcon(randomIcon()));
                 iconBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
                 toolbar.getItems().add(iconBtn);
             }
@@ -389,7 +389,7 @@ public final class ToolBarPage extends OutlinePage {
     }
 
     public static Button iconButton(Ikon icon) {
-        var btn = new Button("");
+        var btn = new Button(null);
         if (icon != null) {
             btn.setGraphic(new FontIcon(icon));
         }

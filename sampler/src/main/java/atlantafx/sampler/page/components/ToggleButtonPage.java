@@ -93,18 +93,18 @@ public final class ToggleButtonPage extends OutlinePage {
 
     private ExampleBox iconOnlyExample() {
         //snippet_2:start
-        var leftBtn = new ToggleButton("", new FontIcon(Feather.BOLD));
+        var leftBtn = new ToggleButton(null, new FontIcon(Feather.BOLD));
         leftBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.LEFT_PILL
         );
         leftBtn.setSelected(true);
 
-        var centerBtn = new ToggleButton("", new FontIcon(Feather.ITALIC));
+        var centerBtn = new ToggleButton(null, new FontIcon(Feather.ITALIC));
         centerBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.CENTER_PILL
         );
 
-        var rightBtn = new ToggleButton("", new FontIcon(Feather.UNDERLINE));
+        var rightBtn = new ToggleButton(null, new FontIcon(Feather.UNDERLINE));
         rightBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.RIGHT_PILL
         );
@@ -147,7 +147,7 @@ public final class ToggleButtonPage extends OutlinePage {
             }
         });
 
-        var prevBtn = new Button("\f", new FontIcon(Feather.CHEVRON_LEFT));
+        var prevBtn = new Button(null, new FontIcon(Feather.CHEVRON_LEFT));
         prevBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.LEFT_PILL, "toggle-button"
         );
@@ -158,7 +158,7 @@ public final class ToggleButtonPage extends OutlinePage {
             }
         });
 
-        var nextBtn = new Button("\f", new FontIcon(Feather.CHEVRON_RIGHT));
+        var nextBtn = new Button(null, new FontIcon(Feather.CHEVRON_RIGHT));
         nextBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.RIGHT_PILL, "toggle-button"
         );

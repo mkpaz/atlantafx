@@ -153,7 +153,7 @@ public final class ThemePage extends OutlinePage {
     }
 
     private Node createThemeManagementSection() {
-        var themeRepoBtn = new Button("", new FontIcon(Material2OutlinedMZ.SETTINGS));
+        var themeRepoBtn = new Button(null, new FontIcon(Material2OutlinedMZ.SETTINGS));
         themeRepoBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT);
         themeRepoBtn.setTooltip(new Tooltip("Settings"));
         themeRepoBtn.setOnAction(e -> {

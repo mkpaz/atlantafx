@@ -59,15 +59,13 @@ public class FileManagerPage extends ShowcasePage {
     }
 
     private void createView() {
-        var backBtn = new Button("", new FontIcon(Feather.ARROW_LEFT));
-        backBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        var backBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         backBtn.getStyleClass().add(Styles.BUTTON_ICON);
         backBtn.setOnAction(e -> model.back());
         backBtn.disableProperty().bind(model.getHistory().canGoBackProperty().not());
         backBtn.setTooltip(new Tooltip("Back"));
 
-        var forthBtn = new Button("", new FontIcon(Feather.ARROW_RIGHT));
-        forthBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        var forthBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         forthBtn.getStyleClass().add(Styles.BUTTON_ICON);
         forthBtn.setOnAction(e -> model.forth());
         forthBtn.disableProperty().bind(model.getHistory().canGoForthProperty().not());
