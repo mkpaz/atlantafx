@@ -6,7 +6,6 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.util.BBCodeParser;
-import atlantafx.sampler.layout.Overlay;
 import atlantafx.sampler.util.NodeUtils;
 import java.net.URI;
 import javafx.geometry.Pos;
@@ -21,7 +20,6 @@ public abstract class AbstractPage extends StackPane implements Page {
 
     protected final VBox userContent = new VBox();
     protected final StackPane userContentArea = new StackPane(userContent);
-    protected Overlay overlay;
     protected boolean isRendered = false;
 
     protected AbstractPage() {
@@ -88,7 +86,6 @@ public abstract class AbstractPage extends StackPane implements Page {
     // Some properties can only be obtained after node placed
     // to the scene graph and here is the place do this.
     protected void onRendered() {
-        this.overlay = lookupOverlay();
     }
 
     protected void addPageHeader() {
@@ -102,10 +99,5 @@ public abstract class AbstractPage extends StackPane implements Page {
 
     protected void addFormattedText(String text) {
         userContent.getChildren().add(BBCodeParser.createFormattedText(text));
-    }
-
-    protected Overlay lookupOverlay() {
-        return getScene() != null
-            && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay ov ? ov : null;
     }
 }

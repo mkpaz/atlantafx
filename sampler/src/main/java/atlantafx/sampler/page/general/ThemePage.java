@@ -3,6 +3,7 @@
 package atlantafx.sampler.page.general;
 
 import static atlantafx.sampler.event.ThemeEvent.EventType;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_FONT_SIZE;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
@@ -15,10 +16,8 @@ import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.Lazy;
 import java.net.URI;
 import java.util.Objects;
-import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -72,11 +71,12 @@ public final class ThemePage extends OutlinePage {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final Lazy<ThemeRepoManagerDialog> themeRepoManagerDialog;
     private final Lazy<ContrastCheckerDialog> contrastCheckerDialog;
     private final Lazy<SceneBuilderDialog> sceneBuilderDialog;
     private final ColorPalette colorPalette;
-    private final ColorScale colorScale = new ColorScale();
+    private final ColorScale colorScale = new ColorScale(bgBaseColor);
     private final ChoiceBox<SamplerTheme> themeSelector = createThemeSelector();
     private final ComboBox<String> fontFamilyChooser = createFontFamilyChooser();
     private final Spinner<Integer> fontSizeSpinner = createFontSizeSpinner();
@@ -84,48 +84,35 @@ public final class ThemePage extends OutlinePage {
     public ThemePage() {
         super();
 
+        themeRepoManagerDialog = new Lazy<>(() -> {
+            var dialog = new ThemeRepoManagerDialog();
+            dialog.setClearOnClose(true);
+            return dialog;
+        });
+
+        contrastCheckerDialog = new Lazy<>(() -> {
+            var dialog = new ContrastCheckerDialog(bgBaseColor);
+            dialog.setClearOnClose(true);
+            return dialog;
+        });
+
+        sceneBuilderDialog = new Lazy<>(() -> {
+            var dialog = new SceneBuilderDialog();
+            dialog.setClearOnClose(true);
+            dialog.setOnClose(dialog::reset);
+            return dialog;
+        });
+
         colorPalette = new ColorPalette(colorBlock -> {
-            ContrastCheckerDialog dialog = getContrastCheckerDialog();
+            ContrastCheckerDialog dialog = contrastCheckerDialog.get();
             dialog.getContent().setValues(
                 colorBlock.getFgColorName(),
                 colorBlock.getFgColor(),
                 colorBlock.getBgColorName(),
                 colorBlock.getBgColor()
             );
-            overlay.setContent(dialog, HPos.CENTER);
-            overlay.toFront();
-        });
-
-        themeRepoManagerDialog = new Lazy<>(() -> {
-            var dialog = new ThemeRepoManagerDialog();
-            dialog.setOnCloseRequest(() -> {
-                overlay.removeContent();
-                overlay.toBack();
-            });
-
-            return dialog;
-        });
-
-        contrastCheckerDialog = new Lazy<>(() -> {
-            var dialog = new ContrastCheckerDialog(getBgBaseColorProperty());
-            dialog.setOnCloseRequest(() -> {
-                overlay.removeContent();
-                overlay.toBack();
-            });
-
-            return dialog;
-        });
-
-        sceneBuilderDialog = new Lazy<>(() -> {
-            var dialog = new SceneBuilderDialog();
-            dialog.setOnCloseRequest(() -> {
-                overlay.removeContent();
-                overlay.toBack();
-                dialog.reset();
-            });
-
-            return dialog;
-        });
+            dialog.show(getScene());
+        }, bgBaseColor);
 
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
             var eventType = e.getEventType();
@@ -136,8 +123,18 @@ public final class ThemePage extends OutlinePage {
             if (eventType == EventType.THEME_CHANGE || eventType == EventType.COLOR_CHANGE) {
                 colorPalette.updateColorInfo(Duration.seconds(1));
                 colorScale.updateColorInfo(Duration.seconds(1));
+                fontFamilyChooser.getSelectionModel().select(DEFAULT_FONT_ID);
+                fontSizeSpinner.getValueFactory().setValue(DEFAULT_FONT_SIZE);
             }
         });
+
+        // mandatory base bg for flatten color calc
+        Styles.appendStyle(this, "-fx-background-color", "-color-bg-default");
+        backgroundProperty().addListener(
+            (obs, old, val) -> bgBaseColor.set(val != null && !val.getFills().isEmpty()
+                ? (Color) val.getFills().get(0).getFill()
+                : Color.WHITE
+            ));
 
         addPageHeader();
         addNode(createThemeManagementSection());
@@ -145,7 +142,7 @@ public final class ThemePage extends OutlinePage {
         addSection("Color Palette", createColorPaletteSection());
         addSection("Color Scale", createColorScaleSection());
 
-        Platform.runLater(this::selectCurrentTheme);
+        //Platform.runLater(this::selectCurrentTheme);
     }
 
     @Override
@@ -161,9 +158,8 @@ public final class ThemePage extends OutlinePage {
         themeRepoBtn.setTooltip(new Tooltip("Settings"));
         themeRepoBtn.setOnAction(e -> {
             ThemeRepoManagerDialog dialog = themeRepoManagerDialog.get();
-            overlay.setContent(dialog, HPos.CENTER);
             dialog.getContent().update();
-            overlay.toFront();
+            dialog.show(getScene());
         });
 
         var accentSelector = new AccentColorSelector();
@@ -185,8 +181,7 @@ public final class ThemePage extends OutlinePage {
         sceneBuilderBtn.setGraphic(new ImageView(SCENE_BUILDER_ICON));
         sceneBuilderBtn.setOnAction(e -> {
             SceneBuilderDialog dialog = sceneBuilderDialog.get();
-            overlay.setContent(dialog, HPos.CENTER);
-            overlay.toFront();
+            dialog.show(getScene());
         });
 
         var description = BBCodeParser.createFormattedText("""
@@ -231,7 +226,18 @@ public final class ThemePage extends OutlinePage {
 
     private ChoiceBox<SamplerTheme> createThemeSelector() {
         var choiceBox = new ChoiceBox<SamplerTheme>();
-        choiceBox.getItems().setAll(TM.getRepository().getAll());
+
+        var themes = TM.getRepository().getAll();
+        choiceBox.getItems().setAll(themes);
+
+        // set initial value
+        var currentTheme = Objects.requireNonNullElse(TM.getTheme(), TM.getDefaultTheme());
+        themes.stream()
+            .filter(t -> Objects.equals(currentTheme.getName(), t.getName()))
+            .findFirst()
+            .ifPresent(t -> choiceBox.getSelectionModel().select(t));
+
+        // must be after setting the initial value
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
             if (val != null && getScene() != null) {
                 TM.setTheme(val);
@@ -307,13 +313,5 @@ public final class ThemePage extends OutlinePage {
                 .findFirst()
                 .ifPresent(t -> themeSelector.getSelectionModel().select(t));
         }
-    }
-
-    private ContrastCheckerDialog getContrastCheckerDialog() {
-        return contrastCheckerDialog.get();
-    }
-
-    private ReadOnlyObjectProperty<Color> getBgBaseColorProperty() {
-        return colorPalette.bgBaseColorProperty();
     }
 }

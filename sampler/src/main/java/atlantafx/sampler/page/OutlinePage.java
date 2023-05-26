@@ -6,7 +6,6 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.layout.Overlay;
 import atlantafx.sampler.util.NodeUtils;
 import java.net.URI;
 import java.util.LinkedHashSet;
@@ -39,8 +38,6 @@ public abstract class OutlinePage extends StackPane implements Page {
     protected final VBox userContent = new VBox();
     protected final StackPane userContentArea = new StackPane(userContent);
     protected final Outline outline = new Outline(createOutlineHandler());
-
-    protected Overlay overlay;
     protected boolean isRendered = false;
 
     protected OutlinePage() {
@@ -200,12 +197,6 @@ public abstract class OutlinePage extends StackPane implements Page {
     // Some properties can only be obtained after node placed
     // to the scene graph and here is the place do this.
     protected void onRendered() {
-        this.overlay = lookupOverlay();
-    }
-
-    protected Overlay lookupOverlay() {
-        var scene = getScene();
-        return scene != null && scene.lookup("." + Overlay.STYLE_CLASS) instanceof Overlay o ? o : null;
     }
 
     ///////////////////////////////////////////////////////////////////////////

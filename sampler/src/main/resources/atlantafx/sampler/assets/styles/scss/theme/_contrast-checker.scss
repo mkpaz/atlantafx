@@ -4,10 +4,8 @@
 
 .contrast-checker {
 
-  -fx-background-color: -color-contrast-checker-bg;
   -fx-hgap: 40px;
   -fx-vgap: 20px;
-  -fx-padding: 20px;
 
   .label {
     -fx-text-fill: -color-contrast-checker-fg;
@@ -118,20 +116,17 @@
   -color-dialog-bg: white;
   -color-dialog-fg: black;
 
-  >.header {
-    -fx-background-color: -color-dialog-bg;
+  -color-dialog-pane-bg: -color-contrast-checker-bg;
+  -color-dialog-pane-close-fg: -color-contrast-checker-fg;
+  -color-dialog-pane-close-bg-hover: derive(-color-contrast-checker-bg, 30%);
 
-    >.title {
-      -fx-text-fill: -color-dialog-fg;
-    }
+  -fx-background-color: transparent;
 
-    >.close-button {
-      -color-button-fg: -color-dialog-fg;
-      -color-button-bg-hover: derive(-color-dialog-bg, 30%);
-      -color-button-border-hover: transparent;
-      -color-button-border-focused: transparent;
+  .card {
+    -fx-background-color: -color-contrast-checker-bg;
+
+    .title {
+      -fx-text-fill: -color-contrast-checker-fg;
     }
   }
-
-  -fx-border-color: -color-dialog-bg;
 }

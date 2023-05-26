@@ -11,7 +11,7 @@ import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
-import atlantafx.sampler.layout.OverlayDialog;
+import atlantafx.sampler.layout.ModalDialog;
 import atlantafx.sampler.page.general.SceneBuilderDialogModel.Screen;
 import atlantafx.sampler.util.NodeUtils;
 import java.io.File;
@@ -46,7 +46,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
-class SceneBuilderDialog extends OverlayDialog<DeckPane> {
+class SceneBuilderDialog extends ModalDialog {
 
     private final DeckPane deck;
     private final Button backBtn;
@@ -62,6 +62,8 @@ class SceneBuilderDialog extends OverlayDialog<DeckPane> {
     private final SceneBuilderDialogModel model = new SceneBuilderDialogModel();
 
     public SceneBuilderDialog() {
+        super();
+
         deck = createContent();
 
         backBtn = new Button("Previous", new FontIcon(Material2AL.ARROW_BACK));
@@ -72,10 +74,17 @@ class SceneBuilderDialog extends OverlayDialog<DeckPane> {
         closeBtn = new Button("Close");
         NodeUtils.toggleVisibility(closeBtn, false);
 
-        footerBox.getChildren().setAll(backBtn, new Spacer(), forwardBtn, closeBtn);
+        var footer = new HBox(10);
+        footer.getChildren().setAll(backBtn, new Spacer(), forwardBtn, closeBtn);
+        footer.getStyleClass().add("footer");
+        footer.setAlignment(Pos.CENTER_RIGHT);
+        VBox.setVgrow(footer, Priority.NEVER);
 
-        setTitle("SceneBuilder Integration");
-        setContent(deck);
+        header.setTitle("SceneBuilder Integration");
+        content.setBody(deck);
+        content.setFooter(footer);
+        content.setPrefSize(600, 440);
+
         init();
     }
 
@@ -90,8 +99,6 @@ class SceneBuilderDialog extends OverlayDialog<DeckPane> {
         deck.addChildren(Insets.EMPTY, startScreen, actionScreen, themeScreen, execScreen, reportScreen);
         deck.setAnimationDuration(Duration.millis(250));
         deck.setId("scene-builder-wizard");
-
-        deck.setPrefSize(600, 440);
 
         return deck;
     }

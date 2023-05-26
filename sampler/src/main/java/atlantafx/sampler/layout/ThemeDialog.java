@@ -2,7 +2,6 @@ package atlantafx.sampler.layout;
 
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import atlantafx.sampler.util.NodeUtils;
 import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-final class ThemeDialog extends OverlayDialog<VBox> {
+final class ThemeDialog extends ModalDialog {
 
     private final TilePane thumbnailsPane = new TilePane(20, 20);
     private final ToggleGroup thumbnailsGroup = new ToggleGroup();
@@ -19,17 +18,14 @@ final class ThemeDialog extends OverlayDialog<VBox> {
         super();
 
         setId("theme-dialog");
-        setTitle("Select a theme");
-        setContent(createContent());
-        NodeUtils.toggleVisibility(footerBox, false);
+        header.setTitle("Select a theme");
+        content.setBody(createContent());
+        content.setFooter(null);
 
         updateThumbnails();
 
         thumbnailsGroup.selectedToggleProperty().addListener((obs, old, val) -> {
-            System.out.println(0);
-            System.out.println(val.getUserData().getClass().getName());
             if (val != null && val.getUserData() instanceof SamplerTheme theme) {
-                System.out.println(1);
                 ThemeManager.getInstance().setTheme(theme);
             }
         });

@@ -6,31 +6,26 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 final class ColorScale extends FlowPane {
 
-    private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
-    private final List<ColorScaleBlock> blocks = Arrays.asList(
-        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-base-", 10),
-        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-accent-", 10),
-        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-success-", 10),
-        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-warning-", 10),
-        ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-danger-", 10),
-        ColorScaleBlock.forColorName(bgBaseColor, "-color-dark", "-color-light")
-    );
+    private final List<ColorScaleBlock> blocks;
 
-    public ColorScale() {
+    public ColorScale(ReadOnlyObjectProperty<Color> bgBaseColor) {
         super();
 
-        backgroundProperty().addListener((obs, old, val) -> bgBaseColor.set(
-            val != null && !val.getFills().isEmpty()
-                ? (Color) val.getFills().get(0).getFill()
-                : Color.WHITE
-        ));
+        blocks = Arrays.asList(
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-base-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-accent-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-success-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-warning-", 10),
+            ColorScaleBlock.forColorPrefix(bgBaseColor, "-color-danger-", 10),
+            ColorScaleBlock.forColorName(bgBaseColor, "-color-dark", "-color-light")
+        );
 
         setId("color-scale");
         getChildren().setAll(blocks);

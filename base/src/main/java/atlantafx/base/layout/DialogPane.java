@@ -9,9 +9,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.Nullable;
@@ -95,10 +93,18 @@ public class DialogPane extends AnchorPane {
         getChildren().add(getChildren().indexOf(closeButton), node);
     }
 
+    /**
+     * Manually closes the DialogPane in case one needs to use their
+     * own close button.
+     */
+    public void close() {
+        handleClose();
+    }
+
     protected void createLayout() {
         closeButton.getStyleClass().add("close-button");
         closeButton.getChildren().setAll(closeButtonIcon);
-        closeButton.setOnMouseClicked(this::handleClose);
+        closeButton.setOnMouseClicked(e -> handleClose());
 
         closeButtonIcon.getStyleClass().add("icon");
 
@@ -112,7 +118,7 @@ public class DialogPane extends AnchorPane {
         setRightAnchor(closeButton, 10d);
     }
 
-    protected void handleClose(MouseEvent event) {
+    protected void handleClose() {
         if (modalPane != null) {
             modalPane.hide(clearOnClose.get());
         } else if (selector != null && getScene() != null) {
@@ -125,7 +131,7 @@ public class DialogPane extends AnchorPane {
 
         // call user specified close handler
         if (onClose.get() != null) {
-            onClose.get().handle(event);
+            onClose.get().run();
         }
     }
 
@@ -139,18 +145,18 @@ public class DialogPane extends AnchorPane {
      * handler will be executed after the default close handler. Therefore, you
      * can use it to perform arbitrary actions on dialog close.
      */
-    protected final ObjectProperty<EventHandler<? super MouseEvent>> onClose =
+    protected final ObjectProperty<Runnable> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
-    public EventHandler<? super MouseEvent> getOnClose() {
+    public Runnable getOnClose() {
         return onClose.get();
     }
 
-    public ObjectProperty<EventHandler<? super MouseEvent>> onCloseProperty() {
+    public ObjectProperty<Runnable> onCloseProperty() {
         return onClose;
     }
 
-    public void setOnClose(EventHandler<? super MouseEvent> onClose) {
+    public void setOnClose(Runnable onClose) {
         this.onClose.set(onClose);
     }
 

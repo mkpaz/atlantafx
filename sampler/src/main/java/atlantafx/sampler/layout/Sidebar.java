@@ -19,7 +19,6 @@ import atlantafx.sampler.util.Lazy;
 import java.net.URI;
 import java.util.Objects;
 import javafx.application.Platform;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -43,7 +42,6 @@ import org.kordamp.ikonli.material2.Material2OutlinedAL;
 final class Sidebar extends VBox {
 
     private final NavTree navTree;
-    private Overlay overlay;
     private final Lazy<SearchDialog> searchDialog;
     private final Lazy<ThemeDialog> themeDialog;
 
@@ -56,21 +54,13 @@ final class Sidebar extends VBox {
 
         searchDialog = new Lazy<>(() -> {
             var dialog = new SearchDialog(model);
-            dialog.setOnCloseRequest(() -> {
-                var overlay = lookupOverlay();
-                overlay.removeContent();
-                overlay.toBack();
-            });
+            dialog.setClearOnClose(true);
             return dialog;
         });
 
         themeDialog = new Lazy<>(() -> {
             var dialog = new ThemeDialog();
-            dialog.setOnCloseRequest(() -> {
-                var overlay = lookupOverlay();
-                overlay.removeContent();
-                overlay.toBack();
-            });
+            dialog.setClearOnClose(true);
             return dialog;
         });
 
@@ -129,25 +119,14 @@ final class Sidebar extends VBox {
 
     private void openSearchDialog() {
         var dialog = searchDialog.get();
-        var overlay = lookupOverlay();
-        overlay.setContent(dialog, HPos.CENTER);
-        overlay.toFront();
+        dialog.show(getScene());
         Platform.runLater(dialog::begForFocus);
     }
 
     private void openThemeDialog() {
         var dialog = themeDialog.get();
-        var overlay = lookupOverlay();
-        overlay.setContent(dialog, HPos.CENTER);
-        overlay.toFront();
+        dialog.show(getScene());
         Platform.runLater(dialog::requestFocus);
-    }
-
-    private Overlay lookupOverlay() {
-        return Objects.requireNonNullElse(overlay,
-            overlay = getScene() != null
-                && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay o ? o : null
-        );
     }
 
     ///////////////////////////////////////////////////////////////////////////

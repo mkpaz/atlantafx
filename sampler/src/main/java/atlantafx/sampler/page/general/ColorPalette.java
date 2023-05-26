@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -17,13 +16,15 @@ import javafx.util.Duration;
 final class ColorPalette extends GridPane {
 
     private final List<ColorPaletteBlock> blocks = new ArrayList<>();
-    private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler;
+    private final ReadOnlyObjectProperty<Color> bgBaseColor;
 
-    public ColorPalette(Consumer<ColorPaletteBlock> actionHandler) {
+    public ColorPalette(Consumer<ColorPaletteBlock> actionHandler,
+                        ReadOnlyObjectProperty<Color> bgBaseColor) {
         super();
 
         this.colorBlockActionHandler = Objects.requireNonNull(actionHandler, "actionHandler");
+        this.bgBaseColor = bgBaseColor;
 
         add(colorBlock("-color-fg-default", "-color-bg-default", "-color-border-default"), 0, 0);
         add(colorBlock("-color-fg-default", "-color-bg-overlay", "-color-border-default"), 1, 0);
@@ -59,7 +60,7 @@ final class ColorPalette extends GridPane {
     }
 
     private ColorPaletteBlock colorBlock(String fgColor, String bgColor, String borderColor) {
-        var block = new ColorPaletteBlock(fgColor, bgColor, borderColor, bgBaseColor.getReadOnlyProperty());
+        var block = new ColorPaletteBlock(fgColor, bgColor, borderColor, bgBaseColor);
         block.setOnAction(colorBlockActionHandler);
         blocks.add(block);
         return block;
@@ -72,9 +73,5 @@ final class ColorPalette extends GridPane {
         var t = new Timeline(new KeyFrame(delay));
         t.setOnFinished(e -> blocks.forEach(ColorPaletteBlock::update));
         t.play();
-    }
-
-    public ReadOnlyObjectProperty<Color> bgBaseColorProperty() {
-        return bgBaseColor.getReadOnlyProperty();
     }
 }

@@ -7,7 +7,6 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import java.util.function.Consumer;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -22,7 +21,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
 
-final class SearchDialog extends OverlayDialog<VBox> {
+final class SearchDialog extends ModalDialog {
 
     private final MainModel model;
 
@@ -35,8 +34,11 @@ final class SearchDialog extends OverlayDialog<VBox> {
         this.model = model;
 
         setId("search-dialog");
-        setTitle("Search");
-        setContent(createContent());
+        header.setTitle("Search");
+        content.setBody(createContent());
+        content.setFooter(createDefaultFooter());
+        content.setPrefSize(600, 440);
+
         init();
     }
 
@@ -61,11 +63,7 @@ final class SearchDialog extends OverlayDialog<VBox> {
         resultList.setCellFactory(c -> new ResultListCell(clickHandler));
         VBox.setVgrow(resultList, Priority.ALWAYS);
 
-        var content = new VBox(10, searchField, resultList);
-        content.setPadding(new Insets(10, 20, 10, 20));
-        content.setPrefSize(600, 440);
-
-        return content;
+        return new VBox(10, searchField, resultList);
     }
 
     private void init() {

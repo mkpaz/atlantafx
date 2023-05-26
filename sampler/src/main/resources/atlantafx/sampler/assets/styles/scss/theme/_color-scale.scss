@@ -4,9 +4,6 @@
   -fx-hgap: 20px;
   -fx-vgap: 20px;
 
-  // mandatory base bg for flatten color calc
-  -fx-background-color: -color-bg-default;
-
   >.column {
     >.cell {
       -fx-text-fill: -color-fg-default;
