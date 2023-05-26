@@ -63,7 +63,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
             getColumns().add(col);
         }
 
-        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         getSelectionModel().setCellSelectionEnabled(true);
         getStyleClass().add("icon-browser");
     }

@@ -88,7 +88,9 @@ public final class TreeTableViewPage extends OutlinePage {
         );
 
         var treeTable = new TreeTableView<Vehicle>();
-        treeTable.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+        treeTable.setColumnResizePolicy(
+            TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         treeTable.getColumns().setAll(col1, col2);
 
         var make1 = FAKER.vehicle().make();
@@ -268,22 +270,42 @@ public final class TreeTableViewPage extends OutlinePage {
 
     private MenuButton createPropertiesMenu(TreeTableView<Product> treeTable) {
         final var resizePolCaption = new CaptionMenuItem("Resize Policy");
-        final var resizePolicyGroup = new ToggleGroup();
-        resizePolicyGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        final var resizePolGroup = new ToggleGroup();
+        resizePolGroup.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 treeTable.setColumnResizePolicy((Callback<TreeTableView.ResizeFeatures, Boolean>) policy);
             }
         });
 
-        final var unconResizeItem = new RadioMenuItem("Unconstrained");
-        unconResizeItem.setToggleGroup(resizePolicyGroup);
-        unconResizeItem.setUserData(TreeTableView.UNCONSTRAINED_RESIZE_POLICY);
-        unconResizeItem.setSelected(true);
+        final var sizeUnconstrainedItem = new RadioMenuItem("Unconstrained");
+        sizeUnconstrainedItem.setToggleGroup(resizePolGroup);
+        sizeUnconstrainedItem.setUserData(TreeTableView.UNCONSTRAINED_RESIZE_POLICY);
+        sizeUnconstrainedItem.setSelected(true);
 
-        final var conResizeItem = new RadioMenuItem("Constrained");
-        conResizeItem.setToggleGroup(resizePolicyGroup);
-        conResizeItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+        final var sizeAllColumnsItem = new RadioMenuItem("Resize All Columns");
+        sizeAllColumnsItem.setToggleGroup(resizePolGroup);
+        sizeAllColumnsItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        final var sizeLastColumnItem = new RadioMenuItem("Resize Last Column");
+        sizeLastColumnItem.setToggleGroup(resizePolGroup);
+        sizeLastColumnItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_LAST_COLUMN);
+
+        final var sizeNextColumnItem = new RadioMenuItem("Resize Next Column");
+        sizeNextColumnItem.setToggleGroup(resizePolGroup);
+        sizeNextColumnItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_NEXT_COLUMN);
+
+        final var sizeSubsequentItem = new RadioMenuItem("Resize Subsequent Column");
+        sizeSubsequentItem.setToggleGroup(resizePolGroup);
+        sizeSubsequentItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_SUBSEQUENT_COLUMNS);
+
+        final var sizeFlexHeadItem = new RadioMenuItem("Flex Head");
+        sizeFlexHeadItem.setToggleGroup(resizePolGroup);
+        sizeFlexHeadItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_NEXT_COLUMN);
+
+        final var sizeFlexTailItem = new RadioMenuItem("Flex Tail");
+        sizeFlexTailItem.setToggleGroup(resizePolGroup);
+        sizeFlexTailItem.setUserData(TreeTableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         // ~
 
@@ -356,8 +378,14 @@ public final class TreeTableViewPage extends OutlinePage {
         final var propsMenu = new MenuButton("Properties");
         propsMenu.getItems().setAll(
             resizePolCaption,
-            unconResizeItem,
-            conResizeItem,
+            sizeUnconstrainedItem,
+            sizeAllColumnsItem,
+            sizeLastColumnItem,
+            sizeNextColumnItem,
+            sizeSubsequentItem,
+            sizeFlexHeadItem,
+            sizeFlexTailItem,
+            new SeparatorMenuItem(),
             selModeCaption,
             singleSelItem,
             multiSelItem,

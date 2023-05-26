@@ -157,7 +157,9 @@ public final class TableViewPage extends OutlinePage {
 
         var table = new TableView<>(Flight.random(5));
         table.getColumns().setAll(col1, col2, col3, col4);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
         //snippet_1:end
 
@@ -198,7 +200,9 @@ public final class TableViewPage extends OutlinePage {
 
         var table = new TableView<>(Flight.random(5));
         table.getColumns().setAll(col1, col2, col3, col4);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
 
         var borderToggle = new ToggleSwitch("Bordered");
@@ -272,7 +276,9 @@ public final class TableViewPage extends OutlinePage {
         // -color-cell-bg-selected-focused: -color-accent-emphasis;
         // -color-cell-fg-selected-focused: -color-fg-emphasis;
         table.setStyle(style);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
         //snippet_3:end
 
@@ -314,7 +320,9 @@ public final class TableViewPage extends OutlinePage {
         var table = new TableView<>(Flight.random(5));
         table.getColumns().setAll(col1, col2, col3, col4);
         table.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
         //snippet_5:end
 
@@ -364,7 +372,9 @@ public final class TableViewPage extends OutlinePage {
 
         var table = new TableView<>(Flight.random(5));
         table.getColumns().setAll(col1, col2, col3, col4);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
         //snippet_6:end
 
@@ -484,7 +494,9 @@ public final class TableViewPage extends OutlinePage {
 
         var table = new TableView<>(Flight.random(5));
         table.getColumns().setAll(col1, col2, col3);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
         //snippet_8:end
 
@@ -524,7 +536,9 @@ public final class TableViewPage extends OutlinePage {
 
         var table = new TableView<>(Flight.random(50));
         table.getColumns().setAll(col1, col2, col3, col4);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(
+            TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        );
         table.getSelectionModel().selectFirst();
 
         var pg = new Pagination(25, 0);
@@ -678,14 +692,34 @@ public final class TableViewPage extends OutlinePage {
             }
         });
 
-        final var unconResizeItem = new RadioMenuItem("Unconstrained");
-        unconResizeItem.setToggleGroup(resizePolGroup);
-        unconResizeItem.setUserData(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        unconResizeItem.setSelected(true);
+        final var sizeUnconstrainedItem = new RadioMenuItem("Unconstrained");
+        sizeUnconstrainedItem.setToggleGroup(resizePolGroup);
+        sizeUnconstrainedItem.setUserData(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        sizeUnconstrainedItem.setSelected(true);
 
-        final var conResizeItem = new RadioMenuItem("Constrained");
-        conResizeItem.setToggleGroup(resizePolGroup);
-        conResizeItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY);
+        final var sizeAllColumnsItem = new RadioMenuItem("Resize All Columns");
+        sizeAllColumnsItem.setToggleGroup(resizePolGroup);
+        sizeAllColumnsItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        final var sizeLastColumnItem = new RadioMenuItem("Resize Last Column");
+        sizeLastColumnItem.setToggleGroup(resizePolGroup);
+        sizeLastColumnItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_LAST_COLUMN);
+
+        final var sizeNextColumnItem = new RadioMenuItem("Resize Next Column");
+        sizeNextColumnItem.setToggleGroup(resizePolGroup);
+        sizeNextColumnItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_NEXT_COLUMN);
+
+        final var sizeSubsequentItem = new RadioMenuItem("Resize Subsequent Column");
+        sizeSubsequentItem.setToggleGroup(resizePolGroup);
+        sizeSubsequentItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_SUBSEQUENT_COLUMNS);
+
+        final var sizeFlexHeadItem = new RadioMenuItem("Flex Head");
+        sizeFlexHeadItem.setToggleGroup(resizePolGroup);
+        sizeFlexHeadItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_NEXT_COLUMN);
+
+        final var sizeFlexTailItem = new RadioMenuItem("Flex Tail");
+        sizeFlexTailItem.setToggleGroup(resizePolGroup);
+        sizeFlexTailItem.setUserData(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         // ~
 
@@ -721,8 +755,14 @@ public final class TableViewPage extends OutlinePage {
         final var propsMenu = new MenuButton("Properties");
         propsMenu.getItems().setAll(
             resizePolCaption,
-            unconResizeItem,
-            conResizeItem,
+            sizeUnconstrainedItem,
+            sizeAllColumnsItem,
+            sizeLastColumnItem,
+            sizeNextColumnItem,
+            sizeSubsequentItem,
+            sizeFlexHeadItem,
+            sizeFlexTailItem,
+            new SeparatorMenuItem(),
             selModeCaption,
             singleSelItem,
             multiSelItem,
