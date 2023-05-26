@@ -367,6 +367,9 @@ public final class ProgressIndicatorPage extends OutlinePage {
             change the progress bar color while the task is in progress."""
         );
 
-        return new ExampleBox(content, new Snippet(getClass(), 6), description);
+        var example = new ExampleBox(content, new Snippet(getClass(), 6), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 }

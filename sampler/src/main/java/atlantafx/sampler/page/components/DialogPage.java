@@ -88,7 +88,10 @@ public final class DialogPage extends OutlinePage {
             Pre-built dialog types for displaying information, warnings, and errors."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox exceptionDialogExample() {
@@ -130,7 +133,10 @@ public final class DialogPage extends OutlinePage {
             are thrown in JavaFX applications."""
         );
 
-        return new ExampleBox(new HBox(button), new Snippet(getClass(), 2), description);
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 2), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox confirmationDialogExample() {
@@ -161,7 +167,10 @@ public final class DialogPage extends OutlinePage {
             suggests the content of the dialog is seeking confirmation from the user."""
         );
 
-        return new ExampleBox(new HBox(button), new Snippet(getClass(), 3), description);
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 3), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox textInputDialogExample() {
@@ -181,7 +190,10 @@ public final class DialogPage extends OutlinePage {
             "A dialog that shows a text input control to the user."
         );
 
-        return new ExampleBox(new HBox(button), new Snippet(getClass(), 4), description);
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 4), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox choiceDialogExample() {
@@ -202,7 +214,10 @@ public final class DialogPage extends OutlinePage {
             A dialog that shows a list of choices to the user, from which they can pick one item at most."""
         );
 
-        return new ExampleBox(new HBox(button), new Snippet(getClass(), 5), description);
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 5), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox notificationNoHeaderDialogExample() {
@@ -243,6 +258,9 @@ public final class DialogPage extends OutlinePage {
             "The header text can be hidden."
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 6), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 6), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 }

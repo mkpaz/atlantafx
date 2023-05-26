@@ -5,6 +5,7 @@ package atlantafx.sampler.layout;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.sampler.page.Page;
+import atlantafx.sampler.util.NodeUtils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -51,6 +53,7 @@ public final class NavTree extends TreeView<Nav> {
         private final HBox root;
         private final Label titleLabel;
         private final Node arrowIcon;
+        private final Label tagLabel;
 
         public NavTreeCell() {
             super();
@@ -62,9 +65,12 @@ public final class NavTree extends TreeView<Nav> {
             arrowIcon = new FontIcon();
             arrowIcon.getStyleClass().add("arrow");
 
+            tagLabel = new Label("new");
+            tagLabel.getStyleClass().add("tag");
+
             root = new HBox();
             root.setAlignment(Pos.CENTER_LEFT);
-            root.getChildren().setAll(titleLabel, new Spacer(), arrowIcon);
+            root.getChildren().setAll(titleLabel, new Spacer(), arrowIcon, tagLabel);
             root.setCursor(Cursor.HAND);
             root.getStyleClass().add("container");
             root.setMaxWidth(ApplicationWindow.SIDEBAR_WIDTH - 10);
@@ -99,7 +105,8 @@ public final class NavTree extends TreeView<Nav> {
                 titleLabel.setGraphic(nav.graphic());
 
                 pseudoClassStateChanged(GROUP, nav.isGroup());
-                arrowIcon.setVisible(nav.isGroup());
+                NodeUtils.toggleVisibility(arrowIcon, nav.isGroup());
+                NodeUtils.toggleVisibility(tagLabel, nav.isTagged());
             }
         }
     }

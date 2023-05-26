@@ -1,11 +1,11 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.PasswordTextField;
+import atlantafx.base.controls.Tile;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.Resources;
-import atlantafx.base.controls.Tile;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
@@ -174,7 +174,7 @@ public class TilePage extends OutlinePage {
         );
         var tgl2 = new ToggleSwitch();
         tile2.setAction(tgl2);
-        tile2.setActionHandler(() -> tgl2.setSelected(!tgl2.isSelected()));
+        tile2.setActionHandler(tgl2::fire);
 
         var tile3 = new Tile("Cache Size (Mb)", null);
         var spinner = new Spinner<>(10, 100, 50);
@@ -187,7 +187,7 @@ public class TilePage extends OutlinePage {
         );
         var tgl3 = new ToggleSwitch();
         tile4.setAction(tgl3);
-        tile4.setActionHandler(() -> tgl3.setSelected(!tgl3.isSelected()));
+        tile4.setActionHandler(tgl3::fire);
 
         var box = new VBox(tile1, tile2, tile3, new Separator(), tile4);
         //snippet_3:end

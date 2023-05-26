@@ -49,10 +49,11 @@ public final class TypographyPage extends OutlinePage {
 
         addPageHeader();
         addFormattedText("""
-            Because AtlantaFX is also distributed as a single CSS file, it does not come \
-            with any fonts. However, it does support several utility classes demonstrated \
-            below that can be used to manipulate font properties. If you need a formatted \
-            text support have a look at [i]BBCodeParser[/i]."""
+                Because AtlantaFX is also distributed as a single CSS file, it does not come \
+                with any fonts. However, it does support several utility classes demonstrated \
+                below that can be used to manipulate font properties. If you need a formatted \
+                text support have a look at [url=local://general.BBCodePage]BBCodeParser[/url].""",
+            true
         );
         addSection("Font Size", fontSizeExample());
         addSection("Font Weight", fontWeightExample());

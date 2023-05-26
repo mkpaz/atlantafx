@@ -99,7 +99,7 @@ public final class AnimationsPage extends StackPane implements Page {
     private VBox createOutline() {
         var outline = new VBox();
         outline.setSpacing(10);
-        outline.setPadding(new Insets(0, 20, 0, 20));
+        outline.setPadding(new Insets(20));
         outline.setMinWidth(OUTLINE_WIDTH);
         outline.setMaxWidth(OUTLINE_WIDTH);
         Styles.appendStyle(outline, "-fx-background-color", "-color-bg-default");

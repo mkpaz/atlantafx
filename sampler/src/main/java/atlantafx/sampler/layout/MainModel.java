@@ -5,6 +5,8 @@ package atlantafx.sampler.layout;
 import static atlantafx.sampler.layout.MainModel.SubLayer.PAGE;
 import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
 
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.NavEvent;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.AccordionPage;
 import atlantafx.sampler.page.components.AnimationsPage;
@@ -92,6 +94,10 @@ public class MainModel {
         return NAV_TREE.values().stream()
             .filter(item -> item.getValue() != null && item.getValue().matches(filter))
             .toList();
+    }
+
+    public MainModel() {
+        DefaultEventBus.getInstance().subscribe(NavEvent.class, e -> navigate(e.getPage()));
     }
 
     ///////////////////////////////////////////////////////////////////////////

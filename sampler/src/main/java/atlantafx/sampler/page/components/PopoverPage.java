@@ -88,7 +88,10 @@ public final class PopoverPage extends OutlinePage {
             [i]Popover[/i] will move around with the parent window when the user drags it."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox positionExample() {
@@ -143,6 +146,9 @@ public final class PopoverPage extends OutlinePage {
             appropriate ArrowLocation value.."""
         );
 
-        return new ExampleBox(grid, new Snippet(getClass(), 2), description);
+        var example = new ExampleBox(grid, new Snippet(getClass(), 2), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 }

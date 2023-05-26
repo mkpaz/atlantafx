@@ -94,7 +94,10 @@ public final class ModalPanePage extends OutlinePage {
             [code]show()[/code] method, which is a convenience method for setting the content \
             of the modal pane and triggering its display state at the same time.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox contentPositionExample() {
@@ -163,7 +166,10 @@ public final class ModalPanePage extends OutlinePage {
             The alignment and animated appearance of modal content can be changed \
             via corresponding properties.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox persistentExample() {
@@ -192,7 +198,10 @@ public final class ModalPanePage extends OutlinePage {
             or when the mouse is clicked outside the content area. [code]setPersistent()[/code] \
             property prevents this behavior and instead plays a bouncing animation.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 3), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 3), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox nestingExample() {
@@ -226,7 +235,10 @@ public final class ModalPanePage extends OutlinePage {
             the same behavior by stacking multiple modal panes and using the corresponding \
             [code]topViewOrder[/code] property value.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 4), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 4), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox maximizedExample() {
@@ -248,7 +260,10 @@ public final class ModalPanePage extends OutlinePage {
             To create a maximized dialog, simply use a content node such as [i]VBox[/i] \
             that expands itself in both the horizontal and vertical directions.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 5), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 5), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox overflowedExample() {
@@ -302,7 +317,10 @@ public final class ModalPanePage extends OutlinePage {
             The [i]ModalPane[/i] is already scrollable by default, but you can also use a \
             [i]ScrollPane[/i] for the content node if needed.""");
 
-        return new ExampleBox(box, new Snippet(getClass(), 6), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 6), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox dialogPaneExample() {
@@ -348,7 +366,10 @@ public final class ModalPanePage extends OutlinePage {
             and allows for the addition of arbitrary children."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 8), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 8), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox lightboxExample() {

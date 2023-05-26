@@ -63,7 +63,10 @@ public final class TooltipPage extends OutlinePage {
             modified to show plain text to the user."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private ExampleBox positionExample() {
@@ -98,7 +101,10 @@ public final class TooltipPage extends OutlinePage {
             The point can be set to a corner of the popup window or a corner of its content."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 2), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 2), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private Label createLabel(String text) {

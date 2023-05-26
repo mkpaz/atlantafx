@@ -176,6 +176,9 @@ public class MessagePage extends OutlinePage {
             which can be used to create a fancy banner, for example."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 4), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 4), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 }

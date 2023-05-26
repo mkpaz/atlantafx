@@ -68,7 +68,7 @@
       -fx-min-height: 2.1em;
       -fx-pref-height: 2.1em;
       -fx-max-height: 2.1em;
-      -fx-padding: 0 0 0 1.2em;
+      -fx-padding: 0 6px 0 1.2em;
 
       -fx-border-color: -color-border-muted;
       -fx-border-width: 0 0 0 1;
@@ -105,6 +105,13 @@
       &:expanded>.container>.arrow {
         -fx-icon-code: mdmz-remove;
       }
+    }
+
+    .tag {
+      -fx-padding: 2px 4px 2px 4px;
+      -fx-background-radius: 4px;
+      -fx-font-size: 0.75em;
+      -fx-background-color: -color-success-subtle;
     }
   }
 }

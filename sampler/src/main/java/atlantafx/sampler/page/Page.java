@@ -9,6 +9,7 @@ import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.NavEvent;
 import atlantafx.sampler.event.PageEvent;
 import atlantafx.sampler.layout.ApplicationWindow;
 import java.net.URI;
@@ -27,7 +28,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import net.datafaker.Faker;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
@@ -71,15 +71,30 @@ public interface Page {
         return Feather.values()[RANDOM.nextInt(Feather.values().length)];
     }
 
+    @SuppressWarnings("unchecked")
     default Node createFormattedText(String text, boolean handleUrl) {
         var node = BBCodeParser.createFormattedText(text);
 
         if (handleUrl) {
             node.addEventFilter(ActionEvent.ACTION, e -> {
-                if (e.getTarget() instanceof Hyperlink link && link.getUserData() != null) {
-                    DefaultEventBus.getInstance().publish(
-                        new BrowseEvent(URI.create((String) link.getUserData()))
-                    );
+                if (e.getTarget() instanceof Hyperlink link && link.getUserData() instanceof String url) {
+                    if (url.startsWith("https://") || url.startsWith("http://")) {
+                        DefaultEventBus.getInstance().publish(new BrowseEvent(URI.create(url)));
+                    }
+
+                    if (url.startsWith("local://")) {
+                        try {
+                            var rootPackage = "atlantafx.sampler.page.";
+                            var c = Class.forName(rootPackage + url.substring(8));
+                            if (Page.class.isAssignableFrom(c)) {
+                                DefaultEventBus.getInstance().publish(new NavEvent((Class<? extends Page>) c));
+                            } else {
+                                throw new IllegalArgumentException();
+                            }
+                        } catch (Exception ignored) {
+                            System.err.println("Invalid local URL: \"" + url + "\"");
+                        }
+                    }
                 }
                 e.consume();
             });
