@@ -30,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The {@link Theme} decorator to work around some JavaFX CSS limitations.
@@ -85,6 +86,11 @@ public final class SamplerTheme implements Theme {
     @Override
     public String getUserAgentStylesheet() {
         return IS_DEV_MODE ? DUMMY_STYLESHEET : getResource().toURI().toString();
+    }
+
+    @Override
+    public @Nullable String getUserAgentStylesheetBSS() {
+        return theme.getUserAgentStylesheetBSS();
     }
 
     @Override

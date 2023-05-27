@@ -31,6 +31,14 @@ public final class PrimerLight implements Theme {
      * {@inheritDoc}
      */
     @Override
+    public String getUserAgentStylesheetBSS() {
+        return "/atlantafx/base/theme/primer-light.bss";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isDarkMode() {
         return false;
     }

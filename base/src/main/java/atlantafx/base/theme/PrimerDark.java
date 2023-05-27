@@ -31,6 +31,14 @@ public final class PrimerDark implements Theme {
      * {@inheritDoc}
      */
     @Override
+    public String getUserAgentStylesheetBSS() {
+        return "/atlantafx/base/theme/primer-dark.bss";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isDarkMode() {
         return true;
     }

@@ -34,6 +34,14 @@ public class CupertinoLight implements Theme {
      * {@inheritDoc}
      */
     @Override
+    public String getUserAgentStylesheetBSS() {
+        return "/atlantafx/base/theme/cupertino-light.bss";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isDarkMode() {
         return false;
     }

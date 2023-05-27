@@ -31,6 +31,14 @@ public final class NordDark implements Theme {
      * {@inheritDoc}
      */
     @Override
+    public String getUserAgentStylesheetBSS() {
+        return "/atlantafx/base/theme/nord-dark.bss";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isDarkMode() {
         return true;
     }

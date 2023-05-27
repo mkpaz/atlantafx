@@ -58,6 +58,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- compile themes to BSS -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>compile-to-bss</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>atlantafx.base.theme.ThemeCompiler</mainClass>
+                            <arguments>
+                                <argument>${project.build.directory}/classes/atlantafx/base/theme</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

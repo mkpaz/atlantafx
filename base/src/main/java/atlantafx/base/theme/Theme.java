@@ -6,6 +6,7 @@ import static javafx.application.Application.STYLESHEET_CASPIAN;
 import static javafx.application.Application.STYLESHEET_MODENA;
 
 import javafx.application.Application;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Basic theme interface.
@@ -22,6 +23,14 @@ public interface Theme {
      * See {@link Application#setUserAgentStylesheet(String)} for more info.
      */
     String getUserAgentStylesheet();
+
+    /**
+     * Returns the path to the theme user-agent stylesheet in binary
+     * (BSS) format. See {@link Application#setUserAgentStylesheet(String)} for more info.
+     * All built-in themes are available in BSS format, but custom themes may not,
+     * hence the method may return null value.
+     */
+    @Nullable String getUserAgentStylesheetBSS();
 
     /**
      * Signifies whether the theme uses a light font on a dark background
@@ -50,6 +59,11 @@ public interface Theme {
             @Override
             public String getUserAgentStylesheet() {
                 return userAgentStylesheet;
+            }
+
+            @Override
+            public @Nullable String getUserAgentStylesheetBSS() {
+                return null;
             }
 
             @Override
