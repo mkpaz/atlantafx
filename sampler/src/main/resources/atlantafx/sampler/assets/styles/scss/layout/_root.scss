@@ -69,6 +69,8 @@
 
   .modal-dialog {
     -fx-background-color: transparent;
+    -fx-border-width: 2;
+    -fx-border-color: -color-border-default;
 
     .card {
       -fx-border-width: 0;

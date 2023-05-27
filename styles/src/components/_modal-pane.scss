@@ -19,13 +19,13 @@ $close-button-icon-size: 0.3em !default;
   }
 }
 
-// DialogPane is directly related to the ModalPane
-.dialog-pane {
-  -color-dialog-pane-bg: $color-dialog-bg;
-  -color-dialog-pane-close-fg: $color-dialog-close-fg;
-  -color-dialog-pane-close-bg-hover: $color-dialog-close-bg-hover;
+// ModalBox is directly related to the ModalPane
+.modal-box {
+  -color-modal-box-bg: $color-dialog-bg;
+  -color-modal-box-close-fg: $color-dialog-close-fg;
+  -color-modal-box-close-bg-hover: $color-dialog-close-bg-hover;
 
-  -fx-background-color: -color-dialog-pane-bg;
+  -fx-background-color: -color-modal-box-bg;
 
   >.close-button {
     -fx-background-radius: $close-button-radius;
@@ -33,12 +33,12 @@ $close-button-icon-size: 0.3em !default;
 
     >.icon {
       @include icons.get("close", true);
-      -fx-background-color: -color-dialog-pane-close-fg;
+      -fx-background-color: -color-modal-box-close-fg;
       -fx-padding: $close-button-icon-size;
     }
 
     &:hover {
-      -fx-background-color: -color-dialog-pane-close-bg-hover;
+      -fx-background-color: -color-modal-box-close-bg-hover;
     }
   }
 

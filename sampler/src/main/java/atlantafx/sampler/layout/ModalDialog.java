@@ -6,7 +6,7 @@ import atlantafx.base.controls.Card;
 import atlantafx.base.controls.ModalPane;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.Tile;
-import atlantafx.base.layout.DialogPane;
+import atlantafx.base.layout.ModalBox;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public abstract class ModalDialog extends DialogPane {
+public abstract class ModalDialog extends ModalBox {
 
     protected final Card content = new Card();
     protected final Tile header = new Tile();

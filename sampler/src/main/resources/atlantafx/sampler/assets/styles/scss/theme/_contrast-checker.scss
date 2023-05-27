@@ -113,17 +113,19 @@
 }
 
 .contrast-checker-dialog {
-  -color-dialog-bg: white;
-  -color-dialog-fg: black;
-
-  -color-dialog-pane-bg: -color-contrast-checker-bg;
-  -color-dialog-pane-close-fg: -color-contrast-checker-fg;
-  -color-dialog-pane-close-bg-hover: derive(-color-contrast-checker-bg, 30%);
+  -color-modal-box-bg: -color-contrast-checker-bg;
+  -color-modal-box-close-fg: -color-contrast-checker-fg;
+  -color-modal-box-close-bg-hover: derive(-color-contrast-checker-bg, 30%);
 
   -fx-background-color: transparent;
 
+  &.modal-dialog {
+    -fx-border-width: 0;
+  }
+
   .card {
     -fx-background-color: -color-contrast-checker-bg;
+    -fx-border-width: 0;
 
     .title {
       -fx-text-fill: -color-contrast-checker-fg;

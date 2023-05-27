@@ -15,13 +15,13 @@ import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The DialogPane is a specialized control or layout designed to hold the
+ * The ModalBox is a specialized control or layout designed to hold the
  * {@link ModalPane} dialog content. It includes the close button out-of-the-box
- * and allows for the addition of arbitrary children. The DialogPane is derived
+ * and allows for the addition of arbitrary children. The ModalBox is derived
  * from the {@link AnchorPane}, so it inherits the same API. Just be sure that
  * you haven't removed the close button while using it.
  */
-public class DialogPane extends AnchorPane {
+public class ModalBox extends AnchorPane {
 
     protected final StackPane closeButton = new StackPane();
     protected final StackPane closeButtonIcon = new StackPane();
@@ -29,23 +29,23 @@ public class DialogPane extends AnchorPane {
     protected @Nullable ModalPane modalPane;
 
     /**
-     * Creates an DialogPane layout.
+     * Creates a ModalBox layout.
      */
-    public DialogPane() {
+    public ModalBox() {
         this((String) null);
     }
 
     /**
-     * Creates an DialogPane layout with the given children.
+     * Creates a ModalBox layout with the given children.
      *
      * @param children the initial set of children for this pane
      */
-    public DialogPane(Node... children) {
+    public ModalBox(Node... children) {
         this((String) null, children);
     }
 
     /**
-     * Creates a DialogPane layout with the given children and binds
+     * Creates a ModalBox layout with the given children and binds
      * the close handler to a ModalPane via CSS selector. When user clicks
      * on the close button, it performs a ModalPane lookup via the specified
      * selector and calls the {@link ModalPane#hide()} method automatically.
@@ -53,7 +53,7 @@ public class DialogPane extends AnchorPane {
      * @param selector the ModalPane pane CSS selector
      * @param children the initial set of children for this pane
      */
-    public DialogPane(@Nullable @NamedArg("selector") String selector, Node... children) {
+    public ModalBox(@Nullable @NamedArg("selector") String selector, Node... children) {
         super(children);
 
         this.selector = selector;
@@ -63,14 +63,14 @@ public class DialogPane extends AnchorPane {
     }
 
     /**
-     * Creates a DialogPane layout with the given children and binds
+     * Creates a ModalBox layout with the given children and binds
      * the close handler to a ModalPane. When user clicks on the close button,
      * it calls the {@link ModalPane#hide()} method automatically.
      *
      * @param modalPane the ModalPane pane CSS selector
      * @param children  the initial set of children for this pane
      */
-    public DialogPane(@Nullable ModalPane modalPane, Node... children) {
+    public ModalBox(@Nullable ModalPane modalPane, Node... children) {
         super(children);
 
         this.selector = null;
@@ -80,9 +80,9 @@ public class DialogPane extends AnchorPane {
     }
 
     /**
-     * Adds (prepends) specified node to the DialogPane before the close button.
+     * Adds (prepends) specified node to the ModalBox before the close button.
      *
-     * <p>Otherwise, if the added node takes up the full size of the DialogPane
+     * <p>Otherwise, if the added node takes up the full size of the ModalBox
      * and {@link Node#isMouseTransparent()} is false, then the close button
      * will not receive mouse events and therefore will not be clickable.
      *
@@ -94,7 +94,7 @@ public class DialogPane extends AnchorPane {
     }
 
     /**
-     * Manually closes the DialogPane in case one needs to use their
+     * Manually closes the ModalBox in case one needs to use their
      * own close button.
      */
     public void close() {
@@ -108,7 +108,7 @@ public class DialogPane extends AnchorPane {
 
         closeButtonIcon.getStyleClass().add("icon");
 
-        getStyleClass().add("dialog-pane");
+        getStyleClass().add("modal-box");
         getChildren().add(closeButton);
         setCloseButtonPosition();
     }

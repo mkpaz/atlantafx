@@ -4,7 +4,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.ModalPane;
 import atlantafx.base.controls.Tile;
-import atlantafx.base.layout.DialogPane;
+import atlantafx.base.layout.ModalBox;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.ExampleBox;
@@ -70,7 +70,7 @@ public final class ModalPanePage extends OutlinePage {
         addSection("Nesting", nestingExample());
         addSection("Maximized", maximizedExample());
         addSection("Overflowed", overflowedExample());
-        addSection("DialogPane", dialogPaneExample());
+        addSection("ModalBox", modalBoxExample());
         addSection("Lightbox", lightboxExample());
     }
 
@@ -323,13 +323,13 @@ public final class ModalPanePage extends OutlinePage {
         return example;
     }
 
-    private ExampleBox dialogPaneExample() {
+    private ExampleBox modalBoxExample() {
         //snippet_8:start
         // you can use a selector
-        var dialog = new DialogPane("#modalPane");
+        var dialog = new ModalBox("#modalPane");
 
         // ... or your pass a ModalPane instance directly
-        //var dialog = new DialogPane(modalPane);
+        //var dialog = new ModalBox(modalPane);
 
         // ... or you can set your own close handler
         //dialog.setOnClose(/* whatever */);
@@ -361,7 +361,7 @@ public final class ModalPanePage extends OutlinePage {
         box.setAlignment(Pos.CENTER);
 
         var description = BBCodeParser.createFormattedText("""
-            The [i]DialogPane[/i] is a specialized control (or layout) designed to hold the \
+            The [i]ModalBox[/i] is a specialized control (or layout) designed to hold the \
             [i]ModalPane[/i] dialog content. It includes the close button out-of-the-box \
             and allows for the addition of arbitrary children."""
         );
