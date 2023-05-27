@@ -64,21 +64,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
 
 public class MainModel {
 
-    public static Class<? extends Page> DEFAULT_PAGE = ThemePage.class;
+    public static final Class<? extends Page> DEFAULT_PAGE = ThemePage.class;
 
     private static final Map<Class<? extends Page>, NavTree.Item> NAV_TREE = createNavItems();
 
@@ -104,33 +98,6 @@ public class MainModel {
     ///////////////////////////////////////////////////////////////////////////
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
-
-    private final StringProperty searchText = new SimpleStringProperty();
-
-    public StringProperty searchTextProperty() {
-        return searchText;
-    }
-
-    // ~
-    private final ReadOnlyStringWrapper title = new ReadOnlyStringWrapper();
-
-    public ReadOnlyStringProperty titleProperty() {
-        return title.getReadOnlyProperty();
-    }
-
-    // ~
-    private final ReadOnlyBooleanWrapper themeChangeToggle = new ReadOnlyBooleanWrapper();
-
-    public ReadOnlyBooleanProperty themeChangeToggleProperty() {
-        return themeChangeToggle.getReadOnlyProperty();
-    }
-
-    // ~
-    private final ReadOnlyBooleanWrapper sourceCodeToggle = new ReadOnlyBooleanWrapper();
-
-    public ReadOnlyBooleanProperty sourceCodeToggleProperty() {
-        return sourceCodeToggle.getReadOnlyProperty();
-    }
 
     // ~
     private final ReadOnlyObjectWrapper<Class<? extends Page>> selectedPage = new ReadOnlyObjectWrapper<>();
@@ -341,12 +308,6 @@ public class MainModel {
     ///////////////////////////////////////////////////////////////////////////
     // Commands                                                              //
     ///////////////////////////////////////////////////////////////////////////
-
-    public void setPageData(String text, boolean canChangeTheme, boolean canDisplaySource) {
-        title.set(Objects.requireNonNull(text));
-        themeChangeToggle.set(canChangeTheme);
-        sourceCodeToggle.set(canDisplaySource);
-    }
 
     public void navigate(Class<? extends Page> page) {
         selectedPage.set(Objects.requireNonNull(page));

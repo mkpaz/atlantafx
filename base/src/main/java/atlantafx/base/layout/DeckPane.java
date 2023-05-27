@@ -22,7 +22,7 @@ import javafx.util.Duration;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * <p>DeckPane represents a pane that displays all of its child nodes in a deck,
+ * DeckPane represents a pane that displays all of its child nodes in a deck,
  * where only one node can be visible at a time. It does not maintain any sequence
  * (model), but only cares about the top node, which can be changed by various
  * transition effects.<p/>
@@ -32,12 +32,12 @@ import org.jetbrains.annotations.Nullable;
  * <p>DeckPane manages {@link Node#viewOrderProperty()} of its children. Topmost
  * visible node always has a higher view order value, while the rest of the nodes
  * have the default value, which is zero. Following that logic, one must not set
- * child nodes view order manually, because it will break the contract.<p/>
+ * child nodes view order manually, because it will break the contract.
  *
  * <p>If all child nodes have the same view order value (default state after creating
  * a new DeckPane), they are displayed in order specified by the root container, which
  * is {@link AnchorPane}. When a node is removed from the pane, its view order is
- * restored automatically.<p/>
+ * restored automatically.
  */
 public class DeckPane extends AnchorPane {
 

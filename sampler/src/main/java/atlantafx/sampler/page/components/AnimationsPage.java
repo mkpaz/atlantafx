@@ -133,11 +133,6 @@ public final class AnimationsPage extends StackPane implements Page {
     }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return true;
-    }
-
-    @Override
     public URI getJavadocUri() {
         return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "util/" + getName()));
     }
@@ -154,6 +149,7 @@ public final class AnimationsPage extends StackPane implements Page {
     ///////////////////////////////////////////////////////////////////////////
 
     // this method isn't used anywhere
+    @SuppressWarnings("unused")
     private void snippetText() {
         //snippet_1:start
         var rectangle = new Rectangle(100, 100);

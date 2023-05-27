@@ -85,10 +85,12 @@ public class ToggleSwitch extends Labeled implements Toggle {
 
     private BooleanProperty selected;
 
+    @Override
     public final void setSelected(boolean value) {
         selectedProperty().set(value);
     }
 
+    @Override
     public final boolean isSelected() {
         return selected != null && selected.get();
     }
@@ -96,6 +98,7 @@ public class ToggleSwitch extends Labeled implements Toggle {
     /**
      * Returns whether this Toggle Switch is selected.
      */
+    @Override
     public final BooleanProperty selectedProperty() {
         if (selected == null) {
             selected = new BooleanPropertyBase() {
@@ -121,7 +124,7 @@ public class ToggleSwitch extends Labeled implements Toggle {
                             // "!tg.getSelectedToggle().isSelected()"
                             // looks like absurd and should always return false.
                             if (!tg.getSelectedToggle().isSelected()) {
-                                for (Toggle toggle: tg.getToggles()) {
+                                for (Toggle toggle : tg.getToggles()) {
                                     if (toggle.isSelected()) {
                                         return;
                                     }

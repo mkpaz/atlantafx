@@ -3,7 +3,6 @@
 package atlantafx.base.theme;
 
 import atlantafx.base.Preview;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A theme based on <a href="https://developer.apple.com/design/">IOS</a> color palette.

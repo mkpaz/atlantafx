@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
 
 public abstract class ModalDialog extends DialogPane {
 
-    protected Card content = new Card();
-    protected Tile header = new Tile();
+    protected final Card content = new Card();
+    protected final Tile header = new Tile();
 
     public ModalDialog() {
         super("#" + ApplicationWindow.MAIN_MODAL_ID);

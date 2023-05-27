@@ -23,16 +23,16 @@ public class Tile extends Control {
     }
 
     public Tile(@NamedArg("title") String title,
-                @NamedArg("subtitle") String subtitle) {
-        this(title, subtitle, null);
+                @NamedArg("subTitle") String subTitle) {
+        this(title, subTitle, null);
     }
 
     public Tile(@NamedArg("title") String title,
-                @NamedArg("subtitle") String subtitle,
+                @NamedArg("subTitle") String subTitle,
                 @NamedArg("graphic") Node graphic) {
         super();
         setTitle(title);
-        setSubTitle(subtitle);
+        setSubTitle(subTitle);
         setGraphic(graphic);
     }
 

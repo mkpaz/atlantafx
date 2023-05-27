@@ -65,11 +65,6 @@ public final class BlueprintsPage extends ScrollPane implements Page {
     }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return true;
-    }
-
-    @Override
     public @Nullable URI getJavadocUri() {
         return null;
     }

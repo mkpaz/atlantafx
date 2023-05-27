@@ -20,7 +20,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
@@ -151,6 +150,7 @@ public final class CustomTextFieldPage extends OutlinePage {
         timeField.textProperty().addListener((obs, old, val) -> {
             if (val != null) {
                 try {
+                    //noinspection ResultOfMethodCallIgnored
                     LocalTime.parse(val, timeFormatter);
                     timeField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
                 } catch (DateTimeParseException e) {

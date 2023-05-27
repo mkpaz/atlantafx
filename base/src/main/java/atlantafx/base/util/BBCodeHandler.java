@@ -176,9 +176,9 @@ public interface BBCodeHandler {
         protected static final int OL_LETTER_OFFSET = 100_000;
 
         protected final Block root;
+        protected final Deque<Tag> openTags = new ArrayDeque<>();
+        protected final Deque<Block> openBlocks = new ArrayDeque<>();
         protected char[] doc;
-        protected Deque<Tag> openTags = new ArrayDeque<>();
-        protected Deque<Block> openBlocks = new ArrayDeque<>();
         protected int textCursor;
 
         /**

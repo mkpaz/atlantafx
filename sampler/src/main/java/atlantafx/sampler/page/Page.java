@@ -55,8 +55,6 @@ public interface Page {
 
     boolean canDisplaySourceCode();
 
-    boolean canChangeThemeSettings();
-
     @Nullable URI getJavadocUri();
 
     @Nullable Node getSnapshotTarget();

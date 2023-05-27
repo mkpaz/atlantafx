@@ -79,7 +79,7 @@ public final class ToolBarPage extends OutlinePage {
 
     private ExampleBox usageExample() {
         //snippet_1:start
-        var toolbar1 = new ToolBar(
+        final var toolbar1 = new ToolBar(
             new Button("New", new FontIcon(Feather.PLUS)),
             new Button("Open", new FontIcon(Feather.FILE)),
             new Button("Save", new FontIcon(Feather.SAVE)),
@@ -102,7 +102,7 @@ public final class ToolBarPage extends OutlinePage {
             ));
         fontSizeCmb.getSelectionModel().select(6);
 
-        var toolbar2 = new ToolBar(
+        final var toolbar2 = new ToolBar(
             fontFamilyCmb,
             fontSizeCmb,
             new Separator(Orientation.VERTICAL),
@@ -131,7 +131,7 @@ public final class ToolBarPage extends OutlinePage {
             new MenuItem("Action 3")
         );
 
-        var toolbar3 = new ToolBar(
+        final var toolbar3 = new ToolBar(
             iconButton(Feather.CHEVRON_LEFT),
             iconButton(Feather.CHEVRON_RIGHT),
             new Separator(Orientation.VERTICAL),

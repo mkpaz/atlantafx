@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 public class StylesTest {
 
-    PseudoClass pcFirst = PseudoClass.getPseudoClass("first");
-    PseudoClass pcSecond = PseudoClass.getPseudoClass("second");
-    PseudoClass pcExcluded = PseudoClass.getPseudoClass("excluded");
+    final PseudoClass pcFirst = PseudoClass.getPseudoClass("first");
+    final PseudoClass pcSecond = PseudoClass.getPseudoClass("second");
+    final PseudoClass pcExcluded = PseudoClass.getPseudoClass("excluded");
 
     @Test
     @SuppressWarnings("DataFlowIssue")

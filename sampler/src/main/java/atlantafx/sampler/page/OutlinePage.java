@@ -76,7 +76,7 @@ public abstract class OutlinePage extends StackPane implements Page {
 
     protected Consumer<Heading> createOutlineHandler() {
         return heading -> {
-            if (heading != Heading.TOP) {
+            if (!Objects.equals(heading, Heading.TOP)) {
                 Parent container = heading.anchor().getParent();
                 int indexInParent = container.getChildrenUnmodifiable().indexOf(heading.anchor());
 
@@ -161,11 +161,6 @@ public abstract class OutlinePage extends StackPane implements Page {
 
     @Override
     public boolean canDisplaySourceCode() {
-        return true;
-    }
-
-    @Override
-    public boolean canChangeThemeSettings() {
         return true;
     }
 

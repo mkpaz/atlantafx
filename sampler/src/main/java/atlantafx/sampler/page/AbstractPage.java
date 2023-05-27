@@ -54,11 +54,6 @@ public abstract class AbstractPage extends StackPane implements Page {
     }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return true;
-    }
-
-    @Override
     public @Nullable URI getJavadocUri() {
         return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
     }

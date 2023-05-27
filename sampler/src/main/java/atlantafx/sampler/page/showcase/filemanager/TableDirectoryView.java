@@ -75,7 +75,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         table.getColumns().setAll(filenameCol, sizeCol, mtimeCol);
         table.getSortOrder().add(filenameCol);
         table.setSortPolicy(param -> true);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         filenameCol.minWidthProperty().bind(table.widthProperty().multiply(0.5));
         table.setRowFactory(param -> {
             TableRow<Path> row = new TableRow<>();

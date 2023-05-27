@@ -24,7 +24,7 @@ public final class BBCodePage extends OutlinePage {
     }
 
     @Override
-    public @Nullable URI getJavadocUri() {
+    public URI getJavadocUri() {
         return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "util/BBCodeParser"));
     }
 

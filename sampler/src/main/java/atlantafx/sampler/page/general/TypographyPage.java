@@ -191,7 +191,7 @@ public final class TypographyPage extends OutlinePage {
             new StyledText("300", "-fx-font-weight:300;"),
             new StyledText("200", "-fx-font-weight:200;"),
             new StyledText("100", "-fx-font-weight:100;"),
-            new Text("\uD83E\uDC60 no difference")
+            new Text("🡠 no difference")
         );
         sample2.setAlignment(Pos.BASELINE_LEFT);
 
@@ -210,7 +210,7 @@ public final class TypographyPage extends OutlinePage {
             new StyledText("300", "-fx-font-family:'Inter Light';"),
             new StyledText("200", "-fx-font-family:'Inter Extra Light';"),
             new StyledText("100", "-fx-font-family:'Inter Thin';"),
-            new Text("\uD83E\uDC60 workaround")
+            new Text("🡠 workaround")
         );
         sample3.setAlignment(Pos.BASELINE_LEFT);
         //snippet_2:end

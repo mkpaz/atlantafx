@@ -70,7 +70,7 @@ public class ModalPane extends Control {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    protected ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
+    protected final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
 
     public Node getContent() {
         return content.get();
@@ -89,7 +89,7 @@ public class ModalPane extends Control {
 
     // ~
 
-    protected BooleanProperty display = new SimpleBooleanProperty(this, "display", false);
+    protected final BooleanProperty display = new SimpleBooleanProperty(this, "display", false);
 
     public boolean isDisplay() {
         return display.get();
@@ -109,7 +109,7 @@ public class ModalPane extends Control {
 
     // ~
 
-    protected ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", Pos.CENTER);
+    protected final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", Pos.CENTER);
 
     public Pos getAlignment() {
         return alignment.get();
@@ -128,7 +128,7 @@ public class ModalPane extends Control {
 
     // ~
 
-    protected ObjectProperty<Function<Node, Animation>> inTransitionFactory = new SimpleObjectProperty<>(
+    protected final ObjectProperty<Function<Node, Animation>> inTransitionFactory = new SimpleObjectProperty<>(
         this, "inTransitionFactory", node -> Animations.zoomIn(node, DEFAULT_DURATION_IN)
     );
 
@@ -150,7 +150,7 @@ public class ModalPane extends Control {
 
     // ~
 
-    protected ObjectProperty<Function<Node, Animation>> outTransitionFactory = new SimpleObjectProperty<>(
+    protected final ObjectProperty<Function<Node, Animation>> outTransitionFactory = new SimpleObjectProperty<>(
         this, "outTransitionFactory", node -> Animations.zoomOut(node, DEFAULT_DURATION_OUT)
     );
 
@@ -172,7 +172,7 @@ public class ModalPane extends Control {
 
     // ~
 
-    protected BooleanProperty persistent = new SimpleBooleanProperty(this, "persistent", false);
+    protected final BooleanProperty persistent = new SimpleBooleanProperty(this, "persistent", false);
 
     public boolean getPersistent() {
         return persistent.get();

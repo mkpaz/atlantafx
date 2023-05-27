@@ -149,12 +149,6 @@ class MainLayer extends BorderPane {
                 .orElse(null);
             final Page nextPage = pageClass.getDeclaredConstructor().newInstance();
 
-            model.setPageData(
-                nextPage.getName(),
-                nextPage.canChangeThemeSettings(),
-                nextPage.canDisplaySourceCode()
-            );
-
             // startup, no prev page, no animation
             if (getScene() == null) {
                 subLayerPane.getChildren().add(nextPage.getView());

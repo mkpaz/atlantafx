@@ -28,13 +28,13 @@ public abstract class ShowcasePage extends StackPane implements Page {
     protected static final int DEFAULT_WIDTH = 800;
     protected static final int DEFAULT_HEIGHT = 600;
 
-    protected VBox showcaseWindow = new VBox();
-    protected Label windowTitle = new Label();
-    protected VBox showCaseContent = new VBox();
-    protected FontIcon aboutBtn = new FontIcon(Feather.HELP_CIRCLE);
+    protected final VBox showcaseWindow = new VBox();
+    protected final Label windowTitle = new Label();
+    protected final VBox showCaseContent = new VBox();
+    protected final FontIcon aboutBtn = new FontIcon(Feather.HELP_CIRCLE);
+    protected final BooleanProperty maximized = new SimpleBooleanProperty();
     protected int windowWidth = DEFAULT_WIDTH;
     protected int windowHeight = DEFAULT_HEIGHT;
-    protected BooleanProperty maximized = new SimpleBooleanProperty();
 
     public ShowcasePage() {
         super();
@@ -117,11 +117,6 @@ public abstract class ShowcasePage extends StackPane implements Page {
     @Override
     public boolean canDisplaySourceCode() {
         return false;
-    }
-
-    @Override
-    public boolean canChangeThemeSettings() {
-        return true;
     }
 
     @Override

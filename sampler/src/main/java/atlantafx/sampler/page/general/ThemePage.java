@@ -60,11 +60,6 @@ public final class ThemePage extends OutlinePage {
     }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return false;
-    }
-
-    @Override
     public @Nullable URI getJavadocUri() {
         return null;
     }

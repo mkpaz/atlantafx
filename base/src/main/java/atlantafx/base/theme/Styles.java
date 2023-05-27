@@ -243,6 +243,7 @@ public final class Styles {
      * @param prop the name of the style property to remove
      * @throws NullPointerException if node is null
      */
+    @SuppressWarnings("StringSplitter")
     public static void removeStyle(Node node, String prop) {
         if (node == null) {
             throw new NullPointerException("Node cannot be null!");

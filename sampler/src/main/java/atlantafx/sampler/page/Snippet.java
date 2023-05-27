@@ -3,6 +3,7 @@
 package atlantafx.sampler.page;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -38,7 +39,7 @@ public final class Snippet {
         try (var stream = sourceClass.getResourceAsStream(sourceFileName)) {
             Objects.requireNonNull(stream, "Missing source file '" + sourceFileName + "';");
 
-            var sourceCode = new String(stream.readAllBytes());
+            var sourceCode = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
             var startTag = "//snippet_" + id + ":start";
             var endTag = "//snippet_" + id + ":end";
             var start = sourceCode.indexOf(startTag);
