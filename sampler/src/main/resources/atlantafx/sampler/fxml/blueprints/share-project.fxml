@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -38,7 +38,7 @@
          <children>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar4.png" />
+                  <Image url="@../../images/avatars/avatar4.png" />
                </image>
             </ImageView>
             <Label text="Gethin Peters" />
@@ -55,7 +55,7 @@
          <children>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar5.png" />
+                  <Image url="@../../images/avatars/avatar5.png" />
                </image>
             </ImageView>
             <Label text="Gerard Gallagher" />
@@ -72,7 +72,7 @@
          <children>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar6.png" />
+                  <Image url="@../../images/avatars/avatar6.png" />
                </image>
             </ImageView>
             <Label text="Betty Lopez" />

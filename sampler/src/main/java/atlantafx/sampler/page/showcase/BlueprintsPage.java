@@ -37,7 +37,7 @@ public final class BlueprintsPage extends ScrollPane implements Page {
             wrapper.setAlignment(Pos.TOP_CENTER);
 
             var loader = new FXMLLoader(
-                Resources.getResource("assets/fxml/blueprints/index.fxml").toURL()
+                Resources.getResource("fxml/blueprints/index.fxml").toURL()
             );
             Parent fxmlContent = loader.load();
             ((Pane) fxmlContent).setMaxWidth(Page.MAX_WIDTH);

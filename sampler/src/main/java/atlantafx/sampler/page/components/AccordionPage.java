@@ -166,7 +166,7 @@ public final class AccordionPage extends OutlinePage {
         disabledBlock.setDisable(true);
 
         var imageBlock = new TitledPane("_Image", new VBox(10,
-            new ImageView(new Image(Resources.getResourceAsStream("images/20_min_adventure.jpg"))),
+            new ImageView(new Image(Resources.getResourceAsStream("images/fun/20_min_adventure.jpg"))),
             new TextFlow(new Text(FAKER.rickAndMorty().quote()))
         ));
         imageBlock.animatedProperty().bind(animatedProperty);

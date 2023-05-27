@@ -153,7 +153,7 @@ class SceneBuilderDialog extends ModalDialog {
 
     private Pane createStartScreen() {
         var previewImg = new ImageView(new Image(
-            Resources.getResourceAsStream("images/scene-builder-in-action.jpg")
+            Resources.getResourceAsStream("images/scene-builder/scene-builder-in-action.jpg")
         ));
         previewImg.setFitWidth(280);
         previewImg.setFitHeight(190);
@@ -257,7 +257,7 @@ class SceneBuilderDialog extends ModalDialog {
 
     private Pane createThemeScreen() {
         var icon = new ImageView(new Image(
-            Resources.getResourceAsStream("images/color-palette.png")
+            Resources.getResourceAsStream("images/scene-builder/color-palette.png")
         ));
         icon.setFitWidth(64);
         icon.setFitHeight(64);
@@ -323,14 +323,14 @@ class SceneBuilderDialog extends ModalDialog {
 
     private Pane createExecScreen() {
         var menuImg = new ImageView(new Image(
-            Resources.getResourceAsStream("images/scene-builder-themes.png")
+            Resources.getResourceAsStream("images/scene-builder/scene-builder-themes.png")
         ));
         menuImg.setFitWidth(280);
         menuImg.setFitHeight(210);
         menuImg.setCursor(Cursor.HAND);
 
         var test = new ImageView(new Image(
-            Resources.getResourceAsStream("images/scene-builder-themes.png")
+            Resources.getResourceAsStream("images/scene-builder/scene-builder-themes.png")
         ));
         test.setPickOnBounds(true);
 

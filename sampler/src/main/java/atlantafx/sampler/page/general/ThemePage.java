@@ -46,7 +46,7 @@ public final class ThemePage extends OutlinePage {
     private static final ThemeManager TM = ThemeManager.getInstance();
     private static final String DEFAULT_FONT_ID = "Default";
     private static final Image SCENE_BUILDER_ICON = new Image(
-        Resources.getResourceAsStream("images/scene-builder_32.png")
+        Resources.getResourceAsStream("images/scene-builder/scene-builder_32.png")
     );
 
     @Override

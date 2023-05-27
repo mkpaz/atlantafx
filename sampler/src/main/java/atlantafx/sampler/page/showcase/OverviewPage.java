@@ -39,7 +39,7 @@ public final class OverviewPage extends ScrollPane implements Page {
             wrapper.getStyleClass().add(Styles.BG_DEFAULT);
 
             var loader = new FXMLLoader(
-                Resources.getResource("assets/fxml/overview.fxml").toURL()
+                Resources.getResource("fxml/overview.fxml").toURL()
             );
             Parent fxmlContent = loader.load();
             ((Pane) fxmlContent).setMaxWidth(Page.MAX_WIDTH);

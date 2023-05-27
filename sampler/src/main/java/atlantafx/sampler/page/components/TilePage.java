@@ -103,9 +103,7 @@ public class TilePage extends OutlinePage {
         );
 
         var img = new ImageView(new Image(
-            Resources.getResourceAsStream(
-                "assets/fxml/blueprints/resources/avatar1.png"
-            )
+            Resources.getResourceAsStream("images/avatars/avatar1.png")
         ));
         img.setFitWidth(64);
         img.setFitHeight(64);

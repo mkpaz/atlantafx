@@ -107,7 +107,7 @@
          <children>
             <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowSpan="2147483647">
                <image>
-                  <Image url="@resources/rainbow_rising.png" />
+                  <Image url="@../../images/album_covers/rainbow_rising.png" />
                </image>
             </ImageView>
             <Label styleClass="text-caption" text="A Light in the Black" GridPane.columnIndex="1">
@@ -157,7 +157,7 @@
          <children>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/accept_blind-rage.png" />
+                  <Image url="@../../images/album_covers/accept_blind-rage.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
@@ -194,7 +194,7 @@
          <children>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/soen_lotus.png" />
+                  <Image url="@../../images/album_covers/soen_lotus.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
@@ -231,7 +231,7 @@
          <children>
             <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/opeth_blackwater-park.png" />
+                  <Image url="@../../images/album_covers/opeth_blackwater-park.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">

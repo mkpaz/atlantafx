@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.sampler.page.components;
+package atlantafx.sampler.page.general;
 
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
@@ -36,10 +36,10 @@ public final class AnimationsPage extends StackPane implements Page {
     private static final int OUTLINE_WIDTH = 250;
     private static final Duration DURATION = Duration.millis(2000);
     private static final ImageView ANIMATED_NODE = new ImageView(new Image(
-        Resources.getResourceAsStream("images/saitama.png")
+        Resources.getResourceAsStream("images/fun/saitama.png")
     ));
     private static final ImageView ANIMATED_BG = new ImageView(new Image(
-        Resources.getResourceAsStream("images/saitama-bg.png")
+        Resources.getResourceAsStream("images/fun/saitama-bg.png")
     ));
 
     @Override

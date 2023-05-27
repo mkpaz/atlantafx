@@ -54,17 +54,17 @@
          <children>
             <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar1.png" />
+                  <Image url="@../../images/avatars/avatar1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar2.png" />
+                  <Image url="@../../images/avatars/avatar2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="42.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resources/avatar3.png" />
+                  <Image url="@../../images/avatars/avatar3.png" />
                </image>
             </ImageView>
             <Spacer />
