@@ -149,7 +149,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     -fx-content-display: LEFT;
     -fx-background-radius: 0;
 
-    // must be more spefific than ".list-view .list-cell" selector (see below)
+    // must be more specific than ".list-view .list-cell" selector (see below)
     .cell.list-cell {
       -fx-background-color: transparent;
       -fx-padding: 0;
@@ -157,6 +157,17 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
       -fx-background-radius: 0;
     }
   }
+}
+
+// The styles for focused editable cells. For now only TextFieldTableCell is supported,
+// because all other editable cells are bugged. #javafx-bug
+// - ChoiceBoxTableCell - does not support :focus-within
+// - ComboBoxTableCell - inconsistently activates :focus-within after popup is shown (virtually useless)
+// - TextFieldListCell - activates :focus-within when TextField is not in editable state (same as focused, virtually useless)
+// .. too lazy check further, generally all editable cells is a compilation of bugs.
+.table-view>.virtual-flow>.clipped-container>.sheet>.table-row-cell .text-field-table-cell:focus-within {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-color: -color-bg-default, -color-accent-emphasis, -color-bg-default;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
