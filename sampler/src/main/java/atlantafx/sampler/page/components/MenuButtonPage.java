@@ -59,6 +59,14 @@ public final class MenuButtonPage extends OutlinePage {
         normalSplitBtn.setText("_Split Menu Button");
         normalSplitBtn.setMnemonicParsing(true);
 
+        var outlinedMenuBtn = new MenuButton("Outlined");
+        outlinedMenuBtn.getItems().setAll(createItems(5));
+        outlinedMenuBtn.getStyleClass().add(Styles.BUTTON_OUTLINED);
+
+        var outlinedSplitBtn = new SplitMenuButton(createItems(5));
+        outlinedSplitBtn.setText("Outlined");
+        outlinedSplitBtn.getStyleClass().add(Styles.BUTTON_OUTLINED);
+
         var flatMenuBtn = new MenuButton("Flat");
         flatMenuBtn.getItems().setAll(createItems(5));
         flatMenuBtn.getStyleClass().add(Styles.FLAT);
@@ -70,7 +78,9 @@ public final class MenuButtonPage extends OutlinePage {
 
         var box = new FlowPane(
             HGAP_20, VGAP_10,
-            normalMenuBtn, normalSplitBtn, flatMenuBtn, flatSplitBtn
+            normalMenuBtn, normalSplitBtn,
+            outlinedMenuBtn, outlinedSplitBtn,
+            flatMenuBtn, flatSplitBtn
         );
 
         var description = BBCodeParser.createFormattedText("""
@@ -184,6 +194,19 @@ public final class MenuButtonPage extends OutlinePage {
         normalSplitBtn.setGraphic(new FontIcon(Feather.MORE_HORIZONTAL));
         normalSplitBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
 
+        var outlinedMenuBtn = new MenuButton();
+        outlinedMenuBtn.setGraphic(new FontIcon(Feather.MORE_HORIZONTAL));
+        outlinedMenuBtn.getItems().setAll(createItems(5));
+        outlinedMenuBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED
+        );
+
+        var outlinedSplitBtn = new SplitMenuButton(createItems(5));
+        outlinedSplitBtn.setGraphic(new FontIcon(Feather.MORE_HORIZONTAL));
+        outlinedSplitBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED
+        );
+
         var accentMenuBtn = new MenuButton();
         accentMenuBtn.setGraphic(new FontIcon(Feather.MENU));
         accentMenuBtn.getItems().setAll(createItems(5));
@@ -200,7 +223,9 @@ public final class MenuButtonPage extends OutlinePage {
 
         var box = new FlowPane(
             HGAP_20, VGAP_10,
-            normalMenuBtn, normalSplitBtn, accentMenuBtn, accentSplitBtn
+            normalMenuBtn, normalSplitBtn,
+            outlinedMenuBtn, outlinedSplitBtn,
+            accentMenuBtn, accentSplitBtn
         );
         var description = BBCodeParser.createFormattedText("""
             You can hide the [i]MenuButton[/i] text by applying [code]Styles.BUTTON_ICON[/code] \

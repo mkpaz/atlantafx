@@ -361,6 +361,13 @@ $color-shadow: -color-shadow-default !default;
     }
   }
 
+  &.button-outlined {
+    -color-button-bg:       -color-bg-default;
+    -color-button-fg:       $color-fg;
+    -color-button-bg-hover: $color-bg-hover;
+    -color-button-fg-hover: $color-fg-hover;
+  }
+
   &:default,
   &.accent {
     @include accent();

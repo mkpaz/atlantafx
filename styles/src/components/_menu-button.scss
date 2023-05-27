@@ -111,6 +111,13 @@ $separator-width:    0.75px !default;
     }
   }
 
+  &.button-outlined {
+    -color-button-bg:       -color-bg-default;
+    -color-button-fg:       button.$color-fg;
+    -color-button-bg-hover: button.$color-bg-hover;
+    -color-button-fg-hover: button.$color-fg-hover;
+  }
+
   &.accent {
     @include button.accent();
   }
@@ -189,7 +196,16 @@ $separator-width:    0.75px !default;
   &.button-outlined:hover,
   &.button-outlined:focused {
     >.arrow-button {
-      -color-button-fg: -color-fg-emphasis;
+      -color-button-fg: -color-fg-default;
+    }
+
+    &:default,
+    &.accent,
+    &.success,
+    &.danger {
+      >.arrow-button {
+        -color-button-fg: -color-fg-emphasis;
+      }
     }
   }
 

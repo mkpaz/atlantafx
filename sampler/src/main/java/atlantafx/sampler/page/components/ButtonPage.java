@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
@@ -61,9 +60,7 @@ public final class ButtonPage extends OutlinePage {
         defaultBtn.setMnemonicParsing(true);
 
         var outlinedBtn = new Button("Out_lined");
-        outlinedBtn.getStyleClass().addAll(
-            Styles.BUTTON_OUTLINED, Styles.ACCENT
-        );
+        outlinedBtn.getStyleClass().addAll(Styles.BUTTON_OUTLINED);
         outlinedBtn.setMnemonicParsing(true);
 
         var flatBtn = new Button("_Flat");
