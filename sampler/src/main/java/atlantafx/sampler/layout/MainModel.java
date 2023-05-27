@@ -57,6 +57,7 @@ import atlantafx.sampler.page.general.IconsPage;
 import atlantafx.sampler.page.general.ThemePage;
 import atlantafx.sampler.page.general.TypographyPage;
 import atlantafx.sampler.page.showcase.BlueprintsPage;
+import atlantafx.sampler.page.showcase.OverviewPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import java.util.HashMap;
@@ -230,7 +231,8 @@ public class MainModel {
         showcases.getChildren().setAll(
             NAV_TREE.get(BlueprintsPage.class),
             NAV_TREE.get(FileManagerPage.class),
-            NAV_TREE.get(MusicPlayerPage.class)
+            NAV_TREE.get(MusicPlayerPage.class),
+            NAV_TREE.get(OverviewPage.class)
         );
 
         var root = NavTree.Item.root();
@@ -331,6 +333,7 @@ public class MainModel {
         map.put(BlueprintsPage.class, NavTree.Item.page(BlueprintsPage.NAME, BlueprintsPage.class));
         map.put(FileManagerPage.class, NavTree.Item.page(FileManagerPage.NAME, FileManagerPage.class));
         map.put(MusicPlayerPage.class, NavTree.Item.page(MusicPlayerPage.NAME, MusicPlayerPage.class));
+        map.put(OverviewPage.class, NavTree.Item.page(OverviewPage.NAME, OverviewPage.class));
 
         return map;
     }
