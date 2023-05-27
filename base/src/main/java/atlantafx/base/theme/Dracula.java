@@ -2,12 +2,9 @@
 
 package atlantafx.base.theme;
 
-import atlantafx.base.Preview;
-
 /**
  * A theme based on <a href="https://draculatheme.com">Dracula</a> color palette.
  */
-@Preview
 public class Dracula implements Theme {
 
     public Dracula() {
