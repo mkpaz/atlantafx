@@ -54,20 +54,19 @@ public final class TabPanePage extends OutlinePage {
         );
         addSection("Usage", usageExample());
         addSection("Tab Style", tabStyleExample());
-        addSection("Vertical Tabs", verticalTabsExample());
         addSection("Dense", denseExample());
         addSection("Playground", playground());
     }
 
     private ExampleBox usageExample() {
         //snippet_1:start
-        var tab1 = new Tab("One");
+        var tab1 = new Tab("Tab 1");
         tab1.setGraphic(new FontIcon(randomIcon()));
 
-        var tab2 = new Tab("Two");
+        var tab2 = new Tab("Tab 2");
         tab2.setGraphic(new FontIcon(randomIcon()));
 
-        var tab3 = new Tab("Three");
+        var tab3 = new Tab("Tab 3");
         tab3.setGraphic(new FontIcon(randomIcon()));
 
         var tabs = new TabPane(tab1, tab2, tab3);
@@ -90,20 +89,20 @@ public final class TabPanePage extends OutlinePage {
     private ExampleBox tabStyleExample() {
         //snippet_2:start
         var defaultTabs = new TabPane(
-            new Tab("One"), new Tab("Two"), new Tab("Three")
+            new Tab("Tab 1"), new Tab("Tab 1"), new Tab("Tab 3")
         );
         defaultTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         defaultTabs.setMinWidth(450);
 
         var floatingTabs = new TabPane(
-            new Tab("One"), new Tab("Two"), new Tab("Three")
+            new Tab("Tab 1"), new Tab("Tab 2"), new Tab("Tab 3")
         );
         floatingTabs.getStyleClass().add(Styles.TABS_FLOATING);
         floatingTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         floatingTabs.setMinWidth(450);
 
         var classicTabs = new TabPane(
-            new Tab("One"), new Tab("Two"), new Tab("Three")
+            new Tab("Tab 1"), new Tab("Tab 2"), new Tab("Tab 3")
         );
         classicTabs.getStyleClass().add(Styles.TABS_CLASSIC);
         classicTabs.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -122,64 +121,6 @@ public final class TabPanePage extends OutlinePage {
         );
 
         return new ExampleBox(box, new Snippet(getClass(), 2), description);
-    }
-
-    private ExampleBox verticalTabsExample() {
-        //snippet_3:start
-        var defaultTabsLeft = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        defaultTabsLeft.setSide(Side.LEFT);
-        defaultTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        var floatingTabsLeft = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        floatingTabsLeft.setSide(Side.LEFT);
-        floatingTabsLeft.getStyleClass().add(Styles.TABS_FLOATING);
-        floatingTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        var classicTabsLeft = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        classicTabsLeft.setSide(Side.LEFT);
-        classicTabsLeft.getStyleClass().add(Styles.TABS_CLASSIC);
-        classicTabsLeft.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        var defaultTabsRight = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        defaultTabsRight.setSide(Side.RIGHT);
-        defaultTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        var floatingTabsRight = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        floatingTabsRight.setSide(Side.RIGHT);
-        floatingTabsRight.getStyleClass().add(Styles.TABS_FLOATING);
-        floatingTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        var classicTabsRight = new TabPane(
-            new Tab("One"), new Tab("Two")
-        );
-        classicTabsRight.setSide(Side.RIGHT);
-        classicTabsRight.getStyleClass().add(Styles.TABS_CLASSIC);
-        classicTabsRight.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-        //snippet_3:end
-
-        var box = new HBox(
-            HGAP_20,
-            defaultTabsLeft, floatingTabsLeft, classicTabsLeft,
-            new Spacer(),
-            classicTabsRight, floatingTabsRight, defaultTabsRight
-        );
-        box.setMinHeight(450);
-
-        var description = BBCodeParser.createFormattedText("""
-            Tabs in a tab pane can be positioned at any of the four sides by specifying the side."""
-        );
-
-        return new ExampleBox(box, new Snippet(getClass(), 3), description);
     }
 
     private ExampleBox denseExample() {
