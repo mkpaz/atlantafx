@@ -7,6 +7,7 @@ import atlantafx.base.controls.ModalPane;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.controls.Tile;
 import atlantafx.base.layout.ModalBox;
+import atlantafx.base.theme.Tweaks;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ public abstract class ModalDialog extends ModalBox {
 
     protected void createView() {
         content.setHeader(header);
+        content.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
 
         // IMPORTANT: this guarantees client will use correct width and height
         setMinWidth(USE_PREF_SIZE);

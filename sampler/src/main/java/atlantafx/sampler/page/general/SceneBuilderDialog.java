@@ -39,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Duration;
@@ -201,6 +202,8 @@ class SceneBuilderDialog extends ModalDialog {
             Installation files will be overwritten, but you can rollback changes using the same dialog again.
             """);
         noticeLbl.setWrapText(true);
+        noticeLbl.setMaxWidth(Region.USE_PREF_SIZE);
+        noticeLbl.setMinHeight(Region.USE_PREF_SIZE);
 
         // ~
 

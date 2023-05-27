@@ -53,3 +53,9 @@ $spacing:      10px   !default;
     -fx-background-radius: 0;
   }
 }
+
+.edge-to-edge>.card {
+  -fx-border-width: 0;
+  -fx-border-radius: 0;
+  -fx-effect: none;
+}
