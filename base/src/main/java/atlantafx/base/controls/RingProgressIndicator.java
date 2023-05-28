@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 public class RingProgressIndicator extends ProgressIndicator {
 
     public RingProgressIndicator() {
+        super();
     }
 
     public RingProgressIndicator(double progress) {

@@ -9,6 +9,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -131,7 +133,7 @@ public class ModalBox extends AnchorPane {
 
         // call user specified close handler
         if (onClose.get() != null) {
-            onClose.get().run();
+            onClose.get().handle(new Event(Event.ANY));
         }
     }
 
@@ -145,18 +147,18 @@ public class ModalBox extends AnchorPane {
      * handler will be executed after the default close handler. Therefore, you
      * can use it to perform arbitrary actions on dialog close.
      */
-    protected final ObjectProperty<Runnable> onClose =
+    protected final ObjectProperty<EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
-    public Runnable getOnClose() {
+    public EventHandler<? super Event> getOnClose() {
         return onClose.get();
     }
 
-    public ObjectProperty<Runnable> onCloseProperty() {
+    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
         return onClose;
     }
 
-    public void setOnClose(Runnable onClose) {
+    public void setOnClose(EventHandler<? super Event> onClose) {
         this.onClose.set(onClose);
     }
 

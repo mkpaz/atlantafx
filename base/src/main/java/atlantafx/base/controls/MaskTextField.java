@@ -30,28 +30,75 @@ package atlantafx.base.controls;
 import atlantafx.base.util.MaskChar;
 import atlantafx.base.util.MaskTextFormatter;
 import java.util.List;
+import java.util.Objects;
 import javafx.beans.NamedArg;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * This is a convenience wrapper for instantiating a {@link CustomTextField}
- * with {@code MaskTextFormatter}. For additional info refer to the {@link MaskTextFormatter}
+ * This is a convenience wrapper for instantiating a {@link CustomTextField} with a
+ * {@code MaskTextFormatter}. For additional info refer to the {@link MaskTextFormatter}
  * docs.
  */
 public class MaskTextField extends CustomTextField {
 
-    protected final MaskTextFormatter formatter;
+    /**
+     * The whole dancing around the editable mask property is solely due to SceneBuilder
+     * not works without no-arg constructor. It requires to make formatter value mutable
+     * as well, which is not really tested and never intended to be supported. Also, since
+     * the formatter property is not bound to the text field formatter property, setting the
+     * latter manually can lead to memory leak.
+     */
+    protected final StringProperty mask = new SimpleStringProperty(this, "mask");
 
-    public MaskTextField(@NamedArg("text") String mask) {
+    protected final ReadOnlyObjectWrapper<MaskTextFormatter> formatter =
+        new ReadOnlyObjectWrapper<>(this, "formatter");
+
+    public MaskTextField() {
+        super("");
+        init();
+    }
+
+    public MaskTextField(@NamedArg("mask") String mask) {
         this("", mask);
     }
 
-    public MaskTextField(@NamedArg("text") String text, @NamedArg("mask") String mask) {
-        super(text);
-        this.formatter = MaskTextFormatter.create(this, mask);
+    private MaskTextField(@NamedArg("text") String text,
+                          @NamedArg("mask") String mask) {
+        super(Objects.requireNonNullElse(text, ""));
+
+        formatter.set(MaskTextFormatter.create(this, mask));
+        setMask(mask); // set mask only after creating a formatter, for validation
+        init();
     }
 
     public MaskTextField(String text, List<MaskChar> mask) {
-        super(text);
-        this.formatter = MaskTextFormatter.create(this, mask);
+        super(Objects.requireNonNullElse(text, ""));
+
+        formatter.set(MaskTextFormatter.create(this, mask));
+        setMask(null);
+        init();
+    }
+
+    protected void init() {
+        mask.addListener((obs, old, val) -> {
+            // this will replace the current text value with placeholder mask,
+            // so, neither text no prompt won't be shown in the SceneBuilder
+            formatter.set(val != null ? MaskTextFormatter.create(this, val) : null);
+        });
+    }
+
+    public StringProperty maskProperty() {
+        return mask;
+    }
+
+    public @Nullable String getMask() {
+        return mask.get();
+    }
+
+    public void setMask(@Nullable String mask) {
+        this.mask.set(mask);
     }
 }

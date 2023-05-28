@@ -94,7 +94,7 @@ public final class ThemePage extends OutlinePage {
         sceneBuilderDialog = new Lazy<>(() -> {
             var dialog = new SceneBuilderDialog();
             dialog.setClearOnClose(true);
-            dialog.setOnClose(dialog::reset);
+            dialog.setOnClose(e -> dialog.reset());
             return dialog;
         });
 

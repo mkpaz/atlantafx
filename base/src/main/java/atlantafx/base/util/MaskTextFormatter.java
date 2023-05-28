@@ -62,11 +62,6 @@ public class MaskTextFormatter extends TextFormatter<String> {
         this.filter = filter;
     }
 
-    public MaskTextFormatter(MaskTextFilter filter, TextField field) {
-        super(filter);
-        this.filter = filter;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // Factory Methods                                                       //
     ///////////////////////////////////////////////////////////////////////////

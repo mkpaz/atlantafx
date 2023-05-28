@@ -2,6 +2,7 @@
 
 <?import atlantafx.base.controls.Calendar?>
 <?import atlantafx.base.controls.CustomTextField?>
+<?import atlantafx.base.controls.MaskTextField?>
 <?import atlantafx.base.controls.PasswordTextField?>
 <?import atlantafx.base.controls.RingProgressIndicator?>
 <?import atlantafx.base.controls.Tile?>
@@ -52,7 +53,7 @@
 <?import javafx.scene.paint.Color?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<GridPane hgap="40.0" vgap="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="40.0" vgap="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atlantafx.sampler.page.showcase.OverviewPage$Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" />
         <ColumnConstraints hgrow="NEVER" />
@@ -208,6 +209,7 @@
                 <RowConstraints vgrow="NEVER" />
                 <RowConstraints vgrow="NEVER" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
             </rowConstraints>
             <children>
                 <TextField promptText="Prompt" GridPane.columnIndex="1" />
@@ -223,6 +225,7 @@
                 <PasswordTextField text="password" GridPane.rowIndex="2" />
                 <TextField editable="false" promptText="Readonly" GridPane.rowIndex="1" />
                 <TextField disable="true" promptText="Disabled" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <MaskTextField fx:id="phoneTf" mask="(NNN) NNN-NN-NN" GridPane.rowIndex="3" />
             </children>
         </GridPane>
         <GridPane hgap="10.0" layoutX="30.0" layoutY="30.0" vgap="10.0" GridPane.rowIndex="2">

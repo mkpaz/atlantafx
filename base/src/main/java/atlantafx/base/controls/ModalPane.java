@@ -6,6 +6,7 @@ import atlantafx.base.util.Animations;
 import java.util.Objects;
 import java.util.function.Function;
 import javafx.animation.Animation;
+import javafx.beans.NamedArg;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -52,7 +53,7 @@ public class ModalPane extends Control {
      * @param topViewOrder the {@link #viewOrderProperty()} value to be set
      *                     to display the modal pane on top of the parent container.
      */
-    public ModalPane(int topViewOrder) {
+    public ModalPane(@NamedArg("topViewOrder") int topViewOrder) {
         super();
         this.topViewOrder = topViewOrder;
     }

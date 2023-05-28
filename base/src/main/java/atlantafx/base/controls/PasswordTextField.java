@@ -30,58 +30,65 @@ package atlantafx.base.controls;
 import atlantafx.base.util.PasswordTextFormatter;
 import javafx.beans.NamedArg;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 /**
  * This is a convenience wrapper for instantiating a {@link CustomTextField}
- * with {@code PasswordTextFormatter}. For additional info refer to the {@link PasswordTextFormatter}
- * docs.
+ * with {@code PasswordTextFormatter}. For additional info refer to the
+ * {@link PasswordTextFormatter} docs.
  */
 public class PasswordTextField extends CustomTextField {
 
-    protected final PasswordTextFormatter formatter;
+    protected final ReadOnlyObjectWrapper<PasswordTextFormatter> formatter
+        = new ReadOnlyObjectWrapper<>(this, "formatter");
+
+    public PasswordTextField() {
+        this("", PasswordTextFormatter.BULLET);
+    }
 
     public PasswordTextField(@NamedArg("text") String text) {
         this(text, PasswordTextFormatter.BULLET);
     }
 
-    public PasswordTextField(@NamedArg("text") String text, @NamedArg("bullet") char bullet) {
+    protected PasswordTextField(@NamedArg("text") String text,
+                                @NamedArg("bullet") char bullet) {
         super(text);
-        this.formatter = PasswordTextFormatter.create(this, bullet);
+        formatter.set(PasswordTextFormatter.create(this, bullet));
     }
 
     /**
      * See {@link PasswordTextFormatter#passwordProperty()}.
      */
     public ReadOnlyStringProperty passwordProperty() {
-        return formatter.passwordProperty();
+        return formatter.get().passwordProperty();
     }
 
     /**
      * See {@link PasswordTextFormatter#getPassword()}.
      */
     public String getPassword() {
-        return formatter.getPassword();
+        return formatter.get().getPassword();
     }
 
     /**
      * See {@link PasswordTextFormatter#revealPasswordProperty()}.
      */
     public BooleanProperty revealPasswordProperty() {
-        return formatter.revealPasswordProperty();
+        return formatter.get().revealPasswordProperty();
     }
 
     /**
-     * See {@link PasswordTextFormatter#isRevealPassword()}.
+     * See {@link PasswordTextFormatter#getRevealPassword()}.
      */
-    public boolean isRevealPassword() {
-        return formatter.isRevealPassword();
+    public boolean getRevealPassword() {
+        return formatter.get().getRevealPassword();
     }
 
     /**
      * See {@link PasswordTextFormatter#setRevealPassword(boolean)}.
      */
     public void setRevealPassword(boolean reveal) {
-        formatter.setRevealPassword(reveal);
+        formatter.get().setRevealPassword(reveal);
     }
 }

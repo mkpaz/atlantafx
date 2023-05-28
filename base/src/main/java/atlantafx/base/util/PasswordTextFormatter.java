@@ -81,7 +81,7 @@ public class PasswordTextFormatter extends TextFormatter<String> {
     /**
      * See {@link #revealPasswordProperty}.
      */
-    public boolean isRevealPassword() {
+    public boolean getRevealPassword() {
         return revealPasswordProperty().get();
     }
 

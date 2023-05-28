@@ -111,10 +111,10 @@ public final class CustomTextFieldPage extends OutlinePage {
         var icon = new FontIcon(Feather.EYE_OFF);
         icon.setCursor(Cursor.HAND);
         icon.setOnMouseClicked(e -> {
-            icon.setIconCode(tf.isRevealPassword()
+            icon.setIconCode(tf.getRevealPassword()
                 ? Feather.EYE_OFF : Feather.EYE
             );
-            tf.setRevealPassword(!tf.isRevealPassword());
+            tf.setRevealPassword(!tf.getRevealPassword());
         });
         tf.setRight(icon);
         //snippet_3:end

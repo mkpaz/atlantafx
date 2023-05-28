@@ -4,13 +4,18 @@ package atlantafx.sampler.page.showcase;
 
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 
+import atlantafx.base.controls.MaskTextField;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.util.NodeUtils;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -78,5 +83,16 @@ public final class OverviewPage extends ScrollPane implements Page {
 
     @Override
     public void reset() {
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    public static class Controller implements Initializable {
+        public @FXML MaskTextField phoneTf;
+
+        @Override
+        public void initialize(URL url, ResourceBundle resourceBundle) {
+            phoneTf.setText("(415) 273-91-64");
+        }
     }
 }
