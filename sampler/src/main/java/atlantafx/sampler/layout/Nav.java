@@ -11,6 +11,7 @@ import atlantafx.sampler.page.components.DeckPanePage;
 import atlantafx.sampler.page.components.InputGroupPage;
 import atlantafx.sampler.page.components.MessagePage;
 import atlantafx.sampler.page.components.ModalPanePage;
+import atlantafx.sampler.page.components.NotificationPage;
 import atlantafx.sampler.page.components.PopoverPage;
 import atlantafx.sampler.page.components.TilePage;
 import atlantafx.sampler.page.components.ToggleSwitchPage;
@@ -39,6 +40,7 @@ record Nav(String title,
         InputGroupPage.class,
         MessagePage.class,
         ModalPanePage.class,
+        NotificationPage.class,
         PopoverPage.class,
         TilePage.class,
         ToggleSwitchPage.class

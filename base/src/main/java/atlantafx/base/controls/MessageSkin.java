@@ -27,7 +27,7 @@ public class MessageSkin extends TileSkinBase<Message> {
             o -> pseudoClassStateChanged(Styles.STATE_INTERACTIVE, getSkinnable().getActionHandler() != null)
         );
 
-        root.setOnMouseClicked(e -> {
+        container.setOnMouseClicked(e -> {
             if (getSkinnable().getActionHandler() != null) {
                 getSkinnable().getActionHandler().run();
             }
@@ -65,7 +65,7 @@ public class MessageSkin extends TileSkinBase<Message> {
             layoutInArea(closeButton, w - lb.getWidth() - 5, 5, lb.getWidth(), lb.getHeight(), -1, HPos.RIGHT,
                 VPos.TOP);
         }
-        layoutInArea(root, x, y, w, h, -1, HPos.CENTER, VPos.CENTER);
+        layoutInArea(container, x, y, w, h, -1, HPos.CENTER, VPos.CENTER);
     }
 
     @Override

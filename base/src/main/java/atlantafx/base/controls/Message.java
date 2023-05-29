@@ -72,10 +72,7 @@ public class Message extends TileBase {
     }
 
     /**
-     * The property representing the user specified close handler. Note that
-     * if you have also specified the ModalPane instance or CSS selector, this
-     * handler will be executed after the default close handler. Therefore, you
-     * can use it to perform arbitrary actions on dialog close.
+     * The property representing the user specified close handler.
      */
     protected final ObjectProperty<EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");

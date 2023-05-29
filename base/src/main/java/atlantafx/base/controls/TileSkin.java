@@ -18,7 +18,7 @@ public class TileSkin extends TileSkinBase<Tile> {
             o -> pseudoClassStateChanged(Styles.STATE_INTERACTIVE, getSkinnable().getActionHandler() != null)
         );
 
-        root.setOnMouseClicked(e -> {
+        container.setOnMouseClicked(e -> {
             if (getSkinnable().getActionHandler() != null) {
                 getSkinnable().getActionHandler().run();
             }

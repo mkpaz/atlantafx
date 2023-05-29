@@ -1,0 +1,159 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+@use "../settings/icons";
+
+$color-bg:            -color-bg-subtle  !default;
+$color-fg:            -color-fg-default !default;
+$color-bg-hover:      -color-bg-default !default;
+$color-fg-hover:      -color-fg-default !default;
+$color-border:        -color-border-default  !default;
+$color-border-intent: -color-accent-emphasis !default;
+
+$padding-x:            1em    !default;
+$padding-y:            1em    !default;
+$graphic-text-gap:     0.75em !default;
+$intent-border-width:  5px    !default;
+$action-button-radius: 100px  !default;
+
+@mixin colored($color-intent) {
+  -color-notify-border-intent: $color-intent;
+
+  &>.container {
+    -fx-background-color: -color-notify-border,
+                          -color-notify-bg,
+                          -color-notify-border-intent -color-notify-bg -color-notify-bg -color-notify-bg,
+                          -color-notify-bg;
+    -fx-background-insets: 0, 1, 1, 1 1 1 (1 + $intent-border-width);
+    -fx-background-radius: cfg.$border-radius;
+
+    >.header {
+      >.graphic {
+        #{cfg.$font-icon-selector} {
+          -fx-fill: $color-intent;
+          -fx-icon-color: $color-intent;
+        }
+      }
+    }
+  }
+}
+
+.notification {
+  -color-notify-bg: $color-bg;
+  -color-notify-fg: $color-fg;
+  -color-notify-bg-hover: $color-bg-hover;
+  -color-notify-fg-hover: $color-fg-hover;
+  -color-notify-border: $color-border;
+  -color-notify-border-intent: $color-border-intent;
+
+  >.container {
+    -fx-background-color: -color-notify-border, -color-notify-bg;
+    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-radius: cfg.$border-radius;
+    -fx-spacing: $padding-y;
+    -fx-padding: 0 0 $padding-y 0;
+
+    >.header {
+      -fx-padding: $padding-y $padding-x 0 $padding-x;
+      -fx-spacing: $graphic-text-gap;
+
+      >.graphic {
+        #{cfg.$font-icon-selector} {
+          -fx-icon-size: cfg.$icon-size-larger;
+        }
+      }
+
+      >.message {
+        Text {
+          -fx-fill: -color-notify-fg;
+        }
+      }
+
+      >.actions {
+        -fx-alignment: CENTER_RIGHT;
+        -fx-spacing: 5px;
+
+        >.secondary-menu-button {
+          -fx-background-radius: $action-button-radius;
+          -fx-padding: 0.5em 0.75em 0.5em 0.75em;
+
+          >.icon {
+            @include icons.get("more-vert", true);
+            -fx-background-color: -color-notify-fg;
+            -fx-background-insets: 0;
+            -fx-padding: 0.3em 0.1em 0.3em 0.1em;
+          }
+
+          &:hover {
+            -fx-background-color: -color-border-default, -color-notify-bg-hover;
+            -fx-background-insets: 0, 1;
+
+            >.icon {
+              -fx-background-color: -color-notify-fg-hover;
+            }
+          }
+        }
+
+        >.close-button {
+          -fx-background-radius: $action-button-radius;
+          -fx-padding: 0.5em;
+
+          >.icon {
+            @include icons.get("close", true);
+            -fx-background-color: -color-notify-fg;
+            -fx-padding: 0.3em;
+          }
+
+          &:hover {
+            -fx-background-color: -color-border-default, -color-notify-bg-hover;
+            -fx-background-insets: 0, 1;
+
+            >.icon {
+              -fx-background-color: -color-notify-fg-hover;
+            }
+          }
+        }
+      }
+
+      &:disabled {
+        -fx-opacity: cfg.$opacity-disabled;
+      }
+
+    }
+
+    >.button-bar {
+      -fx-padding: 0 $padding-x 0 $padding-x;
+    }
+
+    @each $level, $radius in cfg.$elevation {
+      &.elevated-#{$level} {
+        >.container {
+          @include effects.shadow(cfg.$elevation-color, $radius);
+        }
+      }
+    }
+
+    &.interactive:hover {
+      >.container {
+        @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
+      }
+    }
+  }
+
+  &.accent {
+    @include colored(-color-accent-emphasis);
+  }
+
+  &.success {
+    @include colored(-color-success-emphasis);
+  }
+
+  &.warning {
+    @include colored(-color-warning-emphasis);
+  }
+
+  &.danger {
+    @include colored(-color-danger-emphasis);
+  }
+}

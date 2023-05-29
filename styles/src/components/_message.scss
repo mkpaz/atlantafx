@@ -38,9 +38,8 @@ $color-border-danger:           -color-danger-muted     !default;
 $color-border-danger-hover:     -color-danger-emphasis  !default;
 $color-button-danger-bg-hover:  -color-danger-muted     !default;
 
-$close-button-radius:         100px !default;
-$close-button-padding:        0.6em !default;
-$close-button-icon-size:      0.3em !default;
+$close-button-radius:   100px !default;
+$close-button-padding:  0.5em; // private variable
 
 .message {
 
@@ -147,11 +146,12 @@ $close-button-icon-size:      0.3em !default;
     >.icon {
       @include icons.get("close", true);
       -fx-background-color: -color-message-fg-primary;
-      -fx-padding: $close-button-icon-size;
+      -fx-padding: 0.3em;
     }
 
     &:hover {
-      -fx-background-color: -color-message-button-hover;
+      -fx-background-color: -color-message-border, -color-message-button-hover;
+      -fx-background-insets: 0, 1;
     }
   }
 

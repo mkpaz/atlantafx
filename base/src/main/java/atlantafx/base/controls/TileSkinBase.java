@@ -22,7 +22,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
     protected static final PseudoClass HAS_DESCRIPTION = PseudoClass.getPseudoClass("has-description");
     protected static final PseudoClass HAS_ACTION = PseudoClass.getPseudoClass("has-action");
 
-    protected final HBox root = new HBox();
+    protected final HBox container = new HBox();
     protected final StackPane graphicSlot;
     protected final ChangeListener<Node> graphicSlotListener;
     protected final VBox headerBox;
@@ -90,17 +90,17 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
         graphicSlot.setMinWidth(Region.USE_PREF_SIZE);
         actionSlot.setMinWidth(Region.USE_PREF_SIZE);
 
-        // label text wrapping inside VBox won't work without this
+        // text wrapping inside VBox won't work without this
         descriptionText.setMaxWidth(Region.USE_PREF_SIZE);
         descriptionText.setMinHeight(Region.USE_PREF_SIZE);
 
         // do not resize children or container won't restore
         // to its original size after expanding
-        root.setFillHeight(false);
+        container.setFillHeight(false);
 
-        root.getChildren().setAll(graphicSlot, headerBox, actionSlot);
-        root.getStyleClass().add("container");
-        getChildren().setAll(root);
+        container.getChildren().setAll(graphicSlot, headerBox, actionSlot);
+        container.getStyleClass().add("container");
+        getChildren().setAll(container);
     }
 
     protected void setDescriptionText() {
@@ -120,8 +120,8 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
             + (descriptionText.isManaged() ? descriptionText.getBoundsInLocal().getHeight() : 0);
 
         return Math.max(Math.max(graphicSlot.getHeight(), actionSlot.getHeight()), headerHeight)
-            + root.getPadding().getTop()
-            + root.getPadding().getBottom();
+            + container.getPadding().getTop()
+            + container.getPadding().getBottom();
     }
 
     @Override

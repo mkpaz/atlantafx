@@ -9,7 +9,6 @@ import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.NavEvent;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.AccordionPage;
-import atlantafx.sampler.page.general.AnimationsPage;
 import atlantafx.sampler.page.components.BreadcrumbsPage;
 import atlantafx.sampler.page.components.ButtonPage;
 import atlantafx.sampler.page.components.CalendarPage;
@@ -31,6 +30,7 @@ import atlantafx.sampler.page.components.MenuBarPage;
 import atlantafx.sampler.page.components.MenuButtonPage;
 import atlantafx.sampler.page.components.MessagePage;
 import atlantafx.sampler.page.components.ModalPanePage;
+import atlantafx.sampler.page.components.NotificationPage;
 import atlantafx.sampler.page.components.PaginationPage;
 import atlantafx.sampler.page.components.PopoverPage;
 import atlantafx.sampler.page.components.ProgressIndicatorPage;
@@ -52,6 +52,7 @@ import atlantafx.sampler.page.components.ToolBarPage;
 import atlantafx.sampler.page.components.TooltipPage;
 import atlantafx.sampler.page.components.TreeTableViewPage;
 import atlantafx.sampler.page.components.TreeViewPage;
+import atlantafx.sampler.page.general.AnimationsPage;
 import atlantafx.sampler.page.general.BBCodePage;
 import atlantafx.sampler.page.general.IconsPage;
 import atlantafx.sampler.page.general.ThemePage;
@@ -161,6 +162,7 @@ public class MainModel {
         feedback.getChildren().setAll(
             NAV_TREE.get(DialogPage.class),
             NAV_TREE.get(MessagePage.class),
+            NAV_TREE.get(NotificationPage.class),
             NAV_TREE.get(ProgressIndicatorPage.class),
             NAV_TREE.get(TooltipPage.class)
         );
@@ -268,6 +270,7 @@ public class MainModel {
         );
         map.put(MessagePage.class, NavTree.Item.page(MessagePage.NAME, MessagePage.class));
         map.put(ModalPanePage.class, NavTree.Item.page(ModalPanePage.NAME, ModalPanePage.class));
+        map.put(NotificationPage.class, NavTree.Item.page(NotificationPage.NAME, NotificationPage.class));
         map.put(PaginationPage.class, NavTree.Item.page(PaginationPage.NAME, PaginationPage.class));
         map.put(PopoverPage.class, NavTree.Item.page(PopoverPage.NAME, PopoverPage.class));
         map.put(ProgressIndicatorPage.class, NavTree.Item.page(
