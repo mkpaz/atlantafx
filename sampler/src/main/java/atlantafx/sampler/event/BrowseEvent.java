@@ -22,4 +22,8 @@ public final class BrowseEvent extends Event {
             + "uri=" + uri
             + "} " + super.toString();
     }
+
+    public static void fire(String url) {
+        Event.publish(new BrowseEvent(URI.create(url)));
+    }
 }

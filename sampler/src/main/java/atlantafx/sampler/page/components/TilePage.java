@@ -1,23 +1,27 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.PasswordTextField;
-import atlantafx.base.controls.Tile;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
+import atlantafx.base.util.Animations;
 import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.Resources;
+import atlantafx.base.controls.Tile;
+import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
 import java.net.URI;
 import java.util.function.BiFunction;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Spinner;
@@ -28,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 public class TilePage extends OutlinePage {
@@ -51,12 +56,13 @@ public class TilePage extends OutlinePage {
         addFormattedText("""
             The Tile is a versatile container that can used in various contexts \
             such as dialog headers, list items, and cards. It can contain a graphic, \
-            a title, subtitle, and optional actions."""
+            a title, description, and optional actions."""
         );
         addNode(skeleton());
         addSection("Usage", usageExample());
         addSection("Interactive", interactiveExample());
         addSection("Stacking", stackingExample());
+        addSection("Incomplete Header", incompleteHeaderExample());
     }
 
     private Node skeleton() {
@@ -79,7 +85,7 @@ public class TilePage extends OutlinePage {
         grid.setMaxWidth(600);
         grid.add(cellBuilder.apply("Graphic", Pos.CENTER), 0, 0, 1, GridPane.REMAINING);
         grid.add(cellBuilder.apply("Title", Pos.CENTER_LEFT), 1, 0, 1, 1);
-        grid.add(cellBuilder.apply("Subtitle", Pos.CENTER_LEFT), 1, 1, 1, 1);
+        grid.add(cellBuilder.apply("Description", Pos.CENTER_LEFT), 1, 1, 1, 1);
         grid.add(cellBuilder.apply("Action", Pos.CENTER), 2, 0, 1, GridPane.REMAINING);
         grid.getColumnConstraints().setAll(
             new ColumnConstraints(-1, -1, -1, Priority.NEVER, HPos.CENTER, true),
@@ -91,16 +97,25 @@ public class TilePage extends OutlinePage {
     }
 
     private Node usageExample() {
+        // won't work inside the snippet, because code
+        // snippet use BBCode parse as well
+        var url = "https://wikipedia.org/wiki/The_Elder_Scrolls_III:_Morrowind";
+        var quote = FAKER.elderScrolls().quote()
+            + " \n[url=" + url + "]Learn more[/url]";
+
         //snippet_1:start
         var tile1 = new Tile(
-            "Title",
-            FAKER.lorem().sentence(15)
+            "Multiline Description",
+            FAKER.lorem().sentence(50)
         );
 
-        var tile2 = new Tile(
-            FAKER.name().fullName(),
-            FAKER.elderScrolls().quote()
-        );
+        var tile2 = new Tile(FAKER.name().fullName(), quote);
+        tile2.addEventFilter(ActionEvent.ACTION, e -> {
+            if (e.getTarget() instanceof Hyperlink link) {
+                BrowseEvent.fire((String) link.getUserData());
+            }
+            e.consume();
+        });
 
         var img = new ImageView(new Image(
             Resources.getResourceAsStream("images/avatars/avatar1.png")
@@ -121,9 +136,8 @@ public class TilePage extends OutlinePage {
             tile3
         );
         var description = BBCodeParser.createFormattedText("""
-            [i]Tile[/i] does not have any mandatory properties, but you will not want \
-            to use it without a title. Additionally, note that only the subtitle supports \
-            text wrapping."""
+            [i]Tile[/i] does not have any mandatory properties. It supports text \
+            wrapping and [i]BBCode[/i] formatted text, but only in the description field."""
         );
 
         return new ExampleBox(box, new Snippet(getClass(), 1), description);
@@ -133,7 +147,7 @@ public class TilePage extends OutlinePage {
         //snippet_2:start
         var tile = new Tile(
             "Password",
-            "Please enter your authentication password to unlock the content"
+            "Please enter your authentication password"
         );
 
         var tf = new PasswordTextField(null);
@@ -196,5 +210,29 @@ public class TilePage extends OutlinePage {
         );
 
         return new ExampleBox(box, new Snippet(getClass(), 3), description);
+    }
+
+    private Node incompleteHeaderExample() {
+        //snippet_4:start
+        var tile1 = new Tile("Go to the next screen", null);
+        tile1.setAction(new FontIcon(Material2AL.ARROW_RIGHT));
+        tile1.setActionHandler(() ->
+            Animations.wobble(tile1).playFromStart()
+        );
+
+        var tile2 = new Tile(
+            null, FAKER.friends().quote(),
+            new FontIcon(Material2OutlinedAL.FORMAT_QUOTE)
+        );
+        //snippet_4:end
+
+        var box = new VBox(tile1, new Separator(), tile2);
+        var description = BBCodeParser.createFormattedText("""
+            Both the title and description are completely optional, but one them has to be \
+            specified in any case. Note that the styling changes depending on whether the [i]Tile[/i] \
+            has only a title, only a description, or both.\""""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 4), description);
     }
 }

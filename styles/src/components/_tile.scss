@@ -3,46 +3,50 @@
 @use "../settings/config" as cfg;
 
 $color-interactive: -color-bg-subtle !default;
+$title-font-size: 1.05em !default; // semibold would be much better, but it's JavaFX after all
 
-.tile {
-  -fx-padding: 0.75em 1em 0.75em 1em;
-  -fx-alignment: CENTER_LEFT;
-  -fx-background-radius: cfg.$border-radius;
+.tile-base {
 
-  &:hover:interactive {
-    -fx-background-color: $color-interactive;
-    -fx-cursor: hand;
-  }
-
-  >.graphic {
-    &:filled {
-      -fx-padding: 0 1em 0 0;
-    }
-  }
-
-  >.header {
+  >.container {
+    -fx-padding: 1em;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0;
+    -fx-background-radius: cfg.$border-radius;
+    -fx-spacing: 1em;
 
-    >.title {
-      -fx-font-size: cfg.$font-title-4;
+    // >.graphic {}
+
+    >.header {
+      -fx-alignment: CENTER_LEFT;
+      -fx-padding: 0;
+
+      >.title {
+        -fx-font-size: $title-font-size;
+      }
     }
 
-    >.subtitle {
-      -fx-text-fill: -color-fg-muted;
-    }
+    // >.action  {}
   }
 
-  &:with-title:with-subtitle {
-    >.header {
+  &:has-title:has-description {
+    >.container >.header {
       -fx-spacing: 0.5em;
       -fx-alignment: TOP_LEFT;
+
+      >.description {
+        Text {
+          -fx-fill: -color-fg-muted;
+        }
+      }
     }
   }
+}
 
-  >.action {
-    &:filled {
-      -fx-padding: 0 0 0 1em;
+.tile {
+
+  &:hover:interactive {
+    >.container {
+      -fx-background-color: $color-interactive;
+      -fx-cursor: hand;
     }
   }
 }

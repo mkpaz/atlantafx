@@ -148,7 +148,7 @@ public class CardPage extends OutlinePage {
         card1.setMaxWidth(250);
         card1.setHeader(new Tile(
             "This is a title",
-            "This is a subtitle"
+            "This is a description"
         ));
         card1.setBody(new Label("This is content"));
 
@@ -158,7 +158,7 @@ public class CardPage extends OutlinePage {
         card2.setMaxWidth(250);
         card2.setHeader(new Tile(
             "This is a title",
-            "This is a subtitle"
+            "This is a description"
         ));
         card2.setBody(new Label("This is content"));
         //snippet_2:end

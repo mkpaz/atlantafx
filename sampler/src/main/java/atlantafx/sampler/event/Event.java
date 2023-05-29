@@ -37,4 +37,8 @@ public abstract class Event {
             + "id=" + id
             + '}';
     }
+
+    public static <E extends Event> void publish(E event) {
+        DefaultEventBus.getInstance().publish(event);
+    }
 }

@@ -32,7 +32,7 @@
       <PasswordTextField layoutX="14.0" layoutY="546.0" prefHeight="36.0" prefWidth="264.0" text="password" />
       <Label layoutX="14.0" layoutY="517.0" style="-fx-text-fill: green;" text="PasswordTextField" />
       <RingProgressIndicator layoutX="326.0" layoutY="25.0" progress="0.35" />
-      <Tile layoutX="320.0" layoutY="209.0" prefHeight="73.0" prefWidth="483.0" subTitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fermentum, quam eu pretium euismod, ipsum mauris interdum massa, at scelerisque nulla augue a nunc. Vivamus vehicula rhoncus est, ut placerat nulla pellentesque vel. Duis ac mattis sapien. " title="Title" />
+      <Tile layoutX="320.0" layoutY="209.0" prefHeight="73.0" prefWidth="483.0" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fermentum, quam eu pretium euismod, ipsum mauris interdum massa, at scelerisque nulla augue a nunc. Vivamus vehicula rhoncus est, ut placerat nulla pellentesque vel. Duis ac mattis sapien. " title="Title" />
       <InputGroup layoutX="526.0" layoutY="57.0">
          <children>
             <ToggleButton mnemonicParsing="false" text="Toggle1" />

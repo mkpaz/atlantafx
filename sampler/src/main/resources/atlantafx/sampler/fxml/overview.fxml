@@ -583,7 +583,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Tile layoutX="-56.0" layoutY="44.0" subTitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis vehicula elit, ac dictum metus bibendum id. Integer elit purus, varius ac eros eu, convallis ultricies tellus." title="Title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Tile layoutX="-56.0" layoutY="44.0" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis vehicula elit, ac dictum metus bibendum id. Integer elit purus, varius ac eros eu, convallis ultricies tellus." title="Title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                     </content>
