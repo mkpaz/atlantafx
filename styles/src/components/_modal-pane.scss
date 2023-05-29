@@ -46,5 +46,11 @@ $close-button-icon-size: 0.3em !default;
     // prevent double indentation inside dialog
     -fx-padding: 0;
     -fx-background-radius: 0;
+
+    >.container {
+      // prevent double indentation
+      -fx-padding: 0;
+      -fx-background-radius: 0;
+    }
   }
 }

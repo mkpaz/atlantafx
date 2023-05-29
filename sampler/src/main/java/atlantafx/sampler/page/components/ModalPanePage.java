@@ -339,11 +339,11 @@ public final class ModalPanePage extends OutlinePage {
         VBox.setVgrow(ta, Priority.ALWAYS);
 
         var content = new VBox(
-            20,
+            16,
             new Tile("Example Dialog", FAKER.lorem().sentence(10)),
             ta
         );
-        content.setPadding(new Insets(20));
+        content.setPadding(new Insets(16));
         dialog.addContent(content);
         AnchorPane.setTopAnchor(content, 0d);
         AnchorPane.setRightAnchor(content, 0d);

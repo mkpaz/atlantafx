@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 
 public class MessageSkin extends TileSkinBase<Message> {
 
-    private static final PseudoClass CLOSEABLE = PseudoClass.getPseudoClass("closeable");
+    protected static final PseudoClass CLOSEABLE = PseudoClass.getPseudoClass("closeable");
 
     protected final StackPane closeButton = new StackPane();
     protected final StackPane closeButtonIcon = new StackPane();

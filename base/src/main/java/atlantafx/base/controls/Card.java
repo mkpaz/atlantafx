@@ -20,6 +20,7 @@ public class Card extends Control {
     // Default constructor
     public Card() {
         super();
+        getStyleClass().add("card");
     }
 
     @Override
