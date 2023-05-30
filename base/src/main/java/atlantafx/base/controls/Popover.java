@@ -29,7 +29,6 @@
 
 package atlantafx.base.controls;
 
-import static java.util.Objects.requireNonNull;
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 import java.util.Objects;
@@ -252,9 +251,14 @@ public class Popover extends PopupControl {
      *               overlap with the owner node (positive values are recommended)
      */
     public final void show(Node owner, double offset) {
-        requireNonNull(owner);
+        Objects.requireNonNull(owner, "Owner node cannot be null!");
 
         Bounds bounds = owner.localToScreen(owner.getBoundsInLocal());
+        if (bounds == null) {
+            throw new IllegalStateException(
+                "The owner node is not added to the scene. It cannot be used as a popover anchor."
+            );
+        }
 
         switch (getArrowLocation()) {
             case BOTTOM_CENTER, BOTTOM_LEFT, BOTTOM_RIGHT -> show(
