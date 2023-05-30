@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import atlantafx.base.controls.Breadcrumbs?>
 <?import atlantafx.base.controls.Calendar?>
 <?import atlantafx.base.controls.CustomTextField?>
 <?import atlantafx.base.controls.MaskTextField?>
@@ -210,6 +211,7 @@
                 <RowConstraints vgrow="NEVER" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
             <children>
                 <TextField promptText="Prompt" GridPane.columnIndex="1" />
@@ -223,9 +225,10 @@
                     </right>
                 </CustomTextField>
                 <PasswordTextField text="password" GridPane.rowIndex="2" />
-                <TextField editable="false" promptText="Readonly" GridPane.rowIndex="1" />
+                <TextField editable="false" text="Readonly" GridPane.rowIndex="1" />
                 <TextField disable="true" promptText="Disabled" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <MaskTextField fx:id="phoneTf" mask="(NNN) NNN-NN-NN" GridPane.rowIndex="3" />
+            <Breadcrumbs fx:id="breadcrumbs" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             </children>
         </GridPane>
         <GridPane hgap="10.0" layoutX="30.0" layoutY="30.0" vgap="10.0" GridPane.rowIndex="2">
@@ -583,7 +586,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Tile layoutX="-56.0" layoutY="44.0" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis vehicula elit, ac dictum metus bibendum id. Integer elit purus, varius ac eros eu, convallis ultricies tellus." title="Title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Tile description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sagittis vehicula elit, ac dictum metus bibendum id. Integer elit purus, varius ac eros eu, convallis ultricies tellus." layoutX="-56.0" layoutY="44.0" title="Title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                     </content>

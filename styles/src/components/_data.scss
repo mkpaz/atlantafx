@@ -20,6 +20,10 @@ $color-resize-line:  -color-accent-emphasis !default;
 $color-drag-header:  -color-accent-muted    !default;
 $color-drag-overlay: -color-accent-muted    !default;
 
+// warning: setting header size in 'em' sometimes breaks borders
+$header-size-normal: 40px !default;
+$header-size-dense: 34px  !default;
+
 $cell-size-normal: 2.8em !default;
 $cell-size-dense:  2em   !default;
 $cell-padding-x:   0.5em !default;
@@ -250,7 +254,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     .column-header {
       -fx-background-color: transparent;
       -fx-background-insets: 0;
-      -fx-size: 2.2em;
+      -fx-size: $header-size-normal;
       -fx-padding: 0;
       -fx-font-weight: bold;
       -fx-border-color: -color-cell-border;
@@ -358,6 +362,12 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   }
 
   &.dense {
+    >.column-header-background {
+      .column-header {
+        -fx-size: $header-size-dense;
+      }
+    }
+
     .table-row-cell {
       -fx-cell-size: $cell-size-dense;
     }
@@ -530,6 +540,12 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   }
 
   &.dense {
+    >.column-header-background {
+      .column-header {
+        -fx-size: $header-size-dense;
+      }
+    }
+
     .tree-table-row-cell {
       -fx-cell-size: $cell-size-dense;
 

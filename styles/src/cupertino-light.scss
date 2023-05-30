@@ -184,13 +184,7 @@ $opaqueSeparator: rgba(198.0, 198.0, 200.0, 1.0); // #c6c6c8ff
 );
 
 @forward "components/date-picker" as date-picker-* with (
-  $cell-padding-x: 2px,
-  $cell-padding-y: 2px,
-  $cell-size:      2.5em,
-  $color-icon:     -color-accent-fg,
-  $day-cell-font-size: 0.85em,
-  $day-name-font-size: 0.9em,
-  $month-year-font-size: 1em
+  $color-icon: -color-accent-fg,
 );
 
 @forward "components/menu" as menu-* with (

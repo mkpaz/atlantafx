@@ -4,6 +4,7 @@ package atlantafx.sampler.page.showcase;
 
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 
+import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.MaskTextField;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -89,10 +91,18 @@ public final class OverviewPage extends ScrollPane implements Page {
 
     public static class Controller implements Initializable {
         public @FXML MaskTextField phoneTf;
+        public @FXML Breadcrumbs<String> breadcrumbs;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
             phoneTf.setText("(415) 273-91-64");
+            var items = Stream.generate(() -> FAKER.science().element())
+                .limit(3)
+                .toList();
+            Breadcrumbs.BreadCrumbItem<String> root = Breadcrumbs.buildTreeModel(
+                items.toArray(String[]::new)
+            );
+            breadcrumbs.setSelectedCrumb(root);
         }
     }
 }
