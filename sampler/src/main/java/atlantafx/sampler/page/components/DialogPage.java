@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
@@ -59,7 +60,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
 
         var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
@@ -69,7 +70,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
 
         var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
@@ -79,7 +80,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
         //snippet_1:end
 
@@ -124,7 +125,7 @@ public final class DialogPage extends OutlinePage {
 
             alert.getDialogPane().setExpandableContent(content);
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
         //snippet_2:end
 
@@ -158,7 +159,7 @@ public final class DialogPage extends OutlinePage {
 
             alert.getButtonTypes().setAll(yesBtn, noBtn, cancelBtn);
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
         //snippet_3:end
 
@@ -182,7 +183,7 @@ public final class DialogPage extends OutlinePage {
             dialog.setHeaderText(FAKER.chuckNorris().fact());
             dialog.setContentText("Enter your name:");
             dialog.initOwner(getScene().getWindow());
-            dialog.showAndWait();
+            show(dialog);
         });
         //snippet_4:end
 
@@ -206,7 +207,7 @@ public final class DialogPage extends OutlinePage {
             dialog.setHeaderText(FAKER.chuckNorris().fact());
             dialog.setContentText("Choose your letter:");
             dialog.initOwner(getScene().getWindow());
-            dialog.showAndWait();
+            show(dialog);
         });
         //snippet_5:end
 
@@ -229,7 +230,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(null);
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
 
         var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
@@ -239,7 +240,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(null);
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
 
         var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
@@ -249,7 +250,7 @@ public final class DialogPage extends OutlinePage {
             alert.setHeaderText(null);
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.showAndWait();
+            show(alert);
         });
         //snippet_6:end
 
@@ -262,5 +263,19 @@ public final class DialogPage extends OutlinePage {
         example.setAllowDisable(false);
 
         return example;
+    }
+
+    private void show(Dialog<?> alert) {
+        // copy customized styles, like changed accent color etc
+        try {
+            for (var pc : getScene().getRoot().getPseudoClassStates()) {
+                alert.getDialogPane().pseudoClassStateChanged(pc, true);
+            }
+            alert.getDialogPane().getStylesheets().addAll(getScene().getRoot().getStylesheets());
+        } catch (Exception ignored) {
+            // yes, ignored
+        }
+
+        alert.showAndWait();
     }
 }
