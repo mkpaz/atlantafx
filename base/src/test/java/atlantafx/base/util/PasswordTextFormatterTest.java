@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

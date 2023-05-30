@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.fake.domain;
 
 import javafx.beans.property.SimpleStringProperty;

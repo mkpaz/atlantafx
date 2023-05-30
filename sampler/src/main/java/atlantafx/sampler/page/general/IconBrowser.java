@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import static atlantafx.base.theme.Styles.TEXT_SMALL;

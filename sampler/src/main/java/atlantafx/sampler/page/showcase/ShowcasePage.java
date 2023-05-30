@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.showcase;
 
 import atlantafx.base.controls.Spacer;

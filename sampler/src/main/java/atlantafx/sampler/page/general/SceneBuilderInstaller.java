@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
