@@ -22,6 +22,11 @@ public final class Tweaks {
     public static final String EDGE_TO_EDGE = "edge-to-edge";
 
     /**
+     * Removes control header.
+     */
+    public static final String NO_HEADER = "no-header";
+
+    /**
      * Alignment.
      */
     public static final String ALIGN_LEFT = "align-left";

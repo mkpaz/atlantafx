@@ -390,6 +390,14 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     }
   }
 
+Add support for NO_HEADER tweak in tables  &.no-header {
+    >.column-header-background {
+      -fx-max-height: 0;
+      -fx-pref-height: 0;
+      -fx-min-height: 0;
+    }
+  }
+
   // each row in the table is a .table-row-cell,
   // inside a .table-row-cell is any number of .table-cell
   .table-row-cell {
@@ -568,6 +576,14 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
     .tree-table-row-cell:filled:odd {
       -fx-background-color: -color-cell-border, -color-cell-bg-odd;
+    }
+  }
+
+  &.no-header {
+    >.column-header-background {
+      -fx-max-height: 0;
+      -fx-pref-height: 0;
+      -fx-min-height: 0;
     }
   }
 
