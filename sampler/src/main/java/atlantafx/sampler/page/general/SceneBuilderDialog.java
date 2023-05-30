@@ -174,7 +174,7 @@ class SceneBuilderDialog extends ModalDialog {
         var previewBox = new HBox(20, previewImg, new VBox(20, previewLbl, downloadLnk));
         previewBox.setAlignment(Pos.TOP_LEFT);
 
-        var browseLbl = new Label("Select SceneBuilder installation directory:");
+        var browseLbl = new Label("Select the SceneBuilder installation directory:");
         browseLbl.getStyleClass().addAll(TEXT_CAPTION, TEXT_MUTED);
 
         var browseBtn = new Button("Browse", new FontIcon(Material2OutlinedAL.FOLDER));

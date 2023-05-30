@@ -2,6 +2,7 @@ package atlantafx.sampler.page.general;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import atlantafx.base.util.PlatformUtils;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.SceneBuilderTheme;
 import java.io.BufferedOutputStream;
@@ -23,9 +24,11 @@ import java.util.zip.ZipOutputStream;
 
 final class SceneBuilderInstaller {
 
+    private static final String CONFIG_FILE_NAME = "SceneBuilder.cfg";
     private static final String THEME_PACK_FILE_NAME = "atlantafx-scene-builder.zip";
 
     private final Path sceneBuilderDir;
+    private Path configDir;
 
     public SceneBuilderInstaller(Path dir) {
         this.sceneBuilderDir = Objects.requireNonNull(dir);
@@ -217,11 +220,41 @@ final class SceneBuilderInstaller {
     }
 
     private Path getConfigDir() {
-        return sceneBuilderDir.resolve("lib/app");
+        if (configDir != null) {
+            return configDir;
+        }
+
+        // app image structure is documented here
+        // https://docs.oracle.com/en/java/javase/20/jpackage/packaging-overview.html
+        Path dir = sceneBuilderDir;
+        if (PlatformUtils.isWindows()) {
+            dir = sceneBuilderDir.resolve("app");
+        } else if (PlatformUtils.isMac()) {
+            dir = sceneBuilderDir.resolve("Contents/app");
+        } else if (PlatformUtils.isUnix()) {
+            dir = sceneBuilderDir.resolve("lib/app");
+        }
+
+        // last chance, if app image has an unknown structure
+        if (!Files.exists(dir.resolve(CONFIG_FILE_NAME))) {
+            try (var stream = Files.walk(sceneBuilderDir)) {
+                dir = stream
+                    .filter(f -> Objects.equals(f.getFileName().toString(), CONFIG_FILE_NAME))
+                    .findAny()
+                    .map(Path::getParent)
+                    .orElse(null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        this.configDir = dir;
+
+        return Objects.requireNonNullElse(dir, sceneBuilderDir);
     }
 
     private Path getConfigFile() {
-        return getConfigDir().resolve("SceneBuilder.cfg");
+        return getConfigDir().resolve(CONFIG_FILE_NAME);
     }
 
     private Path getBackupConfigFile() {
