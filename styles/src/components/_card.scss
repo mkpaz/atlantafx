@@ -52,11 +52,23 @@ $title-font-size: cfg.$font-title-4;
     &.interactive:hover {
       @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
     }
+
+    TextFlow {
+      Text {
+        &:disabled {
+          -fx-opacity: cfg.$opacity-disabled;
+        }
+      }
+    }
   }
 
   &:has-image {
     >.container >.sub-header {
       -fx-padding: 0;
+
+      &:disabled {
+        -fx-opacity: cfg.$opacity-disabled;
+      }
     }
   }
 

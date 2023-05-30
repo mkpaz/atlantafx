@@ -95,6 +95,12 @@ $close-button-padding:  0.5em; // private variable
       -fx-border-width: cfg.$border-width;
       -fx-border-radius: cfg.$border-radius;
 
+      >.graphic {
+        &:disabled {
+          -fx-opacity: cfg.$opacity-disabled;
+        }
+      }
+
       >.header {
         >.title {
           -fx-text-fill: -color-message-fg-secondary;
@@ -103,6 +109,10 @@ $close-button-padding:  0.5em; // private variable
         >.description {
           Text {
             -fx-fill: -color-message-fg-secondary;
+
+            &:disabled {
+              -fx-opacity: cfg.$opacity-disabled;
+            }
           }
         }
       }
@@ -152,6 +162,10 @@ $close-button-padding:  0.5em; // private variable
     &:hover {
       -fx-background-color: -color-message-border, -color-message-button-hover;
       -fx-background-insets: 0, 1;
+    }
+
+    &:disabled {
+      -fx-opacity: cfg.$opacity-disabled;
     }
   }
 

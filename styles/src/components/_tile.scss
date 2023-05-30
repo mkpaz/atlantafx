@@ -13,7 +13,11 @@ $title-font-size: 1.05em !default; // semibold would be much better, but it's Ja
     -fx-background-radius: cfg.$border-radius;
     -fx-spacing: 1em;
 
-    // >.graphic {}
+    >.graphic {
+      &:disabled {
+        -fx-opacity: cfg.$opacity-disabled;
+      }
+    }
 
     >.header {
       -fx-alignment: CENTER_LEFT;
@@ -21,6 +25,14 @@ $title-font-size: 1.05em !default; // semibold would be much better, but it's Ja
 
       >.title {
         -fx-font-size: $title-font-size;
+      }
+
+      >.description {
+        Text {
+          &:disabled {
+            -fx-opacity: cfg.$opacity-disabled;
+          }
+        }
       }
     }
 

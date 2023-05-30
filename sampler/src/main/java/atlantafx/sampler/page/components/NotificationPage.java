@@ -194,7 +194,10 @@ public class NotificationPage extends OutlinePage {
             you can easily implement it by using the [i]StackPane[/i] layout."""
         );
 
-        return new ExampleBox(box, new Snippet(getClass(), 4), description);
+        var example = new ExampleBox(box, new Snippet(getClass(), 4), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
     private Node elevationExample() {
