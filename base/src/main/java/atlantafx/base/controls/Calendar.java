@@ -51,22 +51,23 @@ import javafx.scene.control.Control;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.Skin;
 import javafx.util.Callback;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * The DatePicker control allows the user to select a date. The calendar is based on either
+ * The Calendar control allows the user to select a date. The calendar is based on either
  * the standard ISO-8601 chronology or any of the other chronology classes defined in the
- * java.time.chrono package.
+ * <code>java.time.chrono</code> package.
  *
- * <p>The {@link #valueProperty() value} property represents the currently selected
- * {@link LocalDate}. The default value is null.
- *
- * <p>The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
- * for parsing, displaying, and choosing dates.
- *
- * <p>The {@link #valueProperty() value} property is always defined in the ISO calendar system,
+ * <ul>
+ * <li>The {@link #valueProperty() value} property represents the currently selected
+ * {@link LocalDate}. The default value is null.</li>
+ * <li>The {@link #chronologyProperty() chronology} property specifies a calendar system to be used
+ * for parsing, displaying, and choosing dates.</li>
+ * <li>The {@link #valueProperty() value} property is always defined in the ISO calendar system,
  * however, so applications based on a different chronology may use the conversion methods
  * provided in the {@link java.time.chrono.Chronology} API to get or set the corresponding
- * {@link java.time.chrono.ChronoLocalDate} value.
+ * {@link java.time.chrono.ChronoLocalDate} value.</li>
+ * </ul>
  */
 public class Calendar extends Control {
 
@@ -74,7 +75,8 @@ public class Calendar extends Control {
     protected Chronology lastValidChronology = IsoChronology.INSTANCE;
 
     /**
-     * Creates a default DatePicker instance with a <code>null</code> date value set.
+     * Creates a default Calendar instance with a <code>null</code>
+     * date value set.
      */
     public Calendar() {
         this(null);
@@ -105,11 +107,12 @@ public class Calendar extends Control {
     }
 
     /**
-     * Creates a DatePicker instance and sets the {@link #valueProperty() value} to the given date.
+     * Creates a Calendar instance and sets the {@link #valueProperty() value}
+     * to the specified date.
      *
-     * @param localDate to be set as the currently selected date in the DatePicker. Can be null.
+     * @param localDate The date to be set as the currently selected date in the Calendar.
      */
-    public Calendar(LocalDate localDate) {
+    public Calendar(@Nullable LocalDate localDate) {
         setValue(localDate);
         getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
@@ -126,6 +129,13 @@ public class Calendar extends Control {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Represents the currently selected {@link LocalDate}. The default value is null.
+     */
+    public ObjectProperty<LocalDate> valueProperty() {
+        return value;
+    }
+
     private final ObjectProperty<LocalDate> value = new SimpleObjectProperty<>(this, "value");
 
     public final LocalDate getValue() {
@@ -134,10 +144,6 @@ public class Calendar extends Control {
 
     public final void setValue(LocalDate value) {
         valueProperty().set(value);
-    }
-
-    public ObjectProperty<LocalDate> valueProperty() {
-        return value;
     }
 
     /**
@@ -162,8 +168,8 @@ public class Calendar extends Control {
     }
 
     /**
-     * The calendar system used for parsing, displaying, and choosing dates in the DatePicker
-     * control.
+     * The calendar system used for parsing, displaying, and choosing dates in the
+     * Calendar control.
      *
      * <p>The default is usually {@link IsoChronology} unless provided explicitly
      * in the {@link Locale} by use of a Locale calendar extension.
@@ -176,7 +182,8 @@ public class Calendar extends Control {
         return chronology;
     }
 
-    private final ObjectProperty<Chronology> chronology = new SimpleObjectProperty<>(this, "chronology", null);
+    private final ObjectProperty<Chronology> chronology
+        = new SimpleObjectProperty<>(this, "chronology", null);
 
     @SuppressWarnings("CatchAndPrintStackTrace")
     public final Chronology getChronology() {
@@ -199,7 +206,7 @@ public class Calendar extends Control {
     }
 
     /**
-     * Whether the DatePicker popup should display a column showing week numbers.
+     * Whether the Calendar should display a column showing week numbers.
      *
      * <p>The default value is specified in a resource bundle, and depends on the country of the
      * current locale.
@@ -238,7 +245,15 @@ public class Calendar extends Control {
         return showWeekNumbersProperty().getValue();
     }
 
-    private final ObjectProperty<Node> topNode = new SimpleObjectProperty<>(this, "topNode", null);
+    /**
+     * Represents the custom node to be placed at the top of the Calendar above the month-year area.
+     */
+    public ObjectProperty<Node> topNodeProperty() {
+        return topNode;
+    }
+
+    private final ObjectProperty<Node> topNode
+        = new SimpleObjectProperty<>(this, "topNode", null);
 
     public final void setTopNode(Node value) {
         topNode.setValue(value);
@@ -248,11 +263,15 @@ public class Calendar extends Control {
         return topNode.getValue();
     }
 
-    public ObjectProperty<Node> topNodeProperty() {
-        return topNode;
+    /**
+     * Represents the custom node to be placed at the bottom of the Calendar below the day-cell grid.
+     */
+    public ObjectProperty<Node> bottomNodeProperty() {
+        return bottomNode;
     }
 
-    private final ObjectProperty<Node> bottomNode = new SimpleObjectProperty<>(this, "bottomNode", null);
+    private final ObjectProperty<Node> bottomNode
+        = new SimpleObjectProperty<>(this, "bottomNode", null);
 
     public final void setBottomNode(Node value) {
         bottomNode.setValue(value);
@@ -260,10 +279,6 @@ public class Calendar extends Control {
 
     public final Node getBottomNode() {
         return bottomNode.getValue();
-    }
-
-    public ObjectProperty<Node> bottomNodeProperty() {
-        return bottomNode;
     }
 
     ///////////////////////////////////////////////////////////////////////////

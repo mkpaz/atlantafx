@@ -24,6 +24,9 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+/**
+ * The default skin for the {@link RingProgressIndicator} control.
+ */
 public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
 
     protected static final double DEFAULT_ANIMATION_TIME = 3;

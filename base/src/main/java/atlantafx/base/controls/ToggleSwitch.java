@@ -51,7 +51,11 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
-@SuppressWarnings("unused")
+/**
+ * A control that provides users with the ability to choose between two distinct values.
+ * It is functionally similar, though aesthetically different, from the RadioButton
+ * and Checkbox.
+ */
 public class ToggleSwitch extends Labeled implements Toggle {
 
     protected static final String DEFAULT_STYLE_CLASS = "toggle-switch";
@@ -68,11 +72,19 @@ public class ToggleSwitch extends Labeled implements Toggle {
     /**
      * Creates a toggle switch with the specified label.
      *
-     * @param text The label string of the control
+     * @param text The label string of the control.
      */
     public ToggleSwitch(String text) {
         super(text);
         initialize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new ToggleSwitchSkin(this);
     }
 
     private void initialize() {
@@ -82,18 +94,6 @@ public class ToggleSwitch extends Labeled implements Toggle {
     ///////////////////////////////////////////////////////////////////////////
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
-
-    private BooleanProperty selected;
-
-    @Override
-    public final void setSelected(boolean value) {
-        selectedProperty().set(value);
-    }
-
-    @Override
-    public final boolean isSelected() {
-        return selected != null && selected.get();
-    }
 
     /**
      * Returns whether this Toggle Switch is selected.
@@ -151,24 +151,23 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return selected;
     }
 
+    private BooleanProperty selected;
+
+    @Override
+    public final void setSelected(boolean value) {
+        selectedProperty().set(value);
+    }
+
+    @Override
+    public final boolean isSelected() {
+        return selected != null && selected.get();
+    }
+
     /**
-     * The {@link ToggleGroup} to which this {@code ToggleSwitch} belongs.
-     * A {@code ToggleSwitch} can only be in one group at any one time. If the
-     * group is changed, then the button is removed from the old group prior to
-     * being added to the new group.
+     * The {@link ToggleGroup} to which this ToggleSwitch belongs. A toggle can only
+     * be in one group at any one time. If the group is changed, then the toggle is
+     * removed from the old group prior to being added to the new group.
      */
-    private ObjectProperty<ToggleGroup> toggleGroup;
-
-    @Override
-    public final void setToggleGroup(ToggleGroup value) {
-        toggleGroupProperty().set(value);
-    }
-
-    @Override
-    public final ToggleGroup getToggleGroup() {
-        return toggleGroup == null ? null : toggleGroup.get();
-    }
-
     @Override
     public final ObjectProperty<ToggleGroup> toggleGroupProperty() {
         if (toggleGroup == null) {
@@ -204,23 +203,20 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return toggleGroup;
     }
 
-    // ~
+    private ObjectProperty<ToggleGroup> toggleGroup;
 
-    private ObjectProperty<HorizontalDirection> labelPosition;
+    @Override
+    public final void setToggleGroup(ToggleGroup value) {
+        toggleGroupProperty().set(value);
+    }
 
-    public final void setLabelPosition(HorizontalDirection pos) {
-        labelPositionProperty().setValue(pos);
+    @Override
+    public final ToggleGroup getToggleGroup() {
+        return toggleGroup == null ? null : toggleGroup.get();
     }
 
     /**
-     * Returns whether this Toggle Switch is selected.
-     */
-    public final HorizontalDirection getLabelPosition() {
-        return labelPosition == null ? HorizontalDirection.LEFT : labelPosition.getValue();
-    }
-
-    /**
-     * Specifies the side where {@link #textProperty()} values should be placed.
+     * Specifies the side where {@link #textProperty()} value should be placed.
      * Default is {@link HorizontalDirection#LEFT}.
      */
     public final ObjectProperty<HorizontalDirection> labelPositionProperty() {
@@ -253,13 +249,22 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return labelPosition;
     }
 
+    private ObjectProperty<HorizontalDirection> labelPosition;
+
+    public final void setLabelPosition(HorizontalDirection pos) {
+        labelPositionProperty().setValue(pos);
+    }
+
+    public final HorizontalDirection getLabelPosition() {
+        return labelPosition == null ? HorizontalDirection.LEFT : labelPosition.getValue();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Methods                                                               //
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Toggles the state of the {@code Switch}. The {@code Switch} will cycle
-     * through the selected and unselected states.
+     * Toggles the state of the switch, cycling through the selected and unselected states.
      */
     public void fire() {
         if (!isDisabled()) {
@@ -268,13 +273,9 @@ public class ToggleSwitch extends Labeled implements Toggle {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Skin<?> createDefaultSkin() {
-        return new ToggleSwitchSkin(this);
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    // Styleable Properties                                                  //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * {@inheritDoc}
@@ -283,10 +284,6 @@ public class ToggleSwitch extends Labeled implements Toggle {
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return StyleableProperties.STYLEABLES;
     }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Styleable Properties                                                  //
-    ///////////////////////////////////////////////////////////////////////////
 
     private static class StyleableProperties {
 

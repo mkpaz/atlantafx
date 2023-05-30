@@ -8,13 +8,14 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
 
 /**
- * An alternative for the {@link javafx.scene.control.PasswordField}.
- * The formatter (un)masks text field content based on boolean property.
+ * An alternative to the {@link PasswordField} class. This formatter masks
+ * or unmasks text field content based on a boolean property.
  */
 public class PasswordTextFormatter extends TextFormatter<String> {
 

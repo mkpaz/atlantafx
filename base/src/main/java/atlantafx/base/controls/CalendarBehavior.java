@@ -12,6 +12,9 @@ import java.time.ZoneId;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * The default behavior for the {@link Calendar} control.
+ */
 public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
 
     public CalendarBehavior(Calendar control, CalendarSkin skin) {

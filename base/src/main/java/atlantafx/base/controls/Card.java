@@ -9,7 +9,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
 /**
- * Aa versatile container that can used in various contexts such as headings,
+ * A versatile container that can be used in various contexts, such as headings,
  * text, dialogs and more. It includes a header to provide a brief overview
  * or context of the information. The sub-header and body sections provide
  * more detailed content, while the footer may include additional actions or
@@ -17,12 +17,17 @@ import javafx.scene.control.Skin;
  */
 public class Card extends Control {
 
-    // Default constructor
+    /**
+     * Creates an empty Card.
+     */
     public Card() {
         super();
         getStyleClass().add("card");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new CardSkin(this);
@@ -33,16 +38,16 @@ public class Card extends Control {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * The property representing the card’s header node.
+     * Represents the card’s header node.
      */
+    public ObjectProperty<Node> headerProperty() {
+        return header;
+    }
+
     private final ObjectProperty<Node> header = new SimpleObjectProperty<>(this, "header");
 
     public Node getHeader() {
         return header.get();
-    }
-
-    public ObjectProperty<Node> headerProperty() {
-        return header;
     }
 
     public void setHeader(Node header) {
@@ -50,16 +55,16 @@ public class Card extends Control {
     }
 
     /**
-     * The property representing the card’s sub-header node.
+     * Represents the card’s sub-header node.
      */
+    public final ObjectProperty<Node> subHeaderProperty() {
+        return subHeader;
+    }
+
     private final ObjectProperty<Node> subHeader = new SimpleObjectProperty<>(this, "subHeader");
 
     public Node getSubHeader() {
         return subHeader.get();
-    }
-
-    public final ObjectProperty<Node> subHeaderProperty() {
-        return subHeader;
     }
 
     public void setSubHeader(Node subHeader) {
@@ -67,16 +72,16 @@ public class Card extends Control {
     }
 
     /**
-     * The property representing the card’s body node.
+     * Represents the card’s body node.
      */
+    public ObjectProperty<Node> bodyProperty() {
+        return body;
+    }
+
     private final ObjectProperty<Node> body = new SimpleObjectProperty<>(this, "body");
 
     public Node getBody() {
         return body.get();
-    }
-
-    public ObjectProperty<Node> bodyProperty() {
-        return body;
     }
 
     public void setBody(Node body) {
@@ -84,16 +89,16 @@ public class Card extends Control {
     }
 
     /**
-     * The property representing the card’s footer node.
+     * Represents the card’s footer node.
      */
+    public ObjectProperty<Node> footerProperty() {
+        return footer;
+    }
+
     private final ObjectProperty<Node> footer = new SimpleObjectProperty<>(this, "footer");
 
     public Node getFooter() {
         return footer.get();
-    }
-
-    public ObjectProperty<Node> footerProperty() {
-        return footer;
     }
 
     public void setFooter(Node footer) {

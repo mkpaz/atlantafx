@@ -11,8 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 
 /**
- * A set of constants and utility methods that simplifies adding
- * CSS classes programmatically.
+ * A set of constants and utility methods that simplifies adding CSS
+ * classes programmatically.
  */
 @SuppressWarnings("unused")
 public final class Styles {
@@ -132,11 +132,11 @@ public final class Styles {
     }
 
     /**
-     * Adds given style class to the node if it's not present, otherwise
-     * removes it.
+     * Adds the given style class to the node if it's not present,
+     * otherwise removes it.
      *
-     * @param node       the target node
-     * @param styleClass the style class to be toggled
+     * @param node       The target node.
+     * @param styleClass The style class to be toggled.
      * @throws NullPointerException if node or style class is null
      */
     public static void toggleStyleClass(Node node, String styleClass) {
@@ -156,13 +156,13 @@ public final class Styles {
     }
 
     /**
-     * Adds given style class to the node and removes the excluded classes.
+     * Adds the given style class to the node and removes the excluded classes.
      * This method is supposed to be used when only one from a set of classes
      * have to be present at once.
      *
-     * @param node       the target node
-     * @param styleClass the style class to be toggled
-     * @param excludes   the style classes to be excluded
+     * @param node       The target node.
+     * @param styleClass The style class to be toggled.
+     * @param excludes   The style classes to be excluded.
      * @throws NullPointerException if node or styleClass is null
      */
     public static void addStyleClass(Node node, String styleClass, String... excludes) {
@@ -187,9 +187,9 @@ public final class Styles {
      * This method is supposed to be used when only one from a set of pseudo-classes
      * have to be present at once.
      *
-     * @param node        the node to activate the pseudo-class on
-     * @param pseudoClass the pseudo-class to be activated
-     * @param excludes    the pseudo-classes to be deactivated
+     * @param node        The node to activate the pseudo-class on.
+     * @param pseudoClass The pseudo-class to be activated.
+     * @param excludes    The pseudo-classes to be deactivated.
      * @throws NullPointerException if node or pseudo-class is null
      */
     public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
@@ -213,9 +213,9 @@ public final class Styles {
      * There's no check for duplicates, so the CSS declarations with the same property
      * name can be appended multiple times.
      *
-     * @param node  the node to append the new style declaration
-     * @param prop  CSS property name
-     * @param value CSS property value
+     * @param node  The node to append the new style declaration.
+     * @param prop  The CSS property name.
+     * @param value The CSS property value.
      * @throws NullPointerException if node is null
      */
     public static void appendStyle(Node node, String prop, String value) {
@@ -239,8 +239,8 @@ public final class Styles {
     /**
      * Removes the specified CSS style declaration from the specified node.
      *
-     * @param node the node to remove the style from
-     * @param prop the name of the style property to remove
+     * @param node The node to remove the style from.
+     * @param prop The name of the style property to remove.
      * @throws NullPointerException if node is null
      */
     @SuppressWarnings("StringSplitter")
@@ -284,8 +284,8 @@ public final class Styles {
      * node.getStylesheets().remove(dataUri);
      * </pre>
      *
-     * @param css the CSS string to encode
-     * @return the resulting data URI string
+     * @param css The CSS string to encode.
+     * @return The resulting data URI string.
      */
     public static String toDataURI(String css) {
         if (css == null) {

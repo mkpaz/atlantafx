@@ -9,16 +9,18 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
 /**
- * InputGroup is a layout that helps combine multiple controls into a group
- * that looks like a single control. Without it, you would have to manually
- * add the "left-pill", "center-pill," and "right-pill" styles classes to
- * each control in such combination. The InputGroup removes this ceremony.
- * Since it inherits from HBox, you can use the same API.
+ * A layout that helps combine multiple controls into a group that looks
+ * like a single control.
+ *
+ * <p>Without it, you would have to manually add the ".left-pill", ".center-pill"
+ * and ".right-pill" styles classes to each control in such combination.
+ * The InputGroup removes this ceremony. Since it inherits from HBox, you can use
+ * the same API.
  */
 public class InputGroup extends HBox {
 
     /**
-     * See {@link HBox#HBox()}.
+     * Creates a new empty InputGroup.
      */
     public InputGroup() {
         super();
@@ -26,7 +28,9 @@ public class InputGroup extends HBox {
     }
 
     /**
-     * See {@link HBox#HBox(Node...)}.
+     * Creates an InputGroup with the given children.
+     *
+     * @param children The initial set of children for this pane.
      */
     public InputGroup(Node... children) {
         super(children);

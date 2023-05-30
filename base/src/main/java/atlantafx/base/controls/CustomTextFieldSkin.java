@@ -38,6 +38,9 @@ import javafx.scene.control.skin.TextFieldSkin;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.HitInfo;
 
+/**
+ * The default skin for the {@link CustomTextField} control.
+ */
 public abstract class CustomTextFieldSkin extends TextFieldSkin {
 
     private static final PseudoClass HAS_NO_SIDE_NODE = PseudoClass.getPseudoClass("no-side-nodes");

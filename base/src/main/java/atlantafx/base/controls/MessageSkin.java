@@ -9,6 +9,9 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.StackPane;
 
+/**
+ * The default skin for the {@link Message} control.
+ */
 public class MessageSkin extends TileSkinBase<Message> {
 
     protected static final PseudoClass CLOSEABLE = PseudoClass.getPseudoClass("closeable");

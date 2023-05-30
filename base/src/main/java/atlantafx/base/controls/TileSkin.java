@@ -4,6 +4,9 @@ package atlantafx.base.controls;
 
 import atlantafx.base.theme.Styles;
 
+/**
+ * The default skin for the {@link Tile} control.
+ */
 public class TileSkin extends TileSkinBase<Tile> {
 
     public TileSkin(Tile control) {

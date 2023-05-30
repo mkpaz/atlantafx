@@ -22,6 +22,9 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * The default skin for the {@link ModalPane} control.
+ */
 public class ModalPaneSkin extends SkinBase<ModalPane> {
 
     protected ModalPane control;

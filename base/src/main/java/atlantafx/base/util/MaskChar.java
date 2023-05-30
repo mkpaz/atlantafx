@@ -26,7 +26,7 @@ public interface MaskChar {
     char INPUT_MASK_DIGIT_ZERO = '0';
 
     /**
-     * Returns true if the character is allowed, false otherwise.
+     * Returns "true" if the character is allowed, "false" otherwise.
      */
     boolean isAllowed(char ch);
 

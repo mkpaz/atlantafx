@@ -36,14 +36,19 @@ import org.jetbrains.annotations.Nullable;
  * </ul>
  *
  * <p><h3>Behavior</h3>
- * Any {@code TextField} with {@code MaskTextFormatter} applied shows a placeholder mask by default.
- * This is basically the input mask with all mask characters replaced with {@link MaskChar#getPlaceholder()}.
- * The behavior changes if you set {@link TextField#promptTextProperty()}. In that case placeholder
- * mask is only displayed when {@code TextField} gets focus and will be hidden after focus lost.
- * So, the placeholder mask is always displayed when focus is set to the {@code TextField}.
- * You can replace the placeholder mask with any sensible default simply by changing initial
- * {@code TextField} text to any string that is valid against the input mask.
- * <br/><br/>The caret will be positioned before the first not fixed character (see {@link MaskChar#isFixed()})
+ * Any {@code TextField} with {@code MaskTextFormatter} applied shows a placeholder
+ * mask by default. This is basically the input mask with all mask characters replaced
+ * with the {@link MaskChar#getPlaceholder()} character.
+ *
+ * <p>The behavior changes if you set the {@link TextField#promptTextProperty()}.
+ * In that case placeholder mask is only displayed when {@code TextField} gets focus and
+ * will be hidden after focus lost. So, the placeholder mask is always displayed when focus
+ * is set to the {@code TextField}.
+ *
+ * <p>You can replace the placeholder mask with any sensible default simply by changing initial
+ * {@code TextField} text to any string that is valid against the input mask.<br/><br/>
+ *
+ * <p>The caret will be positioned before the first not fixed character (see {@link MaskChar#isFixed()})
  * starting from the beginning of the input mask.<br/><br/>
  *
  * <p><h3>Validation</h3>
@@ -68,8 +73,6 @@ public class MaskTextFormatter extends TextFormatter<String> {
 
     /**
      * Creates a new text field with the provided string input mask.
-     * Use this if you create your controls from Java code and don't need to
-     * modify the default {@link MaskChar} implementation.
      */
     public static TextField createTextField(String mask) {
         return createTextField(fromString(mask));
@@ -77,8 +80,6 @@ public class MaskTextFormatter extends TextFormatter<String> {
 
     /**
      * Creates a new text field with the provided input mask.
-     * Use this if you create your controls from Java code and want to
-     * modify the default {@link MaskChar} implementation.
      */
     public static TextField createTextField(List<MaskChar> mask) {
         final var field = new TextField();
@@ -88,9 +89,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
 
     /**
      * Creates a new mask text formatter with the provided string input mask and
-     * applies itself to the specified text field. Use this if you create your
-     * controls from FXML and don't need to modify the default {@link MaskChar}
-     * implementation.
+     * applies itself to the specified text field.
      */
     public static MaskTextFormatter create(TextField field, String mask) {
         return create(field, fromString(mask));
@@ -98,8 +97,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
 
     /**
      * Creates a new mask text formatter with the provided input mask and
-     * applies itself to the specified text field. Use this if you create your
-     * controls from FXML and want to modify the default {@link MaskChar} implementation.
+     * applies itself to the specified text field.
      */
     public static MaskTextFormatter create(TextField field, List<MaskChar> mask) {
         Objects.requireNonNull(field, "Text field can't be null");

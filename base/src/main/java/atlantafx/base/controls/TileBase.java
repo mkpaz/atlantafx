@@ -2,7 +2,7 @@
 
 package atlantafx.base.controls;
 
-import javafx.beans.NamedArg;
+import atlantafx.base.util.BBCodeParser;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,14 +11,18 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * A common class for implementing tile-based controls, specifically the
+ * {@link Message} and the {@link Tile}.
+ */
 public abstract class TileBase extends Control {
 
     public TileBase() {
         this(null, null, null);
     }
 
-    public TileBase(@Nullable @NamedArg("title") String title,
-                    @Nullable @NamedArg("description") String description) {
+    public TileBase(@Nullable String title,
+                    @Nullable String description) {
         this(title, description, null);
     }
 
@@ -38,17 +42,17 @@ public abstract class TileBase extends Control {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * The property representing the tile’s graphic node. It is commonly used
-     * to add images or icons that are associated with the tile.
+     * Represents the tile’s graphic node. It is commonly used to add images or icons
+     * that are associated with the tile.
      */
+    public ObjectProperty<Node> graphicProperty() {
+        return graphic;
+    }
+
     private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic");
 
     public Node getGraphic() {
         return graphic.get();
-    }
-
-    public ObjectProperty<Node> graphicProperty() {
-        return graphic;
     }
 
     public void setGraphic(Node graphic) {
@@ -56,17 +60,16 @@ public abstract class TileBase extends Control {
     }
 
     /**
-     * The property representing the tile’s title. Although it is not mandatory,
-     * you typically would not want to have a tile without a title.
+     * Represents the tile’s title (or header).
      */
+    public StringProperty titleProperty() {
+        return title;
+    }
+
     private final StringProperty title = new SimpleStringProperty(this, "title");
 
     public String getTitle() {
         return title.get();
-    }
-
-    public StringProperty titleProperty() {
-        return title;
     }
 
     public void setTitle(String title) {
@@ -74,16 +77,19 @@ public abstract class TileBase extends Control {
     }
 
     /**
-     * The property representing the tile’s description.
+     * Represents the tile’s description (or optional text).
+     *
+     * <p>This property supports BBCode formatted text. Refer to the {@link BBCodeParser}
+     * for more information.
      */
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
     private final StringProperty description = new SimpleStringProperty(this, "description");
 
     public String getDescription() {
         return description.get();
-    }
-
-    public StringProperty descriptionProperty() {
-        return description;
     }
 
     public void setDescription(String description) {

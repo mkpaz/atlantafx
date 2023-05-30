@@ -22,15 +22,15 @@ import javafx.util.Duration;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * DeckPane represents a pane that displays all of its child nodes in a deck,
- * where only one node can be visible at a time. It does not maintain any sequence
- * (model), but only cares about the top node, which can be changed by various
- * transition effects.<p/>
+ * Represents a pane that displays all of its child nodes in a deck,
+ * where only one node can be visible at a time. It <b>does not maintain any
+ * sequence</b> (model), but only cares about the top node, which can be changed
+ * by various transition effects.<p/>
  *
  * <h3>View Order</h3>
  *
  * <p>DeckPane manages {@link Node#viewOrderProperty()} of its children. Topmost
- * visible node always has a higher view order value, while the rest of the nodes
+ * visible node always has the highest view order value, while the rest of the nodes
  * have the default value, which is zero. Following that logic, one must not set
  * child nodes view order manually, because it will break the contract.
  *
@@ -53,6 +53,9 @@ public class DeckPane extends AnchorPane {
     // the rest of the nodes
     protected static final int Z_DEFAULT = 0;
 
+    /**
+     * Creates a new empty DeckPane.
+     */
     public DeckPane() {
         super();
 
@@ -66,14 +69,19 @@ public class DeckPane extends AnchorPane {
         });
     }
 
+    /**
+     * Creates an DeckPane with the given children.
+     *
+     * @param children The initial set of children for this pane.
+     */
     public DeckPane(Node... children) {
         this();
         getChildren().addAll(children);
     }
 
     /**
-     * Returns the node with the higher view order value or the last node
-     * if all child nodes have the same view order value.
+     * Returns the node with the highest view order value, or the
+     * last node if all child nodes have the same view order value.
      */
     public @Nullable Node getTopNode() {
         var size = getChildren().size();
@@ -93,6 +101,8 @@ public class DeckPane extends AnchorPane {
     /**
      * Sets given node on top without playing any transition.
      * Does nothing if that node isn't added to the pane.
+     *
+     * @param target The node to be set on top.
      */
     public void setTopNode(Node target) {
         if (!getChildren().contains(target)) {
@@ -120,16 +130,19 @@ public class DeckPane extends AnchorPane {
     }
 
     /**
-     * Adds given nodes to the pane and binds them to the pane edges
-     * using the provided offsets. See {@link AnchorPane#setTopAnchor(Node, Double)}
+     * Adds the given nodes to the pane and binds them to the pane edges
+     * using the provided offset. See {@link AnchorPane#setTopAnchor(Node, Double)}
      * for the reference.
+     *
+     * @param offset The offset values for each othe the specified nodes.
+     * @param nodes  The array of the nodes to be added.
      */
-    public void addChildren(Insets offsets, Node... nodes) {
+    public void addChildren(Insets offset, Node... nodes) {
         for (var node : nodes) {
-            AnchorPane.setTopAnchor(node, offsets.getTop());
-            AnchorPane.setRightAnchor(node, offsets.getRight());
-            AnchorPane.setBottomAnchor(node, offsets.getBottom());
-            AnchorPane.setLeftAnchor(node, offsets.getLeft());
+            AnchorPane.setTopAnchor(node, offset.getTop());
+            AnchorPane.setRightAnchor(node, offset.getRight());
+            AnchorPane.setBottomAnchor(node, offset.getBottom());
+            AnchorPane.setLeftAnchor(node, offset.getLeft());
         }
         getChildren().addAll(nodes);
     }
@@ -138,6 +151,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * swipe transition from bottom to top. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void swipeUp(Node target) {
         var topNode = getTopNode();
@@ -164,6 +179,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * swipe transition from top to bottom. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void swipeDown(Node target) {
         var topNode = getTopNode();
@@ -190,6 +207,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * swipe transition from right to left. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void swipeLeft(Node target) {
         var topNode = getTopNode();
@@ -216,6 +235,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * swipe transition from left to right. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void swipeRight(Node target) {
         var topNode = getTopNode();
@@ -242,6 +263,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * slide transition from bottom to top. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void slideUp(Node target) {
         var topNode = getTopNode();
@@ -265,6 +288,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * slide transition from top to bottom. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void slideDown(Node target) {
         var topNode = getTopNode();
@@ -288,6 +313,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * slide transition from right to left. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void slideLeft(Node target) {
         var topNode = getTopNode();
@@ -311,6 +338,8 @@ public class DeckPane extends AnchorPane {
      * Places target node on the top of the pane while playing the
      * slide transition from left to right. If the pane doesn't contain
      * that node, it will be added to the end before playing transition.
+     *
+     * @param target The node to be set on top.
      */
     public void slideRight(Node target) {
         var topNode = getTopNode();
@@ -334,6 +363,13 @@ public class DeckPane extends AnchorPane {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Represents the duration of the transition effect that is played when changing the top node.
+     */
+    public ObjectProperty<Duration> animationDurationProperty() {
+        return animationDuration;
+    }
+
     protected final ObjectProperty<Duration> animationDuration =
         new SimpleObjectProperty<>(this, "animationDuration", Duration.seconds(1));
 
@@ -341,18 +377,17 @@ public class DeckPane extends AnchorPane {
         return animationDuration.get();
     }
 
-    /**
-     * Duration of the transition effect which is played when changing the top node.
-     */
-    public ObjectProperty<Duration> animationDurationProperty() {
-        return animationDuration;
-    }
-
     public void setAnimationDuration(@Nullable Duration animationDuration) {
         this.animationDuration.set(Objects.requireNonNullElse(animationDuration, Duration.ZERO));
     }
 
-    // ~
+    /**
+     * Indicates whether the transition is in progress. Subscribe to this property
+     * to be notified when the animation starts or finishes.
+     */
+    public ReadOnlyBooleanProperty animationActiveProperty() {
+        return animationActive.getReadOnlyProperty();
+    }
 
     protected final ReadOnlyBooleanWrapper animationActive =
         new ReadOnlyBooleanWrapper(this, "animationActive");
@@ -361,32 +396,22 @@ public class DeckPane extends AnchorPane {
         return animationActive.get();
     }
 
-    /**
-     * Returns whether transition is in progress. Subscribe to be notified
-     * when animation started or finished.
-     */
-    public ReadOnlyBooleanProperty animationActiveProperty() {
-        return animationActive.getReadOnlyProperty();
-    }
-
     protected void setAnimationActive(boolean animationActive) {
         this.animationActive.set(animationActive);
     }
 
-    // ~
+    /**
+     * Sets the callback action to be called before setting a node at the top of the DeckPane.
+     */
+    public ObjectProperty<Consumer<Node>> beforeShowCallbackProperty() {
+        return beforeShowCallback;
+    }
 
     protected final ObjectProperty<Consumer<Node>> beforeShowCallback =
         new SimpleObjectProperty<>(this, "beforeShowCallback");
 
     public @Nullable Consumer<Node> getBeforeShowCallback() {
         return beforeShowCallback.get();
-    }
-
-    /**
-     * Callback action to be called before setting a node at the top of the deck.
-     */
-    public ObjectProperty<Consumer<Node>> beforeShowCallbackProperty() {
-        return beforeShowCallback;
     }
 
     public void setBeforeShowCallback(@Nullable Consumer<Node> callback) {
@@ -399,20 +424,18 @@ public class DeckPane extends AnchorPane {
         }
     }
 
-    // ~
+    /**
+     * Sets the callback action to be called after removing the top node from the top of the DeckPane.
+     */
+    public ObjectProperty<Consumer<Node>> afterHideCallbackProperty() {
+        return afterHideCallback;
+    }
 
     protected final ObjectProperty<Consumer<Node>> afterHideCallback =
         new SimpleObjectProperty<>(this, "afterHideCallback");
 
     public @Nullable Consumer<Node> getAfterHideCallback() {
         return afterHideCallback.get();
-    }
-
-    /**
-     * Callback action to be called after removing the top node from the top of the deck.
-     */
-    public ObjectProperty<Consumer<Node>> afterHideCallbackProperty() {
-        return afterHideCallback;
     }
 
     public void setAfterHideCallback(@Nullable Consumer<Node> callback) {

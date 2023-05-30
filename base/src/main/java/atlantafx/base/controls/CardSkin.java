@@ -11,6 +11,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * The default skin for the {@link Card} control.
+ */
 public class CardSkin implements Skin<Card> {
 
     protected static final PseudoClass HAS_HEADER = PseudoClass.getPseudoClass("has-header");

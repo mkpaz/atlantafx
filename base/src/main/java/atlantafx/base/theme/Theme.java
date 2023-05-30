@@ -9,7 +9,7 @@ import javafx.application.Application;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Basic theme interface.
+ * The basic theme interface.
  */
 public interface Theme {
 
@@ -39,7 +39,7 @@ public interface Theme {
     boolean isDarkMode();
 
     /**
-     * Simple factory method for instantiating a new theme.
+     * A simple factory method for instantiating a new theme.
      */
     static Theme of(final String name, final String userAgentStylesheet, final boolean darkMode) {
         if (name == null) {

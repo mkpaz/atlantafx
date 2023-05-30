@@ -1,4 +1,7 @@
-/* SPDX-License-Identifier: MIT */
+/**
+ * Provides additional controls, layout and Java API for
+ * custom themes support.
+ */
 
 module atlantafx.base {
 

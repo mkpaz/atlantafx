@@ -10,21 +10,37 @@ import javafx.scene.control.Skin;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A versatile container that can used in various contexts such as dialog headers,
- * list items, and cards. It can contain a graphic, a title, description, and optional
- * actions.
+ * A versatile container that can used in various contexts such as dialog
+ * headers, list items, and cards. It can contain a graphic, a title, description,
+ * and optional actions.
  */
 public class Tile extends TileBase {
 
+    /**
+     * Creates a new empty Tile.
+     */
     public Tile() {
         this(null, null, null);
     }
 
+    /**
+     * Creates a new Tile with an initial title and description.
+     *
+     * @param title       A string for the title.
+     * @param description A string for the description.
+     */
     public Tile(@Nullable @NamedArg("title") String title,
                 @Nullable @NamedArg("description") String description) {
         this(title, description, null);
     }
 
+    /**
+     * Creates a new Tile with an initial title, description and graphic.
+     *
+     * @param title       A string for the title.
+     * @param description A string for the description.
+     * @param graphic     A graphic or icon.
+     */
     public Tile(@Nullable String title,
                 @Nullable String description,
                 @Nullable Node graphic) {
@@ -32,6 +48,9 @@ public class Tile extends TileBase {
         getStyleClass().add("tile");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new TileSkin(this);
@@ -42,17 +61,17 @@ public class Tile extends TileBase {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * The property representing the tile’s action node. It is commonly used
-     * to place an action controls that are associated with the tile.
+     * Represents the node to be placed in the tile’s action slot. It is commonly
+     * used to place action controls that are associated with the tile.
      */
+    public ObjectProperty<Node> actionProperty() {
+        return action;
+    }
+
     private final ObjectProperty<Node> action = new SimpleObjectProperty<>(this, "action");
 
     public Node getAction() {
         return action.get();
-    }
-
-    public ObjectProperty<Node> actionProperty() {
-        return action;
     }
 
     public void setAction(Node action) {
@@ -60,18 +79,20 @@ public class Tile extends TileBase {
     }
 
     /**
-     * The property representing the tile’s action handler. Setting an action handler
-     * makes the tile interactive or clickable. When a user clicks on the interactive
-     * tile, the specified action handler will be called.
+     * Represents the tile’s action handler.
+     *
+     * <p>Setting an action handler makes the tile interactive (or clickable).
+     * When a user clicks on the interactive tile, the specified action handler will be called.
      */
-    private final ObjectProperty<Runnable> actionHandler = new SimpleObjectProperty<>(this, "actionHandler");
+    public ObjectProperty<Runnable> actionHandlerProperty() {
+        return actionHandler;
+    }
+
+    private final ObjectProperty<Runnable> actionHandler
+        = new SimpleObjectProperty<>(this, "actionHandler");
 
     public Runnable getActionHandler() {
         return actionHandler.get();
-    }
-
-    public ObjectProperty<Runnable> actionHandlerProperty() {
-        return actionHandler;
     }
 
     public void setActionHandler(Runnable actionHandler) {

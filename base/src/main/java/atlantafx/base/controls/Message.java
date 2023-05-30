@@ -12,21 +12,24 @@ import javafx.scene.control.Skin;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The Message is a component for displaying notifications or alerts
- * and is specifically designed to grab the user’s attention.
- * It is based on the Tile layout and shares its structure.
+ * A control for displaying banners or alerts that is specifically
+ * designed to grab the user’s attention. It is based on the {@link Tile}
+ * layout and shares its structure.
  */
 public class Message extends TileBase {
 
     /**
-     * See {@link Tile#Tile()}.
+     * Creates an empty Message.
      */
     public Message() {
         this(null, null, null);
     }
 
     /**
-     * See {@link Tile#Tile(String, String)}.
+     * Creates a new Message with an initial title and description.
+     *
+     * @param title       A string for the title.
+     * @param description A string for the description.
      */
     public Message(@Nullable @NamedArg("title") String title,
                    @Nullable @NamedArg("description") String description) {
@@ -34,7 +37,11 @@ public class Message extends TileBase {
     }
 
     /**
-     * See {@link Tile#Tile(String, String, Node)}.
+     * Creates a new Message with an initial title, description and graphic.
+     *
+     * @param title       A string for the title.
+     * @param description A string for the description.
+     * @param graphic     A graphic or icon.
      */
     public Message(@Nullable String title,
                    @Nullable String description,
@@ -43,6 +50,9 @@ public class Message extends TileBase {
         getStyleClass().add("message");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new MessageSkin(this);
@@ -53,18 +63,18 @@ public class Message extends TileBase {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * The property representing the message’s action handler. Setting an action handler
-     * makes the message interactive or clickable. When a user clicks on the interactive
+     * Represents the message’s action handler. Setting an action handler makes the
+     * message interactive (or clickable). When a user clicks on the interactive
      * message, the specified action handler will be called.
      */
+    public ObjectProperty<Runnable> actionHandlerProperty() {
+        return actionHandler;
+    }
+
     private final ObjectProperty<Runnable> actionHandler = new SimpleObjectProperty<>(this, "actionHandler");
 
     public Runnable getActionHandler() {
         return actionHandler.get();
-    }
-
-    public ObjectProperty<Runnable> actionHandlerProperty() {
-        return actionHandler;
     }
 
     public void setActionHandler(Runnable actionHandler) {
@@ -72,17 +82,19 @@ public class Message extends TileBase {
     }
 
     /**
-     * The property representing the user specified close handler.
+     * Represents the user-specified close handler, which is intended to be used to close
+     * or dismiss the message. When a user clicks on the message's close button, the specified
+     * close handler will be called.
      */
+    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
+        return onClose;
+    }
+
     protected final ObjectProperty<EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
     public EventHandler<? super Event> getOnClose() {
         return onClose.get();
-    }
-
-    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
-        return onClose;
     }
 
     public void setOnClose(EventHandler<? super Event> onClose) {

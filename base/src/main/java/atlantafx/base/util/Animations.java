@@ -38,7 +38,7 @@ public final class Animations {
      * Changes the node opacity to full transparency and then back to its
      * original opacity in quick succession, creating a flashing effect.
      *
-     * @param node the node to be animated
+     * @param node The node to be animated.
      */
     public static Timeline flash(Node node) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -81,8 +81,8 @@ public final class Animations {
      * Repeatedly increases and decreases the scale of the node,
      * giving it a pulsating effect that draws attention to it.
      *
-     * @param node  the node to be animated
-     * @param scale the scale factor
+     * @param node  The node to be animated.
+     * @param scale The scale factor.
      */
     public static Timeline pulse(Node node, double scale) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -127,8 +127,8 @@ public final class Animations {
      * Rapidly moves the node from side-to-side horizontally,
      * creating a shaking or vibrating effect.
      *
-     * @param node   the node to be animated
-     * @param offset the shake offset
+     * @param node   The node to be animated.
+     * @param offset The shake offset.
      */
     public static Timeline shakeX(Node node, double offset) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -186,8 +186,8 @@ public final class Animations {
      * Rapidly moves the node up and down vertically, creating
      * a shaking or bouncing effect.
      *
-     * @param node   the node to be animated
-     * @param offset the shake offset
+     * @param node   The node to be animated.
+     * @param offset The shake offset.
      */
     public static Timeline shakeY(Node node, double offset) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -241,7 +241,7 @@ public final class Animations {
      * Causes the node to rapidly wobble back and forth,
      * creating a visually engaging effect.
      *
-     * @param node the node to be animated
+     * @param node The node to be animated.
      */
     public static Timeline wobble(Node node) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -295,8 +295,8 @@ public final class Animations {
      * Gradually increases the opacity of the node from 0 to 1,
      * making it appear on the scene with a fading-in effect.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeIn(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -324,8 +324,8 @@ public final class Animations {
      * Gradually decreases the opacity of the node from 1 to 0,
      * making it disappear from the scene with a fading-out effect.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeOut(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -353,8 +353,8 @@ public final class Animations {
      * Combines the {@link #fadeIn(Node, Duration)} effect with the node’s downward
      * movement, creating an animated entrance of the node from the top.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeInDown(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -386,8 +386,8 @@ public final class Animations {
      * Combines the {@link #fadeOut(Node, Duration)} effect with the node’s downward
      * movement, creating an animated exit of the node to the bottom.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeOutDown(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -418,8 +418,8 @@ public final class Animations {
      * Combines the {@link #fadeIn(Node, Duration)} effect with the node’s leftward
      * movement, creating an animated entrance of the node from the left.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeInLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -450,8 +450,8 @@ public final class Animations {
      * Combines the {@link #fadeOut(Node, Duration)} effect with the node’s leftward
      * movement, creating an animated exit of the node to the left.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeOutLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -482,8 +482,8 @@ public final class Animations {
      * Combines the {@link #fadeIn(Node, Duration)} effect with the node’s rightward
      * movement, creating an animated entrance of the node from the right.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeInRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -514,8 +514,8 @@ public final class Animations {
      * Combines the {@link #fadeOut(Node, Duration)} effect with the node’s rightward
      * movement, creating an animated exit of the node to the right.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeOutRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -546,8 +546,8 @@ public final class Animations {
      * Combines the {@link #fadeIn(Node, Duration)} effect with the node’s upward
      * movement, creating an animated entrance of the node from the bottom.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeInUp(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -578,8 +578,8 @@ public final class Animations {
      * Combines the {@link #fadeOut(Node, Duration)} effect with the node’s upward
      * movement, creating an animated exit of the node to the top.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline fadeOutUp(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -614,8 +614,8 @@ public final class Animations {
      * Applies an animated effect to the node causing it to roll into
      * the scene from the left side at an angle.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rollIn(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -649,8 +649,8 @@ public final class Animations {
      * Applies an animated effect to the node causing it to roll out
      * from the scene to the right side at an angle.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rollOut(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -688,8 +688,8 @@ public final class Animations {
      * Rotates the node and gradually increases its opacity,
      * giving it an animated entrance effect.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateIn(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -722,8 +722,8 @@ public final class Animations {
      * Rotates the node and gradually decreases its opacity,
      * giving it an animated exit effect.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateOut(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -757,8 +757,8 @@ public final class Animations {
      * movement from the left, creating an animated entrance of the node from the top
      * left corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateInDownLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -794,8 +794,8 @@ public final class Animations {
      * movement to the left, creating an animated exit of the node towards the bottom
      * left corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateOutDownLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -831,8 +831,8 @@ public final class Animations {
      * movement from the right, creating an animated entrance of the node from the top
      * right corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateInDownRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -871,8 +871,8 @@ public final class Animations {
      * movement to the right, creating an animated exit of the node towards the bottom
      * right corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateOutDownRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -911,8 +911,8 @@ public final class Animations {
      * movement from the left, creating an animated entrance of the node from the
      * bottom left corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateInUpLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -948,8 +948,8 @@ public final class Animations {
      * movement to the left, creating an animated exit of the node towards the top
      * left corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateOutUpLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -985,8 +985,8 @@ public final class Animations {
      * movement from the right, creating an animated entrance of the node from the
      * bottom right corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateInUpRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1025,8 +1025,8 @@ public final class Animations {
      * movement to the right, creating an animated exit of the node towards the top
      * right corner.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline rotateOutUpRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1068,8 +1068,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide into view
      * from the top side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideInDown(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1097,8 +1097,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide out of view
      * through the bottom side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideOutDown(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1126,8 +1126,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide into view
      * from the left side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideInLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1155,8 +1155,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide out of view
      * through the left side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideOutLeft(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1184,8 +1184,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide into view
      * from the right side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideInRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1213,8 +1213,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide out of view
      * through the right side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideOutRight(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1242,8 +1242,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide into view
      * from the bottom side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideInUp(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1271,8 +1271,8 @@ public final class Animations {
      * Applies an animated effect to the node, causing it to slide out of view
      * through the top side.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
      */
     public static Timeline slideOutUp(Node node, Duration duration) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1311,9 +1311,9 @@ public final class Animations {
      * Increases the scale of the node, starting from a smaller size and gradually
      * zooming it to the regular size, emphasizing the node’s entrance.
      *
-     * @param node       the node to be animated
-     * @param duration   the animation duration
-     * @param startValue the initial zoom value
+     * @param node       The node to be animated.
+     * @param duration   The animation duration.
+     * @param startValue The initial zoom value.
      */
     public static Timeline zoomIn(Node node, Duration duration, double startValue) {
         Objects.requireNonNull(node, "Node cannot be null!");
@@ -1355,9 +1355,9 @@ public final class Animations {
      * its original size and gradually zooms out to a smaller size, emphasizing
      * the node’s exit.
      *
-     * @param node     the node to be animated
-     * @param duration the animation duration
-     * @param endValue the target zoom value
+     * @param node     The node to be animated.
+     * @param duration The animation duration.
+     * @param endValue The target zoom value.
      */
     public static Timeline zoomOut(Node node, Duration duration, double endValue) {
         Objects.requireNonNull(node, "Node cannot be null!");

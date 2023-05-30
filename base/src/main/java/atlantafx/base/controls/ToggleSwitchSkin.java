@@ -48,6 +48,9 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * The default skin for the {@link ToggleSwitch} control.
+ */
 public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
 
     protected static final Duration DEFAULT_ANIMATION_TIME = Duration.millis(200);

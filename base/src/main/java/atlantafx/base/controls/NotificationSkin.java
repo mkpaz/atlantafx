@@ -19,6 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+/**
+ * The default skin for the {@link Notification} control.
+ */
 public class NotificationSkin extends SkinBase<Notification> {
 
     protected final VBox container = new VBox();

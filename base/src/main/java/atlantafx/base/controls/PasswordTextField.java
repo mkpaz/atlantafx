@@ -34,28 +34,46 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringProperty;
 
 /**
- * This is a convenience wrapper for instantiating a {@link CustomTextField}
- * with {@code PasswordTextFormatter}. For additional info refer to the
- * {@link PasswordTextFormatter} docs.
+ * A convenience wrapper for instantiating a {@link CustomTextField}
+ * with a {@code PasswordTextFormatter}. For additional info refer to the
+ * {@link PasswordTextFormatter} documentation.
  */
 public class PasswordTextField extends CustomTextField {
 
     protected final ReadOnlyObjectWrapper<PasswordTextFormatter> formatter
         = new ReadOnlyObjectWrapper<>(this, "formatter");
 
+    /**
+     * Creates an empty PasswordTextField.
+     */
     public PasswordTextField() {
         this("", PasswordTextFormatter.BULLET);
     }
 
+    /**
+     * Creates a PasswordTextField with initial text content.
+     *
+     * @param text A string for text content.
+     */
     public PasswordTextField(@NamedArg("text") String text) {
         this(text, PasswordTextFormatter.BULLET);
     }
 
+    /**
+     * Creates a PasswordTextField with initial text content and bullet character.
+     *
+     * @param text   A string for text content.
+     * @param bullet A bullet character to mask the password string.
+     */
     protected PasswordTextField(@NamedArg("text") String text,
                                 @NamedArg("bullet") char bullet) {
         super(text);
         formatter.set(PasswordTextFormatter.create(this, bullet));
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Properties                                                            //
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * See {@link PasswordTextFormatter#passwordProperty()}.

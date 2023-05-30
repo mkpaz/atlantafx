@@ -8,7 +8,7 @@ import javafx.scene.control.skin.SliderSkin;
 import javafx.scene.layout.StackPane;
 
 /**
- * {@link Slider} skin that supports progress color.
+ * A {@link Slider} skin that supports progress color indication.
  */
 public class ProgressSliderSkin extends SliderSkin {
 

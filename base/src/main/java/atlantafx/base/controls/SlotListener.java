@@ -11,6 +11,15 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * An internal convenience class for implementing slot-based approach.
+ *
+ * <p>It is intended to be used for controls that allow custom user nodes
+ * to be placed inside their skins. his class automatically adds or removes
+ * an updated <code>ObservableValue<? extends Node></code> value to/from the
+ * given container and also maintains the <code>:filled</code> pseudo-class
+ * state to indicate whether the corresponding slot is empty or not.
+ */
 final class SlotListener implements ChangeListener<Node> {
 
     private static final PseudoClass FILLED = PseudoClass.getPseudoClass("filled");
@@ -18,10 +27,24 @@ final class SlotListener implements ChangeListener<Node> {
     private final Pane slot;
     private final @Nullable BiConsumer<Node, Boolean> onContentUpdate;
 
+    /**
+     * Creates a new listener and binds it to the specified container.
+     *
+     * @param slot The container for user-specified node.
+     */
     public SlotListener(Pane slot) {
         this(slot, null);
     }
 
+    /**
+     * Creates a new listener and binds it to the specified container.
+     * Also, it registers the custom callback handler that will be notified
+     * upon the container content changed.
+     *
+     * @param slot            The container for user-specified node.
+     * @param onContentUpdate The callback handler to be notified upon
+     *                        the container content changing.
+     */
     public SlotListener(Node slot, @Nullable BiConsumer<Node, Boolean> onContentUpdate) {
         Objects.requireNonNull(slot, "Slot cannot be null.");
 

@@ -22,10 +22,11 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>The parser doesn't impose restrictions on tag names or tag params.
  * It's a handler implementation responsibility to differentiate supported
- * tags from unsupported and so to for tag params. This allows user to utilize
+ * tags from unsupported and so to for the tag params. This allows user to utilize
  * arbitrary tags or params without changing the parser behaviour. The parser,
  * however, verifies that each opening tag has the matching closing tag.
- * If parsing is failed due to invalid input an {@link IllegalStateException}
+ *
+ * <p>If parsing is failed due to invalid input an {@link IllegalStateException}
  * will be thrown.
  */
 public class BBCodeParser {
@@ -53,7 +54,9 @@ public class BBCodeParser {
     private int lastClosingPos = 0;
 
     /**
-     * See {@link #BBCodeParser(String, BBCodeHandler, Set)}.
+     * Creates a new parser.
+     *
+     * @see #BBCodeParser(String, BBCodeHandler, Set).
      */
     public BBCodeParser(String input, BBCodeHandler handler) {
         this(input, handler, RESERVED_TAGS);
@@ -62,9 +65,9 @@ public class BBCodeParser {
     /**
      * Creates a new parser.
      *
-     * @param input   an input non-null string
-     * @param handler a {@link BBCodeHandler} implementation
-     * @param tags    the list of processed tags, i.e. the tags that parser won't ignore
+     * @param input   An input non-null string.
+     * @param handler A {@link BBCodeHandler} implementation.
+     * @param tags    The list of processed tags, i.e. the tags that parser won't ignore.
      */
     public BBCodeParser(String input, BBCodeHandler handler, @Nullable Set<String> tags) {
         this.input = Objects.requireNonNull(input, "Input can't be null.");
@@ -73,8 +76,8 @@ public class BBCodeParser {
     }
 
     /**
-     * Starts input parsing. There's no way to stop the process until
-     * parsing is finished.
+     * Starts input parsing.
+     * There's no way to stop the process until parsing is finished.
      */
     public void parse() {
         handler.startDocument(input.toCharArray());
@@ -175,8 +178,9 @@ public class BBCodeParser {
      * Parses the given string using BBCode markup and returns corresponding layout.
      * This is a shorthand method for using the feature.
      *
-     * @param input     BBCode markup string
-     * @param container root container
+     * @param input     The BBCode markup string.
+     * @param container The root container.
+     * @see BBCodeHandler
      */
     public static <T extends Pane> T createLayout(String input, T container) {
         var handler = new BBCodeHandler.Default<>(container);

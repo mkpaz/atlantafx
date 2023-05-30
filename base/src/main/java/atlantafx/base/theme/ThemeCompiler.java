@@ -11,10 +11,21 @@ import java.util.stream.Stream;
 import javafx.css.Stylesheet;
 
 /**
- * Lazy man CSS to BSS compiler wrapper.
+ * A lazy man CSS to BSS compiler wrapper.
  */
 public class ThemeCompiler {
 
+    /**
+     * The main class that accepts exactly one parameter, which is the path to
+     * the source directory to be scanned for CSS files.
+     *
+     * <p>Usage:
+     * <pre>{@code
+     * java ThemeCompiler <path>
+     * }</pre>
+     *
+     * @see #convertToBinary(Path)
+     */
     public static void main(String[] args) {
         try {
             if (args.length < 1) {
@@ -38,7 +49,7 @@ public class ThemeCompiler {
     /**
      * Converts all CSS files in the specified directory to BSS.
      *
-     * @param dir the source directory to scan for CSS files
+     * @param dir The source directory to scan for CSS files.
      * @throws IOException to punish you for using Java
      */
     public void convertToBinary(Path dir) throws IOException {
@@ -62,8 +73,8 @@ public class ThemeCompiler {
      * Converts the specified CSS file to BSS. If no output file is given,
      * then the input file name is used with an extension of 'bss'.
      *
-     * @param in  input file path
-     * @param out output file path
+     * @param in  The input file path.
+     * @param out The output file path.
      * @throws IOException to punish you for using Java
      */
     public void convertToBinary(Path in, Path out) throws IOException {

@@ -17,11 +17,12 @@ import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The ModalBox is a specialized control or layout designed to hold the
- * {@link ModalPane} dialog content. It includes the close button out-of-the-box
- * and allows for the addition of arbitrary children. The ModalBox is derived
- * from the {@link AnchorPane}, so it inherits the same API. Just be sure that
- * you haven't removed the close button while using it.
+ * A specialized control (or layout) designed to hold the {@link ModalPane}
+ * dialog content. It includes the close button out-of-the-box and allows for the
+ * addition of arbitrary children.
+ *
+ * <p>The ModalBox is derived from the {@link AnchorPane}, so it inherits the same API.
+ * Just be sure that you haven't removed the close button while using it.
  */
 public class ModalBox extends AnchorPane {
 
@@ -40,7 +41,7 @@ public class ModalBox extends AnchorPane {
     /**
      * Creates a ModalBox layout with the given children.
      *
-     * @param children the initial set of children for this pane
+     * @param children The initial set of children for this pane.
      */
     public ModalBox(Node... children) {
         this((String) null, children);
@@ -52,8 +53,8 @@ public class ModalBox extends AnchorPane {
      * on the close button, it performs a ModalPane lookup via the specified
      * selector and calls the {@link ModalPane#hide()} method automatically.
      *
-     * @param selector the ModalPane pane CSS selector
-     * @param children the initial set of children for this pane
+     * @param selector The ModalPane pane CSS selector.
+     * @param children The initial set of children for this pane.
      */
     public ModalBox(@Nullable @NamedArg("selector") String selector, Node... children) {
         super(children);
@@ -69,8 +70,8 @@ public class ModalBox extends AnchorPane {
      * the close handler to a ModalPane. When user clicks on the close button,
      * it calls the {@link ModalPane#hide()} method automatically.
      *
-     * @param modalPane the ModalPane pane CSS selector
-     * @param children  the initial set of children for this pane
+     * @param modalPane The ModalPane pane CSS selector.
+     * @param children  The initial set of children for this pane.
      */
     public ModalBox(@Nullable ModalPane modalPane, Node... children) {
         super(children);
@@ -88,7 +89,7 @@ public class ModalBox extends AnchorPane {
      * and {@link Node#isMouseTransparent()} is false, then the close button
      * will not receive mouse events and therefore will not be clickable.
      *
-     * @param node the node to be added
+     * @param node The node to be added.
      */
     public void addContent(Node node) {
         Objects.requireNonNull(node, "Node cannot be null.");
@@ -142,11 +143,16 @@ public class ModalBox extends AnchorPane {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * The property representing the user specified close handler. Note that
-     * if you have also specified the ModalPane instance or CSS selector, this
-     * handler will be executed after the default close handler. Therefore, you
+     * The property representing the user specified close handler.
+     *
+     * <p>Note that if you have also specified the ModalPane instance or CSS selector,
+     * this handler will be executed after the default close handler. Therefore, you
      * can use it to perform arbitrary actions on dialog close.
      */
+    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
+        return onClose;
+    }
+
     protected final ObjectProperty<EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
@@ -154,25 +160,23 @@ public class ModalBox extends AnchorPane {
         return onClose.get();
     }
 
-    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
-        return onClose;
-    }
-
     public void setOnClose(EventHandler<? super Event> onClose) {
         this.onClose.set(onClose);
     }
 
     /**
-     * See {@link ModalPane#hide(boolean)}.
+     * Specifies whether to remove (clear) the ModalPane content after it's closed.
+     *
+     * @see ModalPane#hide(boolean).
      */
+    public BooleanProperty clearOnCloseProperty() {
+        return clearOnClose;
+    }
+
     protected final BooleanProperty clearOnClose = new SimpleBooleanProperty(this, "clearOnClose");
 
     public boolean isClearOnClose() {
         return clearOnClose.get();
-    }
-
-    public BooleanProperty clearOnCloseProperty() {
-        return clearOnClose;
     }
 
     public void setClearOnClose(boolean clearOnClose) {

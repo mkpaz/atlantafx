@@ -73,6 +73,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
+/**
+ * The default skin for the {@link Calendar} control.
+ */
 public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
 
     // formatters
@@ -100,7 +103,8 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     protected DateCell lastFocusedDayCell = null;
     protected final int daysPerWeek = getDaysPerWeek();
 
-    private final ObjectProperty<YearMonth> displayedYearMonth = new SimpleObjectProperty<>(this, "displayedYearMonth");
+    private final ObjectProperty<YearMonth> displayedYearMonth
+        = new SimpleObjectProperty<>(this, "displayedYearMonth");
 
     public ObjectProperty<YearMonth> displayedYearMonthProperty() {
         return displayedYearMonth;
@@ -113,27 +117,27 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
         return firstDayOfMonth.get();
     }
 
-    public CalendarSkin(Calendar datePicker) {
-        super(datePicker);
+    public CalendarSkin(Calendar control) {
+        super(control);
 
         createUI();
 
-        registerChangeListener(datePicker.valueProperty(), e -> {
-            LocalDate date = datePicker.getValue();
+        registerChangeListener(control.valueProperty(), e -> {
+            LocalDate date = control.getValue();
             displayedYearMonthProperty().set(
                 date != null ? YearMonth.from(date) : YearMonth.now(ZoneId.systemDefault())
             );
             updateValues();
-            datePicker.fireEvent(new ActionEvent());
+            control.fireEvent(new ActionEvent());
         });
 
-        registerChangeListener(datePicker.showWeekNumbersProperty(), e -> {
+        registerChangeListener(control.showWeekNumbersProperty(), e -> {
             updateGrid();
             updateWeekNumberCells();
         });
 
-        registerChangeListener(datePicker.topNodeProperty(), e -> {
-            Node node = datePicker.getTopNode();
+        registerChangeListener(control.topNodeProperty(), e -> {
+            Node node = control.getTopNode();
             if (node == null) {
                 rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("top-node"));
             } else {
@@ -144,8 +148,8 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
             }
         });
 
-        registerChangeListener(datePicker.bottomNodeProperty(), e -> {
-            Node node = datePicker.getBottomNode();
+        registerChangeListener(control.bottomNodeProperty(), e -> {
+            Node node = control.getBottomNode();
             if (node == null) {
                 rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("bottom-node"));
             } else {
@@ -171,9 +175,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     }
 
     /**
-     * The primary chronology for display. This may be overridden to be different from the
-     * DatePicker chronology. For example DatePickerHijrahContent uses ISO as primary and Hijrah
-     * as a secondary chronology.
+     * The primary chronology for display.
      */
     public Chronology getPrimaryChronology() {
         return getControl().getChronology();

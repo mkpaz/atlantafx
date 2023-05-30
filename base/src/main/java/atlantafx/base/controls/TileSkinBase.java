@@ -15,6 +15,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 
+/**
+ * A common skin for implementing tile-based controls, specifically the
+ * {@link MessageSkin} and the {@link TileSkin}.
+ */
 public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
 
     protected static final PseudoClass HAS_GRAPHIC = PseudoClass.getPseudoClass("has-graphic");

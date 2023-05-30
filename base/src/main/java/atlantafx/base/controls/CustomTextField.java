@@ -36,78 +36,28 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.TextField;
 
 /**
- * A base class for people wanting to customize a {@link TextField} to contain nodes
- * inside the text field itself, without being on top of the users typed-in text.
+ * A base class for people wanting to customize a {@link TextField}
+ * to contain nodes inside the text field itself, without being on top
+ * of the users typed-in text.
  */
-@SuppressWarnings("unused")
 public class CustomTextField extends TextField {
 
     /**
-     * Instantiates a default CustomTextField.
+     * Creates an empty CustomTextField.
      */
     public CustomTextField() {
         getStyleClass().add("custom-text-field");
     }
 
+    /**
+     * Creates a CustomTextField with initial text content.
+     *
+     * @param text A string for text content.
+     */
     public CustomTextField(String text) {
         this();
         setText(text);
     }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Properties                                                            //
-    ///////////////////////////////////////////////////////////////////////////
-
-    private final ObjectProperty<Node> left = new SimpleObjectProperty<>(this, "left");
-
-    /**
-     * Returns an ObjectProperty wrapping the {@link Node} that is placed
-     * on the left of the text field.
-     */
-    public final ObjectProperty<Node> leftProperty() {
-        return left;
-    }
-
-    /**
-     * Returns the {@link Node} that is placed on the left of the text field.
-     */
-    public final Node getLeft() {
-        return left.get();
-    }
-
-    /**
-     * Sets the {@link Node} that is placed on the left of the text field.
-     */
-    public final void setLeft(Node value) {
-        left.set(value);
-    }
-
-    private final ObjectProperty<Node> right = new SimpleObjectProperty<>(this, "right");
-
-    /**
-     * Property representing the {@link Node} that is placed on the right of the text field.
-     */
-    public final ObjectProperty<Node> rightProperty() {
-        return right;
-    }
-
-    /**
-     * Returns the {@link Node} that is placed on the right of the text field.
-     */
-    public final Node getRight() {
-        return right.get();
-    }
-
-    /**
-     * Sets the {@link Node} that is placed on the right of the text field.
-     */
-    public final void setRight(Node value) {
-        right.set(value);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Methods                                                               //
-    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * {@inheritDoc}
@@ -125,5 +75,55 @@ public class CustomTextField extends TextField {
                 return CustomTextField.this.rightProperty();
             }
         };
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Properties                                                            //
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Represents the {@link Node} that is placed on the left of the text field.
+     */
+    public final ObjectProperty<Node> leftProperty() {
+        return left;
+    }
+
+    private final ObjectProperty<Node> left = new SimpleObjectProperty<>(this, "left");
+
+    /**
+     * Returns the {@link Node} that is placed on the left of the text field.
+     */
+    public final Node getLeft() {
+        return left.get();
+    }
+
+    /**
+     * Sets the {@link Node} that is placed on the left of the text field.
+     */
+    public final void setLeft(Node value) {
+        left.set(value);
+    }
+
+    /**
+     * Represents the {@link Node} that is placed on the right of the text field.
+     */
+    public final ObjectProperty<Node> rightProperty() {
+        return right;
+    }
+
+    private final ObjectProperty<Node> right = new SimpleObjectProperty<>(this, "right");
+
+    /**
+     * Returns the {@link Node} that is placed on the right of the text field.
+     */
+    public final Node getRight() {
+        return right.get();
+    }
+
+    /**
+     * Sets the {@link Node} that is placed on the right of the text field.
+     */
+    public final void setRight(Node value) {
+        right.set(value);
     }
 }

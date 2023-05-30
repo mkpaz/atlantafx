@@ -36,7 +36,7 @@ import javafx.scene.text.TextFlow;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Basic handler interface for the {@link BBCodeParser} that will
+ * The basic handler interface for the {@link BBCodeParser} that will
  * receive notifications while processing user input text.
  */
 public interface BBCodeHandler {
@@ -57,10 +57,10 @@ public interface BBCodeHandler {
      * Notifies about the start of the tag.
      * In case of self-closing tag this also notifies about the end of the tag.
      *
-     * @param name   tag name
-     * @param params tag params
-     * @param start  tag start position, i.e. the position of open square bracket (not the tag name start)
-     * @param length tag length, including closing bracket
+     * @param name   The tag name.
+     * @param params The tag params.
+     * @param start  The tag start position, i.e. the position of open square bracket (not the tag name start).
+     * @param length The tag length, including closing bracket.
      */
     void startTag(String name, @Nullable Map<String, String> params, int start, int length);
 
@@ -68,9 +68,9 @@ public interface BBCodeHandler {
      * Notifies about the end of the tag.
      * In case of self-closing tag only {@link #startTag(String, Map, int, int)} method is called.
      *
-     * @param name   tag name
-     * @param start  tag start position, i.e. the position of open square bracket (not the tag name start)
-     * @param length tag length, including closing bracket
+     * @param name   The tag name.
+     * @param start  The tag start position, i.e. the position of open square bracket (not the tag name start).
+     * @param length The tag length, including closing bracket.
      */
     void endTag(String name, int start, int length);
 
@@ -78,8 +78,8 @@ public interface BBCodeHandler {
      * Notifies about characters data that doesn't belong to any tag, i.e.
      * leading, intermediate or trailing text.
      *
-     * @param start  text start position
-     * @param length text length
+     * @param start  The text start position.
+     * @param length The text length.
      */
     void characters(int start, int length);
 
@@ -89,9 +89,9 @@ public interface BBCodeHandler {
      * A basic {@link BBCodeHandler} implementation.<br/><br/>
      *
      * <p>While parsing all created nodes will be added to the given root container.
-     * The choice depends on the actual markup. Default constructor accepts any {@link Pane}
-     * or its descendant. Using {@link TextFlow} for text-only markup (no block nodes) and
-     * {@link VBox} otherwise, is recommended.<br/><br/>
+     * The container choice depends on the actual markup. Default constructor accepts any
+     * {@link Pane} or its descendant. Using the{@link TextFlow} for text-only markup
+     * (no block nodes) and {@link VBox} otherwise, is recommended.<br/><br/>
      *
      * <h3>Supported tags</h3><br/>
      * <pre>
@@ -149,16 +149,17 @@ public interface BBCodeHandler {
      * </pre>
      *
      * <ul>
-     * <li>If tag param contains whitespaces or trailing slash is must be
+     * <li>If a tag param contains whitespaces or trailing slash is must be
      * enclosed in double or single quotes.
-     * <li>If tag only has a single param, it can be shortened to {@code [name=value]{text}[/name]}.
-     * In that case tag param name considered to be equal to the tag name.
+     * <li>If a tag only has a single param, it can be shortened to the
+     * {@code [name=value]{text}[/name]}. In this case the tag param name
+     * considered to be equal to the tag name.
      * <li>Unknown tag params will be ignored.
      * </ul>
      *
      * <h3>Action Events</h3><br/>
      * Some nodes, e.g. {@link Hyperlink} require action handlers. To avoid traversing
-     * the root node graph you can add an event filter.
+     * the root container's node graph you can add an event filter.
      *
      * <pre>{@code
      * var input = "Visit the [url=https://example.com]website[/url].";
@@ -672,10 +673,10 @@ public interface BBCodeHandler {
     }
 
     /**
-     * Generic block record.
+     * A generic block record.
      *
-     * @param node the node that represents the block
-     * @param text text content
+     * @param node The node that represents the block.
+     * @param text The text content.
      */
     record Block(Pane node, @Nullable TextFlow text) {
 
@@ -712,10 +713,12 @@ public interface BBCodeHandler {
     /**
      * Generic tag record.
      *
-     * @param name         tag name
-     * @param params       tag params
-     * @param styleClasses CSS classes, each element is either a single style or space delimited string
-     * @param styles       CSS styles, each element is either a single style or semicolon delimited string
+     * @param name         The tag name.
+     * @param params       The tag params.
+     * @param styleClasses The CSS classes.
+     *                     Each element is either a single style or space delimited string.
+     * @param styles       The CSS styles.
+     *                     Each element is either a single style or semicolon delimited string.
      */
     record Tag(String name,
                Type type,

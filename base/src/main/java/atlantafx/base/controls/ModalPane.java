@@ -16,53 +16,93 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A container for displaying application dialogs ot top of the current scene
- * without opening a modal {@link javafx.stage.Stage}. It's a translucent (glass) pane
- * that can hold arbitrary content as well as animate its appearance.<br/><br/>
+ * without opening a modal {@link Stage}. It's a translucent (glass) pane
+ * that can hold arbitrary content as well as animate its appearance.
  *
  * <p>When {@link #displayProperty()} value is changed the modal pane modifies own
  * {@link #viewOrderProperty()} value accordingly, thus moving itself on top of the
  * parent container or vise versa. You can change the target view order value via the
- * constructor param. This also means that one must not change modal pane {@link #viewOrderProperty()}
- * property manually.
+ * constructor param. This also means that one <b>must not</b> change the modal pane
+ * {@link #viewOrderProperty()} property manually.
+ *
+ * <p>Example:
+ *
+ * <pre>{@code
+ * ModalPane modalPane = new ModalPane();
+ *
+ * Label content = new Label("Content");
+ * content.setSize(450, 450);
+ *
+ * Button openBtn = new Button("Open");
+ * openBtn.setOnAction(evt -> modalPane.show(content));
+ * }</pre>
  */
 public class ModalPane extends Control {
 
-    protected static final int Z_FRONT = -10;
-    protected static final int Z_BACK = 10;
+    /**
+     * The default value that is set to the modal pane
+     * when it must be on top of other nodes.
+     */
+    public static final int Z_FRONT = -10;
 
+    /**
+     * The default value that is set to the modal pane
+     * when it must be below of other nodes.
+     */
+    public static final int Z_BACK = 10;
+
+    /**
+     * The default animation duration that is applied to the modal content
+     * when it enters the user view.
+     */
     public static final Duration DEFAULT_DURATION_IN = Duration.millis(200);
+
+    /**
+     * The default animation duration that is applied to the modal content
+     * when it leaves the user view.
+     */
     public static final Duration DEFAULT_DURATION_OUT = Duration.millis(100);
 
     private final int topViewOrder;
 
     /**
-     * See {@link #ModalPane(int)}.
+     * Creates a new modal pane with the default {@code topViewOrder}
+     * property value.
      */
     public ModalPane() {
         this(Z_FRONT);
     }
 
     /**
-     * Creates a new modal pane.
+     * Creates a new modal pane with the specified {@code topViewOrder} property.
      *
-     * @param topViewOrder the {@link #viewOrderProperty()} value to be set
-     *                     to display the modal pane on top of the parent container.
+     * @param topViewOrder The {@link #viewOrderProperty()} value to be set in order
+     *                     to display the ModalPane on top of the parent container.
      */
     public ModalPane(@NamedArg("topViewOrder") int topViewOrder) {
         super();
         this.topViewOrder = topViewOrder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Skin<?> createDefaultSkin() {
         return new ModalPaneSkin(this);
     }
 
+    /**
+     * Returns the value of {@link #viewOrderProperty()} to be set in order to display
+     * the ModalPane on top of its parent container. This is a constructor parameter
+     * that cannot be changed after the ModalPane has been instantiated.
+     */
     public int getTopViewOrder() {
         return topViewOrder;
     }
@@ -70,6 +110,13 @@ public class ModalPane extends Control {
     ///////////////////////////////////////////////////////////////////////////
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Specifies the content node to display inside the modal pane.
+     */
+    public ObjectProperty<Node> contentProperty() {
+        return content;
+    }
 
     protected final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
 
@@ -82,13 +129,13 @@ public class ModalPane extends Control {
     }
 
     /**
-     * The content node to display inside the modal pane.
+     * Indicates whether the modal pane is set to be on top or not.
+     * When changed, the {@link #viewOrderProperty()} value will be modified accordingly.
+     * See the {@link #getTopViewOrder()}.
      */
-    public ObjectProperty<Node> contentProperty() {
-        return content;
+    public BooleanProperty displayProperty() {
+        return display;
     }
-
-    // ~
 
     protected final BooleanProperty display = new SimpleBooleanProperty(this, "display", false);
 
@@ -101,14 +148,11 @@ public class ModalPane extends Control {
     }
 
     /**
-     * Whether the modal pane is set to top or not.
-     * When changed the pane {@link #viewOrderProperty()} value will be modified accordingly.
+     * Specifies the alignment of the content node.
      */
-    public BooleanProperty displayProperty() {
-        return display;
+    public ObjectProperty<Pos> alignmentProperty() {
+        return alignment;
     }
-
-    // ~
 
     protected final ObjectProperty<Pos> alignment = new SimpleObjectProperty<>(this, "alignment", Pos.CENTER);
 
@@ -121,13 +165,12 @@ public class ModalPane extends Control {
     }
 
     /**
-     * Content alignment.
+     * The factory that provides a transition to be played on content appearance,
+     * i.e. when {@link #displayProperty()} is set to 'true'.
      */
-    public ObjectProperty<Pos> alignmentProperty() {
-        return alignment;
+    public ObjectProperty<Function<Node, Animation>> inTransitionFactoryProperty() {
+        return inTransitionFactory;
     }
-
-    // ~
 
     protected final ObjectProperty<Function<Node, Animation>> inTransitionFactory = new SimpleObjectProperty<>(
         this, "inTransitionFactory", node -> Animations.zoomIn(node, DEFAULT_DURATION_IN)
@@ -142,14 +185,12 @@ public class ModalPane extends Control {
     }
 
     /**
-     * The factory that provides a transition to be played on content appearance,
-     * i.e. when {@link #displayProperty()} is set to 'true'.
+     * The factory that provides a transition to be played on content disappearance,
+     * i.e. when {@link #displayProperty()} is set to 'false'.
      */
-    public ObjectProperty<Function<Node, Animation>> inTransitionFactoryProperty() {
-        return inTransitionFactory;
+    public ObjectProperty<Function<Node, Animation>> outTransitionFactoryProperty() {
+        return outTransitionFactory;
     }
-
-    // ~
 
     protected final ObjectProperty<Function<Node, Animation>> outTransitionFactory = new SimpleObjectProperty<>(
         this, "outTransitionFactory", node -> Animations.zoomOut(node, DEFAULT_DURATION_OUT)
@@ -164,14 +205,15 @@ public class ModalPane extends Control {
     }
 
     /**
-     * The factory that provides a transition to be played on content disappearance,
-     * i.e. when {@link #displayProperty()} is set to 'false'.
+     * Specifies whether the content should be treated as persistent or not.
+     *
+     * <p>By default, the modal pane exits when the ESC button is pressed or when
+     * the mouse is clicked outside the content area. This property prevents
+     * this behavior and plays a bouncing animation instead.
      */
-    public ObjectProperty<Function<Node, Animation>> outTransitionFactoryProperty() {
-        return outTransitionFactory;
+    public BooleanProperty persistentProperty() {
+        return persistent;
     }
-
-    // ~
 
     protected final BooleanProperty persistent = new SimpleBooleanProperty(this, "persistent", false);
 
@@ -183,29 +225,30 @@ public class ModalPane extends Control {
         this.persistent.set(persistent);
     }
 
-    /**
-     * Specifies whether content should be treated as persistent or not.
-     * By default, the modal pane exits when the ESC button is pressed or when
-     * the mouse is clicked outside the content area. This property prevents
-     * this behavior and plays bouncing animation instead.
-     */
-    public BooleanProperty persistentProperty() {
-        return persistent;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // Public API                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
     /**
      * A convenience method for setting the content of the modal pane content
-     * and triggering display state at the same time.
+     * and triggering its display state at the same time.
      */
     public void show(Node node) {
         // calling show method with no content specified doesn't make any sense
         Objects.requireNonNull(content, "Content cannot be null.");
         setContent(node);
         setDisplay(true);
+    }
+
+    /**
+     * A convenience method for clearing the content of the modal pane content
+     * and triggering its display state at the same time.
+     */
+    public void hide(boolean clear) {
+        setDisplay(false);
+        if (clear) {
+            setContent(null);
+        }
     }
 
     /**
@@ -216,24 +259,16 @@ public class ModalPane extends Control {
     }
 
     /**
-     * A convenience method for clearing the content of the modal pane content
-     * and triggering display state at the same time.
+     * See {@link #usePredefinedTransitionFactories(Side, Duration, Duration)}.
      */
-    public void hide(boolean clear) {
-        setDisplay(false);
-        if (clear) {
-            setContent(null);
-        }
+    public void usePredefinedTransitionFactories(@Nullable Side side) {
+        usePredefinedTransitionFactories(side, DEFAULT_DURATION_IN, DEFAULT_DURATION_OUT);
     }
 
     /**
      * Sets the predefined factory for both {@link #inTransitionFactoryProperty()} and
      * {@link #outTransitionFactoryProperty()} based on content position.
      */
-    public void usePredefinedTransitionFactories(@Nullable Side side) {
-        usePredefinedTransitionFactories(side, DEFAULT_DURATION_IN, DEFAULT_DURATION_OUT);
-    }
-
     public void usePredefinedTransitionFactories(@Nullable Side side,
                                                  @Nullable Duration inDuration,
                                                  @Nullable Duration outDuration) {

@@ -29,6 +29,7 @@ package atlantafx.base.controls;
 
 import atlantafx.base.util.MaskChar;
 import atlantafx.base.util.MaskTextFormatter;
+import atlantafx.base.util.SimpleMaskChar;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.NamedArg;
@@ -38,9 +39,9 @@ import javafx.beans.property.StringProperty;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * This is a convenience wrapper for instantiating a {@link CustomTextField} with a
- * {@code MaskTextFormatter}. For additional info refer to the {@link MaskTextFormatter}
- * docs.
+ * A convenience wrapper for instantiating a {@link CustomTextField} with a
+ * {@code MaskTextFormatter}. For additional info refer to the
+ * {@link MaskTextFormatter} documentation.
  */
 public class MaskTextField extends CustomTextField {
 
@@ -56,15 +57,35 @@ public class MaskTextField extends CustomTextField {
     protected final ReadOnlyObjectWrapper<MaskTextFormatter> formatter =
         new ReadOnlyObjectWrapper<>(this, "formatter");
 
+    /**
+     * Creates an empty MaskTextField.
+     */
     public MaskTextField() {
         super("");
         init();
     }
 
+    /**
+     * Creates an empty MaskTextField with the specified input mask.
+     *
+     * <p>The input mask is specified as a string that must follow the
+     * rules described in the {@link MaskTextFormatter} documentation.
+     *
+     * @param mask The input mask.
+     */
     public MaskTextField(@NamedArg("mask") String mask) {
         this("", mask);
     }
 
+    /**
+     * Creates a MaskTextField with initial text content and the specified input mask.
+     *
+     * <p>The input mask is specified as a string that must follow the
+     * rules described in the {@link MaskTextFormatter} documentation.
+     *
+     * @param text A string for text content.
+     * @param mask An input mask.
+     */
     private MaskTextField(@NamedArg("text") String text,
                           @NamedArg("mask") String mask) {
         super(Objects.requireNonNullElse(text, ""));
@@ -74,6 +95,15 @@ public class MaskTextField extends CustomTextField {
         init();
     }
 
+    /**
+     * Creates a MaskTextField with initial text content and the specified input mask.
+     *
+     * <p>The input mask is specified as a list of {@code MaskChar}. You can use
+     * the {@link SimpleMaskChar} as the default implementation.
+     *
+     * @param text A string for text content.
+     * @param mask An input mask.
+     */
     public MaskTextField(String text, List<MaskChar> mask) {
         super(Objects.requireNonNullElse(text, ""));
 
@@ -90,6 +120,18 @@ public class MaskTextField extends CustomTextField {
         });
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Properties                                                            //
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Represents the input mask.
+     *
+     * <p>Note that the MaskTextField allows for specifying the input mask as either a string
+     * or a list of {@code MaskChar}. These formats cannot be converted to one another. Therefore,
+     * if the input mask was specified as a list of {@code MaskChar}, this property will return
+     * null value.
+     */
     public StringProperty maskProperty() {
         return mask;
     }
