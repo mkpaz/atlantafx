@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-06-02
+
 ### Breaking changes
 
 - The `InlineDatePicker` control was renamed to `Calendar`.

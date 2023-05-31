@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.mkpaz</groupId>
         <artifactId>atlantafx-parent</artifactId>
-        <version>1.2.0</version>
+        <version>2.0.0</version>
     </parent>
     <artifactId>atlantafx-sampler</artifactId>
 
