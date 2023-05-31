@@ -10,6 +10,7 @@ import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -39,6 +40,11 @@ public final class ModalPanePage extends OutlinePage {
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
     }
 
     public ModalPanePage() {
