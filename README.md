@@ -18,11 +18,10 @@ See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
 </b></p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/blueprints.png" alt="blueprints"/><br/>
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/fm.png" alt="apps"/><br/>
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/mp.png" alt="apps"/><br/>
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/page.png" alt="page"/><br/>
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/themes.png" alt="themes"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/blueprints_primer-light.png" alt="blueprints"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/overview_primer-dark.png" alt="overview"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/toolbar_dracula.png" alt="page"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/notifications_cupertino-dark.png" alt="page"/><br/>
 </p>
 
 * Flat interface inspired by the variety of Web component frameworks.
