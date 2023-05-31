@@ -83,7 +83,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>${app.name}-${app.version}-scenebuilder</finalName>
+                            <finalName>${app.name}-${app.version}-scenebuilder-themes</finalName>
                             <descriptors>
                                 <descriptor>scenebuilder.xml</descriptor>
                             </descriptors>
