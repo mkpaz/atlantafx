@@ -116,7 +116,7 @@ final class SceneBuilderInstaller {
                         throw new RuntimeException("Unexpected value in SceneBuilder config file: \"" + line + "\".");
                     }
 
-                    it.set(kv[0] + "=$APPDIR" + File.separator + THEME_PACK_FILE_NAME + ":" + kv[1]);
+                    it.set(kv[0] + "=$APPDIR" + File.separator + THEME_PACK_FILE_NAME + File.pathSeparator + kv[1]);
                 }
             }
 
