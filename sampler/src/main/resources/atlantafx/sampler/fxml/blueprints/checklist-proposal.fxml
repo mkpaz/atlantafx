@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.Spacer?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox spacing="10.0">
+         <children>
+            <Label styleClass="title-3" text="Untitled document" />
+            <FontIcon iconLiteral="mdomz-star" styleClass="warning" />
+         </children>
+      </HBox>
+      <HBox spacing="5.0">
+         <children>
+            <Button mnemonicParsing="false" styleClass="small" text="slipping" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="small" text="design" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <CheckBox mnemonicParsing="false" text="Create a proposal" />
+            <Spacer />
+            <Label alignment="CENTER_RIGHT" styleClass="danger" text="May 09" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="155.0">
+         <children>
+            <CheckBox mnemonicParsing="false" text="Prepare wireframes" />
+            <Spacer />
+            <Label alignment="CENTER_RIGHT" styleClass="text-muted" text="May 11" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="207.0">
+         <children>
+            <CheckBox mnemonicParsing="false" text="Send final proposal" />
+            <Spacer />
+            <Label alignment="CENTER_RIGHT" styleClass="text-muted" text="June 04" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT" spacing="5.0">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="42.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar3.png" />
+               </image>
+            </ImageView>
+            <Spacer />
+            <Label text="Negotiation" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

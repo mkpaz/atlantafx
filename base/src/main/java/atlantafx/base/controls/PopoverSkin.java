@@ -62,6 +62,9 @@ import javafx.scene.shape.QuadCurveTo;
 import javafx.scene.shape.VLineTo;
 import javafx.stage.Window;
 
+/**
+ * The default skin for the {@link Popover} control.
+ */
 public class PopoverSkin implements Skin<Popover> {
 
     private static final String DETACHED_STYLE_CLASS = "detached";

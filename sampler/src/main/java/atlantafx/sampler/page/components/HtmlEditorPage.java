@@ -2,24 +2,22 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Theme;
+import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
 import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.theme.ThemeManager;
+import java.net.URI;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.scene.web.HTMLEditor;
 
-public class HtmlEditorPage extends AbstractPage {
+public final class HtmlEditorPage extends AbstractPage {
 
     private static final PseudoClass USE_LOCAL_URL = PseudoClass.getPseudoClass("use-local-url");
 
@@ -30,13 +28,22 @@ public class HtmlEditorPage extends AbstractPage {
         return NAME;
     }
 
-    private HTMLEditor editor = createEditor();
+    @Override
+    public URI getJavadocUri() {
+        return URI.create("https://openjfx.io/javadoc/20/javafx.web/javafx/scene/web/HTMLEditor.html");
+    }
+
+    private HTMLEditor editor = createHtmlEditor();
 
     public HtmlEditorPage() {
         super();
 
-        setUserContent(new VBox(editorSample()));
-        editor.requestFocus();
+        addPageHeader();
+        addFormattedText("""
+            A control that allows for users to edit text, and apply styling to this text. \
+            The underlying data model is HTML, although this is not shown visually to the end-user."""
+        );
+        addNode(editorSample());
 
         // update editor colors on app theme change
         DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
@@ -45,42 +52,46 @@ public class HtmlEditorPage extends AbstractPage {
                 editor.requestFocus();
             }
         });
+
+        editor.requestFocus();
     }
 
-    private SampleBlock editorSample() {
-        var description = new Text("""
-            HTMLEditor toolbar buttons use images from 'com/sun/javafx/scene/control/skin/modena'.
-            In opposite, since AtlantaFX themes are also distributed as single CSS files, it contains no images.
-            Unfortunately reusing Modena resources isn't possible, because the package isn't opened in OpenJFX
-            'module-info'.
-            """
+    private VBox editorSample() {
+        var description = BBCodeParser.createFormattedText("""
+            Since AtlantaFX themes are also distributed as CSS files, they can't contain any images. \
+            Unfortunately, reusing Modena resources in theme also isn't possible, because the they \
+            are located in [font=monospace]'com/sun/javafx/*'[/font] package, which isn't opened in \
+            OpenJFX [font=monospace]'module-info'[/font]. But you can still copy Modena images and \
+            overwrite [i]HMTLEditor[/i] CSS in your app."""
         );
 
         var fixToggle = new ToggleSwitch("Apply Fix");
 
-        var content = new VBox(BLOCK_VGAP, editor, new TextFlow(description), fixToggle);
-        content.setAlignment(Pos.CENTER);
+        var content = new VBox(20, editor, description, fixToggle);
+        content.setAlignment(Pos.TOP_CENTER);
+        VBox.setVgrow(content, Priority.ALWAYS);
 
         fixToggle.selectedProperty().addListener((obs, old, val) -> {
             // toolbar icons can't be changed back without creating new editor instance #javafx-bug
             try {
-                editor = createEditor();
+                editor = createHtmlEditor();
                 editor.pseudoClassStateChanged(USE_LOCAL_URL, val);
                 content.getChildren().set(0, editor);
                 editor.requestFocus();
             } catch (Exception ignored) {
                 // hush internal HTML editor errors, because everything
-                // we do here is ugly hacks around legacy control anyway
+                // we do here is an ugly hack around legacy control anyway
             }
         });
 
-        return new SampleBlock("Playground", content);
+        return content;
     }
 
-    private HTMLEditor createEditor() {
+    private HTMLEditor createHtmlEditor() {
         var editor = new HTMLEditor();
         editor.setPrefHeight(400);
         editor.setHtmlText(generateContent());
+        VBox.setVgrow(editor, Priority.ALWAYS);
         return editor;
     }
 
@@ -88,6 +99,10 @@ public class HtmlEditorPage extends AbstractPage {
         var tm = ThemeManager.getInstance();
         Theme samplerTheme = tm.getTheme();
         HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(samplerTheme);
+        var text = String.join("<br/><br/>", generate(
+            () -> String.join(" ", FAKER.lorem().paragraphs(5)), 5)
+        );
+
         return "<!DOCTYPE html>"
             + "<html>"
             + "<body style=\""
@@ -96,7 +111,7 @@ public class HtmlEditorPage extends AbstractPage {
             + "font-family:" + tm.getFontFamily() + ";"
             + "font-size:" + tm.getFontSize() + "px;"
             + "\">"
-            + String.join("<br/><br/>", FAKER.lorem().paragraphs(10))
+            + text
             + "</body>"
             + "</html>";
     }

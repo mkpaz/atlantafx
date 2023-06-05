@@ -1,0 +1,239 @@
+// SPDX-License-Identifier: MIT
+
+@use "sass:color";
+@use "settings/utils" as utils;
+
+// IOS light color palette
+// Tint colors don't meet WCAG, but there's accessible (darker) pallette.
+$systemBackground:                 rgba(255.0, 255.0, 255.0, 1.0); // #ffffffff
+$secondarySystemBackground:        rgba(242.0, 242.0, 247.0, 1.0); // #f2f2f7ff
+$tertiarySystemBackground:         rgba(255.0, 255.0, 255.0, 1.0); // #ffffffff
+$systemGroupedBackground:          rgba(242.0, 242.0, 247.0, 1.0); // #f2f2f7ff
+$secondarySystemGroupedBackground: rgba(255.0, 255.0, 255.0, 1.0); // #ffffffff
+$tertiarySystemGroupedBackground:  rgba(242.0, 242.0, 247.0, 1.0); // #f2f2f7ff
+$systemFill:           rgba(120.0, 120.0, 128.0, 0.2);  // #78788033
+$secondarySystemFill:  rgba(120.0, 120.0, 128.0, 0.16); // #78788028
+$tertiarySystemFill:   rgba(118.0, 118.0, 128.0, 0.12); // #7676801e
+$quaternarySystemFill: rgba(116.0, 116.0, 128.0, 0.08); // #74748014
+$systemBlue:   rgba(0.0, 122.0, 255.0, 1.0);   // #007affff
+$systemGreen:  rgba(30.0, 195.0, 55.0, 1.0);   // #1ec337ff
+$systemIndigo: rgba(88.0, 86.0, 214.0, 1.0);   // #5856d6ff
+$systemOrange: rgba(255.0, 149.0, 0.0, 1.0);   // #ff9500ff
+$systemPink:   rgba(255.0, 45.0, 85.0, 1.0);   // #ff2d55ff
+$systemPurple: rgba(175.0, 82.0, 222.0, 1.0);  // #af52deff
+$systemRed:    rgba(255.0, 59.0, 48.0, 1.0);   // #ff3b30ff
+$systemTeal:   rgba(90.0, 200.0, 250.0, 1.0);  // #5ac8faff
+$systemYellow: rgba(255.0, 204.0, 0.0, 1.0);   // #ffcc00ff
+$systemGray:   rgba(142.0, 142.0, 147.0, 1.0); // #8e8e93ff
+$systemGray2:  rgba(174.0, 174.0, 178.0, 1.0); // #aeaeb2ff
+$systemGray3:  rgba(199.0, 199.0, 204.0, 1.0); // #c7c7ccff
+$systemGray4:  rgba(209.0, 209.0, 214.0, 1.0); // #d1d1d6ff
+$systemGray5:  rgba(229.0, 229.0, 234.0, 1.0); // #e5e5eaff
+$systemGray6:  rgba(242.0, 242.0, 247.0, 1.0); // #f2f2f7ff
+
+$darkText:        rgba(0.0, 0.0, 0.0, 1.0);       // #000000ff
+$lightText:       rgba(255.0, 255.0, 255.0, 0.6); // #ffffff99
+$label:           rgba(0.0, 0.0, 0.0, 1.0);       // #000000ff
+$secondaryLabel:  rgba(60.0, 60.0, 67.0, 0.6);    // #3c3c4399
+$tertiaryLabel:   rgba(60.0, 60.0, 67.0, 0.3);    // #3c3c434c
+$quaternaryLabel: rgba(60.0, 60.0, 67.0, 0.18);   // #3c3c432d
+$placeholderText: rgba(60.0, 60.0, 67.0, 0.3);    // #3c3c434c
+$link:            rgba(0.0, 122.0, 255.0, 1.0);   // #007affff
+$separator:       rgba(60.0, 60.0, 67.0, 0.29);   // #3c3c4349
+$opaqueSeparator: rgba(198.0, 198.0, 200.0, 1.0); // #c6c6c8ff
+
+@forward "settings/color-scale" with (
+
+  $dark:      $darkText,
+  $light:     $systemBackground,
+
+  $base-0:    $systemGray6,
+  $base-1:    $systemGray5,
+  $base-2:    $systemGray4,
+  $base-3:    $systemGray3,
+  $base-4:    $systemGray2,
+  $base-5:    $systemGray,
+  $base-6:    #636366, // the rest of the color shades
+  $base-7:    #48484A, // are
+  $base-8:    #3A3A3C, // from
+  $base-9:    #2C2C2E, // the dark palette
+
+  $accent-0:  #bfdeff,
+  $accent-1:  #99caff,
+  $accent-2:  #73b6ff,
+  $accent-3:  #4da2ff,
+  $accent-4:  #268eff,
+  $accent-5:  $systemBlue,
+  $accent-6:  #0068d9,
+  $accent-7:  #0055b3,
+  $accent-8:  #00438c,
+  $accent-9:  #003166,
+
+  $success-0: #c7f0cd,
+  $success-1: #a5e7af,
+  $success-2: #83de91,
+  $success-3: #62d573,
+  $success-4: #40cc55,
+  $success-5: $systemGreen,
+  $success-6: #1aa62f,
+  $success-7: #158927,
+  $success-8: #116b1e,
+  $success-9: #0c4e16,
+
+  $warning-0: #ffe5bf,
+  $warning-1: #ffd599,
+  $warning-2: #ffc573,
+  $warning-3: #ffb54d,
+  $warning-4: #ffa526,
+  $warning-5: $systemOrange,
+  $warning-6: #d97f00,
+  $warning-7: #b36800,
+  $warning-8: #8c5200,
+  $warning-9: #663c00,
+
+  $danger-0:  #ffcecb,
+  $danger-1:  #ffb1ac,
+  $danger-2:  #ff938d,
+  $danger-3:  #ff766e,
+  $danger-4:  #ff584f,
+  $danger-5:  $systemRed,
+  $danger-6:  #d93229,
+  $danger-7:  #b32922,
+  $danger-8:  #8c201a,
+  $danger-9:  #661813,
+);
+
+@use "settings/color-scale" as scale;
+
+@forward "settings/color-vars" with (
+
+  $fg-default:           $label,
+  $fg-muted:             scale.$base-6,
+  $fg-subtle:            utils.flattenColor($systemBackground, $secondaryLabel),
+  $fg-onEmphasis:        scale.$light,
+
+  $canvas-default:       $systemBackground,
+  $canvas-overlay:       $systemBackground,
+  $canvas-inset:         $tertiarySystemGroupedBackground,
+  $canvas-subtle:        $tertiarySystemGroupedBackground,
+
+  $border-default:       scale.$base-2,
+  $border-muted:         lighten(scale.$base-2, 0.03),
+  $border-subtle:        utils.flattenColor(scale.$light, color.change(scale.$dark, $alpha: 0.15)),
+  $shadow-default:       scale.$base-2,
+
+  $neutral-emphasisPlus: scale.$base-7,
+  $neutral-emphasis:     scale.$base-6,
+  $neutral-muted:        utils.flattenColor(scale.$light, color.change(scale.$base-5, $alpha: 0.4)),
+  $neutral-subtle:       utils.flattenColor(scale.$light, color.change(scale.$base-5, $alpha: 0.1)),
+
+  $accent-fg:            scale.$accent-5,
+  $accent-emphasis:      scale.$accent-5,
+  $accent-muted:         utils.flattenColor(scale.$light, color.change(scale.$accent-5, $alpha: 0.4)),
+  $accent-subtle:        utils.flattenColor(scale.$light, color.change(scale.$accent-5, $alpha: 0.1)),
+
+  $success-fg:           scale.$success-6,
+  $success-emphasis:     scale.$success-5,
+  $success-muted:        utils.flattenColor(scale.$light, color.change(scale.$success-5, $alpha: 0.4)),
+  $success-subtle:       utils.flattenColor(scale.$light, color.change(scale.$success-5, $alpha: 0.1)),
+
+  $warning-fg:           scale.$warning-5,
+  $warning-emphasis:     scale.$warning-6,
+  $warning-muted:        utils.flattenColor(scale.$light, color.change(scale.$warning-5, $alpha: 0.4)),
+  $warning-subtle:       utils.flattenColor(scale.$light, color.change(scale.$warning-5, $alpha: 0.1)),
+
+  $danger-fg:            scale.$danger-5,
+  $danger-emphasis:      scale.$danger-5,
+  $danger-muted:         utils.flattenColor(scale.$light, color.change(scale.$danger-5, $alpha: 0.4)),
+  $danger-subtle:        utils.flattenColor(scale.$light, color.change(scale.$danger-5, $alpha: 0.15))
+);
+
+@forward "settings/config" with (
+  $darkMode:      false,
+  $padding-y:     6px,
+  $border-radius: 6px,
+  $checkbox-mark-size: 0.85em
+);
+
+@use "general";
+
+@forward "components/button" as button-* with (
+  $color-bg:       $systemBackground,
+  $color-success-bg-focused: -color-success-6,
+  $use-shadow:     true
+);
+
+@forward "components/checkbox" as checkbox-* with (
+  $color-box-indeterminate:    -color-accent-emphasis,
+  $color-border-indeterminate: -color-accent-emphasis,
+  $color-mark-indeterminate:   -color-fg-emphasis
+);
+
+@forward "components/combo-box" as combo-box-* with (
+  $use-alt-icon:            true,
+  $color-arrow-button-fg:  -color-accent-fg,
+  $color-list-bg-hover:    -color-accent-emphasis,
+  $color-list-bg-selected: -color-accent-emphasis,
+  $color-list-fg-hover:    -color-fg-emphasis,
+  $color-list-fg-selected: -color-fg-emphasis
+);
+
+@forward "components/data" as data-* with (
+  $color-header-bg: -color-bg-default,
+  $color-header-fg: -color-fg-muted
+);
+
+@forward "components/date-picker" as date-picker-* with (
+  $color-icon: -color-accent-fg,
+);
+
+@forward "components/menu" as menu-* with (
+  $color-menuitem-bg-hover: -color-accent-emphasis,
+  $color-menuitem-fg-hover: -color-fg-emphasis
+);
+
+@forward "components/menu-button" as menu-button-* with (
+  $color-split-arrow-bg: -color-accent-emphasis,
+  $color-split-arrow-fg: -color-fg-emphasis,
+  $color-split-arrow-opacity: 1.0
+);
+
+@forward "components/radio" as radio-* with (
+  $dot-width-selected: 2px
+);
+
+@forward "components/slider" as slider-* with (
+  $color-thumb:        -color-bg-default,
+  $color-thumb-border: -color-border-default,
+  $color-thumb-large:  -color-bg-default,
+  $color-thumb-large-border: -color-border-default,
+  $thumb-border-width: 0.5px,
+  $thumb-effect: dropshadow(gaussian, -color-border-default, 3px, 0.25, 0, 1)
+);
+
+@forward "components/split-pane" as split-pane-* with (
+  $divider-thickness: 1px,
+  $grabber-length:    5px
+);
+
+@forward "components/spinner" as spinner-* with (
+  $color-button-bg:    -color-accent-emphasis,
+  $color-button-fg:    -color-fg-emphasis,
+  $color-button-hover: -color-accent-3
+);
+
+// There are two types of tabs on MacOS. Segmented button tabs and Safari tabs.
+// The first one can't be implemented from TabPane with just CSS, so it's not supported.
+// Safari tabs implemented as floating tabs.
+@forward "components/tab-pane" as tab-pane-* with (
+  $color-float-bg:          -color-base-1,
+  $color-float-bg-selected: -color-base-3
+);
+
+@forward "components/toggle-button" as toggle-button-* with (
+  $color-bg-selected:     -color-accent-emphasis,
+  $color-fg-selected:     -color-fg-emphasis,
+  $color-border-selected: scale.$accent-6
+);
+
+@use "components";

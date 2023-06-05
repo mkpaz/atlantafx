@@ -44,7 +44,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -99,22 +98,19 @@ final class PlayerPane extends VBox {
 
         // == MEDIA CONTROLS ==
 
-        var prevBtn = new Button("", new FontIcon(FAST_REWIND));
+        var prevBtn = new Button(null, new FontIcon(FAST_REWIND));
         prevBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        prevBtn.setShape(new Circle(50));
         prevBtn.setTooltip(new Tooltip("Previous"));
         prevBtn.disableProperty().bind(model.canGoBackProperty().not());
         prevBtn.setOnAction(e -> model.playPrevious());
 
         playIcon = new FontIcon(PLAY_ARROW);
 
-        playBtn = new Button("", playIcon);
+        playBtn = new Button(null, playIcon);
         playBtn.getStyleClass().addAll("play", BUTTON_CIRCLE);
-        playBtn.setShape(new Circle(50));
 
-        var nextBtn = new Button("", new FontIcon(FAST_FORWARD));
+        var nextBtn = new Button(null, new FontIcon(FAST_FORWARD));
         nextBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        nextBtn.setShape(new Circle(50));
         nextBtn.disableProperty().bind(model.canGoForwardProperty().not());
         nextBtn.setOnAction(e -> model.playNext());
         nextBtn.setTooltip(new Tooltip("Next"));
@@ -144,15 +140,13 @@ final class PlayerPane extends VBox {
 
         // == EXTRA CONTROLS ==
 
-        var clearPlaylistBtn = new Button("", new FontIcon(CLEAR_ALL));
+        var clearPlaylistBtn = new Button(null, new FontIcon(CLEAR_ALL));
         clearPlaylistBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        clearPlaylistBtn.setShape(new Circle(50));
         clearPlaylistBtn.setTooltip(new Tooltip("Clear"));
         clearPlaylistBtn.setOnAction(e -> model.removeAll());
 
-        var shuffleBtn = new Button("", new FontIcon(SHUFFLE));
+        var shuffleBtn = new Button(null, new FontIcon(SHUFFLE));
         shuffleBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        shuffleBtn.setShape(new Circle(50));
         shuffleBtn.setTooltip(new Tooltip("Shuffle"));
         shuffleBtn.setOnAction(e -> model.shuffle());
 
@@ -169,9 +163,8 @@ final class PlayerPane extends VBox {
         volumePopover.setHeaderAlwaysVisible(false);
         volumePopover.setArrowLocation(ArrowLocation.TOP_LEFT);
 
-        var volumeBtn = new Button("", new FontIcon(VOLUME_UP));
+        var volumeBtn = new Button(null, new FontIcon(VOLUME_UP));
         volumeBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        volumeBtn.setShape(new Circle(50));
         volumeBtn.setOnAction(e -> volumePopover.show(volumeBtn));
 
         var extraControls = new HBox(10);
@@ -184,9 +177,22 @@ final class PlayerPane extends VBox {
         setAlignment(CENTER);
         setSpacing(5);
         setMinWidth(300);
-        getChildren().setAll(new Spacer(VERTICAL), new StackPane(coverImage), new Spacer(10, VERTICAL), trackTitle,
-            trackArtist, trackAlbum, new Spacer(20, VERTICAL), mediaControls, new Spacer(10, VERTICAL), timeSlider,
-            timeMarkersBox, new Spacer(10, VERTICAL), extraControls, new Spacer(VERTICAL));
+        getChildren().setAll(
+            new Spacer(VERTICAL),
+            new StackPane(coverImage),
+            new Spacer(10, VERTICAL),
+            trackTitle,
+            trackArtist,
+            trackAlbum,
+            new Spacer(20, VERTICAL),
+            mediaControls,
+            new Spacer(10, VERTICAL),
+            timeSlider,
+            timeMarkersBox,
+            new Spacer(10, VERTICAL),
+            extraControls,
+            new Spacer(VERTICAL)
+        );
     }
 
     private void init() {

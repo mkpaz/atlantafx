@@ -2,331 +2,212 @@
 
 package atlantafx.sampler.layout;
 
-import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
-import static javafx.scene.layout.Priority.ALWAYS;
+import static atlantafx.base.theme.Styles.TEXT_BOLD;
+import static atlantafx.base.theme.Styles.TEXT_MUTED;
+import static atlantafx.base.theme.Styles.TEXT_SMALL;
+import static atlantafx.base.theme.Styles.TEXT_SUBTLE;
+import static atlantafx.base.theme.Styles.TITLE_3;
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
 
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.components.AccordionPage;
-import atlantafx.sampler.page.components.BreadcrumbsPage;
-import atlantafx.sampler.page.components.ButtonPage;
-import atlantafx.sampler.page.components.ChartPage;
-import atlantafx.sampler.page.components.CheckBoxPage;
-import atlantafx.sampler.page.components.ColorPickerPage;
-import atlantafx.sampler.page.components.ComboBoxPage;
-import atlantafx.sampler.page.components.CustomTextFieldPage;
-import atlantafx.sampler.page.components.DatePickerPage;
-import atlantafx.sampler.page.components.DialogPage;
-import atlantafx.sampler.page.components.HtmlEditorPage;
-import atlantafx.sampler.page.components.InputGroupPage;
-import atlantafx.sampler.page.components.LabelPage;
-import atlantafx.sampler.page.components.ListPage;
-import atlantafx.sampler.page.components.MenuButtonPage;
-import atlantafx.sampler.page.components.MenuPage;
-import atlantafx.sampler.page.components.OverviewPage;
-import atlantafx.sampler.page.components.PaginationPage;
-import atlantafx.sampler.page.components.PopoverPage;
-import atlantafx.sampler.page.components.ProgressPage;
-import atlantafx.sampler.page.components.RadioButtonPage;
-import atlantafx.sampler.page.components.ScrollPanePage;
-import atlantafx.sampler.page.components.SeparatorPage;
-import atlantafx.sampler.page.components.SliderPage;
-import atlantafx.sampler.page.components.SpinnerPage;
-import atlantafx.sampler.page.components.SplitPanePage;
-import atlantafx.sampler.page.components.TabPanePage;
-import atlantafx.sampler.page.components.TablePage;
-import atlantafx.sampler.page.components.TextAreaPage;
-import atlantafx.sampler.page.components.TextFieldPage;
-import atlantafx.sampler.page.components.TitledPanePage;
-import atlantafx.sampler.page.components.ToggleButtonPage;
-import atlantafx.sampler.page.components.ToggleSwitchPage;
-import atlantafx.sampler.page.components.ToolBarPage;
-import atlantafx.sampler.page.components.TooltipPage;
-import atlantafx.sampler.page.components.TreePage;
-import atlantafx.sampler.page.components.TreeTablePage;
-import atlantafx.sampler.page.general.IconsPage;
-import atlantafx.sampler.page.general.ThemePage;
-import atlantafx.sampler.page.general.TypographyPage;
-import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
-import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
-import atlantafx.sampler.page.showcase.widget.WidgetCollectionPage;
-import atlantafx.sampler.util.Containers;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import atlantafx.sampler.Resources;
+import atlantafx.sampler.event.BrowseEvent;
+import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.HotkeyEvent;
+import atlantafx.sampler.util.Lazy;
+import java.net.URI;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Predicate;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.css.PseudoClass;
-import javafx.geometry.Orientation;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.material2.Material2MZ;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
-@SuppressWarnings("UnnecessaryLambda")
-class Sidebar extends StackPane {
+final class Sidebar extends VBox {
 
-    private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
-    private static final PseudoClass FILTERED = PseudoClass.getPseudoClass("filtered");
-    private static final Predicate<Region> PREDICATE_ANY = region -> true;
-
-    private final MainModel model;
-    private final NavMenu navMenu;
-    private ScrollPane navScroll;
+    private final NavTree navTree;
+    private final Lazy<SearchDialog> searchDialog;
+    private final Lazy<ThemeDialog> themeDialog;
 
     public Sidebar(MainModel model) {
         super();
 
-        this.model = model;
-        this.navMenu = new NavMenu(model);
+        this.navTree = new NavTree(model);
 
         createView();
-    }
 
-    private void createView() {
-        var placeholder = new Label("No content");
-        placeholder.getStyleClass().add(Styles.TITLE_4);
+        searchDialog = new Lazy<>(() -> {
+            var dialog = new SearchDialog(model);
+            dialog.setClearOnClose(true);
+            return dialog;
+        });
 
-        var navContainer = new VBox();
-        navContainer.getStyleClass().add("nav-menu");
-        Bindings.bindContent(navContainer.getChildren(), navMenu.getContent());
-
-        navScroll = new ScrollPane(navContainer);
-        Containers.setScrollConstraints(navScroll, AS_NEEDED, true, AS_NEEDED, true);
-        VBox.setVgrow(navScroll, ALWAYS);
-
-        model.searchTextProperty().addListener((obs, old, val) -> {
-            var empty = val == null || val.isBlank();
-            pseudoClassStateChanged(FILTERED, !empty);
-            navMenu.setPredicate(empty ? PREDICATE_ANY : region -> region instanceof NavLink link && link.matches(val));
+        themeDialog = new Lazy<>(() -> {
+            var dialog = new ThemeDialog();
+            dialog.setClearOnClose(true);
+            return dialog;
         });
 
         model.selectedPageProperty().addListener((obs, old, val) -> {
-            navMenu.findLink(old).ifPresent(link -> link.pseudoClassStateChanged(SELECTED, false));
-            navMenu.findLink(val).ifPresent(link -> link.pseudoClassStateChanged(SELECTED, true));
-        });
-
-        navScroll.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            var offset = 1 / (navContainer.getHeight() - navScroll.getViewportBounds().getHeight());
-            if (e.getCode() == KeyCode.UP) {
-                navMenu.getPrevious().ifPresentOrElse(link -> {
-                    navScroll.setVvalue(link.getLayoutY() * offset / 2);
-                    model.navigate(link.getPageClass());
-                }, () -> navScroll.setVvalue(0));
-                e.consume();
-            }
-            if (e.getCode() == KeyCode.DOWN) {
-                navMenu.getNext().ifPresentOrElse(link -> {
-                    navScroll.setVvalue(link.getLayoutY() * offset / 2);
-                    model.navigate(link.getPageClass());
-                }, () -> navScroll.setVvalue(1.0));
-                e.consume();
+            if (val != null) {
+                navTree.getSelectionModel().select(model.getTreeItemForPage(val));
             }
         });
 
-        navMenu.getContent().addListener((ListChangeListener<Region>) c -> {
-            if (navMenu.getContent().isEmpty()) {
-                placeholder.toFront();
-            } else {
-                placeholder.toBack();
+        DefaultEventBus.getInstance().subscribe(HotkeyEvent.class, e -> {
+            if (e.getKeys().getCode() == KeyCode.SLASH) {
+                openSearchDialog();
             }
         });
+
+        var themeKeys = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN);
+        DefaultEventBus.getInstance().subscribe(HotkeyEvent.class, e -> {
+            if (Objects.equals(e.getKeys(), themeKeys)) {
+                openThemeDialog();
+            }
+        });
+    }
+
+    private void createView() {
+        var header = new Header();
+
+        VBox.setVgrow(navTree, Priority.ALWAYS);
 
         setId("sidebar");
-        getChildren().addAll(placeholder, navScroll);
+        getChildren().addAll(header, navTree, createFooter());
     }
 
     void begForFocus() {
-        navScroll.requestFocus();
+        navTree.requestFocus();
+    }
+
+    private HBox createFooter() {
+        var versionLbl = new Label("v" + System.getProperty("app.version"));
+        versionLbl.getStyleClass().addAll(
+            "version", TEXT_SMALL, TEXT_BOLD, TEXT_SUBTLE
+        );
+        versionLbl.setCursor(Cursor.HAND);
+        versionLbl.setOnMouseClicked(e -> {
+            var homepage = System.getProperty("app.homepage");
+            if (homepage != null) {
+                DefaultEventBus.getInstance().publish(new BrowseEvent(URI.create(homepage)));
+            }
+        });
+        versionLbl.setTooltip(new Tooltip("Visit homepage"));
+
+        var footer = new HBox(versionLbl);
+        footer.getStyleClass().add("footer");
+
+        return footer;
+    }
+
+    private void openSearchDialog() {
+        var dialog = searchDialog.get();
+        dialog.show(getScene());
+        Platform.runLater(dialog::begForFocus);
+    }
+
+    private void openThemeDialog() {
+        var dialog = themeDialog.get();
+        dialog.show(getScene());
+        Platform.runLater(dialog::requestFocus);
     }
 
     ///////////////////////////////////////////////////////////////////////////
 
-    private static class NavMenu {
+    private class Header extends VBox {
 
-        private final MainModel model;
-        private final FilteredList<Region> content;
-        private final Map<Class<? extends Page>, NavLink> registry = new HashMap<>();
+        public Header() {
+            super();
 
-        public NavMenu(MainModel model) {
-            var links = create();
-
-            this.model = model;
-            this.content = new FilteredList<>(links);
-            links.forEach(c -> {
-                if (c instanceof NavLink link) {
-                    registry.put(link.getPageClass(), link);
-                }
-            });
-        }
-
-        public FilteredList<Region> getContent() {
-            return content;
-        }
-
-        public void setPredicate(Predicate<Region> predicate) {
-            content.setPredicate(predicate);
-        }
-
-        public Optional<NavLink> findLink(Class<? extends Page> pageClass) {
-            if (pageClass == null) {
-                return Optional.empty();
-            }
-            return Optional.ofNullable(registry.get(pageClass));
-        }
-
-        public Optional<NavLink> getPrevious() {
-            var current = content.indexOf(registry.get(model.selectedPageProperty().get()));
-            if (!(current > 0)) {
-                return Optional.empty();
-            }
-
-            for (int i = current - 1; i >= 0; i--) {
-                var r = content.get(i);
-                if (r instanceof NavLink link) {
-                    return Optional.of(link);
-                }
-            }
-
-            return Optional.empty();
-        }
-
-        public Optional<NavLink> getNext() {
-            var current = content.indexOf(registry.get(model.selectedPageProperty().get()));
-            if (!(current >= 0 && current < content.size() - 1)) {
-                return Optional.empty();
-            } // has next
-
-            for (int i = current + 1; i < content.size(); i++) {
-                var r = content.get(i);
-                if (r instanceof NavLink link) {
-                    return Optional.of(link);
-                }
-            }
-
-            return Optional.empty();
-        }
-
-        private ObservableList<Region> create() {
-            return FXCollections.observableArrayList(
-                caption("GENERAL"),
-                navLink(ThemePage.NAME, ThemePage.class),
-                navLink(TypographyPage.NAME, TypographyPage.class),
-                navLink(IconsPage.NAME, IconsPage.class),
-                caption("COMPONENTS"),
-                navLink(OverviewPage.NAME, OverviewPage.class),
-                navLink(InputGroupPage.NAME, InputGroupPage.class),
-                new Spacer(10, Orientation.VERTICAL),
-                navLink(AccordionPage.NAME, AccordionPage.class),
-                navLink(BreadcrumbsPage.NAME, BreadcrumbsPage.class),
-                navLink(ButtonPage.NAME, ButtonPage.class),
-                navLink(ChartPage.NAME, ChartPage.class),
-                navLink(CheckBoxPage.NAME, CheckBoxPage.class),
-                navLink(ColorPickerPage.NAME, ColorPickerPage.class),
-                navLink(ComboBoxPage.NAME, ComboBoxPage.class, "ChoiceBox"),
-                navLink(CustomTextFieldPage.NAME, CustomTextFieldPage.class),
-                navLink(DatePickerPage.NAME, DatePickerPage.class),
-                navLink(DialogPage.NAME, DialogPage.class),
-                navLink(HtmlEditorPage.NAME, HtmlEditorPage.class),
-                navLink(LabelPage.NAME, LabelPage.class),
-                navLink(ListPage.NAME, ListPage.class),
-                navLink(MenuPage.NAME, MenuPage.class),
-                navLink(MenuButtonPage.NAME, MenuButtonPage.class, "SplitMenuButton"),
-                navLink(PaginationPage.NAME, PaginationPage.class),
-                navLink(PopoverPage.NAME, PopoverPage.class),
-                navLink(ProgressPage.NAME, ProgressPage.class),
-                navLink(RadioButtonPage.NAME, RadioButtonPage.class),
-                navLink(ScrollPanePage.NAME, ScrollPanePage.class),
-                navLink(SeparatorPage.NAME, SeparatorPage.class),
-                navLink(SliderPage.NAME, SliderPage.class),
-                navLink(SpinnerPage.NAME, SpinnerPage.class),
-                navLink(SplitPanePage.NAME, SplitPanePage.class),
-                navLink(TablePage.NAME, TablePage.class),
-                navLink(TabPanePage.NAME, TabPanePage.class),
-                navLink(TextAreaPage.NAME, TextAreaPage.class),
-                navLink(TextFieldPage.NAME, TextFieldPage.class, "PasswordField"),
-                navLink(TitledPanePage.NAME, TitledPanePage.class),
-                navLink(ToggleButtonPage.NAME, ToggleButtonPage.class),
-                navLink(ToggleSwitchPage.NAME, ToggleSwitchPage.class),
-                navLink(ToolBarPage.NAME, ToolBarPage.class),
-                navLink(TooltipPage.NAME, TooltipPage.class),
-                navLink(TreePage.NAME, TreePage.class),
-                navLink(TreeTablePage.NAME, TreeTablePage.class),
-                caption("SHOWCASE"),
-                navLink(FileManagerPage.NAME, FileManagerPage.class),
-                navLink(MusicPlayerPage.NAME, MusicPlayerPage.class),
-                navLink(WidgetCollectionPage.NAME,
-                    WidgetCollectionPage.class,
-                    "Card", "Message", "Stepper", "Tag"
-                )
+            getStyleClass().add("header");
+            getChildren().setAll(
+                createLogo(), createSearchButton()
             );
         }
 
-        private Label caption(String text) {
-            var label = new Label(text);
-            label.getStyleClass().add("caption");
-            label.setMaxWidth(Double.MAX_VALUE);
-            return label;
-        }
+        private HBox createLogo() {
+            var image = new ImageView(
+                new Image(Resources.getResource("assets/app-icon.png").toString())
+            );
+            image.setFitWidth(32);
+            image.setFitHeight(32);
 
-        private NavLink navLink(String text, Class<? extends Page> pageClass, String... keywords) {
-            var link = new NavLink(text, pageClass);
+            var imageBorder = new Insets(1);
+            var imageBox = new StackPane(image);
+            imageBox.getStyleClass().add("image");
+            imageBox.setPadding(imageBorder);
+            imageBox.setPrefSize(
+                image.getFitWidth() + imageBorder.getRight() * 2,
+                image.getFitWidth() + imageBorder.getTop() * 2
+            );
+            imageBox.setMaxSize(
+                image.getFitHeight() + imageBorder.getTop() * 2,
+                image.getFitHeight() + imageBorder.getRight() * 2
+            );
 
-            if (keywords != null && keywords.length > 0) {
-                link.getSearchKeywords().addAll(Arrays.asList(keywords));
+            var titleLbl = new Label("AtlantaFX");
+            titleLbl.getStyleClass().addAll(TITLE_3);
+            if (IS_DEV_MODE) {
+                var devLabel = new Label();
+                devLabel.setGraphic(new FontIcon(Material2OutlinedAL.INFO));
+                devLabel.getStyleClass().addAll("dev-indicator", Styles.WARNING);
+                devLabel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                devLabel.setTooltip(new Tooltip("App is running in development mode"));
+
+                titleLbl.setContentDisplay(ContentDisplay.RIGHT);
+                titleLbl.setGraphic(devLabel);
             }
 
-            link.setOnMouseClicked(e -> {
-                if (e.getSource() instanceof NavLink target) {
-                    model.navigate(target.getPageClass());
-                }
-            });
+            var themeSwitchBtn = new Button();
+            themeSwitchBtn.getStyleClass().add("palette");
+            themeSwitchBtn.setGraphic(new FontIcon(Material2MZ.WB_SUNNY));
+            themeSwitchBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            themeSwitchBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
+            themeSwitchBtn.setAlignment(Pos.CENTER_RIGHT);
+            themeSwitchBtn.setOnAction(e -> openThemeDialog());
 
-            return link;
-        }
-    }
+            var root = new HBox(10, imageBox, titleLbl, new Spacer(), themeSwitchBtn);
+            root.getStyleClass().add("logo");
+            root.setAlignment(Pos.CENTER_LEFT);
 
-    private static class NavLink extends Label {
-
-        private final Class<? extends Page> pageClass;
-        private final List<String> searchKeywords = new ArrayList<>();
-
-        public NavLink(String text, Class<? extends Page> pageClass) {
-            super(Objects.requireNonNull(text));
-            this.pageClass = Objects.requireNonNull(pageClass);
-
-            getStyleClass().add("nav-link");
-            setMaxWidth(Double.MAX_VALUE);
+            return root;
         }
 
-        public Class<? extends Page> getPageClass() {
-            return pageClass;
-        }
+        private Button createSearchButton() {
+            var titleLbl = new Label("Search", new FontIcon(Material2MZ.SEARCH));
 
-        public List<String> getSearchKeywords() {
-            return searchKeywords;
-        }
+            var hintLbl = new Label("Press /");
+            hintLbl.getStyleClass().addAll("hint", TEXT_MUTED, TEXT_SMALL);
 
-        public boolean matches(String filter) {
-            Objects.requireNonNull(filter);
-            return contains(getText(), filter)
-                || searchKeywords.stream().anyMatch(keyword -> contains(keyword, filter));
-        }
+            var searchBox = new HBox(titleLbl, new Spacer(), hintLbl);
+            searchBox.getStyleClass().add("content");
+            searchBox.setAlignment(Pos.CENTER_LEFT);
 
-        private boolean contains(String text, String filter) {
-            return text.toLowerCase().contains(filter.toLowerCase());
+            var root = new Button();
+            root.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            root.getStyleClass().addAll("search-button");
+            root.setGraphic(searchBox);
+            root.setOnAction(e -> openSearchDialog());
+            root.setMaxWidth(Double.MAX_VALUE);
+
+            return root;
         }
     }
 }

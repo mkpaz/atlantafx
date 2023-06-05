@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.Spacer?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="450.0" styleClass="sample" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox spacing="10.0">
+         <children>
+            <TextField promptText="Untitled paragraph" styleClass="edge-to-edge" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdomz-more_horiz" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" styleClass="small" />
+      <HBox layoutX="10.0" layoutY="10.0">
+         <children>
+            <Button mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_bold" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_italic" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="44.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_underlined" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="78.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_strikethrough" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="78.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_list_numbered" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="112.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_list_bulleted" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="146.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-format_quote" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="180.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-attach_file" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="248.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdoal-insert_link" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Spacer />
+            <Button layoutX="214.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdomz-undo" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+            <Button layoutX="406.0" layoutY="10.0" mnemonicParsing="false">
+               <graphic>
+                  <FontIcon iconLiteral="mdomz-redo" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="button-icon" />
+                  <String fx:value="flat" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" styleClass="small" />
+      <TextArea prefHeight="100.0" promptText="It's great time to write your content" styleClass="edge-to-edge" VBox.vgrow="ALWAYS" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

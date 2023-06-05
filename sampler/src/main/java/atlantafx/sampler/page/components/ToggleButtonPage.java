@@ -2,26 +2,21 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.CENTER_PILL;
-import static atlantafx.base.theme.Styles.LEFT_PILL;
-import static atlantafx.base.theme.Styles.RIGHT_PILL;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.util.Controls.toggleButton;
-import static javafx.scene.layout.GridPane.REMAINING;
-
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.theme.Styles;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ToggleButtonPage extends AbstractPage {
+public final class ToggleButtonPage extends OutlinePage {
 
     public static final String NAME = "ToggleButton";
 
@@ -32,103 +27,159 @@ public class ToggleButtonPage extends AbstractPage {
 
     public ToggleButtonPage() {
         super();
-        createView();
+
+        addPageHeader();
+        addFormattedText("""
+            A [i]ToggleButton[/i] is a special control having the ability to be selected."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Icon Only", iconOnlyExample());
+        addSection("Segmented Group", segmentedGroupExample());
     }
 
-    private void createView() {
-        var grid = new GridPane();
-        grid.setHgap(Page.PAGE_HGAP);
-        grid.setVgap(Page.PAGE_VGAP);
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var singleBtn = new ToggleButton("Toggle");
+        singleBtn.setSelected(true);
 
-        grid.add(basicSample(), 0, 0, REMAINING, 1);
-        grid.add(wizardSample(), 0, 1);
-        grid.add(iconOnlySample(), 1, 1);
-        grid.add(disabledSample(), 0, 2);
+        // ~
 
-        setUserContent(grid);
-    }
+        var leftBtn1 = new ToggleButton("._left-pill");
+        leftBtn1.getStyleClass().add(Styles.LEFT_PILL);
+        leftBtn1.setSelected(true);
 
-    private SampleBlock basicSample() {
-        var threeButtonGroup = new ToggleGroup();
+        var rightBtn1 = new ToggleButton("._right-pill");
+        rightBtn1.getStyleClass().add(Styles.RIGHT_PILL);
 
-        var leftPill = toggleButton("._left-pill", null, threeButtonGroup, true, LEFT_PILL);
-        leftPill.setMnemonicParsing(true);
+        var twoBtnGroup = new ToggleGroup();
+        twoBtnGroup.getToggles().addAll(leftBtn1, rightBtn1);
 
-        var centerPill = toggleButton("._center-pill", null, threeButtonGroup, false, CENTER_PILL);
-        centerPill.setMnemonicParsing(true);
+        // ~
 
-        var rightPill = toggleButton("._right-pill", null, threeButtonGroup, false, RIGHT_PILL);
-        rightPill.setMnemonicParsing(true);
+        var leftBtn2 = new ToggleButton("._left-pill");
+        leftBtn2.getStyleClass().add(Styles.LEFT_PILL);
+        leftBtn2.setMnemonicParsing(true);
+        leftBtn2.setSelected(true);
 
-        var threeButtonBox = new HBox(leftPill, centerPill, rightPill);
+        var centerBtn2 = new ToggleButton("._center-pill");
+        centerBtn2.getStyleClass().add(Styles.CENTER_PILL);
+        centerBtn2.setMnemonicParsing(true);
 
-        var twoButtonGroup = new ToggleGroup();
-        var twoButtonBox = new HBox(
-            toggleButton(".left-pill", null, twoButtonGroup, true, LEFT_PILL),
-            toggleButton(".right-pill", null, twoButtonGroup, false, RIGHT_PILL)
+        var rightBtn2 = new ToggleButton("._right-pill");
+        rightBtn2.getStyleClass().add(Styles.RIGHT_PILL);
+        rightBtn2.setMnemonicParsing(true);
+
+        var threeBtnGroup = new ToggleGroup();
+        threeBtnGroup.getToggles().addAll(leftBtn2, centerBtn2, rightBtn2);
+        //snippet_1:end
+
+        var twoBtnBox = new HBox(leftBtn1, rightBtn1);
+        twoBtnBox.setAlignment(Pos.CENTER_LEFT);
+
+        var threeBtnBox = new HBox(leftBtn2, centerBtn2, rightBtn2);
+        threeBtnBox.setAlignment(Pos.CENTER_LEFT);
+
+        var box = new HBox(HGAP_30, singleBtn, twoBtnBox, threeBtnBox);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ToggleButtons[/i] can also be placed in groups. When in groups, only one button \
+            at a time within that group can be selected. Use [code]Styles.*_PILL[/code] style \
+            classes if you want to toggle group to look like a single "segmented" button."""
         );
 
-        return new SampleBlock("Basic", new HBox(BLOCK_HGAP, threeButtonBox, twoButtonBox));
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private SampleBlock wizardSample() {
+    private ExampleBox iconOnlyExample() {
+        //snippet_2:start
+        var leftBtn = new ToggleButton(null, new FontIcon(Feather.BOLD));
+        leftBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.LEFT_PILL
+        );
+        leftBtn.setSelected(true);
+
+        var centerBtn = new ToggleButton(null, new FontIcon(Feather.ITALIC));
+        centerBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.CENTER_PILL
+        );
+
+        var rightBtn = new ToggleButton(null, new FontIcon(Feather.UNDERLINE));
+        rightBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.RIGHT_PILL
+        );
+        //snippet_2:end
+
+        var box = new HBox(leftBtn, centerBtn, rightBtn);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            Sometimes it's desirable to create a button group that consists from icon \
+            buttons only. This is also supported."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
+    }
+
+    private ExampleBox segmentedGroupExample() {
+        //snippet_3:start
+        var musicBtn = new ToggleButton(
+            "Music", new FontIcon(Feather.MUSIC)
+        );
+        musicBtn.getStyleClass().add(Styles.LEFT_PILL);
+        musicBtn.setSelected(true);
+
+        var imagesBtn = new ToggleButton(
+            "Images", new FontIcon(Feather.IMAGE)
+        );
+        imagesBtn.getStyleClass().add(Styles.CENTER_PILL);
+
+        var videosBtn = new ToggleButton(
+            "Videos", new FontIcon(Feather.VIDEO)
+        );
+        videosBtn.getStyleClass().add(Styles.RIGHT_PILL);
+
         var group = new ToggleGroup();
-
-        var prevBtn = new Button("\f", new FontIcon(Feather.CHEVRON_LEFT));
-        prevBtn.getStyleClass().addAll(BUTTON_ICON, LEFT_PILL);
-        prevBtn.setOnAction(e -> {
-            int selected = group.getToggles().indexOf(group.getSelectedToggle());
-            if (selected > 0) {
-                group.selectToggle(group.getToggles().get(selected - 1));
-            }
-        });
-
-        var nextBtn = new Button("\f", new FontIcon(Feather.CHEVRON_RIGHT));
-        nextBtn.getStyleClass().addAll(BUTTON_ICON, RIGHT_PILL);
-        nextBtn.setContentDisplay(ContentDisplay.RIGHT);
-        nextBtn.setOnAction(e -> {
-            int selected = group.getToggles().indexOf(group.getSelectedToggle());
-            if (selected < group.getToggles().size() - 1) {
-                group.selectToggle(group.getToggles().get(selected + 1));
-            }
-        });
-
-        var wizard = new HBox(
-            prevBtn,
-            toggleButton("Music", Feather.MUSIC, group, true, CENTER_PILL),
-            toggleButton("Images", Feather.IMAGE, group, false, CENTER_PILL),
-            toggleButton("Videos", Feather.VIDEO, group, false, CENTER_PILL),
-            nextBtn
-        );
+        group.getToggles().addAll(musicBtn, imagesBtn, videosBtn);
         group.selectedToggleProperty().addListener((obs, old, val) -> {
             if (val == null) {
                 old.setSelected(true);
             }
         });
 
-        return new SampleBlock("Wizard", wizard);
-    }
+        var prevBtn = new Button(null, new FontIcon(Feather.CHEVRON_LEFT));
+        prevBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.LEFT_PILL, "toggle-button"
+        );
+        prevBtn.setOnAction(evt -> {
+            int sel = group.getToggles().indexOf(group.getSelectedToggle());
+            if (sel > 0) {
+                group.selectToggle(group.getToggles().get(sel - 1));
+            }
+        });
 
-    private SampleBlock iconOnlySample() {
-        var icons = new HBox(
-            toggleButton("", Feather.BOLD, null, true, BUTTON_ICON, LEFT_PILL),
-            toggleButton("", Feather.ITALIC, null, false, BUTTON_ICON, CENTER_PILL),
-            toggleButton("", Feather.UNDERLINE, null, false, BUTTON_ICON, RIGHT_PILL)
+        var nextBtn = new Button(null, new FontIcon(Feather.CHEVRON_RIGHT));
+        nextBtn.getStyleClass().addAll(
+            Styles.BUTTON_ICON, Styles.RIGHT_PILL, "toggle-button"
+        );
+        nextBtn.setContentDisplay(ContentDisplay.RIGHT);
+        nextBtn.setOnAction(evt -> {
+            int sel = group.getToggles().indexOf(group.getSelectedToggle());
+            if (sel < group.getToggles().size() - 1) {
+                group.selectToggle(group.getToggles().get(sel + 1));
+            }
+        });
+
+        var groupBox = new HBox(
+            prevBtn, musicBtn, imagesBtn, videosBtn, nextBtn
+        );
+        groupBox.setAlignment(Pos.CENTER_LEFT);
+        //snippet_3:end
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how to create a complex segmented button group."""
         );
 
-        return new SampleBlock("Icon only", icons);
-    }
-
-    private SampleBlock disabledSample() {
-        var group = new ToggleGroup();
-        var content = new HBox(
-            toggleButton(".left-pill", null, group, false, LEFT_PILL),
-            toggleButton(".center-pill", null, group, false, CENTER_PILL),
-            toggleButton(".right-pill", null, group, true, RIGHT_PILL)
-        );
-        content.getChildren().get(0).setDisable(true);
-        content.getChildren().get(1).setDisable(true);
-
-        return new SampleBlock("Disabled", content);
+        return new ExampleBox(groupBox, new Snippet(getClass(), 3), description);
     }
 }

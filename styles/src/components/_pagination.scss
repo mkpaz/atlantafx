@@ -21,8 +21,8 @@ $button-radius: 10em !default;
     -fx-font-size: 1em;
 
     >.control-box {
-      -fx-padding: 2em 0 0 0;
-      -fx-spacing: 2;
+      -fx-padding: 0.5em 0 0 0;
+      -fx-spacing: 2px;
       -fx-alignment: CENTER;
 
       .number-button {

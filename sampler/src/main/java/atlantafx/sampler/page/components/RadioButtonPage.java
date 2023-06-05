@@ -2,17 +2,15 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
-public class RadioButtonPage extends AbstractPage {
+public final class RadioButtonPage extends OutlinePage {
 
     public static final String NAME = "RadioButton";
 
@@ -23,30 +21,32 @@ public class RadioButtonPage extends AbstractPage {
 
     public RadioButtonPage() {
         super();
-        setUserContent(new FlowPane(
-            Page.PAGE_HGAP, Page.PAGE_VGAP,
-            basicSample(),
-            groupSample(),
-            disabledSample()
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            [i]RadioButton[/i]'s create a series of items where only one item can be selected."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Toggle Group", toggleGroupExample());
     }
 
-    private SampleBlock basicSample() {
+    private ExampleBox usageExample() {
+        //snippet_1:start
         var radio1 = new RadioButton("_Check Me");
         radio1.setMnemonicParsing(true);
 
         var radio2 = new RadioButton("Check Me");
+        //snippet_1:end
 
-        return new SampleBlock("Basic", new VBox(BLOCK_VGAP, radio1, radio2));
+        var box = new VBox(VGAP_10, radio1, radio2);
+        var description = BBCodeParser.createFormattedText("""
+            A radio button control can be either selected or deselected.""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private SampleBlock disabledSample() {
-        var radio = new RadioButton("Check Me");
-        radio.setDisable(true);
-        return new SampleBlock("Disabled", radio);
-    }
-
-    private SampleBlock groupSample() {
+    private ExampleBox toggleGroupExample() {
+        //snippet_2:start
         var group = new ToggleGroup();
 
         var musicRadio = new RadioButton("Music");
@@ -58,7 +58,14 @@ public class RadioButtonPage extends AbstractPage {
 
         var videosRadio = new RadioButton("Videos");
         videosRadio.setToggleGroup(group);
+        //snippet_2:end
 
-        return new SampleBlock("Toggle Group", new VBox(5, musicRadio, imagesRadio, videosRadio));
+        var box = new VBox(VGAP_10, musicRadio, imagesRadio, videosRadio);
+        var description = BBCodeParser.createFormattedText("""
+            Typically radio buttons are combined into a group where only one button \
+            at a time can be selected. This behavior distinguishes them from toggle buttons, \
+            because all toggle buttons in a group can be in a deselected state.""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
     }
 }

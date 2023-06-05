@@ -43,7 +43,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
 // Inspired by the https://colourcontrast.cc/
-class ContrastChecker extends GridPane {
+final class ContrastChecker extends GridPane {
 
     public static final double CONTRAST_RATIO_THRESHOLD = 1.5;
     public static final double LUMINANCE_THRESHOLD = 0.55;
@@ -77,7 +77,11 @@ class ContrastChecker extends GridPane {
 
         this.bgBaseColor = bgBaseColor;
         this.contrastRatio = Bindings.createDoubleBinding(
-            () -> getContrastRatioOpacityAware(bgColor.getColor(), fgColor.getColor(), bgBaseColor.get()),
+            () -> getContrastRatioOpacityAware(
+                bgColor.getColor(),
+                fgColor.getColor(),
+                bgBaseColor.get()
+            ),
             bgColor.colorProperty(),
             fgColor.colorProperty(),
             bgBaseColor
@@ -97,6 +101,10 @@ class ContrastChecker extends GridPane {
         setForeground(fgColor);
     }
 
+    public Color getBgBaseColor() {
+        return bgBaseColor.get();
+    }
+
     public String getBgColorName() {
         return bgColorName;
     }
@@ -109,8 +117,9 @@ class ContrastChecker extends GridPane {
         return bgColor.colorProperty().get();
     }
 
-    public Color getFgColor() {
-        return fgColor.colorProperty().get();
+    public Color getFlatBgColor() {
+        double[] flatBg = JColorUtils.flattenColor(getBgBaseColor(), getBgColor());
+        return Color.color(flatBg[0], flatBg[1], flatBg[2]);
     }
 
     public ReadOnlyObjectProperty<Color> bgColorProperty() {
@@ -478,7 +487,7 @@ class ContrastChecker extends GridPane {
         }
 
         public float[] getRgbaArithmeticColor() {
-            float[] hsl = new float[] {getHue(), getSaturation(), getLightness()};
+            float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
             var color = JColor.color(hsl, getAlpha());
             return new float[] {
                 color.getRedArithmetic(),
@@ -489,7 +498,7 @@ class ContrastChecker extends GridPane {
         }
 
         public String getColorHexWithAlpha() {
-            float[] hsl = new float[] {getHue(), getSaturation(), getLightness()};
+            float[] hsl = new float[] { getHue(), getSaturation(), getLightness() };
             return JColor.color(hsl, getAlpha()).getColorHexWithAlpha();
         }
     }
@@ -510,7 +519,7 @@ class ContrastChecker extends GridPane {
             var hexItem = new MenuItem("Copy as HEX");
             hexItem.setOnAction(e -> {
                 var c = JColor.color(
-                    new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                    new float[] { color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha() });
                 PlatformUtils.copyToClipboard(color.getAlpha() < 1
                     ? toHexWithAlpha(color.getColor()) : c.getColorHex()
                 );
@@ -519,7 +528,7 @@ class ContrastChecker extends GridPane {
             var rgbItem = new MenuItem("Copy as RGB");
             rgbItem.setOnAction(e -> {
                 var c = JColor.color(
-                    new float[] {color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha()});
+                    new float[] { color.getHue(), color.getSaturation(), color.getLightness(), color.getAlpha() });
                 PlatformUtils.copyToClipboard(color.getAlpha() < 1
                         ? String.format(
                         "rgba(%d,%d,%d, %.1f)", c.getGreen(), c.getGreen(), c.getBlue(), c.getAlphaArithmetic()

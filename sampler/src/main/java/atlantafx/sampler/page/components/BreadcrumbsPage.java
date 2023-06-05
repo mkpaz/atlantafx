@@ -5,106 +5,181 @@ package atlantafx.sampler.page.components;
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-public class BreadcrumbsPage extends AbstractPage {
+public final class BreadcrumbsPage extends OutlinePage {
 
     public static final String NAME = "Breadcrumbs";
-
-    private static final int CRUMB_COUNT = 5;
 
     @Override
     public String getName() {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public BreadcrumbsPage() {
         super();
-        setUserContent(new VBox(
-            Page.PAGE_VGAP,
-            basicSample(),
-            customCrumbSample(),
-            customDividerSample()
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            Represents a bread crumb bar. This control is useful to visualize and navigate \
+            a hierarchical path structure, such as file systems."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Custom Item", customItemExample());
+        addSection("Custom Divider", customDividerExample());
     }
 
-    private SampleBlock basicSample() {
-        return new SampleBlock("Basic", createBreadcrumbs(null, null));
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var items = generate(() -> FAKER.science().element(), 4);
+        BreadCrumbItem<String> root = Breadcrumbs.buildTreeModel(
+            items.toArray(String[]::new)
+        );
+
+        var crumbs = new Breadcrumbs<>(root);
+        crumbs.setSelectedCrumb(getTreeItemByIndex(root, 2));
+        //snippet_1:end
+
+        var nextBtn = new Button("Next");
+        nextBtn.getStyleClass().addAll(Styles.ACCENT);
+        nextBtn.setOnAction(e -> {
+            var selected = crumbs.getSelectedCrumb();
+            if (selected.getChildren().size() > 0) {
+                var next = selected.getChildren().get(0);
+                crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
+            }
+        });
+
+        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+            if (val == null) {
+                return;
+            }
+            nextBtn.setDisable(val.getChildren().isEmpty());
+        });
+
+        var box = new HBox(40, nextBtn, crumbs);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            The [i]BreadCrumbs[/i] uses the [i]TreeItem[/i] API to maintain its model. \
+            You can create a tree model from a flat list by using the static \
+            [code]buildTreeModel()[/code] method."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private SampleBlock customCrumbSample() {
-        Callback<BreadCrumbItem<String>, ButtonBase> crumbFactory = crumb -> {
+    private ExampleBox customItemExample() {
+        //snippet_2:start
+        var items = generate(() -> FAKER.science().element(), 4);
+        BreadCrumbItem<String> root = Breadcrumbs.buildTreeModel(
+            items.toArray(String[]::new)
+        );
+
+        var crumbs = new Breadcrumbs<>(root);
+        crumbs.setCrumbFactory(crumb -> {
             var btn = new Button(crumb.getValue(), new FontIcon(randomIcon()));
             btn.getStyleClass().add(Styles.FLAT);
             btn.setFocusTraversable(false);
             return btn;
-        };
-
-        return new SampleBlock("Flat Button", createBreadcrumbs(crumbFactory, null));
-    }
-
-    private SampleBlock customDividerSample() {
-        Callback<BreadCrumbItem<String>, ? extends Node> dividerFactory = item -> {
-            if (item == null) {
-                return new Label("", new FontIcon(Material2AL.HOME));
-            }
-            return !item.isLast() ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT)) : null;
-        };
-
-        return new SampleBlock("Custom Divider", createBreadcrumbs(null, dividerFactory));
-    }
-
-    private HBox createBreadcrumbs(Callback<BreadCrumbItem<String>, ButtonBase> crumbFactory,
-                                   Callback<BreadCrumbItem<String>, ? extends Node> dividerFactory) {
-        BreadCrumbItem<String> model = Breadcrumbs.buildTreeModel(
-            generate(() -> FAKER.science().element(), CRUMB_COUNT).toArray(String[]::new)
-        );
+        });
+        crumbs.setSelectedCrumb(getTreeItemByIndex(root, 2));
+        //snippet_2:end
 
         var nextBtn = new Button("Next");
         nextBtn.getStyleClass().addAll(Styles.ACCENT);
-
-        var breadcrumbs = new Breadcrumbs<>(model);
-        breadcrumbs.setSelectedCrumb(getAncestor(model, CRUMB_COUNT / 2));
-        if (crumbFactory != null) {
-            breadcrumbs.setCrumbFactory(crumbFactory);
-        }
-        if (dividerFactory != null) {
-            breadcrumbs.setDividerFactory(dividerFactory);
-        }
-
         nextBtn.setOnAction(e -> {
-            BreadCrumbItem<String> selected = breadcrumbs.getSelectedCrumb();
+            var selected = crumbs.getSelectedCrumb();
             if (selected.getChildren().size() > 0) {
-                breadcrumbs.setSelectedCrumb((BreadCrumbItem<String>) selected.getChildren().get(0));
+                var next = selected.getChildren().get(0);
+                crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
             }
         });
 
-        breadcrumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
-            if (val != null) {
-                nextBtn.setDisable(val.getChildren().isEmpty());
+        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+            if (val == null) {
+                return;
             }
+            nextBtn.setDisable(val.getChildren().isEmpty());
         });
 
-        var box = new HBox(40, nextBtn, breadcrumbs);
+        var box = new HBox(40, nextBtn, crumbs);
         box.setAlignment(Pos.CENTER_LEFT);
 
-        return box;
+        var description = BBCodeParser.createFormattedText("""
+            By default, the [i]Breadcrumbs[/i] uses [i]Hyperlink[/i] to represent \
+            its items. If you want to use a different kind of item, you can provide \
+            a [code]crumbFactory[/code] to insert an arbitrary [i]Node[/i]."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
     }
 
-    private <T> BreadCrumbItem<T> getAncestor(BreadCrumbItem<T> node, int height) {
-        var counter = height;
+    private ExampleBox customDividerExample() {
+        //snippet_3:start
+        var items = generate(() -> FAKER.science().element(), 4);
+        BreadCrumbItem<String> root = Breadcrumbs.buildTreeModel(
+            items.toArray(String[]::new)
+        );
+
+        var crumbs = new Breadcrumbs<>(root);
+        crumbs.setDividerFactory(item -> {
+            if (item == null) {
+                return new Label("", new FontIcon(Material2AL.HOME));
+            }
+            return !item.isLast()
+                ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT))
+                : null;
+        });
+        crumbs.setSelectedCrumb(getTreeItemByIndex(root, 2));
+        //snippet_3:end
+
+        var nextBtn = new Button("Next");
+        nextBtn.getStyleClass().addAll(Styles.ACCENT);
+        nextBtn.setOnAction(e -> {
+            var selected = crumbs.getSelectedCrumb();
+            if (selected.getChildren().size() > 0) {
+                var next = selected.getChildren().get(0);
+                crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
+            }
+        });
+
+        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+            if (val == null) {
+                return;
+            }
+            nextBtn.setDisable(val.getChildren().isEmpty());
+        });
+
+        var box = new HBox(40, nextBtn, crumbs);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            Similarly, you can customize the [i]Breadcrumbs[/i] divider by \
+            providing a [code]dividerFactory[/code]."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 3), description);
+    }
+
+    private <T> BreadCrumbItem<T> getTreeItemByIndex(BreadCrumbItem<T> node, int index) {
+        var counter = index;
         var current = node;
         while (counter > 0 && current.getParent() != null) {
             current = (BreadCrumbItem<T>) current.getParent();

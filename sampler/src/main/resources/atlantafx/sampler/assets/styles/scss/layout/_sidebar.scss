@@ -1,0 +1,117 @@
+// SPDX-License-Identifier: MIT
+
+#sidebar {
+  -fx-background-color: -color-bg-inset;
+  -fx-border-color: -color-border-default;
+  -fx-border-width: 0 1px 0 0;
+
+  >.header {
+    -fx-padding: 20px 10px 20px 10px;
+    -fx-spacing: 20px;
+
+    >.logo {
+      .label {
+        -fx-text-fill: -color-fg-muted;
+      }
+
+      >.palette {
+        >.ikonli-font-icon {
+          -fx-fill: -color-fg-muted;
+          -fx-icon-color: -color-fg-muted;
+        }
+      }
+
+      .dev-indicator {
+        -fx-padding: -0.75em 0 0 0;
+        -fx-font-size: 12px;
+        -fx-font-weight: normal;
+        -fx-cursor: hand;
+      }
+    }
+
+    >.search-button {
+      -color-button-bg: -color-bg-default;
+      -color-button-border: -color-border-default;
+      -color-button-border-hover: -color-border-default;
+      -color-button-border-focused: -color-border-default;
+      -color-button-border-pressed: -color-border-default;
+      -color-button-shadow: transparent;
+    }
+  }
+
+  >.footer {
+    -fx-padding: 4px 10px 4px 10px;
+    -fx-alignment: CENTER;
+  }
+
+  .nav-tree-cell {
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -color-cell-bg: -color-bg-inset;
+    -color-cell-bg-selected: -color-accent-subtle;
+    -color-cell-bg-selected-focused: -color-accent-subtle;
+    -color-cell-border: -color-bg-inset;
+    -fx-background-radius: 5px;
+
+    >.tree-disclosure-node,
+    >.tree-disclosure-node>.arrow {
+      -fx-min-width: 0;
+      -fx-pref-width: 0;
+      -fx-max-width: 0;
+      -fx-min-height: 0;
+      -fx-pref-height: 0;
+      -fx-max-height: 0;
+      visibility: hidden;
+    }
+
+    >.container {
+      -fx-min-height: 2.1em;
+      -fx-pref-height: 2.1em;
+      -fx-max-height: 2.1em;
+      -fx-padding: 0 6px 0 1.2em;
+
+      -fx-border-color: -color-border-muted;
+      -fx-border-width: 0 0 0 1;
+    }
+
+    &:selected>.container>.title {
+      -fx-font-weight: bold;
+      -fx-text-fill: -color-accent-fg;
+    }
+
+    &:hover:filled {
+      -color-cell-bg: -color-accent-subtle;
+      -color-cell-bg-selected: -color-accent-subtle;
+      -color-cell-bg-selected-focused: -color-accent-subtle;
+    }
+
+    &:group {
+      >.container {
+        -fx-min-height: 2.5em;
+        -fx-pref-height: 2.5em;
+        -fx-max-height: 2.5em;
+        -fx-padding: 0 0 0 8px;
+
+        .ikonli-font-icon {
+          -fx-fill: -color-fg-muted;
+          -fx-icon-color: -color-fg-muted;
+        }
+
+        >.arrow {
+          -fx-icon-code: mdal-add;
+        }
+      }
+
+      &:expanded>.container>.arrow {
+        -fx-icon-code: mdmz-remove;
+      }
+    }
+
+    .tag {
+      -fx-padding: 2px 4px 2px 4px;
+      -fx-background-radius: 4px;
+      -fx-font-size: 0.75em;
+      -fx-background-color: -color-success-subtle;
+    }
+  }
+}

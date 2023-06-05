@@ -2,38 +2,31 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
 import static javafx.scene.control.Alert.AlertType;
 import static javafx.scene.control.ButtonBar.ButtonData;
 
-import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
+import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class DialogPage extends AbstractPage {
+public final class DialogPage extends OutlinePage {
 
     public static final String NAME = "Dialog";
 
@@ -42,96 +35,73 @@ public class DialogPage extends AbstractPage {
         return NAME;
     }
 
-    private final BooleanProperty showHeaderProperty = new SimpleBooleanProperty(true);
-    private final BooleanProperty minDecorationsProperty = new SimpleBooleanProperty(true);
-
     public DialogPage() {
         super();
-        createView();
-    }
 
-    private void createView() {
-        var showHeaderToggle = new ToggleSwitch("Show header");
-        showHeaderProperty.bind(showHeaderToggle.selectedProperty());
-        showHeaderToggle.setSelected(true);
-
-        var minDecorationsToggle = new ToggleSwitch("Minimum decorations");
-        minDecorationsProperty.bind(minDecorationsToggle.selectedProperty());
-        minDecorationsToggle.setSelected(true);
-
-        var controls = new HBox(BLOCK_HGAP, showHeaderToggle, minDecorationsToggle);
-        controls.setAlignment(Pos.CENTER);
-
-        var samples = new FlowPane(
-            PAGE_HGAP, PAGE_VGAP,
-            infoDialogSample(),
-            warningDialogSample(),
-            errorDialogSample(),
-            exceptionDialogSample(),
-            confirmationDialogSample(),
-            textInputDialogSample(),
-            choiceDialogSample()
+        addPageHeader();
+        addFormattedText("""
+            Dialog is a user interface component that allows to create dialog windows \
+            that can be used to prompt users for information or to display messages or warnings."""
         );
-
-        setUserContent(new VBox(
-            10,
-            controls,
-            new Separator(Orientation.HORIZONTAL),
-            samples
-        ));
+        addSection("Notifications", notificationDialogExample());
+        addSection("Exception Dialog", exceptionDialogExample());
+        addSection("Confirmation Dialog", confirmationDialogExample());
+        addSection("Text Input Dialog", textInputDialogExample());
+        addSection("Choice Dialog", choiceDialogExample());
+        addSection("No Header", notificationNoHeaderDialogExample());
     }
 
-    private SampleBlock infoDialogSample() {
-        var button = new Button("Click", new FontIcon(Feather.INFO));
-        button.setOnAction(e -> {
+    private ExampleBox notificationDialogExample() {
+        //snippet_1:start
+        var infoBtn = new Button("Info", new FontIcon(Feather.INFO));
+        infoBtn.setOnAction(e -> {
             var alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
-            alert.setHeaderText(randomHeader());
+            alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.initStyle(getModality());
-            alert.showAndWait();
+            show(alert);
         });
 
-        return new SampleBlock("Information", button);
-    }
-
-    private SampleBlock warningDialogSample() {
-        var button = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
-        button.setOnAction(e -> {
+        var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
+        warnBtn.setOnAction(e -> {
             var alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning Dialog");
-            alert.setHeaderText(randomHeader());
+            alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.initStyle(getModality());
-            alert.showAndWait();
+            show(alert);
         });
 
-        return new SampleBlock("Warning", button);
-    }
-
-    private SampleBlock errorDialogSample() {
-        var button = new Button("Click", new FontIcon(Feather.X_CIRCLE));
-        button.setOnAction(e -> {
+        var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
+        errorBtn.setOnAction(e -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setHeaderText(randomHeader());
+            alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
             alert.initOwner(getScene().getWindow());
-            alert.initStyle(getModality());
-            alert.showAndWait();
+            show(alert);
         });
+        //snippet_1:end
 
-        return new SampleBlock("Error", button);
+        var box = new HBox(30, infoBtn, warnBtn, errorBtn);
+        var description = BBCodeParser.createFormattedText("""
+            Pre-built dialog types for displaying information, warnings, and errors."""
+        );
+
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private SampleBlock exceptionDialogSample() {
+    private ExampleBox exceptionDialogExample() {
+        //snippet_2:start
         var button = new Button("Click", new FontIcon(Feather.MEH));
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Exception Dialog");
-            alert.setHeaderText(randomHeader());
+            alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
 
             var exception = new RuntimeException(FAKER.chuckNorris().fact());
@@ -155,75 +125,157 @@ public class DialogPage extends AbstractPage {
 
             alert.getDialogPane().setExpandableContent(content);
             alert.initOwner(getScene().getWindow());
-            alert.initStyle(getModality());
-            alert.showAndWait();
+            show(alert);
         });
+        //snippet_2:end
 
-        return new SampleBlock("Exception", button);
+        var description = BBCodeParser.createFormattedText("""
+            A custom dialog that is designed to display information about exceptions that \
+            are thrown in JavaFX applications."""
+        );
+
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 2), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private SampleBlock confirmationDialogSample() {
-        var button = new Button("Click", new FontIcon(Feather.CHECK_SQUARE));
+    private ExampleBox confirmationDialogExample() {
+        //snippet_3:start
+        var button = new Button(
+            "Click", new FontIcon(Feather.CHECK_SQUARE)
+        );
         button.setOnAction(e -> {
             var alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText(randomHeader());
+            alert.setHeaderText(FAKER.chuckNorris().fact());
             alert.setContentText(FAKER.lorem().paragraph(3));
 
             ButtonType yesBtn = new ButtonType("Yes", ButtonData.YES);
             ButtonType noBtn = new ButtonType("No", ButtonData.NO);
-            ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+            ButtonType cancelBtn = new ButtonType(
+                "Cancel", ButtonData.CANCEL_CLOSE
+            );
 
             alert.getButtonTypes().setAll(yesBtn, noBtn, cancelBtn);
-
             alert.initOwner(getScene().getWindow());
-            alert.initStyle(getModality());
-            alert.showAndWait();
+            show(alert);
         });
+        //snippet_3:end
 
-        return new SampleBlock("Confirmation", button);
+        var description = BBCodeParser.createFormattedText("""
+            The confirmation alert type configures the [i]Alert[/i] dialog to appear in a way that \
+            suggests the content of the dialog is seeking confirmation from the user."""
+        );
+
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 3), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private SampleBlock textInputDialogSample() {
+    private ExampleBox textInputDialogExample() {
+        //snippet_4:start
         var button = new Button("Click", new FontIcon(Feather.EDIT_2));
         button.setOnAction(e -> {
             var dialog = new TextInputDialog();
             dialog.setTitle("Text Input Dialog");
-            dialog.setHeaderText(randomHeader());
+            dialog.setHeaderText(FAKER.chuckNorris().fact());
             dialog.setContentText("Enter your name:");
             dialog.initOwner(getScene().getWindow());
-            dialog.initStyle(getModality());
-            dialog.showAndWait();
+            show(dialog);
         });
+        //snippet_4:end
 
-        return new SampleBlock("Text Input", button);
+        var description = BBCodeParser.createFormattedText(
+            "A dialog that shows a text input control to the user."
+        );
+
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 4), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private SampleBlock choiceDialogSample() {
+    private ExampleBox choiceDialogExample() {
+        //snippet_5:start
         var button = new Button("Click", new FontIcon(Feather.LIST));
         button.setOnAction(e -> {
-            var choices = new ArrayList<>();
-            choices.add("A");
-            choices.add("B");
-            choices.add("C");
-
+            var choices = List.of("A", "B", "C");
             var dialog = new ChoiceDialog<>(choices.get(0), choices);
             dialog.setTitle("Choice Dialog");
-            dialog.setHeaderText(randomHeader());
+            dialog.setHeaderText(FAKER.chuckNorris().fact());
             dialog.setContentText("Choose your letter:");
             dialog.initOwner(getScene().getWindow());
-            dialog.initStyle(getModality());
-            dialog.showAndWait();
+            show(dialog);
+        });
+        //snippet_5:end
+
+        var description = BBCodeParser.createFormattedText("""
+            A dialog that shows a list of choices to the user, from which they can pick one item at most."""
+        );
+
+        var example = new ExampleBox(new HBox(button), new Snippet(getClass(), 5), description);
+        example.setAllowDisable(false);
+
+        return example;
+    }
+
+    private ExampleBox notificationNoHeaderDialogExample() {
+        //snippet_6:start
+        var infoBtn = new Button("Info", new FontIcon(Feather.INFO));
+        infoBtn.setOnAction(e -> {
+            var alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText(FAKER.lorem().paragraph(3));
+            alert.initOwner(getScene().getWindow());
+            show(alert);
         });
 
-        return new SampleBlock("Choice", button);
+        var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
+        warnBtn.setOnAction(e -> {
+            var alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText(FAKER.lorem().paragraph(3));
+            alert.initOwner(getScene().getWindow());
+            show(alert);
+        });
+
+        var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
+        errorBtn.setOnAction(e -> {
+            var alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText(FAKER.lorem().paragraph(3));
+            alert.initOwner(getScene().getWindow());
+            show(alert);
+        });
+        //snippet_6:end
+
+        var box = new HBox(30, infoBtn, warnBtn, errorBtn);
+        var description = BBCodeParser.createFormattedText(
+            "The header text can be hidden."
+        );
+
+        var example = new ExampleBox(box, new Snippet(getClass(), 6), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private String randomHeader() {
-        return showHeaderProperty.get() ? FAKER.chuckNorris().fact() : null;
-    }
+    private void show(Dialog<?> alert) {
+        // copy customized styles, like changed accent color etc
+        try {
+            for (var pc : getScene().getRoot().getPseudoClassStates()) {
+                alert.getDialogPane().pseudoClassStateChanged(pc, true);
+            }
+            alert.getDialogPane().getStylesheets().addAll(getScene().getRoot().getStylesheets());
+        } catch (Exception ignored) {
+            // yes, ignored
+        }
 
-    private StageStyle getModality() {
-        return minDecorationsProperty.get() ? StageStyle.UTILITY : StageStyle.DECORATED;
+        alert.showAndWait();
     }
 }

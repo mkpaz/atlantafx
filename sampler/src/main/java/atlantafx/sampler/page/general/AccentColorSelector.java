@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-public class AccentColorSelector extends HBox {
+final class AccentColorSelector extends HBox {
 
     public AccentColorSelector() {
         super();
@@ -23,7 +23,7 @@ public class AccentColorSelector extends HBox {
     }
 
     private void createView() {
-        var resetBtn = new Button("", new FontIcon(Material2AL.CLEAR));
+        var resetBtn = new Button(null, new FontIcon(Material2AL.CLEAR));
         resetBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
         resetBtn.setOnAction(e -> ThemeManager.getInstance().resetAccentColor());
 
@@ -41,7 +41,7 @@ public class AccentColorSelector extends HBox {
         var icon = new Region();
         icon.getStyleClass().add("icon");
 
-        var btn = new Button("", icon);
+        var btn = new Button(null, icon);
         btn.getStyleClass().addAll(BUTTON_ICON, FLAT, "color-button");
         btn.setStyle("-color-primary:" + JColorUtils.toHexWithAlpha(accentColor.primaryColor()) + ";");
         btn.setUserData(accentColor);

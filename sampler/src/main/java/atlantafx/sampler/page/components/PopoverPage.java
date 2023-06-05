@@ -2,32 +2,26 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
-import atlantafx.base.controls.InlineDatePicker;
+import atlantafx.base.controls.Calendar;
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.Popover.ArrowLocation;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
-import atlantafx.sampler.theme.CSSFragment;
+import atlantafx.base.theme.Tweaks;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import org.kordamp.ikonli.feather.Feather;
-import org.kordamp.ikonli.javafx.FontIcon;
 
-public class PopoverPage extends AbstractPage {
+public final class PopoverPage extends OutlinePage {
 
     public static final String NAME = "Popover";
 
@@ -36,133 +30,125 @@ public class PopoverPage extends AbstractPage {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "controls/" + getName()));
+    }
+
     public PopoverPage() {
         super();
-        setUserContent(new VBox(Page.PAGE_VGAP,
-            new HBox(PAGE_HGAP, textSample(), datePickerSample(), dialogSample()),
-            positionSample()
+
+        addPageHeader();
+        addFormattedText("""
+            The [i]Popover[/i] is a control used to display additional information \
+            or perform actions. It appears as a small popup window that overlays the \
+            main interface, triggered by a user action such as a mouseover or tap. \
+            It provides contextual information or options related to a specific object \
+            or feature on the interface."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Position", positionExample());
+    }
+
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var textFlow = new TextFlow(new Text(
+            FAKER.lorem().sentence(30)
         ));
-    }
-
-    private SampleBlock textSample() {
-        var popover = new Popover(createTextFlow(30));
-        popover.setTitle("Lorem Ipsum");
-        popover.setHeaderAlwaysVisible(true);
-        popover.setDetachable(true);
-
-        var link = createHyperlink("Click me");
-        link.setOnAction(e -> popover.show(link));
-
-        return new SampleBlock("Text", link);
-    }
-
-    private SampleBlock datePickerSample() {
-        var datePicker = new InlineDatePicker();
-        datePicker.setValue(LocalDate.now(ZoneId.systemDefault()));
-
-        var popover = new Popover(datePicker);
-        popover.setHeaderAlwaysVisible(false);
-        popover.setDetachable(true);
-
-        var link = createHyperlink("Click me");
-        link.setOnAction(e -> popover.show(link));
-        new CSSFragment("""
-            .popover .date-picker-popup {
-              -color-date-border: transparent;
-              -color-date-bg: transparent;
-              -color-date-day-bg: transparent;
-              -color-date-month-year-bg: transparent;
-              -color-date-day-bg-hover: -color-bg-subtle;
-            }
-            """
-        ).addTo(link);
-
-        return new SampleBlock("Date Picker", link);
-    }
-
-    private SampleBlock dialogSample() {
-        var root = new VBox(BLOCK_VGAP);
-
-        var popover = new Popover(root);
-        popover.setHeaderAlwaysVisible(false);
-        popover.setDetachable(true);
-
-        var icon = new FontIcon(Feather.ALERT_TRIANGLE);
-        icon.setIconSize(32); // not always works
-        icon.setStyle(
-            "-fx-icon-size:32px;-fx-icon-color:-color-warning-fg;-fx-fill:-color-warning-fg;" + icon.getStyle());
-
-        var label = new Label(FAKER.chuckNorris().fact(), icon);
-        label.setStyle("-fx-graphic-text-gap:10;");
-        label.setWrapText(true);
-        label.setMaxWidth(300);
-        label.setMaxHeight(Double.MAX_VALUE);
-        root.getChildren().add(label);
-
-        var yesBtn = new Button("Yes");
-        yesBtn.setDefaultButton(true);
-        yesBtn.setOnAction(e -> popover.hide());
-
-        var noBtn = new Button("No");
-        noBtn.setOnAction(e -> popover.hide());
-
-        var box = new HBox(10, yesBtn, noBtn);
-        box.setPadding(new Insets(0, 0, 0, 42));
-        box.setAlignment(Pos.CENTER_LEFT);
-        root.getChildren().add(box);
-
-        var link = createHyperlink("Click me");
-        link.setOnAction(e -> popover.show(link));
-
-        return new SampleBlock("Dialog", link);
-    }
-
-    private SampleBlock positionSample() {
-        var grid = new GridPane();
-        grid.setHgap(BLOCK_HGAP);
-        grid.setVgap(BLOCK_VGAP);
-
-        grid.add(createArrowPositionBlock(ArrowLocation.TOP_LEFT), 0, 0);
-        grid.add(createArrowPositionBlock(ArrowLocation.TOP_CENTER), 0, 1);
-        grid.add(createArrowPositionBlock(ArrowLocation.TOP_RIGHT), 0, 2);
-
-        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_TOP), 1, 0);
-        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_CENTER), 1, 1);
-        grid.add(createArrowPositionBlock(ArrowLocation.RIGHT_BOTTOM), 1, 2);
-
-        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_LEFT), 2, 0);
-        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_CENTER), 2, 1);
-        grid.add(createArrowPositionBlock(ArrowLocation.BOTTOM_RIGHT), 2, 2);
-
-        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_TOP), 3, 0);
-        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_CENTER), 3, 1);
-        grid.add(createArrowPositionBlock(ArrowLocation.LEFT_BOTTOM), 3, 2);
-
-        return new SampleBlock("Position", grid);
-    }
-
-    private Hyperlink createHyperlink(String text) {
-        Hyperlink hyperlink = new Hyperlink(text);
-        hyperlink.setMinWidth(50);
-        hyperlink.setMinHeight(50);
-        hyperlink.setAlignment(Pos.CENTER_LEFT);
-        return hyperlink;
-    }
-
-    private TextFlow createTextFlow(int wordCount) {
-        var textFlow = new TextFlow(new Text(FAKER.lorem().sentence(wordCount)));
         textFlow.setPrefWidth(300);
-        return textFlow;
+        textFlow.setPadding(new Insets(10, 0, 10, 0));
+
+        var pop1 = new Popover(textFlow);
+        pop1.setTitle("Lorem Ipsum");
+        pop1.setHeaderAlwaysVisible(true);
+        pop1.setDetachable(true);
+
+        var link1 = new Hyperlink("Text");
+        link1.setOnAction(e -> pop1.show(link1));
+
+        // ~
+        var cal = new Calendar();
+        cal.setValue(LocalDate.now(ZoneId.systemDefault()));
+        cal.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
+
+        var pop2 = new Popover(cal);
+        pop2.setHeaderAlwaysVisible(false);
+        pop2.setDetachable(true);
+
+        var link2 = new Hyperlink("Calendar");
+        link2.setOnAction(e -> pop2.show(link2));
+        //snippet_1:end
+
+        var box = new HBox(HGAP_30, link1, link2);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            The popup window has a very lightweight appearance (no default window decorations) \
+            and an arrow pointing at the owner. Due to the nature of popup windows the \
+            [i]Popover[/i] will move around with the parent window when the user drags it."""
+        );
+
+        var example = new ExampleBox(box, new Snippet(getClass(), 1), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 
-    private Hyperlink createArrowPositionBlock(ArrowLocation arrowLocation) {
-        var popover = new Popover(createTextFlow(50));
-        popover.setHeaderAlwaysVisible(false);
-        popover.setArrowLocation(arrowLocation);
+    private ExampleBox positionExample() {
+        //snippet_2:start
+        class PopoverLink extends Hyperlink {
 
-        var link = createHyperlink(String.valueOf(arrowLocation));
-        link.setOnAction(e -> popover.show(link));
+            public PopoverLink(ArrowLocation arrowLocation) {
+                super();
 
-        return link;
+                var textFlow = new TextFlow(new Text(
+                    FAKER.lorem().sentence(30)
+                ));
+                textFlow.setPrefWidth(300);
+                textFlow.setPadding(new Insets(10, 0, 10, 0));
+
+                var pop = new Popover(textFlow);
+                pop.setHeaderAlwaysVisible(false);
+                pop.setArrowLocation(arrowLocation);
+
+                setText(String.valueOf(arrowLocation));
+                setOnAction(e -> pop.show(this));
+            }
+        }
+
+        var grid = new GridPane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        grid.addColumn(0,
+            new PopoverLink(ArrowLocation.TOP_LEFT),
+            new PopoverLink(ArrowLocation.TOP_CENTER),
+            new PopoverLink(ArrowLocation.TOP_RIGHT)
+        );
+        grid.addColumn(1,
+            new PopoverLink(ArrowLocation.RIGHT_TOP),
+            new PopoverLink(ArrowLocation.RIGHT_CENTER),
+            new PopoverLink(ArrowLocation.RIGHT_BOTTOM)
+        );
+        grid.addColumn(2,
+            new PopoverLink(ArrowLocation.BOTTOM_LEFT),
+            new PopoverLink(ArrowLocation.BOTTOM_CENTER),
+            new PopoverLink(ArrowLocation.BOTTOM_RIGHT)
+        );
+        grid.addColumn(3,
+            new PopoverLink(ArrowLocation.LEFT_TOP),
+            new PopoverLink(ArrowLocation.LEFT_CENTER),
+            new PopoverLink(ArrowLocation.LEFT_BOTTOM)
+        );
+        //snippet_2:end
+
+        var description = BBCodeParser.createFormattedText("""
+            The [i]Popover[/i] popup window can be positioned by setting an \
+            appropriate ArrowLocation value.."""
+        );
+
+        var example = new ExampleBox(grid, new Snippet(getClass(), 2), description);
+        example.setAllowDisable(false);
+
+        return example;
     }
 }

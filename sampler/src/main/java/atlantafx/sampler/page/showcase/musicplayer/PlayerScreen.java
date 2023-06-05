@@ -31,20 +31,29 @@ final class PlayerScreen extends SplitPane {
             var domColor = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 1);
+
+            var domColor10 = Objects.equals(Color.TRANSPARENT, val)
+                ? Color.TRANSPARENT
+                : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 0.1);
+
             var domColor20 = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 0.2);
+
             var domColor50 = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 0.5);
+
             var domColor70 = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 0.7);
+
             setStyle("-color-dominant:" + toHexWithAlpha(domColor) + ";"
+                + "-color-dominant-10:" + toHexWithAlpha(domColor10) + ";"
                 + "-color-dominant-20:" + toHexWithAlpha(domColor20) + ";"
                 + "-color-dominant-50:" + toHexWithAlpha(domColor50) + ";"
                 + "-color-dominant-70:" + toHexWithAlpha(domColor70) + ";"
-                + "-color-dominant-border:" + toHexWithAlpha(domColor70) + ";"
+                + "-color-dominant-border:" + toHexWithAlpha(domColor50) + ";"
             );
         });
     }

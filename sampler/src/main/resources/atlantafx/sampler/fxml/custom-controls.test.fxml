@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.Breadcrumbs?>
+<?import atlantafx.base.controls.Calendar?>
+<?import atlantafx.base.controls.Card?>
+<?import atlantafx.base.controls.CustomTextField?>
+<?import atlantafx.base.controls.PasswordTextField?>
+<?import atlantafx.base.controls.RingProgressIndicator?>
+<?import atlantafx.base.controls.Spacer?>
+<?import atlantafx.base.controls.Tile?>
+<?import atlantafx.base.controls.ToggleSwitch?>
+<?import atlantafx.base.layout.DeckPane?>
+<?import atlantafx.base.layout.InputGroup?>
+<?import atlantafx.base.layout.ModalBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="897.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: green;" text="Breadcrumbs" />
+      <Breadcrumbs layoutX="14.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="280.0" style="-fx-border-color: red;" />
+      <Calendar layoutX="14.0" layoutY="107.0" />
+      <CustomTextField layoutX="14.0" layoutY="470.0" prefHeight="36.0" prefWidth="264.0" text="Text" />
+      <Label layoutX="14.0" layoutY="442.0" style="-fx-text-fill: green;" text="CustomTextField" />
+      <ToggleSwitch layoutX="411.0" layoutY="33.0" />
+      <Separator layoutX="295.0" layoutY="15.0" orientation="VERTICAL" prefHeight="759.0" prefWidth="25.0" />
+      <PasswordTextField layoutX="14.0" layoutY="546.0" prefHeight="36.0" prefWidth="264.0" text="password" />
+      <Label layoutX="14.0" layoutY="517.0" style="-fx-text-fill: green;" text="PasswordTextField" />
+      <RingProgressIndicator layoutX="326.0" layoutY="25.0" progress="0.35" />
+      <Tile layoutX="320.0" layoutY="209.0" prefHeight="73.0" prefWidth="483.0" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fermentum, quam eu pretium euismod, ipsum mauris interdum massa, at scelerisque nulla augue a nunc. Vivamus vehicula rhoncus est, ut placerat nulla pellentesque vel. Duis ac mattis sapien. " title="Title" />
+      <InputGroup layoutX="526.0" layoutY="57.0">
+         <children>
+            <ToggleButton mnemonicParsing="false" text="Toggle1" />
+            <ToggleButton mnemonicParsing="false" text="Toggle2" />
+            <ToggleButton layoutX="124.0" layoutY="10.0" mnemonicParsing="false" text="Toggle3" />
+         </children>
+      </InputGroup>
+      <Label layoutX="527.0" layoutY="23.0" style="-fx-text-fill: green;" text="InputGroup" />
+      <HBox alignment="CENTER_LEFT" layoutX="527.0" layoutY="137.0" prefHeight="56.0" prefWidth="280.0" style="-fx-border-color: red;">
+         <children>
+            <Label text="Left" />
+            <Spacer prefHeight="73.0" prefWidth="219.0" />
+            <Label layoutX="10.0" layoutY="10.0" text="Right" />
+         </children>
+      </HBox>
+      <Label layoutX="526.0" layoutY="108.0" style="-fx-text-fill: green;" text="Spacer" />
+      <VBox layoutX="863.0" layoutY="128.0" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: red;">
+         <children>
+            <Label text="Top" />
+            <Spacer />
+            <Label layoutX="10.0" layoutY="10.0" text="Bottom" />
+         </children>
+      </VBox>
+      <Label layoutX="336.0" layoutY="183.0" style="-fx-text-fill: green;" text="Tile" />
+      <ModalBox layoutX="326.0" layoutY="459.0" prefHeight="175.0" prefWidth="264.0" style="-fx-border-color: red;" />
+      <Label layoutX="325.0" layoutY="432.0" style="-fx-text-fill: green;" text="ModalBox" />
+      <Card layoutX="641.0" layoutY="457.0" prefHeight="229.0" prefWidth="309.0" styleClass="elevated-2" />
+      <Label layoutX="642.0" layoutY="432.0" style="-fx-text-fill: green;" text="Card" />
+      <DeckPane layoutX="326.0" layoutY="695.0" prefHeight="127.0" prefWidth="264.0" style="-fx-border-color: red;" />
+      <Label layoutX="325.0" layoutY="665.0" style="-fx-text-fill: green;" text="DeckPane" />
+   </children>
+</AnchorPane>

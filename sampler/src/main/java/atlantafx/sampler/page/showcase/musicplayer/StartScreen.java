@@ -37,8 +37,6 @@ final class StartScreen extends BorderPane {
     }
 
     private void createView() {
-        var jumboIcon = new FontIcon(Feather.MUSIC);
-
         var noteText = new TextFlow(new Text(
             "Select a file or a folder."
         ));
@@ -54,9 +52,16 @@ final class StartScreen extends BorderPane {
         addFileBtn.setPrefWidth(150);
         addFileBtn.setOnAction(e -> addFile());
 
-        var controls = new VBox(10, addFolderBtn, addFileBtn);
+        var addDemoBtn = new Button("Play Demo");
+        addDemoBtn.getStyleClass().add(Styles.SUCCESS);
+        addDemoBtn.setPrefWidth(150);
+        addDemoBtn.setOnAction(e -> model.playDemo());
+
+        var controls = new VBox(10, addFolderBtn, addFileBtn, addDemoBtn);
         controls.setAlignment(Pos.CENTER);
         controls.setFillWidth(true);
+
+        var jumboIcon = new FontIcon(Feather.MUSIC);
 
         var content = new VBox(30, jumboIcon, noteText, controls);
         content.getStyleClass().add("content");

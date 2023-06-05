@@ -14,7 +14,7 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.theme.ThemeRepository;
-import atlantafx.sampler.util.Containers;
+import atlantafx.sampler.util.NodeUtils;
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
@@ -35,7 +35,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 @SuppressWarnings("UnnecessaryLambda")
-class ThemeRepoManager extends VBox {
+final class ThemeRepoManager extends VBox {
 
     private static final Executor THREAD_POOL = Executors.newFixedThreadPool(3);
     private static final ThemeRepository REPO = ThemeManager.getInstance().getRepository();
@@ -63,7 +63,7 @@ class ThemeRepoManager extends VBox {
         REPO.getAll().forEach(theme -> themeList.getChildren().add(themeCell(theme)));
 
         var scrollPane = new ScrollPane(themeList);
-        Containers.setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
+        NodeUtils.setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
         scrollPane.setMaxHeight(4000);
         VBox.setVgrow(scrollPane, ALWAYS);
 
@@ -182,7 +182,7 @@ class ThemeRepoManager extends VBox {
 
             // == CONTROLS ==
 
-            deleteBtn = new Button("", new FontIcon(Material2OutlinedAL.DELETE));
+            deleteBtn = new Button(null, new FontIcon(Material2OutlinedAL.DELETE));
             deleteBtn.getStyleClass().addAll(BUTTON_ICON, BUTTON_CIRCLE, FLAT, DANGER);
             deleteBtn.setOnAction(e -> {
                 if (deleteHandler != null) {

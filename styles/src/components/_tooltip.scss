@@ -14,8 +14,10 @@ $padding-y: cfg.$padding-y !default;
 .tooltip {
   -fx-background-color: $color-border, $color-bg;
   -fx-background-insets: 0, cfg.$border-width;
-  -fx-text-fill: $color-fg;
   -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+  -fx-text-fill: $color-fg;
+  -fx-font-size: cfg.$font-default;
+  -fx-font-weight: normal;
   -fx-padding: $padding-y $padding-x $padding-y $padding-x;
   -fx-opacity: $opacity;
   @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);

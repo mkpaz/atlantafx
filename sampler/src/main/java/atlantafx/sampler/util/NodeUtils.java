@@ -3,16 +3,43 @@
 package atlantafx.sampler.util;
 
 import java.util.List;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public final class NodeUtils {
 
     public static void toggleVisibility(Node node, boolean on) {
         node.setVisible(on);
         node.setManaged(on);
+    }
+
+    public static void setAnchors(Node node, Insets insets) {
+        if (insets.getTop() >= 0) {
+            AnchorPane.setTopAnchor(node, insets.getTop());
+        }
+        if (insets.getRight() >= 0) {
+            AnchorPane.setRightAnchor(node, insets.getRight());
+        }
+        if (insets.getBottom() >= 0) {
+            AnchorPane.setBottomAnchor(node, insets.getBottom());
+        }
+        if (insets.getLeft() >= 0) {
+            AnchorPane.setLeftAnchor(node, insets.getLeft());
+        }
+    }
+
+    public static void setScrollConstraints(ScrollPane scrollPane,
+                                            ScrollPane.ScrollBarPolicy vbarPolicy, boolean fitHeight,
+                                            ScrollPane.ScrollBarPolicy hbarPolicy, boolean fitWidth) {
+        scrollPane.setVbarPolicy(vbarPolicy);
+        scrollPane.setFitToHeight(fitHeight);
+        scrollPane.setHbarPolicy(hbarPolicy);
+        scrollPane.setFitToWidth(fitWidth);
     }
 
     public static boolean isDoubleClick(MouseEvent e) {

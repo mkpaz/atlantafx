@@ -4,6 +4,9 @@ package atlantafx.sampler.theme;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
 import atlantafx.base.theme.NordDark;
 import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
@@ -34,7 +37,10 @@ public final class ThemeRepository {
         new SamplerTheme(new PrimerLight()),
         new SamplerTheme(new PrimerDark()),
         new SamplerTheme(new NordLight()),
-        new SamplerTheme(new NordDark())
+        new SamplerTheme(new NordDark()),
+        new SamplerTheme(new CupertinoLight()),
+        new SamplerTheme(new CupertinoDark()),
+        new SamplerTheme(new Dracula())
     );
 
     private final List<SamplerTheme> externalThemes = new ArrayList<>();

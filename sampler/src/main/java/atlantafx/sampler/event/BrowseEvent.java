@@ -4,7 +4,7 @@ package atlantafx.sampler.event;
 
 import java.net.URI;
 
-public class BrowseEvent extends Event {
+public final class BrowseEvent extends Event {
 
     private final URI uri;
 
@@ -21,5 +21,9 @@ public class BrowseEvent extends Event {
         return "BrowseEvent{"
             + "uri=" + uri
             + "} " + super.toString();
+    }
+
+    public static void fire(String url) {
+        Event.publish(new BrowseEvent(URI.create(url)));
     }
 }

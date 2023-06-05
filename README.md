@@ -1,29 +1,43 @@
-![logo](./.screenshots/logo.png)
+<h3 align="center">
+  <img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/sampler/icons/icon-rounded-64.png" alt="Logo"/><br/>
+  AtlantaFX
+</h3>
 
-![](https://img.shields.io/github/license/mkpaz/atlantafx)
-![](https://img.shields.io/github/v/release/mkpaz/atlantafx)
-![](https://img.shields.io/github/last-commit/mkpaz/atlantafx/master)
+<p align="center">
+    <a href="https://github.com/mkpaz/atlantafx/stargazers"><img src="https://img.shields.io/github/license/mkpaz/atlantafx?style=for-the-badge" alt="License"></a>
+    <a href="https://github.com/mkpaz/atlantafx/releases"><img src="https://img.shields.io/github/v/release/mkpaz/atlantafx?5&style=for-the-badge" alt="Latest Version"></a>
+    <a href="https://github.com/mkpaz/atlantafx/issues"><img src="https://img.shields.io/github/issues/mkpaz/atlantafx?style=for-the-badge" alt="Open Issues"></a>
+    <a href="https://github.com/mkpaz/atlantafx/contributors"><img src="https://img.shields.io/github/contributors/mkpaz/atlantafx?5&style=for-the-badge" alt="Contributors"></a>
+</p>
 
-**[Docs](https://mkpaz.github.io/atlantafx/) | [Screenshots](https://github.com/mkpaz/atlantafx/tree/master/.screenshots)**
+<p align="center">
+Modern JavaFX CSS theme collection with additional controls.
+</p>
+<p align="center"><b>
+See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
+</b></p>
 
-JavaFX CSS theme collection with additional controls.
+<p align="center">
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/blueprints_primer-light.png" alt="blueprints"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/overview_primer-dark.png" alt="overview"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/toolbar_dracula.png" alt="page"/><br/>
+<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/titlepage/notifications_cupertino-dark.png" alt="page"/><br/>
+</p>
 
-* Modern flat interface inspired by the variety of Web component frameworks.
-* CSS first. It works with existing JavaFX controls.
-* Two themes in both light and dark variants. 
+* Flat interface inspired by the variety of Web component frameworks.
+* CSS first! It works with existing JavaFX controls.
+* Two themes in both light and dark variants.
 * Simple and intuitive color system based on the [GitHub Primer guidelines](https://primer.style/design/foundations/color).
 * Fully customizable. Easily change global accent (brand) color or individual control via looked-up color variables.
 * Written in modular [SASS](https://sass-lang.com/). No more digging in 3,500 lines of CSS code.
 * [Custom themes support](https://github.com/mkpaz/atlantafx-sample-theme). Compile your own theme from existing SASS sources.
 * Additional controls that essential for modern GUI development.
-* Sampler app:
-  * Play with themes and fonts.
+* Beautiful demo app:
+  * Preview all supported themes.
   * Test every feature of each existing control and check source code directly in the app to learn how to implement it.
   * Check color palette and modify theme color contrast.
   * Hot reload. Play with control styles without restarting the whole app.
   * Showcases to demonstrate real-world project usage.
-
-![alt](./.screenshots/demo.gif)
 
 ## Try it out
 
@@ -35,40 +49,63 @@ Or download the latest build on the [releases page](https://github.com/mkpaz/atl
 
 **Requirements:** JavaFX 17+ (because of `data-url` support).
 
+Maven:
+
 ```xml
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>1.2.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
+
+Gradle:
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.mkpaz:atlantafx-base:2.0.0'
+}
+```
+
+Set a theme:
+
+```java
+public class Launcher extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        // find more themes in 'atlantafx.base.theme' package
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+
+        // the rest of the code ...
+    }
+}
+```
+
+### Local Installation
+
+If you don't want to use additional dependencies, you can download compiled CSS themes from the [GitHub Releases](https://github.com/mkpaz/atlantafx/releases). Unpack `AtlantaFX-*-themes.zip` and place it to your project's classpath.
 
 Set CSS theme:
 
 ```java
-Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-// ... find more themes in 'atlantafx.base.theme' package
+Application.setUserAgentStylesheet(/* path to the CSS file */);
 ```
 
-Check the [docs](https://mkpaz.github.io/atlantafx/) for more information.
+Or use Java property:
 
-## SceneBuilder Integration
-
-While SceneBuilder does not support adding custom themes, it is possible to overwrite looked up css paths to make the existing buttons load custom css files. In order to use AtlantaFX in SceneBuilder you need to
-
-1. run `mvn package -pl styles` to generate theme css files with the correct path names
-2. copy `styles/target/AtlantaFX-${version}-scenebuilder.zip` to the SceneBuilder `$APPDIR` (e.g. `%HOMEPATH%/Local/SceneBuilder/app/` on Windows) or another directory of your choice
-3. open `SceneBuilder.cfg` in the SceneBuilder app directory and add the zip file to the beginning of the `app.classpath` variable (e.g.  `app.classpath=$APPDIR\AtlantaFX-${version}-scenebuilder.zip;$APPDIR\scenebuilder-18.0.0-all.jar` on Windows)
-
-After restarting SceneBuilder you can now select AtlantaFX themes in the menu `Preview -> Themes -> Caspian Embedded (FX2)`. The themes are mapped as follows
-
-| SceneBuilder                | Modifier                    | AtlantaFX Theme |
-|-----------------------------|-----------------------------|-----------------|
-| Caspian Embedded (FX2)      | None                        | Primer Light    |
-| Caspian Embedded (FX2)      | Caspian High Contrast (FX2) | Primer Dark     |
-| Caspian Embedded QVGA (FX2) | None                        | Nord Light      |
-| Caspian Embedded QVGA (FX2) | Caspian High Contrast (FX2) | Nord Dark       |
+```text
+-Djavafx.userAgentStylesheetUrl=[URL]
+```
 
 ## Contributing
 
@@ -84,39 +121,3 @@ Here are some areas, where you can help the project:
 4. Adding or improving app showcases, which demonstrates how AtlantaFX looks in real-world that helps to find more areas for improvement.
 5. Improving docs, because good docs is the face of the project.
 6. Advertising the project.
-
-Also, if you created a custom AtlantaFX theme or using AtlantaFX in your app feel free to open an issue, and I will add the link to the project page.
-
-## Motivation
-
-**Goals**:
-
-* SASS
-
-  JavaFX standard themes, namely Modena and Caspian, maintained as a huge single CSS file, which is an overwhelmingly hard task. This alone makes creating a new JavaFX theme from scratch hardly possible. Also, JavaFX styling is based on CSS v2.1 specification which does not provide, nor variables, nor mixins, nor modules nor any other goodies that are default for modern front-end development. AtlantaFX themes are written in SASS with each component in a separate module and use recent [Dart SASS](https://sass-lang.com/dart-sass) implementation for CSS compilation. It also follows [GitHub Primer](https://primer.style/design/foundations/color) color system to make creating new themes more simple.
-
-* Additional controls
-
-  JavaFX 2.0 was started in 2011, and it introduced no additional controls since then. Some JavaFX controls are obsolete, some can be found in popular third-party libraries like [ControlsFX](https://github.com/controlsfx/controlsfx). The problem with the latter is that it provides much more than some missing controls. It provides many things that can be called a widget. That's why AtlantaFX borrows some existing controls from ControlsFX instead of supporting it directly. The rule of the thumb is to not re-invent any existing control from `javafx-controls` and to avoid widgets as well as everything that requires i18n support.
-
-* Sampler application
-
-  Theme development is not possible without some kind of demo application where you can test each control under every angle. That's what the Sampler application is. It supports hot reload, thanks to [cssfx](https://github.com/McFoggy/cssfx), and you can observe the scene graph via [Scenic View](https://github.com/JonathanGiles/scenic-view).
-
-* Distribution and flexibility
-
-  AtlantaFX is also distributed as a collection of CSS files. So, if you don't need additional controls, you can just download only CSS and use it via `Application.setUserAgentStylesheet()` method. If your application is only needs a subset of controls, you can compile your own theme by just removing unnecessary components from SASS.
-
-**Non-goals**:
-
-* Replacing `javafx-controls` or standard JavaFX themes
-
-  It's not a goal to re-invent any existing `javafx-controls` component or replace standard JavaFX themes. Libraries come and gone, but committing to the core project benefits all the community.
-
-* Mobile support
-
-  This is a tremendous amount of work. Just use [Gluon Mobile](https://gluonhq.com/products/mobile/).
-
-* Providing theme API
-
-  AtlantaFX provides the Theme interface, which is nothing but a simple wrapper around the stylesheet path. [PR](https://github.com/openjdk/jfx/pull/511) is on its way, let's hope it will ever be merged.

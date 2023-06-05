@@ -5,6 +5,9 @@ package atlantafx.sampler.theme;
 import static atlantafx.sampler.Resources.getResource;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.Dracula;
 import atlantafx.base.theme.NordDark;
 import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
@@ -26,10 +29,18 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public final class ThemeManager {
 
@@ -38,7 +49,10 @@ public final class ThemeManager {
         Resources.resolve("assets/styles/index.css")
     };
     static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
-        PrimerLight.class, PrimerDark.class, NordLight.class, NordDark.class
+        PrimerLight.class, PrimerDark.class,
+        NordLight.class, NordDark.class,
+        CupertinoLight.class, CupertinoDark.class,
+        Dracula.class
     );
 
     private static final PseudoClass DARK = PseudoClass.getPseudoClass("dark");
@@ -92,6 +106,10 @@ public final class ThemeManager {
      */
     public void setTheme(SamplerTheme theme) {
         Objects.requireNonNull(theme);
+
+        if (currentTheme != null) {
+            animateThemeChange(Duration.millis(750));
+        }
 
         Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
         getScene().getStylesheets().setAll(theme.getAllStylesheets());
@@ -177,6 +195,8 @@ public final class ThemeManager {
     public void setAccentColor(AccentColor color) {
         Objects.requireNonNull(color);
 
+        animateThemeChange(Duration.millis(350));
+
         if (accentColor != null) {
             getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
         }
@@ -188,6 +208,8 @@ public final class ThemeManager {
     }
 
     public void resetAccentColor() {
+        animateThemeChange(Duration.millis(350));
+
         if (accentColor != null) {
             getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
             accentColor = null;
@@ -223,6 +245,9 @@ public final class ThemeManager {
         if ("Nord Dark".equals(theme.getName())) {
             return HighlightJSTheme.nordDark();
         }
+        if ("Dracula".equals(theme.getName())) {
+            return HighlightJSTheme.dracula();
+        }
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }
 
@@ -257,6 +282,21 @@ public final class ThemeManager {
         } else {
             removeCustomDeclaration(colorName);
         }
+    }
+
+    private void animateThemeChange(Duration duration) {
+        Image snapshot = scene.snapshot(null);
+        Pane root = (Pane) scene.getRoot();
+
+        ImageView imageView = new ImageView(snapshot);
+        root.getChildren().add(imageView); // add snapshot on top
+
+        var transition = new Timeline(
+            new KeyFrame(Duration.ZERO, new KeyValue(imageView.opacityProperty(), 1, Interpolator.EASE_OUT)),
+            new KeyFrame(duration, new KeyValue(imageView.opacityProperty(), 0, Interpolator.EASE_OUT))
+        );
+        transition.setOnFinished(e -> root.getChildren().remove(imageView));
+        transition.play();
     }
 
     private void reloadCustomCSS() {

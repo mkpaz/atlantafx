@@ -9,6 +9,7 @@ module atlantafx.sampler {
     requires javafx.swing;
     requires javafx.media;
     requires javafx.web;
+    requires javafx.fxml;
 
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
@@ -20,7 +21,6 @@ module atlantafx.sampler {
     requires datafaker;
 
     exports atlantafx.sampler;
-    exports atlantafx.sampler.fake;
     exports atlantafx.sampler.fake.domain;
     exports atlantafx.sampler.event;
     exports atlantafx.sampler.layout;
@@ -39,4 +39,6 @@ module atlantafx.sampler {
     opens atlantafx.sampler.assets.styles;
     opens atlantafx.sampler.images;
     opens atlantafx.sampler.images.modena;
+    opens atlantafx.sampler.page.general;
+    opens atlantafx.sampler.page.showcase;
 }

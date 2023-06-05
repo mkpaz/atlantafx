@@ -8,12 +8,14 @@ $line-width: cfg.$border-width   !default;
 
 .separator {
 
+  -color-separator: $line-color;
+
   &:horizontal {
     -fx-padding: $padding 0 $padding 0;
 
     // using border instead of insets to get thinner line
     >.line {
-      -fx-border-color: $line-color transparent transparent transparent;
+      -fx-border-color: -color-separator transparent transparent transparent;
       -fx-border-insets: $line-width 0 0 0;
     }
   }
@@ -22,7 +24,7 @@ $line-width: cfg.$border-width   !default;
     -fx-padding: 0 $padding 0 $padding;
 
     >.line {
-      -fx-border-color: transparent transparent transparent $line-color;
+      -fx-border-color: transparent transparent transparent -color-separator;
       -fx-border-insets: 0 0 0 $line-width;
     }
   }

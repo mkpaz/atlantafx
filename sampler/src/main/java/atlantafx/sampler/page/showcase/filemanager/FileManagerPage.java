@@ -2,21 +2,16 @@
 
 package atlantafx.sampler.page.showcase.filemanager;
 
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.base.theme.Styles.FLAT;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_ANY;
 import static atlantafx.sampler.page.showcase.filemanager.FileList.PREDICATE_NOT_HIDDEN;
 import static atlantafx.sampler.page.showcase.filemanager.Utils.openFile;
-import static atlantafx.sampler.util.Controls.hyperlink;
-import static atlantafx.sampler.util.Controls.iconButton;
 
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.Breadcrumbs.BreadCrumbItem;
 import atlantafx.base.controls.Spacer;
-import atlantafx.base.theme.Tweaks;
+import atlantafx.base.theme.Styles;
 import atlantafx.sampler.page.showcase.ShowcasePage;
-import atlantafx.sampler.util.Containers;
-import java.net.URI;
+import atlantafx.sampler.util.NodeUtils;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,25 +19,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.kordamp.ikonli.material2.Material2MZ;
+import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
 public class FileManagerPage extends ShowcasePage {
 
@@ -64,31 +59,38 @@ public class FileManagerPage extends ShowcasePage {
     }
 
     private void createView() {
-        var backBtn = iconButton(Feather.ARROW_LEFT, false);
+        var backBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
+        backBtn.getStyleClass().add(Styles.BUTTON_ICON);
         backBtn.setOnAction(e -> model.back());
         backBtn.disableProperty().bind(model.getHistory().canGoBackProperty().not());
+        backBtn.setTooltip(new Tooltip("Back"));
 
-        var forthBtn = iconButton(Feather.ARROW_RIGHT, false);
+        var forthBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
+        forthBtn.getStyleClass().add(Styles.BUTTON_ICON);
         forthBtn.setOnAction(e -> model.forth());
         forthBtn.disableProperty().bind(model.getHistory().canGoForthProperty().not());
+        forthBtn.setTooltip(new Tooltip("Forward"));
 
-        Breadcrumbs<Path> breadcrumbs = breadCrumbs();
+        Breadcrumbs<Path> breadcrumbs = createBreadcrumbs();
+        breadcrumbs.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(breadcrumbs, Priority.ALWAYS);
         breadcrumbs.setOnCrumbAction(e -> model.navigate(e.getSelectedCrumb().getValue(), true));
 
-        var createMenuBtn = new MenuButton();
-        createMenuBtn.setText("New");
-        createMenuBtn.getItems().setAll(
-            new MenuItem("New Folder"),
-            new MenuItem("New Document")
-        );
+        var createBtn = new Button(null, new FontIcon(Feather.FOLDER));
+        createBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        createBtn.getStyleClass().add(Styles.BUTTON_ICON);
 
-        var toggleHiddenCheck = new CheckMenuItem("Show Hidden Files");
-        toggleHiddenCheck.setSelected(false);
+        var treeTgl = new ToggleButton("", new FontIcon(Material2OutlinedAL.ACCOUNT_TREE));
+        treeTgl.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        treeTgl.getStyleClass().add(Styles.BUTTON_ICON);
+        treeTgl.setSelected(true);
+        treeTgl.setTooltip(new Tooltip("Show tree"));
 
-        var menuBtn = new MenuButton();
-        menuBtn.setGraphic(new FontIcon(Material2MZ.MENU));
-        menuBtn.getItems().setAll(toggleHiddenCheck);
-        menuBtn.getStyleClass().addAll(BUTTON_ICON, Tweaks.NO_ARROW);
+        var hiddenTgl = new ToggleButton("", new FontIcon(Material2OutlinedAL.FILTER_LIST));
+        hiddenTgl.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        hiddenTgl.getStyleClass().add(Styles.BUTTON_ICON);
+        hiddenTgl.setSelected(true);
+        hiddenTgl.setTooltip(new Tooltip("Show hidden files"));
 
         var topBar = new ToolBar();
         topBar.getItems().setAll(
@@ -96,18 +98,19 @@ public class FileManagerPage extends ShowcasePage {
             forthBtn,
             new Spacer(10),
             breadcrumbs,
-            new Spacer(),
-            createMenuBtn,
-            menuBtn
+            new Spacer(10),
+            treeTgl,
+            hiddenTgl
         );
 
         // ~
+        var dirTree = new DirectoryTree(model, Model.USER_HOME.toFile());
+        dirTree.setMinWidth(100);
 
-        BookmarkList bookmarksList = new BookmarkList(model);
-
-        DirectoryView directoryView = new TableDirectoryView();
-        directoryView.setDirectory(model.currentPathProperty().get());
-        directoryView.setOnAction(path -> {
+        var dirView = new TableDirectoryView();
+        dirView.setMinWidth(300);
+        dirView.setDirectory(model.currentPathProperty().get());
+        dirView.setOnAction(path -> {
             if (Files.isDirectory(path)) {
                 model.navigate(path, true);
             } else {
@@ -116,40 +119,32 @@ public class FileManagerPage extends ShowcasePage {
         });
 
         // ~
-
-        var splitPane = new SplitPane(bookmarksList, directoryView.getView());
+        var splitPane = new SplitPane(dirTree, dirView.getView());
         splitPane.widthProperty().addListener(
             // set sidebar width in pixels depending on split pane width
-            (obs, old, val) -> splitPane.setDividerPosition(0, 200 / splitPane.getWidth())
+            (obs, old, val) -> splitPane.setDividerPosition(0, 300 / splitPane.getWidth())
         );
-
-        var aboutBox = new HBox(new Text(
-            "Simple file manager. You can traverse through the file system and open files"
-                + " via default system application."
-        ));
-        aboutBox.setPadding(new Insets(5, 0, 5, 0));
-        aboutBox.getStyleClass().add("about");
-
-        var creditsBox = new HBox(5,
-            new Text("Inspired by ©"),
-            hyperlink("Gnome Files", URI.create("https://gitlab.gnome.org/GNOME/nautilus"))
-        );
-        creditsBox.getStyleClass().add("credits");
-        creditsBox.setAlignment(Pos.CENTER_RIGHT);
-        creditsBox.setPadding(new Insets(5, 0, 5, 0));
 
         var root = new BorderPane();
-        root.getStyleClass().add("file-manager-showcase");
+        root.setId("file-manager-showcase");
         root.getStylesheets().add(STYLESHEET_URL);
-        root.setTop(new VBox(aboutBox, topBar));
+        root.setTop(new VBox(topBar));
         root.setCenter(splitPane);
-        root.setBottom(creditsBox);
 
-        toggleHiddenCheck.selectedProperty().addListener((obs, old, val) -> directoryView.getFileList()
+        hiddenTgl.selectedProperty().addListener((obs, old, val) -> dirView.getFileList()
             .predicateProperty()
-            .set(val ? PREDICATE_ANY : PREDICATE_NOT_HIDDEN)
+            .set(!val ? PREDICATE_ANY : PREDICATE_NOT_HIDDEN)
         );
-        directoryView.getFileList().predicateProperty().set(PREDICATE_NOT_HIDDEN);
+        dirView.getFileList().predicateProperty().set(PREDICATE_NOT_HIDDEN);
+
+        treeTgl.selectedProperty().addListener((obs, old, val) -> {
+            if (val) {
+                splitPane.getItems().add(0, dirTree);
+                splitPane.setDividerPosition(0, 300 / splitPane.getWidth());
+            } else {
+                splitPane.getItems().remove(dirTree);
+            }
+        });
 
         model.currentPathProperty().addListener((obs, old, val) -> {
             if (!Files.isReadable(val)) {
@@ -161,23 +156,30 @@ public class FileManagerPage extends ShowcasePage {
             breadcrumbs.setSelectedCrumb(
                 Breadcrumbs.buildTreeModel(getParentPath(val, 4).toArray(Path[]::new))
             );
-            directoryView.setDirectory(val);
+            dirView.setDirectory(val);
         });
 
-        showcase.getChildren().setAll(root);
-        Containers.setAnchors(root, Insets.EMPTY);
+        setWindowTitle("File Manager", new FontIcon(Material2AL.FOLDER));
+        setAboutInfo("""
+            This is a simple file manager. You can navigate through \
+            the file system and open files using the default system application."""
+        );
+        setShowCaseContent(root, MAX_WIDTH, 600);
+
+        NodeUtils.setAnchors(root, Insets.EMPTY);
     }
 
-    private Breadcrumbs<Path> breadCrumbs() {
+    private Breadcrumbs<Path> createBreadcrumbs() {
         Callback<BreadCrumbItem<Path>, ButtonBase> crumbFactory = crumb -> {
-            var btn = new Button(crumb.getValue().getFileName().toString());
-            btn.getStyleClass().add(FLAT);
-            btn.setFocusTraversable(false);
-            return btn;
+            var hyperlink = new Hyperlink(crumb.getValue().getFileName().toString());
+            hyperlink.setFocusTraversable(false);
+            return hyperlink;
         };
 
         Callback<BreadCrumbItem<Path>, ? extends Node> dividerFactory = item ->
-            item != null && !item.isLast() ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT)) : null;
+            item != null && !item.isLast()
+                ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT))
+                : null;
 
         var breadcrumbs = new Breadcrumbs<Path>();
         breadcrumbs.setAutoNavigationEnabled(false);

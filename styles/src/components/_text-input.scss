@@ -9,6 +9,7 @@ $color-border: -color-border-default !default;
 $color-bg-focused: -color-bg-default !default;
 $color-border-focused: -color-accent-emphasis !default;
 
+$color-bg-readonly:  -color-bg-subtle  !default;
 $color-bg-highlight: -color-accent-subtle !default;
 $color-fg-highlight: -color-fg-default !default;
 
@@ -33,6 +34,7 @@ $color-fg-password: -color-fg-muted !default;
   -color-input-bg-focused: $color-bg-focused;
   -color-input-border-focused: $color-border-focused;
 
+  -color-input-bg-readonly:  $color-bg-readonly;
   -color-input-bg-highlight: $color-bg-highlight;
   -color-input-fg-highlight: $color-fg-highlight;
 
@@ -74,6 +76,20 @@ $color-fg-password: -color-fg-muted !default;
     -color-input-fg: $color-fg-danger;
     -color-input-border: $color-border-danger;
     -color-input-border-focused: $color-border-danger;
+  }
+
+  &:readonly {
+    -fx-background-color: -color-input-border, -color-input-bg-readonly;
+  }
+
+  &:readonly:focused {
+    -fx-background-color: -color-input-border-focused, -color-input-bg-readonly;
+  }
+
+  &.edge-to-edge {
+    -fx-background-color: -color-input-bg;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
   }
 
   // input group

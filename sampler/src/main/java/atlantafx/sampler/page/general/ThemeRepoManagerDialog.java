@@ -3,25 +3,22 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.OverlayDialog;
+import atlantafx.sampler.layout.ModalDialog;
 import java.io.File;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2MZ;
 
-class ThemeRepoManagerDialog extends OverlayDialog<ThemeRepoManager> {
+class ThemeRepoManagerDialog extends ModalDialog {
 
     private final ThemeRepoManager repoManager = new ThemeRepoManager();
 
     public ThemeRepoManagerDialog() {
-        setId("theme-repo-manager-dialog");
-        setTitle("Theme Manager");
-        setContent(repoManager);
+        super();
 
-        var addBtn = new Button("Add", new FontIcon(Material2MZ.PLUS));
+        var addBtn = new Button("Add custom theme", new FontIcon(Material2MZ.PLUS));
         addBtn.getStyleClass().add(Styles.ACCENT);
         addBtn.setOnAction(e -> {
             var fileChooser = new FileChooser();
@@ -32,8 +29,15 @@ class ThemeRepoManagerDialog extends OverlayDialog<ThemeRepoManager> {
             }
         });
 
-        footerBox.getChildren().add(0, addBtn);
-        footerBox.setAlignment(Pos.CENTER_LEFT);
+        setId("theme-repo-manager-dialog");
+        header.setTitle("Theme Manager");
+        content.setBody(repoManager);
+        content.setMinSize(800, 500);
+        content.setMaxSize(800, 500);
+
+        var footer = createDefaultFooter();
+        footer.getChildren().add(0, addBtn);
+        content.setFooter(footer);
     }
 
     public ThemeRepoManager getContent() {

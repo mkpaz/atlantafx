@@ -1,0 +1,92 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+$color-bg:     -color-bg-default !default;
+$color-border: -color-border-default !default;
+$padding-x:    0.75em !default;
+$padding-y:    1em    !default;
+$spacing:      1em   !default;
+
+$title-font-size: cfg.$font-title-4;
+
+.card {
+  >.container {
+    -fx-background-color: $color-bg;
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: $padding-y 0 $padding-y 0;
+    -fx-spacing: $spacing;
+
+    -fx-border-color: $color-border;
+    -fx-border-width: cfg.$border-width;
+    -fx-border-radius: cfg.$border-radius;
+
+    >.header {
+      -fx-alignment: TOP_LEFT;
+      -fx-padding: 0 $padding-x 0 $padding-x 0;
+    }
+
+    >.sub-header {
+      -fx-alignment: TOP_LEFT;
+      -fx-padding: 0 $padding-x 0 $padding-x 0;
+    }
+
+    >.body {
+      // double vertical spacing for body
+      -fx-padding: 0 $padding-x 0 $padding-x;
+      -fx-alignment: TOP_LEFT;
+    }
+
+    >.footer {
+      -fx-alignment: TOP_LEFT;
+      -fx-padding: 0 $padding-x 0 $padding-x 0;
+    }
+
+    @each $level, $radius in cfg.$elevation {
+      &.elevated-#{$level} {
+        @include effects.shadow(cfg.$elevation-color, $radius);
+      }
+    }
+
+    &.interactive:hover {
+      @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
+    }
+
+    TextFlow {
+      Text {
+        &:disabled {
+          -fx-opacity: cfg.$opacity-disabled;
+        }
+      }
+    }
+  }
+
+  &:has-image {
+    >.container >.sub-header {
+      -fx-padding: 0;
+
+      &:disabled {
+        -fx-opacity: cfg.$opacity-disabled;
+      }
+    }
+  }
+
+  &.edge-to-edge>.container {
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-effect: none;
+  }
+
+  .tile {
+    >.container {
+      // prevent double indentation
+      -fx-padding: 0;
+      -fx-background-radius: 0;
+
+      >.header >.title {
+        -fx-font-size: $title-font-size;
+      }
+    }
+  }
+}

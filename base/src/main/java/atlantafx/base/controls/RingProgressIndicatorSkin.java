@@ -24,6 +24,9 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+/**
+ * The default skin for the {@link RingProgressIndicator} control.
+ */
 public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
 
     protected static final double DEFAULT_ANIMATION_TIME = 3;
@@ -249,8 +252,9 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
         private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
-            final List<CssMetaData<? extends Styleable, ?>> styleables =
-                new ArrayList<>(SkinBase.getClassCssMetaData());
+            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(
+                SkinBase.getClassCssMetaData()
+            );
             styleables.add(INDETERMINATE_ANIMATION_TIME);
             STYLEABLES = Collections.unmodifiableList(styleables);
         }

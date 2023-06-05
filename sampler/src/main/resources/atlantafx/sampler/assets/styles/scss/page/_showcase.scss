@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: MIT
+
+.showcase-page {
+  -fx-background-color: -color-bg-default;
+
+  >.window {
+    -fx-border-color: -color-accent-emphasis;
+    -fx-border-width: 1;
+    -fx-border-radius: 5px 5px 0 0;
+
+    >.header {
+      -fx-background-color: -color-accent-emphasis;
+      -fx-alignment: CENTER_LEFT;
+      -fx-padding: 10px;
+
+      >.title {
+        -fx-font-size: 1.2em;
+        -fx-text-fill: -color-fg-emphasis;
+        -fx-font-weight: bold;
+        -fx-graphic-text-gap: 10px;
+
+        >.ikonli-font-icon {
+          -fx-icon-color: -color-fg-emphasis;
+          -fx-fill: -color-fg-emphasis;
+        }
+      }
+
+      >.ikonli-font-icon {
+        -fx-icon-color: -color-fg-emphasis;
+        -fx-fill: -color-fg-emphasis;
+
+        &:hover {
+          -fx-effect: dropshadow(gaussian, -color-fg-emphasis, 20, 0.1, 0, 0)
+        }
+      }
+    }
+  }
+}
+
+.root:showcase-mode {
+
+  .showcase-page>.window {
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+  }
+}
+
+#blueprints {
+  -fx-background-color: -color-bg-inset;
+
+  .sample {
+    -fx-background-color: -color-border-subtle, -color-bg-default;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 10px;
+  }
+}

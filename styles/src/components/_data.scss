@@ -20,6 +20,10 @@ $color-resize-line:  -color-accent-emphasis !default;
 $color-drag-header:  -color-accent-muted    !default;
 $color-drag-overlay: -color-accent-muted    !default;
 
+// warning: setting header size in 'em' sometimes breaks borders
+$header-size-normal: 40px !default;
+$header-size-dense: 34px  !default;
+
 $cell-size-normal: 2.8em !default;
 $cell-size-dense:  2em   !default;
 $cell-padding-x:   0.5em !default;
@@ -149,7 +153,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     -fx-content-display: LEFT;
     -fx-background-radius: 0;
 
-    // must be more spefific than ".list-view .list-cell" selector (see below)
+    // must be more specific than ".list-view .list-cell" selector (see below)
     .cell.list-cell {
       -fx-background-color: transparent;
       -fx-padding: 0;
@@ -157,6 +161,17 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
       -fx-background-radius: 0;
     }
   }
+}
+
+// The styles for focused editable cells. For now only TextFieldTableCell is supported,
+// because all other editable cells are bugged. #javafx-bug
+// - ChoiceBoxTableCell - does not support :focus-within
+// - ComboBoxTableCell - inconsistently activates :focus-within after popup is shown (virtually useless)
+// - TextFieldListCell - activates :focus-within when TextField is not in editable state (same as focused, virtually useless)
+// .. too lazy check further, generally all editable cells is a compilation of bugs.
+.table-view>.virtual-flow>.clipped-container>.sheet>.table-row-cell .text-field-table-cell:focus-within {
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-color: -color-bg-default, -color-accent-emphasis, -color-bg-default;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -182,6 +197,10 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   &.bordered {
     .list-cell {
       -fx-border-color: -color-cell-border;
+
+      &:empty {
+        -fx-border-color: transparent;
+      }
     }
   }
 
@@ -235,7 +254,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     .column-header {
       -fx-background-color: transparent;
       -fx-background-insets: 0;
-      -fx-size: 2.2em;
+      -fx-size: $header-size-normal;
       -fx-padding: 0;
       -fx-font-weight: bold;
       -fx-border-color: -color-cell-border;
@@ -343,6 +362,12 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   }
 
   &.dense {
+    >.column-header-background {
+      .column-header {
+        -fx-size: $header-size-dense;
+      }
+    }
+
     .table-row-cell {
       -fx-cell-size: $cell-size-dense;
     }
@@ -362,6 +387,14 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
     .table-row-cell:filled:odd {
       -fx-background-color: -color-cell-border, -color-cell-bg-odd;
+    }
+  }
+
+Add support for NO_HEADER tweak in tables  &.no-header {
+    >.column-header-background {
+      -fx-max-height: 0;
+      -fx-pref-height: 0;
+      -fx-min-height: 0;
     }
   }
 
@@ -386,21 +419,21 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     >.table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
       -fx-text-fill: -color-cell-fg;
-      -fx-alignment: CENTER_LEFT;
+      -fx-alignment: BASELINE_LEFT;
 
       // #tweak/align-left
       &.table-column.align-left {
-        -fx-alignment: CENTER_LEFT;
+        -fx-alignment: BASELINE_LEFT;
       }
 
       // #tweak/align-center
       &.table-column.align-center {
-        -fx-alignment: CENTER;
+        -fx-alignment: BASELINE_CENTER;
       }
 
       // #tweak/align-right
       &.table-column.align-right {
-        -fx-alignment: CENTER-RIGHT;
+        -fx-alignment: BASELINE_RIGHT;
       }
     }
   }
@@ -425,7 +458,7 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 .table-view .table-row-cell>.table-cell.check-box-table-cell,
 .table-view .table-row-cell>.table-cell.font-icon-table-cell,
 .tree-table-view .tree-table-row-cell>.tree-table-cell.check-box-tree-table-cell {
-  -fx-alignment: CENTER_LEFT;
+  -fx-alignment: BASELINE_LEFT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -443,21 +476,19 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 
   &.alt-icon {
     .tree-cell {
-      -fx-indent: 1.6em;
-
       >.tree-disclosure-node {
-          -fx-padding: 0.229em $tree-cell-padding-x 0 $tree-cell-padding-x;
+        -fx-padding: 0.3em $tree-cell-padding-x 0 $tree-cell-padding-x;
       }
     }
 
     .tree-cell>.tree-disclosure-node>.arrow {
-      @include icons.get("plus-box", true);
-      -fx-padding: 0.4em;
+      @include icons.get("chevron-right", false);
+      -fx-padding: 0.333333em;
     }
 
     .tree-cell:expanded>.tree-disclosure-node>.arrow {
-      @include icons.get("minus-box", true);
-      -fx-padding: 0.4em;
+      @include icons.get("expand-more", false);
+      -fx-padding: 0.333333em;
     }
   }
 }
@@ -517,6 +548,12 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
   }
 
   &.dense {
+    >.column-header-background {
+      .column-header {
+        -fx-size: $header-size-dense;
+      }
+    }
+
     .tree-table-row-cell {
       -fx-cell-size: $cell-size-dense;
 
@@ -542,6 +579,14 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     }
   }
 
+  &.no-header {
+    >.column-header-background {
+      -fx-max-height: 0;
+      -fx-pref-height: 0;
+      -fx-min-height: 0;
+    }
+  }
+
   .tree-table-row-cell {
     -fx-background-color: -color-cell-border, -color-cell-bg;
     -fx-background-insets: 0, 0 0 1 0;
@@ -564,34 +609,34 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     >.tree-table-cell {
       -fx-padding: 0 $cell-padding-x 0 $cell-padding-x;
       -fx-text-fill: -color-cell-fg;
-      -fx-alignment: CENTER_LEFT;
+      -fx-alignment: BASELINE_LEFT;
 
       // #tweak/align-left
       &.table-column.align-left {
-        -fx-alignment: CENTER_LEFT;
+        -fx-alignment: BASELINE_LEFT;
       }
 
       // #tweak/align-center
       &.table-column.align-center {
-        -fx-alignment: CENTER;
+        -fx-alignment: BASELINE_CENTER;
       }
 
       // #tweak/align-right
       &.table-column.align-right {
-        -fx-alignment: CENTER-RIGHT;
+        -fx-alignment: BASELINE_RIGHT;
       }
     }
   }
 
   &.alt-icon {
     .tree-table-row-cell>.tree-disclosure-node>.arrow {
-      @include icons.get("plus-box", true);
-      -fx-padding: 0.5em;
+      @include icons.get("chevron-right", false);
+      -fx-padding: 0.333333em;
     }
 
     .tree-table-row-cell:expanded>.tree-disclosure-node>.arrow {
-      @include icons.get("minus-box", true);
-      -fx-padding: 0.5em;
+      @include icons.get("expand-more", false);
+      -fx-padding: 0.333333em;
     }
   }
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.Spacer?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label styleClass="title-3" text="Share Project" />
+      <Label styleClass="text-muted" text="Give your teammates access to this project and start collaborating in real time." wrapText="true" />
+      <Separator prefWidth="200.0" />
+      <Label text="Email" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField promptText="contact@example.com" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" styleClass="accent" text="Invite" />
+         </children>
+      </HBox>
+      <Label layoutX="30.0" layoutY="156.0" text="Members">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar4.png" />
+               </image>
+            </ImageView>
+            <Label text="Gethin Peters" />
+            <Spacer />
+            <MenuButton mnemonicParsing="false" styleClass="flat" text="Editor">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Ediutor" />
+                <MenuItem mnemonicParsing="false" text="Viewer" />
+              </items>
+            </MenuButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="272.0" spacing="10.0">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar5.png" />
+               </image>
+            </ImageView>
+            <Label text="Gerard Gallagher" />
+            <Spacer />
+            <MenuButton mnemonicParsing="false" styleClass="flat" text="Viewer">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Editor" />
+                  <MenuItem mnemonicParsing="false" text="Viewer" />
+               </items>
+            </MenuButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="318.0" spacing="10.0">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/avatars/avatar6.png" />
+               </image>
+            </ImageView>
+            <Label text="Betty Lopez" />
+            <Spacer />
+            <MenuButton mnemonicParsing="false" styleClass="flat" text="Viewer">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Editor" />
+                  <MenuItem mnemonicParsing="false" text="Viewer" />
+               </items>
+            </MenuButton>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -2,13 +2,26 @@
 
 @use "../settings/config" as cfg;
 
+$color-label: -color-fg-default !default;
+
+$color-thumb:                 -color-fg-emphasis     !default;
+$color-thumb-border:          -color-border-default  !default;
+$color-thumb-selected:        -color-fg-emphasis     !default;
+$color-thumb-border-selected: -color-accent-emphasis !default;
+
+$color-thumb-area:                 -color-bg-subtle       !default;
+$color-thumb-area-border:          -color-border-default  !default;
+$color-thumb-area-border-selected: -color-accent-emphasis !default;
+$color-thumb-area-selected:        -color-accent-emphasis !default;
+
 $thumb-radius:       10em   !default;
 $thumb-padding:      0.85em !default;
 $thumb-border-width: 2px    !default;
 $thumb-opacity:      0.8    !default;
 
-$thumb-area-radius:  1em    !default;
-$thumb-area-padding: 0.85em 1.4em 0.85em 1.4em !default;
+$thumb-area-border-width:  cfg.$border-width         !default;
+$thumb-area-radius:        1em                       !default;
+$thumb-area-padding:       0.85em 1.4em 0.85em 1.4em !default;
 
 .toggle-switch {
   -fx-thumb-move-animation-time: 200;
@@ -16,13 +29,13 @@ $thumb-area-padding: 0.85em 1.4em 0.85em 1.4em !default;
   >.label-container {
     >.label {
       -fx-font-size: 1em;
-      -fx-text-fill: -color-fg-default;
+      -fx-text-fill: $color-label;
       -fx-padding: cfg.$checkbox-label-padding cfg.$graphic-gap cfg.$checkbox-label-padding 0;
     }
   }
 
   >.thumb {
-    -fx-background-color:-color-border-default, -color-fg-emphasis;
+    -fx-background-color: $color-thumb-border, $color-thumb;
     -fx-background-insets: 0, $thumb-border-width;
     -fx-background-radius: $thumb-radius;
     -fx-padding: $thumb-padding;
@@ -33,20 +46,47 @@ $thumb-area-padding: 0.85em 1.4em 0.85em 1.4em !default;
 
   >.thumb-area {
     -fx-background-radius: $thumb-area-radius;
-    -fx-background-color: -color-border-default, -color-bg-subtle;
-    -fx-background-insets: 0, cfg.$border-width;
+    -fx-background-color: $color-thumb-area-border, $color-thumb-area;
+    -fx-background-insets: 0, $thumb-area-border-width;
     -fx-padding: $thumb-area-padding;
   }
 
   &:selected {
     >.thumb {
-      -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
+      -fx-background-color: $color-thumb-border-selected, $color-thumb-selected;
       -fx-opacity: 1;
     }
 
     >.thumb-area {
-      -fx-background-color: -color-accent-emphasis;
-      -fx-background-insets: 0;
+      -fx-background-color: $color-thumb-area-border-selected, $color-thumb-area-selected;
+    }
+
+    &:success {
+      >.thumb {
+        -fx-background-color: -color-success-emphasis, $color-thumb-selected;
+      }
+
+      >.thumb-area {
+        -fx-background-color: -color-success-emphasis, -color-success-emphasis;
+      }
+    }
+
+    &:danger {
+      >.thumb {
+          -fx-background-color: -color-danger-emphasis, $color-thumb-selected;
+      }
+
+      >.thumb-area {
+        -fx-background-color: -color-danger-emphasis, -color-danger-emphasis;
+      }
+    }
+  }
+
+  &:right {
+    >.label-container {
+      >.label {
+        -fx-padding: cfg.$checkbox-label-padding 0 cfg.$checkbox-label-padding cfg.$graphic-gap;
+      }
     }
   }
 

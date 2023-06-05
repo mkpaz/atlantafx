@@ -1,0 +1,79 @@
+// SPDX-License-Identifier: MIT
+
+@use "../theme/accent-colors" as ac;
+
+@mixin hide() {
+  -fx-min-width: 0;
+  -fx-pref-width: 0;
+  -fx-max-width: 0;
+  -fx-min-height: 0;
+  -fx-pref-height: 0;
+  -fx-max-height: 0;
+  visibility: false;
+}
+
+.root {
+  -fx-font-family: "Inter";
+
+  &:showcase-mode {
+
+    #sidebar {
+      @include hide();
+    }
+
+    .page {
+      >.scroll-pane .user-content {
+        -fx-padding: 0;
+
+        >* {
+          -fx-max-width: 4096px;
+        }
+      }
+
+      .about {
+        @include hide();
+      }
+
+      .credits {
+        @include hide();
+      }
+    }
+  }
+
+  // accent colors
+  &:accent-primer-purple {
+    @include ac.primerPurpleLight();
+  }
+
+  &:accent-primer-pink {
+    @include ac.primerPinkLight();
+  }
+
+  &:accent-primer-coral {
+    @include ac.primerCoralLight();
+  }
+
+  &:dark {
+    &:accent-primer-purple {
+      @include ac.primerPurpleDark();
+    }
+
+    &:accent-primer-pink {
+      @include ac.primerPinkDark();
+    }
+
+    &:accent-primer-coral {
+      @include ac.primerCoralDark();
+    }
+  }
+
+  .modal-dialog {
+    -fx-background-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: -color-border-default;
+
+    .card {
+      -fx-padding: 10px 20px 10px 20px;
+    }
+  }
+}

@@ -10,7 +10,6 @@ import static atlantafx.sampler.util.ContrastLevel.getContrastRatioOpacityAware;
 import static atlantafx.sampler.util.JColorUtils.flattenColor;
 
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.ContrastLevel;
 import atlantafx.sampler.util.NodeUtils;
 import java.util.function.Consumer;
@@ -24,7 +23,7 @@ import javafx.scene.text.Text;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
-class ColorPaletteBlock extends VBox {
+final class ColorPaletteBlock extends VBox {
 
     private final String fgColorName;
     private final String bgColorName;
@@ -51,17 +50,17 @@ class ColorPaletteBlock extends VBox {
         contrastRatioText = new Text();
         contrastRatioText.setStyle("-fx-fill:" + fgColorName + ";");
         contrastRatioText.getStyleClass().addAll("contrast-ratio-text", TITLE_3);
-        Containers.setAnchors(contrastRatioText, new Insets(5, -1, -1, 5));
+        NodeUtils.setAnchors(contrastRatioText, new Insets(5, -1, -1, 5));
 
         contrastLevelLabel.setGraphic(contrastLevelIcon);
         contrastLevelLabel.getStyleClass().add("contrast-level-label");
         contrastLevelLabel.setVisible(false);
-        Containers.setAnchors(contrastLevelLabel, new Insets(-1, 3, 3, -1));
+        NodeUtils.setAnchors(contrastLevelLabel, new Insets(-1, 3, 3, -1));
 
         editIcon.setIconSize(24);
         editIcon.getStyleClass().add("edit-icon");
         NodeUtils.toggleVisibility(editIcon, false);
-        Containers.setAnchors(editIcon, new Insets(3, 3, -1, -1));
+        NodeUtils.setAnchors(editIcon, new Insets(3, 3, -1, -1));
 
         colorRectangle = new AnchorPane();
         colorRectangle.setStyle(

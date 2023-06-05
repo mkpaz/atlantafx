@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.page.general;
 
 import static atlantafx.base.theme.Styles.TEXT_SMALL;
@@ -17,7 +19,7 @@ import javafx.scene.control.TableView;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class IconBrowser extends TableView<List<Ikon>> {
+final class IconBrowser extends TableView<List<Ikon>> {
 
     static final int FILTER_LEN = 2;
 
@@ -63,7 +65,7 @@ public class IconBrowser extends TableView<List<Ikon>> {
             getColumns().add(col);
         }
 
-        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         getSelectionModel().setCellSelectionEnabled(true);
         getStyleClass().add("icon-browser");
     }

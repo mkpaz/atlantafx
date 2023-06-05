@@ -1,9 +1,11 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.theme;
 
 /**
- * Contains extra style class names introduced to tweak some controls view if and where it makes sense.
- * The reason of supporting tweaks is to allow users to write less CSS code. Search for #tweak/classname
- * to find the controls supporting tweaks or check the control page in the Sampler app.
+ * Contains extra style class names introduced to tweak some controls view
+ * if and where it makes sense. The reason of supporting tweaks is to allow
+ * users to write less CSS code.
  */
 public final class Tweaks {
 
@@ -20,6 +22,11 @@ public final class Tweaks {
      * Removes external control borders.
      */
     public static final String EDGE_TO_EDGE = "edge-to-edge";
+
+    /**
+     * Removes control header.
+     */
+    public static final String NO_HEADER = "no-header";
 
     /**
      * Alignment.

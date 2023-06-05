@@ -1,0 +1,32 @@
+site_name: AtlantaFX
+repo_url: https://github.com/mkpaz/atlantafx
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+  palette:
+    primary: blue
+  logo: assets/atlantafx.png
+  favicon: assets/atlantafx.png
+nav:
+  - Overview: 'index.md'
+  - Getting Started: 'getting-started.md'
+  - Build: 'build.md'
+  - Theming: 'theming.md'
+  - FXML: 'fxml.md'
+  - Reference:
+    - API: 'apidocs/index.html'
+    - Global Colors: 'reference/global-colors.md'
+    - Typography: 'reference/typography.md'
+    - Controls: 'reference/controls.md'

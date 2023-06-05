@@ -2,32 +2,24 @@
 
 package atlantafx.sampler.page;
 
-import static atlantafx.sampler.util.Containers.setScrollConstraints;
 import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 
-import atlantafx.sampler.layout.Overlay;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.util.NodeUtils;
+import java.net.URI;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import net.datafaker.Faker;
-import org.kordamp.ikonli.feather.Feather;
+import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractPage extends BorderPane implements Page {
+public abstract class AbstractPage extends StackPane implements Page {
 
-    protected static final Faker FAKER = new Faker();
-    protected static final Random RANDOM = new Random();
-
-    protected final StackPane userContent = new StackPane();
-    protected Overlay overlay;
+    protected final VBox userContent = new VBox();
+    protected final StackPane userContentArea = new StackPane(userContent);
     protected boolean isRendered = false;
 
     protected AbstractPage() {
@@ -40,15 +32,15 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     protected void createPageLayout() {
-        var scrollPane = new ScrollPane(userContent);
-        setScrollConstraints(scrollPane, AS_NEEDED, true, AS_NEEDED, true);
-        scrollPane.setMaxHeight(10_000);
+        userContentArea.setAlignment(Pos.TOP_CENTER);
+        userContent.setMinWidth(Math.min(Page.MAX_WIDTH, 800));
+        userContent.setMaxWidth(Math.min(Page.MAX_WIDTH, 800));
 
-        setCenter(scrollPane);
-    }
+        var scrollPane = new ScrollPane(userContentArea);
+        NodeUtils.setScrollConstraints(scrollPane, AS_NEEDED, true, NEVER, true);
+        scrollPane.setMaxHeight(20_000);
 
-    protected void setUserContent(Node content) {
-        userContent.getChildren().setAll(content);
+        getChildren().setAll(scrollPane);
     }
 
     @Override
@@ -62,8 +54,13 @@ public abstract class AbstractPage extends BorderPane implements Page {
     }
 
     @Override
-    public boolean canChangeThemeSettings() {
-        return true;
+    public @Nullable URI getJavadocUri() {
+        return URI.create(String.format(JFX_JAVADOC_URI_TEMPLATE, "control/" + getName()));
+    }
+
+    @Override
+    public Node getSnapshotTarget() {
+        return userContentArea;
     }
 
     @Override
@@ -84,26 +81,18 @@ public abstract class AbstractPage extends BorderPane implements Page {
     // Some properties can only be obtained after node placed
     // to the scene graph and here is the place do this.
     protected void onRendered() {
-        this.overlay = lookupOverlay();
     }
 
-    protected Overlay lookupOverlay() {
-        return getScene() != null && getScene().lookup("." + Overlay.STYLE_CLASS) instanceof Overlay ov ? ov : null;
+    protected void addPageHeader() {
+        var pageHeader = new PageHeader(this);
+        userContent.getChildren().add(pageHeader);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-
-    protected HBox expandingHBox(Node... nodes) {
-        var box = new HBox(PAGE_HGAP, nodes);
-        Arrays.stream(nodes).forEach(n -> HBox.setHgrow(n, Priority.ALWAYS));
-        return box;
+    protected void addNode(Node node) {
+        userContent.getChildren().add(node);
     }
 
-    protected <T> List<T> generate(Supplier<T> supplier, int count) {
-        return Stream.generate(supplier).limit(count).toList();
-    }
-
-    protected Feather randomIcon() {
-        return Feather.values()[RANDOM.nextInt(Feather.values().length)];
+    protected void addFormattedText(String text) {
+        userContent.getChildren().add(BBCodeParser.createFormattedText(text));
     }
 }

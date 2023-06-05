@@ -2,22 +2,17 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.base.theme.Styles.LARGE;
-import static atlantafx.base.theme.Styles.ROUNDED;
-import static atlantafx.base.theme.Styles.SMALL;
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.theme.Styles;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import javafx.geometry.Pos;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
-public class TextFieldPage extends AbstractPage {
+public final class TextFieldPage extends OutlinePage {
 
     public static final String NAME = "TextField";
 
@@ -28,81 +23,166 @@ public class TextFieldPage extends AbstractPage {
 
     public TextFieldPage() {
         super();
-        setUserContent(new VBox(
-            PAGE_VGAP,
-            expandingHBox(basicSample(), promptSample(), passwordSample()),
-            expandingHBox(readonlySample(), successSample(), dangerSample()),
-            expandingHBox(sizeSample(), roundedSample()),
-            disabledSample()
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            Text input component that allows a user to enter a single line of unformatted text."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Prompt Text", promptTextExample());
+        addSection("Readonly", readonlyExample());
+        addSection("Color", colorExample());
+        addSection("Password Field", passwordFieldExample());
+        addSection("Size", sizeExample());
+        addSection("Rounded", roundedExample());
     }
 
-    private SampleBlock basicSample() {
-        var field = new TextField("Text");
-        return new SampleBlock("Basic", field);
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var tf1 = new TextField("Text");
+        var tf2 = new TextField(FAKER.lorem().sentence(20));
+        //snippet_1:end
+
+        tf1.setPrefWidth(200);
+        tf2.setPrefWidth(200);
+
+        var box = new HBox(HGAP_20, tf1, tf2);
+        var description = BBCodeParser.createFormattedText("""
+            You create a text field control by creating an instance of the \
+            [font=monospace]javafx.scene.control.TextField[/font] class."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private SampleBlock passwordSample() {
-        var field = new PasswordField();
-        field.setText("qwerty");
-        return new SampleBlock("Password", field);
+    private ExampleBox promptTextExample() {
+        //snippet_2:start
+        var tf = new TextField();
+        tf.setPromptText("Prompt text");
+        //snippet_2:end
+
+        tf.setPrefWidth(200);
+
+        var box = new HBox(tf);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]TextField[/i] supports the notion of showing prompt text to the user when there \
+            is no text already in the text field (either via the user, or set programmatically). \
+            This is a useful way of informing the user as to what is expected in the text field, \
+            without having to resort to tooltips or on-screen labels."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
     }
 
-    private SampleBlock promptSample() {
-        var field = new TextField();
-        field.setPromptText("Prompt text");
-        return new SampleBlock("Prompt", field);
+    private ExampleBox readonlyExample() {
+        //snippet_3:start
+        var tf = new TextField("This text can't be modified");
+        tf.setEditable(false);
+        //snippet_3:end
+
+        tf.setPrefWidth(200);
+
+        var box = new HBox(tf);
+        var description = BBCodeParser.createFormattedText("""
+            [i]TextField[/i]'s [code]editable[/code] property indicates whether it can be edited by the user."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 3), description);
     }
 
-    private SampleBlock readonlySample() {
-        var field = new TextField("Text");
-        field.setEditable(false);
-        return new SampleBlock("Readonly", field);
+    private ExampleBox colorExample() {
+        //snippet_4:start
+        var tf1 = new TextField("Text");
+        tf1.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+
+        var tf2 = new TextField("Text");
+        tf2.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+        //snippet_4:end
+
+        tf1.setPrefWidth(200);
+        tf2.setPrefWidth(200);
+
+        var box = new HBox(HGAP_20, tf1, tf2);
+        var description = BBCodeParser.createFormattedText("""
+            You can use [code]Styles.STATE_SUCCESS[/code] or [code]Styles.STATE_DANGER[/code] \
+            pseudo-classes to change the [i]TextField[/i] color. This especially useful to indicate \
+            the validation result."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 4), description);
     }
 
-    private SampleBlock successSample() {
-        var field = new TextField("Text");
-        field.pseudoClassStateChanged(STATE_SUCCESS, true);
-        return new SampleBlock("Success", field);
+    private ExampleBox passwordFieldExample() {
+        //snippet_5:start
+        var tf = new PasswordField();
+        tf.setText("qwerty");
+        //snippet_5:end
+
+        tf.setPrefWidth(200);
+
+        var box = new HBox(tf);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]TextField[/i] flavor that masks entered characters. Note that password can \
+            not be revealed. If you need this particular feature try [code]PasswordTextField[/code]. \
+            It's the [code]CustomTextField[/code] flavor that does the same thing."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 5), description);
     }
 
-    private SampleBlock dangerSample() {
-        var field = new TextField("Text");
-        field.pseudoClassStateChanged(STATE_DANGER, true);
-        return new SampleBlock("Danger", field);
-    }
-
-    private SampleBlock sizeSample() {
+    private ExampleBox sizeExample() {
+        //snippet_6:start
         var smallField = new TextField("Small");
-        smallField.getStyleClass().add(SMALL);
-        smallField.setPrefWidth(70);
+        smallField.getStyleClass().add(Styles.SMALL);
 
         var normalField = new TextField("Normal");
-        normalField.setPrefWidth(120);
 
         var largeField = new TextField("Large");
-        largeField.getStyleClass().add(LARGE);
+        largeField.getStyleClass().add(Styles.LARGE);
+        //snippet_6:end
+
+        smallField.setPrefWidth(70);
+        normalField.setPrefWidth(120);
         largeField.setPrefWidth(200);
 
-        var content = new HBox(BLOCK_HGAP, smallField, normalField, largeField);
-        content.setAlignment(Pos.CENTER_LEFT);
+        var box = new HBox(HGAP_20, smallField, normalField, largeField);
+        box.setAlignment(Pos.CENTER_LEFT);
 
-        return new SampleBlock("Size", content);
+        var description = BBCodeParser.createFormattedText("""
+            Use [code]Styles.SMALL[/code] and [code]Styles.LARGE[/code] style classes \
+            to change the [i]TextField[/i] size."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 6), description);
     }
 
-    private SampleBlock roundedSample() {
-        var field = new TextField("Text");
-        field.getStyleClass().add(ROUNDED);
-        return new SampleBlock("Rounded", field);
-    }
+    private ExampleBox roundedExample() {
+        //snippet_7:start
+        var smallField = new TextField("Small");
+        smallField.getStyleClass().addAll(
+            Styles.SMALL, Styles.ROUNDED
+        );
 
-    private SampleBlock disabledSample() {
-        var field = new TextField("Text");
-        field.setDisable(true);
+        var normalField = new TextField("Normal");
+        normalField.getStyleClass().addAll(Styles.ROUNDED);
 
-        var block = new SampleBlock("Disabled", field);
-        block.setMaxWidth(250);
+        var largeField = new TextField("Large");
+        largeField.getStyleClass().addAll(
+            Styles.LARGE, Styles.ROUNDED
+        );
+        //snippet_7:end
 
-        return block;
+        smallField.setPrefWidth(70);
+        normalField.setPrefWidth(120);
+        largeField.setPrefWidth(200);
+
+        var box = new HBox(HGAP_20, smallField, normalField, largeField);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            Use [code]Styles.ROUNDED[/code] style class to round the [i]TextField[/i] corners."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 7), description);
     }
 }

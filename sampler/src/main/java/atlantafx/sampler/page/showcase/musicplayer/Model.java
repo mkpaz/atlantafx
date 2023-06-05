@@ -2,6 +2,10 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import atlantafx.sampler.Resources;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -13,6 +17,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 
 final class Model {
+
+    private static final List<File> DEMO_FILES = List.of(
+        Paths.get(Resources.getResource("media/Beat Thee.mp3")).toFile(),
+        Paths.get(Resources.getResource("media/Study and Relax.mp3")).toFile()
+    );
 
     private final ObservableList<MediaFile> playlist = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper canGoBack = new ReadOnlyBooleanWrapper();
@@ -103,5 +112,10 @@ final class Model {
     public void removeAll() {
         reset();
         playlist().clear();
+    }
+
+    public void playDemo() {
+        DEMO_FILES.forEach(f -> addFile(new MediaFile(f)));
+        play(new MediaFile(DEMO_FILES.get(0)));
     }
 }

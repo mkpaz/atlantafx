@@ -35,6 +35,7 @@
   -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-spacing: 10px;
   -fx-padding: 1em;
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
 
   >.color-picker-grid {
     -fx-padding: 0.5px;
@@ -47,13 +48,13 @@
   }
 }
 
-// this is another popup window, it's not inside the .color-patette
+// this is another popup window, it's not inside the .color-palette
 // also note that it's applied to both palette dropdown popup AND
 // each individual color hover popup
 .color-palette-region {
   // color popup window positioning,
   // transparent is fit both light and dark modes
-  -fx-effect: dropshadow(gaussian, transparent, 12, 0, 0, 8);
+  -fx-effect: dropshadow(gaussian, transparent, 6, 0, 0, 8);
 
   // the color over which the user is hovering
   >.color-square.hover-square {

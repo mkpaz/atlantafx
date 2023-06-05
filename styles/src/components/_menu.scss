@@ -11,8 +11,11 @@
 
 $color-menubar-bg:        -color-bg-subtle !default;
 $color-menubar-bg-hover:  if(cfg.$darkMode, -color-base-6, -color-base-1) !default;
+
 $color-menuitem-bg:       -color-bg-default !default;
 $color-menuitem-bg-hover: if(cfg.$darkMode, -color-base-7, -color-base-1) !default;
+$color-menuitem-fg:       -color-fg-default !default;
+$color-menuitem-fg-hover: -color-fg-default !default;
 
 $separator-padding:       map-get(cfg.$separators, "small") !default;
 $menu-button-padding-x:   cfg.$menu-padding-x - math.div(cfg.$menubar-padding-x, 2) !default;
@@ -33,6 +36,7 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
       -fx-background-insets: 0 0 cfg.$border-width 0;
       -fx-background-radius: cfg.$popup-radius;
       -fx-padding: $menu-button-padding-y $menu-button-padding-x $menu-button-padding-y $menu-button-padding-x;
+      -fx-effect: none;
 
       // reset padding of menu buttons when in menu bar
       >.label {
@@ -65,7 +69,6 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
 ///////////////////////////////////////////////////////////////////////////////
 
 .menu {
-
   -fx-background-color: transparent;
 
   >.right-container {
@@ -74,6 +77,15 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
       -fx-background-color: -color-fg-muted;
     }
   }
+
+  // #javafx-bug Not possible to maintain hover font color here due to commented
+  //             styles applied always, even when menu is under cursor.
+  // &:hover {
+  //   .menu-up-arrow,
+  //   .menu-down-arrow {
+  //     -fx-background-color: $color-menuitem-fg-hover;
+  //   }
+  // }
 }
 
 // vertical (scroll) arrows appear if menu height exceeds container size
@@ -121,11 +133,23 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
 
   &:focused {
     -fx-background-color: $color-menuitem-bg-hover, $color-menuitem-bg-hover;
+
+    >.label {
+      -fx-text-fill: $color-menuitem-fg-hover;
+    }
+
+    >.right-container >.arrow {
+      -fx-background-color: $color-menuitem-fg-hover;
+    }
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: $color-menuitem-fg-hover;
+      -fx-fill: $color-menuitem-fg-hover;
+    }
   }
 
   &:disabled {
     -fx-opacity: cfg.$opacity-disabled;
-    -fx-background-color: $color-menuitem-bg;
   }
 }
 
@@ -139,6 +163,13 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
   -fx-max-width:  cfg.$checkbox-mark-size;
 }
 
+.radio-menu-item:hover:checked>.left-container>.radio,
+.radio-menu-item:focused:checked>.left-container>.radio,
+.check-menu-item:hover:checked>.left-container>.check,
+.check-menu-item:focused:checked>.left-container>.check {
+  -fx-background-color: $color-menuitem-fg-hover;
+}
+
 .caption-menu-item {
   -fx-padding: cfg.$menu-padding-y cfg.$menu-padding-x cfg.$menu-padding-y cfg.$menu-padding-x;
 
@@ -146,6 +177,10 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
   &:focused,
   &:pressed {
     -fx-background-color: transparent;
+
+    >.label {
+      -fx-text-fill: -color-fg-muted;
+    }
   }
 
   >.label {
@@ -175,7 +210,7 @@ $menu-button-padding-y:   cfg.$menu-padding-y - math.div(cfg.$menubar-padding-y,
 
     &:hover {
       -fx-background-color: $color-menuitem-bg-hover;
-      -fx-text-fill: -color-fg-default;
+      -fx-text-fill: $color-menuitem-fg-hover;
     }
   }
 

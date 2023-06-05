@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.mkpaz</groupId>
         <artifactId>atlantafx-parent</artifactId>
-        <version>1.2.0</version>
+        <version>2.0.0</version>
     </parent>
     <artifactId>atlantafx-sampler</artifactId>
 
@@ -42,6 +42,10 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -162,7 +166,7 @@
                 <executions>
                     <execution>
                         <id>validate</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -243,7 +247,7 @@
                         <configuration>
                             <toolName>jlink</toolName>
                             <addModules>
-                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.swing,javafx.web
+                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web
                             </addModules>
                             <modulePath>${build.platformModulesDir}</modulePath>
                             <output>${build.package.runtimeImageDir}</output>

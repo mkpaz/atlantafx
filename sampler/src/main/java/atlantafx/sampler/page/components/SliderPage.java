@@ -2,23 +2,18 @@
 
 package atlantafx.sampler.page.components;
 
-import static javafx.geometry.Orientation.VERTICAL;
-
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
-public class SliderPage extends AbstractPage {
+public final class SliderPage extends OutlinePage {
 
     public static final String NAME = "Slider";
-    private static final int SLIDER_SIZE = 180;
-    private static final int SPACING = 20;
 
     @Override
     public String getName() {
@@ -27,32 +22,45 @@ public class SliderPage extends AbstractPage {
 
     public SliderPage() {
         super();
-        setUserContent(new FlowPane(
-            Page.PAGE_HGAP, Page.PAGE_VGAP,
-            basicSample(),
-            smallSample(),
-            largeSample(),
-            disabledSample()
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            The [i]Slider[/i] control is used to display a continuous or discrete range of valid numeric \
+            choices. It is typically represented visually as having a [i]track[/i] and a [i]knob[/i] \
+            or [i]thumb[/i] which is dragged within the track. The [i]Slider[/i] can optionally show tick \
+            marks and labels indicating the different slider position values.
+                        
+            AtlantaFX also provides the [b]ProgressSliderSkin[/b], which implements color support for \
+            [i]Slider[/i] progress indication. Additionally, it adds the [code]Styles.SMALL[/code] and \
+            [code]Styles.LARGE[/code] style class modifiers to change the [i]Slider[/i] size."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Small", smallExample());
+        addSection("Large", largeExample());
     }
 
-    private SampleBlock basicSample() {
+    private ExampleBox usageExample() {
+        //snippet_1:start
         var hSlider = new Slider(1, 5, 3);
 
         var hTickSlider = createTickSlider();
         hTickSlider.setSkin(new ProgressSliderSkin(hTickSlider));
 
         var vSlider = new Slider(1, 5, 3);
-        vSlider.setOrientation(VERTICAL);
+        vSlider.setOrientation(Orientation.VERTICAL);
 
         var vTickSlider = createTickSlider();
-        vTickSlider.setOrientation(VERTICAL);
+        vTickSlider.setOrientation(Orientation.VERTICAL);
         vTickSlider.setSkin(new ProgressSliderSkin(vTickSlider));
+        //snippet_1:end
 
-        return new SampleBlock("Basic", createContent(hSlider, hTickSlider, vSlider, vTickSlider));
+        var box = createGrid(hSlider, hTickSlider, vSlider, vTickSlider);
+
+        return new ExampleBox(box, new Snippet(getClass(), 1));
     }
 
-    private Pane smallSample() {
+    private ExampleBox smallExample() {
+        //snippet_2:start
         var hSlider = new Slider(1, 5, 3);
         hSlider.getStyleClass().add(Styles.SMALL);
 
@@ -61,18 +69,22 @@ public class SliderPage extends AbstractPage {
         hTickSlider.setSkin(new ProgressSliderSkin(hTickSlider));
 
         var vSlider = new Slider(1, 5, 3);
-        vSlider.setOrientation(VERTICAL);
+        vSlider.setOrientation(Orientation.VERTICAL);
         vSlider.getStyleClass().add(Styles.SMALL);
 
         var vTickSlider = createTickSlider();
-        vTickSlider.setOrientation(VERTICAL);
+        vTickSlider.setOrientation(Orientation.VERTICAL);
         vTickSlider.getStyleClass().add(Styles.SMALL);
         vTickSlider.setSkin(new ProgressSliderSkin(vTickSlider));
+        //snippet_2:end
 
-        return new SampleBlock("Small", createContent(hSlider, hTickSlider, vSlider, vTickSlider));
+        var box = createGrid(hSlider, hTickSlider, vSlider, vTickSlider);
+
+        return new ExampleBox(box, new Snippet(getClass(), 2));
     }
 
-    private Pane largeSample() {
+    private ExampleBox largeExample() {
+        //snippet_3:start
         var hSlider = new Slider(1, 5, 3);
         hSlider.getStyleClass().add(Styles.LARGE);
 
@@ -81,39 +93,22 @@ public class SliderPage extends AbstractPage {
         hTickSlider.setSkin(new ProgressSliderSkin(hTickSlider));
 
         var vSlider = new Slider(1, 5, 3);
-        vSlider.setOrientation(VERTICAL);
+        vSlider.setOrientation(Orientation.VERTICAL);
         vSlider.getStyleClass().add(Styles.LARGE);
 
         var vTickSlider = createTickSlider();
-        vTickSlider.setOrientation(VERTICAL);
+        vTickSlider.setOrientation(Orientation.VERTICAL);
         vTickSlider.getStyleClass().add(Styles.LARGE);
         vTickSlider.setSkin(new ProgressSliderSkin(vTickSlider));
+        //snippet_3:end
 
-        return new SampleBlock("Large", createContent(hSlider, hTickSlider, vSlider, vTickSlider));
-    }
+        var box = createGrid(hSlider, hTickSlider, vSlider, vTickSlider);
 
-    private Pane disabledSample() {
-        var hSlider = new Slider(1, 5, 3);
-        hSlider.setDisable(true);
-
-        var hTickSlider = createTickSlider();
-        hTickSlider.setSkin(new ProgressSliderSkin(hTickSlider));
-        hTickSlider.setDisable(true);
-
-        var vSlider = new Slider(1, 5, 3);
-        vSlider.setOrientation(VERTICAL);
-        vSlider.setDisable(true);
-
-        var vTickSlider = createTickSlider();
-        vTickSlider.setOrientation(VERTICAL);
-        vTickSlider.setSkin(new ProgressSliderSkin(vTickSlider));
-        vTickSlider.setDisable(true);
-
-        return new SampleBlock("Disabled", createContent(hSlider, hTickSlider, vSlider, vTickSlider));
+        return new ExampleBox(box, new Snippet(getClass(), 3));
     }
 
     private Slider createTickSlider() {
-        var slider = new Slider(0, 5, 3);
+        var slider = new Slider(1, 5, 3);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setMajorTickUnit(1);
@@ -123,22 +118,20 @@ public class SliderPage extends AbstractPage {
         return slider;
     }
 
-    private GridPane createContent(Slider h1, Slider h2, Slider v1, Slider v2) {
+    private GridPane createGrid(Slider hs1, Slider hs2, Slider vs1, Slider vs2) {
         var grid = new GridPane();
-        grid.setVgap(SPACING);
-        grid.setHgap(SPACING);
+        grid.setVgap(20);
+        grid.setHgap(20);
 
-        h1.setPrefWidth(SLIDER_SIZE);
-        h2.setPrefWidth(SLIDER_SIZE);
+        hs1.setMinWidth(200);
+        hs2.setMinWidth(200);
+        vs1.setMinHeight(200);
+        vs2.setMinHeight(200);
 
-        v1.setPrefHeight(SLIDER_SIZE);
-        v2.setPrefHeight(SLIDER_SIZE);
-
-        grid.add(h1, 0, 0);
-        grid.add(h2, 0, 1);
-
-        grid.add(v1, 1, 0, 1, GridPane.REMAINING);
-        grid.add(v2, 2, 0, 1, GridPane.REMAINING);
+        grid.add(hs1, 0, 0);
+        grid.add(hs2, 0, 1);
+        grid.add(vs1, 1, 0, 1, GridPane.REMAINING);
+        grid.add(vs2, 2, 0, 1, GridPane.REMAINING);
 
         return grid;
     }

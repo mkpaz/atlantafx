@@ -11,8 +11,8 @@ import static javafx.scene.control.TableColumn.SortType.ASCENDING;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
-import atlantafx.sampler.util.Containers;
 import atlantafx.sampler.util.HumanReadableFormat;
+import atlantafx.sampler.util.NodeUtils;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
@@ -23,7 +23,6 @@ import java.util.stream.Stream;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -35,8 +34,6 @@ import javafx.scene.layout.Pane;
 
 final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
-    private static final PseudoClass HIDDEN = PseudoClass.getPseudoClass("hidden");
-    private static final PseudoClass FOLDER = PseudoClass.getPseudoClass("folder");
     private static final FileIconRepository REPO = new FileIconRepository();
     private static final String UNKNOWN = "unknown";
 
@@ -49,7 +46,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
         getChildren().setAll(table);
         getStyleClass().addAll("table-directory-view");
-        Containers.setAnchors(table, Insets.EMPTY);
+        NodeUtils.setAnchors(table, Insets.EMPTY);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,11 +71,11 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         // ~
 
         var table = new TableView<Path>();
-        table.getStyleClass().add(Styles.STRIPED);
+        table.getStyleClass().addAll(Styles.STRIPED, Tweaks.EDGE_TO_EDGE);
         table.getColumns().setAll(filenameCol, sizeCol, mtimeCol);
         table.getSortOrder().add(filenameCol);
         table.setSortPolicy(param -> true);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         filenameCol.minWidthProperty().bind(table.widthProperty().multiply(0.5));
         table.setRowFactory(param -> {
             TableRow<Path> row = new TableRow<>();
@@ -152,8 +149,8 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
                     imageView.setImage(FileIconRepository.FOLDER);
                 }
 
-                pseudoClassStateChanged(FOLDER, isDirectory);
-                getTableRow().pseudoClassStateChanged(HIDDEN, isFileHidden(path));
+                pseudoClassStateChanged(Model.FOLDER, isDirectory);
+                getTableRow().pseudoClassStateChanged(Model.HIDDEN, isFileHidden(path));
 
                 setGraphic(imageView);
                 setText(filename);
@@ -195,10 +192,12 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
             if (empty) {
                 setText(null);
             } else {
-                setText(fileTime != null
-                    ? HumanReadableFormat.date(fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
-                    : UNKNOWN
-                );
+                if (fileTime == null) {
+                    setText(UNKNOWN);
+                    return;
+                }
+                var instant = fileTime.toInstant().atZone(ZoneId.systemDefault());
+                setText(HumanReadableFormat.date(instant.toLocalDateTime()));
             }
         }
     }

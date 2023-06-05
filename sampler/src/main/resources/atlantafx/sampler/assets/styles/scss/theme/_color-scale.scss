@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: MIT
+
+#color-scale {
+  -fx-hgap: 20px;
+  -fx-vgap: 20px;
+
+  >.column {
+    >.cell {
+      -fx-text-fill: -color-fg-default;
+      -fx-font-size: 1.1em;
+      -fx-padding: 0 0 0 10px;
+    }
+  }
+}

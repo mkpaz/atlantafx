@@ -29,18 +29,38 @@
 
 package atlantafx.base.controls;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectPropertyBase;
+import javafx.beans.value.WritableValue;
+import javafx.css.CssMetaData;
 import javafx.css.PseudoClass;
+import javafx.css.Styleable;
+import javafx.css.StyleableObjectProperty;
+import javafx.css.StyleableProperty;
+import javafx.css.converter.EnumConverter;
 import javafx.event.ActionEvent;
+import javafx.geometry.HorizontalDirection;
+import javafx.scene.AccessibleAttribute;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.Skin;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 
-@SuppressWarnings("unused")
-public class ToggleSwitch extends Labeled {
+/**
+ * A control that provides users with the ability to choose between two distinct values.
+ * It is functionally similar, though aesthetically different, from the RadioButton
+ * and Checkbox.
+ */
+public class ToggleSwitch extends Labeled implements Toggle {
 
     protected static final String DEFAULT_STYLE_CLASS = "toggle-switch";
     protected static final PseudoClass PSEUDO_CLASS_SELECTED = PseudoClass.getPseudoClass("selected");
+    protected static final PseudoClass PSEUDO_CLASS_RIGHT = PseudoClass.getPseudoClass("right");
 
     /**
      * Creates a toggle switch with empty string for its label.
@@ -52,11 +72,19 @@ public class ToggleSwitch extends Labeled {
     /**
      * Creates a toggle switch with the specified label.
      *
-     * @param text The label string of the control
+     * @param text The label string of the control.
      */
     public ToggleSwitch(String text) {
         super(text);
         initialize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new ToggleSwitchSkin(this);
     }
 
     private void initialize() {
@@ -67,35 +95,45 @@ public class ToggleSwitch extends Labeled {
     // Properties                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    /*
-     * Indicates whether this switch is selected.
-     */
-    private BooleanProperty selected;
-
-    /**
-     * Sets the selected value.
-     */
-    public final void setSelected(boolean value) {
-        selectedProperty().set(value);
-    }
-
     /**
      * Returns whether this Toggle Switch is selected.
      */
-    public final boolean isSelected() {
-        return selected != null && selected.get();
-    }
-
-    /**
-     * Returns the selected property.
-     */
+    @Override
     public final BooleanProperty selectedProperty() {
         if (selected == null) {
             selected = new BooleanPropertyBase() {
+
                 @Override
                 protected void invalidated() {
-                    final boolean v = get();
-                    pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, v);
+                    final boolean selected = get();
+                    final ToggleGroup tg = getToggleGroup();
+                    pseudoClassStateChanged(PSEUDO_CLASS_SELECTED, selected);
+                    notifyAccessibleAttributeChanged(AccessibleAttribute.SELECTED);
+
+                    if (tg != null) {
+                        if (selected) {
+                            tg.selectToggle(ToggleSwitch.this);
+                        } else if (tg.getSelectedToggle() == ToggleSwitch.this) {
+                            // This code was copied from ToggleButton, and originally
+                            // it should use the following method, which is like almost
+                            // everything in JavaFX is private. Probably it fixes some
+                            // internal toggle group state.
+                            // tg.clearSelectedToggle();
+
+                            // This is kind of an equivalent code even though
+                            // "!tg.getSelectedToggle().isSelected()"
+                            // looks like absurd and should always return false.
+                            if (!tg.getSelectedToggle().isSelected()) {
+                                for (Toggle toggle : tg.getToggles()) {
+                                    if (toggle.isSelected()) {
+                                        return;
+                                    }
+                                }
+                            }
+
+                            tg.selectToggle(null);
+                        }
+                    }
                 }
 
                 @Override
@@ -113,13 +151,120 @@ public class ToggleSwitch extends Labeled {
         return selected;
     }
 
+    private BooleanProperty selected;
+
+    @Override
+    public final void setSelected(boolean value) {
+        selectedProperty().set(value);
+    }
+
+    @Override
+    public final boolean isSelected() {
+        return selected != null && selected.get();
+    }
+
+    /**
+     * The {@link ToggleGroup} to which this ToggleSwitch belongs. A toggle can only
+     * be in one group at any one time. If the group is changed, then the toggle is
+     * removed from the old group prior to being added to the new group.
+     */
+    @Override
+    public final ObjectProperty<ToggleGroup> toggleGroupProperty() {
+        if (toggleGroup == null) {
+            toggleGroup = new ObjectPropertyBase<>() {
+                private ToggleGroup old;
+
+                @Override
+                protected void invalidated() {
+                    final ToggleGroup tg = get();
+                    if (tg != null && !tg.getToggles().contains(ToggleSwitch.this)) {
+                        if (old != null) {
+                            old.getToggles().remove(ToggleSwitch.this);
+                        }
+                        tg.getToggles().add(ToggleSwitch.this);
+                    } else if (tg == null) {
+                        old.getToggles().remove(ToggleSwitch.this);
+                    }
+
+                    old = tg;
+                }
+
+                @Override
+                public Object getBean() {
+                    return ToggleSwitch.this;
+                }
+
+                @Override
+                public String getName() {
+                    return "toggleGroup";
+                }
+            };
+        }
+        return toggleGroup;
+    }
+
+    private ObjectProperty<ToggleGroup> toggleGroup;
+
+    @Override
+    public final void setToggleGroup(ToggleGroup value) {
+        toggleGroupProperty().set(value);
+    }
+
+    @Override
+    public final ToggleGroup getToggleGroup() {
+        return toggleGroup == null ? null : toggleGroup.get();
+    }
+
+    /**
+     * Specifies the side where {@link #textProperty()} value should be placed.
+     * Default is {@link HorizontalDirection#LEFT}.
+     */
+    public final ObjectProperty<HorizontalDirection> labelPositionProperty() {
+        if (labelPosition == null) {
+            labelPosition = new StyleableObjectProperty<>(HorizontalDirection.LEFT) {
+
+                @Override
+                public Object getBean() {
+                    return ToggleSwitch.this;
+                }
+
+                @Override
+                public String getName() {
+                    return "labelPosition";
+                }
+
+                @Override
+                protected void invalidated() {
+                    final HorizontalDirection v = get();
+                    pseudoClassStateChanged(ToggleSwitch.PSEUDO_CLASS_RIGHT, v == HorizontalDirection.RIGHT);
+                }
+
+                @Override
+                public CssMetaData<ToggleSwitch, HorizontalDirection> getCssMetaData() {
+                    return StyleableProperties.LABEL_POSITION;
+                }
+            };
+        }
+
+        return labelPosition;
+    }
+
+    private ObjectProperty<HorizontalDirection> labelPosition;
+
+    public final void setLabelPosition(HorizontalDirection pos) {
+        labelPositionProperty().setValue(pos);
+    }
+
+    public final HorizontalDirection getLabelPosition() {
+        return labelPosition == null ? HorizontalDirection.LEFT : labelPosition.getValue();
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Methods                                                               //
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Toggles the state of the {@code Switch}. The {@code Switch} will cycle
-     * through the selected and unselected states.
+     * Toggles the state of the switch, cycling through the selected and unselected states.
      */
     public void fire() {
         if (!isDisabled()) {
@@ -128,11 +273,42 @@ public class ToggleSwitch extends Labeled {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Styleable Properties                                                  //
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected Skin<?> createDefaultSkin() {
-        return new ToggleSwitchSkin(this);
+    public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+        return StyleableProperties.STYLEABLES;
+    }
+
+    private static class StyleableProperties {
+
+        private static final CssMetaData<ToggleSwitch, HorizontalDirection> LABEL_POSITION = new CssMetaData<>(
+            "-fx-label-position", new EnumConverter<>(HorizontalDirection.class), HorizontalDirection.LEFT
+        ) {
+
+            @Override
+            public boolean isSettable(ToggleSwitch c) {
+                return c.labelPositionProperty() == null || !c.labelPositionProperty().isBound();
+            }
+
+            @Override
+            public StyleableProperty<HorizontalDirection> getStyleableProperty(ToggleSwitch c) {
+                var val = (WritableValue<HorizontalDirection>) c.labelPositionProperty();
+                return (StyleableProperty<HorizontalDirection>) val;
+            }
+        };
+
+        private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
+
+        static {
+            final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(Labeled.getClassCssMetaData());
+            styleables.add(LABEL_POSITION);
+            STYLEABLES = Collections.unmodifiableList(styleables);
+        }
     }
 }

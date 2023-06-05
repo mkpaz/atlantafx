@@ -1,0 +1,182 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+$color-bg:                     -color-bg-subtle         !default;
+$color-fg-primary:             -color-fg-default        !default;
+$color-fg-secondary:           -color-fg-default        !default;
+$color-border:                 -color-border-muted      !default;
+$color-border-hover:           -color-border-default    !default;
+$color-button-bg-hover:        -color-bg-default        !default;
+
+$color-bg-accent:              -color-accent-subtle     !default;
+$color-fg-accent-primary:      -color-accent-fg         !default;
+$color-fg-accent-secondary:    -color-fg-default        !default;
+$color-border-accent:          -color-accent-muted      !default;
+$color-border-accent-hover:    -color-accent-emphasis   !default;
+$color-button-accent-bg-hover: -color-accent-muted      !default;
+
+$color-bg-success:              -color-success-subtle   !default;
+$color-fg-success-primary:      -color-success-fg       !default;
+$color-fg-success-secondary:    -color-fg-default       !default;
+$color-border-success:          -color-success-muted    !default;
+$color-border-success-hover:    -color-success-emphasis !default;
+$color-button-success-bg-hover: -color-success-muted    !default;
+
+$color-bg-warning:              -color-warning-subtle   !default;
+$color-fg-warning-primary:      -color-warning-fg       !default;
+$color-fg-warning-secondary:    -color-fg-default       !default;
+$color-border-warning:          -color-warning-muted    !default;
+$color-border-warning-hover:    -color-warning-emphasis !default;
+$color-button-warning-bg-hover: -color-warning-muted    !default;
+
+$color-bg-danger:               -color-danger-subtle    !default;
+$color-fg-danger-primary:       -color-danger-fg        !default;
+$color-fg-danger-secondary:     -color-fg-default       !default;
+$color-border-danger:           -color-danger-muted     !default;
+$color-border-danger-hover:     -color-danger-emphasis  !default;
+$color-button-danger-bg-hover:  -color-danger-muted     !default;
+
+$close-button-radius:   100px !default;
+$close-button-padding:  0.5em; // private variable
+
+.message {
+
+  -color-message-bg:           $color-bg;
+  -color-message-fg-primary:   $color-fg-primary;
+  -color-message-fg-secondary: $color-fg-secondary;
+  -color-message-border:       $color-border;
+  -color-message-button-hover: $color-button-bg-hover;
+  -color-message-border-interactive: $color-border-hover;
+
+  &.accent {
+    -color-message-bg:           $color-bg-accent;
+    -color-message-fg-primary:   $color-fg-accent-primary;
+    -color-message-fg-secondary: $color-fg-accent-secondary;
+    -color-message-border:       $color-border-accent;
+    -color-message-button-hover: $color-button-accent-bg-hover;
+    -color-message-border-interactive: $color-border-accent-hover;
+  }
+
+  &.success {
+    -color-message-bg:           $color-bg-success;
+    -color-message-fg-primary:   $color-fg-success-primary;
+    -color-message-fg-secondary: $color-fg-success-secondary;
+    -color-message-border:       $color-border-success;
+    -color-message-button-hover: $color-button-success-bg-hover;
+    -color-message-border-interactive: $color-border-success-hover;
+  }
+
+  &.warning {
+    -color-message-bg:           $color-bg-warning;
+    -color-message-fg-primary:   $color-fg-warning-primary;
+    -color-message-fg-secondary: $color-fg-warning-secondary;
+    -color-message-border:       $color-border-warning;
+    -color-message-button-hover: $color-button-warning-bg-hover;
+    -color-message-border-interactive: $color-border-warning-hover;
+  }
+
+  &.danger {
+    -color-message-bg:           $color-bg-danger;
+    -color-message-fg-primary:   $color-fg-danger-primary;
+    -color-message-fg-secondary: $color-fg-danger-secondary;
+    -color-message-border:       $color-border-danger;
+    -color-message-button-hover: $color-button-danger-bg-hover;
+    -color-message-border-interactive: $color-border-danger-hover;
+  }
+
+  &.tile-base {
+    >.container {
+
+      -fx-background-color: -color-message-bg;
+      -fx-alignment: CENTER_LEFT;
+      -fx-border-color: -color-message-border;
+      -fx-border-width: cfg.$border-width;
+      -fx-border-radius: cfg.$border-radius;
+
+      >.graphic {
+        &:disabled {
+          -fx-opacity: cfg.$opacity-disabled;
+        }
+      }
+
+      >.header {
+        >.title {
+          -fx-text-fill: -color-message-fg-secondary;
+        }
+
+        >.description {
+          Text {
+            -fx-fill: -color-message-fg-secondary;
+
+            &:disabled {
+              -fx-opacity: cfg.$opacity-disabled;
+            }
+          }
+        }
+      }
+
+      #{cfg.$font-icon-selector} {
+        -fx-icon-color: -color-message-fg-primary;
+        -fx-fill: -color-message-fg-primary;
+        -fx-icon-size: cfg.$icon-size-larger;
+      }
+    }
+
+    &:hover:interactive {
+      >.container {
+        -fx-background-color: -color-message-bg;
+        -fx-border-color: -color-message-border-interactive;
+        -fx-cursor: hand;
+      }
+    }
+
+    &:has-title:has-description {
+      >.container>.header {
+        >.title {
+          -fx-text-fill: -color-message-fg-primary;
+        }
+
+        >.description {
+          Text {
+            -fx-fill: -color-message-fg-secondary;
+          }
+        }
+      }
+    }
+  }
+
+  // CLOSE BUTTON
+
+  >.close-button {
+    -fx-background-radius: $close-button-radius;
+    -fx-padding: $close-button-padding;
+
+    >.icon {
+      @include icons.get("close", true);
+      -fx-background-color: -color-message-fg-primary;
+      -fx-padding: 0.3em;
+    }
+
+    &:hover {
+      -fx-background-color: -color-message-border, -color-message-button-hover;
+      -fx-background-insets: 0, 1;
+    }
+
+    &:disabled {
+      -fx-opacity: cfg.$opacity-disabled;
+    }
+  }
+
+  &:closeable {
+    >.container {
+      >.header {
+        >.title,
+        >.description {
+          -fx-padding: 0 ($close-button-padding * 3) 0 0;
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.sampler.util;
 
 import javafx.scene.input.Clipboard;

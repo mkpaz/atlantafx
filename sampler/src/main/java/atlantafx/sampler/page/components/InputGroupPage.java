@@ -2,14 +2,13 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.base.theme.Styles.BUTTON_ICON;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
+import atlantafx.base.layout.InputGroup;
 import atlantafx.base.theme.Styles;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.Page;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
+import java.net.URI;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,154 +17,204 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class InputGroupPage extends AbstractPage {
+public final class InputGroupPage extends OutlinePage {
 
-    public static final String NAME = "Input Group";
+    public static final String NAME = "InputGroup";
 
     @Override
     public String getName() {
         return NAME;
     }
 
+    @Override
+    public URI getJavadocUri() {
+        return URI.create(String.format(AFX_JAVADOC_URI_TEMPLATE, "layout/" + getName()));
+    }
+
     public InputGroupPage() {
         super();
-        setUserContent(new VBox(
-            Page.PAGE_VGAP,
-            expandingHBox(httpMethodSample(), passwordSample()),
-            expandingHBox(networkSample(), dropdownSample()),
-            labelSample()
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            [i]InputGroup[/i] is a layout that helps combine various controls into a group \
+            that allow them to appear as a single control. Without it, you would have \
+            to manually add the [font=monospace].left-pill[/font], [font=monospace].center-pill[/font], \
+            and [font=monospace].right-pill[/font] styles classes to each control in such combination. \
+            You still can, but the [i]InputGroup[/i] removes this ceremony. And since it inherits \
+            from [i]HBox[/i], you can use the same API."""
+        );
+        addSection("ComboBox", comboBoxExample());
+        addSection("Button", buttonExample());
+        addSection("Text Field", textFieldExample());
+        addSection("MenuButton", menuButtonExample());
+        addSection("Label", labelExample());
     }
 
-    private SampleBlock httpMethodSample() {
-        var leftCombo = new ComboBox<>();
-        leftCombo.getItems().addAll("POST", "GET", "PUT", "PATCH", "DELETE");
-        leftCombo.getStyleClass().add(Styles.LEFT_PILL);
-        leftCombo.getSelectionModel().selectFirst();
+    private ExampleBox comboBoxExample() {
+        //snippet_1:start
+        var leftCmb = new ComboBox<>();
+        leftCmb.getItems().addAll("POST", "GET", "PUT", "PATCH", "DELETE");
+        leftCmb.getSelectionModel().selectFirst();
 
-        var rightText = new TextField("https://example.org");
-        rightText.getStyleClass().add(Styles.RIGHT_PILL);
+        var rightTfd = new TextField("https://example.org");
+        HBox.setHgrow(rightTfd, Priority.ALWAYS);
 
-        var box = new HBox(leftCombo, rightText);
-        box.setAlignment(Pos.CENTER_LEFT);
+        var group = new InputGroup(leftCmb, rightTfd);
+        //snippet_1:end
 
-        return new SampleBlock("ComboBox & TextField", box);
+        var box = new HBox(group);
+        box.setMinWidth(400);
+        box.setMaxWidth(400);
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how a [i]ComboBox[/i] can be combined \
+            with a [i]TextField[/i].""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private SampleBlock passwordSample() {
-        var leftPassword = new TextField();
-        leftPassword.setText(FAKER.internet().password());
-        leftPassword.getStyleClass().add(Styles.LEFT_PILL);
+    private ExampleBox buttonExample() {
+        //snippet_2:start
+        var leftTfd = new TextField();
+        leftTfd.setText(FAKER.internet().password());
+        HBox.setHgrow(leftTfd, Priority.ALWAYS);
 
-        var rightBtn = new Button("", new FontIcon(Feather.REFRESH_CW));
-        rightBtn.getStyleClass().addAll(BUTTON_ICON);
-        rightBtn.setOnAction(e -> leftPassword.setText(FAKER.internet().password()));
-        rightBtn.getStyleClass().add(Styles.RIGHT_PILL);
-
-        var box = new HBox(leftPassword, rightBtn);
-        box.setAlignment(Pos.CENTER_LEFT);
-
-        return new SampleBlock("Text Field & Button", box);
-    }
-
-    private SampleBlock networkSample() {
-        var leftText = new TextField("192.168.1.10");
-        leftText.getStyleClass().add(Styles.LEFT_PILL);
-        leftText.setPrefWidth(140);
-
-        var centerText = new TextField("24");
-        centerText.getStyleClass().add(Styles.CENTER_PILL);
-        centerText.setPrefWidth(70);
-
-        var rightText = new TextField("192.168.1.1");
-        rightText.getStyleClass().add(Styles.RIGHT_PILL);
-        rightText.setPrefWidth(140);
-
-        var box = new HBox(leftText, centerText, rightText);
-        box.setAlignment(Pos.CENTER_LEFT);
-
-        return new SampleBlock("Text Fields", box);
-    }
-
-    private SampleBlock dropdownSample() {
-        var rightText = new TextField(FAKER.harryPotter().spell());
-        rightText.getStyleClass().add(Styles.RIGHT_PILL);
-
-        var spellItem = new MenuItem("Spell");
-        spellItem.setOnAction(e -> rightText.setText(FAKER.harryPotter().spell()));
-
-        var characterItem = new MenuItem("Character");
-        characterItem.setOnAction(e -> rightText.setText(FAKER.harryPotter().character()));
-
-        var locationItem = new MenuItem("Location");
-        locationItem.setOnAction(e -> rightText.setText(FAKER.harryPotter().location()));
-
-        var leftMenu = new MenuButton("Generate");
-        leftMenu.getItems().addAll(spellItem, characterItem, locationItem);
-        leftMenu.getStyleClass().add(Styles.LEFT_PILL);
-
-        var box = new HBox(leftMenu, rightText);
-        box.setAlignment(Pos.CENTER_LEFT);
-
-        return new SampleBlock("MenuButton & TextField", box);
-    }
-
-    private SampleBlock labelSample() {
-        var leftLabel1 = new Label("", new CheckBox());
-        leftLabel1.getStyleClass().add(Styles.LEFT_PILL);
-
-        var rightText1 = new TextField();
-        rightText1.setPromptText("Username");
-        rightText1.getStyleClass().add(Styles.RIGHT_PILL);
-        rightText1.setPrefWidth(100);
-
-        var sample1 = new HBox(leftLabel1, rightText1);
-        sample1.setAlignment(Pos.CENTER_LEFT);
-
-        // ~
-
-        var leftText2 = new TextField("johndoe");
-        leftText2.getStyleClass().add(Styles.LEFT_PILL);
-        leftText2.setPrefWidth(100);
-
-        var centerLabel2 = new Label("@");
-        centerLabel2.getStyleClass().add(Styles.CENTER_PILL);
-
-        var rightText2 = new TextField("gmail.com");
-        rightText2.getStyleClass().add(Styles.RIGHT_PILL);
-        rightText2.setPrefWidth(100);
-
-        var sample2 = new HBox(leftText2, centerLabel2, rightText2);
-        sample2.setAlignment(Pos.CENTER_LEFT);
-
-        // ~
-
-        var leftText3 = new TextField("+123456");
-        leftText3.getStyleClass().add(Styles.LEFT_PILL);
-        leftText3.setPrefWidth(100);
-
-        var rightLabel3 = new Label("", new FontIcon(Feather.DOLLAR_SIGN));
-        rightLabel3.getStyleClass().add(Styles.RIGHT_PILL);
-
-        var sample3 = new HBox(leftText3, rightLabel3);
-        sample3.setAlignment(Pos.CENTER_LEFT);
-
-        // ~
-
-        var flowPane = new FlowPane(
-            BLOCK_HGAP, BLOCK_VGAP,
-            sample1,
-            sample2,
-            sample3
+        var rightBtn = new Button(
+            "", new FontIcon(Feather.REFRESH_CW)
+        );
+        rightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
+        rightBtn.setOnAction(
+            e -> leftTfd.setText(FAKER.internet().password())
         );
 
-        return new SampleBlock("Label & TextField", flowPane);
+        var group = new InputGroup(leftTfd, rightBtn);
+        //snippet_2:end
+
+        var box = new HBox(group);
+        box.setMinWidth(400);
+        box.setMaxWidth(400);
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how a [i]Button[/i] can be combined \
+            with a [i]TextField[/i].""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
+    }
+
+    private ExampleBox textFieldExample() {
+        //snippet_3:start
+        var leftTfd = new TextField("192.168.1.10");
+
+        var centerTfd = new TextField("24");
+        centerTfd.setPrefWidth(70);
+
+        var rightTfd = new TextField("192.168.1.1");
+
+        var group = new InputGroup(leftTfd, centerTfd, rightTfd);
+        //snippet_3:end
+
+        var box = new HBox(group);
+        box.setMinWidth(400);
+        box.setMaxWidth(400);
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how a multiple [i]TextField[/i]'s can be \
+            combined into a input group.""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 3), description);
+    }
+
+    private ExampleBox menuButtonExample() {
+        //snippet_4:start
+        var rightTfd = new TextField(FAKER.harryPotter().spell());
+        HBox.setHgrow(rightTfd, Priority.ALWAYS);
+
+        var spellItem = new MenuItem("Spell");
+        spellItem.setOnAction(
+            e -> rightTfd.setText(FAKER.harryPotter().spell())
+        );
+
+        var characterItem = new MenuItem("Character");
+        characterItem.setOnAction(
+            e -> rightTfd.setText(FAKER.harryPotter().character())
+        );
+
+        var locationItem = new MenuItem("Location");
+        locationItem.setOnAction(
+            e -> rightTfd.setText(FAKER.harryPotter().location())
+        );
+
+        var leftMenu = new MenuButton("Dropdown");
+        leftMenu.getItems().addAll(spellItem, characterItem, locationItem);
+
+        var group = new InputGroup(leftMenu, rightTfd);
+        //snippet_4:end
+
+        var box = new HBox(group);
+        box.setMinWidth(400);
+        box.setMaxWidth(400);
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how a [i]MenuButton[/i] can be combined \
+            with a [i]TextField[/i].""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 4), description);
+    }
+
+    private ExampleBox labelExample() {
+        //snippet_5:start
+        var leftLbl1 = new Label("", new CheckBox());
+
+        var rightTfd1 = new TextField();
+        rightTfd1.setPromptText("Username");
+        HBox.setHgrow(rightTfd1, Priority.ALWAYS);
+
+        var sample1 = new InputGroup(leftLbl1, rightTfd1);
+
+        // ~
+        var leftTfd2 = new TextField("johndoe");
+        HBox.setHgrow(leftTfd2, Priority.ALWAYS);
+
+        var centerLbl2 = new Label("@");
+        centerLbl2.setMinWidth(50);
+        centerLbl2.setAlignment(Pos.CENTER);
+
+        var rightTfd2 = new TextField("gmail.com");
+        HBox.setHgrow(rightTfd2, Priority.ALWAYS);
+
+        var sample2 = new InputGroup(leftTfd2, centerLbl2, rightTfd2);
+
+        // ~
+        var leftTfd3 = new TextField("+123456");
+        HBox.setHgrow(leftTfd3, Priority.ALWAYS);
+
+        var rightLbl3 = new Label("", new FontIcon(Feather.DOLLAR_SIGN));
+
+        var sample3 = new InputGroup(leftTfd3, rightLbl3);
+        //snippet_5:end
+
+        sample1.setMinWidth(400);
+        sample1.setMaxWidth(400);
+
+        sample2.setMinWidth(400);
+        sample2.setMaxWidth(400);
+
+        sample3.setMinWidth(400);
+        sample3.setMaxWidth(400);
+
+        var box = new VBox(VGAP_20, sample1, sample2, sample3);
+
+        var description = BBCodeParser.createFormattedText("""
+            This example demonstrates how a [i]Label[/i] can be used \
+            in combination with various controls.""");
+
+        return new ExampleBox(box, new Snippet(getClass(), 5), description);
     }
 }
 

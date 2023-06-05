@@ -20,9 +20,11 @@ $color-today-bg:        -color-accent-subtle   !default;
 $color-today-fg:        -color-accent-fg       !default;
 $color-other-month-fg:  -color-fg-subtle       !default;
 $color-chrono-fg:       -color-success-fg      !default;
+$color-icon:            -color-fg-muted        !default;
 
 $content-padding-x: 8px !default;
 $content-padding-y: 8px !default;
+$day-cell-font-size:   1em !default;
 $month-year-font-size: 1.1em !default;
 
 $cell-padding-x: 4px !default;
@@ -63,10 +65,25 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
     >.arrow {
       @include icons.get("calendar", true);
-      -fx-background-color: -color-fg-default;
+      -fx-background-color: $color-icon;
       -fx-padding: 0.416667em; // icon size
     }
   }
+
+  >.text-field {
+    &:readonly {
+      -fx-background-color: -color-input-border, -color-input-bg;
+    }
+
+    &:readonly:focused {
+      -fx-background-color: -color-input-border-focused, -color-input-bg-focused;
+    }
+  }
+}
+
+.combo-box-popup>.date-picker-popup {
+  @include effects.shadow(-color-shadow-default, cfg.$popup-shadow-radius, cfg.$popup-shadow-spread);
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
 }
 
 .date-picker-popup {
@@ -74,7 +91,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
 
   -fx-background-color: -color-date-border, -color-date-bg;
   -fx-background-insets: 0, 1;
-  -fx-background-radius: 0;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-alignment: CENTER;
   -fx-spacing: 0;
   -fx-padding: cfg.$border-width;
@@ -83,6 +100,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     -fx-padding: $content-padding-y $content-padding-x $content-padding-y $content-padding-x;
     -fx-background-color: -color-date-month-year-bg;
     -fx-background-insets: 0;
+    -fx-background-radius: cfg.$border-radius cfg.$border-radius 0 0;
 
     // this one is actually HBox, but because of the class name it uses Spinner styles
     >.spinner {
@@ -128,6 +146,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
     -fx-padding: $content-padding-x;
     -fx-hgap: $cell-hgap;
     -fx-vgap: $cell-vgap;
+    -fx-background-radius: cfg.$border-radius;
 
     >.date-cell {
       -fx-background-color: transparent;
@@ -136,12 +155,14 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       -fx-opacity: 1.0;
       -fx-text-fill: -color-date-day-fg;
       -fx-cell-size: $cell-size;
+      -fx-font-size: $day-cell-font-size;
     }
 
     >.week-number-cell {
       -fx-padding: $cell-padding-y $cell-padding-x $cell-padding-y $cell-padding-x;
       -fx-background-color: -color-date-week-bg;
       -fx-text-fill: -color-date-week-fg;
+      -fx-font-size: $day-cell-font-size;
     }
 
     >.day-cell {
@@ -176,7 +197,7 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
   }
 }
 
-.inline-date-picker {
+.calendar {
   -fx-effect: none;
 
   >.top-node,
@@ -229,6 +250,12 @@ $chrono-cell-padding: 0.083333em $cell-padding-x 0.083333em 0.333333em !default;
       }
     }
   }
+}
+
+.edge-to-edge>.calendar.date-picker-popup {
+  -fx-background-color: -color-date-bg;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0;
 }
 
 .date-picker-popup>.calendar-grid>.selected,

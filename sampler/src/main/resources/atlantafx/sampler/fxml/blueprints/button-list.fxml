@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="180.0" spacing="10.0" styleClass="sample" xmlns="http://javafx.com/javafx/19">
+   <children>
+      <Button defaultButton="true" mnemonicParsing="false" prefWidth="150.0" text="Button">
+         <graphic>
+            <FontIcon iconLiteral="mdoal-bookmark_border" />
+         </graphic>
+      </Button>
+      <Button layoutX="235.0" layoutY="20.0" mnemonicParsing="false" prefWidth="150.0" styleClass="success" text="Button">
+         <graphic>
+            <FontIcon iconLiteral="mdoal-bookmark_border" />
+         </graphic>
+      </Button>
+      <Button layoutX="30.0" layoutY="76.0" mnemonicParsing="false" prefWidth="150.0" styleClass="danger" text="Button">
+         <graphic>
+            <FontIcon iconLiteral="mdoal-bookmark_border" />
+         </graphic>
+      </Button>
+      <Button layoutX="235.0" layoutY="66.0" mnemonicParsing="false" prefWidth="150.0" text="Button">
+         <graphic>
+            <FontIcon iconLiteral="mdoal-bookmark_border" />
+         </graphic>
+      </Button>
+      <Button layoutX="235.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" styleClass="flat" text="Button">
+         <graphic>
+            <FontIcon iconLiteral="mdoal-bookmark_border" />
+         </graphic>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

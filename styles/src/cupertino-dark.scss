@@ -1,0 +1,234 @@
+// SPDX-License-Identifier: MIT)
+
+@use "sass:color";
+@use "settings/utils" as utils;
+
+// IOS dark color palette
+$systemBackground:                 rgba(0.0, 0.0, 0.0, 1.0);    // #000000ff
+$secondarySystemBackground:        rgba(28.0, 28.0, 30.0, 1.0); // #1c1c1eff
+$tertiarySystemBackground:         rgba(44.0, 44.0, 46.0, 1.0); // #2c2c2eff
+$systemGroupedBackground:          rgba(0.0, 0.0, 0.0, 1.0);    // #000000ff
+$secondarySystemGroupedBackground: rgba(28.0, 28.0, 30.0, 1.0); // #1c1c1eff
+$tertiarySystemGroupedBackground:  rgba(44.0, 44.0, 46.0, 1.0); // #2c2c2eff
+$systemFill:           rgba(120.0, 120.0, 128.0, 0.36); // #7878805b
+$secondarySystemFill:  rgba(120.0, 120.0, 128.0, 0.32); // #78788051
+$tertiarySystemFill:   rgba(118.0, 118.0, 128.0, 0.24); // #7676803d
+$quaternarySystemFill: rgba(118.0, 118.0, 128.0, 0.18); // #7676802d
+$systemBlue:   rgba(10.0, 132.0, 255.0, 1.0);  // #0a84ffff
+$systemGreen:  rgba(50.0, 215.0, 75.0, 1.0);   // #32d74bff
+$systemIndigo: rgba(94.0, 92.0, 230.0, 1.0);   // #5e5ce6ff
+$systemOrange: rgba(255.0, 159.0, 10.0, 1.0);  // #ff9f0aff
+$systemPink:   rgba(255.0, 55.0, 95.0, 1.0);   // #ff375fff
+$systemPurple: rgba(191.0, 90.0, 242.0, 1.0);  // #bf5af2ff
+$systemRed:    rgba(255.0, 69.0, 58.0, 1.0);   // #ff453aff
+$systemTeal:   rgba(100.0, 210.0, 255.0, 1.0); // #64d2ffff
+$systemYellow: rgba(255.0, 214.0, 10.0, 1.0);  // #ffd60aff
+$systemGray:   rgba(142.0, 142.0, 147.0, 1.0); // #8e8e93ff
+$systemGray2:  rgba(99.0, 99.0, 102.0, 1.0);   // #636366ff
+$systemGray3:  rgba(72.0, 72.0, 74.0, 1.0);    // #48484aff
+$systemGray4:  rgba(58.0, 58.0, 60.0, 1.0);    // #3a3a3cff
+$systemGray5:  rgba(44.0, 44.0, 46.0, 1.0);    // #2c2c2eff
+$systemGray6:  rgba(28.0, 28.0, 30.0, 1.0);    // #1c1c1eff
+
+$darkText:        rgba(0.0, 0.0, 0.0, 1.0);        // #000000ff
+$lightText:       rgba(255.0, 255.0, 255.0, 0.6);  // #ffffff99
+$label:           rgba(255.0, 255.0, 255.0, 1.0);  // #ffffffff
+$secondaryLabel:  rgba(235.0, 235.0, 245.0, 0.6);  // #ebebf599
+$tertiaryLabel:   rgba(235.0, 235.0, 245.0, 0.3);  // #ebebf54c
+$quaternaryLabel: rgba(235.0, 235.0, 245.0, 0.18); // #ebebf52d
+$placeholderText: rgba(235.0, 235.0, 245.0, 0.3);  // #ebebf54c
+$link:            rgba(9.0, 132.0, 255.0, 1.0);    // #0984ffff
+$separator:       rgba(84.0, 84.0, 88.0, 0.6);     // #54545899
+$opaqueSeparator: rgba(56.0, 56.0, 58.0, 1.0);     // #38383aff
+
+@forward "settings/color-scale" with (
+
+  $dark:      $systemBackground,
+  $light:     $label,
+
+  $base-0:    #f2f2f7ff, // the rest of the color shades
+  $base-1:    #e5e5eaff, // are
+  $base-2:    #d1d1d6ff, // from
+  $base-3:    #aeaeb2ff, // the light palette
+  $base-4:    $systemGray,
+  $base-5:    $systemGray2,
+  $base-6:    $systemGray3,
+  $base-7:    $systemGray4,
+  $base-8:    $systemGray5,
+  $base-9:    $systemGray6,
+
+  $accent-0:  #c2e0ff,
+  $accent-1:  #9dceff,
+  $accent-2:  #78bbff,
+  $accent-3:  #54a9ff,
+  $accent-4:  #2f96ff,
+  $accent-5:  $systemBlue,
+  $accent-6:  #0970d9,
+  $accent-7:  #075cb3,
+  $accent-8:  #06498c,
+  $accent-9:  #043566,
+
+  $success-0: #ccf5d2,
+  $success-1: #adefb7,
+  $success-2: #8ee99c,
+  $success-3: #70e381,
+  $success-4: #51dd66,
+  $success-5: $systemGreen,
+  $success-6: #2bb740,
+  $success-7: #239735,
+  $success-8: #1c7629,
+  $success-9: #14561e,
+
+  $warning-0: #ffe7c2,
+  $warning-1: #ffd99d,
+  $warning-2: #ffca78,
+  $warning-3: #ffbc54,
+  $warning-4: #ffad2f,
+  $warning-5: $systemOrange,
+  $warning-6: #d98709,
+  $warning-7: #b36f07,
+  $warning-8: #8c5706,
+  $warning-9: #664004,
+
+  $danger-0:  #ffd1ce,
+  $danger-1:  #ffb5b0,
+  $danger-2:  #ff9993,
+  $danger-3:  #ff7d75,
+  $danger-4:  #ff6158,
+  $danger-5:  $systemRed,
+  $danger-6:  #d93b31,
+  $danger-7:  #b33029,
+  $danger-8:  #8c2620,
+  $danger-9:  #661c17
+);
+
+@use "settings/color-scale" as scale;
+
+@forward "settings/color-vars" with (
+
+  $fg-default:           $label,
+  $fg-muted:             scale.$base-3,
+  $fg-subtle:            utils.flattenColor($systemGroupedBackground, $secondaryLabel),
+  $fg-onEmphasis:        $label,
+
+  $canvas-default:       $secondarySystemGroupedBackground,
+  $canvas-overlay:       $secondarySystemGroupedBackground,
+  $canvas-inset:         #0b0b0c, // nothing good in default palette
+  $canvas-subtle:        $tertiarySystemGroupedBackground,
+
+  $border-default:       scale.$base-6,
+  $border-muted:         scale.$base-7,
+  $border-subtle:        utils.flattenColor(scale.$base-9, color.change(scale.$base-0, $alpha: 0.1)),
+  $shadow-default:       $systemGroupedBackground,
+
+  $neutral-emphasisPlus: scale.$base-4,
+  $neutral-emphasis:     scale.$base-4,
+  $neutral-muted:        color.change(scale.$base-5, $alpha: 0.4),
+  $neutral-subtle:       color.change(scale.$base-5, $alpha: 0.1),
+
+  $accent-fg:            scale.$accent-4,
+  $accent-emphasis:      scale.$accent-5,
+  $accent-muted:         color.change(scale.$accent-5, $alpha: 0.4),
+  $accent-subtle:        color.change(scale.$accent-5, $alpha: 0.15),
+
+  $success-fg:           scale.$success-5,
+  $success-emphasis:     scale.$success-6,
+  $success-muted:        color.change(scale.$success-5, $alpha: 0.4),
+  $success-subtle:       color.change(scale.$success-5, $alpha: 0.15),
+
+  $warning-fg:           scale.$warning-5,
+  $warning-emphasis:     scale.$warning-6,
+  $warning-muted:        color.change(scale.$warning-5, $alpha: 0.4),
+  $warning-subtle:       color.change(scale.$warning-5, $alpha: 0.15),
+
+  $danger-fg:            scale.$danger-5,
+  $danger-emphasis:      scale.$danger-5,
+  $danger-muted:         color.change(scale.$danger-5, $alpha: 0.4),
+  $danger-subtle:        color.change(scale.$danger-5, $alpha: 0.15)
+);
+
+@forward "settings/config" with (
+  $darkMode:      true,
+  $padding-y:     6px,
+  $border-radius: 6px,
+  $checkbox-mark-size: 0.85em
+);
+
+@use "general";
+
+@forward "components/button" as button-* with (
+  $color-bg:   $secondarySystemGroupedBackground,
+  $color-success-bg-focused: -color-success-7,
+  $use-shadow: true
+);
+
+@forward "components/checkbox" as checkbox-* with (
+  $color-box-indeterminate:    -color-accent-emphasis,
+  $color-border-indeterminate: -color-accent-emphasis,
+  $color-mark-indeterminate:   -color-fg-emphasis
+);
+
+@forward "components/combo-box" as combo-box-* with (
+  $use-alt-icon:            true,
+  $color-arrow-button-fg:  -color-accent-fg,
+  $color-list-bg-hover:    -color-accent-emphasis,
+  $color-list-bg-selected: -color-accent-emphasis,
+  $color-list-fg-hover:    -color-fg-emphasis,
+  $color-list-fg-selected: -color-fg-emphasis
+);
+
+@forward "components/data" as data-* with (
+  $color-header-bg: -color-bg-default,
+  $color-header-fg: -color-fg-muted
+);
+
+@forward "components/date-picker" as date-picker-* with (
+  $color-icon: -color-accent-fg,
+);
+
+@forward "components/menu" as menu-* with (
+  $color-menuitem-bg-hover: -color-accent-emphasis,
+  $color-menuitem-fg-hover: -color-fg-emphasis
+);
+
+@forward "components/menu-button" as menu-button-* with (
+  $color-split-arrow-bg: -color-accent-emphasis,
+  $color-split-arrow-fg: -color-fg-emphasis,
+  $color-split-arrow-opacity: 1.0
+);
+
+@forward "components/radio" as radio-* with (
+  $dot-width-selected: 2px
+);
+
+@forward "components/slider" as slider-* with (
+  $thumb-border-width: 0.5px,
+  $thumb-effect: dropshadow(gaussian, -color-border-default, 3px, 0.25, 0, 1)
+);
+
+@forward "components/spinner" as spinner-* with (
+  $color-button-bg:    -color-accent-emphasis,
+  $color-button-fg:    -color-fg-emphasis,
+  $color-button-hover: -color-accent-3
+);
+
+@forward "components/split-pane" as split-pane-* with (
+  $divider-thickness: 1px,
+  $grabber-length:    5px
+);
+
+// There are two types of tabs on MacOS. Segmented button tabs and Safari tabs.
+// The first one can't be implemented from TabPane with just CSS, so it's not supported.
+// Safari tabs implemented as floating tabs.
+@forward "components/tab-pane" as tab-pane-* with (
+  $color-float-bg:          -color-base-9,
+  $color-float-bg-selected: -color-base-6
+);
+
+@forward "components/toggle-button" as toggle-button-* with (
+  $color-bg-selected:     -color-accent-emphasis,
+  $color-fg-selected:     -color-fg-emphasis,
+  $color-border-selected: scale.$accent-6
+);
+
+@use "components";

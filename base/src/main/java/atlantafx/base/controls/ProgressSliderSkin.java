@@ -8,7 +8,7 @@ import javafx.scene.control.skin.SliderSkin;
 import javafx.scene.layout.StackPane;
 
 /**
- * {@link Slider} skin that supports progress color.
+ * A {@link Slider} skin that supports progress color indication.
  */
 public class ProgressSliderSkin extends SliderSkin {
 
@@ -39,17 +39,16 @@ public class ProgressSliderSkin extends SliderSkin {
         double progressWidth;
         double progressHeight;
 
-        // intentionally ignore background radius in calculation,
-        // because slider looks better this way
         if (getSkinnable().getOrientation() == Orientation.HORIZONTAL) {
             progressY = track.getLayoutY();
-            progressWidth = thumb.getLayoutX() - snappedLeftInset();
+            progressWidth = thumb.getLayoutX() - track.getLayoutX()
+                + thumb.getLayoutBounds().getCenterX() - snappedLeftInset();
             progressHeight = track.getHeight();
         } else {
-            progressY = thumb.getLayoutY();
+            progressY = thumb.getLayoutY() + thumb.getLayoutBounds().getCenterY();
             progressWidth = track.getWidth();
-            progressHeight =
-                track.getLayoutBounds().getMaxY() + track.getLayoutY() - thumb.getLayoutY() - snappedBottomInset();
+            progressHeight = track.getLayoutBounds().getMaxY() + track.getLayoutY()
+                - thumb.getLayoutY() - thumb.getLayoutBounds().getCenterY() - snappedBottomInset();
         }
 
         progressTrack.resizeRelocate(progressX, progressY, progressWidth, progressHeight);

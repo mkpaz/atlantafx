@@ -87,6 +87,15 @@
     }
   }
 
+  &.text-on-emphasis {
+    -fx-text-fill: -color-fg-emphasis;
+
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: -color-fg-emphasis;
+      -fx-fill: -color-fg-emphasis;
+    }
+  }
+
   &:accent {
     -fx-text-fill: -color-accent-emphasis;
 

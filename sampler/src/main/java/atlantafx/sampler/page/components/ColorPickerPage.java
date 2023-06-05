@@ -2,22 +2,16 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-
-import atlantafx.base.controls.ToggleSwitch;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
-import javafx.geometry.HPos;
-import javafx.scene.control.ChoiceBox;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class ColorPickerPage extends AbstractPage {
+public final class ColorPickerPage extends OutlinePage {
 
     public static final String NAME = "ColorPicker";
 
@@ -28,79 +22,69 @@ public class ColorPickerPage extends AbstractPage {
 
     public ColorPickerPage() {
         super();
-        setUserContent(new VBox(
-            new SampleBlock("Playground", createPlayground())
-        ));
+
+        addPageHeader();
+        addFormattedText("""
+            ColorPicker control allows the user to select a color from either \
+            a standard palette of colors with a simple one click selection or \
+            define their own custom color."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Style", styleExample());
     }
 
-    private GridPane createPlayground() {
-        var colorPicker = new ColorPicker();
-        colorPicker.setValue(Color.DEEPSKYBLUE);
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var cp = new ColorPicker();
+        cp.setValue(Color.RED);
+        //snippet_1:end
 
-        var labelToggle = new ToggleSwitch();
-        labelToggle.setSelected(true);
-        labelToggle.selectedProperty().addListener((obs, old, val) -> {
-            colorPicker.setStyle("-fx-color-label-visible: false;");
-            if (val) {
-                colorPicker.setStyle("-fx-color-label-visible: true;");
-            }
-        });
+        var box = new HBox(cp);
+        box.setMinHeight(50);
 
-        var disableToggle = new ToggleSwitch();
-        colorPicker.disableProperty().bind(disableToggle.selectedProperty());
-
-        var grid = new GridPane();
-        grid.setHgap(BLOCK_HGAP);
-        grid.setVgap(BLOCK_VGAP);
-        grid.add(colorPicker, 0, 0, 1, GridPane.REMAINING);
-        grid.add(createLabel("Show label"), 1, 0);
-        grid.add(labelToggle, 2, 0);
-        grid.add(createLabel("Picker style"), 1, 1);
-        grid.add(createPickerStyleChoice(colorPicker), 2, 1);
-        grid.add(createLabel("Disable"), 1, 2);
-        grid.add(disableToggle, 2, 2);
-
-        grid.getColumnConstraints().setAll(
-            new ColumnConstraints(200),
-            new ColumnConstraints(),
-            new ColumnConstraints()
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ColorPicker[/i] control provides a color palette with a predefined \
+            set of colors. If the user does not want to choose from the predefined set, \
+            they can create a custom color by interacting with a custom color dialog. \
+            This dialog provides RGB, HSB and Web modes of interaction, to create new \
+            colors. It also lets the opacity of the color to be modified."""
         );
 
-        return grid;
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    private Label createLabel(String text) {
-        var label = new Label(text);
-        GridPane.setHalignment(label, HPos.RIGHT);
-        return label;
-    }
+    private ExampleBox styleExample() {
+        //snippet_2:start
+        var cp1 = new ColorPicker();
+        cp1.setValue(Color.RED);
+        cp1.getStyleClass().add(ColorPicker.STYLE_CLASS_BUTTON);
 
-    private ChoiceBox<String> createPickerStyleChoice(ColorPicker colorPicker) {
-        var optDefault = "Default";
-        var optButton = "Button";
-        var optSplitButton = "Split Button";
+        var cp2 = new ColorPicker();
+        cp2.setValue(Color.GREEN);
+        cp2.getStyleClass().add(ColorPicker.STYLE_CLASS_SPLIT_BUTTON);
 
-        var choice = new ChoiceBox<String>();
-        choice.getItems().setAll(optDefault, optButton, optSplitButton);
-        choice.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val == null) {
-                return;
-            }
+        var cp3 = new ColorPicker();
+        cp3.setValue(Color.BLUE);
+        cp3.setStyle("-fx-color-label-visible: false");
+        //snippet_2:end
 
-            colorPicker.getStyleClass().removeAll(
-                ColorPicker.STYLE_CLASS_BUTTON,
-                ColorPicker.STYLE_CLASS_SPLIT_BUTTON
-            );
+        var grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(10);
+        grid.addRow(0,
+            captionLabel("STYLE_CLASS_BUTTON"),
+            captionLabel("STYLE_CLASS_SPLIT_BUTTON"),
+            captionLabel("-fx-color-label-visible")
+        );
+        grid.addRow(1, cp1, cp2, cp3);
 
-            if (optButton.equals(val)) {
-                colorPicker.getStyleClass().add(ColorPicker.STYLE_CLASS_BUTTON);
-            }
-            if (optSplitButton.equals(val)) {
-                colorPicker.getStyleClass().add(ColorPicker.STYLE_CLASS_SPLIT_BUTTON);
-            }
-        });
-        choice.getSelectionModel().select(optDefault);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ColorPicker[/i] control can be styled in two ways: a simple \
+            [i]Button[/i] mode or the default [i]MenuButton[/i] mode. While there \
+            is also a [i]SplitMenuButton[/i] mode available, it is not supported by \
+            AtlantaFX and looks the same as the default option."""
+        );
 
-        return choice;
+        return new ExampleBox(grid, new Snippet(getClass(), 2), description);
     }
 }

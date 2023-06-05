@@ -3,6 +3,7 @@
 @use "accordion";
 @use "breadcrumbs";
 @use "button";
+@use "card";
 @use "chart";
 @use "checkbox";
 @use "color-picker";
@@ -16,6 +17,9 @@
 @use "label";
 @use "menu";
 @use "menu-button";
+@use "message";
+@use "modal-pane";
+@use "notification";
 @use "pagination";
 @use "popover";
 @use "progress";
@@ -27,6 +31,7 @@
 @use "split-pane";
 @use "tab-pane";
 @use "text-input";
+@use "tile";
 @use "titled-pane";
 @use "toggle-button";
 @use "toggle-switch";

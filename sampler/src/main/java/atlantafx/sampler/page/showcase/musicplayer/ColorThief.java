@@ -24,22 +24,30 @@ import java.util.List;
 @SuppressWarnings({"unused", "NarrowingCompoundAssignment"})
 final class ColorThief {
 
+    private ColorThief() {
+        // Default constructor
+    }
+
     private static final int DEFAULT_QUALITY = 10;
     private static final boolean DEFAULT_IGNORE_WHITE = true;
 
     public static int[] getColor(BufferedImage source) {
         int[][] palette = getPalette(source, 5);
+
         if (palette == null) {
             return null;
         }
+
         return palette[0];
     }
 
     public static int[][] getPalette(BufferedImage source, int colorCount) {
         MMCQ.ColorMap colorMap = getColorMap(source, colorCount);
+
         if (colorMap == null) {
             return null;
         }
+
         return colorMap.palette();
     }
 
@@ -94,7 +102,7 @@ final class ColorThief {
         int offset, r, g, b, a;
 
         switch (type) {
-            case TYPE_3BYTE_BGR:
+            case TYPE_3BYTE_BGR -> {
                 for (int i = 0; i < pixelCount; i += quality) {
                     offset = i * 3;
                     b = pixels[offset] & 0xFF;
@@ -106,9 +114,8 @@ final class ColorThief {
                         numUsedPixels++;
                     }
                 }
-                break;
-
-            case TYPE_4BYTE_ABGR:
+            }
+            case TYPE_4BYTE_ABGR -> {
                 for (int i = 0; i < pixelCount; i += quality) {
                     offset = i * 4;
                     a = pixels[offset] & 0xFF;
@@ -121,10 +128,8 @@ final class ColorThief {
                         numUsedPixels++;
                     }
                 }
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unhandled type: " + type);
+            }
+            default -> throw new IllegalArgumentException("Unhandled type: " + type);
         }
 
         return Arrays.copyOfRange(pixelArray, 0, numUsedPixels);
@@ -201,7 +206,9 @@ final class ColorThief {
 
             @Override
             public String toString() {
-                return "r1: " + r1 + " / r2: " + r2 + " / g1: " + g1 + " / g2: " + g2 + " / b1: " + b1 + " / b2: " + b2;
+                return "r1: " + r1 + " / r2: " + r2
+                    + " / g1: " + g1 + " / g2: " + g2
+                    + " / b1: " + b1 + " / b2: " + b2;
             }
 
             public int volume(boolean force) {
@@ -259,10 +266,15 @@ final class ColorThief {
                     }
 
                     if (ntot > 0) {
-                        gAvg = new int[] {(rsum / ntot), (gsum / ntot), (bsum / ntot)};
+                        gAvg = new int[] {
+                            (rsum / ntot), (gsum / ntot), (bsum / ntot)
+                        };
                     } else {
-                        gAvg = new int[] {(MULT * (r1 + r2 + 1) / 2), (MULT * (g1 + g2 + 1) / 2),
-                            (MULT * (b1 + b2 + 1) / 2)};
+                        gAvg = new int[] {
+                            (MULT * (r1 + r2 + 1) / 2),
+                            (MULT * (g1 + g2 + 1) / 2),
+                            (MULT * (b1 + b2 + 1) / 2)
+                        };
                     }
                 }
 
@@ -279,7 +291,7 @@ final class ColorThief {
 
         public static class ColorMap {
 
-            public final ArrayList<VBox> vboxes = new ArrayList<>();
+            public final List<VBox> vboxes = new ArrayList<>();
 
             public void push(VBox box) {
                 vboxes.add(box);

@@ -16,6 +16,7 @@ $padding-y:     10px !default;
   >.border {
     -fx-stroke: $color-border;
     -fx-stroke-width: cfg.$border-width;
+    -fx-fill: $color-bg;
   }
 
   >.content {

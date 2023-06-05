@@ -1,0 +1,117 @@
+// SPDX-License-Identifier: MIT
+
+.page {
+  -fx-background-color: -color-bg-default;
+  -fx-alignment: TOP_CENTER;
+
+  >.scroll-pane {
+    -fx-padding: 50px 50px 50px 50px;
+
+    .user-content {
+      -fx-alignment: TOP_CENTER;
+      -fx-spacing: 20px;
+    }
+  }
+}
+
+.outline-page {
+
+  -fx-background-color: -color-bg-default;
+  -fx-alignment: TOP_CENTER;
+
+  >.body {
+    >.scroll-pane {
+      -fx-padding: 30px 0 50px 30px;
+
+      .user-content {
+        -fx-spacing: 20px;
+
+        >.header {
+          -fx-padding: 0 0 10px 0;
+        }
+      }
+
+      .tab-pane>.tab-content-area>* {
+        -fx-padding: 20px 0 0 0;
+      }
+
+      .example-box {
+        -fx-spacing: 20px;
+
+        >.tabs {
+          -fx-alignment: CENTER_LEFT;
+          -fx-background-insets: 0, 0 0 1 0;
+          -fx-background-color: -color-border-default, -color-bg-default;
+
+          >.label {
+            -fx-padding: 8 12 8 12;
+            -fx-background-insets: 0, 0 0 1 0;
+            -fx-background-color: -color-border-default, -color-bg-default;
+            -fx-text-fill: -color-fg-muted;
+
+            &:selected {
+              -fx-background-insets: 0, 0 0 3 0;
+              -fx-background-color: -color-accent-emphasis, -color-bg-default;
+              -fx-text-fill: -color-fg-default;
+            }
+
+            &:hover,
+            &:hover:selected {
+              -fx-text-fill: -color-fg-default;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .outline {
+    -fx-spacing: 10px;
+
+    >.label {
+      -fx-text-fill: -color-fg-muted;
+      -fx-cursor: hand;
+
+      &:selected {
+        -fx-text-fill: -color-accent-fg;
+      }
+
+      &:hover {
+        -fx-text-fill: -color-fg-default;
+      }
+    }
+  }
+}
+
+.snippet {
+  -fx-border-radius: 8px;
+  -fx-border-color: transparent;
+  -fx-border-width: 3px;
+
+  &:hover {
+    -fx-border-color: -color-accent-muted;
+  }
+
+  >TextFlow {
+    -fx-padding: 10px;
+    -fx-background-color: -color-bg-inset;
+    -fx-background-radius: 8px;
+    -fx-font-family: monospace;
+  }
+
+  .keyword {
+    -fx-fill: -color-danger-fg;
+  }
+
+  .paren {
+    -fx-fill: -color-accent-fg;
+  }
+
+  .string {
+    -fx-fill: -color-success-fg;
+  }
+
+  .comment {
+    -fx-fill: -color-fg-subtle;
+  }
+}

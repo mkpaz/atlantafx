@@ -153,6 +153,18 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
   $color-menubar-bg-hover: -color-base-7
 );
 
+@forward "components/message" as message-* with (
+  $close-button-radius: 0
+);
+
+@forward "components/modal-pane" as modal-pane-* with (
+  $close-button-radius: 0
+);
+
+@forward "components/notification" as notification-* with (
+  $action-button-radius: 0
+);
+
 @forward "components/pagination" as pagination-* with (
   $button-radius: 1
 );
@@ -165,6 +177,10 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
   $track-size: ("small": 2px, "medium": 4px, "large": 12px),
   $thumb-radius: 1,
   $track-radius: 1
+);
+
+@forward "components/text-input" as text-input-* with (
+  $color-bg-highlight: -color-base-7
 );
 
 @forward "components/toolbar" as toolbar-* with (

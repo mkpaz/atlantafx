@@ -1,0 +1,57 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/icons";
+
+$color-modal-bg:  rgba(0, 0, 0, 0.25) !default;
+
+$color-dialog-bg:             -color-bg-default !default;
+$color-dialog-close-fg:       -color-fg-default !default;
+$color-dialog-close-bg-hover: -color-bg-subtle  !default;
+$close-button-radius:    100px  !default;
+$close-button-padding:   0.6em  !default;
+$close-button-icon-size: 0.3em !default;
+
+.modal-pane {
+  -color-modal-pane-overlay: $color-modal-bg;
+
+  >.scroll-pane>.viewport>*>.scrollable-content {
+    -fx-background-color: -color-modal-pane-overlay;
+  }
+}
+
+// ModalBox is directly related to the ModalPane
+.modal-box {
+  -color-modal-box-bg: $color-dialog-bg;
+  -color-modal-box-close-fg: $color-dialog-close-fg;
+  -color-modal-box-close-bg-hover: $color-dialog-close-bg-hover;
+
+  -fx-background-color: -color-modal-box-bg;
+
+  >.close-button {
+    -fx-background-radius: $close-button-radius;
+    -fx-padding: $close-button-padding;
+
+    >.icon {
+      @include icons.get("close", true);
+      -fx-background-color: -color-modal-box-close-fg;
+      -fx-padding: $close-button-icon-size;
+    }
+
+    &:hover {
+      -fx-background-color: -color-border-muted, -color-modal-box-close-bg-hover;
+      -fx-background-insets: 0, 1;
+    }
+  }
+
+  .tile {
+    // prevent double indentation inside dialog
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+
+    >.container {
+      // prevent double indentation
+      -fx-padding: 0;
+      -fx-background-radius: 0;
+    }
+  }
+}

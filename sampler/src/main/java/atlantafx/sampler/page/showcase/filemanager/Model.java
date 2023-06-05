@@ -7,9 +7,12 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.css.PseudoClass;
 
 final class Model {
 
+    public static final PseudoClass HIDDEN = PseudoClass.getPseudoClass("hidden");
+    public static final PseudoClass FOLDER = PseudoClass.getPseudoClass("folder");
     public static final Path USER_HOME = Paths.get(System.getProperty("user.home"));
 
     private final ReadOnlyObjectWrapper<Path> currentPath = new ReadOnlyObjectWrapper<>();

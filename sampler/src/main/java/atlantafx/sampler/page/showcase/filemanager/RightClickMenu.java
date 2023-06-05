@@ -5,6 +5,8 @@ package atlantafx.sampler.page.showcase.filemanager;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCode;
@@ -18,31 +20,50 @@ final class RightClickMenu extends ContextMenu {
     }
 
     private void createMenu() {
-        var open = new MenuItem("Open");
+        var openItem = new MenuItem("Open");
 
-        var cut = new MenuItem("Cut");
-        cut.setAccelerator(new KeyCodeCombination(KeyCode.X, CONTROL_DOWN));
+        var cutItem = new MenuItem("Cut");
+        cutItem.setAccelerator(new KeyCodeCombination(KeyCode.X, CONTROL_DOWN));
 
-        var copy = new MenuItem("Copy");
-        copy.setAccelerator(new KeyCodeCombination(KeyCode.C, CONTROL_DOWN));
+        var copyItem = new MenuItem("Copy");
+        copyItem.setAccelerator(new KeyCodeCombination(KeyCode.C, CONTROL_DOWN));
 
-        var rename = new MenuItem("Rename");
-        rename.setAccelerator(new KeyCodeCombination(KeyCode.F2));
+        var renameItem = new MenuItem("Rename");
+        renameItem.setAccelerator(new KeyCodeCombination(KeyCode.F2));
 
-        var compress = new MenuItem("Compress");
+        var compressItem = new MenuItem("Compress");
 
-        var properties = new MenuItem("Properties");
+        var propsItem = new MenuItem("Properties");
 
         getItems().setAll(
-            open,
+            new DemoMenuItem(),
             new SeparatorMenuItem(),
-            cut,
-            copy,
-            rename,
+            openItem,
             new SeparatorMenuItem(),
-            compress,
+            cutItem,
+            copyItem,
+            renameItem,
             new SeparatorMenuItem(),
-            properties
+            compressItem,
+            new SeparatorMenuItem(),
+            propsItem
         );
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    private static class DemoMenuItem extends CustomMenuItem {
+
+        public DemoMenuItem() {
+            super();
+
+            var label = new Label("This is a demo menu. None of \nthe options below are working.");
+            label.setWrapText(true);
+            label.setStyle("-fx-text-fill:-color-fg-muted");
+
+            setContent(label);
+            setHideOnClick(false);
+            getStyleClass().add("demo-menu-item");
+        }
     }
 }

@@ -21,8 +21,9 @@ import javafx.scene.control.TableView;
 
 final class FileList {
 
-    static final Comparator<Path> FILE_TYPE_COMPARATOR =
-        Comparator.comparing(path -> !Files.isDirectory(path));
+    static final Comparator<Path> FILE_TYPE_COMPARATOR = Comparator.comparing(
+        path -> !Files.isDirectory(path)
+    );
     static final Predicate<Path> PREDICATE_ANY = path -> true;
     static final Predicate<Path> PREDICATE_NOT_HIDDEN = path -> !isFileHidden(path);
 

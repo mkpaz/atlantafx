@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$color-interactive: -color-bg-subtle !default;
+$title-font-size: 1.05em !default; // semibold would be much better, but it's JavaFX after all
+
+.tile-base {
+
+  >.container {
+    -fx-padding: 1em;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: cfg.$border-radius;
+    -fx-spacing: 1em;
+
+    >.graphic {
+      &:disabled {
+        -fx-opacity: cfg.$opacity-disabled;
+      }
+    }
+
+    >.header {
+      -fx-alignment: CENTER_LEFT;
+      -fx-padding: 0;
+
+      >.title {
+        -fx-font-size: $title-font-size;
+      }
+
+      >.description {
+        Text {
+          &:disabled {
+            -fx-opacity: cfg.$opacity-disabled;
+          }
+        }
+      }
+    }
+
+    // >.action  {}
+  }
+
+  &:has-title:has-description {
+    >.container >.header {
+      -fx-spacing: 0.5em;
+      -fx-alignment: TOP_LEFT;
+
+      >.description {
+        Text {
+          -fx-fill: -color-fg-muted;
+        }
+      }
+    }
+  }
+}
+
+.tile {
+
+  &:hover:interactive {
+    >.container {
+      -fx-background-color: $color-interactive;
+      -fx-cursor: hand;
+    }
+  }
+}

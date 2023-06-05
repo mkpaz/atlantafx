@@ -98,6 +98,10 @@ $color-danger-outlined-bg-hover:  $color-danger-bg-hover  !default;
 // opacity level for hover effect
 $opacity-hover: 0.9 !default;
 
+// shadow
+$use-shadow:   false !default;
+$color-shadow: -color-shadow-default !default;
+
 // basic style is shared with Button, ToggleButton and MenuButton
 @mixin base() {
 
@@ -118,12 +122,18 @@ $opacity-hover: 0.9 !default;
   -color-button-fg-pressed:     $color-fg-pressed;
   -color-button-border-pressed: $color-border-pressed;
 
+  -color-button-shadow:         $color-shadow;
+
   -fx-background-color:  -color-button-border, -color-button-bg;
   -fx-background-insets: 0, cfg.$border-width;
   -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
   -fx-graphic-text-gap:  cfg.$graphic-gap;
   -fx-text-fill: -color-button-fg;
   -fx-alignment: CENTER;
+
+  @if $use-shadow {
+    -fx-effect: dropshadow(gaussian, -color-button-shadow, 3px, -2, 0, 1);
+  }
 
   #{cfg.$font-icon-selector} {
     -fx-icon-color: -color-button-fg;
@@ -137,6 +147,7 @@ $opacity-hover: 0.9 !default;
 
   &:disabled {
     -fx-opacity: cfg.$opacity-disabled;
+    -fx-effect: none;
   }
 
   &:show-mnemonics {
@@ -146,30 +157,26 @@ $opacity-hover: 0.9 !default;
   }
 
   // Button calculates its height based on the internal text font size.
-  // So, button that has no text (or icon) will appear lower than regulat
+  // So, button that has no text (or icon) will appear lower than regular
   // buttons. There're no workarounds, but you can set escape char like
   // \s or \f as button text.
   &.button-icon {
     -fx-padding: cfg.$padding-y;
-
-    >.text {
-      visibility: hidden;
-    }
+    -fx-content-display: graphic-only;
   }
 
   &.button-circle {
     -fx-background-radius: 50;
     -fx-padding: 6px 8px 6px 8px;
-
-    >.text {
-      visibility: hidden;
-    }
+    -fx-content-display: graphic-only;
+    -fx-effect:  none;
   }
 
-  // toggle button
+  // toggle button + input group
   &.left-pill {
     -fx-background-radius: cfg.$border-radius 0 0 cfg.$border-radius, cfg.$inner-border-radius 0 0 cfg.$inner-border-radius;
     -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width cfg.$border-width;
+    -fx-effect: none;
 
     &:hover,
     &:focused {
@@ -180,6 +187,7 @@ $opacity-hover: 0.9 !default;
   &.center-pill {
     -fx-background-radius: 0;
     -fx-background-insets: 0, cfg.$border-width 0 cfg.$border-width 0;
+    -fx-effect: none;
 
     &:hover,
     &:focused {
@@ -190,6 +198,7 @@ $opacity-hover: 0.9 !default;
   &.right-pill {
     -fx-background-radius: 0 cfg.$border-radius cfg.$border-radius 0, 0 cfg.$inner-border-radius cfg.$inner-border-radius 0;
     -fx-background-insets: 0, cfg.$border-width cfg.$border-width cfg.$border-width 0;
+    -fx-effect: none;
 
     &:hover,
     &:focused {
@@ -307,6 +316,8 @@ $opacity-hover: 0.9 !default;
   -color-button-bg-pressed:     -color-button-bg;
   -color-button-fg-pressed:     -color-button-fg;
   -color-button-border-pressed: transparent;
+
+  -fx-effect: none;
 }
 
 .button {
@@ -348,6 +359,13 @@ $opacity-hover: 0.9 !default;
       -fx-icon-color: -color-button-fg-pressed;
       -fx-fill: -color-button-fg-pressed;
     }
+  }
+
+  &.button-outlined {
+    -color-button-bg:       -color-bg-default;
+    -color-button-fg:       $color-fg;
+    -color-button-bg-hover: $color-bg-hover;
+    -color-button-fg-hover: $color-fg-hover;
   }
 
   &:default,

@@ -2,32 +2,25 @@
 
 package atlantafx.sampler.page.components;
 
-import static atlantafx.base.theme.Styles.STATE_DANGER;
-import static atlantafx.base.theme.Styles.STATE_SUCCESS;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_HGAP;
-import static atlantafx.sampler.page.SampleBlock.BLOCK_VGAP;
-import static atlantafx.sampler.util.Containers.H_GROW_NEVER;
-import static javafx.collections.FXCollections.observableArrayList;
-
+import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
-import java.util.function.Consumer;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ComboBoxPage extends AbstractPage {
+public class ComboBoxPage extends OutlinePage {
 
     public static final String NAME = "ComboBox";
     private static final int PREF_WIDTH = 200;
@@ -39,177 +32,259 @@ public class ComboBoxPage extends AbstractPage {
 
     public ComboBoxPage() {
         super();
-        setUserContent(new VBox(
-            new SampleBlock("Examples", createPlayground())
+
+        addPageHeader();
+        addFormattedText("""
+            A user interface component which shows a list of items out of which \
+            user can select at most one item. JavaFX provides two pretty similar \
+            controls for that purpose, namely the [i]ComboBox[/i] and [i]ChoiceBox[/i]."""
+        );
+        addSection("Usage", usageExample());
+        addSection("Editable", editableExample());
+        addSection("Placeholder", placeholderExample());
+        addSection("Custom Items", customItemsExample());
+        addSection("Color", colorExample());
+        addSection("Overflow", overflowExample());
+        addSection("Alternative Icon", altIconExample());
+    }
+
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var cmb1 = new ComboBox<String>();
+        cmb1.setPrefWidth(PREF_WIDTH);
+        cmb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
         ));
-    }
+        cmb1.getSelectionModel().selectFirst();
 
-    private GridPane createPlayground() {
+        var cmb2 = new ComboBox<String>();
+        cmb2.setPrefWidth(PREF_WIDTH);
+
+        var chb1 = new ChoiceBox<String>();
+        chb1.setPrefWidth(PREF_WIDTH);
+        chb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb1.getSelectionModel().selectFirst();
+
+        var chb2 = new ChoiceBox<String>();
+        chb2.setPrefWidth(PREF_WIDTH);
+        //snippet_1:end
+
         var grid = new GridPane();
-        grid.setHgap(BLOCK_HGAP);
-        grid.setVgap(BLOCK_VGAP);
-        grid.getColumnConstraints().setAll(H_GROW_NEVER, H_GROW_NEVER, H_GROW_NEVER);
+        grid.setHgap(30);
+        grid.setVgap(10);
+        grid.addRow(0, captionLabel("ComboBox"), cmb1, cmb2);
+        grid.addRow(1, captionLabel("ChoiceBox"), chb1, chb2);
 
-        var comboLabel = new Label("C_omboBox");
-        comboLabel.setMnemonicParsing(true);
-        grid.add(comboLabel, 0, 0);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ComboBox[/i] is an implementation of the [i]ComboBoxBase[/i] abstract class, \
+            whereas the [i]CheckBox[/i] is more similar to the [i]MenuButton[/i]. Both controls \
+            provide a selection model to manage the selected state."""
+        );
 
-        var choiceLabel = new Label("C_hoiceBox");
-        choiceLabel.setMnemonicParsing(true);
-        grid.add(choiceLabel, 2, 0);
-
-        // default
-        grid.add(createComboBox(), 0, 1);
-        grid.add(createLabel("empty"), 1, 1);
-        grid.add(createChoiceBox(), 2, 1);
-
-        // editable
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.setEditable(true);
-        }), 0, 2);
-        grid.add(createLabel("editable"), 1, 2);
-
-        // placeholder
-        grid.add(createComboBoxWith(c -> c.setPlaceholder(new Label("Loading..."))), 0, 3);
-        grid.add(createLabel("placeholder"), 1, 3);
-
-        // with icons
-        var badges = IntStream.range(0, 5).boxed()
-            .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
-            .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        var badgeCombo = new ComboBox<>(badges);
-        badgeCombo.setPrefWidth(PREF_WIDTH);
-        badgeCombo.setButtonCell(new BadgeCell());
-        badgeCombo.setCellFactory(lv -> new BadgeCell());
-        badgeCombo.getSelectionModel().selectFirst();
-        grid.add(badgeCombo, 0, 4);
-        grid.add(createLabel("graphic"), 1, 4);
-
-        // success
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.pseudoClassStateChanged(STATE_SUCCESS, true);
-            c.getSelectionModel().selectFirst();
-        }), 0, 5);
-        grid.add(createLabel("success"), 1, 5);
-        grid.add(createChoiceBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.pseudoClassStateChanged(STATE_SUCCESS, true);
-            c.getSelectionModel().selectFirst();
-        }), 2, 5);
-
-        // negative
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.pseudoClassStateChanged(STATE_DANGER, true);
-            c.getSelectionModel().selectFirst();
-        }), 0, 6);
-        grid.add(createLabel("success"), 1, 6);
-        grid.add(createChoiceBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.pseudoClassStateChanged(STATE_DANGER, true);
-            c.getSelectionModel().selectFirst();
-        }), 2, 6);
-
-        // alt icon
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.getStyleClass().add(Tweaks.ALT_ICON);
-            c.getSelectionModel().selectFirst();
-        }), 0, 7);
-        grid.add(createLabel("alt icon"), 1, 7);
-        grid.add(createChoiceBoxWith(c -> {
-            c.setItems(createItems(5));
-            c.getStyleClass().add(Tweaks.ALT_ICON);
-            c.getSelectionModel().selectFirst();
-        }), 2, 7);
-
-        // disabled
-        grid.add(createComboBoxWith(c -> c.setDisable(true)), 0, 8);
-        grid.add(createLabel("disabled"), 1, 8);
-        grid.add(createChoiceBoxWith(c -> c.setDisable(true)), 2, 8);
-
-        // vertical overflow
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(createItems(50));
-            c.getSelectionModel().selectFirst();
-        }), 0, 9);
-        grid.add(createLabel("large list"), 1, 9);
-        grid.add(createChoiceBoxWith(c -> {
-            c.setItems(createItems(50));
-            c.getSelectionModel().selectFirst();
-        }), 2, 9);
-
-        // horizontal overflow
-        grid.add(createComboBoxWith(c -> {
-            c.setItems(observableArrayList(generate(() -> FAKER.chuckNorris().fact(), 5)));
-            c.getSelectionModel().selectFirst();
-        }), 0, 10);
-        grid.add(createLabel("wide text"), 1, 10);
-        grid.add(createChoiceBoxWith(c -> {
-            c.setItems(observableArrayList(generate(() -> FAKER.chuckNorris().fact(), 5)));
-            c.getSelectionModel().selectFirst();
-        }), 2, 10);
-
-        return grid;
+        return new ExampleBox(grid, new Snippet(ComboBoxPage.class, 1), description);
     }
 
-    private Label createLabel(String text) {
-        var label = new Label(text);
-        GridPane.setHalignment(label, HPos.CENTER);
-        return label;
+    private ExampleBox editableExample() {
+        //snippet_2:start
+        var cmb = new ComboBox<String>();
+        cmb.setPrefWidth(PREF_WIDTH);
+        cmb.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb.getSelectionModel().selectFirst();
+        cmb.setEditable(true);
+        //snippet_2:end
+
+        var box = new HBox(cmb);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ComboBox[/i] provides a way for end-users to input values \
+            that are not available as options."""
+        );
+
+        return new ExampleBox(box, new Snippet(ComboBoxPage.class, 2), description);
     }
 
-    private ComboBox<String> createComboBox() {
-        return createComboBoxWith(null);
+    private ExampleBox placeholderExample() {
+        //snippet_3:start
+        var cmb = new ComboBox<String>();
+        cmb.setPrefWidth(PREF_WIDTH);
+        cmb.setPlaceholder(new Label("Loading..."));
+        //snippet_3:end
+
+        var box = new HBox(cmb);
+        var description = BBCodeParser.createFormattedText("""
+            Placeholder is a node that is shown to the user when the [i]ComboBox[/i] \
+            has no content to display."""
+        );
+
+        return new ExampleBox(box, new Snippet(ComboBoxPage.class, 3), description);
     }
 
-    private ComboBox<String> createComboBoxWith(Consumer<ComboBox<String>> mutator) {
-        var c = new ComboBox<String>();
-        c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) {
-            mutator.accept(c);
+    private ExampleBox customItemsExample() {
+        //snippet_4:start
+        record Badge(String text, Ikon icon) {
         }
-        return c;
-    }
 
-    private ChoiceBox<String> createChoiceBox() {
-        return createChoiceBoxWith(null);
-    }
+        class BadgeCell extends ListCell<Badge> {
 
-    private ChoiceBox<String> createChoiceBoxWith(Consumer<ChoiceBox<String>> mutator) {
-        var c = new ChoiceBox<String>();
-        c.setPrefWidth(PREF_WIDTH);
-        if (mutator != null) {
-            mutator.accept(c);
-        }
-        return c;
-    }
+            @Override
+            protected void updateItem(Badge badge, boolean isEmpty) {
+                super.updateItem(badge, isEmpty);
 
-    private ObservableList<String> createItems(int count) {
-        return observableArrayList(generate(() -> FAKER.hipster().word(), count));
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    @SuppressWarnings("unused")
-    private record Badge(String text, Ikon icon) {
-    }
-
-    private static class BadgeCell extends ListCell<Badge> {
-
-        @Override
-        protected void updateItem(Badge item, boolean isEmpty) {
-            super.updateItem(item, isEmpty);
-
-            if (isEmpty) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new FontIcon(item.icon()));
-                setText(item.text());
+                if (isEmpty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    setGraphic(new FontIcon(badge.icon()));
+                    setText(badge.text());
+                }
             }
         }
+
+        var items = IntStream.range(0, 5).boxed()
+            .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
+            .collect(Collectors.toCollection(
+                FXCollections::observableArrayList
+            ));
+
+        var cmb = new ComboBox<Badge>(items);
+        cmb.setPrefWidth(PREF_WIDTH);
+        cmb.setButtonCell(new BadgeCell());
+        cmb.setCellFactory(c -> new BadgeCell());
+        cmb.getSelectionModel().selectFirst();
+        //snippet_4:end
+
+        var box = new HBox(cmb);
+        var description = BBCodeParser.createFormattedText("""
+            The [i]ComboBox[/i] provides a custom cell factory that allows for \
+            complete customization of how the items are rendered."""
+        );
+
+        return new ExampleBox(box, new Snippet(ComboBoxPage.class, 4), description);
+    }
+
+    private ExampleBox colorExample() {
+        //snippet_5:start
+        var cmb1 = new ComboBox<String>();
+        cmb1.setPrefWidth(PREF_WIDTH);
+        cmb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb1.getSelectionModel().selectFirst();
+        cmb1.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+
+        var cmb2 = new ComboBox<String>();
+        cmb2.setPrefWidth(PREF_WIDTH);
+        cmb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb2.getSelectionModel().selectFirst();
+        cmb2.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+
+        var chb1 = new ChoiceBox<String>();
+        chb1.setPrefWidth(PREF_WIDTH);
+        chb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb1.getSelectionModel().selectFirst();
+        chb1.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+
+        var chb2 = new ChoiceBox<String>();
+        chb2.setPrefWidth(PREF_WIDTH);
+        chb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb2.getSelectionModel().selectFirst();
+        chb2.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+        //snippet_5:end
+
+        var grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(10);
+        grid.addRow(0, captionLabel("ComboBox"), cmb1, cmb2);
+        grid.addRow(1, captionLabel("ChoiceBox"), chb1, chb2);
+
+        var description = BBCodeParser.createFormattedText("""
+            You can use [code]Styles.STATE_SUCCESS[/code] or [code]Styles.STATE_DANGER[/code] \
+            pseudo-classes to change the control color. This especially useful to indicate \
+            the validation result."""
+        );
+
+        return new ExampleBox(grid, new Snippet(ComboBoxPage.class, 5), description);
+    }
+
+    private ExampleBox overflowExample() {
+        //snippet_7:start
+        var cmb1 = new ComboBox<String>();
+        cmb1.setPrefWidth(PREF_WIDTH);
+        cmb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 50)
+        ));
+        cmb1.getSelectionModel().selectFirst();
+
+        var cmb2 = new ComboBox<String>();
+        cmb2.setPrefWidth(PREF_WIDTH);
+        cmb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.chuckNorris().fact(), 10)
+        ));
+        cmb2.getSelectionModel().selectFirst();
+
+        var chb1 = new ChoiceBox<String>();
+        chb1.setPrefWidth(PREF_WIDTH);
+        chb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 50)
+        ));
+        chb1.getSelectionModel().selectFirst();
+
+        var chb2 = new ChoiceBox<String>();
+        chb2.setPrefWidth(PREF_WIDTH);
+        chb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.chuckNorris().fact(), 10)
+        ));
+        chb2.getSelectionModel().selectFirst();
+        //snippet_7:end
+
+        var grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(10);
+        grid.addRow(0, captionLabel("ComboBox"), cmb1, cmb2);
+        grid.addRow(1, captionLabel("ChoiceBox"), chb1, chb2);
+
+        var description = BBCodeParser.createFormattedText("""
+            This is just a simple example to test what happens when the item size \
+            exceeds the limits of the popup window."""
+        );
+
+        return new ExampleBox(grid, new Snippet(ComboBoxPage.class, 7), description);
+    }
+
+    private ExampleBox altIconExample() {
+        //snippet_6:start
+        var cmb = new ComboBox<String>();
+        cmb.setPrefWidth(PREF_WIDTH);
+        cmb.getStyleClass().add(Tweaks.ALT_ICON);
+        cmb.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb.getSelectionModel().selectFirst();
+
+        var chb = new ChoiceBox<String>();
+        chb.setPrefWidth(PREF_WIDTH);
+        chb.getStyleClass().add(Tweaks.ALT_ICON);
+        chb.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb.getSelectionModel().selectFirst();
+        //snippet_6:end
+
+        var box = new HBox(30, cmb, chb);
+        var description = BBCodeParser.createFormattedText("""
+            There's additional tweak [code]Tweaks.ALT_ICON[/code] to change the control \
+            dropdown icon."""
+        );
+
+        return new ExampleBox(box, new Snippet(ComboBoxPage.class, 6), description);
     }
 }

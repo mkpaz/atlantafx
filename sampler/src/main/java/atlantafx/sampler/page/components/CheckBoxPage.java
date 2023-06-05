@@ -2,14 +2,15 @@
 
 package atlantafx.sampler.page.components;
 
-import atlantafx.sampler.page.AbstractPage;
-import atlantafx.sampler.page.SampleBlock;
+import atlantafx.base.util.BBCodeParser;
+import atlantafx.sampler.page.ExampleBox;
+import atlantafx.sampler.page.OutlinePage;
+import atlantafx.sampler.page.Snippet;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-public class CheckBoxPage extends AbstractPage {
+public final class CheckBoxPage extends OutlinePage {
 
     public static final String NAME = "CheckBox";
 
@@ -23,46 +24,67 @@ public class CheckBoxPage extends AbstractPage {
 
     public CheckBoxPage() {
         super();
-        createView();
-    }
 
-    private void createView() {
-        setUserContent(new FlowPane(
-            PAGE_HGAP, PAGE_VGAP,
-            basicSample(),
-            indeterminateSample(),
-            disabledSample()
-        ));
-    }
-
-    private SampleBlock basicSample() {
-        basicCheck = new CheckBox("_Check Me");
-        basicCheck.setMnemonicParsing(true);
-        return new SampleBlock("Basic", basicCheck);
-    }
-
-    private SampleBlock indeterminateSample() {
-        indeterminateCheck = new CheckBox("C_heck Me");
-        indeterminateCheck.setAllowIndeterminate(true);
-        indeterminateCheck.setIndeterminate(true);
-        indeterminateCheck.setMnemonicParsing(true);
-        return new SampleBlock("Indeterminate", indeterminateCheck);
-    }
-
-    private SampleBlock disabledSample() {
-        var basicCheck = new CheckBox("Check Me");
-        basicCheck.setSelected(true);
-        basicCheck.setDisable(true);
-
-        var indeterminateCheck = new CheckBox("Check Me");
-        indeterminateCheck.setAllowIndeterminate(true);
-        indeterminateCheck.setIndeterminate(true);
-        indeterminateCheck.setDisable(true);
-
-        return new SampleBlock(
-            "Disabled",
-            new HBox(SampleBlock.BLOCK_HGAP, basicCheck, indeterminateCheck)
+        addPageHeader();
+        addFormattedText("""
+            A tri-state selection control is typically skinned as a box \
+            with a checkmark or tick mark when checked."""
         );
+
+        addSection("Usage", usageExample());
+        addSection("Indeterminate", indeterminateExample());
+    }
+
+    private ExampleBox usageExample() {
+        //snippet_1:start
+        var cb1 = new CheckBox("_Unchecked");
+        cb1.setMnemonicParsing(true);
+
+        var cb2 = new CheckBox("Checked");
+        cb2.setSelected(true);
+        //snippet_1:end
+
+        var box = new HBox(40, cb1, cb2);
+        basicCheck = cb1;
+
+        var description = BBCodeParser.createFormattedText("""
+            A [i]CheckBox[/i] can be in one of three states:
+                        
+            [ul]
+            [li][b]checked[/b]: indeterminate == false, checked == true[/li]
+            [li][b]unchecked[/b]: indeterminate == false, checked == false[/li]
+            [li][b]undefined[/b]: indeterminate == true[/li][/ul]"""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 1), description);
+    }
+
+    private ExampleBox indeterminateExample() {
+        //snippet_2:start
+        var cb1 = new CheckBox("I_ndeterminate");
+        cb1.setAllowIndeterminate(true);
+        cb1.setIndeterminate(true);
+        cb1.setMnemonicParsing(true);
+
+        var cb2 = new CheckBox("Indeterminate + Checked");
+        cb2.setAllowIndeterminate(true);
+        cb2.setIndeterminate(false);
+        cb2.setSelected(true);
+
+        var cb3 = new CheckBox("Indeterminate + Unchecked");
+        cb3.setAllowIndeterminate(true);
+        //snippet_2:end
+
+        var box = new HBox(40, cb1, cb2, cb3);
+        indeterminateCheck = cb1;
+
+        var description = BBCodeParser.createFormattedText("""
+            The [code]allowIndeterminate[/code] variable, if true, allows the user to \
+            cycle through the undefined state. A [i]CheckBox[/i] is undefined if \
+            indeterminate is true, regardless of the state of selected."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 2), description);
     }
 
     // visually compare normal and indeterminate checkboxes size
