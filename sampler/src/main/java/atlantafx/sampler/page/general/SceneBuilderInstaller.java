@@ -28,6 +28,7 @@ final class SceneBuilderInstaller {
 
     private static final String CONFIG_FILE_NAME = "SceneBuilder.cfg";
     private static final String THEME_PACK_FILE_NAME = "atlantafx-scene-builder.zip";
+    private static final char CLASSPATH_SEPARATOR = PlatformUtils.isWindows() ? ';' : ':';
 
     private final Path sceneBuilderDir;
     private Path configDir;
@@ -169,7 +170,7 @@ final class SceneBuilderInstaller {
                 while (it.hasNext()) {
                     var line = it.next();
                     if (line != null && line.startsWith("app.classpath")) {
-                        it.set(line.replace("$APPDIR" + File.separator + THEME_PACK_FILE_NAME + ":", ""));
+                        it.set(line.replace("$APPDIR" + File.separator + THEME_PACK_FILE_NAME + CLASSPATH_SEPARATOR, ""));
                     }
                 }
 
@@ -218,6 +219,18 @@ final class SceneBuilderInstaller {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static Path getDefaultConfigDir() {
+        if (PlatformUtils.isWindows()) {
+            return Path.of(System.getProperty("user.home"), "AppData", "Local", "SceneBuilder");
+        } else if (PlatformUtils.isLinux()) {
+            return Path.of("/opt/scenebuilder/");
+        } else if (PlatformUtils.isUnix()) {
+            return Path.of("/Applications/SceneBuilder.app/");
+        } else {
+            return Path.of(".");
         }
     }
 
