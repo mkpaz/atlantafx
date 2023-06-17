@@ -10,6 +10,7 @@ module atlantafx.sampler {
     requires javafx.media;
     requires javafx.web;
     requires javafx.fxml;
+    requires jdk.zipfs;
 
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
@@ -39,6 +40,7 @@ module atlantafx.sampler {
     opens atlantafx.sampler.assets.styles;
     opens atlantafx.sampler.images;
     opens atlantafx.sampler.images.modena;
+    opens atlantafx.sampler.media;
     opens atlantafx.sampler.page.general;
     opens atlantafx.sampler.page.showcase;
 }

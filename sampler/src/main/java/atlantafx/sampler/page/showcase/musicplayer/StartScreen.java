@@ -86,7 +86,7 @@ final class StartScreen extends BorderPane {
         }
 
         for (File file : files) {
-            model.addFile(new MediaFile(file));
+            model.addFile(new MediaFile(file.toPath()));
         }
     }
 
@@ -108,7 +108,7 @@ final class StartScreen extends BorderPane {
                     if (!p.toAbsolutePath().toString().endsWith(s)) {
                         continue;
                     }
-                    model.addFile(new MediaFile(p.toFile()));
+                    model.addFile(new MediaFile(p));
                 }
             });
         } catch (Exception e) {

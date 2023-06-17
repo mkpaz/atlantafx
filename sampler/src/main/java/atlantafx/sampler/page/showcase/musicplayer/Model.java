@@ -2,10 +2,16 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import atlantafx.sampler.Launcher;
 import atlantafx.sampler.Resources;
-import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyBooleanProperty;
@@ -18,10 +24,32 @@ import javafx.scene.paint.Color;
 
 final class Model {
 
-    private static final List<File> DEMO_FILES = List.of(
-        Paths.get(Resources.getResource("media/Beat Thee.mp3")).toFile(),
-        Paths.get(Resources.getResource("media/Study and Relax.mp3")).toFile()
-    );
+    private static final List<Path> DEMO_FILES = getDemoFiles();
+
+    private static List<Path> getDemoFiles() {
+        // for the runtime image as it won't create zipfs automatically
+        URL media = Launcher.class.getResource(Resources.MODULE_DIR + "media");
+        if (media != null && media.toString().startsWith("jar")) {
+            try {
+                try (var fs = FileSystems.newFileSystem(
+                    media.toURI(),
+                    Map.of("create", "true")
+                )) {
+                    return List.of(
+                        fs.getPath(Resources.MODULE_DIR + "media/Beat Thee.mp3"),
+                        fs.getPath(Resources.MODULE_DIR + "media/Study and Relax.mp3")
+                    );
+                }
+            } catch (URISyntaxException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return List.of(
+            Paths.get(Resources.getResource("media/Beat Thee.mp3")),
+            Paths.get(Resources.getResource("media/Study and Relax.mp3"))
+        );
+    }
 
     private final ObservableList<MediaFile> playlist = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper canGoBack = new ReadOnlyBooleanWrapper();

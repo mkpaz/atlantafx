@@ -247,7 +247,7 @@
                         <configuration>
                             <toolName>jlink</toolName>
                             <addModules>
-                                java.base,java.logging,jdk.localedata,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web
+                                java.base,java.logging,jdk.localedata,jdk.zipfs,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web
                             </addModules>
                             <modulePath>${build.platformModulesDir}</modulePath>
                             <output>${build.package.runtimeImageDir}</output>
