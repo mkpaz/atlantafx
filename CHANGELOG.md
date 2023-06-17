@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [2.0.1] - 2023-06-18
+
+### Fixed
+
+- (Base) Incorrect Notification text width.
+- (CSS) Increased overlay contrast of ModalPane.
+- (Sampler) Music player can't load demo files from jrt.
+- (Sampler) SceneBuilder installer classpath #42 (thanks to **ennerf**).
+
 ## [2.0.0] - 2023-06-02
 
 ### Breaking changes
