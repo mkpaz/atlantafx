@@ -72,8 +72,8 @@
     -fx-border-width: 1;
     -fx-border-color: -color-border-default;
 
-    .card {
-      -fx-padding: 10px 20px 10px 20px;
+    >.card > VBox {
+      -fx-padding: 20px 10px 20px 10px;
     }
   }
 }
