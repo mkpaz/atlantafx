@@ -124,8 +124,11 @@
   }
 
   .card {
-    -fx-background-color: -color-contrast-checker-bg;
     -fx-border-width: 0;
+
+    > VBox {
+      -fx-background-color: -color-contrast-checker-bg;
+    }
 
     .title {
       -fx-text-fill: -color-contrast-checker-fg;

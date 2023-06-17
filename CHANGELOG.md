@@ -8,8 +8,9 @@
 
 - (Base) Incorrect Notification text width.
 - (CSS) Increased overlay contrast of ModalPane.
-- (Sampler) Music player can't load demo files from jrt.
 - (Sampler) SceneBuilder installer classpath #42 (thanks to **ennerf**).
+- (Sampler) Music player can't load demo files from jrt.
+- (Sampler) Contrast checker bg color.
 
 ## [2.0.0] - 2023-06-02
 
