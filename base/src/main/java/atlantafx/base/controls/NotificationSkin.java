@@ -58,7 +58,7 @@ public class NotificationSkin extends SkinBase<Notification> {
         registerChangeListener(control.messageProperty(), o -> setMessageText());
 
         // text wrapping won't work without this
-        messageText.setMaxWidth(Region.USE_PREF_SIZE);
+        messageText.setMaxWidth(Double.MAX_VALUE);
         messageText.setMinHeight(Region.USE_PREF_SIZE);
 
         // == TOP BUTTONS ==

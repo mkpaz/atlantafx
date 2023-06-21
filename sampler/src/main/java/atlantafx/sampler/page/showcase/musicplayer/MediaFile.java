@@ -8,7 +8,7 @@ import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_
 import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
 
 import atlantafx.sampler.Resources;
-import java.io.File;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -17,7 +17,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 @SuppressWarnings("StringOperationCanBeSimplified")
-record MediaFile(File file) {
+record MediaFile(Path path) {
 
     private static final Map<String, Metadata> METADATA_CACHE = new HashMap<>();
 
@@ -25,7 +25,7 @@ record MediaFile(File file) {
     // media file metadata you have to load it to media player instance, which
     // is costly and that instance is not even reusable.
     public void readMetadata(Consumer<Metadata> callback) {
-        var media = new Media(file.toURI().toString());
+        var media = new Media(path.toUri().toString());
         var mediaPlayer = new MediaPlayer(media);
 
         // The media information is obtained asynchronously and so not necessarily
@@ -34,7 +34,7 @@ record MediaFile(File file) {
         // MediaPlayer and that player has transitioned to Status.READY status.
         mediaPlayer.setOnReady(() -> {
             Map<String, Object> metadata = media.getMetadata();
-            callback.accept(METADATA_CACHE.computeIfAbsent(file.getAbsolutePath(), k -> {
+            callback.accept(METADATA_CACHE.computeIfAbsent(path.toAbsolutePath().toString(), k -> {
                 var image = getTag(metadata, "image", Image.class, null);
                 // clone everything to make sure media player will be garbage collected
                 return new Metadata(
@@ -51,7 +51,7 @@ record MediaFile(File file) {
     }
 
     public Media createMedia() {
-        return new Media(file.toURI().toString());
+        return new Media(path.toUri().toString());
     }
 
     private <T> T getTag(Map<String, Object> metadata, String key, Class<T> type, T defaultValue) {

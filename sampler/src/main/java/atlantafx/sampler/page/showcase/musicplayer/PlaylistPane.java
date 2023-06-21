@@ -135,7 +135,7 @@ final class PlaylistPane extends VBox {
                 public Void call() throws InterruptedException {
                     for (File file : files) {
                         Thread.sleep(500); // add artificial delay to demonstrate progress bar
-                        Platform.runLater(() -> model.addFile(new MediaFile(file)));
+                        Platform.runLater(() -> model.addFile(new MediaFile(file.toPath())));
                         progress++;
                         updateProgress(progress, files.size());
                     }
