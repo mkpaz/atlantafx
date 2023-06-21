@@ -1,6 +1,8 @@
 # Conveyor
 output
-
+signed.conveyor.conf
+self-signed.conveyor.conf
+ms-store-creds.conf
 
 # Created by https://www.toptal.com/developers/gitignore/api/maven,linux,eclipse,windows,intellij+all,grunt,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven,linux,eclipse,windows,intellij+all,grunt,node
