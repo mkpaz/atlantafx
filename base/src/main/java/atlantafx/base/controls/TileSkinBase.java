@@ -67,7 +67,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
 
         control.pseudoClassStateChanged(HAS_TITLE, control.getTitle() != null);
         registerChangeListener(control.titleProperty(), o -> {
-            var value = getSkinnable().getDescription();
+            var value = getSkinnable().getTitle();
             titleLbl.setText(value);
             titleLbl.setVisible(value != null);
             titleLbl.setManaged(value != null);
