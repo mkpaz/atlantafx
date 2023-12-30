@@ -116,17 +116,17 @@ Or use Java property:
 -Djavafx.userAgentStylesheetUrl=[URL]
 ```
 
-## Contributing
+## Making a Contribution, Participate and improve AtlantaFX.
 
-Contributions are always welcome! Contributing can mean many things such as participating in discussion or proposing changes. Feel free to open an issue if you've found a bug or want to raise a question, or discuss a possible feature.
+We always appreciate contributions! Making modifications or just taking part in a discussion are two examples of contributing. If you wish to discuss a potential feature, report a bug, or ask a question, please start an issue.
 
-Please, note that AtlantaFX is primarily CSS theme library. Controls and skins support will probably grow over time, but creating yet another control's library is not a main goal.
+Please remember that the main focus of AtlantaFX is a CSS theme library. Support for controls and skins will likely increase over time, although adding more controls to the library is not the primary objective.
 
-Here are some areas, where you can help the project:
+Here are a few ways you may support the project:
+1. Resolving or reporting bugs. If the bug you're experiencing has nothing to do with CSS or a specific AtlantaFX control, please check the [OpenJFX bug tracker](https://bugs.openjdk.org/browse/JDK-8294722?jql=project%20%3D%20JDK%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20javafx%20%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC) site first.
+2. Increasing or enhancing control samples, which facilitates understanding of current controls and allows us to experiment with how controls appear and function with other themes.
+3. Increasing or enhancing widget samples, which offer simple illustrations of how to use a few common UI elements.
+4. Increasing or enhancing app showcases, which show off AtlantaFX's appearance in the real world and aid in identifying more areas in need of development.
+5. Improving the documentation is crucial since it acts as the face of the project and represents it to developers and users.
+6. Promoting the endeavor.
 
-1. Fixing or reporting bugs. Please, check [OpenJFX bug tracker](https://bugs.openjdk.org/browse/JDK-8294722?jql=project%20%3D%20JDK%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20javafx%20%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC) first if the bug you're experiencing isn't related to CSS or custom AtlantaFX control.
-2. Adding or improving control samples, which helps people to learn more about existing controls and we can also test how controls look and work with different themes.
-3. Adding or improving widget samples, which provides basic examples of how to implement some conventional UI components.
-4. Adding or improving app showcases, which demonstrates how AtlantaFX looks in real-world that helps to find more areas for improvement.
-5. Improving docs, because good docs is the face of the project.
-6. Advertising the project.
