@@ -74,20 +74,29 @@ dependencies {
 Set a theme:
 
 ```java
+// Essential imports for theme functionality:
+import atlantafx.base.theme.PrimerDark;  // Enables the Primer Dark theme
+//import atlantafx.base.theme.PrimerLight; // Enables the Primer Light theme
+
+// ... the rest of the imports 
+
 public class Launcher extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-    @Override
-    public void start(Stage stage) {
-        // find more themes in 'atlantafx.base.theme' package
-        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-        Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+  @Override
+  public void start(Stage stage) {
+    // Theme configuration:
+    // - Choose either PrimerLight or PrimerDark by uncommenting the respective line below.
+    // - To explore more themes, locate them in the 'atlantafx.base.theme' package and import them accordingly.
 
-        // the rest of the code ...
-    }
+    Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());  // Currently set to Primer Dark theme
+    // Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());  // Uncomment for Primer Light theme
+
+    // ... the rest of the code
+  }
 }
 ```
 
