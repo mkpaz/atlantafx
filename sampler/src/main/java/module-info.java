@@ -10,6 +10,7 @@ module atlantafx.sampler {
     requires javafx.media;
     requires javafx.web;
     requires javafx.fxml;
+    requires javafx.controls;
     requires jdk.zipfs;
 
     requires org.kordamp.ikonli.core;
