@@ -181,7 +181,9 @@ class SceneBuilderDialog extends ModalDialog {
         browseBtn.setMinWidth(120);
         browseBtn.setOnAction(e -> {
             var dirChooser = new DirectoryChooser();
-            dirChooser.setInitialDirectory(SceneBuilderInstaller.getDefaultConfigDir().toFile());
+            File file = SceneBuilderInstaller.getDefaultConfigDir().toFile();
+            file = file.exists() ? file : new File(".");
+            dirChooser.setInitialDirectory(file);
             File dir = dirChooser.showDialog(getScene().getWindow());
             if (dir != null) {
                 model.setInstallDir(dir.toPath());
