@@ -94,6 +94,14 @@ public class Launcher extends Application {
 }
 ```
 
+### Starter Project
+
+If you use Maven you can quickly create a new project with AtlantaFX using the [starter](https://github.com/mkpaz/atlantafx-maven-starter):
+
+```sh
+git clone https://github.com/mkpaz/atlantafx-maven-starter
+```
+
 ### Local Installation
 
 If you don't want to use additional dependencies, you can download compiled CSS themes from the [GitHub Releases](https://github.com/mkpaz/atlantafx/releases). Unpack `AtlantaFX-*-themes.zip` and place it to your project's classpath.
