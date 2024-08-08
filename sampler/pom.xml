@@ -253,12 +253,13 @@
                             <output>${build.package.runtimeImageDir}</output>
                             <args>
                                 <!-- additional options to shrink resulting image even more -->
-                                <arg>--compress=2</arg>
+                                <arg>--compress=zip-9</arg>
                                 <arg>--include-locales=en</arg>
                                 <arg>--no-header-files</arg>
                                 <arg>--no-man-pages</arg>
                                 <arg>--strip-debug</arg>
                                 <arg>--verbose</arg>
+                                <arg>--generate-cds-archive</arg>
                             </args>
                         </configuration>
                     </execution>

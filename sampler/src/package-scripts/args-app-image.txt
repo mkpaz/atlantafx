@@ -3,3 +3,5 @@
 --module-path "${build.dependenciesDir}"
 --runtime-image "${build.package.runtimeImageDir}"
 --dest "${build.package.appImageDir}"
+--java-options -XX:+AutoCreateSharedArchive
+--java-options -XX:SharedArchiveFile=$APPDIR/sampler.jsa
