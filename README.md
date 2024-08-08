@@ -118,6 +118,15 @@ Or use Java property:
 -Djavafx.userAgentStylesheetUrl=[URL]
 ```
 
+## Custom Themes
+
+AtlantaFX is written in modular SASS, so you can create your own CSS themes using AtlantaFX. 
+Here is the sample [repository](https://github.com/mkpaz/atlantafx-sample-theme):
+
+```sh
+git clone https://github.com/mkpaz/atlantafx-sample-theme
+```
+
 ## Contributing
 
 Contributions are always welcome! Contributing can mean many things such as participating in discussion or proposing changes. Feel free to open an issue if you've found a bug or want to raise a question, or discuss a possible feature.
