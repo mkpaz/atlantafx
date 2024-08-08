@@ -80,7 +80,15 @@ public class Calendar extends Control {
      */
     public Calendar() {
         this(null);
+    }
 
+    /**
+     * Creates a Calendar instance and sets the {@link #valueProperty() value}
+     * to the specified date.
+     *
+     * @param localDate The date to be set as the currently selected date in the Calendar.
+     */
+    public Calendar(@Nullable LocalDate localDate) {
         valueProperty().addListener(obs -> {
             LocalDate date = getValue();
             Chronology chrono = getChronology();
@@ -104,15 +112,7 @@ public class Calendar extends Control {
                 setChronology(lastValidChronology);
             }
         });
-    }
 
-    /**
-     * Creates a Calendar instance and sets the {@link #valueProperty() value}
-     * to the specified date.
-     *
-     * @param localDate The date to be set as the currently selected date in the Calendar.
-     */
-    public Calendar(@Nullable LocalDate localDate) {
         setValue(localDate);
         getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
