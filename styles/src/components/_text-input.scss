@@ -163,3 +163,19 @@ $color-fg-password: -color-fg-muted !default;
 .password-field {
   -fx-text-fill: $color-fg-password;
 }
+
+.combo-box-base {
+  &:success >.text-field {
+    -color-input-bg: $color-bg-success;
+    -color-input-fg: $color-fg-success;
+    -color-input-border: $color-border-success;
+    -color-input-border-focused: $color-border-success;
+  }
+
+  &:danger >.text-field {
+    -color-input-bg: $color-bg-danger;
+    -color-input-fg: $color-fg-danger;
+    -color-input-border: $color-border-danger;
+    -color-input-border-focused: $color-border-danger;
+  }
+}

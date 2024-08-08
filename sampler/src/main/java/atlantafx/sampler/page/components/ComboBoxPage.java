@@ -198,6 +198,24 @@ public class ComboBoxPage extends OutlinePage {
         ));
         chb2.getSelectionModel().selectFirst();
         chb2.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+
+        var cmb3 = new ComboBox<String>();
+        cmb3.setPrefWidth(PREF_WIDTH);
+        cmb3.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb3.getSelectionModel().selectFirst();
+        cmb3.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+        cmb3.setEditable(true);
+
+        var cmb4 = new ComboBox<String>();
+        cmb4.setPrefWidth(PREF_WIDTH);
+        cmb4.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb4.getSelectionModel().selectFirst();
+        cmb4.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+        cmb4.setEditable(true);
         //snippet_5:end
 
         var grid = new GridPane();
@@ -205,6 +223,7 @@ public class ComboBoxPage extends OutlinePage {
         grid.setVgap(10);
         grid.addRow(0, captionLabel("ComboBox"), cmb1, cmb2);
         grid.addRow(1, captionLabel("ChoiceBox"), chb1, chb2);
+        grid.addRow(2, captionLabel("Editable"), cmb3, cmb4);
 
         var description = BBCodeParser.createFormattedText("""
             You can use [code]Styles.STATE_SUCCESS[/code] or [code]Styles.STATE_DANGER[/code] \
