@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-@use "../settings/config"as cfg;
+@use "../settings/config" as cfg;
 
 // text nodes
 .text {
   // enable LCD text rendering
-  -fx-font-smoothing-type: gray;
+  -fx-font-smoothing-type: lcd;
 
   // adjust text alignment within the bounds of text nodes,
   // so that the text is always vertically centered within the bounds
