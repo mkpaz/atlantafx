@@ -390,7 +390,8 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
     }
   }
 
-Add support for NO_HEADER tweak in tables  &.no-header {
+  // Add support for NO_HEADER tweak in tables
+  &.no-header {
     >.column-header-background {
       -fx-max-height: 0;
       -fx-pref-height: 0;
