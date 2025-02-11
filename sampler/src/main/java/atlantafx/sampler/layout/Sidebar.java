@@ -2,22 +2,14 @@
 
 package atlantafx.sampler.layout;
 
-import static atlantafx.base.theme.Styles.TEXT_BOLD;
-import static atlantafx.base.theme.Styles.TEXT_MUTED;
-import static atlantafx.base.theme.Styles.TEXT_SMALL;
-import static atlantafx.base.theme.Styles.TEXT_SUBTLE;
-import static atlantafx.base.theme.Styles.TITLE_3;
-import static atlantafx.sampler.Launcher.IS_DEV_MODE;
-
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
+import atlantafx.sampler.event.DevToolsEvent;
 import atlantafx.sampler.event.HotkeyEvent;
 import atlantafx.sampler.util.Lazy;
-import java.net.URI;
-import java.util.Objects;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -38,6 +30,12 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2MZ;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
+
+import java.net.URI;
+import java.util.Objects;
+
+import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
 
 final class Sidebar extends VBox {
 
@@ -129,7 +127,7 @@ final class Sidebar extends VBox {
         Platform.runLater(dialog::requestFocus);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
     private class Header extends VBox {
 
@@ -181,9 +179,19 @@ final class Sidebar extends VBox {
             themeSwitchBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             themeSwitchBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
             themeSwitchBtn.setAlignment(Pos.CENTER_RIGHT);
+            themeSwitchBtn.setTooltip(new Tooltip("Switch theme"));
             themeSwitchBtn.setOnAction(e -> openThemeDialog());
 
-            var root = new HBox(10, imageBox, titleLbl, new Spacer(), themeSwitchBtn);
+            var devtoolsBtn = new Button();
+            devtoolsBtn.getStyleClass().add("palette");
+            devtoolsBtn.setGraphic(new FontIcon(Material2OutlinedAL.DEVELOPER_MODE));
+            devtoolsBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            devtoolsBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
+            devtoolsBtn.setAlignment(Pos.CENTER_RIGHT);
+            devtoolsBtn.setTooltip(new Tooltip("Run DevToolsFX"));
+            devtoolsBtn.setOnAction(e -> DevToolsEvent.fire());
+
+            var root = new HBox(0, imageBox, titleLbl, new Spacer(), themeSwitchBtn, devtoolsBtn);
             root.getStyleClass().add("logo");
             root.setAlignment(Pos.CENTER_LEFT);
 

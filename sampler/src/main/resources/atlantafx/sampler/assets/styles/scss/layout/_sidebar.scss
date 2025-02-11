@@ -12,9 +12,12 @@
     >.logo {
       .label {
         -fx-text-fill: -color-fg-muted;
+        -fx-padding: 0 0 0 10;
       }
 
       >.palette {
+        -fx-cursor: hand;
+
         >.ikonli-font-icon {
           -fx-fill: -color-fg-muted;
           -fx-icon-color: -color-fg-muted;

@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 public final class ApplicationWindow extends AnchorPane {
 
     public static final int MIN_WIDTH = 1200;
-    public static final int SIDEBAR_WIDTH = 250;
+    public static final int SIDEBAR_WIDTH = 270;
     public static final String MAIN_MODAL_ID = "modal-pane";
 
 

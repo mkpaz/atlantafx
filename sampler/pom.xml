@@ -80,6 +80,10 @@
             <artifactId>cssfx</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>devtoolsfx-gui</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>
         </dependency>

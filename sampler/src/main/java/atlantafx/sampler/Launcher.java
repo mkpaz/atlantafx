@@ -2,35 +2,33 @@
 
 package atlantafx.sampler;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import atlantafx.sampler.event.BrowseEvent;
-import atlantafx.sampler.event.DefaultEventBus;
-import atlantafx.sampler.event.HotkeyEvent;
-import atlantafx.sampler.event.Listener;
+import atlantafx.sampler.event.*;
 import atlantafx.sampler.layout.ApplicationWindow;
 import atlantafx.sampler.theme.ThemeManager;
+import devtoolsfx.gui.GUI;
+import devtoolsfx.gui.Preferences;
 import fr.brouillard.oss.cssfx.CSSFX;
 import fr.brouillard.oss.cssfx.api.URIToPathConverter;
 import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger;
 import fr.brouillard.oss.cssfx.impl.log.CSSFXLogger.LogLevel;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Properties;
 import javafx.application.Application;
-import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Properties;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Launcher extends Application {
 
@@ -79,6 +77,7 @@ public class Launcher extends Application {
 
         // register event listeners
         DefaultEventBus.getInstance().subscribe(BrowseEvent.class, this::onBrowseEvent);
+        DefaultEventBus.getInstance().subscribe(DevToolsEvent.class, e -> openDevTools(stage, tm));
 
         Platform.runLater(() -> {
             stage.show();
@@ -143,5 +142,15 @@ public class Launcher extends Application {
     @Listener
     private void onBrowseEvent(BrowseEvent event) {
         getHostServices().showDocument(event.getUri().toString());
+    }
+
+    @Listener
+    private void openDevTools(Stage primaryStage, ThemeManager tm) {
+        var prefs = new Preferences(getHostServices());
+        prefs.setDarkMode(tm.getTheme().isDarkMode());
+        prefs.setCollapseControls(true);
+        prefs.setCollapsePanes(true);
+
+        GUI.openToolStage(primaryStage, prefs, "AtlantaFX");
     }
 }
