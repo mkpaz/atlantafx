@@ -10,6 +10,8 @@ module atlantafx.base {
 
     exports atlantafx.base.controls;
     exports atlantafx.base.layout;
+    exports atlantafx.base.shim.event;
+    exports atlantafx.base.shim.collections;
     exports atlantafx.base.theme;
     exports atlantafx.base.util;
 

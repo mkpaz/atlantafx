@@ -60,6 +60,7 @@ public final class Styles {
     public static final String ROUNDED = "rounded";
     public static final String STRIPED = "striped";
 
+    public static final String TABS_BORDER_TOP = "border-top";
     public static final String TABS_CLASSIC = "classic";
     public static final String TABS_FLOATING = TabPane.STYLE_CLASS_FLOATING;
 

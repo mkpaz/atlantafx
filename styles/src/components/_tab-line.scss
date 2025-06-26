@@ -1,0 +1,249 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+$color-bg:              -color-bg-default      !default;
+$color-fg:              -color-fg-default      !default;
+$color-border:          -color-border-default  !default;
+
+$color-bg-hover:        -color-bg-subtle !default;
+$color-fg-hover:        -color-fg-default !default;
+$color-border-hover:    -color-border-default !default;
+
+$color-bg-selected:     -color-bg-default      !default;
+$color-fg-selected:     -color-fg-default      !default;
+$color-border-selected: -color-accent-emphasis !default;
+
+$bottom-border-width:       1px !default;
+$tab-border-width-inactive: $bottom-border-width !default;
+$tab-border-width-selected: 3px   !default;
+$tab-padding-x:             0.4em !default;
+$tab-padding-x-dense:       0.2em !default;
+$tab-padding-y:             0.8em !default;
+$tab-padding-y-dense:       0.6em !default;
+$tab-menu-icon-padding-x:   3px   !default;
+$tab-menu-icon-padding-y:   6px   !default;
+
+// floating tabs
+$tab-float-padding-x:         0.4em !default;
+$tab-float-padding-x-dense:   0.4em !default;
+$tab-float-padding-y:         0.8em !default;
+$tab-float-padding-y-dense:   0.6em !default;
+$tab-float-border-width:      1px !default;
+$tab-float-gap:               3px !default;
+$tab-float-container-padding: 2px !default;
+
+$color-float-bg:              -color-bg-inset       !default;
+$color-float-border:          -color-border-default !default;
+
+$color-float-bg-selected:     -color-bg-default     !default;
+$color-float-fg-selected:     -color-fg-default     !default;
+$color-float-border-selected: -color-border-default !default;
+
+.tab-line {
+  -color-tab-bg-selected: $color-bg-selected;
+  -color-tab-fg-selected: $color-fg-selected;
+  -color-tab-border-selected: $color-border-selected;
+
+  -fx-background-color: $color-border, $color-bg;
+  -fx-background-insets: 0, 0 0 $bottom-border-width 0;
+
+  >.root {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 calc($bottom-border-width * -1) 0;
+
+    >.tabs {
+      -fx-background-color: transparent;
+
+      >.tab {
+        -fx-background-color: $color-border, $color-bg;
+        -fx-background-insets: 0, 0 0 $tab-border-width-inactive 0;
+        -fx-padding: $tab-padding-y $tab-padding-x $tab-padding-y $tab-padding-x;
+
+        >.tab-box {
+          >.label {
+            -fx-fill: -color-tab-fg-selected;
+            -fx-text-fill: -color-tab-fg-selected;
+          }
+
+          >.close-button {
+            -fx-background-radius: 100;
+
+            .graphic {
+              -fx-background-color: $color-fg;
+              -fx-padding: 0.5em;
+              @include icons.get("close-tab", false);
+            }
+
+            &:hover {
+              -fx-background-color: -color-bg-subtle;
+            }
+
+            &:disabled {
+              -fx-opacity: cfg.$opacity-disabled;
+            }
+          }
+        }
+
+        &:hover {
+          -fx-background-color: $color-border-hover, $color-bg-hover;
+
+          >.label {
+            -fx-fill: $color-fg-hover;
+            -fx-text-fill: $color-fg-hover;
+          }
+        }
+
+        &:selected {
+          -fx-background-color: -color-tab-border-selected, -color-tab-bg-selected;
+          -fx-background-insets: 0, 0 0 $tab-border-width-selected 0;
+
+          >.label {
+            -fx-fill: -color-tab-fg-selected;
+            -fx-text-fill: -color-tab-fg-selected;
+          }
+        }
+
+        &:pinned>.tab-box>.close-button .graphic {
+          @include icons.get("pin", false);
+        }
+
+        // Resize Policy
+
+        &:min-width-exceeded:selected .label {
+          visibility: hidden;
+          -fx-managed: false;
+        }
+
+        &:min-width-exceeded:selected .close-button {
+          visibility: visible;
+          -fx-managed: true;
+        }
+
+        &:min-width-exceeded .close-button {
+          visibility: hidden;
+          -fx-managed: false;
+        }
+      }
+
+      // Closing Policy
+
+      &.selected-tab-closable {
+        >.tab {
+          .close-button {
+            visibility: hidden;
+            -fx-min-width: 0;
+            -fx-min-height: 0;
+            -fx-max-width: 0;
+            -fx-max-height: 0;
+          }
+        }
+
+        >.tab:selected .close-button,
+        >.tab:pinned .close-button {
+          visibility: visible;
+          -fx-min-width: -1;
+          -fx-min-height: -1;
+          -fx-max-width: -1;
+          -fx-max-height: -1;
+        }
+      }
+
+      &.no-tabs-closable {
+        >.tab {
+          .close-button {
+            visibility: hidden;
+            -fx-min-width: 0;
+            -fx-min-height: 0;
+            -fx-max-width: 0;
+            -fx-max-height: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.border-top>.root {
+    -fx-padding: 0;
+
+    >.tabs {
+      >.tab {
+        -fx-background-color: $color-bg, $color-border, $color-bg;
+        -fx-background-insets: 0, 0, 1 0 0 0;
+
+        &:selected {
+          -fx-background-color: -color-tab-border-selected, $color-border, -color-tab-bg-selected;
+          -fx-background-insets: 0, $tab-border-width-selected 0 0 0, $tab-border-width-selected 1 0 1;
+        }
+      }
+    }
+  }
+
+  &.dense>.root>.tabs>.tab {
+    -fx-padding: $tab-padding-y-dense $tab-padding-x-dense $tab-padding-y-dense $tab-padding-x-dense;
+  }
+
+
+  &.floating {
+    -color-tab-bg-selected:     $color-float-bg-selected;
+    -color-tab-fg-selected:     $color-float-fg-selected;
+    -color-tab-border-selected: $color-float-border-selected;
+
+    -fx-background-color: $color-border, $color-float-bg;
+
+    >.root {
+      -fx-padding: $tab-float-container-padding;
+
+      >.tabs {
+        >.tab {
+          -fx-background-color: transparent;
+          -fx-background-insets: 0, 0 $tab-float-gap 0 0, $tab-float-border-width calc($tab-float-gap + $tab-float-border-width) $tab-float-border-width $tab-float-border-width;
+          -fx-padding: $tab-float-padding-y ($tab-float-padding-x * 1.2) $tab-float-padding-y $tab-float-padding-x;
+
+          -fx-background-radius: cfg.$border-radius;
+
+          &:hover {
+            -fx-background-color: transparent, $color-border-hover, $color-bg-hover;
+
+            >.label {
+              -fx-fill: $color-fg-hover;
+              -fx-text-fill: $color-fg-hover;
+            }
+          }
+
+          &:selected {
+            -fx-background-color: transparent, -color-tab-border-selected, -color-tab-bg-selected;
+
+            >.label {
+              -fx-fill: -color-tab-fg-selected;
+              -fx-text-fill: -color-tab-fg-selected;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.floating.dense>.root>.tabs>.tab {
+    -fx-padding: $tab-float-padding-y-dense ($tab-float-padding-x-dense * 1.2) $tab-float-padding-y-dense $tab-float-padding-x-dense;
+  }
+
+  // Nested Controls
+
+  .tab-menu-button {
+    .tab-menu-icon {
+      -fx-background-color: -color-fg-default;
+      -fx-padding: $tab-menu-icon-padding-y $tab-menu-icon-padding-x $tab-menu-icon-padding-y $tab-menu-icon-padding-x;
+      @include icons.get("expand-more", false);
+    }
+  }
+
+  .button {
+    -fx-padding: 3px;
+  }
+
+  .menu-button>.label {
+    -fx-padding: calc($tab-padding-y * 0.7) cfg.$padding-x calc($tab-padding-y * 0.7) cfg.$padding-x;
+  }
+}
