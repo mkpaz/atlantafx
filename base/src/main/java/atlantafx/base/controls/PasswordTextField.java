@@ -65,8 +65,8 @@ public class PasswordTextField extends CustomTextField {
      * @param text   A string for text content.
      * @param bullet A bullet character to mask the password string.
      */
-    protected PasswordTextField(@NamedArg("text") String text,
-                                @NamedArg("bullet") char bullet) {
+    public PasswordTextField(@NamedArg("text") String text,
+                             @NamedArg("bullet") char bullet) {
         super(text);
         formatter.set(PasswordTextFormatter.create(this, bullet));
     }
