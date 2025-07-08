@@ -30,7 +30,7 @@ $thumb-area-padding:       0.85em 1.4em 0.85em 1.4em !default;
     >.label {
       -fx-font-size: 1em;
       -fx-text-fill: $color-label;
-      -fx-padding: cfg.$checkbox-label-padding cfg.$graphic-gap cfg.$checkbox-label-padding 0;
+      -fx-padding: 0 cfg.$graphic-gap cfg.$checkbox-label-padding 0;
     }
   }
 

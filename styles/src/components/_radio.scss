@@ -21,7 +21,8 @@ $dot-width-selected:  1px !default;
   // applied to label
   -fx-background-color: -color-bg-default;
   -fx-text-fill: -color-fg-default;
-  -fx-label-padding: cfg.$checkbox-label-padding cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
+  -fx-label-padding: 0 cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
+  -fx-alignment: TOP-LEFT;
 
   >.radio {
     -fx-background-color: $color-border, $color-bg;
