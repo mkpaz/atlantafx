@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import atlantafx.sampler.page.general.SelectableTextFlowPage;
 import javafx.scene.Node;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,6 +33,7 @@ record Nav(String title,
         ModalPanePage.class,
         NotificationPage.class,
         PopoverPage.class,
+        SelectableTextFlowPage.class,
         TilePage.class,
         TabLinePage.class,
         ToggleSwitchPage.class

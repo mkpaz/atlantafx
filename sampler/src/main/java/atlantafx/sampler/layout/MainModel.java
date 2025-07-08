@@ -2,32 +2,28 @@
 
 package atlantafx.sampler.layout;
 
-import static atlantafx.sampler.layout.MainModel.SubLayer.PAGE;
-import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
-
-import atlantafx.base.controls.TabLine;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.NavEvent;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.*;
-import atlantafx.sampler.page.general.AnimationsPage;
-import atlantafx.sampler.page.general.BBCodePage;
-import atlantafx.sampler.page.general.IconsPage;
-import atlantafx.sampler.page.general.ThemePage;
-import atlantafx.sampler.page.general.TypographyPage;
+import atlantafx.sampler.page.general.*;
 import atlantafx.sampler.page.showcase.BlueprintsPage;
 import atlantafx.sampler.page.showcase.OverviewPage;
 import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static atlantafx.sampler.layout.MainModel.SubLayer.PAGE;
+import static atlantafx.sampler.layout.MainModel.SubLayer.SOURCE_CODE;
 
 public class MainModel {
 
@@ -56,7 +52,7 @@ public class MainModel {
 
     ///////////////////////////////////////////////////////////////////////////
     // Properties                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
     // ~
     private final ReadOnlyObjectWrapper<Class<? extends Page>> selectedPage = new ReadOnlyObjectWrapper<>();
@@ -85,6 +81,7 @@ public class MainModel {
             NAV_TREE.get(ThemePage.class),
             NAV_TREE.get(TypographyPage.class),
             NAV_TREE.get(BBCodePage.class),
+            NAV_TREE.get(SelectableTextFlowPage.class),
             NAV_TREE.get(AnimationsPage.class),
             NAV_TREE.get(IconsPage.class)
         );
@@ -179,7 +176,8 @@ public class MainModel {
 
     ///////////////////////////////////////////////////////////////////////////
     // Nav Tree                                                              //
-    ///////////////////////////////////////////////////////////////////////////
+
+    /// ////////////////////////////////////////////////////////////////////////
 
     public static Map<Class<? extends Page>, NavTree.Item> createNavItems() {
         var map = new HashMap<Class<? extends Page>, NavTree.Item>();
@@ -188,6 +186,10 @@ public class MainModel {
         map.put(ThemePage.class, NavTree.Item.page(ThemePage.NAME, ThemePage.class));
         map.put(AnimationsPage.class, NavTree.Item.page(AnimationsPage.NAME, AnimationsPage.class));
         map.put(BBCodePage.class, NavTree.Item.page(BBCodePage.NAME, BBCodePage.class));
+        map.put(
+            SelectableTextFlowPage.class,
+            NavTree.Item.page(SelectableTextFlowPage.NAME, SelectableTextFlowPage.class)
+        );
         map.put(IconsPage.class, NavTree.Item.page(IconsPage.NAME, IconsPage.class));
         map.put(
             TypographyPage.class,
@@ -270,7 +272,8 @@ public class MainModel {
 
     ///////////////////////////////////////////////////////////////////////////
     // Commands                                                              //
-    ///////////////////////////////////////////////////////////////////////////
+
+    /// ////////////////////////////////////////////////////////////////////////
 
     public void navigate(Class<? extends Page> page) {
         selectedPage.set(Objects.requireNonNull(page));

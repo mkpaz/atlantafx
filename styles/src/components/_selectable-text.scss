@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: MIT
+
+$color-highlight-bg:     -color-accent-subtle !default;
+$color-highlight-fg:     -color-fg-default    !default;
+$color-highlight-stroke: -color-accent-subtle !default;
+
+.selectable-text {
+  -fx-highlight-fill: $color-highlight-bg;
+  -fx-highlight-stroke: $color-highlight-stroke;
+  -fx-highlight-text-fill: $color-highlight-fg;
+}
+
+.selectable-text .context-menu .menu-item {
+  -fx-cursor: default;
+}

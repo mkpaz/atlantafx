@@ -169,6 +169,11 @@ $nord16: #B48EAD; // hsl(311, 20.2, 63.1)
   $button-radius: 1
 );
 
+@forward "components/selectable-text" as selectable-text-* with (
+  $color-highlight-bg: -color-base-7,
+  $color-highlight-stroke: -color-base-7
+);
+
 @forward "components/slider" as slider-* with (
   $thumb-size: (
     "small-h": 8px, "medium-h": 10px, "large-h": 14px,
