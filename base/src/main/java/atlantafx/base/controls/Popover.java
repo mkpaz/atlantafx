@@ -32,10 +32,9 @@ package atlantafx.base.controls;
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.property.BooleanProperty;
@@ -167,7 +166,7 @@ public class Popover extends PopupControl {
 
     ///////////////////////////////////////////////////////////////////////////
     // Listeners                                                             //
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
     private final InvalidationListener hideListener = observable -> {
         if (!isDetached()) {
@@ -354,22 +353,21 @@ public class Popover extends PopupControl {
             // move the window so that the arrow will end up pointing at the target coordinates
             adjustWindowLocation();
 
-            // Popover flickering fix:
+            // FIXME: Popover flickering
             // The reason of flickering is that for calculating popup bounds show() method have to
             // be called PRIOR TO adjusting window position. So, in a very short period we see the
             // window in its initial position. Ideally, we have to call adjustWindowLocation() right
             // after window is added to the scene, but before it's rendered, which is not possible
             // due to JavaFX async nature. The only way seems to start popover as invisible (not opaque)
-            // and then restore its visibility after a fixed delay to hide window repositioning.
-            // Still it's not a 100% guarantee,but better than nothing.
-            int delay =
-                Math.min((int) Objects.requireNonNullElse(fadeInDuration, DEFAULT_FADE_DURATION).toMillis() / 2, 250);
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Platform.runLater(() -> getSkin().getNode().setVisible(true));
-                }
-            }, delay);
+            // and then restore its visibility to hide window repositioning.
+            // Still it's not a 100% guarantee, but better than nothing.
+            int delay = Math.min(
+                (int) Objects.requireNonNullElse(fadeInDuration, DEFAULT_FADE_DURATION).toMillis() / 2, 250
+            );
+
+            var timer = new Timeline(new KeyFrame(Duration.millis(delay)));
+            timer.setOnFinished(e -> getSkin().getNode().setVisible(true));
+            timer.play();
         });
 
         super.show(owner, x, y);
