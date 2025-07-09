@@ -148,6 +148,7 @@ public class MainModel {
             NAV_TREE.get(BreadcrumbsPage.class),
             NAV_TREE.get(MenuBarPage.class),
             NAV_TREE.get(PaginationPage.class),
+            NAV_TREE.get(SegmentedControlPage.class),
             NAV_TREE.get(TabLinePage.class),
             NAV_TREE.get(TabPanePage.class)
         );
@@ -240,6 +241,7 @@ public class MainModel {
         );
         map.put(RadioButtonPage.class, NavTree.Item.page(RadioButtonPage.NAME, RadioButtonPage.class));
         map.put(ScrollPanePage.class, NavTree.Item.page(ScrollPanePage.NAME, ScrollPanePage.class));
+        map.put(SegmentedControlPage.class, NavTree.Item.page(SegmentedControlPage.NAME, SegmentedControlPage.class));
         map.put(SeparatorPage.class, NavTree.Item.page(SeparatorPage.NAME, SeparatorPage.class));
         map.put(SliderPage.class, NavTree.Item.page(SliderPage.NAME, SliderPage.class));
         map.put(SpinnerPage.class, NavTree.Item.page(SpinnerPage.NAME, SpinnerPage.class));

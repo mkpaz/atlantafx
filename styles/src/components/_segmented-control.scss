@@ -1,0 +1,72 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$color-bg:       -color-bg-subtle      !default;
+$color-fg:       -color-fg-muted       !default;
+$color-border:   -color-border-default !default;
+
+$color-fg-hover:        -color-fg-default     !default;
+$color-bg-selected:     -color-bg-default     !default;
+$color-fg-selected:     -color-fg-default     !default;
+$color-border-selected: -color-border-muted   !default;
+
+$background-padding-x:  5px !default;
+$background-padding-y:  5px !default;
+
+$background-border-width:  cfg.$border-width !default;
+$indicator-border-width:   cfg.$border-width !default;
+
+$label-padding-x:  cfg.$padding-x !default;
+$label-padding-y:  cfg.$padding-y !default;
+$label-spacing:    5px !default;
+
+.segmented-control {
+  -color-segment-bg:              $color-bg;
+  -color-segment-fg:              $color-fg;
+  -color-segment-border:          $color-border;
+  -color-segment-fg-hover:        $color-fg-hover;
+  -color-segment-bg-selected:     $color-bg-selected;
+  -color-segment-fg-selected:     $color-fg-selected;
+  -color-segment-border-selected: $color-border-selected;
+
+  >.root {
+    >.background {
+      -fx-background-color: -color-segment-border, -color-segment-bg;
+      -fx-background-insets: 0, $background-border-width;
+      -fx-background-radius: cfg.$border-radius;
+
+      >.indicator {
+        -fx-background-color: -color-segment-bg-selected;
+        -fx-background-radius: cfg.$border-radius;
+        -fx-border-width: $indicator-border-width;
+        -fx-border-color: -color-segment-border-selected;
+        -fx-border-radius: cfg.$border-radius;
+      }
+    }
+
+    >.labels {
+      -fx-background-color: transparent;
+      -fx-padding: $background-padding-y $background-padding-x $background-padding-y $background-padding-x;
+      -fx-spacing: $label-spacing;
+      -fx-alignment: CENTER-LEFT;
+
+      >.toggle-label {
+        -fx-text-fill: -color-segment-fg;
+        -fx-padding: $label-padding-y $label-padding-x $label-padding-y $label-padding-x;
+
+        &:hover {
+          -fx-text-fill: -color-segment-fg-hover;
+        }
+
+        &:selected {
+          -fx-text-fill: -color-segment-fg-selected;
+        }
+      }
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+  }
+}
