@@ -79,11 +79,14 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         transition.setFromX(0.0);
 
         label.textProperty().bind(control.textProperty());
+        label.graphicProperty().bind(control.graphicProperty());
+        label.alignmentProperty().bind(control.alignmentProperty());
         StackPane.setAlignment(label, Pos.CENTER_LEFT);
 
         labelContainer.getChildren().addAll(label);
         getChildren().addAll(labelContainer, thumbArea, thumb);
 
+        label.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         thumbArea.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         thumb.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
         control.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -161,7 +164,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         double thumbAreaHeight = snapSizeX(thumbArea.prefHeight(-1));
         double thumbAreaY = snapPositionX(contentY + (contentHeight / 2) - (thumbAreaHeight / 2));
 
-        double labelWidth = label.getText() != null && !label.getText().isEmpty() ? contentWidth - thumbAreaWidth : 0;
+        double labelWidth = (label.getText() != null && !label.getText().isEmpty()) || label.getGraphic() != null ? contentWidth - thumbAreaWidth : 0;
         double labelX = c.getLabelPosition() == HorizontalDirection.RIGHT ? thumbAreaWidth : 0;
 
         double thumbAreaX = c.getLabelPosition() == HorizontalDirection.RIGHT ? 0 : labelWidth;
