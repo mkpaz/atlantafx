@@ -224,7 +224,9 @@ public class PopoverSkin implements Skin<Popover> {
                 xOffset = evt.getScreenX();
                 yOffset = evt.getScreenY();
 
-                if (dragStartLocation.distance(xOffset, yOffset) > 20) {
+                // dragStartLocation is instantiated on mouse press,
+                // it shouldn't be null when dragging is started (#66)
+                if (dragStartLocation != null && dragStartLocation.distance(xOffset, yOffset) > 20) {
                     tornOff = true;
                     updatePath();
                 } else if (tornOff) {
