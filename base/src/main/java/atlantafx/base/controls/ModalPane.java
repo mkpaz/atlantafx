@@ -34,13 +34,43 @@ import org.jetbrains.annotations.Nullable;
  * <p>Example:
  *
  * <pre>{@code
- * ModalPane modalPane = new ModalPane();
+ * public class ModalPaneExample extends Application {
  *
- * Label content = new Label("Content");
- * content.setSize(450, 450);
+ *     @Override
+ *     public void start(Stage primaryStage) {
+ *         setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
  *
- * Button openBtn = new Button("Open");
- * openBtn.setOnAction(evt -> modalPane.show(content));
+ *         class Dialog extends VBox {
+ *
+ *             public Dialog(int width, int height, Runnable closeHandler) {
+ *                 super();
+ *
+ *                 setMinSize(width, height);
+ *                 setMaxSize(width, height);
+ *                 setSpacing(10);
+ *                 setStyle("-fx-background-color: -color-bg-default;");
+ *
+ *                 var closeBtn = new Button("Close");
+ *                 closeBtn.setOnAction(e -> closeHandler.run());
+ *                 getChildren().setAll(closeBtn);
+ *             }
+ *         }
+ *
+ *         var modalPane = new ModalPane();
+ *         modalPane.setAlignment(Pos.CENTER);
+ *
+ *         var dialogOpenBtn = new Button("Open Dialog");
+ *         dialogOpenBtn.setOnAction(e ->
+ *             modalPane.show(new Dialog(300, 300, () -> modalPane.hide(true)))
+ *         );
+ *
+ *         var root = new StackPane();
+ *         root.getChildren().addAll(new VBox(dialogOpenBtn), modalPane);
+ *
+ *         primaryStage.setScene(new Scene(root, 600, 600));
+ *         primaryStage.show();
+ *     }
+ * }
  * }</pre>
  */
 public class ModalPane extends Control {
