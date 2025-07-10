@@ -34,17 +34,6 @@
         <url>${project.url}</url>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <modules>
         <module>base</module>
         <module>sampler</module>
@@ -223,11 +212,6 @@
                     <version>3.2.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-                <plugin>
                     <groupId>us.hebi.sass</groupId>
                     <artifactId>sass-cli-maven-plugin</artifactId>
                     <version>1.0.1</version>
@@ -372,6 +356,16 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.8.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <excludeArtifacts>atlantafx-sampler</excludeArtifacts>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -10,6 +10,10 @@
     </parent>
     <artifactId>atlantafx-sampler</artifactId>
 
+    <name>AtlantaFX Sampler</name>
+    <description>JavaFX CSS theme collection plus additional controls</description>
+    <url>https://github.com/mkpaz/atlantafx</url>
+
     <properties>
         <app.launcher>atlantafx.sampler.Launcher</app.launcher>
         <app.module>atlantafx.sampler</app.module>
@@ -308,14 +312,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- skip module deployment -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
         </plugins>
     </build>

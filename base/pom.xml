@@ -10,6 +10,10 @@
     </parent>
     <artifactId>atlantafx-base</artifactId>
 
+    <name>AtlantaFX Base</name>
+    <description>JavaFX CSS theme collection plus additional controls</description>
+    <url>https://github.com/mkpaz/atlantafx</url>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
