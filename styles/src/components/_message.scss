@@ -90,6 +90,7 @@ $close-button-padding:  0.5em; // private variable
     >.container {
 
       -fx-background-color: -color-message-bg;
+      -fx-background-radius: cfg.$border-radius;
       -fx-alignment: CENTER_LEFT;
       -fx-border-color: -color-message-border;
       -fx-border-width: cfg.$border-width;

@@ -269,8 +269,8 @@ $header-classic-padding-y:   5px !default;
 
           >.tab-container {
             -fx-background-color: $color-separator, $color-float-bg;
+            -fx-background-radius: cfg.$border-radius, 0;
             -fx-background-insets: 0, 0 1 0 0;
-            -fx-background-radius: 0;
             -fx-border-radius: cfg.$border-radius;
             // an ugly hack to create right padding for the close button
             // sadly, it's not possible other way
