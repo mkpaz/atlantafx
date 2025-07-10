@@ -187,7 +187,8 @@ $ui-yellowLight:     hsla(60, 100%, 75%, 5%);
 );
 
 @forward "components/data" as data-* with (
-  $color-cell-bg-selected: -color-accent-subtle
+  $color-cell-bg-selected: -color-accent-subtle,
+  $color-cell-bg-selected-focused: -color-accent-subtle
 );
 
 @forward "components/date-picker" as date-picker-* with (

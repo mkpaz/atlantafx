@@ -103,14 +103,13 @@ $tree-cell-indent: 1.2em !default; // default JavaFX values is 18px
 // individual cell selection (cellSelectionEnabled = true)
 .table-view>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
 .tree-table-view>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
-  -fx-background-color: -color-cell-bg-selected;
+  -fx-background-color: -color-cell-border, -color-cell-bg-selected;
   // a margin to show bottom .table-row-cell border,
-  // it should be 1px height, but for some reason it's not enough
-  -fx-background-insets: 0 0 2 0;
+  -fx-background-insets: 0, 0 0 1 0;
 }
 .table-view:focused>.virtual-flow>.clipped-container>.sheet>.table-row-cell .table-cell:selected,
 .tree-table-view:focused>.virtual-flow>.clipped-container>.sheet>.tree-table-row-cell .tree-table-cell:selected {
-  -fx-background-color: -color-cell-bg-selected-focused;
+  -fx-background-color: -color-cell-border, -color-cell-bg-selected-focused;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
