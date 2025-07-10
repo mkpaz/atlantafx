@@ -26,6 +26,7 @@
 - (Base) Rare drag NPE in `Popover` (#66).
 - (Base) `TileSkinBase` change listener update logic (#74).
 - (Base) `Timer` in `Popover` that prevented shutting down JVM after primary stage closed (#109).
+- (Base) `ModalPane` transitions on content change (#140) (thanks to **crschnick**).
 - (CSS) Overlapping `ModalPane` scrollbar (#88).
 - (CSS) `TextField` color in editable `ComboBox` (#98).
 - (CSS) Font icon colors for `MenuButton`'s context menu (#100).
