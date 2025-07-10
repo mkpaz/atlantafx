@@ -15,8 +15,14 @@ $close-button-icon-size: 0.3em !default;
 .modal-pane {
   -color-modal-pane-overlay: $color-modal-bg;
 
-  >.scroll-pane>.viewport>*>.scrollable-content {
-    -fx-background-color: -color-modal-pane-overlay;
+  >.scroll-pane {
+    >.viewport>*>.scrollable-content {
+      -fx-background-color: -color-modal-pane-overlay;
+    }
+
+    >.scroll-bar {
+      -fx-opacity: 1.0;
+    }
   }
 }
 
