@@ -69,7 +69,7 @@
 
         <lib.commons-lang.version>3.12.0</lib.commons-lang.version>
         <lib.cssfx.version>11.5.1</lib.cssfx.version>
-        <lib.devtoolsfx.version>1.0.0</lib.devtoolsfx.version>
+        <lib.devtoolsfx.version>1.0.1</lib.devtoolsfx.version>
         <lib.ikonli.version>12.3.1</lib.ikonli.version>
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
         <lib.jetbrains-annotations.version>23.0.0</lib.jetbrains-annotations.version>
