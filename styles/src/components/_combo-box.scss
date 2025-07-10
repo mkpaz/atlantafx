@@ -142,6 +142,30 @@ $use-alt-icon:           false !default;
   &:danger>.list-cell {
     -fx-text-fill: -color-danger-fg;
   }
+
+  &.small {
+    >.list-cell {
+      -fx-padding: cfg.$padding-y-small cfg.$padding-x-small cfg.$padding-y-small cfg.$padding-x-small;
+      -fx-font-size: cfg.$font-small;
+    }
+
+    >.text-field {
+      -fx-padding: cfg.$padding-y-small cfg.$padding-x-small cfg.$padding-y-small cfg.$padding-x-small;
+      -fx-font-size: cfg.$font-small;
+    }
+  }
+
+  &.large {
+    >.list-cell {
+      -fx-padding: cfg.$padding-y-large cfg.$padding-x-large cfg.$padding-y-large cfg.$padding-x-large;
+      -fx-font-size: cfg.$font-title-4;
+    }
+
+    >.text-field {
+      -fx-padding: cfg.$padding-y-large cfg.$padding-x-large cfg.$padding-y-large cfg.$padding-x-large;
+      -fx-font-size: cfg.$font-title-4;
+    }
+  }
 }
 
 .combo-box-popup {
@@ -257,6 +281,22 @@ $use-alt-icon:           false !default;
   &.alt-icon {
     >.open-button>.arrow {
       @include _arrow(true);
+    }
+  }
+
+  &.small {
+    -fx-padding: cfg.$padding-y-small cfg.$padding-x-small cfg.$padding-y-small cfg.$padding-x-small;
+
+    >.label {
+      -fx-font-size: cfg.$font-small;
+    }
+  }
+
+  &.large {
+    -fx-padding: cfg.$padding-y-large cfg.$padding-x-large cfg.$padding-y-large cfg.$padding-x-large;
+
+    >.label {
+      -fx-font-size: cfg.$font-title-4;
     }
   }
 }

@@ -8,9 +8,8 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,6 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ComboBoxPage extends OutlinePage {
 
@@ -46,6 +48,7 @@ public class ComboBoxPage extends OutlinePage {
         addSection("Color", colorExample());
         addSection("Overflow", overflowExample());
         addSection("Alternative Icon", altIconExample());
+        addSection("Size", sizeExample());
     }
 
     private ExampleBox usageExample() {
@@ -305,5 +308,73 @@ public class ComboBoxPage extends OutlinePage {
         );
 
         return new ExampleBox(box, new Snippet(ComboBoxPage.class, 6), description);
+    }
+
+    private ExampleBox sizeExample() {
+        //snippet_7:start
+        var cmb1 = new ComboBox<String>();
+        cmb1.setPrefWidth(PREF_WIDTH);
+        cmb1.getStyleClass().add(Styles.SMALL);
+        cmb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb1.getSelectionModel().selectFirst();
+        cmb1.setEditable(true);
+
+        var cmb2 = new ComboBox<String>();
+        cmb2.setPrefWidth(PREF_WIDTH);
+        cmb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb2.getSelectionModel().selectFirst();
+        cmb2.setEditable(true);
+
+        var cmb3 = new ComboBox<String>();
+        cmb3.setPrefWidth(PREF_WIDTH);
+        cmb3.getStyleClass().add(Styles.LARGE);
+        cmb3.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        cmb3.getSelectionModel().selectFirst();
+        cmb3.setEditable(true);
+
+        var chb1 = new ChoiceBox<String>();
+        chb1.setPrefWidth(PREF_WIDTH);
+        chb1.getStyleClass().add(Styles.SMALL);
+        chb1.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb1.getSelectionModel().selectFirst();
+
+        var chb2 = new ChoiceBox<String>();
+        chb2.setPrefWidth(PREF_WIDTH);
+        chb2.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb2.getSelectionModel().selectFirst();
+
+        var chb3 = new ChoiceBox<String>();
+        chb3.setPrefWidth(PREF_WIDTH);
+        chb3.getStyleClass().add(Styles.LARGE);
+        chb3.setItems(FXCollections.observableArrayList(
+            generate(() -> FAKER.hipster().word(), 5)
+        ));
+        chb3.getSelectionModel().selectFirst();
+        //snippet_7:end
+
+        var grid = new GridPane();
+        grid.setHgap(30);
+        grid.setVgap(10);
+        grid.addRow(0, captionLabel("Small"), cmb1, chb1);
+        grid.addRow(1, captionLabel("Normal"), cmb2, chb2);
+        grid.addRow(2, captionLabel("Large"), cmb3, chb3);
+        grid.setPadding(new Insets(0, 0, 20, 0));
+
+        var description = BBCodeParser.createFormattedText("""
+            For larger or smaller controls, use the [code]Styles.SMALL[/code] or \
+            [code]Styles.LARGE[/code] style classes, respectively."""
+        );
+
+        return new ExampleBox(grid, new Snippet(ComboBoxPage.class, 7), description);
     }
 }
