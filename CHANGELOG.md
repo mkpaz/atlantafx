@@ -2,6 +2,38 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-07-12
+
+### Added
+
+- (Base) 🚀 `TabLine` component is an alternative `TabPane` control with custom slots, resize policies, tabs pinning and more.
+- (Base) 🚀 `SegmentedControl` is another tabs component flavor for a limited number of fixed tabs.
+- (Base) 🚀 `SelectableTextFlow` is a `TextFlow` that supports text selection.
+- (Base) Label graphic support in the `ToggleSwitch` (thanks to **crschnick**).
+- (CSS) Size modifiers support for `ComboBox` and `ChoiceBox`.
+- (CSS) Flat style support for `ToggleButton`.
+- (Sampler) `DevToolsFX` support for inspecting the scene-graph.
+
+### Improved
+
+- (Build) Java version bump to 21.
+- (Build) JavaFX version bump to 22.
+- (Base) `PasswordTextField` bullet constructor made public.
+- (CSS) Embedded PNG files compression (thanks to **jandk**).
+
+### Fixed
+
+- (Base) Rare drag NPE in `Popover` (#66).
+- (Base) `TileSkinBase` change listener update logic (#74).
+- (Base) `Timer` in `Popover` that prevented shutting down JVM after primary stage closed (#109).
+- (CSS) Overlapping `ModalPane` scrollbar (#88).
+- (CSS) `TextField` color in editable `ComboBox` (#98).
+- (CSS) Font icon colors for `MenuButton`'s context menu (#100).
+- (CSS) Individual cell selection color (#108).
+- (CSS) Cell height artifact with fractional scaling (#111).
+- (CSS) Sharp corners due to missing `background-radius` (#112).
+- (CSS) `Checkbox` and `Radio` labels alignment (#115).
+
 ## [2.0.1] - 2023-06-18
 
 ### Fixed
