@@ -72,7 +72,10 @@ public final class ListViewPage extends OutlinePage {
         var box = new VBox(20, lv);
         var description = BBCodeParser.createFormattedText("""
             You can create a list view by instantiating the \
-            [font=monospace]javafx.scene.control.ListView[/font] class."""
+            [font=monospace]javafx.scene.control.ListView[/font] class.
+            
+            The default cell height is fixed. Set [code]-fx-cell-size: -1[/code] CSS property to \
+            use cell height based on content."""
         );
 
         return new ExampleBox(box, new Snippet(getClass(), 1), description);

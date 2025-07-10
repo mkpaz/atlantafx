@@ -51,6 +51,10 @@ The same as [`ChoiceBox`](#choicebox).
 
 This includes all virtualized controls such as ListView, TreeView, TableView and TreeTableView.
 
+**NOTE:**
+
+The default cell height is fixed. Set `-fx-cell-size: -1` CSS property to  use cell height based on content.
+
 ### Common
 
 CSS classes:

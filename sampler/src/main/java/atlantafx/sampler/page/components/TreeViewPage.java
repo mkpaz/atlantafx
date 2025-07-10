@@ -100,7 +100,10 @@ public final class TreeViewPage extends OutlinePage {
         var description = BBCodeParser.createFormattedText("""
             In each tree the highest object in the hierarchy is called the "root". \
             The root contains several child items, which can have children as well. \
-            An item without children is called "leaf".""");
+            An item without children is called "leaf".
+            
+            The default cell height is fixed. Set [code]-fx-cell-size: -1[/code] CSS property to \
+            use cell height based on content.""");
 
         return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
