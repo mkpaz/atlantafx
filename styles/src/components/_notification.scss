@@ -125,20 +125,6 @@ $action-button-radius: 100px  !default;
     >.button-bar {
       -fx-padding: 0 $padding-x 0 $padding-x;
     }
-
-    @each $level, $radius in cfg.$elevation {
-      &.elevated-#{$level} {
-        >.container {
-          @include effects.shadow(cfg.$elevation-color, $radius);
-        }
-      }
-    }
-
-    &.interactive:hover {
-      >.container {
-        @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
-      }
-    }
   }
 
   &.accent {

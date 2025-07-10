@@ -12,6 +12,7 @@ $spacing:      1em   !default;
 $title-font-size: cfg.$font-title-4;
 
 .card {
+
   >.container {
     -fx-background-color: $color-bg;
     -fx-background-radius: cfg.$border-radius;
@@ -44,15 +45,7 @@ $title-font-size: cfg.$font-title-4;
       -fx-padding: 0 $padding-x 0 $padding-x 0;
     }
 
-    @each $level, $radius in cfg.$elevation {
-      &.elevated-#{$level} {
-        @include effects.shadow(cfg.$elevation-color, $radius);
-      }
-    }
 
-    &.interactive:hover {
-      @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
-    }
 
     TextFlow {
       Text {
