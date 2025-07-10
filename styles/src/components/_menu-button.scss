@@ -3,6 +3,7 @@
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 @use "button";
+@use "menu";
 
 $color-split-arrow-bg: -color-neutral-emphasis-plus !default;
 $color-split-arrow-fg: -color-fg-emphasis !default;
@@ -120,14 +121,35 @@ $separator-width:    0.75px !default;
 
   &.accent {
     @include button.accent();
+
+    .menu-item {
+      #{cfg.$font-icon-selector} {
+        -fx-icon-color: menu.$color-menuitem-fg;
+        -fx-fill: menu.$color-menuitem-fg;
+      }
+    }
   }
 
   &.success {
     @include button.success();
+
+    .menu-item {
+      #{cfg.$font-icon-selector} {
+        -fx-icon-color: menu.$color-menuitem-fg;
+        -fx-fill: menu.$color-menuitem-fg;
+      }
+    }
   }
 
   &.danger {
     @include button.danger();
+
+    .menu-item {
+      #{cfg.$font-icon-selector} {
+        -fx-icon-color: menu.$color-menuitem-fg;
+        -fx-fill: menu.$color-menuitem-fg;
+      }
+    }
   }
 
   &.flat {

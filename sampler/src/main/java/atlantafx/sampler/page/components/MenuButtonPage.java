@@ -335,7 +335,7 @@ public final class MenuButtonPage extends OutlinePage {
     @SuppressWarnings("SameParameterValue")
     private MenuItem[] createItems(int count) {
         return IntStream.range(0, count)
-            .mapToObj(i -> new MenuItem(FAKER.babylon5().character()))
+            .mapToObj(i -> new MenuItem(FAKER.babylon5().character(), new FontIcon(randomIcon())))
             .toArray(MenuItem[]::new);
     }
 }
