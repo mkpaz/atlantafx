@@ -35,6 +35,7 @@ public final class ToggleButtonPage extends OutlinePage {
         addSection("Usage", usageExample());
         addSection("Icon Only", iconOnlyExample());
         addSection("Segmented Group", segmentedGroupExample());
+        addSection("Flat", flatExample());
     }
 
     private ExampleBox usageExample() {
@@ -181,5 +182,55 @@ public final class ToggleButtonPage extends OutlinePage {
         );
 
         return new ExampleBox(groupBox, new Snippet(getClass(), 3), description);
+    }
+
+    private ExampleBox flatExample() {
+        //snippet_4:start
+        var leftBtn1 = new ToggleButton("._left-pill");
+        leftBtn1.getStyleClass().addAll(Styles.LEFT_PILL, Styles.FLAT);
+        leftBtn1.setMnemonicParsing(true);
+        leftBtn1.setSelected(true);
+
+        var centerBtn1 = new ToggleButton("._center-pill");
+        centerBtn1.getStyleClass().addAll(Styles.CENTER_PILL, Styles.FLAT);
+        centerBtn1.setMnemonicParsing(true);
+
+        var rightBtn1 = new ToggleButton("._right-pill");
+        rightBtn1.getStyleClass().addAll(Styles.RIGHT_PILL, Styles.FLAT);
+        rightBtn1.setMnemonicParsing(true);
+
+        var btnGroup = new ToggleGroup();
+        btnGroup.getToggles().addAll(leftBtn1, centerBtn1, rightBtn1);
+
+        // ~
+
+        var leftBtn2 = new ToggleButton(null, new FontIcon(Feather.BOLD));
+        leftBtn2.getStyleClass().addAll(Styles.LEFT_PILL, Styles.FLAT);
+        leftBtn2.setMnemonicParsing(true);
+        leftBtn2.setSelected(true);
+
+        var centerBtn2 = new ToggleButton(null, new FontIcon(Feather.ITALIC));
+        centerBtn2.getStyleClass().addAll(Styles.CENTER_PILL, Styles.FLAT);
+        centerBtn2.setMnemonicParsing(true);
+
+        var rightBtn2 = new ToggleButton(null, new FontIcon(Feather.UNDERLINE));
+        rightBtn2.getStyleClass().addAll(Styles.RIGHT_PILL, Styles.FLAT);
+        rightBtn2.setMnemonicParsing(true);
+
+        var iconBtnGroup = new ToggleGroup();
+        iconBtnGroup.getToggles().addAll(leftBtn2, centerBtn2, rightBtn2);
+
+        //snippet_4:end
+
+        var btnBox = new HBox(leftBtn1, centerBtn1, rightBtn1);
+        btnBox.setAlignment(Pos.CENTER_LEFT);
+
+        var iconBtnBox = new HBox(leftBtn2, centerBtn2, rightBtn2);
+        iconBtnBox.setAlignment(Pos.CENTER_LEFT);
+
+        var box = new HBox(HGAP_30, btnBox, iconBtnBox);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        return new ExampleBox(box, new Snippet(getClass(), 4));
     }
 }

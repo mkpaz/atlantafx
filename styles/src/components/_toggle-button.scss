@@ -5,7 +5,7 @@
 
 $color-bg-selected:     -color-accent-emphasis  !default;
 $color-fg-selected:     -color-fg-emphasis      !default;
-$color-border-selected: -color-accent-emphasis !default;
+$color-border-selected: -color-accent-emphasis  !default;
 
 .toggle-button {
   @include button.base();
@@ -38,6 +38,20 @@ $color-border-selected: -color-accent-emphasis !default;
   &.right-pill {
     @if button.$use-shadow {
       -fx-effect: dropshadow(gaussian, -color-button-shadow, 3px, -2, 0, 1);
+    }
+  }
+
+  &.flat {
+    @include button.flat();
+
+    &:hover {
+      -fx-background-color: -color-button-border-hover, -color-button-bg-hover;
+      -fx-underline: true;
+    }
+
+    &:selected,
+    &:selected:focused {
+      -fx-background-color: $color-border-selected, -color-button-bg-selected;
     }
   }
 
