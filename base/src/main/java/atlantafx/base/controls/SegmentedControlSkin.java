@@ -21,7 +21,7 @@ import javafx.util.Duration;
  */
 public class SegmentedControlSkin extends BehaviorSkinBase<SegmentedControl, SegmentedControlBehavior> {
 
-    protected final Pane root = new Pane();
+    protected final Pane rootContainer = new Pane();
     protected final Pane backgroundBox = new Pane();
     protected final HBox labelBox = new HBox();
     protected final Pane indicator = new Pane();
@@ -49,9 +49,9 @@ public class SegmentedControlSkin extends BehaviorSkinBase<SegmentedControl, Seg
 
         labelBox.getStyleClass().add("labels");
 
-        root.getStyleClass().add("root");
-        root.getChildren().setAll(backgroundBox, labelBox);
-        getChildren().add(root);
+        rootContainer.getStyleClass().add("root-container");
+        rootContainer.getChildren().setAll(backgroundBox, labelBox);
+        getChildren().add(rootContainer);
 
         segmentListener = change -> {
             while (change.next()) {

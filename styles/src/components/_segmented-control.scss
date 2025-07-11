@@ -30,7 +30,7 @@ $label-spacing:    5px !default;
   -color-segment-fg-selected:     $color-fg-selected;
   -color-segment-border-selected: $color-border-selected;
 
-  >.root {
+  >.root-container {
     >.background {
       -fx-background-color: -color-segment-border, -color-segment-bg;
       -fx-background-insets: 0, $background-border-width;
@@ -52,15 +52,31 @@ $label-spacing:    5px !default;
       -fx-alignment: CENTER-LEFT;
 
       >.toggle-label {
+        -fx-font-size: 1em;
         -fx-text-fill: -color-segment-fg;
         -fx-padding: $label-padding-y $label-padding-x $label-padding-y $label-padding-x;
 
+        #{cfg.$font-icon-selector} {
+          -fx-icon-color: -color-segment-fg;
+          -fx-fill: -color-segment-fg;
+        }
+
         &:hover {
           -fx-text-fill: -color-segment-fg-hover;
+
+          #{cfg.$font-icon-selector} {
+            -fx-icon-color: -color-segment-fg-hover;
+            -fx-fill: -color-segment-fg-hover;
+          }
         }
 
         &:selected {
           -fx-text-fill: -color-segment-fg-selected;
+
+          #{cfg.$font-icon-selector} {
+            -fx-icon-color: -color-segment-fg-selected;
+            -fx-fill: -color-segment-fg-selected;
+          }
         }
       }
     }
