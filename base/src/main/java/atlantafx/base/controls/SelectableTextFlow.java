@@ -50,7 +50,7 @@ import java.util.function.Predicate;
 public class SelectableTextFlow extends TextFlow {
 
     protected static final Predicate<Character> WORD_BOUNDARY_PREDICATE =
-        c -> Character.isWhitespace(c) || !Character.isAlphabetic(c) || !Character.isDigit(c);
+        c -> Character.isWhitespace(c) || !(Character.isAlphabetic(c) || Character.isDigit(c));
 
     protected final Selection selection = new Selection(this);
     protected int mouseDragStartPos = -1;

@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MIT */
 
-package atlantafx.base;
+package atlantafx.base.util;
 
 import javafx.application.Platform;
 import org.junit.jupiter.api.extension.BeforeAllCallback;

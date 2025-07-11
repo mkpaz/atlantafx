@@ -6,7 +6,6 @@ import static atlantafx.base.util.MaskTextFormatter.createPlaceholderMask;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import atlantafx.base.JavaFXTest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TextFormatter.Change;
 import org.junit.jupiter.api.Test;
