@@ -65,8 +65,6 @@ public class TabsContainer extends StackPane {
 
         control.tabClosingPolicyProperty().addListener(closingPolicyListener);
         control.tabResizePolicyProperty().addListener(resizePolicyListener);
-
-        updatePseudoClasses();
     }
 
     protected void dispose() {
@@ -374,6 +372,8 @@ public class TabsContainer extends StackPane {
                 doMoveTab(move.getKey(), move.getValue());
             }
         }
+
+        updatePseudoClasses();
 
         control.requestLayout();
     }
