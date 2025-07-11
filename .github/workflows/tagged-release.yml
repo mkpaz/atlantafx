@@ -49,14 +49,14 @@ jobs:
       if: matrix.os == 'windows-latest'
 
     - name: Build | Upload binaries
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: binaries
         path: ./sampler/target/release/*
         retention-days: 1
 
     - name: Build | Upload resources
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: resources
         path: |
@@ -69,13 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Release | Download files
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
 
     - name: Release | List content
       run: ls -R
 
     - name: Release | Publish to Github
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: |
           binaries/*
