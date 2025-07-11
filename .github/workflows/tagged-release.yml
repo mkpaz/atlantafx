@@ -51,14 +51,14 @@ jobs:
     - name: Build | Upload binaries
       uses: actions/upload-artifact@v4
       with:
-        name: binaries
+        name: dist-${{ matrix.os }}
         path: ./sampler/target/release/*
         retention-days: 1
 
     - name: Build | Upload resources
       uses: actions/upload-artifact@v4
       with:
-        name: resources
+        name: resources-${{ matrix.os }}
         path: |
           ./styles/**/*-themes.zip
           RELEASE_NOTES.md
@@ -78,6 +78,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          binaries/*
-          resources/**/*-themes.zip
-        body_path: resources/RELEASE_NOTES.md
+          dist-ubuntu-latest/*
+          dist-windows-latest/*
+          resources-ubuntu-latest/**/*-themes.zip
+        body_path: resources-ubuntu-latest/RELEASE_NOTES.md
