@@ -6,6 +6,7 @@ import atlantafx.base.controls.Tab.ResizePolicy;
 import atlantafx.base.controls.TabsDragHandler.DragState;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
+import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
@@ -18,6 +19,9 @@ import java.util.List;
 import java.util.stream.DoubleStream;
 
 public class TabsContainer extends StackPane {
+
+    protected static final PseudoClass PSEUDO_CLASS_FIRST = PseudoClass.getPseudoClass("first");
+    protected static final PseudoClass PSEUDO_CLASS_LAST = PseudoClass.getPseudoClass("last");
 
     protected final TabLine control;
     protected final TabLineBehavior behavior;
@@ -61,6 +65,8 @@ public class TabsContainer extends StackPane {
 
         control.tabClosingPolicyProperty().addListener(closingPolicyListener);
         control.tabResizePolicyProperty().addListener(resizePolicyListener);
+
+        updatePseudoClasses();
     }
 
     protected void dispose() {
@@ -370,6 +376,15 @@ public class TabsContainer extends StackPane {
         }
 
         control.requestLayout();
+    }
+
+    protected void updatePseudoClasses() {
+        var children = getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            var tabSkin = (TabSkin) children.get(i);
+            tabSkin.pseudoClassStateChanged(PSEUDO_CLASS_FIRST, i == 0);
+            tabSkin.pseudoClassStateChanged(PSEUDO_CLASS_LAST, i == children.size() - 1);
+        }
     }
 
     protected void addTabs(List<? extends Tab> addedList, int from) {

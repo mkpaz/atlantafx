@@ -102,6 +102,7 @@ public final class TabLinePage extends OutlinePage {
             new Tab(uuid(), FAKER.animal().name(), new FontIcon(randomIcon()))
         );
         tabLine1.getStyleClass().add(Styles.TABS_FLOATING);
+        tabLine1.setTabDragPolicy(Tab.DragPolicy.REORDER);
         tabLine1.setTabResizePolicy(Tab.ResizePolicy.FIXED_WIDTH);
         tabLine1.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB);
 
@@ -112,6 +113,7 @@ public final class TabLinePage extends OutlinePage {
             new Tab(uuid(), FAKER.animal().name(), new FontIcon(randomIcon()))
         );
         tabLine2.getStyleClass().add(Styles.TABS_BORDER_TOP);
+        tabLine2.setTabDragPolicy(Tab.DragPolicy.REORDER);
         tabLine2.setTabResizePolicy(Tab.ResizePolicy.FIXED_WIDTH);
         tabLine2.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB);
         //snippet_2:end

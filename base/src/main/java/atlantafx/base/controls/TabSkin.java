@@ -247,7 +247,9 @@ public class TabSkin extends StackPane {
 
         double width = snapSizeX(label.prefWidth(-1));
         if (closingPolicy.canClose(getTab())) {
-            width += snapSizeX(closeBtn.prefWidth(-1));
+            width += snapSizeX(closeBtn.prefWidth(-1))
+                     + closeBtn.snappedLeftInset()
+                     + closeBtn.snappedRightInset();
         }
 
         return snapSizeX(width)
@@ -257,7 +259,7 @@ public class TabSkin extends StackPane {
 
     @Override
     protected double computePrefHeight(double width) {
-        return snapSizeY(label.prefHeight(width))
+        return snapSizeY(tabBox.prefHeight(width))
             + snappedTopInset()
             + snappedBottomInset();
     }

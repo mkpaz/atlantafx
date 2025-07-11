@@ -225,9 +225,14 @@ $ui-yellowLight:     hsla(60, 100%, 75%, 5%);
   $grabber-length:    15px
 );
 
+@forward "components/tab-line" as tab-line-* with (
+    $color-border-selected: -color-warning-emphasis,
+    $color-close-button-bg-hover: -color-accent-muted
+);
+
 @forward "components/tab-pane" as tab-pane-* with (
   $color-lr-bg-selected: -color-base-6,
-  $color-tb-border-selected: -color-warning-emphasis,
+  $color-tb-border-selected: -color-warning-emphasis
 );
 
 @forward "components/text-input" as text-input-* with (

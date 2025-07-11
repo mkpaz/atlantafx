@@ -7,9 +7,12 @@ $color-bg:              -color-bg-default      !default;
 $color-fg:              -color-fg-default      !default;
 $color-border:          -color-border-default  !default;
 
-$color-bg-hover:        -color-bg-subtle !default;
-$color-fg-hover:        -color-fg-default !default;
+$color-bg-hover:        -color-bg-subtle      !default;
+$color-fg-hover:        -color-fg-default     !default;
 $color-border-hover:    -color-border-default !default;
+
+$color-close-button-bg-hover: if(cfg.$darkMode, -color-base-7, -color-base-1)  !default;
+$color-close-button-fg-hover: -color-fg-default !default;
 
 $color-bg-selected:     -color-bg-default      !default;
 $color-fg-selected:     -color-fg-default      !default;
@@ -18,21 +21,21 @@ $color-border-selected: -color-accent-emphasis !default;
 $bottom-border-width:       1px !default;
 $tab-border-width-inactive: $bottom-border-width !default;
 $tab-border-width-selected: 3px   !default;
-$tab-padding-x:             0.4em !default;
-$tab-padding-x-dense:       0.2em !default;
-$tab-padding-y:             0.8em !default;
-$tab-padding-y-dense:       0.6em !default;
-$tab-menu-icon-padding-x:   3px   !default;
-$tab-menu-icon-padding-y:   6px   !default;
+$tab-padding-x:             6px   !default;
+$tab-padding-x-dense:       4px   !default;
+$tab-padding-y:             10px  !default;
+$tab-padding-y-dense:       6px   !default;
+$tab-menu-icon-padding-x:   8px   !default;
+$tab-menu-icon-padding-y:   8px   !default;
 
 // floating tabs
-$tab-float-padding-x:         0.4em !default;
-$tab-float-padding-x-dense:   0.4em !default;
-$tab-float-padding-y:         0.8em !default;
-$tab-float-padding-y-dense:   0.6em !default;
-$tab-float-border-width:      1px !default;
-$tab-float-gap:               3px !default;
-$tab-float-container-padding: 2px !default;
+$tab-float-padding-x:         6px  !default;
+$tab-float-padding-x-dense:   4px  !default;
+$tab-float-padding-y:         10px !default;
+$tab-float-padding-y-dense:   6px  !default;
+$tab-float-border-width:      1px  !default;
+$tab-float-gap:               3px  !default;
+$tab-float-container-padding: 3px  !default;
 
 $color-float-bg:              -color-bg-inset       !default;
 $color-float-border:          -color-border-default !default;
@@ -49,9 +52,9 @@ $color-float-border-selected: -color-border-default !default;
   -fx-background-color: $color-border, $color-bg;
   -fx-background-insets: 0, 0 0 $bottom-border-width 0;
 
-  >.root {
+  >.root-container {
     -fx-background-color: transparent;
-    -fx-padding: 0 0 calc($bottom-border-width * -1) 0;
+    -fx-padding: 0;
 
     >.tabs {
       -fx-background-color: transparent;
@@ -62,22 +65,31 @@ $color-float-border-selected: -color-border-default !default;
         -fx-padding: $tab-padding-y $tab-padding-x $tab-padding-y $tab-padding-x;
 
         >.tab-box {
+          -fx-alignment: CENTER-LEFT;
+
           >.label {
+            -fx-font-size: 1em;
             -fx-fill: -color-tab-fg-selected;
             -fx-text-fill: -color-tab-fg-selected;
           }
 
           >.close-button {
-            -fx-background-radius: 100;
+            -fx-background-radius: 100px;
+            -fx-alignment: CENTER;
+            -fx-padding: 5px;
 
-            .graphic {
+            >.graphic {
               -fx-background-color: $color-fg;
-              -fx-padding: 0.5em;
+              -fx-padding: 5px;
               @include icons.get("close-tab", false);
             }
 
             &:hover {
-              -fx-background-color: -color-bg-subtle;
+              -fx-background-color: $color-close-button-bg-hover;
+
+              >.graphic {
+                -fx-background-color: $color-close-button-fg-hover;
+              }
             }
 
             &:disabled {
@@ -111,18 +123,26 @@ $color-float-border-selected: -color-border-default !default;
 
         // Resize Policy
 
-        &:min-width-exceeded:selected .label {
+        &:min-width-exceeded:selected >.tab-box >.label {
           visibility: hidden;
+          -fx-min-width: 0;
+          -fx-min-height: 0;
+          -fx-max-width: 0;
+          -fx-max-height: 0;
           -fx-managed: false;
         }
 
-        &:min-width-exceeded:selected .close-button {
+        &:min-width-exceeded:selected >.tab-box>.close-button {
           visibility: visible;
           -fx-managed: true;
         }
 
-        &:min-width-exceeded .close-button {
+        &:min-width-exceeded >.tab-box>.close-button {
           visibility: hidden;
+          -fx-min-width: 0;
+          -fx-min-height: 0;
+          -fx-max-width: 0;
+          -fx-max-height: 0;
           -fx-managed: false;
         }
       }
@@ -164,13 +184,21 @@ $color-float-border-selected: -color-border-default !default;
     }
   }
 
-  &.border-top>.root {
-    -fx-padding: 0;
+  &.border-top>.root-container {
+    -fx-padding: 0 0 $bottom-border-width 0;
 
     >.tabs {
       >.tab {
         -fx-background-color: $color-bg, $color-border, $color-bg;
         -fx-background-insets: 0, 0, 1 0 0 0;
+
+        &:first {
+          -fx-background-insets: 0, 0, 1 0 0 1;
+        }
+
+        &:last {
+          -fx-background-insets: 0, 0, 1 1 0 0;
+        }
 
         &:selected {
           -fx-background-color: -color-tab-border-selected, $color-border, -color-tab-bg-selected;
@@ -180,7 +208,7 @@ $color-float-border-selected: -color-border-default !default;
     }
   }
 
-  &.dense>.root>.tabs>.tab {
+  &.dense>.root-container>.tabs>.tab {
     -fx-padding: $tab-padding-y-dense $tab-padding-x-dense $tab-padding-y-dense $tab-padding-x-dense;
   }
 
@@ -192,7 +220,7 @@ $color-float-border-selected: -color-border-default !default;
 
     -fx-background-color: $color-border, $color-float-bg;
 
-    >.root {
+    >.root-container {
       -fx-padding: $tab-float-container-padding;
 
       >.tabs {
@@ -225,7 +253,7 @@ $color-float-border-selected: -color-border-default !default;
     }
   }
 
-  &.floating.dense>.root>.tabs>.tab {
+  &.floating.dense>.root-container>.tabs>.tab {
     -fx-padding: $tab-float-padding-y-dense ($tab-float-padding-x-dense * 1.2) $tab-float-padding-y-dense $tab-float-padding-x-dense;
   }
 

@@ -18,7 +18,7 @@ public class TabLineSkin extends SkinBase<TabLine> {
 
     protected static final boolean IS_TOUCH_SUPPORTED = Platform.isSupported(ConditionalFeature.INPUT_TOUCH);
 
-    protected final HBox rootPane = new HBox();
+    protected final HBox rootContainer = new HBox();
     protected final TabsContainer tabsContainer;
     protected final Rectangle clipRect;
 
@@ -29,7 +29,7 @@ public class TabLineSkin extends SkinBase<TabLine> {
     public TabLineSkin(TabLine control) {
         super(control);
 
-        rootPane.getStyleClass().add("root");
+        rootContainer.getStyleClass().add("root-container");
 
         behavior = new TabLineBehavior(control, this);
         tabsContainer = new TabsContainer(control, behavior);
@@ -40,20 +40,21 @@ public class TabLineSkin extends SkinBase<TabLine> {
 
         if (!control.getTabs().isEmpty()) {
             tabsContainer.addTabs(control.getTabs(), 0);
+            tabsContainer.updatePseudoClasses();
         }
 
         if (control.getLeftNode() != null) {
             control.getLeftNode().getStyleClass().add("left-node");
             HBox.setHgrow(control.getLeftNode(), Priority.NEVER);
-            rootPane.getChildren().add(control.getLeftNode());
+            rootContainer.getChildren().add(control.getLeftNode());
         }
-        rootPane.getChildren().addAll(tabsContainer);
+        rootContainer.getChildren().addAll(tabsContainer);
         if (control.getRightNode() != null) {
             control.getRightNode().getStyleClass().add("right-node");
             HBox.setHgrow(control.getRightNode(), Priority.NEVER);
-            rootPane.getChildren().add(control.getRightNode());
+            rootContainer.getChildren().add(control.getRightNode());
         }
-        getChildren().setAll(rootPane);
+        getChildren().setAll(rootContainer);
 
         updateSelectionModel();
 
@@ -74,25 +75,25 @@ public class TabLineSkin extends SkinBase<TabLine> {
         registerChangeListener(control.leftNodeProperty(), o -> {
             Node node = control.getLeftNode();
             if (node == null) {
-                rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("left-node"));
+                rootContainer.getChildren().removeIf(c -> c.getStyleClass().contains("left-node"));
             } else {
                 if (!node.getStyleClass().contains("left-node")) {
                     node.getStyleClass().add("left-node");
                 }
                 HBox.setHgrow(control.getLeftNode(), Priority.NEVER);
-                rootPane.getChildren().addFirst(node);
+                rootContainer.getChildren().addFirst(node);
             }
         });
         registerChangeListener(control.rightNodeProperty(), o -> {
             Node node = control.getRightNode();
             if (node == null) {
-                rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("right-node"));
+                rootContainer.getChildren().removeIf(c -> c.getStyleClass().contains("right-node"));
             } else {
                 if (!node.getStyleClass().contains("right-node")) {
                     node.getStyleClass().add("right-node");
                 }
                 HBox.setHgrow(control.getRightNode(), Priority.NEVER);
-                rootPane.getChildren().add(node);
+                rootContainer.getChildren().add(node);
             }
         });
 
