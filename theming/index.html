@@ -1,0 +1,700 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/atlantafx.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Theming - AtlantaFX</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#theming" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AtlantaFX" class="md-header__button md-logo" aria-label="AtlantaFX" data-md-component="logo">
+      
+  <img src="../assets/atlantafx.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtlantaFX
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mkpaz/atlantafx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AtlantaFX" class="md-nav__button md-logo" aria-label="AtlantaFX" data-md-component="logo">
+      
+  <img src="../assets/atlantafx.png" alt="logo">
+
+    </a>
+    AtlantaFX
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mkpaz/atlantafx" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build/" class="md-nav__link">
+        Build
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Theming
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Theming
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modification" class="md-nav__link">
+    Modification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-contrast" class="md-nav__link">
+    Color Contrast
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fxml/" class="md-nav__link">
+        FXML
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apidocs/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/global-colors/" class="md-nav__link">
+        Global Colors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/typography/" class="md-nav__link">
+        Typography
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/controls/" class="md-nav__link">
+        Controls
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modification" class="md-nav__link">
+    Modification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-contrast" class="md-nav__link">
+    Color Contrast
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/mkpaz/atlantafx/edit/master/docs/theming.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="theming">Theming</h1>
+<p>AtlantaFX uses <em>looked-up colors</em>. Each color property starts with <code>-color-*</code> prefix. There're <a href="../reference/global-colors/">global colors</a>, that are defined at the Scene root level and <em>individual controls colors</em> (check the corresponding control reference for the info).</p>
+<div class="admonition note">
+<p class="admonition-title">What's looked-up color?</p>
+<p><code>TL;DR</code>: It's a <em>color variable</em>.</p>
+<p>As any other CSS property looked-up colors resolved according to CSS specificity rules. If you imagine the following hierarchy:</p>
+<div class="highlight"><pre><span></span><code>Scene [class = root]
+    Region [class = r1]
+        Region [class = r2]
+            Region [class = r3]
+</code></pre></div>
+<p>We can manipulate the background color of each descending node with the following CSS rules (most specific wins):</p>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">root</span><span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nv">-color-background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span><span class="w">          </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">r1</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">r2</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">r3</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">-fx-background-color</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="kc">color</span><span class="o">-</span><span class="k">background</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">r2</span><span class="w">           </span><span class="p">{</span><span class="w"> </span><span class="nv">-color-background</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="c">/* applied to the r2 and below */</span>
+<span class="p">.</span><span class="nc">r2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">r3</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="nv">-color-background</span><span class="p">:</span><span class="w"> </span><span class="kc">green</span><span class="p">;}</span>
+</code></pre></div>
+<p>JavaFX will try to resolve color variable value starting from the most to the least specific rule, which is always the root of the Scene hierarchy.</p>
+<p>Result:</p>
+<div class="highlight"><pre><span></span><code>r1 - transparent
+r2 - red
+r3 - green
+</code></pre></div>
+</div>
+<p>All stylesheets are written in <a href="https://sass-lang.com/documentation/">SASS</a> and compiled to CSS by using a very handy <a href="https://github.com/HebiRobotics/sass-cli-maven-plugin">sass-cli-maven-plugin</a>. You don't have to learn SASS, though it's a very simple language if you're already familiar with CSS.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Theme is not limited by colors. If you only want to change global colors, all you need is to override default looked-up color variables. The easiest way is to utilize pseudo-class, so you can always return to the default color scheme.</p>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">root</span><span class="p">:</span><span class="nd">custom-theme</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">-color-bg-default</span><span class="p">:</span><span class="w"> </span><span class="mh">#123456</span><span class="p">;</span>
+<span class="w">    </span><span class="c">/* ... and so on */</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// declare pseudo-class</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">PseudoClass</span><span class="w"> </span><span class="n">CUSTOM_THEME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PseudoClass</span><span class="p">.</span><span class="na">getPseudoClass</span><span class="p">(</span><span class="s">&quot;custom-theme&quot;</span><span class="p">);</span>
+<span class="c1">// then apply it to the root node</span>
+<span class="n">getScene</span><span class="p">().</span><span class="na">getRoot</span><span class="p">().</span><span class="na">pseudoClassStateChanged</span><span class="p">(</span><span class="n">CUSTOM_THEME</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<h2 id="compilation">Compilation</h2>
+<p>You can find ready to use custom theme template in the <a href="https://github.com/mkpaz/atlantafx-sample-theme"><code>atlantafx-sample-theme</code></a> repository.</p>
+<ul>
+<li>
+<p>Clone the sample repository.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mkpaz/atlantafx-sample-theme
+</code></pre></div>
+</li>
+<li>
+<p>Compile it.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>atlantafx-sample-theme
+mvn<span class="w"> </span>compile<span class="w"> </span><span class="o">[</span>-Pwatch<span class="o">]</span><span class="w"> </span><span class="c1"># (optionally) watch for changes</span>
+</code></pre></div>
+</li>
+<li>
+<p>Grab resulting CSS from <code>dist/</code> directory and connect it to your application.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Application</span><span class="p">.</span><span class="na">setUserAgentStylesheet</span><span class="p">(</span><span class="cm">/* path to the CSS file */</span><span class="p">);</span>
+</code></pre></div>
+</li>
+</ul>
+<h2 id="modification">Modification</h2>
+<p>Each SCSS file in the source directory is nothing but a separate SASS module that can be imported by other files. You can find a bunch of SASS variables at the top of a file. If variable is marked as <code>!default</code>, it can be changed during theme compilation.</p>
+<p>In fact, any AtlantaFX theme can be used as an example. They all share the common sources and use SASS variable modification to compile the different stylesheets.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to customize a style property that is not exposed as SASS variable, don't hesitate to open an <a href="https://github.com/mkpaz/atlantafx/issues">issue</a> or send a <a href="https://github.com/mkpaz/atlantafx/pulls">PR</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that SASS is only loading any module (file) just once, so <strong>customization order does matter</strong>. E.g. if A module imports B and B imports C then we have to override C variables first, then B, then A. Otherwise, there will be an exception that we are attempting to change a variable in a module that has been already loaded.</p>
+</div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Color customization.</span>
+<span class="k">@for</span><span class="n">ward</span><span class="w"> </span><span class="s2">&quot;relative/path/to/settings/color-vars&quot;</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">//   ...</span>
+<span class="o">);</span>
+
+<span class="c1">// Shared property customization.</span>
+<span class="k">@for</span><span class="n">ward</span><span class="w"> </span><span class="s2">&quot;relative/path/to/settings/config&quot;</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">//   ...</span>
+<span class="o">);</span>
+
+<span class="c1">// This should precede controls customization, as it guarantees</span>
+<span class="c1">// that .root styles precede components styles.</span>
+<span class="k">@use</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="o">;</span>
+
+<span class="c1">// Individual component property customization.</span>
+<span class="c1">// Use &quot;as name-*&quot; to avoid conflicts if two or more SASS modules</span>
+<span class="c1">// contain variables with the same name.</span>
+<span class="k">@for</span><span class="n">ward</span><span class="w"> </span><span class="s2">&quot;relative/path/to/components/split-pane&quot;</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">split-pane-</span><span class="o">*</span><span class="w">  </span><span class="n">with</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">//   ...</span>
+<span class="o">);</span>
+</code></pre></div>
+<h2 id="color-contrast">Color Contrast</h2>
+<p>If you want to develop a good theme, there are some accessibility rules. Color contrast between text and its background must meet required <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html">WCAG standards</a>. The contrast requirements are:</p>
+<ul>
+<li><code>4.5:1</code> for normal text</li>
+<li><code>3:1</code> for large text (&gt;24px)</li>
+<li><code>3:1</code> for UI elements and graphics</li>
+<li>No contrast requirement for decorative and disabled elements</li>
+</ul>
+<p>You can check and modify color contrast directly in the Sampler app.</p>
+<p><img alt="Color Contrast" src="../assets/images/color-contrast.png" /></p>
+<p>Click on any block to run contrast checker and get more detailed info.</p>
+<p><img alt="Contrast Checker" src="../assets/images/contrast-checker.png" /></p>
+<h2 id="testing">Testing</h2>
+<p>You can use Sampler app to test and develop your custom theme. Including hot reload, of course.</p>
+<p>Start Sampler app in development mode (check <a href="../build/">build instructions</a> for more info). If you downloaded packaged Sampler app, you can do that by setting <code>ATLANTAFX_MODE=dev</code> env variable.</p>
+<p>Go to the <code>Theme</code> page and add your CSS file.</p>
+<p><img alt="Theme Testing" src="../assets/images/theme-testing.png" /></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../build/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Build" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Build
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../fxml/" class="md-footer__link md-footer__link--next" aria-label="Next: FXML" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              FXML
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.path", "navigation.top"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
