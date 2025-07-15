@@ -69,11 +69,6 @@ $separator-width:    0.75px !default;
         -fx-background-color: -color-button-fg-hover;
       }
     }
-
-    #{cfg.$font-icon-selector} {
-      -fx-icon-color: -color-button-fg-hover;
-      -fx-fill: -color-button-fg-hover;
-    }
   }
 
   &:focused {
@@ -121,35 +116,14 @@ $separator-width:    0.75px !default;
 
   &.accent {
     @include button.accent();
-
-    .menu-item {
-      #{cfg.$font-icon-selector} {
-        -fx-icon-color: menu.$color-menuitem-fg;
-        -fx-fill: menu.$color-menuitem-fg;
-      }
-    }
   }
 
   &.success {
     @include button.success();
-
-    .menu-item {
-      #{cfg.$font-icon-selector} {
-        -fx-icon-color: menu.$color-menuitem-fg;
-        -fx-fill: menu.$color-menuitem-fg;
-      }
-    }
   }
 
   &.danger {
     @include button.danger();
-
-    .menu-item {
-      #{cfg.$font-icon-selector} {
-        -fx-icon-color: menu.$color-menuitem-fg;
-        -fx-fill: menu.$color-menuitem-fg;
-      }
-    }
   }
 
   &.flat {
@@ -160,6 +134,20 @@ $separator-width:    0.75px !default;
   &:disabled {
     >.label {
       -fx-opacity: 1;
+    }
+  }
+
+ .menu-item {
+    #{cfg.$font-icon-selector} {
+      -fx-icon-color: menu.$color-menuitem-fg;
+      -fx-fill: menu.$color-menuitem-fg;
+    }
+
+    &:hover {
+      #{cfg.$font-icon-selector} {
+        -fx-icon-color: menu.$color-menuitem-fg-hover;
+        -fx-fill: menu.$color-menuitem-fg-hover;
+      }
     }
   }
 }
