@@ -6,8 +6,10 @@ import atlantafx.base.util.BBCodeParser;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public final class RadioButtonPage extends OutlinePage {
@@ -38,7 +40,7 @@ public final class RadioButtonPage extends OutlinePage {
         var radio2 = new RadioButton("Check Me");
         //snippet_1:end
 
-        var box = new VBox(VGAP_10, radio1, radio2);
+        var box = new HBox(VGAP_10, radio1, radio2, new Label("---Test Alignment---"));
         var description = BBCodeParser.createFormattedText("""
             A radio button control can be either selected or deselected.""");
 

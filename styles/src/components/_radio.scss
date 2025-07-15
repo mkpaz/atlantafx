@@ -22,7 +22,7 @@ $dot-width-selected:  1px !default;
   -fx-background-color: -color-bg-default;
   -fx-text-fill: -color-fg-default;
   -fx-label-padding: 0 cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
-  -fx-alignment: TOP-LEFT;
+  -fx-alignment: CENTER-LEFT;
 
   >.radio {
     -fx-background-color: $color-border, $color-bg;

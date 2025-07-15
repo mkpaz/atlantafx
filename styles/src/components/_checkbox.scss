@@ -25,7 +25,7 @@ $border-width:        1.5px !default;
   // applied to label
   -fx-text-fill: -color-fg-default;
   -fx-label-padding: 0 cfg.$checkbox-label-padding 0 cfg.$graphic-gap;
-  -fx-alignment: TOP-LEFT;
+  -fx-alignment: CENTER-LEFT;
 
   >.box {
     -fx-background-color: $color-border, $color-box;

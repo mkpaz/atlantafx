@@ -7,6 +7,7 @@ import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -44,7 +45,7 @@ public final class CheckBoxPage extends OutlinePage {
         cb2.setSelected(true);
         //snippet_1:end
 
-        var box = new HBox(40, cb1, cb2);
+        var box = new HBox(40, cb1, cb2, new Label("---Test Alignment---"));
         basicCheck = cb1;
 
         var description = BBCodeParser.createFormattedText("""
