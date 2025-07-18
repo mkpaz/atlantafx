@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="22"
+   height="22"
+   enable-background="new"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <g
+     id="hover-center"
+     transform="translate(-23)">
+    <g
+       transform="translate(23)"
+       id="g2">
+      <rect
+         width="22"
+         height="22"
+         fill="#000000"
+         opacity="0.00100002"
+         id="rect2"
+         x="0"
+         y="0" />
+    </g>
+    <circle
+       cx="34"
+       cy="11"
+       r="11"
+       fill="#ffffff"
+       opacity="0.15"
+       id="circle2" />
+    <path
+       d="m 29.5,11 c -0.277,0 -0.5,0.223 -0.5,0.5 0,0.277 0.223,0.5 0.5,0.5 h 9 C 38.777,12 39,11.777 39,11.5 39,11.223 38.777,11 38.5,11 Z"
+       fill="#dedede"
+       id="path2" />
+  </g>
+</svg>

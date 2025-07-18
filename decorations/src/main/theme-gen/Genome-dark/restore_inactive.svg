@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="svg4306"
+   width="22"
+   height="22"
+   version="1.1"
+   style="enable-background:new"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata
+     id="metadata28">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs26" />
+  <style
+     type="text/css"
+     id="current-color-scheme">
+        .ColorScheme-Text {
+            color:#232629;
+        }
+        .ColorScheme-ButtonFocus{
+            color:#3daee9;
+        }
+            .ColorScheme-NegativeText {
+            color:#da4453;
+        }
+    </style>
+  <g
+     transform="rotate(180,11,0)"
+     style="enable-background:new"
+     id="active-center">
+    <rect
+       style="opacity:0.00100002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       y="0"
+       x="0"
+       height="22"
+       width="22"
+       id="rect4266" />
+    <circle
+       style="opacity:0.003;fill:#000000;fill-opacity:1;stroke-width:1.001;enable-background:new"
+       id="path867-5-6-5"
+       cx="11"
+       cy="11"
+       r="9" />
+    <path
+       class="ColorScheme-Text"
+       d="M 11,16.652 16.65625,10.99575 11,5.3375472 5.34375,10.99575 Z M 11,15.237937 6.757812,10.99575 11,6.7516092 15.242188,10.99575 Z"
+       style="opacity:1;fill:#eff0f1;fill-opacity:1"
+       id="rect909-7-3-7-3-5-2-0" />
+  </g>
+  <g
+     id="inactive-center"
+     style="enable-background:new"
+     transform="rotate(180,11,11)">
+    <rect
+       id="rect4266-2"
+       width="22"
+       height="22"
+       x="0"
+       y="0"
+       style="opacity:0.00100002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       r="9"
+       cy="11"
+       cx="11"
+       id="path867-5-6-5-0"
+       style="opacity:0.003;fill:#000000;fill-opacity:1;stroke-width:1.001;enable-background:new" />
+    <path
+       class="ColorScheme-Text"
+       id="rect909-7-3-7-3-5-2-0-23"
+       style="opacity:1;fill:#7f8c8d;fill-opacity:1"
+       d="M 11,16.652 16.65625,10.99575 11,5.3375472 5.34375,10.99575 Z M 11,15.237937 6.757812,10.99575 11,6.7516092 15.242188,10.99575 Z" />
+  </g>
+  <g
+     id="hover-center"
+     style="enable-background:new"
+     transform="rotate(180,22,0)">
+    <rect
+       id="rect4266-6"
+       width="22"
+       height="22"
+       x="0"
+       y="0"
+       style="opacity:0.00100002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       id="path867-5-6-5-7"
+       style="fill:#eff0f1;fill-opacity:1"
+       d="m 33,2 c -4.970563,0 -9,4.0294373 -9,9 0,4.970563 4.029437,9 9,9 4.970563,0 9,-4.029437 9,-9 C 42,6.0294373 37.970563,2 33,2 Z M 33,5.3476562 38.65625,11.003906 33,16.662109 27.34375,11.003906 Z M 33,6.7617188 28.757812,11.003906 33,15.248047 37.242188,11.003906 Z"
+       transform="rotate(180,22,11)"
+       class="ColorScheme-Text" />
+  </g>
+  <g
+     transform="rotate(180,22,11)"
+     style="enable-background:new"
+     id="hover-inactive-center">
+    <rect
+       style="opacity:0.00100002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       y="0"
+       x="0"
+       height="22"
+       width="22"
+       id="rect4266-6-6" />
+    <path
+       class="ColorScheme-Text"
+       transform="rotate(180,22,11)"
+       d="m 33,2 c -4.970563,0 -9,4.0294373 -9,9 0,4.970563 4.029437,9 9,9 4.970563,0 9,-4.029437 9,-9 C 42,6.0294373 37.970563,2 33,2 Z M 33,5.3476562 38.65625,11.003906 33,16.662109 27.34375,11.003906 Z M 33,6.7617188 28.757812,11.003906 33,15.248047 37.242188,11.003906 Z"
+       style="fill:#7f8c8d;fill-opacity:1"
+       id="path867-5-6-5-7-7" />
+  </g>
+</svg>

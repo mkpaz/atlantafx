@@ -83,7 +83,8 @@ public class MainModel {
             NAV_TREE.get(BBCodePage.class),
             NAV_TREE.get(SelectableTextFlowPage.class),
             NAV_TREE.get(AnimationsPage.class),
-            NAV_TREE.get(IconsPage.class)
+            NAV_TREE.get(IconsPage.class),
+            NAV_TREE.get(DecorationsPage.class)
         );
         general.setExpanded(true);
 
@@ -192,6 +193,7 @@ public class MainModel {
             NavTree.Item.page(SelectableTextFlowPage.NAME, SelectableTextFlowPage.class)
         );
         map.put(IconsPage.class, NavTree.Item.page(IconsPage.NAME, IconsPage.class));
+        map.put(DecorationsPage.class, NavTree.Item.page(DecorationsPage.NAME, DecorationsPage.class));
         map.put(
             TypographyPage.class,
             NavTree.Item.page(TypographyPage.NAME, TypographyPage.class, "Label", "Hyperlink")

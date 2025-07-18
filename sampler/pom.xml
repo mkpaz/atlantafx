@@ -15,6 +15,12 @@
     <url>https://github.com/mkpaz/atlantafx</url>
 
     <properties>
+        <!-- decorations module requires JavaFX 25 -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <java.version>24</java.version>
+        <openjfx.version>25-ea+24</openjfx.version>
+
         <app.launcher>atlantafx.sampler.Launcher</app.launcher>
         <app.module>atlantafx.sampler</app.module>
         <!-- final artifact name -->
@@ -42,6 +48,10 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>atlantafx-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>atlantafx-decorations</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -327,6 +337,9 @@
                         <configuration>
                             <options>
                                 <option>-Datlantafx.mode=dev</option>
+                                <option>--enable-native-access=javafx.graphics,javafx.media,javafx.web</option>
+                                <option>-Djavafx.enablePreview=true</option>
+                                <option>-Djavafx.suppressPreviewWarning=true</option>
                             </options>
                         </configuration>
                     </plugin>

@@ -5,6 +5,7 @@ package atlantafx.sampler.layout;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.*;
 import atlantafx.sampler.page.general.BBCodePage;
+import atlantafx.sampler.page.general.DecorationsPage;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +29,7 @@ record Nav(String title,
         CardPage.class,
         CustomTextFieldPage.class,
         DeckPanePage.class,
+        DecorationsPage.class,
         InputGroupPage.class,
         MessagePage.class,
         ModalPanePage.class,

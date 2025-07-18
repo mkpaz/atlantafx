@@ -44,11 +44,11 @@ import javafx.util.Duration;
 
 public final class ThemeManager {
 
-    static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
-    static final String[] APP_STYLESHEETS = new String[] {
+    public static final String DUMMY_STYLESHEET = getResource("assets/styles/empty.css").toString();
+    public static final String[] APP_STYLESHEETS = new String[] {
         Resources.resolve("assets/styles/index.css")
     };
-    static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
+    public static final Set<Class<? extends Theme>> PROJECT_THEMES = Set.of(
         PrimerLight.class, PrimerDark.class,
         NordLight.class, NordDark.class,
         CupertinoLight.class, CupertinoDark.class,

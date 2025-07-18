@@ -5,3 +5,6 @@
 --dest "${build.package.appImageDir}"
 --java-options -XX:+AutoCreateSharedArchive
 --java-options -XX:SharedArchiveFile=$APPDIR/sampler.jsa
+--java-options --enable-native-access=javafx.graphics,javafx.media,javafx.web
+--java-options -Djavafx.enablePreview=true
+--java-options -Djavafx.suppressPreviewWarning=true

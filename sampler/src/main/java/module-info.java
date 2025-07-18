@@ -3,6 +3,7 @@
 module atlantafx.sampler {
 
     requires atlantafx.base;
+    requires atlantafx.decorations;
 
     requires java.desktop;
     requires java.prefs;

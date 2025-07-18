@@ -37,6 +37,7 @@ import org.kordamp.ikonli.material2.Material2AL;
 public interface Page {
 
     int MAX_WIDTH = ApplicationWindow.MIN_WIDTH - ApplicationWindow.SIDEBAR_WIDTH;
+    int HGAP_10 = 10;
     int HGAP_20 = 20;
     int HGAP_30 = 30;
     int VGAP_10 = 10;
