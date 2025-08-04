@@ -9,6 +9,7 @@ import java.util.Objects;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A set of constants and utility methods that simplifies adding CSS
@@ -141,13 +142,6 @@ public final class Styles {
      * @throws NullPointerException if node or style class is null
      */
     public static void toggleStyleClass(Node node, String styleClass) {
-        if (node == null) {
-            throw new NullPointerException("Node cannot be null!");
-        }
-        if (styleClass == null) {
-            throw new NullPointerException("Style class cannot be null!");
-        }
-
         int idx = node.getStyleClass().indexOf(styleClass);
         if (idx >= 0) {
             node.getStyleClass().remove(idx);
@@ -166,14 +160,9 @@ public final class Styles {
      * @param excludes   The style classes to be excluded.
      * @throws NullPointerException if node or styleClass is null
      */
-    public static void addStyleClass(Node node, String styleClass, String... excludes) {
-        if (node == null) {
-            throw new NullPointerException("Node cannot be null!");
-        }
-        if (styleClass == null) {
-            throw new NullPointerException("Style class cannot be null!");
-        }
-
+    public static void addStyleClass(Node node,
+                                     String styleClass,
+                                     String @Nullable... excludes) {
         if (excludes != null && excludes.length > 0) {
             node.getStyleClass().removeAll(excludes);
         }
@@ -193,14 +182,9 @@ public final class Styles {
      * @param excludes    The pseudo-classes to be deactivated.
      * @throws NullPointerException if node or pseudo-class is null
      */
-    public static void activatePseudoClass(Node node, PseudoClass pseudoClass, PseudoClass... excludes) {
-        if (node == null) {
-            throw new NullPointerException("Node cannot be null!");
-        }
-        if (pseudoClass == null) {
-            throw new NullPointerException("PseudoClass cannot be null!");
-        }
-
+    public static void activatePseudoClass(Node node,
+                                           PseudoClass pseudoClass,
+                                           PseudoClass @Nullable... excludes) {
         if (excludes != null) {
             for (PseudoClass exclude : excludes) {
                 node.pseudoClassStateChanged(exclude, false);
@@ -220,11 +204,7 @@ public final class Styles {
      * @throws NullPointerException if node is null
      */
     public static void appendStyle(Node node, String prop, String value) {
-        if (node == null) {
-            throw new NullPointerException("Node cannot be null!");
-        }
-
-        if (prop == null || prop.isBlank() || value == null || value.isBlank()) {
+        if (prop.isBlank() || value.isBlank()) {
             System.err.printf("Ignoring invalid style: property = '%s', value = '%s'%n", prop, value);
             return;
         }
@@ -246,16 +226,12 @@ public final class Styles {
      */
     @SuppressWarnings("StringSplitter")
     public static void removeStyle(Node node, String prop) {
-        if (node == null) {
-            throw new NullPointerException("Node cannot be null!");
-        }
-
         var currentStyle = node.getStyle();
         if (currentStyle == null || currentStyle.isBlank()) {
             return;
         }
 
-        if (prop == null || prop.isBlank()) {
+        if (prop.isBlank()) {
             System.err.printf("Ignoring invalid property = '%s'%n", prop);
             return;
         }
@@ -289,9 +265,6 @@ public final class Styles {
      * @return The resulting data URI string.
      */
     public static String toDataURI(String css) {
-        if (css == null) {
-            throw new NullPointerException("CSS string cannot be null!");
-        }
         return DATA_URI_PREFIX + new String(Base64.getEncoder().encode(css.getBytes(UTF_8)), UTF_8);
     }
 }
