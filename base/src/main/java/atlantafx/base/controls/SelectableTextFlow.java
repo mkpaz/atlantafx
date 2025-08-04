@@ -540,6 +540,7 @@ public class SelectableTextFlow extends TextFlow {
         ) {
 
             @Override
+            @SuppressWarnings("ConstantValue")
             public boolean isSettable(SelectableTextFlow styleable) {
                 return styleable.highlightTextFillProperty() == null
                     || !styleable.highlightTextFillProperty().isBound();
