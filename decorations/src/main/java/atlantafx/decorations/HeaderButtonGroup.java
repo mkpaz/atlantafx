@@ -15,7 +15,7 @@ import javafx.scene.layout.HeaderButtonType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Subscription;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The HeaderButtonGroup represents a group consisting of one or more buttons

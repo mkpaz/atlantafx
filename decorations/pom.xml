@@ -28,8 +28,8 @@
             <version>${openjfx.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
