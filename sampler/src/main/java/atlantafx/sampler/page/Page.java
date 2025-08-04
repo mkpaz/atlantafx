@@ -29,7 +29,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.HBox;
 import net.datafaker.Faker;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
@@ -56,7 +56,8 @@ public interface Page {
 
     boolean canDisplaySourceCode();
 
-    @Nullable URI getJavadocUri();
+    @Nullable
+    URI getJavadocUri();
 
     @Nullable Node getSnapshotTarget();
 

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import atlantafx.sampler.page.general.SelectableTextFlowPage;
 import javafx.scene.Node;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 record Nav(String title,
            @Nullable Node graphic,

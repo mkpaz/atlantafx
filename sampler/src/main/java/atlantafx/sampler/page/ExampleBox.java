@@ -19,7 +19,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 // This widget emulates TabPane behavior, because TabPane itself doesn't work as it should:
 // https://bugs.openjdk.org/browse/JDK-8145490

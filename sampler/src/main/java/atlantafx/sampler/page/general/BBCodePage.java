@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import org.jetbrains.annotations.Nullable;
 
 public final class BBCodePage extends OutlinePage {
 
