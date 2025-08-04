@@ -32,6 +32,7 @@ import javafx.beans.NamedArg;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringProperty;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A convenience wrapper for instantiating a {@link CustomTextField}
@@ -55,7 +56,7 @@ public class PasswordTextField extends CustomTextField {
      *
      * @param text A string for text content.
      */
-    public PasswordTextField(@NamedArg("text") String text) {
+    public PasswordTextField(@Nullable @NamedArg("text") String text) {
         this(text, PasswordTextFormatter.BULLET);
     }
 
@@ -65,7 +66,7 @@ public class PasswordTextField extends CustomTextField {
      * @param text   A string for text content.
      * @param bullet A bullet character to mask the password string.
      */
-    public PasswordTextField(@NamedArg("text") String text,
+    public PasswordTextField(@Nullable @NamedArg("text") String text,
                              @NamedArg("bullet") char bullet) {
         super(text);
         formatter.set(PasswordTextFormatter.create(this, bullet));

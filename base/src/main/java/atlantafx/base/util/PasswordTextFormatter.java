@@ -26,17 +26,12 @@ public class PasswordTextFormatter extends TextFormatter<String> {
                                     UnaryOperator<Change> filter,
                                     TextField field,
                                     char bullet) {
+        //noinspection DataFlowIssue (TextFormatter accepts null as default value)
         super(valueConverter, null, filter);
 
-        if (valueConverter == null) {
-            throw new NullPointerException("StringConverter cannot be null!");
-        }
-        if (filter == null) {
-            throw new NullPointerException("UnaryOperator cannot be null!");
-        }
-        if (field == null) {
-            throw new NullPointerException("TextField cannot be null!");
-        }
+        NullSafetyHelper.assertNonNull(valueConverter, "StringConverter");
+        NullSafetyHelper.assertNonNull(filter, "UnaryOperator");
+        NullSafetyHelper.assertNonNull(field, "TextField");
 
         PasswordFilter passwordFilter = (PasswordFilter) getFilter();
         passwordFilter.setBullet(bullet);
