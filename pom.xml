@@ -62,7 +62,6 @@
         <lib.devtoolsfx.version>1.0.1</lib.devtoolsfx.version>
         <lib.ikonli.version>12.3.1</lib.ikonli.version>
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
-        <lib.jetbrains-annotations.version>23.0.0</lib.jetbrains-annotations.version>
         <test.assertj.version>3.21.0</test.assertj.version>
         <test.junit.version>5.8.1</test.junit.version>
     </properties>
@@ -124,11 +123,6 @@
                 <groupId>org.kordamp.ikonli</groupId>
                 <artifactId>ikonli-material2-pack</artifactId>
                 <version>${lib.ikonli.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains</groupId>
-                <artifactId>annotations</artifactId>
-                <version>${lib.jetbrains-annotations.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jspecify</groupId>
