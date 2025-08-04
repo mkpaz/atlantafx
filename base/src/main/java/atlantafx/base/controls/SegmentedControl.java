@@ -13,7 +13,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Duration;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The {@code SegmentedControl} is a group of labels that are joined together

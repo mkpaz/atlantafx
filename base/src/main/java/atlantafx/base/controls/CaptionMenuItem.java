@@ -6,7 +6,7 @@ import javafx.beans.NamedArg;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A MenuItem that is intended to contain a caption for a group of menu items

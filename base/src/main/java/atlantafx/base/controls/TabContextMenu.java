@@ -6,7 +6,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An auxiliary class that allows for the reuse of a single {@link ContextMenu} instance

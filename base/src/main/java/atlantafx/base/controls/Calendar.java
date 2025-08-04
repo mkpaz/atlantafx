@@ -51,7 +51,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.Skin;
 import javafx.util.Callback;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The Calendar control allows the user to select a date. The calendar is based on either

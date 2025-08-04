@@ -7,7 +7,7 @@ import atlantafx.base.util.Bindings;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Function;
 

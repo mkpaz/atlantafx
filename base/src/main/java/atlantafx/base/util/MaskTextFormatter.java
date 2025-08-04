@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A {@code TextFormatter} that can restrict the user input by applying a position-based mask.

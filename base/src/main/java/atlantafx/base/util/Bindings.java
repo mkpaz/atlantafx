@@ -5,7 +5,7 @@ package atlantafx.base.util;
 import javafx.beans.WeakListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

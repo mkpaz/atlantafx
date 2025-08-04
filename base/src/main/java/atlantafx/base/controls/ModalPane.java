@@ -18,7 +18,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A container for displaying application dialogs ot top of the current scene

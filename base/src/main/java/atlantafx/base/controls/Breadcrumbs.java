@@ -47,7 +47,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Region;
 import javafx.util.Callback;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A bread crumb bar. This control is useful to visualize and navigate

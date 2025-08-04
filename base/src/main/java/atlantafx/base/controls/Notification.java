@@ -20,7 +20,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Skin;
 import javafx.scene.layout.Region;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A control that is intended for displaying notifications to users as pop-ups.
