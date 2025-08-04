@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link Notification} control.
@@ -28,7 +29,7 @@ public class NotificationSkin extends SkinBase<Notification> {
     protected final HBox header = new HBox();
 
     protected final StackPane graphicSlot = new StackPane();
-    protected final ChangeListener<Node> graphicSlotListener = new SlotListener(graphicSlot);
+    protected final ChangeListener<@Nullable Node> graphicSlotListener = new SlotListener(graphicSlot);
     protected final TextFlow messageText = new TextFlow();
 
     protected final StackPane closeButton = new StackPane();

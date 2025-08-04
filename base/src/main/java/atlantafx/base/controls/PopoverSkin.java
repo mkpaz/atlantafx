@@ -61,6 +61,7 @@ import javafx.scene.shape.PathElement;
 import javafx.scene.shape.QuadCurveTo;
 import javafx.scene.shape.VLineTo;
 import javafx.stage.Window;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link Popover} control.
@@ -80,7 +81,7 @@ public class PopoverSkin implements Skin<Popover> {
     private final StackPane titlePane;
     private final StackPane stackPane;
 
-    private Point2D dragStartLocation;
+    private @Nullable Point2D dragStartLocation;
     private final Popover popover;
 
     @SuppressWarnings("MissingCasesInEnumSwitch")

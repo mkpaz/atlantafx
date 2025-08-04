@@ -407,7 +407,7 @@ public class DeckPane extends AnchorPane {
         return beforeShowCallback;
     }
 
-    protected final ObjectProperty<Consumer<Node>> beforeShowCallback =
+    protected final ObjectProperty<@Nullable Consumer<Node>> beforeShowCallback =
         new SimpleObjectProperty<>(this, "beforeShowCallback");
 
     public @Nullable Consumer<Node> getBeforeShowCallback() {
@@ -431,7 +431,7 @@ public class DeckPane extends AnchorPane {
         return afterHideCallback;
     }
 
-    protected final ObjectProperty<Consumer<Node>> afterHideCallback =
+    protected final ObjectProperty<@Nullable Consumer<Node>> afterHideCallback =
         new SimpleObjectProperty<>(this, "afterHideCallback");
 
     public @Nullable Consumer<Node> getAfterHideCallback() {

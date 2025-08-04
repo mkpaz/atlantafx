@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A common skin for implementing tile-based controls, specifically the
@@ -28,12 +29,12 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
 
     protected final HBox container = new HBox();
     protected final StackPane graphicSlot;
-    protected final ChangeListener<Node> graphicSlotListener;
+    protected final ChangeListener<@Nullable Node> graphicSlotListener;
     protected final VBox headerBox;
     protected final Label titleLbl;
     protected final TextFlow descriptionText;
     protected final StackPane actionSlot;
-    protected final ChangeListener<Node> actionSlotListener;
+    protected final ChangeListener<@Nullable Node> actionSlotListener;
 
     public TileSkinBase(T control) {
         super(control);

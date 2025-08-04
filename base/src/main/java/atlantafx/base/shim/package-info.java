@@ -11,4 +11,8 @@
  * <li><a href="https://bugs.openjdk.org/browse/JDK-8350921">JDK-8350921</a></li>
  * </ul>
  */
+
+@NullUnmarked
 package atlantafx.base.shim;
+
+import org.jspecify.annotations.NullUnmarked;

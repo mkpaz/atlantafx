@@ -71,7 +71,7 @@ public class Breadcrumbs<T> extends Control {
     protected final Callback<BreadCrumbItem<T>, ButtonBase> defaultCrumbNodeFactory =
         item -> new Hyperlink(item.getStringValue());
 
-    protected final Callback<BreadCrumbItem<T>, ? extends Node> defaultDividerFactory =
+    protected final Callback<@Nullable BreadCrumbItem<T>, @Nullable Node> defaultDividerFactory =
         item -> item != null && !item.isLast() ? new Label("/") : null;
 
     /**
@@ -116,7 +116,7 @@ public class Breadcrumbs<T> extends Control {
      * @param crumbs The flat list of values used to build the tree model
      */
     @SafeVarargs
-    public static <T> BreadCrumbItem<T> buildTreeModel(T... crumbs) {
+    public static @Nullable <T> BreadCrumbItem<T> buildTreeModel(T... crumbs) {
         BreadCrumbItem<T> subRoot = null;
         for (T crumb : crumbs) {
             BreadCrumbItem<T> currentNode = new BreadCrumbItem<>(crumb);
@@ -143,18 +143,18 @@ public class Breadcrumbs<T> extends Control {
      * <p>To show the above bread crumb bar, you have to set the [file.txt]
      * tree-node as selected crumb.
      */
-    public final ObjectProperty<BreadCrumbItem<T>> selectedCrumbProperty() {
+    public final ObjectProperty<@Nullable BreadCrumbItem<T>> selectedCrumbProperty() {
         return selectedCrumb;
     }
 
-    protected final ObjectProperty<BreadCrumbItem<T>> selectedCrumb =
+    protected final ObjectProperty<@Nullable BreadCrumbItem<T>> selectedCrumb =
         new SimpleObjectProperty<>(this, "selectedCrumb");
 
-    public final BreadCrumbItem<T> getSelectedCrumb() {
+    public final @Nullable BreadCrumbItem<T> getSelectedCrumb() {
         return selectedCrumb.get();
     }
 
-    public final void setSelectedCrumb(BreadCrumbItem<T> selectedCrumb) {
+    public final void setSelectedCrumb(@Nullable BreadCrumbItem<T> selectedCrumb) {
         this.selectedCrumb.set(selectedCrumb);
     }
 
@@ -197,7 +197,7 @@ public class Breadcrumbs<T> extends Control {
     protected final ObjectProperty<Callback<BreadCrumbItem<T>, ButtonBase>> crumbFactory =
         new SimpleObjectProperty<>(this, "crumbFactory");
 
-    public final void setCrumbFactory(Callback<BreadCrumbItem<T>, ButtonBase> value) {
+    public final void setCrumbFactory(@Nullable Callback<BreadCrumbItem<T>, @Nullable ButtonBase> value) {
         if (value == null) {
             value = defaultCrumbNodeFactory;
         }
@@ -223,21 +223,21 @@ public class Breadcrumbs<T> extends Control {
      * <p>Use {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to
      * create bread crumb depending on item position.
      */
-    public final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactoryProperty() {
+    public final ObjectProperty<Callback<BreadCrumbItem<T>, @Nullable Node>> dividerFactoryProperty() {
         return dividerFactory;
     }
 
-    protected final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends Node>> dividerFactory =
+    protected final ObjectProperty<Callback<BreadCrumbItem<T>, @Nullable Node>> dividerFactory =
         new SimpleObjectProperty<>(this, "dividerFactory");
 
-    public final void setDividerFactory(Callback<BreadCrumbItem<T>, ? extends Node> value) {
+    public final void setDividerFactory(@Nullable Callback<BreadCrumbItem<T>, @Nullable Node> value) {
         if (value == null) {
             value = defaultDividerFactory;
         }
         dividerFactoryProperty().set(value);
     }
 
-    public final Callback<BreadCrumbItem<T>, ? extends Node> getDividerFactory() {
+    public final Callback<@Nullable BreadCrumbItem<T>, @Nullable Node> getDividerFactory() {
         return dividerFactory.get();
     }
 

@@ -51,7 +51,7 @@ public class MessageSkin extends TileSkinBase<Message> {
         registerChangeListener(control.onCloseProperty(), o -> {
             closeButton.setVisible(getSkinnable().getOnClose() != null);
             closeButton.setManaged(getSkinnable().getOnClose() != null);
-            pseudoClassStateChanged(CLOSEABLE, getSkinnable().onCloseProperty() != null);
+            pseudoClassStateChanged(CLOSEABLE, getSkinnable().getOnClose() != null);
         });
     }
 

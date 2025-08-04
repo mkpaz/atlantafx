@@ -67,7 +67,7 @@ public class SelectableTextFlow extends TextFlow {
      *
      * @param children the child {@code Text} elements to be added to the flow, or null for no children
      */
-    public SelectableTextFlow(@Nullable Text... children) {
+    public SelectableTextFlow(Text @Nullable... children) {
         super();
 
         setCursor(Cursor.TEXT);
@@ -91,13 +91,13 @@ public class SelectableTextFlow extends TextFlow {
      * <p>The context menu provides a set of options that can be displayed
      * when the user right-clicks on the component.
      */
-    public final SimpleObjectProperty<ContextMenu> contextMenuProperty() {
+    public final SimpleObjectProperty<@Nullable ContextMenu> contextMenuProperty() {
         return contextMenuProperty;
     }
 
-    protected final SimpleObjectProperty<ContextMenu> contextMenuProperty = new SimpleObjectProperty<>();
+    protected final SimpleObjectProperty<@Nullable ContextMenu> contextMenuProperty = new SimpleObjectProperty<>();
 
-    public ContextMenu getContextMenu() {
+    public @Nullable ContextMenu getContextMenu() {
         return contextMenuProperty.get();
     }
 
@@ -203,7 +203,7 @@ public class SelectableTextFlow extends TextFlow {
     /**
      * Returns the content of the TextFlow as a string representation.
      */
-    public String getContentAsString() {
+    public @Nullable String getContentAsString() {
         return getContent().toString();
     }
 

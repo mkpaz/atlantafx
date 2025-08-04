@@ -29,8 +29,8 @@ public class TabsContainer extends StackPane {
     protected final Rectangle headerClip;
     protected final ListChangeListener<Tab> tabsListener;
     protected final TabsDragHandler tabsDragHandler;
-    protected final ChangeListener<Tab.ClosingPolicy> closingPolicyListener;
-    protected final ChangeListener<Tab.ResizePolicy> resizePolicyListener;
+    protected final ChangeListener<Tab.@Nullable ClosingPolicy> closingPolicyListener;
+    protected final ChangeListener<Tab.@Nullable ResizePolicy> resizePolicyListener;
 
     public TabsContainer(TabLine control, TabLineBehavior behavior) {
         this.control = control;

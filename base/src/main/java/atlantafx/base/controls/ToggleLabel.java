@@ -19,6 +19,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import org.jspecify.annotations.Nullable;
 
 /**
  * {@code ToggleLabel} is a utility component rather than an independent control.
@@ -152,7 +153,7 @@ public class ToggleLabel extends Labeled implements Toggle {
         return selected;
     }
 
-    protected BooleanProperty selected;
+    protected @Nullable BooleanProperty selected;
 
     @Override
     public boolean isSelected() {
@@ -170,10 +171,10 @@ public class ToggleLabel extends Labeled implements Toggle {
      * removed from the old group prior to being added to the new group.
      */
     @Override
-    public final ObjectProperty<ToggleGroup> toggleGroupProperty() {
+    public final ObjectProperty<@Nullable ToggleGroup> toggleGroupProperty() {
         if (toggleGroup == null) {
             toggleGroup = new ObjectPropertyBase<>() {
-                private ToggleGroup old;
+                private @Nullable ToggleGroup old;
 
                 @Override
                 protected void invalidated() {
@@ -204,15 +205,15 @@ public class ToggleLabel extends Labeled implements Toggle {
         return toggleGroup;
     }
 
-    private ObjectProperty<ToggleGroup> toggleGroup;
+    private @Nullable ObjectProperty<@Nullable ToggleGroup> toggleGroup;
 
     @Override
-    public final void setToggleGroup(ToggleGroup value) {
+    public final void setToggleGroup(@Nullable ToggleGroup value) {
         toggleGroupProperty().set(value);
     }
 
     @Override
-    public final ToggleGroup getToggleGroup() {
+    public final @Nullable ToggleGroup getToggleGroup() {
         return toggleGroup == null ? null : toggleGroup.get();
     }
 }

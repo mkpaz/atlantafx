@@ -33,7 +33,7 @@ public class SegmentedControl extends Control {
         setFocusTraversable(false);
     }
 
-    public SegmentedControl(String... segments) {
+    public SegmentedControl(String @Nullable... segments) {
         this();
 
         if (segments != null) {
@@ -43,7 +43,7 @@ public class SegmentedControl extends Control {
         }
     }
 
-    public SegmentedControl(ToggleLabel... segments) {
+    public SegmentedControl(ToggleLabel @Nullable... segments) {
         this();
 
         if (segments != null) {
@@ -54,7 +54,7 @@ public class SegmentedControl extends Control {
     /**
      * Creates a SegmentedButton with the provided segments inserted into it.
      */
-    public SegmentedControl(ObservableList<ToggleLabel> segments) {
+    public SegmentedControl(@Nullable ObservableList<ToggleLabel> segments) {
         this();
 
         if (segments != null && !segments.isEmpty()) {

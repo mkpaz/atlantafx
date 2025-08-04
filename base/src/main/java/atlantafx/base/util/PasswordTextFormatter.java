@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An alternative to the {@link PasswordField} class. This formatter masks
@@ -180,7 +181,7 @@ public class PasswordTextFormatter extends TextFormatter<String> {
             return String.valueOf(bullet).repeat(length);
         }
 
-        protected void setInitialText(String text) {
+        protected void setInitialText(@Nullable String text) {
             if (text != null && !text.isEmpty()) {
                 sb.append(text);
                 password.set(sb.toString());

@@ -50,6 +50,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A control that provides users with the ability to choose between two distinct values.
@@ -151,7 +152,7 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return selected;
     }
 
-    private BooleanProperty selected;
+    private @Nullable BooleanProperty selected;
 
     @Override
     public final void setSelected(boolean value) {
@@ -169,10 +170,10 @@ public class ToggleSwitch extends Labeled implements Toggle {
      * removed from the old group prior to being added to the new group.
      */
     @Override
-    public final ObjectProperty<ToggleGroup> toggleGroupProperty() {
+    public final ObjectProperty<@Nullable ToggleGroup> toggleGroupProperty() {
         if (toggleGroup == null) {
             toggleGroup = new ObjectPropertyBase<>() {
-                private ToggleGroup old;
+                private @Nullable ToggleGroup old;
 
                 @Override
                 protected void invalidated() {
@@ -203,15 +204,15 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return toggleGroup;
     }
 
-    private ObjectProperty<ToggleGroup> toggleGroup;
+    private @Nullable ObjectProperty<@Nullable ToggleGroup> toggleGroup;
 
     @Override
-    public final void setToggleGroup(ToggleGroup value) {
+    public final void setToggleGroup(@Nullable ToggleGroup value) {
         toggleGroupProperty().set(value);
     }
 
     @Override
-    public final ToggleGroup getToggleGroup() {
+    public final @Nullable ToggleGroup getToggleGroup() {
         return toggleGroup == null ? null : toggleGroup.get();
     }
 
@@ -219,7 +220,7 @@ public class ToggleSwitch extends Labeled implements Toggle {
      * Specifies the side where {@link #textProperty()} value should be placed.
      * Default is {@link HorizontalDirection#LEFT}.
      */
-    public final ObjectProperty<HorizontalDirection> labelPositionProperty() {
+    public final ObjectProperty<@Nullable HorizontalDirection> labelPositionProperty() {
         if (labelPosition == null) {
             labelPosition = new StyleableObjectProperty<>(HorizontalDirection.LEFT) {
 
@@ -249,9 +250,9 @@ public class ToggleSwitch extends Labeled implements Toggle {
         return labelPosition;
     }
 
-    private ObjectProperty<HorizontalDirection> labelPosition;
+    private @Nullable ObjectProperty<HorizontalDirection> labelPosition;
 
-    public final void setLabelPosition(HorizontalDirection pos) {
+    public final void setLabelPosition(@Nullable HorizontalDirection pos) {
         labelPositionProperty().setValue(pos);
     }
 

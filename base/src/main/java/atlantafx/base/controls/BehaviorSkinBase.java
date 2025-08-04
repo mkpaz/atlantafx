@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
 import javafx.scene.control.SkinBase;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base implementation class for defining the visual representation of user
@@ -23,7 +24,7 @@ import javafx.scene.control.SkinBase;
  */
 public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase<C, ?>> extends SkinBase<C> {
 
-    protected B behavior;
+    protected @Nullable B behavior;
 
     /**
      * Constructor for all BehaviorSkinBase instances.
@@ -54,7 +55,7 @@ public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase
      *
      * @return The behavior for this skin.
      */
-    public B getBehavior() {
+    public @Nullable B getBehavior() {
         return behavior;
     }
 

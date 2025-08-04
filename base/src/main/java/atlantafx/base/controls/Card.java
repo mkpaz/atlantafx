@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A versatile container that can be used in various contexts, such as headings,
@@ -40,68 +41,68 @@ public class Card extends Control {
     /**
      * Represents the card’s header node.
      */
-    public ObjectProperty<Node> headerProperty() {
+    public ObjectProperty<@Nullable Node> headerProperty() {
         return header;
     }
 
-    private final ObjectProperty<Node> header = new SimpleObjectProperty<>(this, "header");
+    private final ObjectProperty<@Nullable Node> header = new SimpleObjectProperty<>(this, "header");
 
-    public Node getHeader() {
+    public @Nullable Node getHeader() {
         return header.get();
     }
 
-    public void setHeader(Node header) {
+    public void setHeader(@Nullable Node header) {
         this.header.set(header);
     }
 
     /**
      * Represents the card’s sub-header node.
      */
-    public final ObjectProperty<Node> subHeaderProperty() {
+    public final ObjectProperty<@Nullable Node> subHeaderProperty() {
         return subHeader;
     }
 
-    private final ObjectProperty<Node> subHeader = new SimpleObjectProperty<>(this, "subHeader");
+    private final ObjectProperty<@Nullable Node> subHeader = new SimpleObjectProperty<>(this, "subHeader");
 
-    public Node getSubHeader() {
+    public @Nullable Node getSubHeader() {
         return subHeader.get();
     }
 
-    public void setSubHeader(Node subHeader) {
+    public void setSubHeader(@Nullable Node subHeader) {
         this.subHeader.set(subHeader);
     }
 
     /**
      * Represents the card’s body node.
      */
-    public ObjectProperty<Node> bodyProperty() {
+    public ObjectProperty<@Nullable Node> bodyProperty() {
         return body;
     }
 
-    private final ObjectProperty<Node> body = new SimpleObjectProperty<>(this, "body");
+    private final ObjectProperty<@Nullable Node> body = new SimpleObjectProperty<>(this, "body");
 
-    public Node getBody() {
+    public @Nullable Node getBody() {
         return body.get();
     }
 
-    public void setBody(Node body) {
+    public void setBody(@Nullable Node body) {
         this.body.set(body);
     }
 
     /**
      * Represents the card’s footer node.
      */
-    public ObjectProperty<Node> footerProperty() {
+    public ObjectProperty<@Nullable Node> footerProperty() {
         return footer;
     }
 
-    private final ObjectProperty<Node> footer = new SimpleObjectProperty<>(this, "footer");
+    private final ObjectProperty<@Nullable Node> footer = new SimpleObjectProperty<>(this, "footer");
 
-    public Node getFooter() {
+    public @Nullable Node getFooter() {
         return footer.get();
     }
 
-    public void setFooter(Node footer) {
+    public void setFooter(@Nullable Node footer) {
         this.footer.set(footer);
     }
 }

@@ -59,6 +59,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A control that is intended to provide detailed information about
@@ -192,7 +193,7 @@ public class Popover extends PopupControl {
 
     private final WeakChangeListener<Number> weakYListener = new WeakChangeListener<>(yListener);
 
-    private Window ownerWindow;
+    private @Nullable Window ownerWindow;
 
     private final EventHandler<WindowEvent> closePopoverOnOwnerWindowCloseLambda
         = event -> ownerWindowHiding();
@@ -414,7 +415,7 @@ public class Popover extends PopupControl {
      * @param fadeOutDuration The duration of the fade transition that is being used to
      *                        change the opacity of the popover.
      */
-    public final void hide(Duration fadeOutDuration) {
+    public final void hide(@Nullable Duration fadeOutDuration) {
         if (fadeOutDuration == null) {
             fadeOutDuration = DEFAULT_FADE_DURATION;
         }

@@ -40,6 +40,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.SkinBase;
 import javafx.scene.control.TreeItem.TreeModificationEvent;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link Breadcrumbs} control.
@@ -94,7 +95,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
         return width + rightInset + leftInset;
     }
 
-    protected void updateSelectedPath(BreadCrumbItem<T> old, BreadCrumbItem<T> val) {
+    protected void updateSelectedPath(@Nullable BreadCrumbItem<T> old, @Nullable BreadCrumbItem<T> val) {
         if (old != null) {
             old.removeEventHandler(BreadCrumbItem.childrenModificationEvent(), treeChildrenModifiedHandler);
         }
@@ -181,7 +182,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
         return crumb;
     }
 
-    protected Node createDivider(BreadCrumbItem<T> treeItem) {
+    protected @Nullable Node createDivider(@Nullable BreadCrumbItem<T> treeItem) {
         Node divider = getSkinnable().getDividerFactory().call(treeItem);
         if (divider == null) {
             return null;

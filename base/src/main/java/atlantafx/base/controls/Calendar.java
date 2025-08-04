@@ -71,7 +71,7 @@ import org.jspecify.annotations.Nullable;
  */
 public class Calendar extends Control {
 
-    protected LocalDate lastValidDate = null;
+    protected @Nullable LocalDate lastValidDate = null;
     protected Chronology lastValidChronology = IsoChronology.INSTANCE;
 
     /**
@@ -132,17 +132,17 @@ public class Calendar extends Control {
     /**
      * Represents the currently selected {@link LocalDate}. The default value is null.
      */
-    public ObjectProperty<LocalDate> valueProperty() {
+    public ObjectProperty<@Nullable LocalDate> valueProperty() {
         return value;
     }
 
-    private final ObjectProperty<LocalDate> value = new SimpleObjectProperty<>(this, "value");
+    private final ObjectProperty<@Nullable LocalDate> value = new SimpleObjectProperty<>(this, "value");
 
-    public final LocalDate getValue() {
+    public final @Nullable LocalDate getValue() {
         return valueProperty().get();
     }
 
-    public final void setValue(LocalDate value) {
+    public final void setValue(@Nullable LocalDate value) {
         valueProperty().set(value);
     }
 
@@ -150,17 +150,17 @@ public class Calendar extends Control {
      * A custom cell factory can be provided to customize individual day cells
      * Refer to {@link DateCell} and {@link Cell} for more information on cell factories.
      */
-    private ObjectProperty<Callback<Calendar, DateCell>> dayCellFactory;
+    private @Nullable ObjectProperty<@Nullable Callback<Calendar, DateCell>> dayCellFactory;
 
-    public final void setDayCellFactory(Callback<Calendar, DateCell> value) {
+    public final void setDayCellFactory(@Nullable Callback<Calendar, DateCell> value) {
         dayCellFactoryProperty().set(value);
     }
 
-    public final Callback<Calendar, DateCell> getDayCellFactory() {
+    public final @Nullable Callback<Calendar, DateCell> getDayCellFactory() {
         return (dayCellFactory != null) ? dayCellFactory.get() : null;
     }
 
-    public final ObjectProperty<Callback<Calendar, DateCell>> dayCellFactoryProperty() {
+    public final ObjectProperty<@Nullable Callback<Calendar, DateCell>> dayCellFactoryProperty() {
         if (dayCellFactory == null) {
             dayCellFactory = new SimpleObjectProperty<>(this, "dayCellFactory");
         }
@@ -178,11 +178,11 @@ public class Calendar extends Control {
      *
      * @return a property representing the Chronology being used
      */
-    public ObjectProperty<Chronology> chronologyProperty() {
+    public ObjectProperty<@Nullable Chronology> chronologyProperty() {
         return chronology;
     }
 
-    private final ObjectProperty<Chronology> chronology
+    private final ObjectProperty<@Nullable Chronology> chronology
         = new SimpleObjectProperty<>(this, "chronology", null);
 
     @SuppressWarnings("CatchAndPrintStackTrace")
@@ -235,7 +235,7 @@ public class Calendar extends Control {
         return showWeekNumbers;
     }
 
-    private BooleanProperty showWeekNumbers;
+    private @Nullable BooleanProperty showWeekNumbers;
 
     public final void setShowWeekNumbers(boolean value) {
         showWeekNumbersProperty().setValue(value);
@@ -248,36 +248,36 @@ public class Calendar extends Control {
     /**
      * Represents the custom node to be placed at the top of the Calendar above the month-year area.
      */
-    public ObjectProperty<Node> topNodeProperty() {
+    public ObjectProperty<@Nullable Node> topNodeProperty() {
         return topNode;
     }
 
-    private final ObjectProperty<Node> topNode
+    private final ObjectProperty<@Nullable Node> topNode
         = new SimpleObjectProperty<>(this, "topNode", null);
 
-    public final void setTopNode(Node value) {
+    public final void setTopNode(@Nullable Node value) {
         topNode.setValue(value);
     }
 
-    public final Node getTopNode() {
+    public final @Nullable Node getTopNode() {
         return topNode.getValue();
     }
 
     /**
      * Represents the custom node to be placed at the bottom of the Calendar below the day-cell grid.
      */
-    public ObjectProperty<Node> bottomNodeProperty() {
+    public ObjectProperty<@Nullable Node> bottomNodeProperty() {
         return bottomNode;
     }
 
-    private final ObjectProperty<Node> bottomNode
+    private final ObjectProperty<@Nullable Node> bottomNode
         = new SimpleObjectProperty<>(this, "bottomNode", null);
 
-    public final void setBottomNode(Node value) {
+    public final void setBottomNode(@Nullable Node value) {
         bottomNode.setValue(value);
     }
 
-    public final Node getBottomNode() {
+    public final @Nullable Node getBottomNode() {
         return bottomNode.getValue();
     }
 
@@ -329,7 +329,7 @@ public class Calendar extends Control {
     }
 
     @SuppressWarnings("CatchAndPrintStackTrace")
-    static boolean isValidDate(Chronology chrono, LocalDate date, int offset, ChronoUnit unit) {
+    static boolean isValidDate(Chronology chrono, @Nullable LocalDate date, int offset, ChronoUnit unit) {
         if (date != null) {
             try {
                 return isValidDate(chrono, date.plus(offset, unit));
@@ -341,7 +341,7 @@ public class Calendar extends Control {
     }
 
     @SuppressWarnings("ReturnValueIgnored")
-    static boolean isValidDate(Chronology chrono, LocalDate date) {
+    static boolean isValidDate(Chronology chrono, @Nullable LocalDate date) {
         try {
             if (date != null) {
                 chrono.date(date);

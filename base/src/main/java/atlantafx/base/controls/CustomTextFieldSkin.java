@@ -37,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.skin.TextFieldSkin;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.HitInfo;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link CustomTextField} control.
@@ -47,8 +48,8 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
     private static final PseudoClass HAS_LEFT_NODE = PseudoClass.getPseudoClass("left-node-visible");
     private static final PseudoClass HAS_RIGHT_NODE = PseudoClass.getPseudoClass("right-node-visible");
 
-    private StackPane leftPane;
-    private StackPane rightPane;
+    private @Nullable StackPane leftPane;
+    private @Nullable StackPane rightPane;
 
     private final TextField control;
 
@@ -62,9 +63,9 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
         registerChangeListener(rightProperty(), e -> updateChildren());
     }
 
-    public abstract ObjectProperty<Node> leftProperty();
+    public abstract ObjectProperty<@Nullable Node> leftProperty();
 
-    public abstract ObjectProperty<Node> rightProperty();
+    public abstract ObjectProperty<@Nullable Node> rightProperty();
 
     private void updateChildren() {
         Node newLeft = leftProperty().get();

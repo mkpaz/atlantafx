@@ -47,6 +47,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link ToggleSwitch} control.
@@ -118,7 +119,7 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
      * How many milliseconds it should take for the thumb to go from
      * one edge to the other.
      */
-    private DoubleProperty thumbMoveAnimationTime = null;
+    private @Nullable DoubleProperty thumbMoveAnimationTime = null;
 
     private DoubleProperty thumbMoveAnimationTimeProperty() {
         if (thumbMoveAnimationTime == null) {

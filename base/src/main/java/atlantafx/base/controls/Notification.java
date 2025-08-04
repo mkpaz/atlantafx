@@ -78,17 +78,17 @@ public class Notification extends Control {
      * Represents an optional graphical component that can be displayed alongside
      * the notification message.
      */
-    public ObjectProperty<Node> graphicProperty() {
+    public ObjectProperty<@Nullable Node> graphicProperty() {
         return graphic;
     }
 
-    private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic");
+    private final ObjectProperty<@Nullable Node> graphic = new SimpleObjectProperty<>(this, "graphic");
 
-    public Node getGraphic() {
+    public @Nullable Node getGraphic() {
         return graphic.get();
     }
 
-    public void setGraphic(Node graphic) {
+    public void setGraphic(@Nullable Node graphic) {
         this.graphic.set(graphic);
     }
 
@@ -102,11 +102,11 @@ public class Notification extends Control {
 
     private final StringProperty message = new SimpleStringProperty(this, "message");
 
-    public String getMessage() {
+    public @Nullable String getMessage() {
         return message.get();
     }
 
-    public void setMessage(String message) {
+    public void setMessage(@Nullable String message) {
         this.message.set(message);
     }
 
@@ -169,18 +169,18 @@ public class Notification extends Control {
      *
      * <p>The close button will not appear if the handler is not set for it.
      */
-    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
+    public ObjectProperty<@Nullable EventHandler<? super Event>> onCloseProperty() {
         return onClose;
     }
 
-    protected final ObjectProperty<EventHandler<? super Event>> onClose =
+    protected final ObjectProperty<@Nullable EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
-    public EventHandler<? super Event> getOnClose() {
+    public @Nullable EventHandler<? super Event> getOnClose() {
         return onClose.get();
     }
 
-    public void setOnClose(EventHandler<? super Event> onClose) {
+    public void setOnClose(@Nullable EventHandler<? super Event> onClose) {
         this.onClose.set(onClose);
     }
 }

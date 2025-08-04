@@ -67,17 +67,17 @@ public class Message extends TileBase {
      * message interactive (or clickable). When a user clicks on the interactive
      * message, the specified action handler will be called.
      */
-    public ObjectProperty<Runnable> actionHandlerProperty() {
+    public ObjectProperty<@Nullable Runnable> actionHandlerProperty() {
         return actionHandler;
     }
 
-    private final ObjectProperty<Runnable> actionHandler = new SimpleObjectProperty<>(this, "actionHandler");
+    private final ObjectProperty<@Nullable Runnable> actionHandler = new SimpleObjectProperty<>(this, "actionHandler");
 
-    public Runnable getActionHandler() {
+    public @Nullable Runnable getActionHandler() {
         return actionHandler.get();
     }
 
-    public void setActionHandler(Runnable actionHandler) {
+    public void setActionHandler(@Nullable Runnable actionHandler) {
         this.actionHandler.set(actionHandler);
     }
 
@@ -86,18 +86,18 @@ public class Message extends TileBase {
      * or dismiss the message. When a user clicks on the message's close button, the specified
      * close handler will be called.
      */
-    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
+    public ObjectProperty<@Nullable EventHandler<? super Event>> onCloseProperty() {
         return onClose;
     }
 
-    protected final ObjectProperty<EventHandler<? super Event>> onClose =
+    protected final ObjectProperty<@Nullable EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
-    public EventHandler<? super Event> getOnClose() {
+    public @Nullable EventHandler<? super Event> getOnClose() {
         return onClose.get();
     }
 
-    public void setOnClose(EventHandler<? super Event> onClose) {
+    public void setOnClose(@Nullable EventHandler<? super Event> onClose) {
         this.onClose.set(onClose);
     }
 }

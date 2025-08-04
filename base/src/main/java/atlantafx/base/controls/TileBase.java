@@ -45,17 +45,17 @@ public abstract class TileBase extends Control {
      * Represents the tile’s graphic node. It is commonly used to add images or icons
      * that are associated with the tile.
      */
-    public ObjectProperty<Node> graphicProperty() {
+    public ObjectProperty<@Nullable Node> graphicProperty() {
         return graphic;
     }
 
-    private final ObjectProperty<Node> graphic = new SimpleObjectProperty<>(this, "graphic");
+    private final ObjectProperty<@Nullable Node> graphic = new SimpleObjectProperty<>(this, "graphic");
 
-    public Node getGraphic() {
+    public @Nullable Node getGraphic() {
         return graphic.get();
     }
 
-    public void setGraphic(Node graphic) {
+    public void setGraphic(@Nullable Node graphic) {
         this.graphic.set(graphic);
     }
 
@@ -68,11 +68,11 @@ public abstract class TileBase extends Control {
 
     private final StringProperty title = new SimpleStringProperty(this, "title");
 
-    public String getTitle() {
+    public @Nullable String getTitle() {
         return title.get();
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@Nullable String title) {
         this.title.set(title);
     }
 
@@ -88,11 +88,11 @@ public abstract class TileBase extends Control {
 
     private final StringProperty description = new SimpleStringProperty(this, "description");
 
-    public String getDescription() {
+    public @Nullable String getDescription() {
         return description.get();
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@Nullable String description) {
         this.description.set(description);
     }
 }

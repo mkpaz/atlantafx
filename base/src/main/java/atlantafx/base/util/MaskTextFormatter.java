@@ -102,7 +102,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
     public static MaskTextFormatter create(TextField field, List<MaskChar> mask) {
         Objects.requireNonNull(field, "Text field can't be null");
 
-        if (mask == null || mask.isEmpty()) {
+        if (mask.isEmpty()) {
             throw new IllegalArgumentException("Input mask can't be null or empty.");
         }
 
@@ -168,7 +168,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
     }
 
     protected static List<MaskChar> fromString(String inputMask) {
-        if (inputMask == null || inputMask.trim().isEmpty()) {
+        if (inputMask.trim().isEmpty()) {
             throw new IllegalArgumentException("Input mask can't be null or empty.");
         }
 
@@ -231,7 +231,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
         }
 
         @Override
-        public Change apply(Change change) {
+        public @Nullable Change apply(Change change) {
             if (!change.isContentChange() || isInternalChange()) {
                 return change;
             }

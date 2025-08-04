@@ -72,6 +72,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link Calendar} control.
@@ -99,8 +100,8 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     protected final List<DateCell> dayNameCells = new ArrayList<>();
     protected final List<DateCell> weekNumberCells = new ArrayList<>();
     protected final List<DateCell> dayCells = new ArrayList<>();
-    protected LocalDate[] dayCellDates;
-    protected DateCell lastFocusedDayCell = null;
+    protected LocalDate @Nullable[] dayCellDates;
+    protected @Nullable DateCell lastFocusedDayCell = null;
     protected final int daysPerWeek = getDaysPerWeek();
 
     private final ObjectProperty<YearMonth> displayedYearMonth

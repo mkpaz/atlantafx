@@ -30,6 +30,7 @@ import java.util.Map;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings("all")
 public class EventHandlerManager extends BasicEventDispatcher {
@@ -141,7 +142,7 @@ public class EventHandlerManager extends BasicEventDispatcher {
      */
     @SuppressWarnings("unchecked")
     public final <T extends Event> void setEventHandler(final EventType<T> eventType,
-                                                        final EventHandler<? super T> eventHandler) {
+                                                        @Nullable final EventHandler<? super T> eventHandler) {
         validateEventType(eventType);
 
         CompositeEventHandler<T> compositeEventHandler =

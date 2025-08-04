@@ -84,18 +84,18 @@ public class Tile extends TileBase {
      * <p>Setting an action handler makes the tile interactive (or clickable).
      * When a user clicks on the interactive tile, the specified action handler will be called.
      */
-    public ObjectProperty<Runnable> actionHandlerProperty() {
+    public ObjectProperty<@Nullable Runnable> actionHandlerProperty() {
         return actionHandler;
     }
 
-    private final ObjectProperty<Runnable> actionHandler
+    private final ObjectProperty<@Nullable Runnable> actionHandler
         = new SimpleObjectProperty<>(this, "actionHandler");
 
-    public Runnable getActionHandler() {
+    public @Nullable Runnable getActionHandler() {
         return actionHandler.get();
     }
 
-    public void setActionHandler(Runnable actionHandler) {
+    public void setActionHandler(@Nullable Runnable actionHandler) {
         this.actionHandler.set(actionHandler);
     }
 }

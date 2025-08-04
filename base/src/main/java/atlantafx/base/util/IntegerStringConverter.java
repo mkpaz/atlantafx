@@ -10,6 +10,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts between user-edited strings and integer values.
@@ -22,7 +23,7 @@ import javafx.util.StringConverter;
  */
 public class IntegerStringConverter extends StringConverter<Integer> {
 
-    private Runnable reset;
+    private @Nullable Runnable reset;
 
     /**
      * Creates an IntegerStringConverter.
@@ -56,10 +57,6 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @throws NullPointerException if input is {@code null}
      */
     public IntegerStringConverter(TextField input, int min, int max) {
-        if (input == null) {
-            throw new NullPointerException("Input cannot be null!");
-        }
-
         final int resetValue = Math.min(Math.max(0, min), max);
         reset = () -> input.setText(Integer.toString(resetValue));
 
@@ -155,7 +152,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @see #setReset
      */
     @Override
-    public Integer fromString(String s) {
+    public Integer fromString(@Nullable String s) {
         if (s == null || s.isEmpty()) {
             if (reset != null) {
                 reset.run();
@@ -181,7 +178,7 @@ public class IntegerStringConverter extends StringConverter<Integer> {
      * @return the {@link String} form of {@code value}
      */
     @Override
-    public String toString(Integer value) {
+    public String toString(@Nullable Integer value) {
         if (value == null) {
             return "0";
         }

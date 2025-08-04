@@ -68,7 +68,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
 
     protected void registerListeners() {
         registerChangeListener(getSkinnable().contentProperty(), obs -> {
-            @Nullable Node content = getSkinnable().getContent();
+            Node content = getSkinnable().getContent();
 
             // the transition is node-based
             if (inTransition != null && content != null) {
@@ -167,7 +167,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
 
     protected EventHandler<MouseEvent> createMouseHandler() {
         return event -> {
-            @Nullable Node content = getSkinnable().getContent();
+            Node content = getSkinnable().getContent();
             if (event.getButton() != MouseButton.PRIMARY) {
                 return;
             }
@@ -224,7 +224,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             return;
         }
 
-        @Nullable Node content = getSkinnable().getContent();
+        Node content = getSkinnable().getContent();
         if (content == null) {
             doShow();
             return;

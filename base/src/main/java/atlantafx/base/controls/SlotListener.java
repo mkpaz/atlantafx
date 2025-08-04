@@ -25,7 +25,7 @@ final class SlotListener implements ChangeListener<Node> {
     private static final PseudoClass FILLED = PseudoClass.getPseudoClass("filled");
 
     private final Pane slot;
-    private final @Nullable BiConsumer<Node, Boolean> onContentUpdate;
+    private final @Nullable BiConsumer<@Nullable Node, Boolean> onContentUpdate;
 
     /**
      * Creates a new listener and binds it to the specified container.
@@ -58,7 +58,7 @@ final class SlotListener implements ChangeListener<Node> {
     }
 
     @Override
-    public void changed(ObservableValue<? extends Node> obs, Node old, Node val) {
+    public void changed(ObservableValue<? extends Node> obs, @Nullable Node old, @Nullable Node val) {
         if (val != null) {
             slot.getChildren().setAll(val);
         } else {

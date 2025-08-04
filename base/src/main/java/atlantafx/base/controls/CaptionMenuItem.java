@@ -46,7 +46,7 @@ public class CaptionMenuItem extends CustomMenuItem {
         return title.getText();
     }
 
-    public void setTitle(String text) {
+    public void setTitle(@Nullable String text) {
         title.setText(text);
     }
 }

@@ -144,17 +144,17 @@ public class ModalPane extends Control {
     /**
      * Specifies the content node to display inside the modal pane.
      */
-    public ObjectProperty<Node> contentProperty() {
+    public ObjectProperty<@Nullable Node> contentProperty() {
         return content;
     }
 
-    protected final ObjectProperty<Node> content = new SimpleObjectProperty<>(this, "content", null);
+    protected final ObjectProperty<@Nullable Node> content = new SimpleObjectProperty<>(this, "content", null);
 
-    public Node getContent() {
+    public @Nullable Node getContent() {
         return content.get();
     }
 
-    public void setContent(Node node) {
+    public void setContent(@Nullable Node node) {
         this.content.set(node);
     }
 

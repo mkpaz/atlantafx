@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link Card} control.
@@ -26,16 +27,16 @@ public class CardSkin implements Skin<Card> {
     protected final VBox root = new VBox();
 
     protected final StackPane headerSlot;
-    protected final ChangeListener<Node> headerSlotListener;
+    protected final ChangeListener<@Nullable Node> headerSlotListener;
 
     protected final StackPane subHeaderSlot;
-    protected final ChangeListener<Node> subHeaderSlotListener;
+    protected final ChangeListener<@Nullable Node> subHeaderSlotListener;
 
     protected final StackPane bodySlot;
-    protected final ChangeListener<Node> bodySlotListener;
+    protected final ChangeListener<@Nullable Node> bodySlotListener;
 
     protected final StackPane footerSlot;
-    protected final ChangeListener<Node> footerSlotListener;
+    protected final ChangeListener<@Nullable Node> footerSlotListener;
 
     protected CardSkin(Card control) {
         this.control = control;

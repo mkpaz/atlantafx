@@ -54,7 +54,7 @@ public class MaskTextField extends CustomTextField {
      */
     protected final StringProperty mask = new SimpleStringProperty(this, "mask");
 
-    protected final ReadOnlyObjectWrapper<MaskTextFormatter> formatter =
+    protected final ReadOnlyObjectWrapper<@Nullable MaskTextFormatter> formatter =
         new ReadOnlyObjectWrapper<>(this, "formatter");
 
     /**
@@ -86,7 +86,7 @@ public class MaskTextField extends CustomTextField {
      * @param text A string for text content.
      * @param mask An input mask.
      */
-    private MaskTextField(@NamedArg("text") String text,
+    private MaskTextField(@NamedArg("text") @Nullable String text,
                           @NamedArg("mask") String mask) {
         super(Objects.requireNonNullElse(text, ""));
 
@@ -104,7 +104,7 @@ public class MaskTextField extends CustomTextField {
      * @param text A string for text content.
      * @param mask An input mask.
      */
-    public MaskTextField(String text, List<MaskChar> mask) {
+    public MaskTextField(@Nullable String text, List<MaskChar> mask) {
         super(Objects.requireNonNullElse(text, ""));
 
         formatter.set(MaskTextFormatter.create(this, mask));

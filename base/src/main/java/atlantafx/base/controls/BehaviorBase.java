@@ -61,6 +61,7 @@ public class BehaviorBase<C extends Control, S extends SkinBase<C>> {
     /**
      * Called from {@link SkinBase#dispose()} to clean up the behavior state.
      */
+    @SuppressWarnings("ALL")
     public void dispose() {
         this.control = null;
         this.skin = null;

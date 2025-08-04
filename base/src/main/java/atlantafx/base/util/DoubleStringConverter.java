@@ -11,6 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Converts between user-edited strings and Double values.
@@ -27,7 +28,7 @@ import javafx.util.StringConverter;
 public class DoubleStringConverter extends StringConverter<Double> {
 
     private final DecimalFormat decimalFormat = new DecimalFormat("0.##");
-    private Runnable reset;
+    private @Nullable Runnable reset;
 
     /**
      * Creates a DoubleStringConverter.
@@ -63,10 +64,6 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @throws NullPointerException if  input is {@code null}.
      */
     public DoubleStringConverter(TextField input, double min, double max) {
-        if (input == null) {
-            throw new NullPointerException("Input cannot be null!");
-        }
-
         final double resetValue = Math.min(Math.max(0, min), max);
         reset = () -> input.setText(decimalFormat.format(resetValue));
 
@@ -163,7 +160,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @see #setReset
      */
     @Override
-    public Double fromString(String s) {
+    public Double fromString(@Nullable String s) {
         if (s == null || s.isEmpty()) {
             if (reset != null) {
                 reset.run();
@@ -189,7 +186,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
      * @return the string form of {@code value}
      */
     @Override
-    public String toString(Double value) {
+    public String toString(@Nullable Double value) {
         if (value == null) {
             return "0";
         }

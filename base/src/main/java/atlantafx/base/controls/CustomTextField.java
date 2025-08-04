@@ -34,6 +34,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TextField;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A base class for people wanting to customize a {@link TextField}
@@ -54,7 +55,7 @@ public class CustomTextField extends TextField {
      *
      * @param text A string for text content.
      */
-    public CustomTextField(String text) {
+    public CustomTextField(@Nullable String text) {
         this();
         setText(text);
     }
@@ -84,46 +85,46 @@ public class CustomTextField extends TextField {
     /**
      * Represents the {@link Node} that is placed on the left of the text field.
      */
-    public final ObjectProperty<Node> leftProperty() {
+    public final ObjectProperty<@Nullable Node> leftProperty() {
         return left;
     }
 
-    private final ObjectProperty<Node> left = new SimpleObjectProperty<>(this, "left");
+    private final ObjectProperty<@Nullable Node> left = new SimpleObjectProperty<>(this, "left");
 
     /**
      * Returns the {@link Node} that is placed on the left of the text field.
      */
-    public final Node getLeft() {
+    public final @Nullable Node getLeft() {
         return left.get();
     }
 
     /**
      * Sets the {@link Node} that is placed on the left of the text field.
      */
-    public final void setLeft(Node value) {
+    public final void setLeft(@Nullable Node value) {
         left.set(value);
     }
 
     /**
      * Represents the {@link Node} that is placed on the right of the text field.
      */
-    public final ObjectProperty<Node> rightProperty() {
+    public final ObjectProperty<@Nullable Node> rightProperty() {
         return right;
     }
 
-    private final ObjectProperty<Node> right = new SimpleObjectProperty<>(this, "right");
+    private final ObjectProperty<@Nullable Node> right = new SimpleObjectProperty<>(this, "right");
 
     /**
      * Returns the {@link Node} that is placed on the right of the text field.
      */
-    public final Node getRight() {
+    public final @Nullable Node getRight() {
         return right.get();
     }
 
     /**
      * Sets the {@link Node} that is placed on the right of the text field.
      */
-    public final void setRight(Node value) {
+    public final void setRight(@Nullable Node value) {
         right.set(value);
     }
 }
