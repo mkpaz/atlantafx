@@ -3,12 +3,14 @@
 package atlantafx.base.controls;
 
 import javafx.scene.text.Text;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+@NullMarked
 public class SelectableTextFlowTest {
 
     private SelectableTextFlow textFlow;

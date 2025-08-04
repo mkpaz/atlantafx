@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
@@ -241,6 +243,7 @@ public class BBCodeParserTest {
                           @Nullable String text) {
     }
 
+    @NullMarked
     public static class BBCodeMockHandler implements BBCodeHandler {
 
         private static final Set<String> SELF_CLOSE_TAGS = Set.of("hr", "img");
@@ -251,7 +254,7 @@ public class BBCodeParserTest {
         private final List<String> text = new ArrayList<>();
         private final Deque<Integer> textStart = new ArrayDeque<>();
         private final Deque<Map<String, String>> tagParams = new ArrayDeque<>();
-        private char[] doc;
+        private char @Nullable[] doc;
 
         @Override
         public void startDocument(char[] doc) {
@@ -265,6 +268,7 @@ public class BBCodeParserTest {
 
         @Override
         public void startTag(String name, @Nullable Map<String, String> params, int start, int length) {
+            assertThat(doc).isNotNull();
             debug("START:" + name + "|" + params + "|" + start + "|" + length + "|" + new String(doc, start, length));
 
             if (!SELF_CLOSE_TAGS.contains(name)) {
@@ -278,7 +282,9 @@ public class BBCodeParserTest {
 
         @Override
         public void endTag(String name, int start, int length) {
+            assertThat(doc).isNotNull();
             debug("END:" + name + "|" + start + "|" + length + "|" + new String(doc, start, length));
+
             var params = tagParams.pop();
             var openTagTextStart = textStart.pop();
             tags.add(new MockTag(
@@ -290,7 +296,9 @@ public class BBCodeParserTest {
 
         @Override
         public void characters(int start, int length) {
+            assertThat(doc).isNotNull();
             debug("CHARACTERS:" + new String(doc, start, length));
+
             if (length > 0) {
                 text.add(new String(doc, start, length));
             }

@@ -5,8 +5,10 @@ package atlantafx.base.layout;
 import atlantafx.base.theme.Styles;
 import javafx.scene.layout.Pane;
 import org.assertj.core.api.Assertions;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
+@NullMarked
 public class InputGroupTest {
 
     @Test

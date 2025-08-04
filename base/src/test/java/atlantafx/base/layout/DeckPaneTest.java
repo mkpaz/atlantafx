@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 // animation completed. Each run random tests fail.
 @Disabled
 @ExtendWith({JavaFXTest.class})
+@NullMarked
 public class DeckPaneTest {
 
     @Test

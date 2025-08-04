@@ -8,24 +8,15 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import java.util.Base64;
 import javafx.css.PseudoClass;
 import javafx.scene.layout.Region;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
+@NullMarked
 public class StylesTest {
 
     final PseudoClass pcFirst = PseudoClass.getPseudoClass("first");
     final PseudoClass pcSecond = PseudoClass.getPseudoClass("second");
     final PseudoClass pcExcluded = PseudoClass.getPseudoClass("excluded");
-
-    @Test
-    @SuppressWarnings("DataFlowIssue")
-    public void testToggleStyleClassNPE() {
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.toggleStyleClass(new Region(), null)
-        );
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.toggleStyleClass(null, "any")
-        );
-    }
 
     @Test
     public void testToggleStyleClassOn() {
@@ -70,17 +61,6 @@ public class StylesTest {
     ///////////////////////////////////////////////////////////////////////////
 
     @Test
-    @SuppressWarnings("DataFlowIssue")
-    public void testAddStyleClassClassNPE() {
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.addStyleClass(new Region(), null)
-        );
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.addStyleClass(null, "any")
-        );
-    }
-
-    @Test
     public void testAddStyleClassAdds() {
         var node = new Region();
         node.getStyleClass().addAll("first");
@@ -111,17 +91,6 @@ public class StylesTest {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-
-    @Test
-    @SuppressWarnings("DataFlowIssue")
-    public void testActivatePseudoClassNPE() {
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.activatePseudoClass(new Region(), null)
-        );
-        assertThatNullPointerException().isThrownBy(
-            () -> Styles.activatePseudoClass(null, pcFirst)
-        );
-    }
 
     @Test
     public void testActivatePseudoClassActivates() {
@@ -188,20 +157,6 @@ public class StylesTest {
     }
 
     @Test
-    void testAppendStyleNullProperty() {
-        var node = new Region();
-        Styles.appendStyle(node, null, "red");
-        assertThat(node.getStyle()).isEmpty();
-    }
-
-    @Test
-    void testAppendStyleNullValue() {
-        var node = new Region();
-        Styles.appendStyle(node, "-fx-background-color", null);
-        assertThat(node.getStyle()).isEmpty();
-    }
-
-    @Test
     void testAppendStyleMultipleProperties() {
         var node = new Region();
         Styles.appendStyle(node, "-fx-background-color", "red");
@@ -235,14 +190,6 @@ public class StylesTest {
         var node = new Region();
         node.setStyle("-fx-background-color:red;");
         Styles.removeStyle(node, "-fx-text-fill");
-        assertThat(node.getStyle()).contains("-fx-background-color:red;");
-    }
-
-    @Test
-    void testRemoveStyleNullProperty() {
-        var node = new Region();
-        node.setStyle("-fx-background-color:red;");
-        Styles.removeStyle(node, null);
         assertThat(node.getStyle()).contains("-fx-background-color:red;");
     }
 
