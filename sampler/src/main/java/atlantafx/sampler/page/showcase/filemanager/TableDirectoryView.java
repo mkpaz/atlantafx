@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.jspecify.annotations.Nullable;
 
 final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
@@ -38,7 +39,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
     private static final String UNKNOWN = "unknown";
 
     private final FileList fileList;
-    private Consumer<Path> actionHandler;
+    private @Nullable Consumer<Path> actionHandler;
 
     public TableDirectoryView() {
         TableView<Path> table = createTable();
@@ -99,7 +100,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
     }
 
     @Override
-    public void setDirectory(Path path) {
+    public void setDirectory(@Nullable Path path) {
         if (path == null) {
             fileList.clear();
         } else {

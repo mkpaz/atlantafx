@@ -38,6 +38,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
@@ -53,8 +54,8 @@ final class ContrastChecker extends GridPane {
     private static final String STATE_FAIL = "FAIL";
     private static final int SLIDER_WIDTH = 300;
 
-    private String bgColorName;
-    private String fgColorName;
+    private @Nullable String bgColorName;
+    private @Nullable String fgColorName;
 
     private final ObservableHslaColor bgColor = new ObservableHslaColor(Color.WHITE);
     private final ObservableHslaColor fgColor = new ObservableHslaColor(Color.BLACK);

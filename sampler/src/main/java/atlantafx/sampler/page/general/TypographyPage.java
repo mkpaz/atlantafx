@@ -32,7 +32,7 @@ public final class TypographyPage extends OutlinePage {
 
     public static final String NAME = "Typography";
 
-    private GridPane fontSizeGridPane;
+    private @Nullable GridPane fontSizeGridPane;
 
     @Override
     public String getName() {

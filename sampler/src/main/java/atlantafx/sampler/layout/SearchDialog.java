@@ -7,6 +7,8 @@ import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import java.util.function.Consumer;
+
+import atlantafx.base.util.NullSafetyHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -25,8 +27,8 @@ final class SearchDialog extends ModalDialog {
 
     private final MainModel model;
 
-    private CustomTextField searchField;
-    private ListView<NavTree.Item> resultList;
+    private CustomTextField searchField = NullSafetyHelper.lateNonNull();
+    private ListView<NavTree.Item> resultList = NullSafetyHelper.lateNonNull();
 
     public SearchDialog(MainModel model) {
         super();

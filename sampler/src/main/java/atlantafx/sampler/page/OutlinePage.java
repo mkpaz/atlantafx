@@ -212,7 +212,7 @@ public abstract class OutlinePage extends StackPane implements Page {
 
         private final Set<String> toc = new LinkedHashSet<>();
         private final Consumer<Heading> clickHandler;
-        private Label selected;
+        private @Nullable Label selected;
 
         public Outline(Consumer<Heading> clickHandler) {
             super();
@@ -241,7 +241,7 @@ public abstract class OutlinePage extends StackPane implements Page {
             toc.add(heading.title());
         }
 
-        public boolean contains(String title) {
+        public boolean contains(@Nullable String title) {
             return title != null && toc.contains(title);
         }
 

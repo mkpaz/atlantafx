@@ -71,7 +71,7 @@ public class Breadcrumbs<T> extends Control {
     protected final Callback<BreadCrumbItem<T>, ButtonBase> defaultCrumbNodeFactory =
         item -> new Hyperlink(item.getStringValue());
 
-    protected final Callback<@Nullable BreadCrumbItem<T>, @Nullable Node> defaultDividerFactory =
+    protected final Callback<@Nullable BreadCrumbItem<T>, ? extends @Nullable Node> defaultDividerFactory =
         item -> item != null && !item.isLast() ? new Label("/") : null;
 
     /**
@@ -223,21 +223,21 @@ public class Breadcrumbs<T> extends Control {
      * <p>Use {@link BreadCrumbItem#isFirst()} and {@link BreadCrumbItem#isLast()} to
      * create bread crumb depending on item position.
      */
-    public final ObjectProperty<Callback<BreadCrumbItem<T>, @Nullable Node>> dividerFactoryProperty() {
+    public final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends @Nullable Node>> dividerFactoryProperty() {
         return dividerFactory;
     }
 
-    protected final ObjectProperty<Callback<BreadCrumbItem<T>, @Nullable Node>> dividerFactory =
+    protected final ObjectProperty<Callback<BreadCrumbItem<T>, ? extends @Nullable Node>> dividerFactory =
         new SimpleObjectProperty<>(this, "dividerFactory");
 
-    public final void setDividerFactory(@Nullable Callback<BreadCrumbItem<T>, @Nullable Node> value) {
+    public final void setDividerFactory(@Nullable Callback<BreadCrumbItem<T>, ? extends @Nullable Node> value) {
         if (value == null) {
             value = defaultDividerFactory;
         }
         dividerFactoryProperty().set(value);
     }
 
-    public final Callback<@Nullable BreadCrumbItem<T>, @Nullable Node> getDividerFactory() {
+    public final Callback<@Nullable BreadCrumbItem<T>, ? extends @Nullable Node> getDividerFactory() {
         return dividerFactory.get();
     }
 

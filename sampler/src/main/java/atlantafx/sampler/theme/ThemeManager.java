@@ -13,6 +13,7 @@ import atlantafx.base.theme.NordLight;
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Theme;
+import atlantafx.base.util.NullSafetyHelper;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
@@ -41,6 +42,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
 
 public final class ThemeManager {
 
@@ -62,7 +64,7 @@ public final class ThemeManager {
     public static final String DEFAULT_FONT_FAMILY_NAME = "Inter";
     public static final int DEFAULT_FONT_SIZE = 14;
     public static final int DEFAULT_ZOOM = 100;
-    public static final AccentColor DEFAULT_ACCENT_COLOR = null;
+    public static final @Nullable AccentColor DEFAULT_ACCENT_COLOR = null;
     public static final List<Integer> SUPPORTED_FONT_SIZE = IntStream.range(8, 29).boxed().collect(Collectors.toList());
     public static final List<Integer> SUPPORTED_ZOOM = List.of(50, 75, 80, 90, 100, 110, 125, 150, 175, 200);
 
@@ -71,13 +73,13 @@ public final class ThemeManager {
 
     private final ThemeRepository repository = new ThemeRepository();
 
-    private Scene scene;
+    private Scene scene = NullSafetyHelper.lateNonNull();
 
-    private SamplerTheme currentTheme = null;
+    private @Nullable SamplerTheme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
     private int zoom = DEFAULT_ZOOM;
-    private AccentColor accentColor = DEFAULT_ACCENT_COLOR;
+    private @Nullable  AccentColor accentColor = DEFAULT_ACCENT_COLOR;
 
     public ThemeRepository getRepository() {
         return repository;
@@ -93,7 +95,7 @@ public final class ThemeManager {
         this.scene = Objects.requireNonNull(scene);
     }
 
-    public SamplerTheme getTheme() {
+    public @Nullable SamplerTheme getTheme() {
         return currentTheme;
     }
 
@@ -188,7 +190,7 @@ public final class ThemeManager {
         this.zoom = zoom;
     }
 
-    public AccentColor getAccentColor() {
+    public @Nullable AccentColor getAccentColor() {
         return accentColor;
     }
 
@@ -270,7 +272,7 @@ public final class ThemeManager {
         customCSSRules.remove(selector);
     }
 
-    private void setOrRemoveColor(String colorName, Color color) {
+    private void setOrRemoveColor(String colorName, @Nullable Color color) {
         Objects.requireNonNull(colorName);
         if (color != null) {
             setCustomDeclaration(colorName, JColor.color(

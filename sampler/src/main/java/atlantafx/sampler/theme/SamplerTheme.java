@@ -63,8 +63,8 @@ public final class SamplerTheme implements Theme {
 
     private final Theme theme;
 
-    private FileTime lastModified;
-    private Map<String, String> colors;
+    private @Nullable FileTime lastModified;
+    private @Nullable Map<String, String> colors;
 
     public SamplerTheme(Theme theme) {
         Objects.requireNonNull(theme);

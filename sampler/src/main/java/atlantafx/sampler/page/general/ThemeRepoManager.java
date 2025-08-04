@@ -31,6 +31,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 
@@ -102,7 +103,7 @@ final class ThemeRepoManager extends VBox {
         private final SamplerTheme theme;
 
         private Button deleteBtn;
-        private Consumer<SamplerTheme> deleteHandler;
+        private @Nullable Consumer<SamplerTheme> deleteHandler;
 
         public ThemeCell(SamplerTheme theme) {
             this.theme = theme;
@@ -144,6 +145,7 @@ final class ThemeRepoManager extends VBox {
             task.setOnSucceeded(e -> {
                 var colors = task.getValue();
 
+                //noinspection ConstantValue
                 if (colors != null && !colors.isEmpty()) {
                     var style = new StringBuilder();
                     var presence = 0;

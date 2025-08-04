@@ -241,7 +241,7 @@ public final class DecorationsPage extends AbstractPage {
             this.scene = scene;
         }
 
-        public void setTheme(Theme t) {
+        public void setTheme(@Nullable Theme t) {
             if (theme != null) {
                 scene.getStylesheets().remove(theme.getUserAgentStylesheet());
             }

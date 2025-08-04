@@ -10,6 +10,7 @@ import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.BBCodeParser;
+import atlantafx.base.util.NullSafetyHelper;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
@@ -568,7 +569,7 @@ public final class TableViewPage extends OutlinePage {
     // Playground                                                            //
     ///////////////////////////////////////////////////////////////////////////
 
-    private TableView<Product> table;
+    private TableView<Product> table = NullSafetyHelper.lateNonNull();
     private final List<Product> dataList = IntStream.range(1, 51).boxed()
         .map(i -> atlantafx.sampler.fake.domain.Product.random(i, FAKER))
         .toList();

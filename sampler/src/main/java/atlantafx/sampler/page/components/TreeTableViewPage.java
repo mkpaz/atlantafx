@@ -14,6 +14,7 @@ import atlantafx.base.controls.CaptionMenuItem;
 import atlantafx.base.controls.ToggleSwitch;
 import atlantafx.base.theme.Tweaks;
 import atlantafx.base.util.BBCodeParser;
+import atlantafx.base.util.NullSafetyHelper;
 import atlantafx.sampler.fake.domain.Product;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
@@ -42,6 +43,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.jspecify.annotations.Nullable;
 
 public final class TreeTableViewPage extends OutlinePage {
 
@@ -52,7 +54,7 @@ public final class TreeTableViewPage extends OutlinePage {
         return NAME;
     }
 
-    private TreeTableView<Product> treeTable;
+    private TreeTableView<Product> treeTable = NullSafetyHelper.lateNonNull();
 
     public TreeTableViewPage() {
         super();

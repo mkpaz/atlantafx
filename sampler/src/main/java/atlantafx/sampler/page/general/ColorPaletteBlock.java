@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
@@ -36,7 +37,7 @@ final class ColorPaletteBlock extends VBox {
     private final Label contrastLevelLabel = new Label();
     private final FontIcon editIcon = new FontIcon(Material2AL.COLORIZE);
 
-    private Consumer<ColorPaletteBlock> actionHandler;
+    private @Nullable Consumer<ColorPaletteBlock> actionHandler;
 
     public ColorPaletteBlock(String fgColorName,
                              String bgColorName,

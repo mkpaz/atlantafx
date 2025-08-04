@@ -7,6 +7,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import atlantafx.base.util.PlatformUtils;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.SceneBuilderTheme;
+import org.jspecify.annotations.Nullable;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -31,7 +33,7 @@ final class SceneBuilderInstaller {
     private static final char CLASSPATH_SEPARATOR = PlatformUtils.isWindows() ? ';' : ':';
 
     private final Path sceneBuilderDir;
-    private Path configDir;
+    private @Nullable Path configDir;
 
     public SceneBuilderInstaller(Path dir) {
         this.sceneBuilderDir = Objects.requireNonNull(dir);
