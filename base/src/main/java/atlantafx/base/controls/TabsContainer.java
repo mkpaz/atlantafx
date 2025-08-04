@@ -52,9 +52,11 @@ public class TabsContainer extends StackPane {
         });
 
         closingPolicyListener = (obs, old, val) -> {
+            //noinspection ConstantValue, Intellij is being stupid
             if (old != null) {
                 getStyleClass().remove(old.getStyleClass());
             }
+            //noinspection ConstantValue, Intellij is being stupid
             if (val != null) {
                 getStyleClass().add(val.getStyleClass());
             }

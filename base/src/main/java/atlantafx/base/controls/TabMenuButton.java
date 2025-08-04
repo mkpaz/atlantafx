@@ -52,8 +52,8 @@ public class TabMenuButton extends Button {
         for (MenuItem mi : contextMenu.getItems()) {
             if (mi instanceof RadioMenuItem rmi) {
                 var selectedTab = tabLine.getSelectionModel().getSelectedItem();
-                rmi.setSelected(
-                    selectedTab != null
+                //noinspection ConstantValue, Intellij is being stupid
+                rmi.setSelected(selectedTab != null
                         && mi.getUserData() != null
                         && selectedTab.hashCode() == mi.getUserData().hashCode()
                 );

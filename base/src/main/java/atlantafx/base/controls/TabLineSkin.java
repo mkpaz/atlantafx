@@ -101,12 +101,14 @@ public class TabLineSkin extends SkinBase<TabLine> {
         Tab selectedTab = control.getSelectionModel().getSelectedItem();
         int selectedIndex = control.getSelectionModel().getSelectedIndex();
 
+        //noinspection ConstantValue, Intellij is being stupid
         if (selectedTab == null && selectedIndex != -1) {
             // could not find the selected tab try and get the selected tab using the selected index
             control.getSelectionModel().select(selectedIndex);
             selectedTab = control.getSelectionModel().getSelectedItem();
         }
 
+        //noinspection ConstantValue, Intellij is being stupid
         if (selectedTab == null) {
             // selectedItem and selectedIndex have failed, so select the first tab
             control.getSelectionModel().selectFirst();

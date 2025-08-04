@@ -293,6 +293,7 @@ public class ToggleSwitch extends Labeled implements Toggle {
         ) {
 
             @Override
+            @SuppressWarnings("ConstantValue")
             public boolean isSettable(ToggleSwitch c) {
                 return c.labelPositionProperty() == null || !c.labelPositionProperty().isBound();
             }

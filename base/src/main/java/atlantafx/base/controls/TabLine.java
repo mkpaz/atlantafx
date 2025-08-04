@@ -3,6 +3,7 @@
 package atlantafx.base.controls;
 
 import atlantafx.base.shim.collections.ReorderableList;
+import atlantafx.base.util.NullSafetyHelper;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -394,6 +395,7 @@ public class TabLine extends Control {
     // Auxiliary Methods
     //=========================================================================
 
+    @SuppressWarnings("ConstantValue")
     protected void pinOrUnpin(Tab tab) {
         var selectedTab = getSelectionModel().getSelectedItem();
         int to = getIndexToMovePinedTab(tab);
@@ -621,6 +623,7 @@ public class TabLine extends Control {
             return tabLine.getTabs().size();
         }
 
+        @SuppressWarnings("ConstantValue")
         protected void onTabsChange(ListChangeListener.Change<? extends Tab> change) {
             while (change.next()) {
                 for (Tab tab : change.getRemoved()) {
