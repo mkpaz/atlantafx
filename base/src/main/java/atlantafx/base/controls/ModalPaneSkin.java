@@ -27,7 +27,7 @@ import org.jspecify.annotations.Nullable;
  */
 public class ModalPaneSkin extends SkinBase<ModalPane> {
 
-    protected ModalPane control;
+    protected @Nullable ModalPane control;
 
     protected final StackPane root;
     protected final ScrollPane scrollPane;
@@ -156,8 +156,9 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
     protected EventHandler<KeyEvent> createKeyHandler() {
         return event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                if (getSkinnable().getPersistent()) {
-                    createCloseBlockedAnimation().playFromStart();
+                Node content  = getSkinnable().getContent();
+                if (getSkinnable().getPersistent() && content != null) {
+                    createCloseBlockedAnimation(content).playFromStart();
                 } else {
                     hideAndConsume(event);
                 }
@@ -191,7 +192,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             var scrollBarClick = scrollbars.stream().anyMatch(scrollBar -> isClickInArea(event, scrollBar));
             if (!scrollBarClick) {
                 if (getSkinnable().getPersistent()) {
-                    createCloseBlockedAnimation().playFromStart();
+                    createCloseBlockedAnimation(content).playFromStart();
                 } else {
                     hideAndConsume(event);
                 }
@@ -215,8 +216,8 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
         };
     }
 
-    protected Timeline createCloseBlockedAnimation() {
-        return Animations.zoomOut(getSkinnable().getContent(), Duration.millis(100), 0.98);
+    protected Timeline createCloseBlockedAnimation(Node content) {
+        return Animations.zoomOut(content, Duration.millis(100), 0.98);
     }
 
     protected void show() {
@@ -247,7 +248,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             return;
         }
 
-        @Nullable Node content = getSkinnable().getContent();
+        Node content = getSkinnable().getContent();
         if (content == null) {
             doHide();
             return;

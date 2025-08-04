@@ -198,19 +198,19 @@ public class ModalPane extends Control {
      * The factory that provides a transition to be played on content appearance,
      * i.e. when {@link #displayProperty()} is set to 'true'.
      */
-    public ObjectProperty<Function<Node, Animation>> inTransitionFactoryProperty() {
+    public ObjectProperty<@Nullable Function<Node, Animation>> inTransitionFactoryProperty() {
         return inTransitionFactory;
     }
 
-    protected final ObjectProperty<Function<Node, Animation>> inTransitionFactory = new SimpleObjectProperty<>(
+    protected final ObjectProperty<@Nullable Function<Node, Animation>> inTransitionFactory = new SimpleObjectProperty<>(
         this, "inTransitionFactory", node -> Animations.zoomIn(node, DEFAULT_DURATION_IN)
     );
 
-    public Function<Node, Animation> getInTransitionFactory() {
+    public @Nullable Function<Node, Animation> getInTransitionFactory() {
         return inTransitionFactory.get();
     }
 
-    public void setInTransitionFactory(Function<Node, Animation> inTransitionFactory) {
+    public void setInTransitionFactory(@Nullable Function<Node, Animation> inTransitionFactory) {
         this.inTransitionFactory.set(inTransitionFactory);
     }
 
@@ -218,19 +218,19 @@ public class ModalPane extends Control {
      * The factory that provides a transition to be played on content disappearance,
      * i.e. when {@link #displayProperty()} is set to 'false'.
      */
-    public ObjectProperty<Function<Node, Animation>> outTransitionFactoryProperty() {
+    public ObjectProperty<@Nullable Function<Node, Animation>> outTransitionFactoryProperty() {
         return outTransitionFactory;
     }
 
-    protected final ObjectProperty<Function<Node, Animation>> outTransitionFactory = new SimpleObjectProperty<>(
+    protected final ObjectProperty<@Nullable Function<Node, Animation>> outTransitionFactory = new SimpleObjectProperty<>(
         this, "outTransitionFactory", node -> Animations.zoomOut(node, DEFAULT_DURATION_OUT)
     );
 
-    public Function<Node, Animation> getOutTransitionFactory() {
+    public @Nullable Function<Node, Animation> getOutTransitionFactory() {
         return outTransitionFactory.get();
     }
 
-    public void setOutTransitionFactory(Function<Node, Animation> outTransitionFactory) {
+    public void setOutTransitionFactory(@Nullable Function<Node, Animation> outTransitionFactory) {
         this.outTransitionFactory.set(outTransitionFactory);
     }
 
