@@ -179,7 +179,7 @@ public interface BBCodeHandler {
         protected final Block root;
         protected final Deque<Tag> openTags = new ArrayDeque<>();
         protected final Deque<Block> openBlocks = new ArrayDeque<>();
-        protected char[] doc;
+        protected char @Nullable[] doc;
         protected int textCursor;
 
         /**
@@ -253,7 +253,7 @@ public interface BBCodeHandler {
 
         @Override
         public void characters(int start, int length) {
-            if (length > 0) {
+            if (length > 0 && doc != null) {
                 var text = new Text(new String(doc, start, length));
 
                 if (root.node() instanceof TextFlow) {
@@ -395,7 +395,7 @@ public interface BBCodeHandler {
         }
 
         protected void appendTextToCurrentBranch(Tag tag, int textStart, int textLength) {
-            if (textLength > 0) {
+            if (textLength > 0 && doc != null) {
                 Node node = createTextNode(tag, new String(doc, textStart, textLength));
                 node.getStyleClass().addAll(getStyleClass()); // inherit all styles from stack
                 node.setStyle(getStyle());
@@ -574,13 +574,15 @@ public interface BBCodeHandler {
             }
         }
 
-        protected void addStyleIfPresent(Map<String, String> params, String name, String key, Collection<String> c) {
+        protected void addStyleIfPresent(@Nullable Map<String,String> params,
+                                         String name, String key, Collection<String> c) {
             if (params != null && params.containsKey(key)) {
                 c.add(name + ":" + params.get(key));
             }
         }
 
-        protected void addStyleIfPresent(Map<String, String> params, String key, Collection<String> c, String sep) {
+        protected void addStyleIfPresent(@Nullable Map<String, String> params,
+                                         String key, Collection<String> c, String sep) {
             if (params != null && params.containsKey(key)) {
                 Collections.addAll(c, params.get(key).split(sep));
             }
@@ -628,7 +630,7 @@ public interface BBCodeHandler {
             }
         }
 
-        protected String getParamOrDefault(Map<String, String> params, String key, String defaultValue) {
+        protected String getParamOrDefault(@Nullable Map<String, String> params, String key, String defaultValue) {
             if (params != null) {
                 return params.getOrDefault(key, defaultValue);
             } else {
@@ -651,7 +653,9 @@ public interface BBCodeHandler {
 
             while (it.hasNext()) {
                 var tag = it.next();
-                styleClass.addAll(tag.styleClasses());
+                if (tag.styleClasses() != null) {
+                    styleClass.addAll(tag.styleClasses());
+                }
             }
 
             return styleClass;
@@ -665,7 +669,9 @@ public interface BBCodeHandler {
 
             while (it.hasNext()) {
                 var tag = it.next();
-                style.addAll(tag.styles());
+                if (tag.styles() != null) {
+                    style.addAll(tag.styles());
+                }
             }
 
             return String.join(";", style);
@@ -723,8 +729,8 @@ public interface BBCodeHandler {
     record Tag(String name,
                Type type,
                @Nullable Map<String, String> params,
-               Set<String> styleClasses,
-               Set<String> styles) {
+               @Nullable Set<String> styleClasses,
+               @Nullable Set<String> styles) {
 
         public enum Type {
             BLOCK, TEXT, SELF_CLOSE
@@ -733,16 +739,13 @@ public interface BBCodeHandler {
         public Tag {
             Objects.requireNonNull(name);
             Objects.requireNonNull(type);
-            params = Objects.requireNonNullElse(params, Collections.emptyMap());
-            styleClasses = Objects.requireNonNullElse(styleClasses, Collections.emptySet());
-            styles = Objects.requireNonNullElse(styles, Collections.emptySet());
         }
 
         public boolean hasParam(String name) {
             return params != null && params.containsKey(name);
         }
 
-        public String getParam(String name) {
+        public @Nullable String getParam(String name) {
             return params != null ? params.get(name) : null;
         }
 
