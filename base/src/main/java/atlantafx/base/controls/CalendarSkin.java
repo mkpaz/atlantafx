@@ -51,6 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import atlantafx.base.util.NullSafetyHelper;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
@@ -91,16 +93,16 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     protected final VBox rootPane = new VBox();
     protected CalendarGrid calendarGrid;
 
-    protected Button forwardButton;
-    protected Button backButton;
-    protected Label monthLabel;
-    protected Label yearLabel;
+    protected Button forwardButton = NullSafetyHelper.lateNonNull();
+    protected Button backButton = NullSafetyHelper.lateNonNull();
+    protected Label monthLabel = NullSafetyHelper.lateNonNull();
+    protected Label yearLabel = NullSafetyHelper.lateNonNull();
 
     // model
     protected final List<DateCell> dayNameCells = new ArrayList<>();
     protected final List<DateCell> weekNumberCells = new ArrayList<>();
     protected final List<DateCell> dayCells = new ArrayList<>();
-    protected LocalDate @Nullable[] dayCellDates;
+    protected LocalDate[] dayCellDates = NullSafetyHelper.lateNonNull();
     protected @Nullable DateCell lastFocusedDayCell = null;
     protected final int daysPerWeek = getDaysPerWeek();
 
@@ -629,7 +631,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
         return word;
     }
 
-    private static boolean isToday(LocalDate date) {
+    private static boolean isToday(@Nullable LocalDate date) {
         return date != null && date.equals(today());
     }
 

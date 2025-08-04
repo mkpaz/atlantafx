@@ -24,7 +24,7 @@ import org.jspecify.annotations.Nullable;
  */
 public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase<C, ?>> extends SkinBase<C> {
 
-    protected @Nullable B behavior;
+    protected B behavior;
 
     /**
      * Constructor for all BehaviorSkinBase instances.
@@ -72,6 +72,7 @@ public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("ALL")
     public void dispose() {
         unregisterListeners();
 
