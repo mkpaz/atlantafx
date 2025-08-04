@@ -32,6 +32,8 @@ package atlantafx.base.controls;
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 import java.util.Objects;
+
+import atlantafx.base.util.NullSafetyHelper;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -312,7 +314,7 @@ public class Popover extends PopupControl {
      * @param fadeInDuration The time it takes for the popover to be fully visible.
      *                       This duration takes precedence over the fade-in property without setting.
      */
-    public final void show(Node owner, double x, double y, Duration fadeInDuration) {
+    public final void show(Node owner, double x, double y, @Nullable Duration fadeInDuration) {
 
         // Calling show() a second time without first closing the popover
         // causes it to be placed at the wrong location.
@@ -323,9 +325,7 @@ public class Popover extends PopupControl {
         targetX = x;
         targetY = y;
 
-        if (owner == null) {
-            throw new NullPointerException("Owner Node cannot be null!");
-        }
+        NullSafetyHelper.assertNonNull(owner, "Owner Node");
 
         // this is all needed because children windows do not get their x and y
         // coordinate updated when the owning window gets moved by the user
@@ -514,9 +514,7 @@ public class Popover extends PopupControl {
     private final ObjectProperty<Node> contentNode = new SimpleObjectProperty<>(this, "contentNode") {
         @Override
         public void setValue(Node node) {
-            if (node == null) {
-                throw new NullPointerException("Node cannot be null!");
-            }
+            NullSafetyHelper.assertNonNull(node, "Node Node");
             this.set(node);
         }
     };
@@ -776,9 +774,7 @@ public class Popover extends PopupControl {
      * @see #titleProperty()
      */
     public final void setTitle(String title) {
-        if (title == null) {
-            throw new NullPointerException("Title cannot be null!");
-        }
+        NullSafetyHelper.assertNonNull(title, "Title");
         titleProperty().set(title);
     }
 
@@ -854,7 +850,7 @@ public class Popover extends PopupControl {
 
     /**
      * Sets the value of the fade-in duration property. This should be set before calling
-     * Popover.show(..).
+     * Popover.show(...).
      *
      * @param duration The requested fade-in duration.
      * @see #fadeInDurationProperty()
