@@ -7,11 +7,11 @@
 
 package atlantafx.base.controls;
 
-import java.util.function.Consumer;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Control;
 import javafx.scene.control.SkinBase;
-import org.jspecify.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 /**
  * Base implementation class for defining the visual representation of user
@@ -24,7 +24,7 @@ import org.jspecify.annotations.Nullable;
  */
 public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase<C, ?>> extends SkinBase<C> {
 
-    protected B behavior;
+    protected B behavior; // late non-null
 
     /**
      * Constructor for all BehaviorSkinBase instances.
@@ -55,7 +55,7 @@ public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase
      *
      * @return The behavior for this skin.
      */
-    public @Nullable B getBehavior() {
+    public B getBehavior() {
         return behavior;
     }
 
