@@ -36,6 +36,7 @@ public final class ToggleButtonPage extends OutlinePage {
         addSection("Icon Only", iconOnlyExample());
         addSection("Segmented Group", segmentedGroupExample());
         addSection("Flat", flatExample());
+        addSection("ToggleButton Size", toggleButtonSizeExample());
     }
 
     private ExampleBox usageExample() {
@@ -232,5 +233,28 @@ public final class ToggleButtonPage extends OutlinePage {
         box.setAlignment(Pos.CENTER_LEFT);
 
         return new ExampleBox(box, new Snippet(getClass(), 4));
+    }
+
+    private ExampleBox toggleButtonSizeExample() {
+        //snippet_5:start
+        var smallBtn = new ToggleButton("Small");
+        smallBtn.getStyleClass().add(Styles.SMALL);
+        smallBtn.setSelected(true);
+
+        var normalBtn = new ToggleButton("Normal");
+
+        var largeBtn = new ToggleButton("Large");
+        largeBtn.getStyleClass().add(Styles.LARGE);
+        //snippet_5:end
+
+        var box = new HBox(HGAP_20, smallBtn, normalBtn, largeBtn);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            For larger or smaller buttons, use the [code]Styles.SMALL[/code] or \
+            [code]Styles.LARGE[/code] style classes, respectively."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 5), description);
     }
 }

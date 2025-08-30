@@ -66,4 +66,14 @@ $color-border-selected: -color-accent-emphasis  !default;
   &:selected.right-pill:focused {
     -fx-background-insets: 0, cfg.$border-width;
   }
+
+  &.small {
+    -fx-padding: cfg.$padding-y-small cfg.$padding-x-small cfg.$padding-y-small cfg.$padding-x-small;
+    -fx-font-size: cfg.$font-small;
+  }
+
+  &.large {
+    -fx-padding: cfg.$padding-y-large cfg.$padding-x-large cfg.$padding-y-large cfg.$padding-x-large;
+    -fx-font-size: cfg.$font-title-4;
+  }
 }
