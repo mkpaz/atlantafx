@@ -36,6 +36,7 @@ public final class ToggleButtonPage extends OutlinePage {
         addSection("Icon Only", iconOnlyExample());
         addSection("Segmented Group", segmentedGroupExample());
         addSection("Flat", flatExample());
+        addSection("Size", sizeExample());
     }
 
     private ExampleBox usageExample() {
@@ -232,5 +233,45 @@ public final class ToggleButtonPage extends OutlinePage {
         box.setAlignment(Pos.CENTER_LEFT);
 
         return new ExampleBox(box, new Snippet(getClass(), 4));
+    }
+
+    private ExampleBox sizeExample() {
+        //snippet_5:start
+        var smallBtn1 = new ToggleButton("Small");
+        smallBtn1.getStyleClass().addAll(Styles.LEFT_PILL, Styles.SMALL);
+        smallBtn1.setSelected(true);
+        var smallBtn2 = new ToggleButton("Small");
+        smallBtn2.getStyleClass().addAll(Styles.RIGHT_PILL, Styles.SMALL);
+        smallBtn2.setSelected(true);
+
+        var normalBtn1 = new ToggleButton("Normal");
+        normalBtn1.getStyleClass().addAll(Styles.LEFT_PILL);
+        var normalBtn2 = new ToggleButton("Normal");
+        normalBtn2.getStyleClass().addAll(Styles.RIGHT_PILL);
+
+        var largeBtn1 = new ToggleButton("Large");
+        largeBtn1.getStyleClass().addAll(Styles.LEFT_PILL, Styles.LARGE);
+        var largeBtn2 = new ToggleButton("Large");
+        largeBtn2.getStyleClass().addAll(Styles.RIGHT_PILL, Styles.LARGE);
+        //snippet_5:end
+
+        var btnBoxSmall = new HBox(smallBtn1, smallBtn2);
+        btnBoxSmall.setAlignment(Pos.CENTER_LEFT);
+
+        var boxNormal = new HBox(normalBtn1, normalBtn2);
+        boxNormal.setAlignment(Pos.CENTER_LEFT);
+
+        var btnBoxLarge = new HBox(largeBtn1, largeBtn2);
+        btnBoxLarge.setAlignment(Pos.CENTER_LEFT);
+
+        var box = new HBox(HGAP_20, btnBoxSmall, boxNormal, btnBoxLarge);
+        box.setAlignment(Pos.CENTER_LEFT);
+
+        var description = BBCodeParser.createFormattedText("""
+            For larger or smaller buttons, use the [code]Styles.SMALL[/code] or \
+            [code]Styles.LARGE[/code] style classes, respectively."""
+        );
+
+        return new ExampleBox(box, new Snippet(getClass(), 5), description);
     }
 }
