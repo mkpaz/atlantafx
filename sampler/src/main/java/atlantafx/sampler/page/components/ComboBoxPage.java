@@ -82,7 +82,7 @@ public class ComboBoxPage extends OutlinePage {
 
         var description = BBCodeParser.createFormattedText("""
             The [i]ComboBox[/i] is an implementation of the [i]ComboBoxBase[/i] abstract class, \
-            whereas the [i]CheckBox[/i] is more similar to the [i]MenuButton[/i]. Both controls \
+            whereas the [i]ChoiceBox[/i] is more similar to the [i]MenuButton[/i]. Both controls \
             provide a selection model to manage the selected state."""
         );
 
