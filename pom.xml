@@ -65,6 +65,7 @@
         <lib.devtoolsfx.version>1.0.1</lib.devtoolsfx.version>
         <lib.ikonli.version>12.3.1</lib.ikonli.version>
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
+        <lib.gemsfx.version>3.8.2</lib.gemsfx.version>
         <test.assertj.version>3.27.3</test.assertj.version>
         <test.junit.version>5.8.1</test.junit.version>
         <test.mockito.version>5.23.0</test.mockito.version>
@@ -149,6 +150,11 @@
                 <version>1.0.0</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.dlsc.gemsfx</groupId>
+                <artifactId>gemsfx</artifactId>
+                <version>${lib.gemsfx.version}</version>
+            </dependency>
             <dependency>
                 <groupId>fr.brouillard.oss</groupId>
                 <artifactId>cssfx</artifactId>

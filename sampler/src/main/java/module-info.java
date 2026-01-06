@@ -24,6 +24,8 @@ module atlantafx.sampler {
     requires javafx.fxml;
     requires jdk.zipfs;
 
+    requires com.dlsc.gemsfx;
+
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.feather;
