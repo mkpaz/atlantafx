@@ -5,6 +5,7 @@ package atlantafx.sampler;
 import atlantafx.sampler.event.*;
 import atlantafx.sampler.layout.ApplicationWindow;
 import atlantafx.sampler.theme.ThemeManager;
+import com.dlsc.gemsfx.util.StageManager;
 import devtoolsfx.gui.GUI;
 import devtoolsfx.gui.Preferences;
 import fr.brouillard.oss.cssfx.CSSFX;
@@ -78,6 +79,8 @@ public class Launcher extends Application {
         // register event listeners
         DefaultEventBus.getInstance().subscribe(BrowseEvent.class, this::onBrowseEvent);
         DefaultEventBus.getInstance().subscribe(DevToolsEvent.class, e -> openDevTools(stage, tm));
+
+        StageManager.install(stage, "atlantafx.sampler", scene.getWidth(), scene.getHeight());
 
         Platform.runLater(() -> {
             stage.show();
