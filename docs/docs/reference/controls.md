@@ -290,3 +290,82 @@ Color variables:
 Pseudo-classes:
 
 * `:success`, `:danger`
+
+## BottomSheet
+
+A slide-up panel that overlays content from the bottom of the screen.
+
+Color variables:
+
+* `-color-bottom-sheet-overlay`
+* `-color-bottom-sheet-bg`
+
+## Toast
+
+A lightweight notification that auto-dismisses after a duration.
+
+CSS classes:
+
+* `accent`, `success`, `warning`, `danger` (color variants)
+
+Color variables:
+
+* `-color-toast-bg`
+* `-color-toast-fg`
+* `-color-toast-border`
+
+## Rating
+
+A star-based rating control supporting whole and half stars.
+
+Color variables:
+
+* `-color-rating-filled`
+* `-color-rating-unfilled`
+
+## Chip
+
+A compact tag element that supports toggle selection and an optional close button.
+
+Pseudo-classes:
+
+* `:selected`
+* `:disabled`
+
+Color variables:
+
+* `-color-chip-bg`
+* `-color-chip-fg`
+* `-color-chip-border`
+* `-color-chip-bg-hover`
+* `-color-chip-fg-hover`
+* `-color-chip-bg-selected`
+* `-color-chip-fg-selected`
+* `-color-chip-border-selected`
+* `-color-chip-bg-selected-hover`
+
+## Timeline
+
+A vertical timeline displaying events in chronological order with status indicators.
+
+Pseudo-classes (on node):
+
+* `:active`
+* `:completed`
+
+Color variables:
+
+* `-color-timeline-line`
+* `-color-timeline-node`
+* `-color-timeline-active`
+* `-color-timeline-completed`
+* `-color-timeline-fg`
+* `-color-timeline-fg-muted`
+
+## TreeSelect
+
+A dropdown control that wraps a TreeView inside a popup for hierarchical selection.
+
+Color variables:
+
+* Uses standard input and accent color variables
