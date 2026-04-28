@@ -1,0 +1,103 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+$color-bg:       -color-bg-subtle        !default;
+$color-fg:       -color-fg-default       !default;
+$color-bg-hover: -color-bg-default       !default;
+$color-fg-hover: -color-fg-default       !default;
+$color-border:   -color-border-default   !default;
+
+$color-bg-selected:       -color-accent-subtle       !default;
+$color-fg-selected:       -color-accent-emphasis     !default;
+$color-border-selected:   -color-accent-emphasis     !default;
+$color-bg-selected-hover: -color-accent-subtle-hover !default;
+
+$padding-x: 0.75em !default;
+$padding-y: 0.25em !default;
+$border-radius: cfg.$border-radius !default;
+
+.chip {
+  -color-chip-bg:              $color-bg;
+  -color-chip-fg:              $color-fg;
+  -color-chip-border:          $color-border;
+  -color-chip-bg-hover:        $color-bg-hover;
+  -color-chip-fg-hover:        $color-fg-hover;
+  -color-chip-bg-selected:     $color-bg-selected;
+  -color-chip-fg-selected:     $color-fg-selected;
+  -color-chip-border-selected: $color-border-selected;
+  -color-chip-bg-selected-hover: $color-bg-selected-hover;
+
+  -fx-cursor: hand;
+
+  >.container {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 0.4em;
+    -fx-padding: $padding-y $padding-x;
+    -fx-background-color: -color-chip-bg;
+    -fx-background-radius: $border-radius;
+    -fx-border-color: -color-chip-border;
+    -fx-border-radius: $border-radius;
+    -fx-border-width: 1;
+
+    >.graphic {
+      -fx-pref-width:  1.2em;
+      -fx-pref-height: 1.2em;
+    }
+
+    >.text {
+      -fx-text-fill: -color-chip-fg;
+    }
+
+    >.close-button {
+      -fx-background-radius: 100px;
+      -fx-padding: 0.3em;
+
+      >.icon {
+        @include icons.get("close", true);
+        -fx-background-color: -color-chip-fg;
+        -fx-padding: 0.25em;
+      }
+
+      &:hover {
+        -fx-background-color: -color-chip-bg-hover;
+
+        >.icon {
+          -fx-background-color: -color-chip-fg-hover;
+        }
+      }
+    }
+  }
+
+  &:selected {
+    >.container {
+      -fx-background-color: -color-chip-bg-selected;
+      -fx-border-color: -color-chip-border-selected;
+
+      >.text {
+        -fx-text-fill: -color-chip-fg-selected;
+      }
+
+      >.close-button {
+        >.icon {
+          -fx-background-color: -color-chip-fg-selected;
+        }
+        &:hover {
+          >.icon {
+            -fx-background-color: -color-chip-fg-selected;
+          }
+        }
+      }
+
+      &:hover {
+        -fx-background-color: -color-chip-bg-selected-hover;
+      }
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+    -fx-cursor: default;
+  }
+}

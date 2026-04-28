@@ -92,6 +92,7 @@ public class MainModel {
         containers.getChildren().setAll(
             NAV_TREE.get(AccordionPage.class),
             NAV_TREE.get(CardPage.class),
+            NAV_TREE.get(ChipPage.class),
             NAV_TREE.get(ContextMenuPage.class),
             NAV_TREE.get(DeckPanePage.class),
             NAV_TREE.get(InputGroupPage.class),
@@ -208,6 +209,7 @@ public class MainModel {
         map.put(ButtonPage.class, NavTree.Item.page(ButtonPage.NAME, ButtonPage.class));
         map.put(CalendarPage.class, NavTree.Item.page(CalendarPage.NAME, CalendarPage.class));
         map.put(CardPage.class, NavTree.Item.page(CardPage.NAME, CardPage.class));
+        map.put(ChipPage.class, NavTree.Item.page(ChipPage.NAME, ChipPage.class));
         map.put(ChartPage.class, NavTree.Item.page(ChartPage.NAME, ChartPage.class));
         map.put(ChoiceBoxPage.class, NavTree.Item.page(ChoiceBoxPage.NAME, ChoiceBoxPage.class));
         map.put(CheckBoxPage.class, NavTree.Item.page(CheckBoxPage.NAME, CheckBoxPage.class));
