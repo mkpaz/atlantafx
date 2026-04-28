@@ -44,7 +44,8 @@ record Nav(String title,
         ToggleSwitchPage.class,
         ToastPage.class,
         RatingPage.class,
-        TimelinePage.class
+        TimelinePage.class,
+        TreeSelectPage.class
     );
 
     public Nav {

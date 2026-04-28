@@ -156,7 +156,8 @@ public class MainModel {
             NAV_TREE.get(SegmentedControlPage.class),
             NAV_TREE.get(TabLinePage.class),
             NAV_TREE.get(TabPanePage.class),
-            NAV_TREE.get(TimelinePage.class)
+            NAV_TREE.get(TimelinePage.class),
+            NAV_TREE.get(TreeSelectPage.class)
         );
 
         var showcases = NavTree.Item.group("Showcase", new FontIcon(Material2OutlinedMZ.VISIBILITY));
@@ -271,6 +272,7 @@ public class MainModel {
         map.put(ToolBarPage.class, NavTree.Item.page(ToolBarPage.NAME, ToolBarPage.class));
         map.put(TooltipPage.class, NavTree.Item.page(TooltipPage.NAME, TooltipPage.class));
         map.put(TimelinePage.class, NavTree.Item.page(TimelinePage.NAME, TimelinePage.class));
+        map.put(TreeSelectPage.class, NavTree.Item.page(TreeSelectPage.NAME, TreeSelectPage.class));
         map.put(TreeTableViewPage.class, NavTree.Item.page(TreeTableViewPage.NAME, TreeTableViewPage.class));
         map.put(TreeViewPage.class, NavTree.Item.page(TreeViewPage.NAME, TreeViewPage.class));
 
