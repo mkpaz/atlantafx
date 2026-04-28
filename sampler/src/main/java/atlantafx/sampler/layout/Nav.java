@@ -24,6 +24,7 @@ record Nav(String title,
 
     private static final Set<Class<? extends Page>> TAGGED_PAGES = Set.of(
         BBCodePage.class,
+        BottomSheetPage.class,
         BreadcrumbsPage.class,
         CalendarPage.class,
         CardPage.class,

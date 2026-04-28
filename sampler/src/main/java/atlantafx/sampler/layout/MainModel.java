@@ -96,6 +96,7 @@ public class MainModel {
             NAV_TREE.get(DeckPanePage.class),
             NAV_TREE.get(InputGroupPage.class),
             NAV_TREE.get(ModalPanePage.class),
+            NAV_TREE.get(BottomSheetPage.class),
             NAV_TREE.get(ScrollPanePage.class),
             NAV_TREE.get(SeparatorPage.class),
             NAV_TREE.get(SplitPanePage.class),
@@ -200,6 +201,7 @@ public class MainModel {
 
         // components
         map.put(AccordionPage.class, NavTree.Item.page(AccordionPage.NAME, AccordionPage.class));
+        map.put(BottomSheetPage.class, NavTree.Item.page(BottomSheetPage.NAME, BottomSheetPage.class));
         map.put(BreadcrumbsPage.class, NavTree.Item.page(BreadcrumbsPage.NAME, BreadcrumbsPage.class));
         map.put(ButtonPage.class, NavTree.Item.page(ButtonPage.NAME, ButtonPage.class));
         map.put(CalendarPage.class, NavTree.Item.page(CalendarPage.NAME, CalendarPage.class));

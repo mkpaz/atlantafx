@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/effects";
+
+$color-overlay-bg: if(cfg.$darkMode, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.25)) !default;
+$color-sheet-bg: -color-bg-default !default;
+$color-drag-handle: -color-border-default !default;
+$sheet-radius: 12px !default;
+$drag-handle-width: 32px !default;
+$drag-handle-height: 4px !default;
+$drag-handle-radius: 2px !default;
+
+.bottom-sheet {
+  -color-bottom-sheet-overlay: $color-overlay-bg;
+  -color-bottom-sheet-bg: $color-sheet-bg;
+
+  >.container {
+    -fx-background-color: -color-bottom-sheet-overlay;
+    -fx-alignment: bottom-center;
+  }
+
+  >.container>.sheet {
+    -fx-background-color: -color-bottom-sheet-bg;
+    -fx-background-radius: $sheet-radius $sheet-radius 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 16, 0.2, 0, -4);
+    -fx-padding: 0;
+    -fx-max-width: infinity;
+
+    >.drag-handle-area {
+      -fx-padding: 8 0 4 0;
+      -fx-alignment: center;
+
+      >.drag-handle {
+        -fx-background-color: $color-drag-handle;
+        -fx-background-radius: $drag-handle-radius;
+        -fx-pref-width: $drag-handle-width;
+        -fx-pref-height: $drag-handle-height;
+        -fx-max-height: $drag-handle-height;
+      }
+    }
+
+    >.header {
+      -fx-padding: 4 16 8 16;
+    }
+
+    >.content {
+      -fx-padding: 0 16 16 16;
+    }
+  }
+}
