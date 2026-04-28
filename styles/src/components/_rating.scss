@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$color-star-filled:   -color-accent-emphasis !default;
+$color-star-unfilled: -color-border-muted    !default;
+
+$star-size:     1.5em !default;
+$star-gap:      0.25em !default;
+
+$star-shape: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
+
+.rating {
+  -color-rating-filled:   $color-star-filled;
+  -color-rating-unfilled: $color-star-unfilled;
+
+  -fx-cursor: hand;
+
+  >.container {
+    -fx-alignment: CENTER_LEFT;
+
+    >.background,
+    >.foreground {
+      -fx-spacing: $star-gap;
+    }
+
+    >.background > .star {
+      -fx-shape: $star-shape;
+      -fx-scale-shape: true;
+      -fx-background-color: -color-rating-unfilled;
+      -fx-min-width:  $star-size;
+      -fx-min-height: $star-size;
+      -fx-pref-width:  $star-size;
+      -fx-pref-height: $star-size;
+      -fx-max-width:  $star-size;
+      -fx-max-height: $star-size;
+    }
+
+    >.foreground > .star {
+      -fx-shape: $star-shape;
+      -fx-scale-shape: true;
+      -fx-background-color: -color-rating-filled;
+      -fx-min-width:  $star-size;
+      -fx-min-height: $star-size;
+      -fx-pref-width:  $star-size;
+      -fx-pref-height: $star-size;
+      -fx-max-width:  $star-size;
+      -fx-max-height: $star-size;
+    }
+  }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+    -fx-cursor: default;
+  }
+}

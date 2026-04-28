@@ -41,7 +41,8 @@ record Nav(String title,
         TilePage.class,
         TabLinePage.class,
         ToggleSwitchPage.class,
-        ToastPage.class
+        ToastPage.class,
+        RatingPage.class
     );
 
     public Nav {
