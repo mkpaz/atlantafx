@@ -1,0 +1,94 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+@use "../settings/icons";
+
+$color-bg:                -color-bg-subtle         !default;
+$color-fg:                -color-fg-default        !default;
+$color-border:            -color-border-muted      !default;
+$color-button-bg-hover:   -color-bg-default        !default;
+
+$color-bg-accent:         -color-accent-subtle     !default;
+$color-fg-accent:         -color-accent-fg         !default;
+$color-border-accent:     -color-accent-muted      !default;
+
+$color-bg-success:        -color-success-subtle    !default;
+$color-fg-success:        -color-success-fg        !default;
+$color-border-success:    -color-success-muted     !default;
+
+$color-bg-warning:        -color-warning-subtle    !default;
+$color-fg-warning:        -color-warning-fg        !default;
+$color-border-warning:    -color-warning-muted     !default;
+
+$color-bg-danger:         -color-danger-subtle     !default;
+$color-fg-danger:         -color-danger-fg         !default;
+$color-border-danger:     -color-danger-muted      !default;
+
+$padding-x:               1em    !default;
+$padding-y:               0.75em !default;
+$spacing:                 0.75em !default;
+$close-button-radius:     100px  !default;
+
+.toast {
+
+  -color-toast-bg:      $color-bg;
+  -color-toast-fg:      $color-fg;
+  -color-toast-border:  $color-border;
+
+  &.accent {
+    -color-toast-bg:     $color-bg-accent;
+    -color-toast-fg:     $color-fg-accent;
+    -color-toast-border: $color-border-accent;
+  }
+
+  &.success {
+    -color-toast-bg:     $color-bg-success;
+    -color-toast-fg:     $color-fg-success;
+    -color-toast-border: $color-border-success;
+  }
+
+  &.warning {
+    -color-toast-bg:     $color-bg-warning;
+    -color-toast-fg:     $color-fg-warning;
+    -color-toast-border: $color-border-warning;
+  }
+
+  &.danger {
+    -color-toast-bg:     $color-bg-danger;
+    -color-toast-fg:     $color-fg-danger;
+    -color-toast-border: $color-border-danger;
+  }
+
+  >.container {
+    -fx-background-color: -color-toast-bg;
+    -fx-background-radius: cfg.$border-radius;
+    -fx-border-color: -color-toast-border;
+    -fx-border-width: cfg.$border-width;
+    -fx-border-radius: cfg.$border-radius;
+    -fx-padding: $padding-y $padding-x;
+    -fx-spacing: $spacing;
+    -fx-alignment: CENTER_LEFT;
+
+    >.message {
+      Text {
+        -fx-fill: -color-toast-fg;
+      }
+    }
+
+    >.close-button {
+      -fx-background-radius: $close-button-radius;
+      -fx-padding: 0.5em;
+
+      >.icon {
+        @include icons.get("close", true);
+        -fx-background-color: -color-toast-fg;
+        -fx-padding: 0.3em;
+      }
+
+      &:hover {
+        -fx-background-color: -color-toast-border, $color-button-bg-hover;
+        -fx-background-insets: 0, 1;
+      }
+    }
+  }
+}

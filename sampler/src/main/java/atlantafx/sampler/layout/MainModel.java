@@ -141,6 +141,7 @@ public class MainModel {
             NAV_TREE.get(SpinnerPage.class),
             NAV_TREE.get(TextAreaPage.class),
             NAV_TREE.get(TextFieldPage.class),
+            NAV_TREE.get(ToastPage.class),
             NAV_TREE.get(ToggleButtonPage.class),
             NAV_TREE.get(ToggleSwitchPage.class)
         );
@@ -259,6 +260,7 @@ public class MainModel {
             TextFieldPage.class, "PasswordField")
         );
         map.put(TitledPanePage.class, NavTree.Item.page(TitledPanePage.NAME, TitledPanePage.class));
+        map.put(ToastPage.class, NavTree.Item.page(ToastPage.NAME, ToastPage.class));
         map.put(ToggleButtonPage.class, NavTree.Item.page(ToggleButtonPage.NAME, ToggleButtonPage.class));
         map.put(ToggleSwitchPage.class, NavTree.Item.page(ToggleSwitchPage.NAME, ToggleSwitchPage.class));
         map.put(ToolBarPage.class, NavTree.Item.page(ToolBarPage.NAME, ToolBarPage.class));

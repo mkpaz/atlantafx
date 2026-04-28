@@ -40,7 +40,8 @@ record Nav(String title,
         SelectableTextFlowPage.class,
         TilePage.class,
         TabLinePage.class,
-        ToggleSwitchPage.class
+        ToggleSwitchPage.class,
+        ToastPage.class
     );
 
     public Nav {
