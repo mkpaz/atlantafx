@@ -360,6 +360,18 @@
             </properties>
         </profile>
         <profile>
+            <id>mac-active</id>
+            <activation>
+                <os>
+                    <name>mac os x</name>
+                </os>
+            </activation>
+            <properties>
+                <app.icon>${project.build.directory}/app-icon.icns</app.icon>
+                <app.build.compressionAlg>tar.gz</app.build.compressionAlg>
+            </properties>
+        </profile>
+        <profile>
             <id>windows-active</id>
             <activation>
                 <os>
