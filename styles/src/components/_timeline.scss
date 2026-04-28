@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: MIT
+
+@use "../settings/config" as cfg;
+
+$color-line:    -color-border-default   !default;
+$color-node:    -color-border-muted     !default;
+$color-active:  -color-accent-emphasis  !default;
+$color-completed: -color-success-emphasis !default;
+$color-fg:      -color-fg-default       !default;
+$color-fg-muted: -color-fg-muted        !default;
+
+$node-size:     1.2em  !default;
+$line-width:    2px    !default;
+$gap-x:         1em    !default;
+
+.timeline {
+  -color-timeline-line:      $color-line;
+  -color-timeline-node:      $color-node;
+  -color-timeline-active:    $color-active;
+  -color-timeline-completed: $color-completed;
+  -color-timeline-fg:        $color-fg;
+  -color-timeline-fg-muted:  $color-fg-muted;
+
+  >.container {
+    -fx-spacing: 0;
+
+    >.timeline-item {
+      -fx-alignment: TOP_LEFT;
+      -fx-spacing: $gap-x;
+
+      >.timestamp {
+        -fx-text-fill: -color-timeline-fg-muted;
+        -fx-pref-width: 6em;
+        -fx-alignment: TOP_RIGHT;
+        -fx-wrap-text: true;
+      }
+
+      >.center {
+        -fx-alignment: TOP_CENTER;
+        -fx-spacing: 0;
+        -fx-padding: 0;
+        -fx-min-width: $node-size;
+        -fx-pref-width: $node-size;
+
+        >.line {
+          -fx-background-color: -color-timeline-line;
+          -fx-min-height: 0.5em;
+          -fx-pref-height: 0.5em;
+          -fx-min-width: $line-width;
+          -fx-pref-width: $line-width;
+          -fx-max-width: $line-width;
+        }
+
+        >.node {
+          -fx-min-width:  $node-size;
+          -fx-min-height: $node-size;
+          -fx-pref-width:  $node-size;
+          -fx-pref-height: $node-size;
+          -fx-max-width:  $node-size;
+          -fx-max-height: $node-size;
+          -fx-background-color: -color-timeline-node;
+          -fx-background-radius: 100px;
+          -fx-alignment: CENTER;
+
+          &:active {
+            -fx-background-color: -color-timeline-active;
+          }
+
+          &:completed {
+            -fx-background-color: -color-timeline-completed;
+          }
+        }
+      }
+
+      >.content {
+        -fx-text-fill: -color-timeline-fg;
+        -fx-wrap-text: true;
+      }
+
+      // alternate mode: equal-width side columns
+      >.side {
+        -fx-pref-width: 0;
+      }
+    }
+  }
+}
