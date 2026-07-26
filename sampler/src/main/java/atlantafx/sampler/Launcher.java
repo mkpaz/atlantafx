@@ -32,6 +32,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Launcher extends Application {
 
+    public static final String APP_NAME = "atlantafx";
+
     public static final boolean IS_DEV_MODE = "DEV".equalsIgnoreCase(
         Resources.getPropertyOrEnv("atlantafx.mode", "ATLANTAFX_MODE")
     );

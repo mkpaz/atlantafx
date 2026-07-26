@@ -123,6 +123,7 @@ final class Sidebar extends VBox {
 
     private void openThemeDialog() {
         var dialog = themeDialog.get();
+        dialog.updateThumbnails();
         dialog.show(getScene());
         Platform.runLater(dialog::requestFocus);
     }

@@ -9,8 +9,11 @@ module atlantafx.sampler {
     requires atlantafx.base;
     requires atlantafx.decorations;
 
+    requires javafx.graphics;
+    requires javafx.controls;
     requires java.desktop;
     requires java.prefs;
+    requires java.net.http;
     requires javafx.swing;
     requires javafx.media;
     requires javafx.web;

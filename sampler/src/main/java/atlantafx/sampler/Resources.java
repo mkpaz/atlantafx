@@ -36,6 +36,6 @@ public final class Resources {
     }
 
     public static Preferences getPreferences() {
-        return Preferences.userRoot().node("atlantafx");
+        return Preferences.userRoot().node(Launcher.APP_NAME);
     }
 }

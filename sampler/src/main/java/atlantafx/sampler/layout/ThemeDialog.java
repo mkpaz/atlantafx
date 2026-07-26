@@ -4,12 +4,14 @@ package atlantafx.sampler.layout;
 
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+
+import java.util.Objects;
 
 final class ThemeDialog extends ModalDialog {
 
@@ -33,18 +35,24 @@ final class ThemeDialog extends ModalDialog {
         });
     }
 
-    private VBox createContent() {
+    private ScrollPane createContent() {
         thumbnailsPane.setAlignment(Pos.TOP_CENTER);
         thumbnailsPane.setPrefColumns(3);
         thumbnailsPane.setStyle("-color-thumbnail-border:-color-border-subtle;");
+        thumbnailsPane.setPadding(new Insets(0, 20, 0, 20));
 
-        var root = new VBox(thumbnailsPane);
-        root.setPadding(new Insets(20));
+        var root = new ScrollPane();
+        root.setContent(thumbnailsPane);
+        root.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        root.setFitToHeight(true);
+        root.setHbarPolicy(ScrollBarPolicy.NEVER);
+        root.setFitToWidth(false);
+        root.setMaxHeight(600);
 
         return root;
     }
 
-    private void updateThumbnails() {
+    public void updateThumbnails() {
         var tm = ThemeManager.getInstance();
 
         thumbnailsPane.getChildren().clear();
