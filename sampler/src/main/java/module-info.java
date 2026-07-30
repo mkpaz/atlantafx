@@ -8,6 +8,7 @@ module atlantafx.sampler {
 
     requires atlantafx.base;
     requires atlantafx.decorations;
+    requires atlantafx.spins;
 
     requires javafx.graphics;
     requires javafx.controls;
@@ -28,6 +29,7 @@ module atlantafx.sampler {
     requires fr.brouillard.oss.cssfx;
     requires devtoolsfx.gui;
     requires datafaker;
+    requires javafx.base;
 
     exports atlantafx.sampler;
     exports atlantafx.sampler.fake.domain;
@@ -51,4 +53,5 @@ module atlantafx.sampler {
     opens atlantafx.sampler.media;
     opens atlantafx.sampler.page.general;
     opens atlantafx.sampler.page.showcase;
+    opens atlantafx.sampler.page.components;
 }

@@ -38,6 +38,7 @@
         <module>base</module>
         <module>decorations</module>
         <module>sampler</module>
+        <module>spins</module>
         <module>styles</module>
     </modules>
 
@@ -81,6 +82,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>atlantafx-decorations</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>atlantafx-spins</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
