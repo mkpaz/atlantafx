@@ -26,6 +26,7 @@ public abstract class AbstractPage extends StackPane implements Page {
         super();
 
         userContent.getStyleClass().add("user-content");
+        userContentArea.getStyleClass().add("user-content-area");
         getStyleClass().add("page");
 
         createPageLayout();

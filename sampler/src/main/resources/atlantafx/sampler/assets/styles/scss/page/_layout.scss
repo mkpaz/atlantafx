@@ -5,7 +5,10 @@
   -fx-alignment: TOP_CENTER;
 
   >.scroll-pane {
-    -fx-padding: 50px 50px 50px 50px;
+
+    .user-content-area {
+      -fx-padding: 50px 50px 50px 50px;
+    }
 
     .user-content {
       -fx-alignment: TOP_CENTER;
@@ -21,7 +24,10 @@
 
   >.body {
     >.scroll-pane {
-      -fx-padding: 30px 0 50px 30px;
+
+      .user-content-area {
+        -fx-padding: 30px 0 50px 30px;
+      }
 
       .user-content {
         -fx-spacing: 20px;
