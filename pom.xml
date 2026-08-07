@@ -40,6 +40,7 @@
         <module>sampler</module>
         <module>spins</module>
         <module>styles</module>
+        <module>validation</module>
     </modules>
 
     <properties>
@@ -63,7 +64,7 @@
         <lib.devtoolsfx.version>1.0.1</lib.devtoolsfx.version>
         <lib.ikonli.version>12.3.1</lib.ikonli.version>
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
-        <test.assertj.version>3.21.0</test.assertj.version>
+        <test.assertj.version>3.27.3</test.assertj.version>
         <test.junit.version>5.8.1</test.junit.version>
     </properties>
 
@@ -87,6 +88,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>atlantafx-spins</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>atlantafx-validation</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
