@@ -50,7 +50,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <openjfx.version>23</openjfx.version>
         <sass.version>1.54.4</sass.version>
 
