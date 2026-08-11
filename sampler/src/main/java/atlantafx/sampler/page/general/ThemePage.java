@@ -2,11 +2,9 @@
 
 package atlantafx.sampler.page.general;
 
-import static atlantafx.sampler.event.ThemeEvent.EventType;
-import static atlantafx.sampler.theme.ThemeManager.DEFAULT_FONT_SIZE;
-
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.BBCodeParser;
+import atlantafx.base.util.Colour;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
@@ -14,17 +12,9 @@ import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.util.Lazy;
-import java.net.URI;
-import java.util.Objects;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -37,6 +27,14 @@ import javafx.util.StringConverter;
 import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
+
+import java.net.URI;
+import java.util.Objects;
+
+import static atlantafx.base.util.Colour.RGB;
+import static atlantafx.base.util.Colour.color;
+import static atlantafx.sampler.event.ThemeEvent.EventType;
+import static atlantafx.sampler.theme.ThemeManager.DEFAULT_FONT_SIZE;
 
 @SuppressWarnings("UnnecessaryLambda")
 public final class ThemePage extends OutlinePage {
@@ -64,9 +62,9 @@ public final class ThemePage extends OutlinePage {
         return null;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
-    private final ReadOnlyObjectWrapper<Color> bgBaseColor = new ReadOnlyObjectWrapper<>(Color.WHITE);
+    private final Colour bgBaseColor = color(Color.WHITE);
     private final Lazy<ThemeRepoManagerDialog> themeRepoManagerDialog;
     private final Lazy<ContrastCheckerDialog> contrastCheckerDialog;
     private final Lazy<SceneBuilderDialog> sceneBuilderDialog;
@@ -94,7 +92,7 @@ public final class ThemePage extends OutlinePage {
         sceneBuilderDialog = new Lazy<>(() -> {
             var dialog = new SceneBuilderDialog();
             dialog.setClearOnClose(true);
-            dialog.setOnClose(e -> dialog.reset());
+            dialog.setOnClose(_ -> dialog.reset());
             return dialog;
         });
 
@@ -126,10 +124,12 @@ public final class ThemePage extends OutlinePage {
         // mandatory base bg for flatten color calc
         Styles.appendStyle(this, "-fx-background-color", "-color-bg-default");
         backgroundProperty().addListener(
-            (obs, old, val) -> bgBaseColor.set(val != null && !val.getFills().isEmpty()
-                ? (Color) val.getFills().get(0).getFill()
-                : Color.WHITE
-            ));
+            (_, _, val) -> {
+                var color = val != null && !val.getFills().isEmpty()
+                    ? (Color) val.getFills().getFirst().getFill()
+                    : Color.WHITE;
+                bgBaseColor.setRGB(new RGB(color.getRed(), color.getGreen(), color.getBlue(), color.getOpacity()));
+            });
 
         addPageHeader();
         addNode(createThemeManagementSection());
@@ -151,7 +151,7 @@ public final class ThemePage extends OutlinePage {
         var themeRepoBtn = new Button(null, new FontIcon(Material2OutlinedMZ.SETTINGS));
         themeRepoBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT);
         themeRepoBtn.setTooltip(new Tooltip("Settings"));
-        themeRepoBtn.setOnAction(e -> {
+        themeRepoBtn.setOnAction(_ -> {
             ThemeRepoManagerDialog dialog = themeRepoManagerDialog.get();
             dialog.getContent().update();
             dialog.show(getScene());
@@ -174,7 +174,7 @@ public final class ThemePage extends OutlinePage {
     private Node createSceneBuilderSection() {
         var sceneBuilderBtn = new Button("SceneBuilder Integration");
         sceneBuilderBtn.setGraphic(new ImageView(SCENE_BUILDER_ICON));
-        sceneBuilderBtn.setOnAction(e -> {
+        sceneBuilderBtn.setOnAction(_ -> {
             SceneBuilderDialog dialog = sceneBuilderDialog.get();
             dialog.show(getScene());
         });
@@ -192,16 +192,16 @@ public final class ThemePage extends OutlinePage {
         var description = createFormattedText("""
             AtlantaFX follows [url=https://primer.style/design/foundations/color]GitHub \
             Primer interface guidelines[/url] and color system.
-                        
+            
             Color contrast between text and its background must meet \
             [url=https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html]required WCAG standards[/url]:
-                        
+            
             [ul]
             [li]4.5:1 for normal text[/li]
             [li]3:1 for large text (>24px)[/li]
             [li]3:1 for UI elements and graphics[/li]
             [li]no contrast requirement for decorative and disabled elements[/li][/ul]
-                        
+            
             Click on any color block to observe and modify color combination via built-in contrast checker.
             """, true
         );
@@ -219,8 +219,8 @@ public final class ThemePage extends OutlinePage {
         return new VBox(VGAP_10, description, colorScale);
     }
 
-    private ChoiceBox<SamplerTheme> createThemeSelector() {
-        var choiceBox = new ChoiceBox<SamplerTheme>();
+    private ChoiceBox<@Nullable SamplerTheme> createThemeSelector() {
+        var choiceBox = new ChoiceBox<@Nullable SamplerTheme>();
 
         var themes = TM.getRepository().getAll();
         choiceBox.getItems().setAll(themes);
@@ -233,7 +233,7 @@ public final class ThemePage extends OutlinePage {
             .ifPresent(t -> choiceBox.getSelectionModel().select(t));
 
         // must be after setting the initial value
-        choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((_, _, val) -> {
             if (val != null && getScene() != null) {
                 TM.setTheme(val);
             }
@@ -242,12 +242,12 @@ public final class ThemePage extends OutlinePage {
 
         choiceBox.setConverter(new StringConverter<>() {
             @Override
-            public String toString(SamplerTheme theme) {
+            public String toString(@Nullable SamplerTheme theme) {
                 return theme != null ? theme.getName() : "";
             }
 
             @Override
-            public SamplerTheme fromString(String themeName) {
+            public @Nullable SamplerTheme fromString(String themeName) {
                 return TM.getRepository().getAll().stream()
                     .filter(t -> Objects.equals(themeName, t.getName()))
                     .findFirst()
@@ -258,8 +258,8 @@ public final class ThemePage extends OutlinePage {
         return choiceBox;
     }
 
-    private ComboBox<String> createFontFamilyChooser() {
-        var comboBox = new ComboBox<String>();
+    private ComboBox<@Nullable String> createFontFamilyChooser() {
+        var comboBox = new ComboBox<@Nullable String>();
         comboBox.setPrefWidth(200);
 
         // keyword to reset font family to its default value
@@ -268,7 +268,7 @@ public final class ThemePage extends OutlinePage {
 
         // select active font family value on page load
         comboBox.getSelectionModel().select(TM.getFontFamily());
-        comboBox.valueProperty().addListener((obs, old, val) -> {
+        comboBox.valueProperty().addListener((_, _, val) -> {
             if (val != null) {
                 TM.setFontFamily(DEFAULT_FONT_ID.equals(val) ? ThemeManager.DEFAULT_FONT_FAMILY_NAME : val);
             }
@@ -277,10 +277,10 @@ public final class ThemePage extends OutlinePage {
         return comboBox;
     }
 
-    private Spinner<Integer> createFontSizeSpinner() {
-        var spinner = new Spinner<Integer>(
-            ThemeManager.SUPPORTED_FONT_SIZE.get(0),
-            ThemeManager.SUPPORTED_FONT_SIZE.get(ThemeManager.SUPPORTED_FONT_SIZE.size() - 1),
+    private Spinner<@Nullable Integer> createFontSizeSpinner() {
+        var spinner = new Spinner<@Nullable Integer>(
+            ThemeManager.SUPPORTED_FONT_SIZE.getFirst(),
+            ThemeManager.SUPPORTED_FONT_SIZE.getLast(),
             TM.getFontSize()
         );
         spinner.setPrefWidth(100);
@@ -292,7 +292,7 @@ public final class ThemePage extends OutlinePage {
         // default theme font size value.
         spinner.getValueFactory().setValue(TM.getFontSize());
 
-        spinner.valueProperty().addListener((obs, old, val) -> {
+        spinner.valueProperty().addListener((_, _, val) -> {
             if (val != null) {
                 TM.setFontSize(val);
             }

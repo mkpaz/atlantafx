@@ -5,9 +5,9 @@ package atlantafx.sampler.page.general;
 import static atlantafx.base.theme.Styles.BUTTON_ICON;
 import static atlantafx.base.theme.Styles.FLAT;
 
+import atlantafx.base.util.Colour;
 import atlantafx.sampler.theme.AccentColor;
 import atlantafx.sampler.theme.ThemeManager;
-import atlantafx.sampler.util.JColorUtils;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -25,7 +25,7 @@ final class AccentColorSelector extends HBox {
     private void createView() {
         var resetBtn = new Button(null, new FontIcon(Material2AL.CLEAR));
         resetBtn.getStyleClass().addAll(BUTTON_ICON, FLAT);
-        resetBtn.setOnAction(e -> ThemeManager.getInstance().resetAccentColor());
+        resetBtn.setOnAction(_ -> ThemeManager.getInstance().resetAccentColor());
 
         setAlignment(Pos.CENTER_LEFT);
         getChildren().setAll(
@@ -43,9 +43,9 @@ final class AccentColorSelector extends HBox {
 
         var btn = new Button(null, icon);
         btn.getStyleClass().addAll(BUTTON_ICON, FLAT, "color-button");
-        btn.setStyle("-color-primary:" + JColorUtils.toHexWithAlpha(accentColor.primaryColor()) + ";");
+        btn.setStyle("-color-primary:" + Colour.color(accentColor.primaryColor()).toHex() + ";");
         btn.setUserData(accentColor);
-        btn.setOnAction(e -> ThemeManager.getInstance().setAccentColor((AccentColor) btn.getUserData()));
+        btn.setOnAction(_ -> ThemeManager.getInstance().setAccentColor((AccentColor) btn.getUserData()));
 
         return btn;
     }

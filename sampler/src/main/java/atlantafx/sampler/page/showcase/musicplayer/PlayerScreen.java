@@ -2,11 +2,11 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
-
-import java.util.Objects;
+import atlantafx.base.util.Colour;
 import javafx.scene.control.SplitPane;
 import javafx.scene.paint.Color;
+
+import java.util.Objects;
 
 final class PlayerScreen extends SplitPane {
 
@@ -27,7 +27,7 @@ final class PlayerScreen extends SplitPane {
         getStyleClass().add("player-screen");
         getItems().setAll(player, playlist);
 
-        model.backgroundColorProperty().addListener((obs, old, val) -> {
+        model.backgroundColorProperty().addListener((_, old, val) -> {
             var domColor = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 1);
@@ -48,12 +48,12 @@ final class PlayerScreen extends SplitPane {
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 0.7);
 
-            setStyle("-color-dominant:" + toHexWithAlpha(domColor) + ";"
-                + "-color-dominant-10:" + toHexWithAlpha(domColor10) + ";"
-                + "-color-dominant-20:" + toHexWithAlpha(domColor20) + ";"
-                + "-color-dominant-50:" + toHexWithAlpha(domColor50) + ";"
-                + "-color-dominant-70:" + toHexWithAlpha(domColor70) + ";"
-                + "-color-dominant-border:" + toHexWithAlpha(domColor50) + ";"
+            setStyle("-color-dominant:" + Colour.color(domColor).toHex() + ";"
+                + "-color-dominant-10:" + Colour.color(domColor10).toHex() + ";"
+                + "-color-dominant-20:" + Colour.color(domColor20).toHex() + ";"
+                + "-color-dominant-50:" + Colour.color(domColor50).toHex() + ";"
+                + "-color-dominant-70:" + Colour.color(domColor70).toHex() + ";"
+                + "-color-dominant-border:" + Colour.color(domColor50).toHex() + ";"
             );
         });
     }

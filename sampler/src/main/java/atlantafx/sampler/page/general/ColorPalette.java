@@ -2,25 +2,24 @@
 
 package atlantafx.sampler.page.general;
 
+import atlantafx.base.util.Colour;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 final class ColorPalette extends GridPane {
 
     private final List<ColorPaletteBlock> blocks = new ArrayList<>();
     private final Consumer<ColorPaletteBlock> colorBlockActionHandler;
-    private final ReadOnlyObjectProperty<Color> bgBaseColor;
+    private final Colour bgBaseColor;
 
-    public ColorPalette(Consumer<ColorPaletteBlock> actionHandler,
-                        ReadOnlyObjectProperty<Color> bgBaseColor) {
+    public ColorPalette(Consumer<ColorPaletteBlock> actionHandler, Colour bgBaseColor) {
         super();
 
         this.colorBlockActionHandler = Objects.requireNonNull(actionHandler, "actionHandler");
@@ -66,12 +65,12 @@ final class ColorPalette extends GridPane {
         return block;
     }
 
-    // To calculate contrast ratio, we have to obtain all components colors first.
-    // Unfortunately, JavaFX doesn't provide an API to observe when stylesheet changes has been applied.
-    // The timer is introduced to defer widget update to a time when scene changes supposedly will be finished.
+    // To calculate the contrast ratio, we have to obtain all component colors first.
+    // Unfortunately, JavaFX doesn't provide an API to observe when stylesheet changes have been applied.
+    // A timer is introduced to defer the widget update to a time when scene changes will supposedly be finished.
     public void updateColorInfo(Duration delay) {
         var t = new Timeline(new KeyFrame(delay));
-        t.setOnFinished(e -> blocks.forEach(ColorPaletteBlock::update));
+        t.setOnFinished(_ -> blocks.forEach(ColorPaletteBlock::update));
         t.play();
     }
 }

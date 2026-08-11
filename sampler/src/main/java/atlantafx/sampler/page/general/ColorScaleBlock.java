@@ -2,11 +2,7 @@
 
 package atlantafx.sampler.page.general;
 
-import static atlantafx.sampler.util.ContrastLevel.getColorLuminance;
-import static atlantafx.sampler.util.JColorUtils.flattenColor;
-
-import atlantafx.sampler.util.JColorUtils;
-import javafx.beans.property.ReadOnlyObjectProperty;
+import atlantafx.base.util.Colour;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -17,9 +13,9 @@ final class ColorScaleBlock extends VBox {
     private static final double BLOCK_WIDTH = 200;
     private static final double BLOCK_HEIGHT = 40;
 
-    private final ReadOnlyObjectProperty<Color> bgBaseColor;
+    private final Colour bgBaseColor;
 
-    private ColorScaleBlock(ReadOnlyObjectProperty<Color> bgBaseColor) {
+    private ColorScaleBlock(Colour bgBaseColor) {
         super();
 
         this.bgBaseColor = bgBaseColor;
@@ -36,7 +32,7 @@ final class ColorScaleBlock extends VBox {
                 String colorName = (String) label.getUserData();
                 label.setStyle(String.format("-fx-background-color:%s;-fx-text-fill:%s;",
                     colorName,
-                    JColorUtils.toHexWithAlpha(getSafeFgColor(label))
+                    getSafeFgColor(label).toHex()
                 ));
             }
         });
@@ -59,23 +55,23 @@ final class ColorScaleBlock extends VBox {
         return label;
     }
 
-    private Color getSafeFgColor(Label label) {
-        var bg = getBgColor(label);
+    private Colour getSafeFgColor(Label label) {
         // deliberately reduce luminance threshold from 0.55 to 0.4
         // to improve readability which is an experimental value anyway
-        return getColorLuminance(flattenColor(bgBaseColor.get(), bg)) < 0.4 ? Color.WHITE : Color.BLACK;
+        return getBgColor(label).flatten(bgBaseColor).getLuminance() < 0.4
+            ? Colour.color(Color.WHITE)
+            : Colour.color(Color.BLACK);
     }
 
-    private Color getBgColor(Label label) {
+    private Colour getBgColor(Label label) {
         return label.getBackground() != null && !label.getBackground().isEmpty()
-            ? (Color) label.getBackground().getFills().get(0).getFill() : Color.WHITE;
+            ? Colour.color((Color) label.getBackground().getFills().getFirst().getFill())
+            : Colour.color(Color.WHITE);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
-    public static ColorScaleBlock forColorPrefix(ReadOnlyObjectProperty<Color> bgBaseColor,
-                                                 String colorPrefix,
-                                                 int count) {
+    public static ColorScaleBlock forColorPrefix(Colour bgBaseColor, String colorPrefix, int count) {
         var block = new ColorScaleBlock(bgBaseColor);
         for (int idx = 0; idx < count; idx++) {
             block.addCell(colorPrefix + idx);
@@ -83,8 +79,7 @@ final class ColorScaleBlock extends VBox {
         return block;
     }
 
-    public static ColorScaleBlock forColorName(ReadOnlyObjectProperty<Color> bgBaseColor,
-                                               String... colors) {
+    public static ColorScaleBlock forColorName(Colour bgBaseColor, String... colors) {
         var block = new ColorScaleBlock(bgBaseColor);
         for (String colorName : colors) {
             block.addCell(colorName);

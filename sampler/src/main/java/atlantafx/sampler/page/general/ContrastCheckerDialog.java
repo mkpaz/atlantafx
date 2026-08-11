@@ -2,22 +2,20 @@
 
 package atlantafx.sampler.page.general;
 
+import atlantafx.base.util.Colour;
 import atlantafx.sampler.layout.ModalDialog;
-import atlantafx.sampler.util.JColorUtils;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.scene.paint.Color;
 
 class ContrastCheckerDialog extends ModalDialog {
 
     private final ContrastChecker contrastChecker;
 
-    public ContrastCheckerDialog(ReadOnlyObjectProperty<Color> bgBaseColor) {
+    public ContrastCheckerDialog(Colour bgBaseColor) {
         super();
 
         this.contrastChecker = new ContrastChecker(bgBaseColor);
 
-        contrastChecker.bgColorProperty().addListener((obs, old, val) -> updateStyle());
-        contrastChecker.fgColorProperty().addListener((obs, old, val) -> updateStyle());
+        contrastChecker.getBgColor().addListener((_, _, _) -> updateStyle());
+        contrastChecker.getFgColor().addListener((_, _, _) -> updateStyle());
 
         getStyleClass().add("contrast-checker-dialog");
         header.setTitle("Contrast Checker");
@@ -27,8 +25,8 @@ class ContrastCheckerDialog extends ModalDialog {
 
     private void updateStyle() {
         setStyle(String.format("-color-contrast-checker-bg:%s;-color-contrast-checker-fg:%s;",
-            JColorUtils.toHexWithAlpha(contrastChecker.getFlatBgColor()),
-            JColorUtils.toHexWithAlpha(contrastChecker.getSafeFgColor())
+            contrastChecker.getFlatBgColor().toHex(),
+            contrastChecker.getSafeFgColor().toHex()
         ));
     }
 

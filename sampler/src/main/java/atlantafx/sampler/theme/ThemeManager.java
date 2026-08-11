@@ -2,34 +2,14 @@
 
 package atlantafx.sampler.theme;
 
-import static atlantafx.sampler.Resources.getResource;
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import atlantafx.base.theme.CupertinoDark;
-import atlantafx.base.theme.CupertinoLight;
-import atlantafx.base.theme.Dracula;
-import atlantafx.base.theme.NordDark;
-import atlantafx.base.theme.NordLight;
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
-import atlantafx.base.theme.Theme;
+import atlantafx.base.theme.*;
+import atlantafx.base.util.Colour;
 import atlantafx.base.util.NullSafetyHelper;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.event.ThemeEvent.EventType;
-import atlantafx.sampler.util.JColor;
-import java.util.Base64;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -43,6 +23,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.jspecify.annotations.Nullable;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static atlantafx.sampler.Resources.getResource;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public final class ThemeManager {
 
@@ -79,7 +66,7 @@ public final class ThemeManager {
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
     private int zoom = DEFAULT_ZOOM;
-    private @Nullable  AccentColor accentColor = DEFAULT_ACCENT_COLOR;
+    private @Nullable AccentColor accentColor = DEFAULT_ACCENT_COLOR;
 
     public ThemeRepository getRepository() {
         return repository;
@@ -253,7 +240,7 @@ public final class ThemeManager {
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////////////////////////
 
     private void setCustomDeclaration(String property, String value) {
         customCSSDeclarations.put(property, value);
@@ -273,14 +260,12 @@ public final class ThemeManager {
     }
 
     private void setOrRemoveColor(String colorName, @Nullable Color color) {
-        Objects.requireNonNull(colorName);
+        if (colorName.isBlank()) {
+            return;
+        }
+
         if (color != null) {
-            setCustomDeclaration(colorName, JColor.color(
-                (float) color.getRed(),
-                (float) color.getGreen(),
-                (float) color.getBlue(),
-                (float) color.getOpacity()).getColorHexWithAlpha()
-            );
+            setCustomDeclaration(colorName, Colour.color(color).toHex());
         } else {
             removeCustomDeclaration(colorName);
         }
@@ -344,7 +329,8 @@ public final class ThemeManager {
 
     ///////////////////////////////////////////////////////////////////////////
     // Singleton                                                             //
-    ///////////////////////////////////////////////////////////////////////////
+
+    /// ////////////////////////////////////////////////////////////////////////
 
     private ThemeManager() {
     }

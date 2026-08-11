@@ -2,20 +2,20 @@
 
 package atlantafx.sampler.page.general;
 
-import java.util.Arrays;
-import java.util.List;
+import atlantafx.base.util.Colour;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import java.util.Arrays;
+import java.util.List;
 
 final class ColorScale extends FlowPane {
 
     private final List<ColorScaleBlock> blocks;
 
-    public ColorScale(ReadOnlyObjectProperty<Color> bgBaseColor) {
+    public ColorScale(Colour bgBaseColor) {
         super();
 
         blocks = Arrays.asList(

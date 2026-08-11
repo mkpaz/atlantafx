@@ -4,6 +4,7 @@ package atlantafx.sampler.page.components;
 
 import atlantafx.base.controls.Spin;
 import atlantafx.base.theme.Styles;
+import atlantafx.base.util.Colour;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.spins.*;
 import javafx.beans.property.BooleanProperty;
@@ -21,8 +22,6 @@ import org.jspecify.annotations.Nullable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
-import static atlantafx.sampler.util.JColorUtils.toHexWithAlpha;
 
 public final class SpinsPage extends AbstractPage {
 
@@ -129,10 +128,10 @@ public final class SpinsPage extends AbstractPage {
             var declarations = new ArrayList<String>();
 
             if (!DEFAULT_PRIMARY_COLOR.equals(primaryColor)) {
-                declarations.add("-spin-color-primary: " + toHexWithAlpha(primaryColor));
+                declarations.add("-spin-color-primary: " + Colour.color(primaryColor).toHex());
             }
             if (!DEFAULT_SECONDARY_COLOR.equals(secondaryColor)) {
-                declarations.add("-spin-color-secondary: " + toHexWithAlpha(secondaryColor));
+                declarations.add("-spin-color-secondary: " + Colour.color(secondaryColor).toHex());
             }
 
             var css = ".spin { %s; }".formatted(String.join("; ", declarations));
