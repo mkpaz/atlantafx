@@ -195,12 +195,12 @@
              value="Parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="LambdaParameterName">
-      <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$"/>
+      <property name="format" value="^([a-z][a-zA-Z0-9]*|_)$"/>
       <message key="name.invalidPattern"
              value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="CatchParameterName">
-      <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$"/>
+      <property name="format" value="^([a-z][a-zA-Z0-9]*|_)$"/>
       <message key="name.invalidPattern"
              value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
     </module>
@@ -267,7 +267,6 @@
                     RECORD_COMPONENT_DEF"/>
     </module>
     <module name="NoWhitespaceBeforeCaseDefaultColon"/>
-    <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance">
       <property name="allowedDistance" value="10"/>
     </module>
