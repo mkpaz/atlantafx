@@ -66,6 +66,7 @@
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
         <test.assertj.version>3.27.3</test.assertj.version>
         <test.junit.version>5.8.1</test.junit.version>
+        <test.mockito.version>5.23.0</test.mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -182,6 +183,18 @@
                 <version>${test.junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${test.mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${test.mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -288,7 +301,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.5.6</version>
                 </plugin>
                 <plugin>
                     <groupId>io.github.wiverson</groupId>
