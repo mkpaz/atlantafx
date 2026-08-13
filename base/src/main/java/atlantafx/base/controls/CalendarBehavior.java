@@ -2,13 +2,14 @@
 
 package atlantafx.base.controls;
 
-import static atlantafx.base.util.PlatformUtils.isMac;
 import static java.time.temporal.ChronoUnit.MONTHS;
 import static java.time.temporal.ChronoUnit.YEARS;
 import static javafx.scene.input.KeyCode.ESCAPE;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+
+import atlantafx.base.util.OS;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -32,7 +33,7 @@ public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
                     e.consume();
                 }
                 case PAGE_UP -> {
-                    if ((isMac() && e.isMetaDown()) || (!isMac() && e.isControlDown())) {
+                    if ((OS.isMac() && e.isMetaDown()) || (!OS.isMac() && e.isControlDown())) {
                         if (getSkin().canGoYearForward()) {
                             getSkin().forward(1, YEARS, true);
                         }
@@ -44,7 +45,7 @@ public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
                     e.consume();
                 }
                 case PAGE_DOWN -> {
-                    if ((isMac() && e.isMetaDown()) || (!isMac() && e.isControlDown())) {
+                    if ((OS.isMac() && e.isMetaDown()) || (!OS.isMac() && e.isControlDown())) {
                         if (getSkin().canGoYearBack()) {
                             getSkin().forward(-1, YEARS, true);
                         }
@@ -66,7 +67,7 @@ public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
     }
 
     public void moveForward(MouseEvent e) {
-        if ((isMac() && e.isMetaDown()) || (!isMac() && e.isControlDown())) {
+        if ((OS.isMac() && e.isMetaDown()) || (!OS.isMac() && e.isControlDown())) {
             if (getSkin().canGoYearForward()) {
                 getSkin().forward(1, YEARS, true);
             }
@@ -79,7 +80,7 @@ public class CalendarBehavior extends BehaviorBase<Calendar, CalendarSkin> {
     }
 
     public void moveBackward(MouseEvent e) {
-        if ((isMac() && e.isMetaDown()) || (!isMac() && e.isControlDown())) {
+        if ((OS.isMac() && e.isMetaDown()) || (!OS.isMac() && e.isControlDown())) {
             if (getSkin().canGoYearBack()) {
                 getSkin().forward(-1, YEARS, true);
             }

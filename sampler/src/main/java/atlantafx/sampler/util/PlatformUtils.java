@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
 
-import static atlantafx.base.util.PlatformUtils.*;
+import static atlantafx.base.util.OS.*;
 
 public final class PlatformUtils {
 

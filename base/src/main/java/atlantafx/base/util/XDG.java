@@ -418,13 +418,13 @@ public enum XDG {
     //*************************************************************************
 
     private static Resolver createDefaultResolver() {
-        if (PlatformUtils.isWindows()) {
+        if (OS.isWindows()) {
             return new WindowsResolver();
         }
-        if (PlatformUtils.isMac()) {
+        if (OS.isMac()) {
             return new MacResolver();
         }
-        if (PlatformUtils.isUnix()) {
+        if (OS.isUnix()) {
             return new LinuxResolver();
         }
 

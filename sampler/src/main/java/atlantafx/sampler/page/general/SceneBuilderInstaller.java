@@ -4,7 +4,7 @@ package atlantafx.sampler.page.general;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import atlantafx.base.util.PlatformUtils;
+import atlantafx.base.util.OS;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.SceneBuilderTheme;
 import org.jspecify.annotations.Nullable;
@@ -30,7 +30,7 @@ final class SceneBuilderInstaller {
 
     private static final String CONFIG_FILE_NAME = "SceneBuilder.cfg";
     private static final String THEME_PACK_FILE_NAME = "atlantafx-scene-builder.zip";
-    private static final char CLASSPATH_SEPARATOR = PlatformUtils.isWindows() ? ';' : ':';
+    private static final char CLASSPATH_SEPARATOR = OS.isWindows() ? ';' : ':';
 
     private final Path sceneBuilderDir;
     private @Nullable Path configDir;
@@ -225,11 +225,11 @@ final class SceneBuilderInstaller {
     }
 
     public static Path getDefaultConfigDir() {
-        if (PlatformUtils.isWindows()) {
+        if (OS.isWindows()) {
             return Path.of(System.getProperty("user.home"), "AppData", "Local", "SceneBuilder");
-        } else if (PlatformUtils.isLinux()) {
+        } else if (OS.isLinux()) {
             return Path.of("/opt/scenebuilder/");
-        } else if (PlatformUtils.isUnix()) {
+        } else if (OS.isUnix()) {
             return Path.of("/Applications/SceneBuilder.app/");
         } else {
             return Path.of(".");
@@ -244,11 +244,11 @@ final class SceneBuilderInstaller {
         // app image structure is documented here
         // https://docs.oracle.com/en/java/javase/20/jpackage/packaging-overview.html
         Path dir = sceneBuilderDir;
-        if (PlatformUtils.isWindows()) {
+        if (OS.isWindows()) {
             dir = sceneBuilderDir.resolve("app");
-        } else if (PlatformUtils.isMac()) {
+        } else if (OS.isMac()) {
             dir = sceneBuilderDir.resolve("Contents/app");
-        } else if (PlatformUtils.isUnix()) {
+        } else if (OS.isUnix()) {
             dir = sceneBuilderDir.resolve("lib/app");
         }
 
