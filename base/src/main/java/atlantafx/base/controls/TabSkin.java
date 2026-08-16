@@ -101,7 +101,7 @@ public class TabSkin extends StackPane {
         tabBox.getChildren().addAll(label, closeBtn);
 
         // init listeners
-        propertiesSubscription.and(tab.selectedProperty().subscribe(o -> {
+        propertiesSubscription.and(tab.selectedProperty().subscribe(_ -> {
             // need to request a layout pass for tab box because if the width or height
             // didn't change the label or close button may have changed
             requestLayout();
@@ -110,7 +110,7 @@ public class TabSkin extends StackPane {
                 container.scrollToSelectedTab();
             }
         }));
-        propertiesSubscription.and(tab.pinnedProperty().subscribe((old, val) -> {
+        propertiesSubscription.and(tab.pinnedProperty().subscribe((_, val) -> {
             // refactoring note: we always need the old value, because it changes how ChangeListener works
             control.pinOrUnpin(tab);
             requestLayout();
@@ -118,18 +118,18 @@ public class TabSkin extends StackPane {
         }));
 
         propertiesSubscription.and(tab.textProperty().subscribe(
-            o -> label.setText(tab.getText())
+            _ -> label.setText(tab.getText())
         ));
         propertiesSubscription.and(tab.graphicProperty().subscribe(
-            o -> label.setGraphic(tab.getGraphic())
+            _ -> label.setGraphic(tab.getGraphic())
         ));
         propertiesSubscription.and(tab.tooltipProperty().subscribe(
-            o -> updateTooltip(tab.getTooltip())
+            _ -> updateTooltip(tab.getTooltip())
         ));
         propertiesSubscription.and(tab.styleProperty().subscribe(
-            o -> setStyle(tab.getStyle())
+            _ -> setStyle(tab.getStyle())
         ));
-        propertiesSubscription.and(control.tabFixedWidthProperty().subscribe(o -> {
+        propertiesSubscription.and(control.tabFixedWidthProperty().subscribe(_ -> {
             requestLayout();
             control.requestLayout();
         }));
@@ -342,7 +342,7 @@ public class TabSkin extends StackPane {
         timeline.getKeyFrames().clear();
         timeline.getKeyFrames().add(new KeyFrame(TabLine.ANIMATION_SPEED, keyValue));
 
-        timeline.setOnFinished(e -> onFinished.run());
+        timeline.setOnFinished(_ -> onFinished.run());
 
         return timeline;
     }

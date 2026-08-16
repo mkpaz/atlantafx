@@ -113,7 +113,7 @@ public class MaskTextField extends CustomTextField {
     }
 
     protected void init() {
-        mask.addListener((obs, old, val) -> {
+        mask.addListener((_, _, val) -> {
             // this will replace the current text value with placeholder mask,
             // so, neither text no prompt won't be shown in the SceneBuilder
             formatter.set(val != null ? MaskTextFormatter.create(this, val) : null);

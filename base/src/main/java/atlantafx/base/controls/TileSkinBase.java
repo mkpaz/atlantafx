@@ -42,7 +42,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
         graphicSlot = new StackPane();
         graphicSlot.getStyleClass().add("graphic");
         graphicSlotListener = new SlotListener(
-            graphicSlot, (n, active) -> getSkinnable().pseudoClassStateChanged(HAS_GRAPHIC, active)
+            graphicSlot, (_, active) -> getSkinnable().pseudoClassStateChanged(HAS_GRAPHIC, active)
         );
         control.graphicProperty().addListener(graphicSlotListener);
         graphicSlotListener.changed(control.graphicProperty(), null, control.getGraphic());
@@ -67,7 +67,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
         headerBox.setMaxHeight(Region.USE_COMPUTED_SIZE);
 
         control.pseudoClassStateChanged(HAS_TITLE, control.getTitle() != null);
-        registerChangeListener(control.titleProperty(), o -> {
+        registerChangeListener(control.titleProperty(), _ -> {
             var value = getSkinnable().getTitle();
             titleLbl.setText(value);
             titleLbl.setVisible(value != null);
@@ -76,7 +76,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
         });
 
         control.pseudoClassStateChanged(HAS_DESCRIPTION, control.getDescription() != null);
-        registerChangeListener(control.descriptionProperty(), o -> {
+        registerChangeListener(control.descriptionProperty(), _ -> {
             var value = getSkinnable().getDescription();
             setDescriptionText();
             descriptionText.setVisible(value != null);
@@ -87,7 +87,7 @@ public abstract class TileSkinBase<T extends TileBase> extends SkinBase<T> {
         actionSlot = new StackPane();
         actionSlot.getStyleClass().add("action");
         actionSlotListener = new SlotListener(
-            actionSlot, (n, active) -> getSkinnable().pseudoClassStateChanged(HAS_ACTION, active)
+            actionSlot, (_, active) -> getSkinnable().pseudoClassStateChanged(HAS_ACTION, active)
         );
 
         // use pref size for slots, or they will be resized

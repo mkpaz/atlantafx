@@ -16,7 +16,7 @@ public class TabLineBehavior extends BehaviorBase<TabLine, TabLineSkin> {
         super(control, skin);
 
         control.setOnKeyPressed(this::createKeyPressedListener);
-        control.setOnMousePressed(e -> getControl().requestFocus());
+        control.setOnMousePressed(_ -> getControl().requestFocus());
     }
 
     protected void createKeyPressedListener(KeyEvent e) {

@@ -105,7 +105,7 @@ public class Popover extends PopupControl {
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
         setAnchorLocation(AnchorLocation.WINDOW_TOP_LEFT);
-        setOnHiding(evt -> setDetached(false));
+        setOnHiding(_ -> setDetached(false));
 
         // create some initial content
         Label label = new Label("No Content");
@@ -113,7 +113,7 @@ public class Popover extends PopupControl {
         label.setPadding(new Insets(4));
         setContentNode(label);
 
-        InvalidationListener repositionListener = observable -> {
+        InvalidationListener repositionListener = _ -> {
             if (isShowing() && !isDetached()) {
                 show(getOwnerNode(), targetX, targetY);
                 adjustWindowLocation();
@@ -127,7 +127,7 @@ public class Popover extends PopupControl {
         headerAlwaysVisible.addListener(repositionListener);
 
         // a detached popover should of course not automatically hide itself
-        detached.addListener(it -> setAutoHide(!isDetached()));
+        detached.addListener(_ -> setAutoHide(!isDetached()));
 
         setAutoHide(true);
     }
@@ -171,7 +171,7 @@ public class Popover extends PopupControl {
     // Listeners                                                             //
     //*************************************************************************
 
-    private final InvalidationListener hideListener = observable -> {
+    private final InvalidationListener hideListener = _ -> {
         if (!isDetached()) {
             hide(Duration.ZERO);
         }
@@ -179,7 +179,7 @@ public class Popover extends PopupControl {
 
     private final WeakInvalidationListener weakHideListener = new WeakInvalidationListener(hideListener);
 
-    private final ChangeListener<Number> xListener = (value, oldX, newX) -> {
+    private final ChangeListener<Number> xListener = (_, oldX, newX) -> {
         if (!isDetached()) {
             setAnchorX(getAnchorX() + (newX.doubleValue() - oldX.doubleValue()));
         }
@@ -187,7 +187,7 @@ public class Popover extends PopupControl {
 
     private final WeakChangeListener<Number> weakXListener = new WeakChangeListener<>(xListener);
 
-    private final ChangeListener<Number> yListener = (value, oldY, newY) -> {
+    private final ChangeListener<Number> yListener = (_, oldY, newY) -> {
         if (!isDetached()) {
             setAnchorY(getAnchorY() + (newY.doubleValue() - oldY.doubleValue()));
         }
@@ -198,7 +198,7 @@ public class Popover extends PopupControl {
     private @Nullable Window ownerWindow;
 
     private final EventHandler<WindowEvent> closePopoverOnOwnerWindowCloseLambda
-        = event -> ownerWindowHiding();
+        = _ -> ownerWindowHiding();
 
     private final WeakEventHandler<WindowEvent> closePopoverOnOwnerWindowClose =
         new WeakEventHandler<>(closePopoverOnOwnerWindowCloseLambda);
@@ -342,7 +342,7 @@ public class Popover extends PopupControl {
         ownerWindow.widthProperty().addListener(weakHideListener);
         ownerWindow.heightProperty().addListener(weakHideListener);
 
-        setOnShown(evt -> {
+        setOnShown(_ -> {
             // the user clicked somewhere into the transparent background,
             // if this is the case then hide the window (when attached)
             getScene().addEventHandler(MOUSE_CLICKED, mouseEvent -> {
@@ -367,7 +367,7 @@ public class Popover extends PopupControl {
             );
 
             var timer = new Timeline(new KeyFrame(Duration.millis(delay)));
-            timer.setOnFinished(e -> getSkin().getNode().setVisible(true));
+            timer.setOnFinished(_ -> getSkin().getNode().setVisible(true));
             timer.play();
         });
 
@@ -428,7 +428,7 @@ public class Popover extends PopupControl {
                 FadeTransition fadeOut = new FadeTransition(fadeOutDuration, skinNode);
                 fadeOut.setFromValue(skinNode.getOpacity());
                 fadeOut.setToValue(0);
-                fadeOut.setOnFinished(evt -> super.hide());
+                fadeOut.setOnFinished(_ -> super.hide());
                 fadeOut.play();
             } else {
                 super.hide();

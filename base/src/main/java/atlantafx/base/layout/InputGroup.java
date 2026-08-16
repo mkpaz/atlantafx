@@ -42,7 +42,7 @@ public class InputGroup extends HBox {
         getStyleClass().add("input-group");
 
         updateStyles();
-        getChildren().addListener((InvalidationListener) o -> updateStyles());
+        getChildren().addListener((InvalidationListener) _ -> updateStyles());
     }
 
     // We don't clean up style classes if a control is removed from the input group.

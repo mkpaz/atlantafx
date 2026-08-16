@@ -87,10 +87,10 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         labelContainer.getChildren().addAll(label);
         getChildren().addAll(labelContainer, thumbArea, thumb);
 
-        label.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
-        thumbArea.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
-        thumb.setOnMouseReleased(event -> mousePressedOnToggleSwitch(control));
-        control.selectedProperty().addListener((observable, oldValue, newValue) -> {
+        label.setOnMouseReleased(_ -> mousePressedOnToggleSwitch(control));
+        thumbArea.setOnMouseReleased(_ -> mousePressedOnToggleSwitch(control));
+        thumb.setOnMouseReleased(_ -> mousePressedOnToggleSwitch(control));
+        control.selectedProperty().addListener((_, oldValue, newValue) -> {
             if (newValue.booleanValue() != oldValue.booleanValue()) {
                 selectedStateChanged();
             }

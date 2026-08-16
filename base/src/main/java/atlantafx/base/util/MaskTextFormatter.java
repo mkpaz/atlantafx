@@ -109,7 +109,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
         final var placeholder = createPlaceholderMask(mask);
         final var filter = new MaskTextFilter(mask);
 
-        field.focusedProperty().addListener((obs, old, val) -> {
+        field.focusedProperty().addListener((_, _, val) -> {
             var text = field.getText();
             var prompt = field.getPromptText();
 
@@ -136,7 +136,7 @@ public class MaskTextFormatter extends TextFormatter<String> {
             }
         });
 
-        field.promptTextProperty().addListener((obs, old, val) -> {
+        field.promptTextProperty().addListener((_, _, val) -> {
             if (val == null || val.isBlank()) {
                 filter.doInternalChange(() -> field.setText(placeholder));
             } else {

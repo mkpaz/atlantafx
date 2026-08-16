@@ -36,7 +36,7 @@ public class TabMenuButton extends Button {
         setGraphic(icon);
 
         getStyleClass().addAll(Styles.FLAT, "tab-menu-button");
-        setOnAction(o -> {
+        setOnAction(_ -> {
             beforeShow();
             contextMenu.show(this, Side.BOTTOM, 0, 0);
         });
@@ -64,7 +64,7 @@ public class TabMenuButton extends Button {
     protected RadioMenuItem createRadioMenuItemMapper(Tab tab) {
         // don't use graphic from tab as it can only be linked to a single node
         var mi = new RadioMenuItem(tab.getText());
-        mi.setOnAction(o -> {
+        mi.setOnAction(_ -> {
             if (tab.getTabLine() != null) {
                 tab.getTabLine().getSelectionModel().select(tab);
             }

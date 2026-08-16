@@ -27,10 +27,10 @@ public class MessageSkin extends TileSkinBase<Message> {
         pseudoClassStateChanged(Styles.STATE_INTERACTIVE, control.getActionHandler() != null);
         registerChangeListener(
             control.actionHandlerProperty(),
-            o -> pseudoClassStateChanged(Styles.STATE_INTERACTIVE, getSkinnable().getActionHandler() != null)
+            _ -> pseudoClassStateChanged(Styles.STATE_INTERACTIVE, getSkinnable().getActionHandler() != null)
         );
 
-        container.setOnMouseClicked(e -> {
+        container.setOnMouseClicked(_ -> {
             if (getSkinnable().getActionHandler() != null) {
                 getSkinnable().getActionHandler().run();
             }
@@ -40,7 +40,7 @@ public class MessageSkin extends TileSkinBase<Message> {
 
         closeButton.getStyleClass().add("close-button");
         closeButton.getChildren().setAll(closeButtonIcon);
-        closeButton.setOnMouseClicked(e -> handleClose());
+        closeButton.setOnMouseClicked(_ -> handleClose());
         closeButton.setVisible(control.getOnClose() != null);
         closeButton.setManaged(control.getOnClose() != null);
 
@@ -48,7 +48,7 @@ public class MessageSkin extends TileSkinBase<Message> {
         getChildren().add(closeButton);
 
         pseudoClassStateChanged(CLOSEABLE, control.getOnClose() != null);
-        registerChangeListener(control.onCloseProperty(), o -> {
+        registerChangeListener(control.onCloseProperty(), _ -> {
             closeButton.setVisible(getSkinnable().getOnClose() != null);
             closeButton.setManaged(getSkinnable().getOnClose() != null);
             pseudoClassStateChanged(CLOSEABLE, getSkinnable().getOnClose() != null);

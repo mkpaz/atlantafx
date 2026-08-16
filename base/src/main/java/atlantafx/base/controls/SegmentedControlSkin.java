@@ -57,7 +57,7 @@ public class SegmentedControlSkin extends BehaviorSkinBase<SegmentedControl, Seg
             while (change.next()) {
                 for (var node : change.getAddedSubList()) {
                     if (node instanceof Toggle toggle) {
-                        node.setOnMousePressed(e -> getBehavior().select(toggle));
+                        node.setOnMousePressed(_ -> getBehavior().select(toggle));
                         toggle.setToggleGroup(getSkinnable().getToggleGroup());
                     }
                 }
@@ -70,14 +70,14 @@ public class SegmentedControlSkin extends BehaviorSkinBase<SegmentedControl, Seg
         };
         labelBox.getChildren().addListener(segmentListener);
 
-        selectionListener = (obs, old, val) -> {
+        selectionListener = (_, _, val) -> {
             if (val instanceof ToggleLabel label) {
                 animateIndicator(label);
             }
         };
         control.getToggleGroup().selectedToggleProperty().addListener(selectionListener);
 
-        toggleGroupListener = (obs, old, val) ->
+        toggleGroupListener = (_, _, val) ->
                                   control.getSegments().forEach(btn -> btn.setToggleGroup(val));
         control.toggleGroupProperty().addListener(toggleGroupListener);
 
@@ -133,7 +133,7 @@ public class SegmentedControlSkin extends BehaviorSkinBase<SegmentedControl, Seg
                 new KeyValue(indicator.prefHeightProperty(), dest.getHeight())
             )
         );
-        timeline.setOnFinished(event -> {
+        timeline.setOnFinished(_ -> {
             moveIndicator(dest);
             animating = false;
         });

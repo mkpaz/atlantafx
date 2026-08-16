@@ -61,7 +61,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
             }
@@ -105,7 +105,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setScaleX(1);
                 node.setScaleY(1);
@@ -169,7 +169,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
             }
@@ -228,7 +228,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateY(0);
             }
@@ -277,7 +277,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
                 node.setRotate(0);
@@ -311,7 +311,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
             }
@@ -340,7 +340,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
             }
@@ -372,7 +372,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateY(0);
@@ -404,7 +404,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateY(0);
@@ -436,7 +436,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -468,7 +468,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -500,7 +500,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -532,7 +532,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -564,7 +564,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateY(0);
@@ -596,7 +596,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateY(0);
@@ -634,7 +634,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -669,7 +669,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setTranslateX(0);
@@ -708,7 +708,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setRotate(0);
                 node.setOpacity(1);
@@ -742,7 +742,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 node.setRotate(0);
@@ -779,7 +779,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -816,7 +816,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -856,7 +856,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -896,7 +896,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -933,7 +933,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -970,7 +970,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -1010,7 +1010,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -1050,7 +1050,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setOpacity(1);
                 rotate.setAngle(0);
@@ -1084,7 +1084,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateY(0);
             }
@@ -1113,7 +1113,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateY(0);
             }
@@ -1142,7 +1142,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
             }
@@ -1171,7 +1171,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
             }
@@ -1200,7 +1200,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
             }
@@ -1229,7 +1229,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateX(0);
             }
@@ -1258,7 +1258,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateY(0);
             }
@@ -1287,7 +1287,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setTranslateY(0);
             }
@@ -1332,7 +1332,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setScaleX(1);
                 node.setScaleY(1);
@@ -1376,7 +1376,7 @@ public final class Animations {
             )
         );
 
-        t.statusProperty().addListener((obs, old, val) -> {
+        t.statusProperty().addListener((_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 node.setScaleX(1);
                 node.setScaleY(1);

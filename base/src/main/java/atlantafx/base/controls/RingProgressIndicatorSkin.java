@@ -78,14 +78,14 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
         updateProgressLabel();
         toggleIndeterminate();
 
-        registerChangeListener(indicator.progressProperty(), e -> {
+        registerChangeListener(indicator.progressProperty(), _ -> {
             updateProgressLabel();
             progressArc.setLength(calcProgressArcLength());
         });
 
-        registerChangeListener(indicator.indeterminateProperty(), e -> toggleIndeterminate());
+        registerChangeListener(indicator.indeterminateProperty(), _ -> toggleIndeterminate());
 
-        registerChangeListener(indicator.visibleProperty(), e -> {
+        registerChangeListener(indicator.visibleProperty(), _ -> {
             if (indicator.isVisible() && indicator.isIndeterminate()) {
                 transition.play();
             } else {
@@ -93,14 +93,14 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
             }
         });
 
-        registerChangeListener(indeterminateAnimationTimeProperty(), e -> {
+        registerChangeListener(indeterminateAnimationTimeProperty(), _ -> {
             transition.setDuration(Duration.seconds(getIndeterminateAnimationTime()));
             if (indicator.isIndeterminate()) {
                 transition.playFromStart();
             }
         });
 
-        registerChangeListener(indicator.graphicProperty(), e -> {
+        registerChangeListener(indicator.graphicProperty(), _ -> {
             if (indicator.getGraphic() != null) {
                 container.getChildren().remove(progressLabel);
                 container.getChildren().add(indicator.getGraphic());

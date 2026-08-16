@@ -59,8 +59,8 @@ public abstract class CustomTextFieldSkin extends TextFieldSkin {
         this.control = control;
         updateChildren();
 
-        registerChangeListener(leftProperty(), e -> updateChildren());
-        registerChangeListener(rightProperty(), e -> updateChildren());
+        registerChangeListener(leftProperty(), _ -> updateChildren());
+        registerChangeListener(rightProperty(), _ -> updateChildren());
     }
 
     public abstract ObjectProperty<@Nullable Node> leftProperty();

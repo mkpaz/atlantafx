@@ -328,8 +328,8 @@ public class SelectableTextFlow extends TextFlow {
         });
 
         // size can be changed by changing the stage size
-        widthProperty().addListener((obs, old, val) -> selection.clear());
-        heightProperty().addListener((obs, old, val) -> selection.clear());
+        widthProperty().addListener((_, _, _) -> selection.clear());
+        heightProperty().addListener((_, _, _) -> selection.clear());
     }
 
     protected HitInfo getHitInfo(MouseEvent e) {

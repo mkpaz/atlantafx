@@ -74,7 +74,7 @@ public class TabsDragHandler {
         this.tabsContainer = tabsContainer;
         this.behavior = behavior;
 
-        dragPolicyListener = (obs, old, val) -> updateDragListeners();
+        dragPolicyListener = (_, _, _) -> updateDragListeners();
         control.tabDragPolicyProperty().addListener(dragPolicyListener);
     }
 
@@ -110,7 +110,7 @@ public class TabsDragHandler {
             }
         });
         transition.setInterpolator(Interpolator.EASE_OUT);
-        transition.setOnFinished(e -> {
+        transition.setOnFinished(_ -> {
             if (dragTabCurrentIndex != dragTabStartIndex) {
                 reorderTabs(dragTabStartIndex, dragTabCurrentIndex);
             }
@@ -128,7 +128,7 @@ public class TabsDragHandler {
         }
         );
         transition.setInterpolator(Interpolator.EASE_BOTH);
-        transition.setOnFinished(e -> completeHeaderReordering());
+        transition.setOnFinished(_ -> completeHeaderReordering());
 
         return transition;
     }

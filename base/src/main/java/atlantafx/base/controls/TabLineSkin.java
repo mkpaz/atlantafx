@@ -23,7 +23,7 @@ public class TabLineSkin extends SkinBase<TabLine> {
     protected final Rectangle clipRect;
 
     protected final TabLineBehavior behavior;
-    protected final InvalidationListener selectionChangeListener = o -> getSkinnable().requestLayout();
+    protected final InvalidationListener selectionChangeListener = _ -> getSkinnable().requestLayout();
     protected @Nullable SelectionModel<Tab> selectionModel;
 
     public TabLineSkin(TabLine control) {
@@ -58,21 +58,21 @@ public class TabLineSkin extends SkinBase<TabLine> {
 
         updateSelectionModel();
 
-        registerChangeListener(control.selectionModelProperty(), o -> updateSelectionModel());
-        registerChangeListener(control.widthProperty(), o -> {
+        registerChangeListener(control.selectionModelProperty(), _ -> updateSelectionModel());
+        registerChangeListener(control.widthProperty(), _ -> {
             tabsContainer.invalidateScrollOffset();
             clipRect.setWidth(control.getWidth());
         });
-        registerChangeListener(control.heightProperty(), o -> {
+        registerChangeListener(control.heightProperty(), _ -> {
             tabsContainer.invalidateScrollOffset();
             clipRect.setHeight(control.getHeight());
         });
-        registerChangeListener(control.ellipsisStringProperty(), o -> {
+        registerChangeListener(control.ellipsisStringProperty(), _ -> {
             for (Node node : tabsContainer.getChildrenUnmodifiable()) {
                 ((TabSkin) node).updateEllipsisString();
             }
         });
-        registerChangeListener(control.leftNodeProperty(), o -> {
+        registerChangeListener(control.leftNodeProperty(), _ -> {
             Node node = control.getLeftNode();
             if (node == null) {
                 rootContainer.getChildren().removeIf(c -> c.getStyleClass().contains("left-node"));
@@ -84,7 +84,7 @@ public class TabLineSkin extends SkinBase<TabLine> {
                 rootContainer.getChildren().addFirst(node);
             }
         });
-        registerChangeListener(control.rightNodeProperty(), o -> {
+        registerChangeListener(control.rightNodeProperty(), _ -> {
             Node node = control.getRightNode();
             if (node == null) {
                 rootContainer.getChildren().removeIf(c -> c.getStyleClass().contains("right-node"));
@@ -115,8 +115,8 @@ public class TabLineSkin extends SkinBase<TabLine> {
         }
 
         if (IS_TOUCH_SUPPORTED) {
-            control.addEventHandler(SwipeEvent.SWIPE_LEFT, o -> behavior.selectNextTab());
-            control.addEventHandler(SwipeEvent.SWIPE_RIGHT, o -> behavior.selectPreviousTab());
+            control.addEventHandler(SwipeEvent.SWIPE_LEFT, _ -> behavior.selectNextTab());
+            control.addEventHandler(SwipeEvent.SWIPE_RIGHT, _ -> behavior.selectPreviousTab());
         }
     }
 

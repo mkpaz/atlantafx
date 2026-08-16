@@ -51,7 +51,7 @@ public class TabsContainer extends StackPane {
             setScrollOffset(scrollOffset + delta);
         });
 
-        closingPolicyListener = (obs, old, val) -> {
+        closingPolicyListener = (_, old, val) -> {
             if (old != null) {
                 getStyleClass().remove(old.getStyleClass());
             }
@@ -61,7 +61,7 @@ public class TabsContainer extends StackPane {
             requestLayout();
         };
 
-        resizePolicyListener = (obs, old, val) -> requestLayout();
+        resizePolicyListener = (_, _, _) -> requestLayout();
 
         control.tabClosingPolicyProperty().addListener(closingPolicyListener);
         control.tabResizePolicyProperty().addListener(resizePolicyListener);

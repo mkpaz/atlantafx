@@ -1,10 +1,8 @@
 import org.jspecify.annotations.NullMarked;
 
 /**
- * Provides additional controls, layout and Java API for
- * custom themes support.
+ * Provides additional controls, layout and Java API for custom themes support.
  */
-
 @NullMarked
 module atlantafx.base {
 

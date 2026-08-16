@@ -253,7 +253,7 @@ public class Spin extends Control {
     /** {@inheritDoc} */
     @Override
     protected void layoutChildren() {
-        if (getSkin() instanceof SpinSkin skin) {
+        if (getSkin() instanceof SpinSkin) {
             Node node = getSkin().getNode();
             if (node != null) {
                 double x = snappedLeftInset();

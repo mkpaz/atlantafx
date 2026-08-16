@@ -56,7 +56,7 @@ public class NotificationSkin extends SkinBase<Notification> {
         HBox.setHgrow(messageText, Priority.ALWAYS);
 
         setMessageText();
-        registerChangeListener(control.messageProperty(), o -> setMessageText());
+        registerChangeListener(control.messageProperty(), _ -> setMessageText());
 
         // text wrapping won't work without this
         messageText.setMaxWidth(Double.MAX_VALUE);
@@ -66,7 +66,7 @@ public class NotificationSkin extends SkinBase<Notification> {
 
         menuButton.getStyleClass().add("secondary-menu-button");
         menuButton.getChildren().setAll(menuButtonIcon);
-        menuButton.setOnMouseClicked(e -> actionsMenu.show(
+        menuButton.setOnMouseClicked(_ -> actionsMenu.show(
             menuButton,
             menuButton.localToScreen(menuButton.getLayoutBounds()).getMinX(),
             menuButton.localToScreen(menuButton.getLayoutBounds()).getMaxY()
@@ -76,19 +76,19 @@ public class NotificationSkin extends SkinBase<Notification> {
         menuButtonIcon.getStyleClass().add("icon");
 
         Bindings.bindContent(actionsMenu.getItems(), getSkinnable().getSecondaryActions());
-        registerListChangeListener(actionsMenu.getItems(), o -> {
+        registerListChangeListener(actionsMenu.getItems(), _ -> {
             menuButton.setVisible(!getSkinnable().getSecondaryActions().isEmpty());
             menuButton.setManaged(!getSkinnable().getSecondaryActions().isEmpty());
         });
 
         closeButton.getStyleClass().add("close-button");
         closeButton.getChildren().setAll(closeButtonIcon);
-        closeButton.setOnMouseClicked(e -> handleClose());
+        closeButton.setOnMouseClicked(_ -> handleClose());
         closeButton.setVisible(control.getOnClose() != null);
         closeButton.setManaged(control.getOnClose() != null);
         closeButtonIcon.getStyleClass().add("icon");
 
-        registerChangeListener(control.onCloseProperty(), o -> {
+        registerChangeListener(control.onCloseProperty(), _ -> {
             closeButton.setVisible(getSkinnable().getOnClose() != null);
             closeButton.setManaged(getSkinnable().getOnClose() != null);
         });
@@ -119,7 +119,7 @@ public class NotificationSkin extends SkinBase<Notification> {
         buttonBar.setManaged(!getSkinnable().getPrimaryActions().isEmpty());
 
         Bindings.bindContent(buttonBar.getButtons(), getSkinnable().getPrimaryActions());
-        registerListChangeListener(buttonBar.getButtons(), o -> {
+        registerListChangeListener(buttonBar.getButtons(), _ -> {
             buttonBar.setVisible(!getSkinnable().getPrimaryActions().isEmpty());
             buttonBar.setManaged(!getSkinnable().getPrimaryActions().isEmpty());
         });

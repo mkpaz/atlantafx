@@ -37,7 +37,7 @@ public class PasswordTextFormatter extends TextFormatter<String> {
         passwordFilter.setBullet(bullet);
         passwordFilter.setInitialText(field.getText());
 
-        revealPasswordProperty().addListener((obs, old, val) -> {
+        revealPasswordProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }

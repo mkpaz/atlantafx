@@ -68,7 +68,7 @@ public class DoubleStringConverter extends StringConverter<Double> {
         reset = () -> input.setText(decimalFormat.format(resetValue));
 
         // restrict direct input to valid numerical characters
-        input.textProperty().addListener((ov, oldValue, newValue) -> {
+        input.textProperty().addListener((_, oldValue, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 return;
             }

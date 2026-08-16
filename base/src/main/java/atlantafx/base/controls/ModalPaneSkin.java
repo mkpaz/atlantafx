@@ -67,7 +67,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
     }
 
     protected void registerListeners() {
-        registerChangeListener(getSkinnable().contentProperty(), obs -> {
+        registerChangeListener(getSkinnable().contentProperty(), _ -> {
             Node content = getSkinnable().getContent();
 
             // the transition is node-based
@@ -93,7 +93,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             contentWrapper.layout();
         });
 
-        registerChangeListener(getSkinnable().displayProperty(), obs -> {
+        registerChangeListener(getSkinnable().displayProperty(), _ -> {
             boolean display = getSkinnable().isDisplay();
             if (display) {
                 show();
@@ -102,7 +102,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             }
         });
 
-        registerChangeListener(getSkinnable().inTransitionFactoryProperty(), obs -> {
+        registerChangeListener(getSkinnable().inTransitionFactoryProperty(), _ -> {
             // invalidate cached value
             if (inTransition != null) {
                 inTransition.statusProperty().removeListener(animationInListener);
@@ -110,7 +110,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             inTransition = null;
         });
 
-        registerChangeListener(getSkinnable().outTransitionFactoryProperty(), obs -> {
+        registerChangeListener(getSkinnable().outTransitionFactoryProperty(), _ -> {
             // invalidate cached value
             if (outTransition != null) {
                 outTransition.statusProperty().removeListener(animationOutListener);
@@ -201,7 +201,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
     }
 
     protected ChangeListener<Animation.Status> createAnimationInListener() {
-        return (obs, old, val) -> {
+        return (_, _, val) -> {
             if (val == Animation.Status.RUNNING) {
                 doShow();
             }
@@ -209,7 +209,7 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
     }
 
     protected ChangeListener<Animation.Status> createAnimationOutListener() {
-        return (obs, old, val) -> {
+        return (_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 doHide();
             }

@@ -170,7 +170,7 @@ public class DeckPane extends AnchorPane {
             moveYUpFromTopBorderToOffCanvas(topNode),  // out
             moveYUpFromBottomBorderToTopBorder(target) // in
         );
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -198,7 +198,7 @@ public class DeckPane extends AnchorPane {
             moveYDownFromTopBorderToBottomBorder(topNode), // out
             moveYDownFromOffCanvasToTopBorder(target)      // in
         );
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -226,7 +226,7 @@ public class DeckPane extends AnchorPane {
             moveXLeftFromLeftBorderToOffCanvas(topNode), // out
             moveXLeftFromRightBorderToLeftBorder(target)  // in
         );
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -254,7 +254,7 @@ public class DeckPane extends AnchorPane {
             moveXRightFromLeftBorderToRightBorder(topNode), // out
             moveXRightFromOffCanvasToLeftBorder(target)     // in
         );
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -279,7 +279,7 @@ public class DeckPane extends AnchorPane {
         setViewOrder(target, Z_ANIMATED_IN);
 
         var transition = moveYUpFromBottomBorderToTopBorder(target);
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -304,7 +304,7 @@ public class DeckPane extends AnchorPane {
         setViewOrder(target, Z_ANIMATED_IN);
 
         var transition = moveYDownFromOffCanvasToTopBorder(target);
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -329,7 +329,7 @@ public class DeckPane extends AnchorPane {
         setViewOrder(target, Z_ANIMATED_IN);
 
         var transition = moveXLeftFromRightBorderToLeftBorder(target);
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }
@@ -354,7 +354,7 @@ public class DeckPane extends AnchorPane {
         setViewOrder(target, Z_ANIMATED_IN);
 
         var transition = moveXRightFromOffCanvasToLeftBorder(target);
-        transition.setOnFinished(e -> onTransitionFinished(topNode, target));
+        transition.setOnFinished(_ -> onTransitionFinished(topNode, target));
         setAnimationActive(true);
         transition.play();
     }

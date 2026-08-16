@@ -120,7 +120,7 @@ public class PopoverSkin implements Skin<Popover> {
                 popover.detachedProperty().or(popover.headerAlwaysVisibleProperty())));
         closeIcon.getStyleClass().add("icon");
         closeIcon.setAlignment(TOP_RIGHT);
-        closeIcon.getGraphic().setOnMouseClicked(evt -> popover.hide());
+        closeIcon.getGraphic().setOnMouseClicked(_ -> popover.hide());
 
         titlePane = new StackPane();
         titlePane.getChildren().add(title);
@@ -140,7 +140,7 @@ public class PopoverSkin implements Skin<Popover> {
             content.getStyleClass().add(DETACHED_STYLE_CLASS);
         }
 
-        popover.headerAlwaysVisibleProperty().addListener((o, oV, isVisible) -> {
+        popover.headerAlwaysVisibleProperty().addListener((_, _, isVisible) -> {
             if (isVisible) {
                 content.setTop(titlePane);
             } else if (!popover.isDetached()) {
@@ -148,12 +148,12 @@ public class PopoverSkin implements Skin<Popover> {
             }
         });
 
-        InvalidationListener updatePathListener = observable -> updatePath();
+        InvalidationListener updatePathListener = _ -> updatePath();
         getPopupWindow().xProperty().addListener(updatePathListener);
         getPopupWindow().yProperty().addListener(updatePathListener);
         popover.arrowLocationProperty().addListener(updatePathListener);
-        popover.contentNodeProperty().addListener((obs, oldContent, newContent) -> content.setCenter(newContent));
-        popover.detachedProperty().addListener((value, oldDetached, newDetached) -> {
+        popover.contentNodeProperty().addListener((_, _, newContent) -> content.setCenter(newContent));
+        popover.detachedProperty().addListener((_, _, newDetached) -> {
             if (newDetached) {
                 popover.getStyleClass().add(DETACHED_STYLE_CLASS);
                 content.getStyleClass().add(DETACHED_STYLE_CLASS);
@@ -205,7 +205,7 @@ public class PopoverSkin implements Skin<Popover> {
             }
         };
 
-        final EventHandler<MouseEvent> mouseReleasedHandler = evt -> {
+        final EventHandler<MouseEvent> mouseReleasedHandler = _ -> {
             if (tornOff && !getSkinnable().isDetached()) {
                 tornOff = false;
                 getSkinnable().detach();

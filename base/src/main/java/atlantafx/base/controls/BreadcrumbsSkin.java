@@ -51,13 +51,13 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
     protected static final PseudoClass LAST = PseudoClass.getPseudoClass("last");
 
     protected final EventHandler<TreeModificationEvent<Object>> treeChildrenModifiedHandler =
-        e -> updateBreadCrumbs();
+        _ -> updateBreadCrumbs();
 
     public BreadcrumbsSkin(final Breadcrumbs<T> control) {
         super(control);
 
         control.selectedCrumbProperty().addListener(
-            (obs, old, val) -> updateSelectedPath(old, val)
+            (_, old, val) -> updateSelectedPath(old, val)
         );
         updateSelectedPath(getSkinnable().selectedCrumbProperty().get(), null);
     }
@@ -177,7 +177,7 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
         }
 
         // listen to the action event of each bread crumb
-        crumb.setOnAction(e -> onBreadCrumbAction(treeItem));
+        crumb.setOnAction(_ -> onBreadCrumbAction(treeItem));
 
         return crumb;
     }

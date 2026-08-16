@@ -116,7 +116,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
 
         createUI();
 
-        registerChangeListener(control.valueProperty(), e -> {
+        registerChangeListener(control.valueProperty(), _ -> {
             LocalDate date = control.getValue();
             displayedYearMonthProperty().set(
                 date != null ? YearMonth.from(date) : YearMonth.now(ZoneId.systemDefault())
@@ -125,12 +125,12 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
             control.fireEvent(new ActionEvent());
         });
 
-        registerChangeListener(control.showWeekNumbersProperty(), e -> {
+        registerChangeListener(control.showWeekNumbersProperty(), _ -> {
             updateGrid();
             updateWeekNumberCells();
         });
 
-        registerChangeListener(control.topNodeProperty(), e -> {
+        registerChangeListener(control.topNodeProperty(), _ -> {
             Node node = control.getTopNode();
             if (node == null) {
                 rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("top-node"));
@@ -142,7 +142,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
             }
         });
 
-        registerChangeListener(control.bottomNodeProperty(), e -> {
+        registerChangeListener(control.bottomNodeProperty(), _ -> {
             Node node = control.getBottomNode();
             if (node == null) {
                 rootPane.getChildren().removeIf(c -> c.getStyleClass().contains("bottom-node"));
@@ -201,7 +201,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
         displayedYearMonth.set(
             value != null ? YearMonth.from(value) : YearMonth.now(ZoneId.systemDefault())
         );
-        displayedYearMonth.addListener((observable, oldValue, newValue) -> updateValues());
+        displayedYearMonth.addListener((_, _, _) -> updateValues());
 
         rootPane.getChildren().add(createMonthYearPane());
 

@@ -89,7 +89,7 @@ public class Calendar extends Control {
      * @param localDate The date to be set as the currently selected date in the Calendar.
      */
     public Calendar(@Nullable LocalDate localDate) {
-        valueProperty().addListener(obs -> {
+        valueProperty().addListener(_ -> {
             LocalDate date = getValue();
             Chronology chrono = getChronology();
 
@@ -101,7 +101,7 @@ public class Calendar extends Control {
             }
         });
 
-        chronologyProperty().addListener(observable -> {
+        chronologyProperty().addListener(_ -> {
             LocalDate date = getValue();
             Chronology chrono = getChronology();
 
