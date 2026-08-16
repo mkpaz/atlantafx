@@ -48,7 +48,7 @@ public class EclipseSpin implements Skin<Spin>, SpinSkin {
     protected Circle circleRight;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double radius;
@@ -121,8 +121,8 @@ public class EclipseSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(circleLeft, circleRight);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

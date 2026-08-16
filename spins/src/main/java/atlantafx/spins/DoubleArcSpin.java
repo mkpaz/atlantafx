@@ -44,9 +44,9 @@ public class DoubleArcSpin implements Skin<Spin>, SpinSkin {
     protected Rotate spinRotate;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
-    protected DoubleProperty primaryArcLength = new SimpleDoubleProperty(0);
-    protected DoubleProperty secondaryArcLength = new SimpleDoubleProperty(0);
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final DoubleProperty primaryArcLength = new SimpleDoubleProperty(0);
+    protected final DoubleProperty secondaryArcLength = new SimpleDoubleProperty(0);
     protected boolean autostart = true;
 
     protected final double radius;
@@ -112,13 +112,13 @@ public class DoubleArcSpin implements Skin<Spin>, SpinSkin {
         double minGap = 0.01;
 
         // first arc grows clockwise starting from the 12 o'clock position
-        primaryArcLength.addListener((obs, old, val) -> {
+        primaryArcLength.addListener((_, _, val) -> {
             double len = val.doubleValue();
             arcBefore.getStrokeDashArray().setAll(len, Math.max(minGap, circumference - len));
         });
 
         // second arc follows closely, aligned against the end of the first arc
-        secondaryArcLength.addListener((obs, old, val) -> {
+        secondaryArcLength.addListener((_, _, val) -> {
             double len = val.doubleValue();
             arcAfter.getStrokeDashArray().setAll(len, Math.max(minGap, circumference - len));
             // shift offset to ensure smooth connection

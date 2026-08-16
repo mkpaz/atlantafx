@@ -58,10 +58,10 @@ public class PacmanSpin implements Skin<Spin>, SpinSkin {
     protected Circle ball;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
-    protected DoubleProperty mouthLength = new SimpleDoubleProperty(MOUTH_CLOSED_LENGTH);
-    protected DoubleProperty ballX = new SimpleDoubleProperty(0);
-    protected DoubleProperty ballOpacity = new SimpleDoubleProperty(0);
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final DoubleProperty mouthLength = new SimpleDoubleProperty(MOUTH_CLOSED_LENGTH);
+    protected final DoubleProperty ballX = new SimpleDoubleProperty(0);
+    protected final DoubleProperty ballOpacity = new SimpleDoubleProperty(0);
     protected boolean autostart = true;
 
     protected final double bodyRadius;
@@ -126,7 +126,7 @@ public class PacmanSpin implements Skin<Spin>, SpinSkin {
         pacmanBody.setType(ArcType.ROUND);
         pacmanBody.setStrokeType(StrokeType.INSIDE);
 
-        mouthLength.addListener((obs, old, val) ->
+        mouthLength.addListener((_, _, val) ->
             pacmanBody.setLength(val.doubleValue())
         );
 
@@ -143,8 +143,8 @@ public class PacmanSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(content);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

@@ -48,9 +48,9 @@ public class PlanesSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle middleLayer;
     protected Rectangle topLayer;
 
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
-    protected boolean autostart = true;
     protected Subscription subscription = Subscription.EMPTY;
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected boolean autostart = true;
 
     protected final double size;
 
@@ -119,9 +119,9 @@ public class PlanesSpin implements Skin<Spin>, SpinSkin {
         root.getChildren().add(planesGroup);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
-            spin.tertiaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
+            spin.tertiaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

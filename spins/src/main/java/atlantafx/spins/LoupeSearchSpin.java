@@ -51,7 +51,7 @@ public class LoupeSearchSpin implements Skin<Spin>, SpinSkin {
     protected Group loupeGroup;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -145,7 +145,7 @@ public class LoupeSearchSpin implements Skin<Spin>, SpinSkin {
         root.getChildren().add(loupeGroup);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

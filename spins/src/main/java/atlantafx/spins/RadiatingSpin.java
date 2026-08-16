@@ -44,7 +44,7 @@ public class RadiatingSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle[] ticks;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -116,7 +116,7 @@ public class RadiatingSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(ticks);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

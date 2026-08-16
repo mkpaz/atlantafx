@@ -58,7 +58,7 @@ public class CoffeeCupSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle steam3;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -145,8 +145,8 @@ public class CoffeeCupSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(steam1, steam2, steam3, cupBody, handle);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

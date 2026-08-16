@@ -43,10 +43,10 @@ public class RollingBallsSpin implements Skin<Spin>, SpinSkin {
 
     protected Spin spin;
     protected Pane root;
-    protected Circle[] balls = new Circle[BALL_COUNT];
+    protected final Circle[] balls = new Circle[BALL_COUNT];
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double radius;
@@ -118,7 +118,7 @@ public class RollingBallsSpin implements Skin<Spin>, SpinSkin {
         }
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

@@ -38,10 +38,10 @@ public class PieFillSpin implements Skin<Spin>, SpinSkin {
 
     protected Spin spin;
     protected Pane root;
-    protected Arc[] sectors = new Arc[SECTOR_COUNT]; // [0] Top, [1] Right, [2] Bottom, [3] Left
+    protected final Arc[] sectors = new Arc[SECTOR_COUNT]; // [0] Top, [1] Right, [2] Bottom, [3] Left
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double radius;
@@ -99,7 +99,7 @@ public class PieFillSpin implements Skin<Spin>, SpinSkin {
         }
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateTimeline()),
+            spin.primaryColorProperty().subscribe(_ -> updateTimeline()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

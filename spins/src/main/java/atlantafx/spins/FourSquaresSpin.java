@@ -38,7 +38,7 @@ public class FourSquaresSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle[] squares;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double squareSize;
@@ -98,8 +98,8 @@ public class FourSquaresSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(squares);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateTimeline()),
-            spin.secondaryColorProperty().subscribe(paint -> updateTimeline()),
+            spin.primaryColorProperty().subscribe(_ -> updateTimeline()),
+            spin.secondaryColorProperty().subscribe(_ -> updateTimeline()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

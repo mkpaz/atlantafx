@@ -44,7 +44,7 @@ public class TextFillSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle clipRect;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double fontSize;
@@ -123,7 +123,7 @@ public class TextFillSpin implements Skin<Spin>, SpinSkin {
         frontText.setClip(clipRect);
 
         // listen for layout changes (not text changes)
-        backText.layoutBoundsProperty().subscribe(bounds -> updateLayout());
+        backText.layoutBoundsProperty().subscribe(_ -> updateLayout());
 
         updateLayout();
 

@@ -41,7 +41,7 @@ public class InnerArcSpin implements Skin<Spin>, SpinSkin {
     protected Arc arc;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double radius;

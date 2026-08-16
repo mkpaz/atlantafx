@@ -41,7 +41,7 @@ public class PerimeterBallSpin implements Skin<Spin>, SpinSkin {
     protected Circle dot;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -102,8 +102,8 @@ public class PerimeterBallSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(backgroundRect, dot);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateTimeline()),
-            spin.secondaryColorProperty().subscribe(paint -> updateTimeline()),
+            spin.primaryColorProperty().subscribe(_ -> updateTimeline()),
+            spin.secondaryColorProperty().subscribe(_ -> updateTimeline()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

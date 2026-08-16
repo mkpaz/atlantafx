@@ -74,7 +74,7 @@ public class HourglassSpin implements Skin<Spin>, SpinSkin {
     protected Rectangle stream;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected final DoubleProperty topSandShift = new SimpleDoubleProperty();
     protected final DoubleProperty bottomSandShift = new SimpleDoubleProperty();
     protected boolean autostart = true;
@@ -184,16 +184,16 @@ public class HourglassSpin implements Skin<Spin>, SpinSkin {
         root.getChildren().add(hourglassContainer);
 
         // react to shift and rotation changes to calculate exact sand & stream positions
-        topSandShift.addListener((obs, old, val) -> updateSandLevels(unit, centerY));
-        bottomSandShift.addListener((obs, old, val) -> updateSandLevels(unit, centerY));
-        containerRotate.angleProperty().addListener((obs, old, val) -> updateSandLevels(unit, centerY));
+        topSandShift.addListener((_, _, _) -> updateSandLevels(unit, centerY));
+        bottomSandShift.addListener((_, _, _) -> updateSandLevels(unit, centerY));
+        containerRotate.angleProperty().addListener((_, _, _) -> updateSandLevels(unit, centerY));
 
         topSandShift.set(-maxSandHeightPx);
         bottomSandShift.set(maxSandHeightPx);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

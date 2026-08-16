@@ -37,10 +37,10 @@ public class DiamondFillSpin implements Skin<Spin>, SpinSkin {
 
     protected Spin spin;
     protected Pane root;
-    protected Rectangle[] sectors = new Rectangle[4]; // [0] top, [1] right, [2] bottom, [3] left
+    protected final Rectangle[] sectors = new Rectangle[4]; // [0] top, [1] right, [2] bottom, [3] left
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -129,7 +129,7 @@ public class DiamondFillSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(grid);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateTimeline()),
+            spin.primaryColorProperty().subscribe(_ -> updateTimeline()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

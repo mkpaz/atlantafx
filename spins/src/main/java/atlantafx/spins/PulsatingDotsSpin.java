@@ -39,7 +39,7 @@ public class PulsatingDotsSpin implements Skin<Spin>, SpinSkin {
     protected Circle circle3;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double radius;
@@ -104,8 +104,8 @@ public class PulsatingDotsSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(circle1, circle2, circle3);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateTimeline()),
-            spin.secondaryColorProperty().subscribe(paint -> updateTimeline()),
+            spin.primaryColorProperty().subscribe(_ -> updateTimeline()),
+            spin.secondaryColorProperty().subscribe(_ -> updateTimeline()),
 
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {

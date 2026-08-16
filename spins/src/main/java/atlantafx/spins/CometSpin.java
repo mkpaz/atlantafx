@@ -48,13 +48,13 @@ public class CometSpin implements Skin<Spin>, SpinSkin {
     protected Spin spin;
     protected Pane root;
     protected Group spinningContent;
-    protected Circle[] dots = new Circle[DOT_COUNT];
-    protected Rotate[] dotRotates = new Rotate[DOT_COUNT];
+    protected final Circle[] dots = new Circle[DOT_COUNT];
+    protected final Rotate[] dotRotates = new Rotate[DOT_COUNT];
+    protected final DoubleProperty spreadProperty = new SimpleDoubleProperty(0);
     protected Rotate spinRotate;
 
-    protected DoubleProperty spreadProperty = new SimpleDoubleProperty(0);
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double pathRadius;

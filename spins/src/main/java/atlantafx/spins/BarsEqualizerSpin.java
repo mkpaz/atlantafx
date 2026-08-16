@@ -60,7 +60,7 @@ public class BarsEqualizerSpin implements Skin<Spin>, SpinSkin {
     protected final Rectangle[] bars = new Rectangle[BAR_COUNT]; // [0], [1], [2], [3]
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -134,7 +134,7 @@ public class BarsEqualizerSpin implements Skin<Spin>, SpinSkin {
         }
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

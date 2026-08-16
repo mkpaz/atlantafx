@@ -54,7 +54,7 @@ public class PuzzleSpin implements Skin<Spin>, SpinSkin {
     protected double lastLeft = -1;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -125,13 +125,13 @@ public class PuzzleSpin implements Skin<Spin>, SpinSkin {
             }
         };
 
-        topRadius.addListener((obs, old, val) -> redraw.run());
-        rightRadius.addListener((obs, old, val) -> redraw.run());
-        bottomRadius.addListener((obs, old, val) -> redraw.run());
-        leftRadius.addListener((obs, old, val) -> redraw.run());
+        topRadius.addListener((_, _, _) -> redraw.run());
+        rightRadius.addListener((_, _, _) -> redraw.run());
+        bottomRadius.addListener((_, _, _) -> redraw.run());
+        leftRadius.addListener((_, _, _) -> redraw.run());
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> draw()),
+            spin.primaryColorProperty().subscribe(_ -> draw()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

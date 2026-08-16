@@ -41,10 +41,10 @@ public class TextDotsSpin implements Skin<Spin>, SpinSkin {
     protected Spin spin;
     protected Pane root;
     protected Text labelText;
-    protected Circle[] dots = new Circle[3];
+    protected final Circle[] dots = new Circle[3];
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double fontSize;
@@ -127,7 +127,7 @@ public class TextDotsSpin implements Skin<Spin>, SpinSkin {
         labelText.textProperty().bind(
             spin.textProperty().map(text -> text != null && !text.isBlank() ? text : DEFAULT_TEXT)
         );
-        labelText.textProperty().subscribe(text -> updateLayout(dotRadius, dotGap, wrapper));
+        labelText.textProperty().subscribe(_ -> updateLayout(dotRadius, dotGap, wrapper));
         labelText.fillProperty().bind(spin.primaryColorProperty());
 
         labelText.setX(startX);
@@ -144,8 +144,8 @@ public class TextDotsSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(wrapper);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

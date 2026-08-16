@@ -48,7 +48,7 @@ public class TextProgressSpin implements Skin<Spin>, SpinSkin {
     protected Pane wrapper;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double fontSize;
@@ -114,7 +114,7 @@ public class TextProgressSpin implements Skin<Spin>, SpinSkin {
 
         wrapper = new Pane(labelText, progressBar);
 
-        labelText.textProperty().subscribe(text -> updateLayout());
+        labelText.textProperty().subscribe(_ -> updateLayout());
         labelText.fillProperty().bind(spin.primaryColorProperty());
 
         updateLayout();
@@ -123,8 +123,8 @@ public class TextProgressSpin implements Skin<Spin>, SpinSkin {
         root = new Pane(wrapper);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

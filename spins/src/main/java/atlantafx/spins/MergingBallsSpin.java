@@ -47,7 +47,7 @@ public class MergingBallsSpin implements Skin<Spin>, SpinSkin {
     protected Circle bottomRightCircle;
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double ballRadius;
@@ -112,8 +112,8 @@ public class MergingBallsSpin implements Skin<Spin>, SpinSkin {
         root.setMaxSize(canvasSize, canvasSize);
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
-            spin.secondaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
+            spin.secondaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {

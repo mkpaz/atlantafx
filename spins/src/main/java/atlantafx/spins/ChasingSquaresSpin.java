@@ -64,10 +64,10 @@ public class ChasingSquaresSpin implements Skin<Spin>, SpinSkin {
 
     protected Spin spin;
     protected Pane root;
-    protected Rectangle[] squares = new Rectangle[SQUARE_COUNT];
+    protected final Rectangle[] squares = new Rectangle[SQUARE_COUNT];
 
     protected Subscription subscription = Subscription.EMPTY;
-    protected ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
+    protected final ObjectProperty<@Nullable Timeline> timeline = new SimpleObjectProperty<>();
     protected boolean autostart = true;
 
     protected final double size;
@@ -128,7 +128,7 @@ public class ChasingSquaresSpin implements Skin<Spin>, SpinSkin {
         updateColors();
 
         subscription = Subscription.combine(
-            spin.primaryColorProperty().subscribe(paint -> updateColors()),
+            spin.primaryColorProperty().subscribe(_ -> updateColors()),
             spin.sceneProperty().subscribe(scene -> {
                 if (scene != null) {
                     if (autostart) {
