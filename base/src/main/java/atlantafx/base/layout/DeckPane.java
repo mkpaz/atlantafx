@@ -403,7 +403,7 @@ public class DeckPane extends AnchorPane {
     /**
      * Sets the callback action to be called before setting a node at the top of the DeckPane.
      */
-    public ObjectProperty<Consumer<Node>> beforeShowCallbackProperty() {
+    public ObjectProperty<@Nullable Consumer<Node>> beforeShowCallbackProperty() {
         return beforeShowCallback;
     }
 
@@ -427,7 +427,7 @@ public class DeckPane extends AnchorPane {
     /**
      * Sets the callback action to be called after removing the top node from the top of the DeckPane.
      */
-    public ObjectProperty<Consumer<Node>> afterHideCallbackProperty() {
+    public ObjectProperty<@Nullable Consumer<Node>> afterHideCallbackProperty() {
         return afterHideCallback;
     }
 

@@ -107,7 +107,7 @@ public class ModalBox extends AnchorPane {
     protected void createLayout() {
         closeButton.getStyleClass().add("close-button");
         closeButton.getChildren().setAll(closeButtonIcon);
-        closeButton.setOnMouseClicked(e -> handleClose());
+        closeButton.setOnMouseClicked(_ -> handleClose());
 
         closeButtonIcon.getStyleClass().add("icon");
 
@@ -133,8 +133,9 @@ public class ModalBox extends AnchorPane {
         }
 
         // call user specified close handler
-        if (onClose.get() != null) {
-            onClose.get().handle(new Event(Event.ANY));
+        var handler = onClose.get();
+        if (handler != null) {
+            handler.handle(new Event(Event.ANY));
         }
     }
 
@@ -149,14 +150,14 @@ public class ModalBox extends AnchorPane {
      * this handler will be executed after the default close handler. Therefore, you
      * can use it to perform arbitrary actions on dialog close.
      */
-    public ObjectProperty<EventHandler<? super Event>> onCloseProperty() {
+    public ObjectProperty<@Nullable EventHandler<? super Event>> onCloseProperty() {
         return onClose;
     }
 
-    protected final ObjectProperty<EventHandler<? super Event>> onClose =
+    protected final ObjectProperty<@Nullable EventHandler<? super Event>> onClose =
         new SimpleObjectProperty<>(this, "onClose");
 
-    public EventHandler<? super Event> getOnClose() {
+    public @Nullable EventHandler<? super Event> getOnClose() {
         return onClose.get();
     }
 

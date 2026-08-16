@@ -8,6 +8,8 @@ import static javafx.application.Application.STYLESHEET_MODENA;
 import javafx.application.Application;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * The basic theme interface.
  */
@@ -42,12 +44,8 @@ public interface Theme {
      * A simple factory method for instantiating a new theme.
      */
     static Theme of(final String name, final String userAgentStylesheet, final boolean darkMode) {
-        if (name == null) {
-            throw new NullPointerException("Name cannot be null!");
-        }
-        if (userAgentStylesheet == null) {
-            throw new NullPointerException("User agent stylesheet cannot be null!");
-        }
+        Objects.requireNonNull(name, "Name cannot be null!");
+        Objects.requireNonNull(userAgentStylesheet, "User agent stylesheet cannot be null!");
 
         return new Theme() {
 

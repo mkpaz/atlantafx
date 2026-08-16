@@ -66,6 +66,7 @@ public abstract class BehaviorSkinBase<C extends Control, B extends BehaviorBase
      * because it will be done automatically from dispose method.
      */
     protected void unregisterListeners() {
+        // for inheritance
     }
 
     /**

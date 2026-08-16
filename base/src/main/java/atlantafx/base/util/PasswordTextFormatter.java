@@ -29,9 +29,9 @@ public class PasswordTextFormatter extends TextFormatter<String> {
         //noinspection DataFlowIssue (TextFormatter accepts null as default value)
         super(valueConverter, null, filter);
 
-        NullSafetyHelper.assertNonNull(valueConverter, "StringConverter");
-        NullSafetyHelper.assertNonNull(filter, "UnaryOperator");
-        NullSafetyHelper.assertNonNull(field, "TextField");
+        NullSafety.assertNonNull(valueConverter, "StringConverter");
+        NullSafety.assertNonNull(filter, "UnaryOperator");
+        NullSafety.assertNonNull(field, "TextField");
 
         PasswordFilter passwordFilter = (PasswordFilter) getFilter();
         passwordFilter.setBullet(bullet);

@@ -29,19 +29,12 @@
 
 package atlantafx.base.controls;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.value.WritableValue;
-import javafx.css.CssMetaData;
-import javafx.css.PseudoClass;
-import javafx.css.Styleable;
-import javafx.css.StyleableObjectProperty;
-import javafx.css.StyleableProperty;
+import javafx.css.*;
 import javafx.css.converter.EnumConverter;
 import javafx.event.ActionEvent;
 import javafx.geometry.HorizontalDirection;
@@ -51,6 +44,10 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import org.jspecify.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A control that provides users with the ability to choose between two distinct values.
@@ -184,7 +181,9 @@ public class ToggleSwitch extends Labeled implements Toggle {
                         }
                         tg.getToggles().add(ToggleSwitch.this);
                     } else if (tg == null) {
-                        old.getToggles().remove(ToggleSwitch.this);
+                        if (old != null) {
+                            old.getToggles().remove(ToggleSwitch.this);
+                        }
                     }
 
                     old = tg;

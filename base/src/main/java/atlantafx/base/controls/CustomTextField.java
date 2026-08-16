@@ -67,12 +67,12 @@ public class CustomTextField extends TextField {
     protected Skin<?> createDefaultSkin() {
         return new CustomTextFieldSkin(this) {
             @Override
-            public ObjectProperty<Node> leftProperty() {
+            public ObjectProperty<@Nullable Node> leftProperty() {
                 return CustomTextField.this.leftProperty();
             }
 
             @Override
-            public ObjectProperty<Node> rightProperty() {
+            public ObjectProperty<@Nullable Node> rightProperty() {
                 return CustomTextField.this.rightProperty();
             }
         };

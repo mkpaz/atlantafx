@@ -4,7 +4,7 @@ package atlantafx.sampler.theme;
 
 import atlantafx.base.theme.*;
 import atlantafx.base.util.Colour;
-import atlantafx.base.util.NullSafetyHelper;
+import atlantafx.base.util.NullSafety;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
@@ -60,7 +60,7 @@ public final class ThemeManager {
 
     private final ThemeRepository repository = new ThemeRepository();
 
-    private Scene scene = NullSafetyHelper.lateNonNull();
+    private Scene scene = NullSafety.lateNonNull();
 
     private @Nullable SamplerTheme currentTheme = null;
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;

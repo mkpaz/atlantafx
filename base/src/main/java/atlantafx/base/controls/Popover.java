@@ -33,7 +33,7 @@ import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 import java.util.Objects;
 
-import atlantafx.base.util.NullSafetyHelper;
+import atlantafx.base.util.NullSafety;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -325,7 +325,7 @@ public class Popover extends PopupControl {
         targetX = x;
         targetY = y;
 
-        NullSafetyHelper.assertNonNull(owner, "Owner Node");
+        NullSafety.assertNonNull(owner, "Owner Node");
 
         // this is all needed because children windows do not get their x and y
         // coordinate updated when the owning window gets moved by the user
@@ -514,7 +514,7 @@ public class Popover extends PopupControl {
     private final ObjectProperty<Node> contentNode = new SimpleObjectProperty<>(this, "contentNode") {
         @Override
         public void setValue(Node node) {
-            NullSafetyHelper.assertNonNull(node, "Node Node");
+            NullSafety.assertNonNull(node, "Node Node");
             this.set(node);
         }
     };
@@ -774,7 +774,7 @@ public class Popover extends PopupControl {
      * @see #titleProperty()
      */
     public final void setTitle(String title) {
-        NullSafetyHelper.assertNonNull(title, "Title");
+        NullSafety.assertNonNull(title, "Title");
         titleProperty().set(title);
     }
 

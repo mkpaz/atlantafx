@@ -185,7 +185,9 @@ public class ToggleLabel extends Labeled implements Toggle {
                         }
                         tg.getToggles().add(ToggleLabel.this);
                     } else if (tg == null) {
-                        old.getToggles().remove(ToggleLabel.this);
+                        if (old != null) {
+                            old.getToggles().remove(ToggleLabel.this);
+                        }
                     }
 
                     old = tg;

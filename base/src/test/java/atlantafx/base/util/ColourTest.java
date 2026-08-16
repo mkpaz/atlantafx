@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 import static atlantafx.base.util.Colour.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 class ColourTest {
 
     @Nested

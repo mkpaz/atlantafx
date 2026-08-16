@@ -283,7 +283,7 @@ public class Breadcrumbs<T> extends Control {
      *
      * @param <T> The type of the value property within BreadCrumbItem.
      */
-    public static class BreadCrumbItem<T> extends TreeItem<T> {
+    public static class BreadCrumbItem<T> extends TreeItem<@Nullable T> {
 
         protected boolean first;
         protected boolean last;

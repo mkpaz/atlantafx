@@ -8,7 +8,7 @@ import static atlantafx.base.theme.Styles.TEXT_MUTED;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.layout.DeckPane;
 import atlantafx.base.theme.Styles;
-import atlantafx.base.util.NullSafetyHelper;
+import atlantafx.base.util.NullSafety;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
@@ -55,11 +55,11 @@ class SceneBuilderDialog extends ModalDialog {
     private final Button forwardBtn;
     private final Button closeBtn;
 
-    private Pane startScreen = NullSafetyHelper.lateNonNull();
-    private Pane actionScreen = NullSafetyHelper.lateNonNull();
-    private Pane themeScreen = NullSafetyHelper.lateNonNull();
-    private Pane execScreen = NullSafetyHelper.lateNonNull();
-    private Pane reportScreen = NullSafetyHelper.lateNonNull();
+    private Pane startScreen = NullSafety.lateNonNull();
+    private Pane actionScreen = NullSafety.lateNonNull();
+    private Pane themeScreen = NullSafety.lateNonNull();
+    private Pane execScreen = NullSafety.lateNonNull();
+    private Pane reportScreen = NullSafety.lateNonNull();
 
     private final SceneBuilderDialogModel model = new SceneBuilderDialogModel();
 

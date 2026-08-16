@@ -2,13 +2,15 @@
 
 package atlantafx.base.theme;
 
+import javafx.css.Stylesheet;
+import org.jspecify.annotations.Nullable;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javafx.css.Stylesheet;
 
 /**
  * A lazy man CSS to BSS compiler wrapper.
@@ -52,7 +54,7 @@ public class ThemeCompiler {
      * @param dir The source directory to scan for CSS files.
      * @throws IOException to punish you for using Java
      */
-    public void convertToBinary(Path dir) throws IOException {
+    public void convertToBinary(@Nullable Path dir) throws IOException {
         if (dir == null || !Files.exists(dir) || !Files.isDirectory(dir)) {
             throw new IllegalArgumentException("Invalid directory: " + dir);
         }
@@ -77,7 +79,7 @@ public class ThemeCompiler {
      * @param out The output file path.
      * @throws IOException to punish you for using Java
      */
-    public void convertToBinary(Path in, Path out) throws IOException {
+    public void convertToBinary(@Nullable Path in, @Nullable Path out) throws IOException {
         if (in == null || out == null) {
             throw new IllegalArgumentException("Both input and output files must be specified.");
         }

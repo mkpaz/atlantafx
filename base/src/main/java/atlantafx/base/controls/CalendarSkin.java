@@ -27,7 +27,7 @@
 
 package atlantafx.base.controls;
 
-import atlantafx.base.util.NullSafetyHelper;
+import atlantafx.base.util.NullSafety;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
@@ -84,16 +84,16 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     protected final VBox rootPane = new VBox();
     protected CalendarGrid calendarGrid;
 
-    protected Button forwardButton = NullSafetyHelper.lateNonNull();
-    protected Button backButton = NullSafetyHelper.lateNonNull();
-    protected Label monthLabel = NullSafetyHelper.lateNonNull();
-    protected Label yearLabel = NullSafetyHelper.lateNonNull();
+    protected Button forwardButton = NullSafety.lateNonNull();
+    protected Button backButton = NullSafety.lateNonNull();
+    protected Label monthLabel = NullSafety.lateNonNull();
+    protected Label yearLabel = NullSafety.lateNonNull();
 
     // model
     protected final List<DateCell> dayNameCells = new ArrayList<>();
     protected final List<DateCell> weekNumberCells = new ArrayList<>();
     protected final List<DateCell> dayCells = new ArrayList<>();
-    protected LocalDate[] dayCellDates = NullSafetyHelper.lateNonNull();
+    protected LocalDate[] dayCellDates = NullSafety.lateNonNull();
     protected @Nullable DateCell lastFocusedDayCell = null;
     protected final int daysPerWeek = getDaysPerWeek();
 

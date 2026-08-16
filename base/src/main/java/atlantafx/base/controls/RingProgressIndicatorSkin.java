@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The default skin for the {@link RingProgressIndicator} control.
@@ -201,7 +202,7 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
     // Styleable Properties                                                  //
     //*************************************************************************
 
-    protected DoubleProperty indeterminateAnimationTime = null;
+    protected @Nullable DoubleProperty indeterminateAnimationTime = null;
 
     private DoubleProperty indeterminateAnimationTimeProperty() {
         if (indeterminateAnimationTime == null) {

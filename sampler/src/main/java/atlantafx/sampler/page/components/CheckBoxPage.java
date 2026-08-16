@@ -3,7 +3,7 @@
 package atlantafx.sampler.page.components;
 
 import atlantafx.base.util.BBCodeParser;
-import atlantafx.base.util.NullSafetyHelper;
+import atlantafx.base.util.NullSafety;
 import atlantafx.sampler.page.ExampleBox;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.page.Snippet;
@@ -21,8 +21,8 @@ public final class CheckBoxPage extends OutlinePage {
         return NAME;
     }
 
-    private CheckBox basicCheck = NullSafetyHelper.lateNonNull();
-    private CheckBox indeterminateCheck = NullSafetyHelper.lateNonNull();
+    private CheckBox basicCheck = NullSafety.lateNonNull();
+    private CheckBox indeterminateCheck = NullSafety.lateNonNull();
 
     public CheckBoxPage() {
         super();
