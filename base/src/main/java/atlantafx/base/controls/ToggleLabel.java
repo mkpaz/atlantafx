@@ -23,7 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * {@code ToggleLabel} is a utility component rather than an independent control.
- * It' i's similar to a {@link ToggleButton} but does not have a pressed state or action handler,
+ * It's similar to a {@link ToggleButton} but does not have a pressed state or action handler,
  * making it more like a {@code Tab}. It's intended to be used as a segment in controls like
  * {@link SegmentedControl}.
  */
@@ -67,7 +67,7 @@ public class ToggleLabel extends Labeled implements Toggle {
         setAccessibleRole(AccessibleRole.TAB_ITEM);
 
         // Alignment is styleable through CSS. Calling setAlignment() makes it look to CSS
-        // like the user set the value and css will not override. Initializing alignment by
+        // like the user set the value and CSS will not override. Initializing alignment by
         // calling set on the CssMetaData ensures that CSS will be able to override the value.
         ((StyleableProperty<Pos>) (WritableValue<Pos>) alignmentProperty()).applyStyle(null, Pos.CENTER);
         setMnemonicParsing(true);

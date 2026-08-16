@@ -23,7 +23,7 @@ import org.jspecify.annotations.Nullable;
  * <p>The parser doesn't impose restrictions on tag names or tag params.
  * It's a handler implementation responsibility to differentiate supported
  * tags from unsupported and so to for the tag params. This allows user to utilize
- * arbitrary tags or params without changing the parser behaviour. The parser,
+ * arbitrary tags or params without changing the parser behavior. The parser,
  * however, verifies that each opening tag has the matching closing tag.
  *
  * <p>If parsing is failed due to invalid input an {@link IllegalStateException}

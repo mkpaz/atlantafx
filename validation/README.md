@@ -39,7 +39,7 @@ Rule.on(usernameField.textProperty(), "Username")
 
 ## API Overview
 
-A `Rule` performs validation on a single observable property.:
+A `Rule` performs validation on a single observable property:
 
 ```text
 Rule.on(property)                        // Creates a rule for an observable property
@@ -428,5 +428,5 @@ Rule.on(passwordProperty, "Password")
     // obtains message from a resource bundle
     .failMessageKey("bundle-name", "error.password.minLength")
     // formatted message obtained from a resource bundle
-    .failMessageKey("bundle-name", "error.password.minLength");
+    .failMessageFormatKey("bundle-name", "error.password.minLength");
 ```

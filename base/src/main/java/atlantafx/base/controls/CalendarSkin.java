@@ -370,10 +370,10 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     }
 
     public void updateDayNameCells() {
-        // first day of week, 1 = monday, 7 = sunday
+        // first day of week, 1 = Monday, 7 = Sunday
         final int firstDayOfWeek = WeekFields.of(getLocale()).getFirstDayOfWeek().getValue();
 
-        // july 13th 2009 is a Monday, so a firstDayOfWeek = 1 must come out of the 13th
+        // July 13th 2009 is a Monday, so a firstDayOfWeek = 1 must come out of the 13th
         final LocalDate date = LocalDate.of(2009, 7, 12 + firstDayOfWeek);
         for (int i = 0; i < daysPerWeek; i++) {
             String name = weekDayNameFormatter.withLocale(getLocale()).format(date.plus(i, DAYS));

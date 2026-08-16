@@ -59,7 +59,7 @@ $margin-content-dense: 10px !default;
   }
 
   // if TitledPane is disabled, its elevation should also be removed,
-  // othserwise background color will be different due -fxopacity and
+  // otherwise background color will be different due -fx-opacity and
   // -fx-effect applied at the same time
   &:disabled {
     // opacity shouldn't be applied to the titled pane borders,

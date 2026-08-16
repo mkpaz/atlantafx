@@ -3,7 +3,7 @@
 package atlantafx.base.theme;
 
 /**
- * A theme based on <a href="https://primer.style/">Github Primer</a> color palette.
+ * A theme based on <a href="https://primer.style/">GitHub Primer</a> color palette.
  */
 public final class PrimerDark implements Theme {
 

@@ -670,7 +670,7 @@ public class TabLine extends Control {
                 }
 
                 // Look rightwards. We subtract 1 from delta as we need to take into account
-                // that a tab has been removed and if we don't do this we'll miss the tab
+                // that a tab has been removed. If we don't do this we'll miss the tab
                 // to the right of the tab (as it has moved into the removed tabs position).
                 int upPos = tabIndex + delta - 1;
                 if (upPos < size) {

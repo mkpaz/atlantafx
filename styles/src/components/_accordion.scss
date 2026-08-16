@@ -17,7 +17,7 @@
     >.title {
       -fx-background-insets: 0, 0 cfg.$border-width cfg.$border-width cfg.$border-width;
       // there's no such class as 'last-titled-pane, so we can't add
-      // border radius to the last accordion block whick looks a bit ugly
+      // border radius to the last accordion block which looks a bit ugly
       -fx-background-radius: 0;
     }
   }

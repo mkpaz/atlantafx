@@ -4,7 +4,7 @@
 @use "settings/utils" as utils;
 
 // IOS light color palette
-// Tint colors don't meet WCAG, but there's accessible (darker) pallette.
+// Tint colors don't meet WCAG, but there's accessible (darker) palette.
 $systemBackground:                 rgba(255.0, 255.0, 255.0, 1.0); // #ffffffff
 $secondarySystemBackground:        rgba(242.0, 242.0, 247.0, 1.0); // #f2f2f7ff
 $tertiarySystemBackground:         rgba(255.0, 255.0, 255.0, 1.0); // #ffffffff

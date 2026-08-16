@@ -134,7 +134,7 @@ public class DeckPane extends AnchorPane {
      * using the provided offset. See {@link AnchorPane#setTopAnchor(Node, Double)}
      * for the reference.
      *
-     * @param offset The offset values for each othe the specified nodes.
+     * @param offset The offset values for each other the specified nodes.
      * @param nodes  The array of the nodes to be added.
      */
     public void addChildren(Insets offset, Node... nodes) {
@@ -471,7 +471,7 @@ public class DeckPane extends AnchorPane {
     }
 
     /**
-     * Cleans-up properties after transition finished.
+     * Cleans up properties after transition finished.
      */
     protected void onTransitionFinished(Node topNode, Node target) {
         resetNode(topNode);
