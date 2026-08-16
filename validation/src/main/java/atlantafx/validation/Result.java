@@ -79,7 +79,7 @@ public sealed interface Result permits
     record Success(Descriptor descriptor) implements Result {
 
         /** A success result with an empty name and no attributes. */
-        public static Success EMPTY = new Success(Descriptor.EMPTY);
+        public static final Success EMPTY = new Success(Descriptor.EMPTY);
 
         @Override
         public boolean valid() {
