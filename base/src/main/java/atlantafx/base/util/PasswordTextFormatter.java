@@ -111,7 +111,7 @@ public class PasswordTextFormatter extends TextFormatter<String> {
         return create(textField, BULLET);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     protected static class PasswordStringConverter extends StringConverter<String> {
 

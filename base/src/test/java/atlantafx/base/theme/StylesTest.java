@@ -58,7 +58,7 @@ public class StylesTest {
         assertThat(node.getStyleClass()).containsExactly("first", "third");
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     @Test
     public void testAddStyleClassAdds() {
@@ -90,7 +90,7 @@ public class StylesTest {
         assertThat(node.getStyleClass()).containsExactly("first", "second");
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     @Test
     public void testActivatePseudoClassActivates() {
@@ -125,7 +125,7 @@ public class StylesTest {
         assertThat(node.getPseudoClassStates()).containsExactly(pcFirst, pcSecond);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     @Test
     @SuppressWarnings("DataFlowIssue")
@@ -173,7 +173,7 @@ public class StylesTest {
         assertThat(node.getStyle()).isEqualTo("-fx-background-color:red;-fx-background-color:blue;");
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     @Test
     void testRemoveStyleValidProperty() {
@@ -225,7 +225,7 @@ public class StylesTest {
         assertThat(node.getStyle()).isEmpty();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     @Test
     void testToDataURIWithValidCSS() {

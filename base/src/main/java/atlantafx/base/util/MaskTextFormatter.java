@@ -67,9 +67,9 @@ public class MaskTextFormatter extends TextFormatter<String> {
         this.filter = filter;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Factory Methods                                                       //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * Creates a new text field with the provided string input mask.
@@ -153,9 +153,9 @@ public class MaskTextFormatter extends TextFormatter<String> {
         return formatter;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Helpers                                                               //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     protected static String createPlaceholderMask(String inputMask) {
         return createPlaceholderMask(fromString(inputMask));
@@ -204,9 +204,9 @@ public class MaskTextFormatter extends TextFormatter<String> {
         return Collections.unmodifiableList(mask);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Filter Implementation                                                 //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     protected static class MaskTextFilter implements UnaryOperator<Change> {
 

@@ -163,7 +163,7 @@ public class DeckPaneTest {
         deck.runAndAssert(newNode, pane -> pane.slideRight(newNode));
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static class TestDeck {
 

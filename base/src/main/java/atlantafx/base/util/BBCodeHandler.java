@@ -83,7 +83,7 @@ public interface BBCodeHandler {
      */
     void characters(int start, int length);
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * A basic {@link BBCodeHandler} implementation.<br/><br/>

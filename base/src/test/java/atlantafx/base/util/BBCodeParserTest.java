@@ -236,7 +236,7 @@ public class BBCodeParserTest {
         assertThat(handler.text()).containsExactlyInAnyOrder("This_", "is_a_", "bold_text");
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public record MockTag(String name,
                           @Nullable Map<String, String> params,

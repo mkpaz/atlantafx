@@ -72,9 +72,9 @@ public class PasswordTextField extends CustomTextField {
         formatter.set(PasswordTextFormatter.create(this, bullet));
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Properties                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * See {@link PasswordTextFormatter#passwordProperty()}.

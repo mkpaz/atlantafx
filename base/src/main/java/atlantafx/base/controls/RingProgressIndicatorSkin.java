@@ -197,9 +197,9 @@ public class RingProgressIndicatorSkin extends SkinBase<RingProgressIndicator> {
         return getClassCssMetaData();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Styleable Properties                                                  //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     protected DoubleProperty indeterminateAnimationTime = null;
 

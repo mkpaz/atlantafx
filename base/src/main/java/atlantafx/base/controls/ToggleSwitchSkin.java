@@ -259,9 +259,9 @@ public class ToggleSwitchSkin extends SkinBase<ToggleSwitch> {
         return ToggleSwitchSkin.StyleableProperties.STYLEABLES;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Styleable Properties                                                  //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     static class StyleableProperties {
 

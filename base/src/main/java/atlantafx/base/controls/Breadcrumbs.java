@@ -128,9 +128,9 @@ public class Breadcrumbs<T> extends Control {
         return subRoot;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Properties                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * Represents the bottom-most path node (the node on the most-right side in
@@ -275,7 +275,7 @@ public class Breadcrumbs<T> extends Control {
         return onCrumbActionProperty().get();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * {@code BreadCrumbItem} extends {@link TreeItem}, providing support
@@ -312,10 +312,6 @@ public class Breadcrumbs<T> extends Control {
         public boolean isLast() {
             return last;
         }
-
-        ///////////////////////////////////////////////////
-        // package private                               //
-        ///////////////////////////////////////////////////
 
         protected void setFirst(boolean first) {
             this.first = first;

@@ -55,9 +55,9 @@ public class RingProgressIndicator extends ProgressIndicator {
         return new RingProgressIndicatorSkin(this);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Properties                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     /**
      * Represents the node to be displayed within the progress indicator. If null,

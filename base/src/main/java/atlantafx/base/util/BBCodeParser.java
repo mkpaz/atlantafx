@@ -191,7 +191,7 @@ public class BBCodeParser {
         return container;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     protected boolean handleStartTag(int start, int length, boolean selfClose) {
         List<String> tokens = splitBySpace(input, start + 1, !selfClose ? length - 1 : length - 2);
