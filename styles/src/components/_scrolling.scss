@@ -3,7 +3,7 @@
 @use "../settings/config" as cfg;
 
 ///////////////////////////////////////////////////////////////////////////////
-//  ScrolBar                                                                 //
+//  ScrollBar                                                                 //
 ///////////////////////////////////////////////////////////////////////////////
 
 $scrollbar-thickness: 8px !default;
@@ -31,7 +31,10 @@ $thumb-radius:        cfg.$border-radius !default;
 
     >.increment-arrow {
       -fx-shape: " ";
-      -fx-padding: 0;
+      // TextArea cannot calculate the thumb size correctly when both scrollbar
+      // buttons have a size of 0. We add a small padding to the bottom button,
+      // which shouldn't be very noticeable.
+      -fx-padding: 4;
     }
   }
 
