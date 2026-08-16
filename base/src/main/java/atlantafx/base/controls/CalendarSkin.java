@@ -27,14 +27,23 @@
 
 package atlantafx.base.controls;
 
-import static atlantafx.base.controls.Calendar.isValidDate;
-import static java.time.temporal.ChronoField.DAY_OF_WEEK;
-import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
-import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.MONTHS;
-import static java.time.temporal.ChronoUnit.WEEKS;
-import static java.time.temporal.ChronoUnit.YEARS;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
+import atlantafx.base.util.NullSafetyHelper;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.util.Callback;
+import org.jspecify.annotations.Nullable;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -52,29 +61,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import atlantafx.base.util.NullSafetyHelper;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import org.jspecify.annotations.Nullable;
+import static atlantafx.base.controls.Calendar.isValidDate;
+import static java.time.temporal.ChronoField.DAY_OF_WEEK;
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoUnit.*;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 /**
  * The default skin for the {@link Calendar} control.
@@ -147,7 +138,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
                 if (!node.getStyleClass().contains("top-node")) {
                     node.getStyleClass().add("top-node");
                 }
-                rootPane.getChildren().add(0, node);
+                rootPane.getChildren().addFirst(node);
             }
         });
 
@@ -376,7 +367,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
         // July 13th 2009 is a Monday, so a firstDayOfWeek = 1 must come out of the 13th
         final LocalDate date = LocalDate.of(2009, 7, 12 + firstDayOfWeek);
         for (int i = 0; i < daysPerWeek; i++) {
-            String name = weekDayNameFormatter.withLocale(getLocale()).format(date.plus(i, DAYS));
+            String name = weekDayNameFormatter.withLocale(getLocale()).format(date.plusDays(i));
             dayNameCells.get(i).setText(capitalize(name));
         }
     }
@@ -388,7 +379,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
 
             final LocalDate firstOfMonth = displayedYearMonth.get().atDay(1);
             for (int i = 0; i < maxWeeksPerMonth; i++) {
-                LocalDate date = firstOfMonth.plus(i, WEEKS);
+                LocalDate date = firstOfMonth.plusWeeks(i);
                 // use a formatter to ensure correct localization
                 // such as when Thai numerals are required.
                 String cellText = weekNumberFormatter
@@ -621,7 +612,7 @@ public class CalendarSkin extends BehaviorSkinBase<Calendar, CalendarBehavior> {
     }
 
     private static String capitalize(String word) {
-        if (word.length() > 0) {
+        if (!word.isEmpty()) {
             int firstChar = word.codePointAt(0);
             if (!Character.isTitleCase(firstChar)) {
                 word = new String(new int[] {Character.toTitleCase(firstChar)}, 0, 1)

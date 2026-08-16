@@ -56,7 +56,7 @@ public class BBCodeParser {
     /**
      * Creates a new parser.
      *
-     * @see #BBCodeParser(String, BBCodeHandler, Set).
+     * @see #BBCodeParser(String, BBCodeHandler, Set)
      */
     public BBCodeParser(String input, BBCodeHandler handler) {
         this(input, handler, RESERVED_TAGS);
@@ -197,7 +197,7 @@ public class BBCodeParser {
         List<String> tokens = splitBySpace(input, start + 1, !selfClose ? length - 1 : length - 2);
 
         // only the name and param names are case-insensitive, param values aren't
-        String name = tokens.get(0).toLowerCase();
+        String name = tokens.getFirst().toLowerCase();
 
         Map<String, String> params = null;
         for (int i = 0; i < tokens.size(); i++) {

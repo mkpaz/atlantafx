@@ -167,7 +167,7 @@ public class ModalBox extends AnchorPane {
     /**
      * Specifies whether to remove (clear) the ModalPane content after it's closed.
      *
-     * @see ModalPane#hide(boolean).
+     * @see ModalPane#hide(boolean)
      */
     public BooleanProperty clearOnCloseProperty() {
         return clearOnClose;

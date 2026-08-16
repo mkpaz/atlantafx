@@ -18,7 +18,7 @@ public class InputGroupTest {
         );
 
         Assertions.assertThat(g.getChildren().size()).isEqualTo(1);
-        Assertions.assertThat(g.getChildren().get(0).getStyleClass()).isEmpty();
+        Assertions.assertThat(g.getChildren().getFirst().getStyleClass()).isEmpty();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class InputGroupTest {
 
         g.getChildren().add(new Pane());
         Assertions.assertThat(g.getChildren().size()).isEqualTo(1);
-        Assertions.assertThat(g.getChildren().get(0).getStyleClass()).isEmpty();
+        Assertions.assertThat(g.getChildren().getFirst().getStyleClass()).isEmpty();
 
         g.getChildren().add(new Pane());
         Assertions.assertThat(g.getChildren().size()).isEqualTo(2);
@@ -79,20 +79,20 @@ public class InputGroupTest {
         assertStyle(g, 2, Styles.CENTER_PILL);
         assertStyle(g, 3, Styles.RIGHT_PILL);
 
-        g.getChildren().remove(0);
+        g.getChildren().removeFirst();
         Assertions.assertThat(g.getChildren().size()).isEqualTo(3);
         assertStyle(g, 0, Styles.LEFT_PILL);
         assertStyle(g, 1, Styles.CENTER_PILL);
         assertStyle(g, 2, Styles.RIGHT_PILL);
 
-        g.getChildren().remove(0);
+        g.getChildren().removeFirst();
         Assertions.assertThat(g.getChildren().size()).isEqualTo(2);
         assertStyle(g, 0, Styles.LEFT_PILL);
         assertStyle(g, 1, Styles.RIGHT_PILL);
 
-        g.getChildren().remove(0);
+        g.getChildren().removeFirst();
         Assertions.assertThat(g.getChildren().size()).isEqualTo(1);
-        Assertions.assertThat(g.getChildren().get(0).getStyleClass()).isEmpty();
+        Assertions.assertThat(g.getChildren().getFirst().getStyleClass()).isEmpty();
     }
 
     private void assertStyle(InputGroup g, int index, String style) {

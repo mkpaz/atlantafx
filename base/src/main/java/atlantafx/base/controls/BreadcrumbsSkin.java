@@ -158,11 +158,11 @@ public class BreadcrumbsSkin<T> extends SkinBase<Breadcrumbs<T>> {
         Collections.reverse(path);
 
         // if the path consists of a single item it considered as first, but not last
-        if (path.size() > 0) {
-            path.get(0).setFirst(true);
+        if (!path.isEmpty()) {
+            path.getFirst().setFirst(true);
         }
         if (path.size() > 1) {
-            path.get(path.size() - 1).setLast(true);
+            path.getLast().setLast(true);
         }
 
         return path;

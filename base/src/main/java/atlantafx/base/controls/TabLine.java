@@ -3,7 +3,6 @@
 package atlantafx.base.controls;
 
 import atlantafx.base.shim.collections.ReorderableList;
-import atlantafx.base.util.NullSafetyHelper;
 import javafx.beans.property.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -134,7 +133,7 @@ public class TabLine extends Control {
         return selectionModel;
     }
 
-    protected ObjectProperty<SingleSelectionModel<Tab>> selectionModel = new SimpleObjectProperty<>(
+    protected final ObjectProperty<SingleSelectionModel<Tab>> selectionModel = new SimpleObjectProperty<>(
         this, "selectionModel", new TabLineSelectionModel(this)
     );
 

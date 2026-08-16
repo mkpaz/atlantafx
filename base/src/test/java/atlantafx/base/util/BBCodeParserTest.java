@@ -286,7 +286,7 @@ public class BBCodeParserTest {
             debug("END:" + name + "|" + start + "|" + length + "|" + new String(doc, start, length));
 
             var params = tagParams.pop();
-            var openTagTextStart = textStart.pop();
+            int openTagTextStart = textStart.pop();
             tags.add(new MockTag(
                 name,
                 params != PARAMS_PLACEHOLDER ? params : null,

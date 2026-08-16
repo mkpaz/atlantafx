@@ -574,7 +574,7 @@ public interface BBCodeHandler {
             }
         }
 
-        protected void addStyleIfPresent(@Nullable Map<String,String> params,
+        protected void addStyleIfPresent(@Nullable Map<String, String> params,
                                          String name, String key, Collection<String> c) {
             if (params != null && params.containsKey(key)) {
                 c.add(name + ":" + params.get(key));
