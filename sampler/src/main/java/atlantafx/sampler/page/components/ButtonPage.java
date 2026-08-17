@@ -384,7 +384,7 @@ public final class ButtonPage extends OutlinePage {
         //     -fx-font-size:  32px;
         //     -fx-icon-size:  32px;
         // }
-        iconBtn.getStylesheets().add(Styles.toDataURI(dataClass));
+        iconBtn.getStylesheets().add(Styles.encode(dataClass));
         //snippet_8:end
 
         var box = new HBox(HGAP_20, btn, iconBtn);

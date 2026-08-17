@@ -315,7 +315,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
         // .example:danger  .label {
         //     -fx-text-fill: -color-fg-emphasis;
         // }
-        content.getStylesheets().add(Styles.toDataURI(dataClass));
+        content.getStylesheets().add(Styles.encode(dataClass));
 
         bar.progressProperty().addListener((obs, old, val) -> {
             if (val == null) {

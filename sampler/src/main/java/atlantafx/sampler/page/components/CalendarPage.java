@@ -160,7 +160,7 @@ public final class CalendarPage extends OutlinePage {
         // -color-date-border: -color-accent-emphasis;
         // -color-date-month-year-bg: -color-accent-emphasis;
         // -color-date-month-year-fg: -color-fg-emphasis;
-        cal.getStylesheets().add(Styles.toDataURI(dataClass));
+        cal.getStylesheets().add(Styles.encode(dataClass));
         //snippet_4:end
 
         var box = new HBox(cal);

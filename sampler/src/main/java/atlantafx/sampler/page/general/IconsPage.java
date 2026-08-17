@@ -114,7 +114,7 @@ public final class IconsPage extends OutlinePage {
         // .stacked-ikonli-font-icon > .inner-icon {
         //   -fx-icon-size: 24px;
         // }
-        stackIcon1.getStylesheets().add(Styles.toDataURI(dataClass1));
+        stackIcon1.getStylesheets().add(Styles.encode(dataClass1));
 
         var outerIcon2 = new FontIcon(
             Material2OutlinedAL.CHECK_BOX_OUTLINE_BLANK
@@ -132,7 +132,7 @@ public final class IconsPage extends OutlinePage {
         // .stacked-ikonli-font-icon > .inner-icon {
         //   -fx-icon-size: 24px;
         // }
-        stackIcon2.getStylesheets().add(Styles.toDataURI(dataClass2));
+        stackIcon2.getStylesheets().add(Styles.encode(dataClass2));
         //snippet_2:end
 
         var box = new HBox(HGAP_20, stackIcon1, stackIcon2);

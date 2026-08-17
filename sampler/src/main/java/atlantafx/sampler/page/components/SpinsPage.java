@@ -135,7 +135,7 @@ public final class SpinsPage extends AbstractPage {
             }
 
             var css = ".spin { %s; }".formatted(String.join("; ", declarations));
-            pane.getStylesheets().setAll(Styles.toDataURI(css));
+            pane.getStylesheets().setAll(Styles.encode(css));
         }
     }
 
