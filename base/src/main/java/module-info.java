@@ -1,3 +1,4 @@
+import atlantafx.base.theme.*;
 import org.jspecify.annotations.NullMarked;
 
 /**
@@ -5,9 +6,9 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 module atlantafx.base {
+    requires static org.jspecify;
 
     requires transitive javafx.controls;
-    requires static org.jspecify;
 
     exports atlantafx.base.controls;
     exports atlantafx.base.layout;
@@ -17,4 +18,12 @@ module atlantafx.base {
     exports atlantafx.base.util;
 
     opens atlantafx.base.theme;
+
+    uses Theme;
+
+    provides Theme with
+        PrimerLight, PrimerDark,
+        NordLight, NordDark,
+        CupertinoLight, CupertinoDark,
+        Dracula;
 }
