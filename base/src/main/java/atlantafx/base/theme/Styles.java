@@ -2,14 +2,17 @@
 
 package atlantafx.base.theme;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import java.util.Base64;
-import java.util.Objects;
 import javafx.css.PseudoClass;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import org.jspecify.annotations.Nullable;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Objects;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * A set of constants and utility methods that simplifies adding CSS
@@ -18,7 +21,13 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("unused")
 public final class Styles {
 
+    @Deprecated
     public static final String DATA_URI_PREFIX = "data:base64,";
+
+    /**
+     * The MIME type for CSS stylesheets.
+     */
+    public static final String MIME_TEXT_CSS = "text/css";
 
     // Colors
 
@@ -130,8 +139,11 @@ public final class Styles {
     public static final String BORDER_SUBTLE = "border-subtle";
 
     private Styles() {
-        // Default constructor
+        // utility
     }
+
+    //region UTILS
+    //*************************************************************************
 
     /**
      * Adds the given style class to the node if it's not present,
@@ -162,7 +174,7 @@ public final class Styles {
      */
     public static void addStyleClass(Node node,
                                      String styleClass,
-                                     String @Nullable... excludes) {
+                                     String @Nullable ... excludes) {
         if (excludes != null && excludes.length > 0) {
             node.getStyleClass().removeAll(excludes);
         }
@@ -184,7 +196,7 @@ public final class Styles {
      */
     public static void activatePseudoClass(Node node,
                                            PseudoClass pseudoClass,
-                                           PseudoClass @Nullable... excludes) {
+                                           PseudoClass @Nullable ... excludes) {
         if (excludes != null) {
             for (PseudoClass exclude : excludes) {
                 node.pseudoClassStateChanged(exclude, false);
@@ -254,17 +266,170 @@ public final class Styles {
      * Converts a CSS string to the Base64-encoded data URI. The resulting string is
      * an inline data URI that can be applied to any node in the following manner:
      *
-     * <pre>{@code}
+     * <pre>{@code
      * var dataUri = Styles.toDataURI();
      * node.getStylesheets().add(dataUri);
      * node.getStylesheets().contains(dataUri);
      * node.getStylesheets().remove(dataUri);
-     * </pre>
+     * }</pre>
      *
      * @param css The CSS string to encode.
      * @return The resulting data URI string.
+     * @see #encode(String)
      */
+    @Deprecated
     public static String toDataURI(String css) {
         return DATA_URI_PREFIX + new String(Base64.getEncoder().encode(css.getBytes(UTF_8)), UTF_8);
     }
+
+    /**
+     * Encodes a CSS string into a data URI using UTF-8 encoding.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * String uri = encode(".root { -fx-font-size: 14px; }");
+     * // "data:text/css;charset=utf-8,.root { -fx-font-size: 14px; }"
+     * }</pre>
+     *
+     * @param content the text content to encode
+     * @return a formatted data URI string
+     */
+    public static String encode(String content) {
+        return encode(content, MIME_TEXT_CSS, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Encodes a string into a data URI using UTF-8 encoding.
+     *
+     * <p>If the MIME type is {@code text/css}, the method stores text as-is.
+     * Otherwise, it encodes content to Base64.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * String uri = encode(".btn { -fx-padding: 10px; }", "text/css");
+     * // "data:text/css;charset=utf-8,.btn { -fx-padding: 10px; }"
+     *
+     * String uri = encode("Hello World", "text/plain");
+     * // "data:text/plain;base64,SGVsbG8gV29ybGQ="
+     * }</pre>
+     *
+     * @param content  the text content to encode
+     * @param mimeType the MIME type of the data
+     * @return a formatted data URI string
+     */
+    public static String encode(String content, @Nullable String mimeType) {
+        return encode(content, mimeType, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Encodes a string into a data URI using a custom encoding.
+     *
+     * <p>If the MIME type is {@code text/css}, the method creates a plain text URI
+     * with the specified encoding. Otherwise, it converts text to bytes and encodes it to Base64.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * String uri = encode(".title { -fx-font-weight: bold; }", "text/css", StandardCharsets.UTF-8);
+     * // "data:text/css;charset=utf-8,.title { -fx-font-weight: bold; }"
+     * }</pre>
+     *
+     * @param content  the text content to encode
+     * @param mimeType the MIME type of the data
+     * @param charset  the character set to use
+     * @return a formatted data URI string
+     */
+    public static String encode(String content, @Nullable String mimeType, Charset charset) {
+        Objects.requireNonNull(content, "Content cannot be null");
+        Objects.requireNonNull(charset, "Charset cannot be null");
+
+        if (MIME_TEXT_CSS.equalsIgnoreCase(mimeType)) {
+            return "data:" + mimeType + ";charset=" + charset.name().toLowerCase() + "," + content;
+        }
+
+        return encode(content.getBytes(charset), mimeType);
+    }
+
+    /**
+     * Encodes a byte array into a Base64 data URI.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * byte[] data = new byte[] { 72, 101, 108, 108, 111 };
+     * String uri = encode(data, "image/png");
+     * // "data:image/png;base64,SGVsbG8="
+     *
+     * String uri = encode(data, null);
+     * // "data:;base64,SGVsbG8="
+     * }</pre>
+     *
+     * @param bytes    the binary data to encode
+     * @param mimeType the MIME type of the data
+     * @return a formatted data URI string
+     */
+    public static String encode(byte[] bytes, @Nullable String mimeType) {
+        Objects.requireNonNull(bytes, "Bytes cannot be null");
+
+        String prefix = (mimeType != null && !mimeType.isBlank())
+            ? "data:" + mimeType + ";base64,"
+            : "data:base64,";
+        return prefix + Base64.getEncoder().encodeToString(bytes);
+    }
+
+    /**
+     * Decodes a data URI into raw bytes.
+     *
+     * <p>This method handles both Base64 data and plain text data.
+     * If the URI contains a {@code charset} parameter, it converts plain text
+     * into bytes using that character set. Default character set is UTF-8.
+     *
+     * <p>Example:
+     * <pre>{@code
+     * byte[] text = decode("data:text/css;charset=utf-8,.root { -fx-font-size: 14px; }");
+     * String css = new String(text, StandardCharsets.UTF_8);
+     *
+     * byte[] image = decode("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE=");
+     * }</pre>
+     *
+     * @param dataUri the data URI string to decode
+     * @return an array of decoded bytes
+     * @throws IllegalArgumentException if the URI format is invalid
+     */
+    public static byte[] decode(String dataUri) {
+        Objects.requireNonNull(dataUri, "data URI cannot be null");
+
+        if (!dataUri.startsWith("data:")) {
+            throw new IllegalArgumentException("Invalid data URI: must start with 'data:'");
+        }
+
+        int comma = dataUri.indexOf(',');
+        if (comma == -1) {
+            throw new IllegalArgumentException("Invalid data URI: missing comma separator");
+        }
+
+        String metadata = dataUri.substring(5, comma);
+        String raw = dataUri.substring(comma + 1);
+        String[] parts = metadata.split(";");
+
+        boolean isBase64 = "base64".equalsIgnoreCase(metadata.trim());
+        Charset charset = StandardCharsets.UTF_8;
+
+        for (String part : parts) {
+            part = part.trim();
+            if ("base64".equalsIgnoreCase(part)) {
+                isBase64 = true;
+            } else if (part.toLowerCase().startsWith("charset=")) {
+                String encoding = part.substring(8).trim();
+                if (!encoding.isEmpty()) {
+                    charset = Charset.forName(encoding);
+                }
+            }
+        }
+
+        if (isBase64) {
+            return Base64.getDecoder().decode(raw.trim());
+        } else {
+            return raw.getBytes(charset);
+        }
+    }
+    //endregion
 }
