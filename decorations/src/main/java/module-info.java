@@ -7,8 +7,9 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 module atlantafx.decorations {
-    requires transitive javafx.controls;
     requires static org.jspecify;
+
+    requires transitive javafx.controls;
 
     exports atlantafx.decorations;
     opens atlantafx.decorations.theme;
