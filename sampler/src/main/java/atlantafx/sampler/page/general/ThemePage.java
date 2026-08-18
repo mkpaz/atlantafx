@@ -11,7 +11,7 @@ import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import atlantafx.sampler.util.Lazy;
+import atlantafx.base.util.Lazy;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;

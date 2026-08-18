@@ -9,7 +9,7 @@ import atlantafx.sampler.event.BrowseEvent;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.DevToolsEvent;
 import atlantafx.sampler.event.HotkeyEvent;
-import atlantafx.sampler.util.Lazy;
+import atlantafx.base.util.Lazy;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
