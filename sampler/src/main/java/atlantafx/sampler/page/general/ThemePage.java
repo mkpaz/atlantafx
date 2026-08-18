@@ -3,20 +3,18 @@
 package atlantafx.sampler.page.general;
 
 import atlantafx.base.theme.Styles;
-import atlantafx.base.util.BBCodeParser;
 import atlantafx.base.util.Colour;
+import atlantafx.base.util.Lazy;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.OutlinePage;
 import atlantafx.sampler.theme.SamplerTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import atlantafx.base.util.Lazy;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -67,7 +65,6 @@ public final class ThemePage extends OutlinePage {
     private final Colour bgBaseColor = color(Color.WHITE);
     private final Lazy<ThemeRepoManagerDialog> themeRepoManagerDialog;
     private final Lazy<ContrastCheckerDialog> contrastCheckerDialog;
-    private final Lazy<SceneBuilderDialog> sceneBuilderDialog;
     private final ColorPalette colorPalette;
     private final ColorScale colorScale = new ColorScale(bgBaseColor);
     private final ChoiceBox<SamplerTheme> themeSelector = createThemeSelector();
@@ -86,13 +83,6 @@ public final class ThemePage extends OutlinePage {
         contrastCheckerDialog = new Lazy<>(() -> {
             var dialog = new ContrastCheckerDialog(bgBaseColor);
             dialog.setClearOnClose(true);
-            return dialog;
-        });
-
-        sceneBuilderDialog = new Lazy<>(() -> {
-            var dialog = new SceneBuilderDialog();
-            dialog.setClearOnClose(true);
-            dialog.setOnClose(_ -> dialog.reset());
             return dialog;
         });
 
@@ -133,7 +123,6 @@ public final class ThemePage extends OutlinePage {
 
         addPageHeader();
         addNode(createThemeManagementSection());
-        addSection("Scene Builder", createSceneBuilderSection());
         addSection("Color Palette", createColorPaletteSection());
         addSection("Color Scale", createColorScaleSection());
 
@@ -169,23 +158,6 @@ public final class ThemePage extends OutlinePage {
         grid.addRow(2, new Label("Font"), new HBox(10, fontFamilyChooser, fontSizeSpinner));
 
         return grid;
-    }
-
-    private Node createSceneBuilderSection() {
-        var sceneBuilderBtn = new Button("SceneBuilder Integration");
-        sceneBuilderBtn.setGraphic(new ImageView(SCENE_BUILDER_ICON));
-        sceneBuilderBtn.setOnAction(_ -> {
-            SceneBuilderDialog dialog = sceneBuilderDialog.get();
-            dialog.show(getScene());
-        });
-
-        var description = BBCodeParser.createFormattedText("""
-            While SceneBuilder does not support adding custom themes, it is \
-            possible to overwrite looked-up CSS paths to make the existing \
-            SceneBuilder menu options load custom CSS files."""
-        );
-
-        return new VBox(VGAP_20, description, sceneBuilderBtn);
     }
 
     private Node createColorPaletteSection() {
