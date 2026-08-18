@@ -2,106 +2,124 @@
 
 package atlantafx.base.util;
 
-import java.text.DecimalFormat;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.util.StringConverter;
 import org.jspecify.annotations.Nullable;
 
+import java.text.DecimalFormat;
+
+import static javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
+
 /**
- * Converts between user-edited strings and Double values.
+ * Converts text edited by users into {@link Double} values and vice versa.
  *
- * <p>Accepts an optional Runnable that resets the editor on {@code NumberFormatException},
- * or a TextField or Spinner that is preemptively monitored for invalid input
- * during typing, and restricts valid input to a specified range when committed.
+ * <p>Formats numbers with up to two decimal places, omitting the decimal point
+ * and fractional zero if the value is a whole number (for example, {@code 5}
+ * or {@code 3.14}).
  *
- * <p>This implementation shows up to two decimal digits, but only if a fractional part
- * exists. The default implementation always shows one decimal digit which hinders typing.
+ * <p>You can configure this converter to monitor text input fields in real time.
+ * It can reject invalid characters during typing, restrict committed values
+ * to a specific numeric range, or reset the field when parsing fails.
  *
- * @author Christoph Nahr
+ * <p><b>Restricting input in a TextField with a range</b>
+ * <pre>{@code
+ * // rejects invalid letters during typing and
+ * // clamps the entered value to [0.0, 1.0] when the user presses ENTER
+ * var opacityField = new TextField("1.0");
+ * var converter = new DoubleStringConverter(opacityField, 0.0, 1.0);
+ *
+ * // bind text field changes directly to a model property
+ * var formatter = new TextFormatter<Double>(converter, 1.0);
+ * opacityField.setTextFormatter(formatter);
+ * }</pre>
+ *
+ * <p><b>Configuring a Spinner component</b>
+ * <pre>{@code
+ * var factory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 100.0, 50.0, 0.5);
+ *
+ * var percentSpinner = new Spinner<Double>(factory);
+ * percentSpinner.setEditable(true);
+ *
+ * // automatically wires converter to spinner editor
+ * DoubleStringConverter.createFor(percentSpinner);
+ * }</pre>
  */
 public class DoubleStringConverter extends StringConverter<Double> {
 
     private final DecimalFormat decimalFormat = new DecimalFormat("0.##");
-    private @Nullable Runnable reset;
+    private @Nullable Runnable resetHandler;
 
     /**
-     * Creates a DoubleStringConverter.
+     * Creates a {@code DoubleStringConverter} without a reset action.
      *
-     * <p>Swallows {@code NumberFormatException} but does nothing
-     * in response until {@link #setReset} is defined.
+     * <p>Ignores {@link NumberFormatException} until you set a reset callback
+     * using {@link #onReset(Runnable)}.
      */
     public DoubleStringConverter() {
-        // Default constructor
+        // default constructor
     }
 
     /**
-     * Creates a DoubleStringConverter with an editor reset callback.
-     * Specifying null has the same effect as the default constructor.
+     * Creates a {@code DoubleStringConverter} with an editor reset callback.
      *
-     * @param reset the Runnable to call upon {@code NumberFormatException}
+     * @param resetHandler the action to run when input parsing fails;
+     *                     passing {@code null} clears any existing action
      */
-    public DoubleStringConverter(Runnable reset) {
-        this.reset = reset;
+    public DoubleStringConverter(Runnable resetHandler) {
+        this.resetHandler = resetHandler;
     }
 
     /**
-     * Creates a DoubleStringConverter with the specified input range.
+     * Creates a {@code DoubleStringConverter} that monitors a text field.
      *
-     * <p>Preemptively monitors input to reject any invalid characters during
-     * typing. Restricts input to [{@code min}, {@code max}] (inclusive) when
-     * valid text is committed, and resets input to the closest value to zero
-     * within [{@code min}, {@code max}] when invalid text is committed.
+     * <p>Filters out invalid characters while the user types. When the user commits
+     * the text, this converter restricts the value to the range between {@code min}
+     * and {@code max} (inclusive). If the committed text is invalid, it resets
+     * the text field to the value closest to zero within the valid range.
      *
-     * @param input The TextField providing user-edited strings.
-     * @param min   The smallest valid value.
-     * @param max   The greatest valid value.
-     * @throws NullPointerException if  input is {@code null}.
+     * @param input the text field providing user input
+     * @param min   the lowest allowed value
+     * @param max   the highest allowed value (inclusive)
      */
     public DoubleStringConverter(TextField input, double min, double max) {
-        final double resetValue = Math.min(Math.max(0, min), max);
-        reset = () -> input.setText(decimalFormat.format(resetValue));
+        double resetValue = Math.min(Math.max(0, min), max);
+        resetHandler = () -> input.setText(decimalFormat.format(resetValue));
 
-        // restrict direct input to valid numerical characters
-        input.textProperty().addListener((_, oldValue, newValue) -> {
-            if (newValue == null || newValue.isEmpty()) {
+        input.textProperty().addListener((_, old, val) -> {
+            if (val == null || val.isEmpty()) {
                 return;
             }
 
-            // special case: minus sign if negative values allowed
-            if (min < 0 && newValue.endsWith("-")) {
-                if (newValue.length() > 1) {
+            // minus allowed for negative values
+            if (min < 0 && val.endsWith("-")) {
+                if (val.length() > 1) {
                     Platform.runLater(() -> input.setText("-"));
                 }
                 return;
             }
 
-            // revert to oldValue if newValue cannot be parsed
+            // revert to the old value if new value cannot be parsed
             try {
-                Double.parseDouble(newValue);
+                Double.parseDouble(val);
             } catch (NumberFormatException e) {
-                Platform.runLater(() -> input.setText(oldValue));
+                Platform.runLater(() -> input.setText(old));
             }
         });
 
         // validate committed input and restrict to legal range
-        final EventHandler<ActionEvent> oldHandler = input.getOnAction();
+        EventHandler<ActionEvent> oldHandler = input.getOnAction();
         input.setOnAction(t -> {
-            // fromString performs input validation
-            final double value = fromString(input.getText());
+            double value = fromString(input.getText());
 
-            // redundant for Spinner but not harmful
-            final double restricted = Math.min(Math.max(value, min), max);
+            double restricted = Math.min(Math.max(value, min), max);
             if (value != restricted) {
                 input.setText(decimalFormat.format(restricted));
             }
 
-            // required for Spinner which handles onAction
             if (oldHandler != null) {
                 oldHandler.handle(t);
             }
@@ -109,61 +127,47 @@ public class DoubleStringConverter extends StringConverter<Double> {
     }
 
     /**
-     * Creates a DoubleStringConverter for the specified Spinner.
+     * Creates a {@code DoubleStringConverter} for the specified spinner.
      *
-     * <p>Uses the TextField and minimum and maximum values of the specified
-     * Spinner for construction, and also sets the new DoubleStringConverter
-     * on its {@link SpinnerValueFactory.DoubleSpinnerValueFactory}.
-     *
-     * @param spinner The Spinner to create a DoubleStringConverter for.
-     * @return the new DoubleStringConverter
-     * @throws NullPointerException if the Spinner is {@code null}
+     * @param spinner the target spinner component
+     * @return a new converter configured for the spinner
      */
     public static DoubleStringConverter createFor(Spinner<Double> spinner) {
-        final SpinnerValueFactory.DoubleSpinnerValueFactory factory =
-            (SpinnerValueFactory.DoubleSpinnerValueFactory) spinner.getValueFactory();
-
-        final DoubleStringConverter converter = new DoubleStringConverter(
-            spinner.getEditor(), factory.getMin(), factory.getMax());
-
+        DoubleSpinnerValueFactory factory = (DoubleSpinnerValueFactory) spinner.getValueFactory();
+        DoubleStringConverter converter = new DoubleStringConverter(
+            spinner.getEditor(), factory.getMin(), factory.getMax()
+        );
         factory.setConverter(converter);
-        spinner.setTooltip(new Tooltip(String.format(
-            "Enter a value between %.2f and %.2f",
-            factory.getMin(), factory.getMax())));
 
         return converter;
     }
 
     /**
-     * Sets the editor reset callback.
+     * Sets the action to run when input parsing fails.
      *
-     * <p>Specify {@code null} to clear a previously set Runnable. When creating
-     * a DoubleStringConverter for a TextField or Spinner, this callback is
-     * automatically defined to reset committed invalid input to the closest value
-     * to zero within the legal range. Setting a different callback will overwrite this
-     * functionality.
+     * <p>Setting a custom handler replaces any automatic reset behavior
+     * configured for a text field or spinner.
      *
-     * @param reset The Runnable to call upon NumberFormatException.
-     * @see #fromString
+     * @param handler the action to execute on {@link NumberFormatException}
      */
-    public void setReset(Runnable reset) {
-        this.reset = reset;
+    public void onReset(Runnable handler) {
+        this.resetHandler = handler;
     }
 
     /**
-     * Converts the specified string into its double value.
-     * A {@code null}, empty, or otherwise invalid argument returns zero
-     * and also executes the editor reset callback, if any.
+     * Converts a text string into a double value.
      *
-     * @param s The string to convert.
-     * @return the double value of {@code s}
-     * @see #setReset
+     * <p>Returns {@code 0.0} and triggers the reset action if the input string is
+     * {@code null}, empty, or contains an invalid number format.
+     *
+     * @param s the string to convert
+     * @return the parsed double value, or {@code 0.0} if conversion fails
      */
     @Override
     public Double fromString(@Nullable String s) {
         if (s == null || s.isEmpty()) {
-            if (reset != null) {
-                reset.run();
+            if (resetHandler != null) {
+                resetHandler.run();
             }
             return 0.0;
         }
@@ -171,19 +175,21 @@ public class DoubleStringConverter extends StringConverter<Double> {
         try {
             return Double.valueOf(s);
         } catch (NumberFormatException e) {
-            if (reset != null) {
-                reset.run();
+            if (resetHandler != null) {
+                resetHandler.run();
             }
             return 0.0;
         }
     }
 
     /**
-     * Converts the specified double into its string form.
-     * A {@code null} argument is converted into the literal string "0".
+     * Converts a double value into its text representation.
      *
-     * @param value The Double to convert.
-     * @return the string form of {@code value}
+     * <p>Formats numbers up to two decimal places, omitting trailing zeros.
+     * Returns {@code "0"} if the value is {@code null}.
+     *
+     * @param value the double value to convert
+     * @return the formatted string
      */
     @Override
     public String toString(@Nullable Double value) {
