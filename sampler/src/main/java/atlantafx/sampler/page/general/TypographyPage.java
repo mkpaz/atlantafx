@@ -197,8 +197,6 @@ public final class TypographyPage extends OutlinePage {
 
         // JDK-8090423:
         // https://bugs.openjdk.org/browse/JDK-8090423
-        // Workaround:
-        // https://edencoding.com/resources/css_properties/fx-font-weight/
         var sample3 = new HBox(
             HGAP_20,
             new StyledText("900", "-fx-font-family:'Inter Black';"),
