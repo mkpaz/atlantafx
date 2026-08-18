@@ -137,6 +137,7 @@ public class MainModel {
             NAV_TREE.get(HtmlEditorPage.class),
             NAV_TREE.get(MenuButtonPage.class),
             NAV_TREE.get(RadioButtonPage.class),
+            NAV_TREE.get(RichTextPage.class),
             NAV_TREE.get(SliderPage.class),
             NAV_TREE.get(SpinnerPage.class),
             NAV_TREE.get(TextAreaPage.class),
@@ -242,6 +243,7 @@ public class MainModel {
             ProgressIndicatorPage.class, "ProgressBar")
         );
         map.put(RadioButtonPage.class, NavTree.Item.page(RadioButtonPage.NAME, RadioButtonPage.class));
+        map.put(RichTextPage.class, NavTree.Item.page(RichTextPage.NAME, RichTextPage.class));
         map.put(ScrollPanePage.class, NavTree.Item.page(ScrollPanePage.NAME, ScrollPanePage.class));
         map.put(SegmentedControlPage.class, NavTree.Item.page(SegmentedControlPage.NAME, SegmentedControlPage.class));
         map.put(SeparatorPage.class, NavTree.Item.page(SeparatorPage.NAME, SeparatorPage.class));

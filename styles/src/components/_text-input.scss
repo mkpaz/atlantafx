@@ -179,3 +179,95 @@ $color-fg-password: -color-fg-muted !default;
     -color-input-border-focused: $color-border-danger;
   }
 }
+
+.rich-text-area {
+
+  -color-input-bg: $color-bg;
+  -color-input-fg: $color-fg;
+  -color-input-border: $color-border;
+
+  -color-input-bg-focused: $color-bg-focused;
+  -color-input-border-focused: $color-border-focused;
+
+  -color-input-bg-readonly: $color-bg-readonly;
+  -color-input-bg-highlight: $color-bg-highlight;
+  -color-input-fg-highlight: $color-fg-highlight;
+
+  -fx-background-color: -color-input-border, -color-input-bg;
+  -fx-background-insets: 0, cfg.$border-width;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+  -fx-text-fill: -color-input-fg;
+
+  -fx-highlight-fill: -color-input-bg-highlight;
+  -fx-highlight-text-fill: -color-input-fg-highlight;
+
+  -fx-padding: 2px;
+  -fx-cursor: default;
+
+  .content {
+    -fx-cursor: text;
+    -fx-background-color: transparent;
+    // content pane has no padding support
+    // -fx-padding: cfg.$padding-y cfg.$padding-x cfg.$padding-y cfg.$padding-x;
+  }
+
+  .selection-highlight {
+    -fx-fill: -fx-highlight-fill;
+    -fx-stroke: -fx-highlight-fill;
+  }
+
+  &:focused {
+    -fx-background-color: -color-input-border-focused, -color-input-bg-focused;
+  }
+
+  // readonly works, but to pseudoclass/class added, hence to styling support
+  // &:readonly {
+  //   -fx-background-color: -color-input-border, -color-input-bg-readonly;
+  // }
+
+  // &:readonly:focused {
+  //   -fx-background-color: -color-input-border-focused, -color-input-bg-readonly;
+  // }
+
+  &:disabled {
+    -fx-opacity: cfg.$opacity-disabled;
+
+    // prevent opacity being applied twice
+    &>.scroll-pane {
+      -fx-opacity: 1.0;
+    }
+  }
+
+  &:success {
+    -color-input-bg: $color-bg-success;
+    -color-input-fg: $color-fg-success;
+    -color-input-border: $color-border-success;
+    -color-input-border-focused: $color-border-success;
+  }
+
+  &:danger {
+    -color-input-bg: $color-bg-danger;
+    -color-input-fg: $color-fg-danger;
+    -color-input-border: $color-border-danger;
+    -color-input-border-focused: $color-border-danger;
+  }
+
+  &.edge-to-edge {
+    -fx-background-color: -color-input-bg;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+  }
+
+  .context-menu {
+    // prevent context menu from inheriting text inputs font properties
+    -fx-font-size: cfg.$font-default;
+    -fx-font-weight: normal;
+
+    .menu-item {
+      // There's some #javafx-bug here. Setting this e.g. to 'hand' works as expected
+      // but 'default' changes nothing and cursor still has the 'text' shape.
+      -fx-cursor: default;
+    }
+  }
+}
+

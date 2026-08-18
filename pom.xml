@@ -124,6 +124,11 @@
                 <version>${openjfx.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>jfx-incubator-richtext</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.kordamp.ikonli</groupId>
                 <artifactId>ikonli-javafx</artifactId>
                 <version>${lib.ikonli.version}</version>

@@ -12,6 +12,9 @@ module atlantafx.sampler {
 
     requires javafx.graphics;
     requires javafx.controls;
+    requires jfx.incubator.richtext;
+    requires jfx.incubator.input;
+
     requires java.desktop;
     requires java.prefs;
     requires java.net.http;
