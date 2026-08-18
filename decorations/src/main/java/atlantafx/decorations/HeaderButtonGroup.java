@@ -127,8 +127,8 @@ public class HeaderButtonGroup extends Control {
 
         switch (alignment) {
             case AUTO -> setAutoAlignment(headerBar);
-            case LEADING -> headerBar.setLeading(this);
-            case TRAILING -> headerBar.setTrailing(this);
+            case LEADING -> headerBar.setLeft(this);
+            case TRAILING -> headerBar.setRight(this);
             case null -> setAutoAlignment(headerBar);
         }
 
@@ -179,17 +179,17 @@ public class HeaderButtonGroup extends Control {
 
     protected void setAutoAlignment(HeaderBar headerBar) {
         if (MAC) {
-            headerBar.setLeading(this);
+            headerBar.setLeft(this);
         } else {
-            headerBar.setTrailing(this);
+            headerBar.setRight(this);
         }
     }
 
     protected void removeButtons(HeaderBar headerBar) {
-        if (headerBar.getTrailing() == this) {
-            headerBar.setTrailing(null);
-        } else if (headerBar.getLeading() == this) {
-            headerBar.setLeading(null);
+        if (headerBar.getRight() == this) {
+            headerBar.setRight(null);
+        } else if (headerBar.getLeft() == this) {
+            headerBar.setLeft(null);
         }
     }
 

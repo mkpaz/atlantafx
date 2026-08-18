@@ -118,7 +118,7 @@ public final class DecorationsPage extends AbstractPage {
         headerBox.setPadding(new Insets(0, 0, 0, 10));
 
         var headerBar = new HeaderBar();
-        headerBar.setLeading(headerBox);
+        headerBar.setLeft(headerBox);
 
         var windowsButtons = HeaderButtonGroup.standardGroup();
         windowsButtons.install(headerBar, stage);

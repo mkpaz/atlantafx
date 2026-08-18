@@ -15,11 +15,11 @@
     <url>https://github.com/mkpaz/atlantafx</url>
 
     <properties>
-        <!-- decorations module requires JavaFX 25 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <java.version>24</java.version>
-        <openjfx.version>25-ea+24</openjfx.version>
+        <java.version>25</java.version>
+        <openjfx.version>26</openjfx.version>
 
         <app.launcher>atlantafx.sampler.Launcher</app.launcher>
         <app.module>atlantafx.sampler</app.module>

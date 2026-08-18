@@ -15,10 +15,9 @@
     <url>https://github.com/mkpaz/atlantafx</url>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <java.version>22</java.version>
-        <openjfx.version>25-ea+24</openjfx.version>
     </properties>
 
     <dependencies>

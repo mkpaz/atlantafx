@@ -31,6 +31,10 @@ module atlantafx.sampler {
     requires datafaker;
     requires javafx.base;
 
+    // note: CSSFX uses com.sun.nio.file.SensitivityWatchEventModifier
+    //       which is marked for removal since JDK 25
+    requires jdk.unsupported;
+
     exports atlantafx.sampler;
     exports atlantafx.sampler.fake.domain;
     exports atlantafx.sampler.event;
