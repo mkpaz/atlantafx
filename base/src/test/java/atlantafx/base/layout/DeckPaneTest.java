@@ -2,22 +2,18 @@
 
 package atlantafx.base.layout;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import atlantafx.base.util.JavaFXTest;
-import java.util.function.Consumer;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.jspecify.annotations.NullMarked;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-// FIXME DeckPane test
-// Something has been changed and assertions trigger before
-// animation completed. Each run random tests fail.
-@Disabled
+import java.util.function.Consumer;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ExtendWith({JavaFXTest.class})
 @NullMarked
 public class DeckPaneTest {
@@ -184,8 +180,8 @@ public class DeckPaneTest {
             pane = new DeckPane(r3, r2, r1);
             // to not make a pause between tests
             pane.setAnimationDuration(Duration.ZERO);
-            pane.setBeforeShowCallback(node -> showCounter++);
-            pane.setAfterHideCallback(node -> hideCounter++);
+            pane.setBeforeShowCallback(_ -> showCounter++);
+            pane.setAfterHideCallback(_ -> hideCounter++);
         }
 
         public void runAndAssert(Node node, Consumer<DeckPane> action) {

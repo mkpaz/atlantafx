@@ -162,6 +162,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -190,6 +194,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -218,6 +226,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -246,6 +258,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -274,6 +290,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -299,6 +319,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -324,6 +348,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
@@ -349,6 +377,10 @@ public class DeckPane extends AnchorPane {
         }
 
         Objects.requireNonNull(topNode);
+        if (Duration.ZERO.equals(getAnimationDuration())) {
+            onTransitionFinished(topNode, target);
+            return;
+        }
 
         setViewOrder(topNode, Z_ANIMATED_OUT);
         setViewOrder(target, Z_ANIMATED_IN);
