@@ -59,7 +59,7 @@ record MediaFile(Path path) {
         return type.isInstance(tag) ? type.cast(tag) : defaultValue;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     record Metadata(String title, Image image, String artist, String album, double duration) {
 

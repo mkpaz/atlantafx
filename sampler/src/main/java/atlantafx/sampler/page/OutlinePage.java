@@ -195,7 +195,7 @@ public abstract class OutlinePage extends StackPane implements Page {
     protected void onRendered() {
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public record Heading(String title, Node anchor) {
 

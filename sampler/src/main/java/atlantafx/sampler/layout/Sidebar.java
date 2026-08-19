@@ -128,7 +128,7 @@ final class Sidebar extends VBox {
         Platform.runLater(dialog::requestFocus);
     }
 
-    /// ////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private class Header extends VBox {
 

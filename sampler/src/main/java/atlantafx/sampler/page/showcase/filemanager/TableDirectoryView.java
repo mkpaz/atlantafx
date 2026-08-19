@@ -122,7 +122,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         return fileList;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class FilenameCell extends TableCell<Path, String> {
 

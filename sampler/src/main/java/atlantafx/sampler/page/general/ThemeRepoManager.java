@@ -94,7 +94,7 @@ final class ThemeRepoManager extends VBox {
         return cell;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class ThemeCell extends HBox {
 

@@ -225,7 +225,7 @@ public final class BBCodePage extends OutlinePage {
         return BBCodeParser.createLayout(article);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class ReferenceBlock extends VBox {
 

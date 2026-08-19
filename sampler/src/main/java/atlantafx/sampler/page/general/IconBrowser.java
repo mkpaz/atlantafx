@@ -100,7 +100,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
         return s1.toLowerCase(Locale.ROOT).contains(s2.toLowerCase(Locale.ROOT));
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static class FontIconCell extends TableCell<List<Ikon>, Ikon> {
 

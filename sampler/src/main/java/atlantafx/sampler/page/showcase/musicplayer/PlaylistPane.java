@@ -149,7 +149,7 @@ final class PlaylistPane extends VBox {
         });
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class MediaCell extends ListCell<MediaFile> {
 

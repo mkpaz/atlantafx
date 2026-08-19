@@ -87,7 +87,7 @@ public final class OverviewPage extends ScrollPane implements Page {
     public void reset() {
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static class Controller implements Initializable {
         public @FXML MaskTextField phoneTf;

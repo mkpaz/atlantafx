@@ -162,9 +162,9 @@ public final class PaginationPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 4), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private VBox playground() {
         var pg = new Pagination();

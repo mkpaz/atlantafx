@@ -98,7 +98,7 @@ final class SearchDialog extends ModalDialog {
         searchField.requestFocus();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static final class ResultListCell extends ListCell<NavTree.Item> {
 

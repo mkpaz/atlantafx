@@ -50,7 +50,7 @@ final class RightClickMenu extends ContextMenu {
         );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class DemoMenuItem extends CustomMenuItem {
 

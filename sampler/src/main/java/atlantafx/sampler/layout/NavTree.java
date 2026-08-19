@@ -43,7 +43,7 @@ public final class NavTree extends TreeView<Nav> {
         setCellFactory(p -> new NavTreeCell());
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static final class NavTreeCell extends TreeCell<Nav> {
 

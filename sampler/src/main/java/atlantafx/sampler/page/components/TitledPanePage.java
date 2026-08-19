@@ -174,9 +174,9 @@ public final class TitledPanePage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 3), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private VBox playground() {
         var titledPane = new TitledPane();

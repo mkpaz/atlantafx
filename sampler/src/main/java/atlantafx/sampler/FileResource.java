@@ -59,7 +59,7 @@ public final class FileResource {
         return new FileInputStream(toPath().toFile());
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static FileResource createInternal(String location) {
         return createInternal(location, FileResource.class);

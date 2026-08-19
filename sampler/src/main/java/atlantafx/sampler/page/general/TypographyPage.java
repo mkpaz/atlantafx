@@ -100,7 +100,7 @@ public final class TypographyPage extends OutlinePage {
         return (node instanceof Text text) ? Math.ceil(text.getFont().getSize()) : 0;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private ExampleBox fontSizeExample() {
         //snippet_1:start

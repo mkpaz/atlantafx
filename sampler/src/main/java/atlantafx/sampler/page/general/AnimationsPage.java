@@ -146,7 +146,7 @@ public final class AnimationsPage extends StackPane implements Page {
     public void reset() {
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     // this method isn't used anywhere
     @SuppressWarnings("unused")

@@ -150,9 +150,9 @@ public final class TabPanePage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 4), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private Side tabSide = Side.TOP;
     private boolean fullWidth = false;

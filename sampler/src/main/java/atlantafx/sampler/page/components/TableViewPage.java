@@ -113,7 +113,7 @@ public final class TableViewPage extends OutlinePage {
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public TableViewPage() {
         super();
@@ -565,9 +565,9 @@ public final class TableViewPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 9), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private TableView<Product> table = NullSafety.lateNonNull();
     private final List<Product> dataList = IntStream.range(1, 51).boxed()

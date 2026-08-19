@@ -350,7 +350,7 @@ public final class TabLinePage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 7), description);
     }
 
-    /// ////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private String uuid() {
         return UUID.randomUUID().toString();

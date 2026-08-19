@@ -436,7 +436,7 @@ public final class ModalPanePage extends OutlinePage {
         return example;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private static class Dialog extends VBox {
 

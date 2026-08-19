@@ -240,7 +240,7 @@ public final class ThemeManager {
         return theme.isDarkMode() ? HighlightJSTheme.githubDark() : HighlightJSTheme.githubLight();
     }
 
-    /// ////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private void setCustomDeclaration(String property, String value) {
         customCSSDeclarations.put(property, value);
@@ -327,10 +327,10 @@ public final class ThemeManager {
         getScene().getRoot().pseudoClassStateChanged(USER_CUSTOM, false);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Singleton                                                             //
 
-    /// ////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private ThemeManager() {
     }

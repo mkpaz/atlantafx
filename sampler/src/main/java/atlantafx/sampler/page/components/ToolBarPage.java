@@ -179,9 +179,9 @@ public final class ToolBarPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 1), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private Side toolbarPos = Side.TOP;
 
@@ -426,7 +426,7 @@ public final class ToolBarPage extends OutlinePage {
         return btn;
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static class TopBar extends VBox {
 

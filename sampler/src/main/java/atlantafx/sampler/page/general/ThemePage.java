@@ -60,7 +60,7 @@ public final class ThemePage extends OutlinePage {
         return null;
     }
 
-    /// ////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private final Colour bgBaseColor = color(Color.WHITE);
     private final Lazy<ThemeRepoManagerDialog> themeRepoManagerDialog;

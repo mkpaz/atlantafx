@@ -137,9 +137,9 @@ public final class AccordionPage extends OutlinePage {
         return new ExampleBox(accordion, new Snippet(getClass(), 3), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private VBox playground() {
         final var expandedProperty = new SimpleBooleanProperty(true);

@@ -52,7 +52,7 @@ public final class MenuBarPage extends AbstractPage {
         return new ExampleMenuBar();
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     public static class ExampleMenuBar extends MenuBar {
 

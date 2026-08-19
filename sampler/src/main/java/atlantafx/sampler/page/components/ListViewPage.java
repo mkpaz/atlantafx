@@ -172,9 +172,9 @@ public final class ListViewPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 5), description);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
     // Playground                                                            //
-    ///////////////////////////////////////////////////////////////////////////
+    //*************************************************************************
 
     private final List<Book> dataList = generate(() -> Book.random(FAKER), 50);
     private final StringConverter<Book> bookStringConverter = new BookStringConverter(dataList);
