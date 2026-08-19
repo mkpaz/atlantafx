@@ -13,7 +13,6 @@ import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.page.components.MenuBarPage;
 import atlantafx.sampler.theme.ThemeManager;
 import atlantafx.sampler.theme.Themes;
-import java.net.URI;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,15 +24,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.HeaderBar;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import org.jspecify.annotations.Nullable;
+
+import java.net.URI;
+import java.util.Objects;
 
 public final class DecorationsPage extends AbstractPage {
 
@@ -68,7 +66,7 @@ public final class DecorationsPage extends AbstractPage {
     private Node stageRunner() {
         var btn = new Button("Test in Stage");
         btn.getStyleClass().addAll(Styles.ACCENT);
-        btn.setOnAction(e -> showDecoratedStage());
+        btn.setOnAction(_ -> showDecoratedStage());
 
         var root = new HBox(btn);
         root.setAlignment(Pos.CENTER_LEFT);
@@ -101,7 +99,7 @@ public final class DecorationsPage extends AbstractPage {
         return new VBox(VGAP_10, label, decorations);
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // preview feature
     private void showDecoratedStage() {
         var stage = new Stage();
 
@@ -136,12 +134,12 @@ public final class DecorationsPage extends AbstractPage {
         themeChoice.getItems().setAll(FXCollections.observableArrayList(Themes.getAll()));
         themeChoice.setConverter(new StringConverter<>() {
             @Override
-            public String toString(Theme theme) {
+            public String toString(@Nullable Theme theme) {
                 return theme != null ? theme.getName() : "";
             }
 
             @Override
-            public Theme fromString(String string) {
+            public @Nullable Theme fromString(String string) {
                 return null;
             }
         });
@@ -151,12 +149,12 @@ public final class DecorationsPage extends AbstractPage {
         decorationChoice.getItems().setAll(FXCollections.observableArrayList(Decoration.values()));
         decorationChoice.setConverter(new StringConverter<>() {
             @Override
-            public String toString(Decoration decoration) {
+            public String toString(@Nullable Decoration decoration) {
                 return decoration != null ? decoration.getName() : "";
             }
 
             @Override
-            public Decoration fromString(String string) {
+            public @Nullable Decoration fromString(String string) {
                 return null;
             }
         });
@@ -168,11 +166,11 @@ public final class DecorationsPage extends AbstractPage {
 
         // initial theme
         var managerTheme = ThemeManager.getInstance().getTheme();
-        var theme = Themes.getByName(managerTheme.getName())
-                        .orElse(managerTheme.isDarkMode() // if custom theme
-                                    ? Themes.PRIMER_DARK.getInstance()
-                                    : Themes.PRIMER_LIGHT.getInstance()
-                        );
+        var theme = Themes.getByName(Objects.requireNonNull(managerTheme).getName())
+            .orElse(managerTheme.isDarkMode() // if custom theme
+                ? Themes.PRIMER_DARK.getInstance()
+                : Themes.PRIMER_LIGHT.getInstance()
+            );
         switcher.setTheme(theme);
         themeChoice.getSelectionModel().select(theme);
 
@@ -187,7 +185,7 @@ public final class DecorationsPage extends AbstractPage {
         // stage
         stage.initStyle(StageStyle.EXTENDED);
         stage.setScene(scene);
-        stage.setOnCloseRequest(e -> windowsButtons.uninstall(headerBar, stage));
+        stage.setOnCloseRequest(_ -> windowsButtons.uninstall(headerBar, stage));
         stage.show();
     }
 
@@ -201,11 +199,11 @@ public final class DecorationsPage extends AbstractPage {
             root.getChildren().setAll(
                 label,
                 new Spacer(),
-                HeaderButtonGroup.standardGroup()
+                HeaderButtonGroup.standardGroup(align)
             );
         } else {
             root.getChildren().setAll(
-                HeaderButtonGroup.standardGroup(),
+                HeaderButtonGroup.standardGroup(align),
                 label
             );
             root.setSpacing(20);
@@ -234,8 +232,8 @@ public final class DecorationsPage extends AbstractPage {
     private static class LocalThemeSwitcher {
 
         private final Scene scene;
-        private Theme theme;
-        private Decoration decoration;
+        private @Nullable Theme theme;
+        private @Nullable Decoration decoration;
 
         public LocalThemeSwitcher(Scene scene) {
             this.scene = scene;
@@ -247,7 +245,9 @@ public final class DecorationsPage extends AbstractPage {
             }
 
             this.theme = t;
-            scene.getStylesheets().add(theme.getUserAgentStylesheet());
+            if (theme != null) {
+                scene.getStylesheets().add(theme.getUserAgentStylesheet());
+            }
         }
 
         public void setDecoration(Decoration d) {

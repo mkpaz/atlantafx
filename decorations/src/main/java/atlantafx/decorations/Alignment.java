@@ -8,7 +8,7 @@ import javafx.scene.layout.HeaderBar;
 /**
  * Represents the alignment of the {@link HeaderButtonGroup} in the {@link HeaderBar}.
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation") // preview feature
 public enum Alignment {
 
     /**
@@ -18,12 +18,12 @@ public enum Alignment {
     AUTO,
 
     /**
-     * Aligns the button group on the left using the {@link HeaderBar#setLeading(Node)} method.
+     * Aligns the button group on the left using the {@link HeaderBar#setLeft(Node)} method.
      */
     LEADING,
 
     /**
-     * Aligns the button group on the right using the {@link HeaderBar#setTrailing(Node)} method.
+     * Aligns the button group on the right using the {@link HeaderBar#setRight(Node)} method.
      */
     TRAILING
 }

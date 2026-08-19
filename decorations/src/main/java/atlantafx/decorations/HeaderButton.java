@@ -11,7 +11,7 @@ import javafx.scene.layout.HeaderButtonType;
 /**
  * Represents a header button component of a given {@link HeaderButtonType}.
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation") // preview feature
 public class HeaderButton extends Control {
 
     private final HeaderButtonType type;

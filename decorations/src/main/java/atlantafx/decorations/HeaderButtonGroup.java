@@ -2,11 +2,6 @@
 
 package atlantafx.decorations;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import javafx.css.PseudoClass;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -16,6 +11,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Subscription;
 import org.jspecify.annotations.Nullable;
+
+import java.util.*;
 
 /**
  * The HeaderButtonGroup represents a group consisting of one or more buttons
@@ -45,7 +42,7 @@ import org.jspecify.annotations.Nullable;
  * stage.show();
  * }</pre>
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation") // preview feature
 public class HeaderButtonGroup extends Control {
 
     protected static final PseudoClass PSEUDO_CLASS_MAXIMIZED = PseudoClass.getPseudoClass("maximized");
@@ -100,8 +97,8 @@ public class HeaderButtonGroup extends Control {
      */
     public Optional<HeaderButton> getButton(HeaderButtonType type) {
         return getButtons().stream()
-                   .filter(button -> Objects.equals(type, button.getType()))
-                   .findFirst();
+            .filter(button -> Objects.equals(type, button.getType()))
+            .findFirst();
     }
 
     /**
@@ -193,32 +190,90 @@ public class HeaderButtonGroup extends Control {
         }
     }
 
-    //=========================================================================
+    //*************************************************************************
 
     /**
-     * Creates a standard HeaderButtonGroup that includes minimize, maximize,
-     * and close buttons.
+     * Creates a standard {@code HeaderButtonGroup} (Minimize, Maximize, Close).
+     *
+     * <p>Automatically adjusts button order based on the operating system.
      */
     public static HeaderButtonGroup standardGroup() {
-        return new HeaderButtonGroup(
-            new HeaderButton(HeaderButtonType.ICONIFY),
-            new HeaderButton(HeaderButtonType.MAXIMIZE),
-            new HeaderButton(HeaderButtonType.CLOSE)
-        );
+        return standardGroup(MAC ? Alignment.LEADING : Alignment.TRAILING);
     }
 
     /**
-     * Creates a utility HeaderButtonGroup that includes minimize and close buttons.
+     * Creates a standard {@code HeaderButtonGroup} with button order matching the specified alignment.
+     *
+     * <p>If aligned {@link Alignment#LEADING} (or on the left side), the buttons are reversed
+     * (Close -> Minimize -> Maximize). If {@link Alignment#TRAILING}, Windows order is used.
+     */
+    public static HeaderButtonGroup standardGroup(Alignment alignment) {
+        boolean reverse = (alignment == Alignment.LEADING);
+        return standardGroup(reverse);
+    }
+
+    /**
+     * Creates a standard {@code HeaderButtonGroup} that includes minimize, maximize, and close buttons.
+     *
+     * @param reverse if true, places the buttons in reversed order (Close -> Minimize -> Maximize)
+     */
+    public static HeaderButtonGroup standardGroup(boolean reverse) {
+        if (reverse) {
+            return new HeaderButtonGroup(
+                new HeaderButton(HeaderButtonType.CLOSE),
+                new HeaderButton(HeaderButtonType.ICONIFY),
+                new HeaderButton(HeaderButtonType.MAXIMIZE)
+            );
+        } else {
+            return new HeaderButtonGroup(
+                new HeaderButton(HeaderButtonType.ICONIFY),
+                new HeaderButton(HeaderButtonType.MAXIMIZE),
+                new HeaderButton(HeaderButtonType.CLOSE)
+            );
+        }
+    }
+
+    /**
+     * Creates a utility {@code HeaderButtonGroup} (Minimize, Close).
+     *
+     * <p>Automatically adjusts button order based on the operating system.
      */
     public static HeaderButtonGroup utilityGroup() {
-        return new HeaderButtonGroup(
-            new HeaderButton(HeaderButtonType.ICONIFY),
-            new HeaderButton(HeaderButtonType.CLOSE)
-        );
+        return utilityGroup(MAC ? Alignment.LEADING : Alignment.TRAILING);
     }
 
     /**
-     * Creates a HeaderButtonGroup consisting of a single close button.
+     * Creates a utility {@code HeaderButtonGroup} with button order matching the specified alignment.
+     *
+     * <p>If aligned {@link Alignment#LEADING} (or on the left side), the buttons are reversed
+     * (Close -> Minimize). If {@link Alignment#TRAILING}, Windows order is used.
+     */
+    public static HeaderButtonGroup utilityGroup(Alignment alignment) {
+        boolean reverse = (alignment == Alignment.LEADING);
+        return utilityGroup(reverse);
+    }
+
+    /**
+     * Creates a utility {@code HeaderButtonGroup} that includes minimize and close buttons.
+     *
+     * @param reverse if true, places the buttons in reversed order (Close -> Minimize)
+     */
+    public static HeaderButtonGroup utilityGroup(boolean reverse) {
+        if (reverse) {
+            return new HeaderButtonGroup(
+                new HeaderButton(HeaderButtonType.CLOSE),
+                new HeaderButton(HeaderButtonType.ICONIFY)
+            );
+        } else {
+            return new HeaderButtonGroup(
+                new HeaderButton(HeaderButtonType.ICONIFY),
+                new HeaderButton(HeaderButtonType.CLOSE)
+            );
+        }
+    }
+
+    /**
+     * Creates a {@code HeaderButtonGroup} consisting of a single close button.
      */
     public static HeaderButtonGroup closeOnlyGroup() {
         return new HeaderButtonGroup(
