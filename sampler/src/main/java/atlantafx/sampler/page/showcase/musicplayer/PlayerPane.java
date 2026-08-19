@@ -2,30 +2,6 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import static atlantafx.base.controls.Popover.ArrowLocation;
-import static atlantafx.base.theme.Styles.BUTTON_CIRCLE;
-import static atlantafx.base.theme.Styles.SMALL;
-import static atlantafx.base.theme.Styles.TEXT_SMALL;
-import static atlantafx.base.theme.Styles.TITLE_3;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_IMAGE;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
-import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
-import static java.lang.Double.MAX_VALUE;
-import static javafx.geometry.Orientation.VERTICAL;
-import static javafx.geometry.Pos.CENTER;
-import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
-import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
-import static org.kordamp.ikonli.material2.Material2MZ.PAUSE;
-import static org.kordamp.ikonli.material2.Material2MZ.PLAY_ARROW;
-import static org.kordamp.ikonli.material2.Material2MZ.SHUFFLE;
-import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_OFF;
-import static org.kordamp.ikonli.material2.Material2MZ.VOLUME_UP;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
-import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
-
 import atlantafx.base.controls.Popover;
 import atlantafx.base.controls.ProgressSliderSkin;
 import atlantafx.base.controls.Spacer;
@@ -46,14 +22,29 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import static atlantafx.base.controls.Popover.ArrowLocation;
+import static atlantafx.base.theme.Styles.*;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.formatDuration;
+import static atlantafx.sampler.page.showcase.musicplayer.Utils.getDominantColor;
+import static java.lang.Double.MAX_VALUE;
+import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.geometry.Pos.CENTER;
+import static org.kordamp.ikonli.material2.Material2AL.CLEAR_ALL;
+import static org.kordamp.ikonli.material2.Material2AL.EQUALS;
+import static org.kordamp.ikonli.material2.Material2MZ.*;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_FORWARD;
+import static org.kordamp.ikonli.material2.Material2OutlinedAL.FAST_REWIND;
 
 final class PlayerPane extends VBox {
 
     private static final int PANEL_MAX_WIDTH = 220;
 
     private final Model model;
-    private final ObjectProperty<MediaPlayer> currentPlayer = new SimpleObjectProperty<>();
+    private final ObjectProperty<@Nullable MediaPlayer> currentPlayer = new SimpleObjectProperty<>();
 
     private Rectangle coverImage;
     private Label trackTitle;
@@ -102,7 +93,7 @@ final class PlayerPane extends VBox {
         prevBtn.getStyleClass().addAll(BUTTON_CIRCLE);
         prevBtn.setTooltip(new Tooltip("Previous"));
         prevBtn.disableProperty().bind(model.canGoBackProperty().not());
-        prevBtn.setOnAction(e -> model.playPrevious());
+        prevBtn.setOnAction(_ -> model.playPrevious());
 
         playIcon = new FontIcon(PLAY_ARROW);
 
@@ -112,7 +103,7 @@ final class PlayerPane extends VBox {
         var nextBtn = new Button(null, new FontIcon(FAST_FORWARD));
         nextBtn.getStyleClass().addAll(BUTTON_CIRCLE);
         nextBtn.disableProperty().bind(model.canGoForwardProperty().not());
-        nextBtn.setOnAction(e -> model.playNext());
+        nextBtn.setOnAction(_ -> model.playNext());
         nextBtn.setTooltip(new Tooltip("Next"));
 
         var mediaControls = new HBox(20);
@@ -143,12 +134,12 @@ final class PlayerPane extends VBox {
         var clearPlaylistBtn = new Button(null, new FontIcon(CLEAR_ALL));
         clearPlaylistBtn.getStyleClass().addAll(BUTTON_CIRCLE);
         clearPlaylistBtn.setTooltip(new Tooltip("Clear"));
-        clearPlaylistBtn.setOnAction(e -> model.removeAll());
+        clearPlaylistBtn.setOnAction(_ -> model.removeAll());
 
         var shuffleBtn = new Button(null, new FontIcon(SHUFFLE));
         shuffleBtn.getStyleClass().addAll(BUTTON_CIRCLE);
         shuffleBtn.setTooltip(new Tooltip("Shuffle"));
-        shuffleBtn.setOnAction(e -> model.shuffle());
+        shuffleBtn.setOnAction(_ -> model.shuffle());
 
         volumeSlider = new Slider(0, 1, 0.75);
         volumeSlider.setSkin(new ProgressSliderSkin(volumeSlider));
@@ -165,7 +156,7 @@ final class PlayerPane extends VBox {
 
         var volumeBtn = new Button(null, new FontIcon(VOLUME_UP));
         volumeBtn.getStyleClass().addAll(BUTTON_CIRCLE);
-        volumeBtn.setOnAction(e -> volumePopover.show(volumeBtn));
+        volumeBtn.setOnAction(_ -> volumePopover.show(volumeBtn));
 
         var extraControls = new HBox(10);
         extraControls.getChildren().setAll(clearPlaylistBtn, shuffleBtn, new Spacer(), volumeBtn);
@@ -196,7 +187,7 @@ final class PlayerPane extends VBox {
     }
 
     private void init() {
-        heightProperty().addListener((obs, old, val) -> {
+        heightProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -205,7 +196,7 @@ final class PlayerPane extends VBox {
             coverImage.setHeight(size);
         });
 
-        playBtn.setOnAction(e -> {
+        playBtn.setOnAction(_ -> {
             MediaPlayer player = currentPlayer.get();
             if (player == null) {
                 return;
@@ -218,12 +209,13 @@ final class PlayerPane extends VBox {
             }
         });
 
-        InvalidationListener mediaTimeChangeListener = obs -> {
-            if (currentPlayer.get() == null) {
+        InvalidationListener mediaTimeChangeListener = _ -> {
+            var player = currentPlayer.get();
+            if (player == null) {
                 return;
             }
 
-            var duration = currentPlayer.get().getCurrentTime();
+            var duration = player.getCurrentTime();
             var seconds = duration != null && !duration.equals(Duration.ZERO) ? duration.toSeconds() : 0;
 
             if (!timeSlider.isValueChanging()) {
@@ -232,18 +224,19 @@ final class PlayerPane extends VBox {
             currentTimeLabel.setText(seconds > 0 ? formatDuration(duration) : "0.0");
         };
 
-        timeSlider.valueProperty().addListener(obs -> {
-            if (currentPlayer.get() == null) {
+        timeSlider.valueProperty().addListener(_ -> {
+            var player = currentPlayer.get();
+            if (player == null) {
                 return;
             }
-            long max = (long) currentPlayer.get().getMedia().getDuration().toSeconds();
+            long max = (long) player.getMedia().getDuration().toSeconds();
             long sliderVal = (long) timeSlider.getValue();
             if (sliderVal <= max && timeSlider.isValueChanging()) {
-                currentPlayer.get().seek(Duration.seconds((double) sliderVal));
+                player.seek(Duration.seconds((double) sliderVal));
             }
         });
 
-        model.currentTrackProperty().addListener((obs, old, val) -> {
+        model.currentTrackProperty().addListener((_, _, val) -> {
             if (val == null) {
                 coverImage.setFill(new ImagePattern(NO_IMAGE));
                 trackTitle.setText(NO_TITLE);
@@ -289,7 +282,7 @@ final class PlayerPane extends VBox {
         });
 
         // remove all listeners and dispose old player
-        currentPlayer.addListener((obs, old, val) -> {
+        currentPlayer.addListener((_, old, _) -> {
             if (old != null) {
                 old.stop();
                 old.volumeProperty().unbind();
@@ -300,7 +293,7 @@ final class PlayerPane extends VBox {
         });
     }
 
-    private <T> T getTag(Media media, String key, Class<T> type, T defaultValue) {
+    private <T> T getTag(@Nullable Media media, @Nullable String key, @Nullable Class<T> type, T defaultValue) {
         if (media == null || key == null || type == null) {
             return defaultValue;
         }

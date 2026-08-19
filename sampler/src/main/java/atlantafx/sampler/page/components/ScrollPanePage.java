@@ -27,7 +27,7 @@ public final class ScrollPanePage extends AbstractPage {
             A control that provides a scrolled, clipped viewport of its contents. \
             It allows the user to scroll the content around either directly (panning) \
             or by using scroll bars.
-                        
+            
             The [i]ScrollPane[/i] allows specification of the scroll bar policy, which \
             determines when scroll bars are displayed: always, never, or only when they \
             are needed. The scroll bar policy can be specified independently for the \

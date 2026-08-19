@@ -76,11 +76,11 @@ public class Launcher extends Application {
         stage.setTitle(System.getProperty("app.name"));
         loadIcons(stage);
         stage.setResizable(true);
-        stage.setOnCloseRequest(t -> Platform.exit());
+        stage.setOnCloseRequest(_ -> Platform.exit());
 
         // register event listeners
         DefaultEventBus.getInstance().subscribe(BrowseEvent.class, this::onBrowseEvent);
-        DefaultEventBus.getInstance().subscribe(DevToolsEvent.class, e -> openDevTools(stage, tm));
+        DefaultEventBus.getInstance().subscribe(DevToolsEvent.class, _ -> openDevTools(stage, tm));
 
         StageManager.install(stage, "atlantafx.sampler", scene.getWidth(), scene.getHeight());
 
@@ -127,7 +127,7 @@ public class Launcher extends Application {
         };
 
         CSSFX.addConverter(fileUrlConverter).start();
-        CSSFXLogger.setLoggerFactory(loggerName -> (level, message, args) -> {
+        CSSFXLogger.setLoggerFactory(_ -> (level, message, args) -> {
             if (level.ordinal() <= LogLevel.INFO.ordinal()) {
                 System.out.println("[" + level + "] CSSFX: " + String.format(message, args));
             }
@@ -152,7 +152,7 @@ public class Launcher extends Application {
     @Listener
     private void openDevTools(Stage primaryStage, ThemeManager tm) {
         var prefs = new Preferences(getHostServices());
-        prefs.setDarkMode(tm.getTheme().isDarkMode());
+        prefs.setDarkMode(tm.getTheme() != null && tm.getTheme().isDarkMode());
         prefs.setCollapseControls(true);
         prefs.setCollapsePanes(true);
 

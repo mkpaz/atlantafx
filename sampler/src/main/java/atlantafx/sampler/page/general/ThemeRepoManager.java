@@ -142,7 +142,7 @@ final class ThemeRepoManager extends VBox {
                 }
             };
 
-            task.setOnSucceeded(e -> {
+            task.setOnSucceeded(_ -> {
                 var colors = task.getValue();
 
                 //noinspection ConstantValue
@@ -176,7 +176,7 @@ final class ThemeRepoManager extends VBox {
             });
 
             task.setOnFailed(
-                e -> System.err.println("[ERROR] Unable to parse \"" + theme.getName()
+                _ -> System.err.println("[ERROR] Unable to parse \"" + theme.getName()
                     + "\" theme colors. Either CSS not valid or file isn't readable.")
             );
 
@@ -186,7 +186,7 @@ final class ThemeRepoManager extends VBox {
 
             deleteBtn = new Button(null, new FontIcon(Material2OutlinedAL.DELETE));
             deleteBtn.getStyleClass().addAll(BUTTON_ICON, BUTTON_CIRCLE, FLAT, DANGER);
-            deleteBtn.setOnAction(e -> {
+            deleteBtn.setOnAction(_ -> {
                 if (deleteHandler != null) {
                     deleteHandler.accept(theme);
                 }
@@ -215,7 +215,12 @@ final class ThemeRepoManager extends VBox {
         }
 
         private boolean isSelectedTheme() {
-            return Objects.equals(ThemeManager.getInstance().getTheme().getName(), theme.getName());
+            return Objects.equals(
+                ThemeManager.getInstance().getTheme() != null
+                    ? ThemeManager.getInstance().getTheme().getName()
+                    : null,
+                theme.getName()
+            );
         }
 
         private int appendStyleIfPresent(Map<String, String> colors, StringBuilder sb, String colorName) {

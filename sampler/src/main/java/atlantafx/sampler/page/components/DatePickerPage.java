@@ -15,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 
 public final class DatePickerPage extends OutlinePage {
 
@@ -82,7 +83,7 @@ public final class DatePickerPage extends OutlinePage {
         dp.setPrefWidth(200);
         dp.setConverter(new StringConverter<>() {
             @Override
-            public String toString(LocalDate localDate) {
+            public String toString(@Nullable LocalDate localDate) {
                 if (localDate == null) {
                     return "";
                 }
@@ -90,7 +91,7 @@ public final class DatePickerPage extends OutlinePage {
             }
 
             @Override
-            public LocalDate fromString(String dateString) {
+            public LocalDate fromString(@Nullable String dateString) {
                 if (dateString == null || dateString.trim().isEmpty()) {
                     return today;
                 }

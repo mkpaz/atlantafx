@@ -57,7 +57,7 @@ public final class ModalPanePage extends OutlinePage {
         modalPaneTopmost.setId("modalPaneTopmost");
 
         // reset side and transition to reuse a single modal pane between different examples
-        modalPane.displayProperty().addListener((obs, old, val) -> {
+        modalPane.displayProperty().addListener((_, _, val) -> {
             if (!val) {
                 modalPane.setAlignment(Pos.CENTER);
                 modalPane.usePredefinedTransitionFactories(null);
@@ -85,10 +85,10 @@ public final class ModalPanePage extends OutlinePage {
         var dialog = new Dialog(450, 450);
 
         var openBtn = new Button("Open Dialog");
-        openBtn.setOnAction(evt -> modalPane.show(dialog));
+        openBtn.setOnAction(_ -> modalPane.show(dialog));
 
         var closeBtn = new Button("Close");
-        closeBtn.setOnAction(evt -> modalPane.hide(true));
+        closeBtn.setOnAction(_ -> modalPane.hide(true));
         dialog.getChildren().setAll(closeBtn);
         //snippet_1:end
 
@@ -114,7 +114,7 @@ public final class ModalPanePage extends OutlinePage {
         ));
 
         var openTopBtn = new Button("Top");
-        openTopBtn.setOnAction(evt -> {
+        openTopBtn.setOnAction(_ -> {
             modalPane.setAlignment(Pos.TOP_CENTER);
             modalPane.usePredefinedTransitionFactories(Side.TOP);
             modalPane.show(topDialog);
@@ -127,7 +127,7 @@ public final class ModalPanePage extends OutlinePage {
         ));
 
         var openRightBtn = new Button("Right");
-        openRightBtn.setOnAction(evt -> {
+        openRightBtn.setOnAction(_ -> {
             modalPane.setAlignment(Pos.TOP_RIGHT);
             modalPane.usePredefinedTransitionFactories(Side.RIGHT);
             modalPane.show(rightDialog);
@@ -140,7 +140,7 @@ public final class ModalPanePage extends OutlinePage {
         ));
 
         var openBottomBtn = new Button("Bottom");
-        openBottomBtn.setOnAction(evt -> {
+        openBottomBtn.setOnAction(_ -> {
             modalPane.setAlignment(Pos.BOTTOM_CENTER);
             modalPane.usePredefinedTransitionFactories(Side.BOTTOM);
             modalPane.show(bottomDialog);
@@ -153,7 +153,7 @@ public final class ModalPanePage extends OutlinePage {
         ));
 
         var openLeftBtn = new Button("Left");
-        openLeftBtn.setOnAction(evt -> {
+        openLeftBtn.setOnAction(_ -> {
             modalPane.setAlignment(Pos.TOP_LEFT);
             modalPane.usePredefinedTransitionFactories(Side.LEFT);
             modalPane.show(leftDialog);
@@ -183,13 +183,13 @@ public final class ModalPanePage extends OutlinePage {
         var dialog = new Dialog(450, 450);
 
         var openBtn = new Button("Open Dialog");
-        openBtn.setOnAction(evt -> {
+        openBtn.setOnAction(_ -> {
             modalPane.setPersistent(true);
             modalPane.show(dialog);
         });
 
         var closeBtn = new Button("Close");
-        closeBtn.setOnAction(evt -> {
+        closeBtn.setOnAction(_ -> {
             modalPane.hide(true);
             modalPane.setPersistent(false);
         });
@@ -218,17 +218,17 @@ public final class ModalPanePage extends OutlinePage {
 
         var openBtn = new Button("Open Dialog 1");
         // topViewOrder = -10 (default)
-        openBtn.setOnAction(evt -> modalPane.show(dialog));
+        openBtn.setOnAction(_ -> modalPane.show(dialog));
 
         var topDialogBtn = new Button("Open Dialog 2");
         topDialogBtn.setOnAction(// topViewOrder = -15
-            evt -> modalPaneTop.show(topDialog)
+            _ -> modalPaneTop.show(topDialog)
         );
         dialog.getChildren().add(topDialogBtn);
 
         var topmostDialogBtn = new Button("Open Dialog 3");
         topmostDialogBtn.setOnAction(// topViewOrder = -20
-            evt -> modalPaneTopmost.show(topmostDialog)
+            _ -> modalPaneTopmost.show(topmostDialog)
         );
         topDialog.getChildren().add(topmostDialogBtn);
         //snippet_4:end
@@ -252,10 +252,10 @@ public final class ModalPanePage extends OutlinePage {
         var dialog = new Dialog(-1, -1);
 
         var openBtn = new Button("Open Dialog");
-        openBtn.setOnAction(evt -> modalPane.show(dialog));
+        openBtn.setOnAction(_ -> modalPane.show(dialog));
 
         var closeBtn = new Button("Close");
-        closeBtn.setOnAction(evt -> modalPane.hide(true));
+        closeBtn.setOnAction(_ -> modalPane.hide(true));
         dialog.getChildren().setAll(closeBtn);
         //snippet_5:end
 
@@ -278,7 +278,7 @@ public final class ModalPanePage extends OutlinePage {
         dialog1.setPadding(new Insets(20));
 
         var openBtn1 = new Button("Open Dialog 1");
-        openBtn1.setOnAction(evt -> {
+        openBtn1.setOnAction(_ -> {
             StackPane.setMargin(dialog1, new Insets(20));
             modalPane.show(dialog1);
         });
@@ -296,7 +296,7 @@ public final class ModalPanePage extends OutlinePage {
         dialog2.setPadding(new Insets(10, 0, 10, 0));
 
         var openBtn2 = new Button("Open Dialog 2");
-        openBtn2.setOnAction(evt -> {
+        openBtn2.setOnAction(_ -> {
             StackPane.setMargin(dialog2, new Insets(20));
             modalPane.show(dialog2);
         });
@@ -357,7 +357,7 @@ public final class ModalPanePage extends OutlinePage {
         AnchorPane.setLeftAnchor(content, 0d);
 
         var openBtn = new Button("Open Dialog");
-        openBtn.setOnAction(evt -> modalPane.show(dialog));
+        openBtn.setOnAction(_ -> modalPane.show(dialog));
         //snippet_8:end
 
         dialog.setPrefSize(450, 450);
@@ -389,7 +389,7 @@ public final class ModalPanePage extends OutlinePage {
         thumbnail1.setFitWidth(180);
         thumbnail1.setFitHeight(120);
         thumbnail1.setCursor(Cursor.HAND);
-        thumbnail1.setOnMouseClicked(evt -> {
+        thumbnail1.setOnMouseClicked(_ -> {
             modalImage.setImage(thumbnail1.getImage());
             modalPane.show(modalImage);
             modalImage.requestFocus();
@@ -402,7 +402,7 @@ public final class ModalPanePage extends OutlinePage {
         thumbnail2.setFitWidth(180);
         thumbnail2.setFitHeight(120);
         thumbnail2.setCursor(Cursor.HAND);
-        thumbnail2.setOnMouseClicked(evt -> {
+        thumbnail2.setOnMouseClicked(_ -> {
             modalImage.setImage(thumbnail2.getImage());
             modalPane.show(modalImage);
             modalImage.requestFocus();
@@ -415,7 +415,7 @@ public final class ModalPanePage extends OutlinePage {
         thumbnail3.setFitWidth(180);
         thumbnail3.setFitHeight(120);
         thumbnail3.setCursor(Cursor.HAND);
-        thumbnail3.setOnMouseClicked(evt -> {
+        thumbnail3.setOnMouseClicked(_ -> {
             modalImage.setImage(thumbnail3.getImage());
             modalPane.show(modalImage);
             modalImage.requestFocus();

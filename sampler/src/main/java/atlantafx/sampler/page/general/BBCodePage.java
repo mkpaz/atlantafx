@@ -86,23 +86,23 @@ public final class BBCodePage extends OutlinePage {
         ReferenceBlock block = new ReferenceBlock("Marks text as a structured heading.");
         block.addFormattedText("""
             [heading=1]H1 headline[/heading]
-                            
+            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non purus a nisi ornare facilisis.""");
         block.addFormattedText("""
             [heading=2]H2 headline[/heading]
-                            
+            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non purus a nisi ornare facilisis.""");
         block.addFormattedText("""
             [heading=3]H3 headline[/heading]
-                            
+            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non purus a nisi ornare facilisis.""");
         block.addFormattedText("""
             [heading=4]H4 headline[/heading]
-                            
+            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non purus a nisi ornare facilisis.""");
         block.addFormattedText("""
             [caption]Caption[/caption]
-                            
+            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non purus a nisi ornare facilisis.""");
         return block;
     }
@@ -189,7 +189,7 @@ public final class BBCodePage extends OutlinePage {
             the programmers rely on libraries such as [s]Advanced Windowing Toolkit[/s] and Swing. \
             After the advent of JavaFX, these Java programmers can now develop \
             [abbr='Graphical User Interface']GUI[/abbr] applications effectively with rich content.
-             
+            
             [heading=3]Key Features[/heading]
 
             Following are some of the [i]important features[/i] of JavaFX:\

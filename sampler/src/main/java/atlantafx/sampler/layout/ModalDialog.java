@@ -54,7 +54,7 @@ public abstract class ModalDialog extends ModalBox {
         var closeBtn = new Button("Close");
         closeBtn.getStyleClass().add("form-action");
         closeBtn.setCancelButton(true);
-        closeBtn.setOnAction(e -> close());
+        closeBtn.setOnAction(_ -> close());
 
         var footer = new HBox(10, new Spacer(), closeBtn);
         footer.getStyleClass().add("footer");

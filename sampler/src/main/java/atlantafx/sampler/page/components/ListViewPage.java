@@ -34,6 +34,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -89,17 +90,17 @@ public final class ListViewPage extends OutlinePage {
 
         var borderToggle = new ToggleSwitch("Bordered");
         borderToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(lv, Styles.BORDERED)
+            (_, _, _) -> Styles.toggleStyleClass(lv, Styles.BORDERED)
         );
 
         var stripeToggle = new ToggleSwitch("Striped");
         stripeToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(lv, Styles.STRIPED)
+            (_, _, _) -> Styles.toggleStyleClass(lv, Styles.STRIPED)
         );
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(lv, Styles.DENSE)
+            (_, _, _) -> Styles.toggleStyleClass(lv, Styles.DENSE)
         );
         //snippet_2:end
 
@@ -110,7 +111,7 @@ public final class ListViewPage extends OutlinePage {
 
         var description = BBCodeParser.createFormattedText("""
             The [i]ListView[/i] rows can be styled simply by adding CSS classes:
-                        
+            
             [ul]
             [li][code]Styles.BORDERED[/code] - adds borders between the rows.[/li]
             [li][code]Styles.STRIPED[/code] - adds zebra-striping.[/li]
@@ -184,25 +185,25 @@ public final class ListViewPage extends OutlinePage {
     private VBox playground() {
         var borderToggle = new ToggleSwitch("Bordered");
         borderToggle.selectedProperty().addListener(
-            (obs, old, value) -> toggleListProperty(lv ->
+            (_, _, _) -> toggleListProperty(lv ->
                 Styles.toggleStyleClass(lv, Styles.BORDERED)
             ));
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, value) -> toggleListProperty(lv ->
+            (_, _, _) -> toggleListProperty(lv ->
                 Styles.toggleStyleClass(lv, Styles.DENSE)
             ));
 
         var stripeToggle = new ToggleSwitch("Striped");
         stripeToggle.selectedProperty().addListener(
-            (obs, old, value) -> toggleListProperty(lv ->
+            (_, _, _) -> toggleListProperty(lv ->
                 Styles.toggleStyleClass(lv, Styles.STRIPED)
             ));
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-            (obs, old, value) -> toggleListProperty(lv ->
+            (_, _, _) -> toggleListProperty(lv ->
                 Styles.toggleStyleClass(lv, Tweaks.EDGE_TO_EDGE)
             ));
 
@@ -230,12 +231,12 @@ public final class ListViewPage extends OutlinePage {
         );
     }
 
-    private ComboBox<Example> createExampleSelect() {
-        var select = new ComboBox<Example>();
+    private ComboBox<@Nullable Example> createExampleSelect() {
+        var select = new ComboBox<@Nullable Example>();
         select.setMaxWidth(Double.MAX_VALUE);
         select.getItems().setAll(Example.values());
 
-        select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
+        select.getSelectionModel().selectedItemProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -255,12 +256,12 @@ public final class ListViewPage extends OutlinePage {
 
         select.setConverter(new StringConverter<>() {
             @Override
-            public String toString(Example example) {
+            public String toString(@Nullable Example example) {
                 return example == null ? "" : example.getName();
             }
 
             @Override
-            public Example fromString(String s) {
+            public @Nullable Example fromString(String s) {
                 return Example.find(s);
             }
         });
@@ -275,12 +276,12 @@ public final class ListViewPage extends OutlinePage {
     }
 
     private Optional<ListView<?>> findDisplayedList() {
-        return listWrapper.getChildren().size() > 0
-            ? Optional.of((ListView<?>) listWrapper.getChildren().get(0))
+        return !listWrapper.getChildren().isEmpty()
+            ? Optional.of((ListView<?>) listWrapper.getChildren().getFirst())
             : Optional.empty();
     }
 
-    private void toggleListProperty(Consumer<ListView<?>> consumer) {
+    private void toggleListProperty(@Nullable Consumer<ListView<?>> consumer) {
         findDisplayedList().ifPresent(lv -> {
             if (consumer != null) {
                 consumer.accept(lv);
@@ -373,7 +374,7 @@ public final class ListViewPage extends OutlinePage {
 
     private ListView<Book> nestedControlsList() {
         var lv = new ListView<Book>();
-        lv.setCellFactory(book -> new NestedControlsListCell());
+        lv.setCellFactory(_ -> new NestedControlsListCell());
         lv.getItems().setAll(
             dataList.stream().limit(10).collect(Collectors.toList())
         );
@@ -398,7 +399,7 @@ public final class ListViewPage extends OutlinePage {
             return name;
         }
 
-        public static Example find(String name) {
+        public static @Nullable Example find(String name) {
             return Arrays.stream(Example.values())
                 .filter(example -> Objects.equals(example.getName(), name))
                 .findFirst()
@@ -415,7 +416,7 @@ public final class ListViewPage extends OutlinePage {
         }
 
         @Override
-        public String toString(Book book) {
+        public @Nullable String toString(@Nullable Book book) {
             if (book == null) {
                 return null;
             }
@@ -423,7 +424,7 @@ public final class ListViewPage extends OutlinePage {
         }
 
         @Override
-        public Book fromString(String s) {
+        public @Nullable Book fromString(@Nullable String s) {
             if (s == null) {
                 return null;
             }

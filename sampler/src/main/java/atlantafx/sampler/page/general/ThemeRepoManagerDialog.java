@@ -41,7 +41,7 @@ class ThemeRepoManagerDialog extends ModalDialog {
 
         var addBtn = new Button("Add custom theme", new FontIcon(Material2MZ.PLUS));
         addBtn.getStyleClass().add(Styles.ACCENT);
-        addBtn.setOnAction(e -> {
+        addBtn.setOnAction(_ -> {
             var fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter("CSS (*.css)", "*.css"));
             File file = fileChooser.showOpenDialog(getScene().getWindow());
@@ -52,7 +52,7 @@ class ThemeRepoManagerDialog extends ModalDialog {
 
         var downloadBtn = new Button("Download more themes", new FontIcon(Material2MZ.STAR));
         downloadBtn.getStyleClass().addAll(Styles.SUCCESS);
-        downloadBtn.setOnAction(e -> {
+        downloadBtn.setOnAction(_ -> {
             var task = new InstallExtraThemesTask(repoManager, getScene().getWindow());
             progress.bind(task);
             Thread.ofVirtual().name("theme-installer").start(task);
@@ -100,9 +100,9 @@ class ThemeRepoManagerDialog extends ModalDialog {
             show();
             label.textProperty().bind(task.messageProperty());
 
-            task.setOnSucceeded(e -> dispose());
-            task.setOnFailed(e -> dispose());
-            task.setOnCancelled(e -> dispose());
+            task.setOnSucceeded(_ -> dispose());
+            task.setOnFailed(_ -> dispose());
+            task.setOnCancelled(_ -> dispose());
         }
 
         private void dispose() {
@@ -177,7 +177,6 @@ class ThemeRepoManagerDialog extends ModalDialog {
             super.succeeded();
 
             List<File> cssFiles = getValue();
-            int total = cssFiles.size();
             int successCount = 0;
             var failures = new TreeSet<String>();
 

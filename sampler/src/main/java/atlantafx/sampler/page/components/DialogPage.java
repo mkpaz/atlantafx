@@ -54,7 +54,7 @@ public final class DialogPage extends OutlinePage {
     private ExampleBox notificationDialogExample() {
         //snippet_1:start
         var infoBtn = new Button("Info", new FontIcon(Feather.INFO));
-        infoBtn.setOnAction(e -> {
+        infoBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(FAKER.chuckNorris().fact());
@@ -64,7 +64,7 @@ public final class DialogPage extends OutlinePage {
         });
 
         var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
-        warnBtn.setOnAction(e -> {
+        warnBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText(FAKER.chuckNorris().fact());
@@ -74,7 +74,7 @@ public final class DialogPage extends OutlinePage {
         });
 
         var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
-        errorBtn.setOnAction(e -> {
+        errorBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText(FAKER.chuckNorris().fact());
@@ -98,7 +98,7 @@ public final class DialogPage extends OutlinePage {
     private ExampleBox exceptionDialogExample() {
         //snippet_2:start
         var button = new Button("Click", new FontIcon(Feather.MEH));
-        button.setOnAction(e -> {
+        button.setOnAction(_ -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Exception Dialog");
             alert.setHeaderText(FAKER.chuckNorris().fact());
@@ -145,7 +145,7 @@ public final class DialogPage extends OutlinePage {
         var button = new Button(
             "Click", new FontIcon(Feather.CHECK_SQUARE)
         );
-        button.setOnAction(e -> {
+        button.setOnAction(_ -> {
             var alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText(FAKER.chuckNorris().fact());
@@ -177,7 +177,7 @@ public final class DialogPage extends OutlinePage {
     private ExampleBox textInputDialogExample() {
         //snippet_4:start
         var button = new Button("Click", new FontIcon(Feather.EDIT_2));
-        button.setOnAction(e -> {
+        button.setOnAction(_ -> {
             var dialog = new TextInputDialog();
             dialog.setTitle("Text Input Dialog");
             dialog.setHeaderText(FAKER.chuckNorris().fact());
@@ -200,9 +200,9 @@ public final class DialogPage extends OutlinePage {
     private ExampleBox choiceDialogExample() {
         //snippet_5:start
         var button = new Button("Click", new FontIcon(Feather.LIST));
-        button.setOnAction(e -> {
+        button.setOnAction(_ -> {
             var choices = List.of("A", "B", "C");
-            var dialog = new ChoiceDialog<>(choices.get(0), choices);
+            var dialog = new ChoiceDialog<>(choices.getFirst(), choices);
             dialog.setTitle("Choice Dialog");
             dialog.setHeaderText(FAKER.chuckNorris().fact());
             dialog.setContentText("Choose your letter:");
@@ -224,7 +224,7 @@ public final class DialogPage extends OutlinePage {
     private ExampleBox notificationNoHeaderDialogExample() {
         //snippet_6:start
         var infoBtn = new Button("Info", new FontIcon(Feather.INFO));
-        infoBtn.setOnAction(e -> {
+        infoBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
@@ -234,7 +234,7 @@ public final class DialogPage extends OutlinePage {
         });
 
         var warnBtn = new Button("Click", new FontIcon(Feather.ALERT_TRIANGLE));
-        warnBtn.setOnAction(e -> {
+        warnBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText(null);
@@ -244,7 +244,7 @@ public final class DialogPage extends OutlinePage {
         });
 
         var errorBtn = new Button("Click", new FontIcon(Feather.X_CIRCLE));
-        errorBtn.setOnAction(e -> {
+        errorBtn.setOnAction(_ -> {
             var alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText(null);

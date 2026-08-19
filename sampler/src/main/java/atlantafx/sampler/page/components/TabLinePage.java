@@ -60,6 +60,7 @@ public final class TabLinePage extends OutlinePage {
         addSection("Dense", denseExample());
     }
 
+    @SuppressWarnings("all")
     private ExampleBox usageExample() {
         //snippet_1:start
         var tabLine = new TabLine();
@@ -146,14 +147,14 @@ public final class TabLinePage extends OutlinePage {
         tabLine.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB);
 
         var pin = new MenuItem("Pin");
-        pin.setOnAction(e -> {
+        pin.setOnAction(_ -> {
             if (contextMenu.getOwnerTab() != null) {
                 contextMenu.getOwnerTab().setPinned(true);
             }
         });
 
         var unpin = new MenuItem("Unpin");
-        unpin.setOnAction(e -> {
+        unpin.setOnAction(_ -> {
             if (contextMenu.getOwnerTab() != null) {
                 contextMenu.getOwnerTab().setPinned(false);
             }
@@ -190,7 +191,7 @@ public final class TabLinePage extends OutlinePage {
         tabLine.setLeftNode(hbox(addBtn));
         tabLine.setRightNode(hbox(new TabMenuButton(tabLine)));
 
-        addBtn.setOnAction(e -> {
+        addBtn.setOnAction(_ -> {
             var tab = new Tab(uuid(), FAKER.animal().name(), new FontIcon(randomIcon()));
             tabLine.getTabs().add(tab);
             tabLine.getSelectionModel().select(tab);
@@ -221,21 +222,21 @@ public final class TabLinePage extends OutlinePage {
         tabLine.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB);
 
         var allTabsPolicy = new MenuItem("All");
-        allTabsPolicy.setOnAction(e ->
+        allTabsPolicy.setOnAction(_ ->
             tabLine.setTabClosingPolicy(Tab.ClosingPolicy.ALL_TABS)
         );
 
         var selectedTabsPolicy = new MenuItem("Selected");
-        selectedTabsPolicy.setOnAction(e ->
+        selectedTabsPolicy.setOnAction(_ ->
             tabLine.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB)
         );
 
         var noTabsPolicy = new MenuItem("None");
-        noTabsPolicy.setOnAction(e ->
+        noTabsPolicy.setOnAction(_ ->
             tabLine.setTabClosingPolicy(Tab.ClosingPolicy.NO_TABS)
         );
 
-        addBtn.setOnAction(e -> {
+        addBtn.setOnAction(_ -> {
             var tab = new Tab(uuid(), FAKER.animal().name(), new FontIcon(randomIcon()));
             tabLine.getTabs().add(tab);
             tabLine.getSelectionModel().select(tab);
@@ -277,26 +278,26 @@ public final class TabLinePage extends OutlinePage {
         tabLine.setTabClosingPolicy(Tab.ClosingPolicy.SELECTED_TAB);
 
         var fixedTabsPolicy = new MenuItem("Fixed");
-        fixedTabsPolicy.setOnAction(e ->
+        fixedTabsPolicy.setOnAction(_ ->
             tabLine.setTabResizePolicy(Tab.ResizePolicy.FIXED_WIDTH)
         );
 
         var computedTabsPolicy = new MenuItem("Computed");
-        computedTabsPolicy.setOnAction(e ->
+        computedTabsPolicy.setOnAction(_ ->
             tabLine.setTabResizePolicy(Tab.ResizePolicy.COMPUTED_WIDTH)
         );
 
         var adaptiveTabsPolicy = new MenuItem("Adaptive");
-        adaptiveTabsPolicy.setOnAction(e ->
+        adaptiveTabsPolicy.setOnAction(_ ->
             tabLine.setTabResizePolicy(Tab.ResizePolicy.ADAPTIVE)
         );
 
         var stretchTabsPolicy = new MenuItem("Stretch");
-        stretchTabsPolicy.setOnAction(e ->
+        stretchTabsPolicy.setOnAction(_ ->
             tabLine.setTabResizePolicy(Tab.ResizePolicy.STRETCH)
         );
 
-        addBtn.setOnAction(e -> {
+        addBtn.setOnAction(_ -> {
             var tab = new Tab(uuid(), FAKER.animal().name(), new FontIcon(randomIcon()));
             tabLine.getTabs().add(tab);
             tabLine.getSelectionModel().select(tab);

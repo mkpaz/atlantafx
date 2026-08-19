@@ -10,6 +10,8 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
+import org.jspecify.annotations.Nullable;
+
 import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
 import static java.awt.image.BufferedImage.TYPE_4BYTE_ABGR;
 
@@ -21,7 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings({"unused", "NarrowingCompoundAssignment"})
+@SuppressWarnings("all")
 final class ColorThief {
 
     private ColorThief() {
@@ -31,7 +33,7 @@ final class ColorThief {
     private static final int DEFAULT_QUALITY = 10;
     private static final boolean DEFAULT_IGNORE_WHITE = true;
 
-    public static int[] getColor(BufferedImage source) {
+    public static int @Nullable[] getColor(BufferedImage source) {
         int[][] palette = getPalette(source, 5);
 
         if (palette == null) {
@@ -180,6 +182,7 @@ final class ColorThief {
             return (r << (2 * SIGBITS)) + (g << SIGBITS) + b;
         }
 
+        @SuppressWarnings("lossy-conversions")
         public static class VBox {
             int r1;
             int r2;
@@ -563,13 +566,13 @@ final class ColorThief {
             VBox vbox;
 
             while (niters < MAX_ITERATIONS) {
-                vbox = lh.get(lh.size() - 1);
+                vbox = lh.getLast();
                 if (vbox.count(false) == 0) {
                     lh.sort(comparator);
                     niters++;
                     continue;
                 }
-                lh.remove(lh.size() - 1);
+                lh.removeLast();
 
                 VBox[] vboxes = medianCutApply(histo, vbox);
                 VBox vbox1 = vboxes[0];

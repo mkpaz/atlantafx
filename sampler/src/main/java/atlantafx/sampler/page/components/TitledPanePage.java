@@ -202,7 +202,7 @@ public final class TitledPanePage extends OutlinePage {
         elevationSlider.setSnapToTicks(true);
         elevationSlider.setMinWidth(150);
         elevationSlider.setMaxWidth(150);
-        elevationSlider.valueProperty().addListener((obs, old, val) -> {
+        elevationSlider.valueProperty().addListener((_, _, val) -> {
             titledPane.getStyleClass().removeAll(
                 titledPane.getStyleClass().stream()
                     .filter(c -> c.startsWith(elevationPrefix))
@@ -230,11 +230,11 @@ public final class TitledPanePage extends OutlinePage {
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty()
-            .addListener((obs, old, val) -> Styles.toggleStyleClass(titledPane, Styles.DENSE));
+            .addListener((_, _, _) -> Styles.toggleStyleClass(titledPane, Styles.DENSE));
 
         var altIconToggle = new ToggleSwitch("Alt icon");
         altIconToggle.selectedProperty()
-            .addListener((obs, old, val) -> Styles.toggleStyleClass(titledPane, Tweaks.ALT_ICON));
+            .addListener((_, _, _) -> Styles.toggleStyleClass(titledPane, Tweaks.ALT_ICON));
 
         var toggles = new GridPane();
         toggles.setHgap(HGAP_20);

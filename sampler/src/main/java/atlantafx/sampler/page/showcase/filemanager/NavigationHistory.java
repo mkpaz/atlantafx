@@ -11,6 +11,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import org.jspecify.annotations.Nullable;
 
 final class NavigationHistory {
 
@@ -23,11 +24,11 @@ final class NavigationHistory {
         () -> cursor.get() < history.size() - 1, cursor
     );
 
-    public void append(Path path) {
+    public void append(@Nullable Path path) {
         if (path == null) {
             return;
         }
-        var lastPath = history.size() > 0 ? history.get(history.size() - 1) : null;
+        var lastPath = !history.isEmpty() ? history.getLast() : null;
         if (!Objects.equals(lastPath, path)) {
             history.add(path);
         }

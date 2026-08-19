@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.jspecify.annotations.Nullable;
 
 public final class NodeUtils {
 
@@ -46,7 +47,7 @@ public final class NodeUtils {
         return e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2;
     }
 
-    public static <T> T getChildByIndex(Parent parent, int index, Class<T> contentType) {
+    public static <T> @Nullable T getChildByIndex(Parent parent, int index, Class<T> contentType) {
         List<Node> children = parent.getChildrenUnmodifiable();
         if (index < 0 || index >= children.size()) {
             return null;
@@ -55,7 +56,7 @@ public final class NodeUtils {
         return contentType.isInstance(node) ? contentType.cast(node) : null;
     }
 
-    public static boolean isDescendant(Node ancestor, Node descendant) {
+    public static boolean isDescendant(@Nullable Node ancestor, Node descendant) {
         if (ancestor == null) {
             return true;
         }

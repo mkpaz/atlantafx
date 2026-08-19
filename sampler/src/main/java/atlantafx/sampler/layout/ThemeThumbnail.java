@@ -55,7 +55,7 @@ public final class ThemeThumbnail extends VBox implements Toggle {
                 "-fx-background-color",
                 "-color-thumbnail-border," + colors.get("-color-bg-default")
             );
-            setOnMouseClicked(e -> setSelected(true));
+            setOnMouseClicked(_ -> setSelected(true));
             getStyleClass().add("theme-thumbnail");
             getChildren().setAll(nameLbl, circles);
 
@@ -64,7 +64,7 @@ public final class ThemeThumbnail extends VBox implements Toggle {
         }
 
         selectedProperty().addListener(
-            (obs, old, val) -> pseudoClassStateChanged(SELECTED, val)
+            (_, _, val) -> pseudoClassStateChanged(SELECTED, val)
         );
     }
 

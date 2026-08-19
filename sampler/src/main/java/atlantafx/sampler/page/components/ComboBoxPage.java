@@ -147,7 +147,7 @@ public class ComboBoxPage extends OutlinePage {
         }
 
         var items = IntStream.range(0, 5).boxed()
-            .map(i -> new Badge(FAKER.hipster().word(), randomIcon()))
+            .map(_ -> new Badge(FAKER.hipster().word(), randomIcon()))
             .collect(Collectors.toCollection(
                 FXCollections::observableArrayList
             ));
@@ -155,7 +155,7 @@ public class ComboBoxPage extends OutlinePage {
         var cmb = new ComboBox<Badge>(items);
         cmb.setPrefWidth(PREF_WIDTH);
         cmb.setButtonCell(new BadgeCell());
-        cmb.setCellFactory(c -> new BadgeCell());
+        cmb.setCellFactory(_ -> new BadgeCell());
         cmb.getSelectionModel().selectFirst();
         //snippet_4:end
 

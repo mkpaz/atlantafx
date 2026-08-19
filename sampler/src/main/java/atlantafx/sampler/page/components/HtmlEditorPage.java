@@ -10,12 +10,14 @@ import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.AbstractPage;
 import atlantafx.sampler.theme.HighlightJSTheme;
 import atlantafx.sampler.theme.ThemeManager;
-import java.net.URI;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
+
+import java.net.URI;
+import java.util.Objects;
 
 public final class HtmlEditorPage extends AbstractPage {
 
@@ -46,11 +48,9 @@ public final class HtmlEditorPage extends AbstractPage {
         addNode(editorSample());
 
         // update editor colors on app theme change
-        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
-            if (ThemeManager.getInstance().getTheme() != null) {
-                editor.setHtmlText(generateContent());
-                editor.requestFocus();
-            }
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, _ -> {
+            editor.setHtmlText(generateContent());
+            editor.requestFocus();
         });
 
         editor.requestFocus();
@@ -71,7 +71,7 @@ public final class HtmlEditorPage extends AbstractPage {
         content.setAlignment(Pos.TOP_CENTER);
         VBox.setVgrow(content, Priority.ALWAYS);
 
-        fixToggle.selectedProperty().addListener((obs, old, val) -> {
+        fixToggle.selectedProperty().addListener((_, _, val) -> {
             // toolbar icons can't be changed back without creating new editor instance #javafx-bug
             try {
                 editor = createHtmlEditor();
@@ -98,7 +98,9 @@ public final class HtmlEditorPage extends AbstractPage {
     private String generateContent() {
         var tm = ThemeManager.getInstance();
         Theme samplerTheme = tm.getTheme();
-        HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(samplerTheme);
+        HighlightJSTheme hlTheme = tm.getMatchingSourceCodeHighlightTheme(
+            Objects.requireNonNull(samplerTheme)
+        );
         var text = String.join("<br/><br/>", generate(
             () -> String.join(" ", FAKER.lorem().paragraphs(5)), 5)
         );

@@ -6,8 +6,6 @@ import atlantafx.base.controls.CustomTextField;
 import atlantafx.base.controls.Spacer;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.theme.Tweaks;
-import java.util.function.Consumer;
-
 import atlantafx.base.util.NullSafety;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -19,16 +17,19 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
+
+import java.util.function.Consumer;
 
 final class SearchDialog extends ModalDialog {
 
     private final MainModel model;
 
     private CustomTextField searchField = NullSafety.lateNonNull();
-    private ListView<NavTree.Item> resultList = NullSafety.lateNonNull();
+    private ListView<NavTree.@Nullable Item> resultList = NullSafety.lateNonNull();
 
     public SearchDialog(MainModel model) {
         super();
@@ -62,14 +63,14 @@ final class SearchDialog extends ModalDialog {
         resultList = new ListView<>();
         resultList.setPlaceholder(placeholder);
         resultList.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
-        resultList.setCellFactory(c -> new ResultListCell(clickHandler));
+        resultList.setCellFactory(_ -> new ResultListCell(clickHandler));
         VBox.setVgrow(resultList, Priority.ALWAYS);
 
         return new VBox(10, searchField, resultList);
     }
 
     private void init() {
-        searchField.textProperty().addListener((obs, old, val) -> {
+        searchField.textProperty().addListener((_, _, val) -> {
             if (val == null || val.length() <= 2) {
                 resultList.getItems().clear();
                 return;
@@ -89,7 +90,11 @@ final class SearchDialog extends ModalDialog {
             var selectionModel = resultList.getSelectionModel();
             if (e.getCode() == KeyCode.ENTER && !selectionModel.isEmpty()) {
                 close();
-                model.navigate(selectionModel.getSelectedItem().pageClass());
+
+                var selected = selectionModel.getSelectedItem();
+                if (selected != null && selected.pageClass() != null) {
+                    model.navigate(selected.pageClass());
+                }
             }
         });
     }
@@ -100,13 +105,13 @@ final class SearchDialog extends ModalDialog {
 
     //*************************************************************************
 
-    public static final class ResultListCell extends ListCell<NavTree.Item> {
+    public static final class ResultListCell extends ListCell<NavTree.@Nullable Item> {
 
         private final HBox root;
         private final Label parentLabel;
         private final Label targetLabel;
 
-        public ResultListCell(Consumer<NavTree.Item> clickHandler) {
+        public ResultListCell(Consumer<NavTree.@Nullable Item> clickHandler) {
             super();
 
             parentLabel = new Label();
@@ -132,14 +137,18 @@ final class SearchDialog extends ModalDialog {
         }
 
         @Override
-        protected void updateItem(NavTree.Item item, boolean empty) {
+        protected void updateItem(NavTree.@Nullable Item item, boolean empty) {
             super.updateItem(item, empty);
 
             if (item == null || empty) {
                 setGraphic(null);
             } else {
-                parentLabel.setText(item.getParent().getValue().title());
-                targetLabel.setText(item.getValue().title());
+                var parent = item.getParent().getValue();
+                parentLabel.setText(parent != null ? parent.title() : null);
+
+                var target = item.getValue();
+                targetLabel.setText(target != null ? target.title() : null);
+
                 setGraphic(root);
             }
         }

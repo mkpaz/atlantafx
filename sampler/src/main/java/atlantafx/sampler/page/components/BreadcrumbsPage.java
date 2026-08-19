@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
@@ -57,15 +58,15 @@ public final class BreadcrumbsPage extends OutlinePage {
 
         var nextBtn = new Button("Next");
         nextBtn.getStyleClass().addAll(Styles.ACCENT);
-        nextBtn.setOnAction(e -> {
+        nextBtn.setOnAction(_ -> {
             var selected = crumbs.getSelectedCrumb();
-            if (selected.getChildren().size() > 0) {
-                var next = selected.getChildren().get(0);
+            if (selected != null && !selected.getChildren().isEmpty()) {
+                var next = selected.getChildren().getFirst();
                 crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
             }
         });
 
-        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+        crumbs.selectedCrumbProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -103,15 +104,15 @@ public final class BreadcrumbsPage extends OutlinePage {
 
         var nextBtn = new Button("Next");
         nextBtn.getStyleClass().addAll(Styles.ACCENT);
-        nextBtn.setOnAction(e -> {
+        nextBtn.setOnAction(_ -> {
             var selected = crumbs.getSelectedCrumb();
-            if (selected.getChildren().size() > 0) {
-                var next = selected.getChildren().get(0);
+            if (selected != null && !selected.getChildren().isEmpty()) {
+                var next = selected.getChildren().getFirst();
                 crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
             }
         });
 
-        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+        crumbs.selectedCrumbProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -130,6 +131,7 @@ public final class BreadcrumbsPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 2), description);
     }
 
+    @SuppressWarnings("ConstantValue")
     private ExampleBox customDividerExample() {
         //snippet_3:start
         var items = generate(() -> FAKER.science().element(), 4);
@@ -151,15 +153,15 @@ public final class BreadcrumbsPage extends OutlinePage {
 
         var nextBtn = new Button("Next");
         nextBtn.getStyleClass().addAll(Styles.ACCENT);
-        nextBtn.setOnAction(e -> {
+        nextBtn.setOnAction(_ -> {
             var selected = crumbs.getSelectedCrumb();
-            if (selected.getChildren().size() > 0) {
-                var next = selected.getChildren().get(0);
+            if (selected != null && !selected.getChildren().isEmpty()) {
+                var next = selected.getChildren().getFirst();
                 crumbs.setSelectedCrumb((BreadCrumbItem<String>) next);
             }
         });
 
-        crumbs.selectedCrumbProperty().addListener((obs, old, val) -> {
+        crumbs.selectedCrumbProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -177,7 +179,11 @@ public final class BreadcrumbsPage extends OutlinePage {
         return new ExampleBox(box, new Snippet(getClass(), 3), description);
     }
 
-    private <T> BreadCrumbItem<T> getTreeItemByIndex(BreadCrumbItem<T> node, int index) {
+    private <T> @Nullable BreadCrumbItem<T> getTreeItemByIndex(@Nullable BreadCrumbItem<T> node, int index) {
+        if (node == null) {
+            return null;
+        }
+
         var counter = index;
         var current = node;
         while (counter > 0 && current.getParent() != null) {

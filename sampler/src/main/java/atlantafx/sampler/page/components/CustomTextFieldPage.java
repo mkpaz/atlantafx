@@ -110,7 +110,7 @@ public final class CustomTextFieldPage extends OutlinePage {
 
         var icon = new FontIcon(Feather.EYE_OFF);
         icon.setCursor(Cursor.HAND);
-        icon.setOnMouseClicked(e -> {
+        icon.setOnMouseClicked(_ -> {
             icon.setIconCode(tf.getRevealPassword()
                 ? Feather.EYE_OFF : Feather.EYE
             );
@@ -147,10 +147,9 @@ public final class CustomTextFieldPage extends OutlinePage {
         );
         timeField.setLeft(new FontIcon(Material2OutlinedMZ.TIMER));
         timeField.setPrefWidth(120);
-        timeField.textProperty().addListener((obs, old, val) -> {
+        timeField.textProperty().addListener((_, _, val) -> {
             if (val != null) {
                 try {
-                    //noinspection ResultOfMethodCallIgnored
                     LocalTime.parse(val, timeFormatter);
                     timeField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
                 } catch (DateTimeParseException e) {

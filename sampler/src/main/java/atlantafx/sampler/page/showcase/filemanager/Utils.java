@@ -2,6 +2,8 @@
 
 package atlantafx.sampler.page.showcase.filemanager;
 
+import org.jspecify.annotations.Nullable;
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +17,7 @@ final class Utils {
         // Default constructor
     }
 
-    public static long fileSize(Path path) {
+    public static long fileSize(@Nullable Path path) {
         if (path == null) {
             return 0;
         }
@@ -26,7 +28,7 @@ final class Utils {
         }
     }
 
-    public static boolean isFileHidden(Path path) {
+    public static boolean isFileHidden(@Nullable Path path) {
         if (path == null) {
             return false;
         }
@@ -37,7 +39,7 @@ final class Utils {
         }
     }
 
-    public static FileTime fileMTime(Path path, LinkOption... options) {
+    public static @Nullable FileTime fileMTime(@Nullable Path path, LinkOption... options) {
         if (path == null) {
             return null;
         }
@@ -60,7 +62,7 @@ final class Utils {
         }
     }
 
-    public static String getMimeType(Path path) {
+    public static @Nullable String getMimeType(Path path) {
         try {
             return Files.probeContentType(path);
         } catch (IOException e) {

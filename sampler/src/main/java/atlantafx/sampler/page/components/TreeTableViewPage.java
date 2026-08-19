@@ -43,6 +43,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.jspecify.annotations.Nullable;
 
 public final class TreeTableViewPage extends OutlinePage {
 
@@ -142,27 +143,27 @@ public final class TreeTableViewPage extends OutlinePage {
 
         var borderToggle = new ToggleSwitch("Bordered");
         borderToggle.selectedProperty().addListener(
-            (obs, old, val) -> toggleStyleClass(treeTable, BORDERED)
+            (_, _, _) -> toggleStyleClass(treeTable, BORDERED)
         );
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> toggleStyleClass(treeTable, DENSE)
+            (_, _, _) -> toggleStyleClass(treeTable, DENSE)
         );
 
         var stripeToggle = new ToggleSwitch("Striped");
         stripeToggle.selectedProperty().addListener(
-            (obs, old, val) -> toggleStyleClass(treeTable, STRIPED)
+            (_, _, _) -> toggleStyleClass(treeTable, STRIPED)
         );
 
         var altIconToggle = new ToggleSwitch("Alt icon");
         altIconToggle.selectedProperty().addListener(
-            (obs, old, val) -> toggleStyleClass(treeTable, Tweaks.ALT_ICON)
+            (_, _, _) -> toggleStyleClass(treeTable, Tweaks.ALT_ICON)
         );
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-            (obs, old, value) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
+            (_, _, _) -> toggleStyleClass(treeTable, Tweaks.EDGE_TO_EDGE)
         );
 
         var footer = new HBox(
@@ -220,21 +221,21 @@ public final class TreeTableViewPage extends OutlinePage {
     }
 
     @SuppressWarnings("unchecked")
-    private TreeTableView<Product> createTreeTable() {
+    private TreeTableView<@Nullable Product> createTreeTable() {
         var arrowCol = new TreeTableColumn<Product, String>("#");
         // This is placeholder column for disclosure nodes. We need to fill it
         // with empty strings or each .tree-table-cell will be marked as :empty,
         // which in turn leads to absent borders.
-        arrowCol.setCellValueFactory(cell -> new SimpleStringProperty(""));
+        arrowCol.setCellValueFactory(_ -> new SimpleStringProperty(""));
         arrowCol.setMinWidth(50);
         arrowCol.setMaxWidth(50);
 
-        var stateCol = new TreeTableColumn<Product, Boolean>("State");
+        var stateCol = new TreeTableColumn<@Nullable Product, Boolean>("State");
         stateCol.setCellValueFactory(new TreeItemPropertyValueFactory<>("state"));
         stateCol.setCellFactory(CheckBoxTreeTableCell.forTreeTableColumn(stateCol));
         stateCol.setEditable(true);
 
-        var idCol = new TreeTableColumn<Product, String>("ID");
+        var idCol = new TreeTableColumn<@Nullable Product, String>("ID");
         idCol.setCellValueFactory(cell -> {
             Product product = cell.getValue().getValue();
             return new SimpleStringProperty(
@@ -275,7 +276,7 @@ public final class TreeTableViewPage extends OutlinePage {
     private MenuButton createPropertiesMenu(TreeTableView<Product> treeTable) {
         final var resizePolCaption = new CaptionMenuItem("Resize Policy");
         final var resizePolGroup = new ToggleGroup();
-        resizePolGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        resizePolGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 treeTable.setColumnResizePolicy((Callback<TreeTableView.ResizeFeatures, Boolean>) policy);
@@ -315,7 +316,7 @@ public final class TreeTableViewPage extends OutlinePage {
 
         final var selModeCaption = new CaptionMenuItem("Selection Mode");
         final var selModeGroup = new ToggleGroup();
-        selModeGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        selModeGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null && val.getUserData() instanceof SelectionMode mode) {
                 treeTable.getSelectionModel().setSelectionMode(mode);
             }
@@ -334,21 +335,21 @@ public final class TreeTableViewPage extends OutlinePage {
 
         final var alignLeftItem = new RadioMenuItem("Left");
         alignLeftItem.setSelected(true);
-        alignLeftItem.setOnAction(e -> {
+        alignLeftItem.setOnAction(_ -> {
             for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
                 c.getStyleClass().removeAll(ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT);
             }
         });
 
         final var alignCenterItem = new RadioMenuItem("Center");
-        alignCenterItem.setOnAction(e -> {
+        alignCenterItem.setOnAction(_ -> {
             for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
                 addStyleClass(c, ALIGN_CENTER, ALIGN_LEFT, ALIGN_RIGHT);
             }
         });
 
         final var alignRightItem = new RadioMenuItem("Right");
-        alignRightItem.setOnAction(e -> {
+        alignRightItem.setOnAction(_ -> {
             for (TreeTableColumn<?, ?> c : treeTable.getColumns()) {
                 addStyleClass(c, ALIGN_RIGHT, ALIGN_LEFT, ALIGN_CENTER);
             }
@@ -406,7 +407,7 @@ public final class TreeTableViewPage extends OutlinePage {
 
     private void addStyleClass(TreeTableColumn<?, ?> c,
                                String styleClass,
-                               String... excludes) {
+                               String @Nullable... excludes) {
         Objects.requireNonNull(c);
         Objects.requireNonNull(styleClass);
 

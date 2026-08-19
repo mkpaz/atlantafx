@@ -28,7 +28,7 @@ final class ThemeDialog extends ModalDialog {
 
         updateThumbnails();
 
-        thumbnailsGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        thumbnailsGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null && val.getUserData() instanceof SamplerTheme theme) {
                 ThemeManager.getInstance().setTheme(theme);
             }
@@ -61,7 +61,7 @@ final class ThemeDialog extends ModalDialog {
             thumbnail.setToggleGroup(thumbnailsGroup);
             thumbnail.setUserData(theme);
             thumbnail.setSelected(Objects.equals(
-                tm.getTheme().getName(),
+                tm.getTheme() != null ? tm.getTheme().getName() : null,
                 theme.getName()
             ));
             thumbnailsPane.getChildren().add(thumbnail);

@@ -109,13 +109,13 @@ class MainLayer extends BorderPane {
     }
 
     private void initListeners() {
-        model.selectedPageProperty().addListener((obs, old, val) -> {
+        model.selectedPageProperty().addListener((_, _, val) -> {
             if (val != null) {
                 loadPage(val);
             }
         });
 
-        model.currentSubLayerProperty().addListener((obs, old, val) -> {
+        model.currentSubLayerProperty().addListener((_, _, val) -> {
             switch (val) {
                 case PAGE -> hideSourceCode();
                 case SOURCE_CODE -> showSourceCode();
@@ -123,9 +123,8 @@ class MainLayer extends BorderPane {
         });
 
         // update code view color theme on app theme change
-        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, e -> {
-            if (ThemeManager.getInstance().getTheme() != null
-                && model.currentSubLayerProperty().get() == SubLayer.SOURCE_CODE) {
+        DefaultEventBus.getInstance().subscribe(ThemeEvent.class, _ -> {
+            if (model.currentSubLayerProperty().get() == SubLayer.SOURCE_CODE) {
                 showSourceCode();
             }
         });
@@ -166,7 +165,7 @@ class MainLayer extends BorderPane {
             var transition = new FadeTransition(Duration.millis(PAGE_TRANSITION_DURATION), nextPage.getView());
             transition.setFromValue(0.0);
             transition.setToValue(1.0);
-            transition.setOnFinished(t -> {
+            transition.setOnFinished(_ -> {
                 if (nextPage instanceof Pane nextPane) {
                     nextPane.toFront();
                 }

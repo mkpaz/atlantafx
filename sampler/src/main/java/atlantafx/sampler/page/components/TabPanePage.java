@@ -114,7 +114,7 @@ public final class TabPanePage extends OutlinePage {
 
         var description = BBCodeParser.createFormattedText("""
             You can use two additional styles classes to modify tab pane style:
-                        
+            
             [ul]
             [li][code]Styles.TABS_FLOATING[/code][/li]
             [li][code]Styles.TABS_CLASSIC[/code][/li][/ul]"""
@@ -162,7 +162,7 @@ public final class TabPanePage extends OutlinePage {
 
         var tabsLayer = new BorderPane();
         tabsLayer.setTop(tabs);
-        tabs.getTabs().addListener((ListChangeListener<Tab>) c ->
+        tabs.getTabs().addListener((ListChangeListener<Tab>) _ ->
             updateTabsWidth(tabsLayer, tabs, fullWidth)
         );
 
@@ -190,23 +190,23 @@ public final class TabPanePage extends OutlinePage {
 
         var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
         toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toTopBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.TOP));
+        toTopBtn.setOnAction(_ -> rotateTabs(borderPane, tabs, Side.TOP));
 
         var toRightBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toRightBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.RIGHT));
+        toRightBtn.setOnAction(_ -> rotateTabs(borderPane, tabs, Side.RIGHT));
 
         var toBottomBtn = new Button(null, new FontIcon(Feather.ARROW_DOWN));
         toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toBottomBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.BOTTOM));
+        toBottomBtn.setOnAction(_ -> rotateTabs(borderPane, tabs, Side.BOTTOM));
 
         var toLeftBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toLeftBtn.setOnAction(e -> rotateTabs(borderPane, tabs, Side.LEFT));
+        toLeftBtn.setOnAction(_ -> rotateTabs(borderPane, tabs, Side.LEFT));
 
         var appendBtn = new Button(null, new FontIcon(Feather.PLUS));
         appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
-        appendBtn.setOnAction(e -> tabs.getTabs().add(createRandomTab()));
+        appendBtn.setOnAction(_ -> tabs.getTabs().add(createRandomTab()));
 
         var buttonsPane = new BorderPane();
         buttonsPane.setMinSize(120, 120);
@@ -229,7 +229,7 @@ public final class TabPanePage extends OutlinePage {
         // == TOGGLES ==
 
         var closeableToggle = new ToggleSwitch();
-        closeableToggle.selectedProperty().addListener((obs, old, val) -> {
+        closeableToggle.selectedProperty().addListener((_, _, val) -> {
             if (val) {
                 tabs.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
             } else {
@@ -239,7 +239,7 @@ public final class TabPanePage extends OutlinePage {
 
         var animatedToggle = new ToggleSwitch();
         animatedToggle.setSelected(true);
-        animatedToggle.selectedProperty().addListener((obs, old, val) -> {
+        animatedToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null && val) {
                 tabs.setStyle("");
             } else {
@@ -251,7 +251,7 @@ public final class TabPanePage extends OutlinePage {
         });
 
         var fullWidthToggle = new ToggleSwitch();
-        fullWidthToggle.selectedProperty().addListener((obs, old, val) -> {
+        fullWidthToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null) {
                 updateTabsWidth(borderPane, tabs, val);
                 fullWidth = val;
@@ -260,11 +260,11 @@ public final class TabPanePage extends OutlinePage {
 
         var denseToggle = new ToggleSwitch();
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(tabs, Styles.DENSE)
+            (_, _, _) -> Styles.toggleStyleClass(tabs, Styles.DENSE)
         );
 
         var disableToggle = new ToggleSwitch();
-        disableToggle.selectedProperty().addListener((obs, old, val) -> {
+        disableToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null) {
                 tabs.setDisable(val);
             }
@@ -302,7 +302,7 @@ public final class TabPanePage extends OutlinePage {
             List.of(Styles.TABS_CLASSIC, "whatever", Styles.TABS_FLOATING)
         );
 
-        styleToggleGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        styleToggleGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null) {
                 List<String> classes = (List<String>) val.getUserData();
                 Styles.addStyleClass(tabs, classes.get(0), classes.get(1), classes.get(2));

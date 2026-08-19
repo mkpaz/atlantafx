@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -34,14 +35,14 @@ final class IconBrowser extends TableView<List<Ikon>> {
             throw new IllegalArgumentException("Column count must be greater than 0.");
         }
 
-        if (icons == null || icons.isEmpty()) {
+        if (icons.isEmpty()) {
             throw new IllegalArgumentException("Icon list cannot be null or empty.");
         }
 
         this.colNum = colNum;
         this.icons = icons;
 
-        filterProperty().addListener((obs, old, val) -> updateData(val));
+        filterProperty().addListener((_, _, val) -> updateData(val));
 
         initTable();
         updateData(null);
@@ -60,7 +61,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
                 var item = row.size() > colIndex ? row.get(colIndex) : null;
                 return new SimpleObjectProperty<>(item);
             });
-            col.setCellFactory(cb -> new FontIconCell());
+            col.setCellFactory(_ -> new FontIconCell());
             col.getStyleClass().add(Tweaks.ALIGN_CENTER);
             getColumns().add(col);
         }
@@ -70,7 +71,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
         getStyleClass().add("icon-browser");
     }
 
-    private void updateData(String filterString) {
+    private void updateData(@Nullable String filterString) {
         var displayedIcons = filterString == null || filterString.isBlank() || filterString.length() < FILTER_LEN
             ? icons
             : icons.stream().filter(icon -> containsString(icon.getDescription(), filterString)).toList();
@@ -81,7 +82,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
 
     private <T> Collection<List<T>> partitionList(List<T> list, int size) {
         List<List<T>> partitions = new ArrayList<>();
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return partitions;
         }
 
@@ -102,7 +103,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
 
     //*************************************************************************
 
-    public static class FontIconCell extends TableCell<List<Ikon>, Ikon> {
+    public static class FontIconCell extends TableCell<List<Ikon>, @Nullable Ikon> {
 
         private final Label root = new Label();
         private final FontIcon fontIcon = new FontIcon();
@@ -117,7 +118,7 @@ final class IconBrowser extends TableView<List<Ikon>> {
         }
 
         @Override
-        protected void updateItem(Ikon icon, boolean empty) {
+        protected void updateItem(@Nullable Ikon icon, boolean empty) {
             super.updateItem(icon, empty);
 
             if (icon == null) {

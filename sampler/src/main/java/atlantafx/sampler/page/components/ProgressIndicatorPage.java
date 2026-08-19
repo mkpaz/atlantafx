@@ -166,7 +166,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
         reverseBtn.disableProperty().bind(
             reverseInd.progressProperty().greaterThan(0.25)
         );
-        reverseBtn.setOnAction(evt1 -> {
+        reverseBtn.setOnAction(_ -> {
             var task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
@@ -181,7 +181,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
             };
 
             // reset properties, so we can start a new task
-            task.setOnSucceeded(evt2 -> {
+            task.setOnSucceeded(_ -> {
                 reverseInd.progressProperty().unbind();
                 reverseLabel.textProperty().unbind();
                 reverseInd.setProgress(0.25);
@@ -317,7 +317,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
         // }
         content.getStylesheets().add(Styles.encode(dataClass));
 
-        bar.progressProperty().addListener((obs, old, val) -> {
+        bar.progressProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -329,7 +329,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
             }
         });
 
-        runBtn.setOnAction(evt1 -> {
+        runBtn.setOnAction(_ -> {
             var task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
@@ -344,7 +344,7 @@ public final class ProgressIndicatorPage extends OutlinePage {
             };
 
             // reset properties, so we can start a new task
-            task.setOnSucceeded(evt2 -> {
+            task.setOnSucceeded(_ -> {
                 bar.progressProperty().unbind();
                 barText.textProperty().unbind();
 

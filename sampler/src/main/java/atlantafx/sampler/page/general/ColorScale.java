@@ -33,7 +33,7 @@ final class ColorScale extends FlowPane {
 
     public void updateColorInfo(Duration delay) {
         var t = new Timeline(new KeyFrame(delay));
-        t.setOnFinished(e -> blocks.forEach(ColorScaleBlock::update));
+        t.setOnFinished(_ -> blocks.forEach(ColorScaleBlock::update));
         t.play();
     }
 }

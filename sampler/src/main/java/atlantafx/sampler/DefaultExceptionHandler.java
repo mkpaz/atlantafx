@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jspecify.annotations.Nullable;
 
 public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -33,7 +34,7 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         }
     }
 
-    private Alert createExceptionDialog(Throwable throwable) {
+    private @Nullable Alert createExceptionDialog(Throwable throwable) {
         Objects.requireNonNull(throwable);
 
         var alert = new Alert(AlertType.ERROR);

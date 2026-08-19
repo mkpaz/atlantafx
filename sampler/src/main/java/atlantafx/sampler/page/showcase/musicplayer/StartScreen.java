@@ -46,16 +46,16 @@ final class StartScreen extends BorderPane {
         var addFolderBtn = new Button("Add Folder");
         addFolderBtn.getStyleClass().add(Styles.ACCENT);
         addFolderBtn.setPrefWidth(150);
-        addFolderBtn.setOnAction(e -> addFolder());
+        addFolderBtn.setOnAction(_ -> addFolder());
 
         var addFileBtn = new Button("Add File");
         addFileBtn.setPrefWidth(150);
-        addFileBtn.setOnAction(e -> addFile());
+        addFileBtn.setOnAction(_ -> addFile());
 
         var addDemoBtn = new Button("Play Demo");
         addDemoBtn.getStyleClass().add(Styles.SUCCESS);
         addDemoBtn.setPrefWidth(150);
-        addDemoBtn.setOnAction(e -> model.playDemo());
+        addDemoBtn.setOnAction(_ -> model.playDemo());
 
         var controls = new VBox(10, addFolderBtn, addFileBtn, addDemoBtn);
         controls.setAlignment(Pos.CENTER);

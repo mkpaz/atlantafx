@@ -5,7 +5,6 @@ package atlantafx.sampler.page.general;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.Colour;
 import atlantafx.base.util.Lazy;
-import atlantafx.sampler.Resources;
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.page.OutlinePage;
@@ -14,7 +13,6 @@ import atlantafx.sampler.theme.ThemeManager;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,9 +39,6 @@ public final class ThemePage extends OutlinePage {
 
     private static final ThemeManager TM = ThemeManager.getInstance();
     private static final String DEFAULT_FONT_ID = "Default";
-    private static final Image SCENE_BUILDER_ICON = new Image(
-        Resources.getResourceAsStream("images/scene-builder/scene-builder_32.png")
-    );
 
     @Override
     public String getName() {

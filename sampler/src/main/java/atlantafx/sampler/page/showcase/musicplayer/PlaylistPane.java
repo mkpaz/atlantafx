@@ -35,6 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 final class PlaylistPane extends VBox {
@@ -91,7 +92,7 @@ final class PlaylistPane extends VBox {
 
         playlist = new ListView<>(model.playlist());
         playlist.getStyleClass().add(Tweaks.EDGE_TO_EDGE);
-        playlist.setCellFactory(param -> new MediaCell(model));
+        playlist.setCellFactory(_ -> new MediaCell(model));
         playlist.setPlaceholder(new Label("No Content"));
         VBox.setVgrow(playlist, ALWAYS);
 
@@ -102,10 +103,10 @@ final class PlaylistPane extends VBox {
     }
 
     private void init() {
-        model.currentTrackProperty().addListener((obs, old, val) -> playlist.refresh());
+        model.currentTrackProperty().addListener((_, _, _) -> playlist.refresh());
 
-        model.playlist().addListener((ListChangeListener<MediaFile>) c -> {
-            if (model.playlist().size() > 0) {
+        model.playlist().addListener((ListChangeListener<MediaFile>) _ -> {
+            if (!model.playlist().isEmpty()) {
                 sizeLabel.setText(String.valueOf(model.playlist().size()));
                 sizeDescLabel.setGraphic(sizeLabel);
                 sizeDescLabel.setText("tracks");
@@ -115,7 +116,7 @@ final class PlaylistPane extends VBox {
             }
         });
 
-        addButton.setOnAction(e -> {
+        addButton.setOnAction(_ -> {
             var extensions = SUPPORTED_MEDIA_TYPES.stream().map(s -> "*." + s).toList();
             var fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter(
@@ -143,7 +144,7 @@ final class PlaylistPane extends VBox {
                 }
             };
 
-            task.setOnSucceeded(te -> loadProgress.setVisible(false));
+            task.setOnSucceeded(_ -> loadProgress.setVisible(false));
             loadProgress.progressProperty().bind(task.progressProperty());
             new Thread(task).start();
         });
@@ -151,7 +152,7 @@ final class PlaylistPane extends VBox {
 
     //*************************************************************************
 
-    private static class MediaCell extends ListCell<MediaFile> {
+    private static class MediaCell extends ListCell<@Nullable MediaFile> {
 
         private static final PseudoClass PLAYING = PseudoClass.getPseudoClass("playing");
 
@@ -184,7 +185,7 @@ final class PlaylistPane extends VBox {
 
             root = new HBox(10, coverImage, titleBox, playMark);
             root.setAlignment(CENTER_LEFT);
-            root.setOnMouseClicked(e -> {
+            root.setOnMouseClicked(_ -> {
                 if (getItem() != null) {
                     model.play(getItem());
                 }
@@ -192,7 +193,7 @@ final class PlaylistPane extends VBox {
         }
 
         @Override
-        protected void updateItem(MediaFile mediaFile, boolean empty) {
+        protected void updateItem(@Nullable MediaFile mediaFile, boolean empty) {
             super.updateItem(mediaFile, empty);
 
             if (empty || mediaFile == null) {

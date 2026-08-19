@@ -2,9 +2,7 @@
 
 package atlantafx.sampler.page.showcase.musicplayer;
 
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ALBUM;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_ARTIST;
-import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.NO_TITLE;
+import static atlantafx.sampler.page.showcase.musicplayer.MediaFile.Metadata.*;
 import static atlantafx.sampler.page.showcase.musicplayer.Utils.copyImage;
 
 import atlantafx.sampler.Resources;
@@ -15,6 +13,7 @@ import java.util.function.Consumer;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings("StringOperationCanBeSimplified")
 record MediaFile(Path path) {
@@ -34,12 +33,12 @@ record MediaFile(Path path) {
         // MediaPlayer and that player has transitioned to Status.READY status.
         mediaPlayer.setOnReady(() -> {
             Map<String, Object> metadata = media.getMetadata();
-            callback.accept(METADATA_CACHE.computeIfAbsent(path.toAbsolutePath().toString(), k -> {
-                var image = getTag(metadata, "image", Image.class, null);
+            callback.accept(METADATA_CACHE.computeIfAbsent(path.toAbsolutePath().toString(), _ -> {
+                var image = getTag(metadata, "image", Image.class, NO_IMAGE);
                 // clone everything to make sure media player will be garbage collected
                 return new Metadata(
                     new String(getTag(metadata, "title", String.class, NO_TITLE)),
-                    image != null ? copyImage(image) : null,
+                    copyImage(image),
                     new String(getTag(metadata, "artist", String.class, NO_ARTIST)),
                     new String(getTag(metadata, "album", String.class, NO_ALBUM)),
                     media.getDuration().toMillis()
@@ -61,7 +60,7 @@ record MediaFile(Path path) {
 
     //*************************************************************************
 
-    record Metadata(String title, Image image, String artist, String album, double duration) {
+    record Metadata(String title, @Nullable Image image, String artist, String album, double duration) {
 
         static final Image NO_IMAGE = new Image(
             Resources.getResourceAsStream("images/no-image.png"), 150, 150, true, false

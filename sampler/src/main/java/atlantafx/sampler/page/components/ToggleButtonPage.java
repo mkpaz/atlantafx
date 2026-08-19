@@ -143,7 +143,7 @@ public final class ToggleButtonPage extends OutlinePage {
 
         var group = new ToggleGroup();
         group.getToggles().addAll(musicBtn, imagesBtn, videosBtn);
-        group.selectedToggleProperty().addListener((obs, old, val) -> {
+        group.selectedToggleProperty().addListener((_, old, val) -> {
             if (val == null) {
                 old.setSelected(true);
             }
@@ -153,7 +153,7 @@ public final class ToggleButtonPage extends OutlinePage {
         prevBtn.getStyleClass().addAll(
             Styles.BUTTON_ICON, Styles.LEFT_PILL, "toggle-button"
         );
-        prevBtn.setOnAction(evt -> {
+        prevBtn.setOnAction(_ -> {
             int sel = group.getToggles().indexOf(group.getSelectedToggle());
             if (sel > 0) {
                 group.selectToggle(group.getToggles().get(sel - 1));
@@ -165,7 +165,7 @@ public final class ToggleButtonPage extends OutlinePage {
             Styles.BUTTON_ICON, Styles.RIGHT_PILL, "toggle-button"
         );
         nextBtn.setContentDisplay(ContentDisplay.RIGHT);
-        nextBtn.setOnAction(evt -> {
+        nextBtn.setOnAction(_ -> {
             int sel = group.getToggles().indexOf(group.getSelectedToggle());
             if (sel < group.getToggles().size() - 1) {
                 group.selectToggle(group.getToggles().get(sel + 1));

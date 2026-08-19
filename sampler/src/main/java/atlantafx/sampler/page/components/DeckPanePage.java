@@ -47,7 +47,7 @@ public final class DeckPanePage extends AbstractPage {
             where only one node can be visible at a time. It does not maintain any sequence \
             (model), but only cares about the top node, which can be changed by various \
             transition effects.
-                        
+            
             Using the control is as simple as calling the [code]swipeX(Node)[/code] and \
             [code]slideX(Node)[/code] methods, where [code]X[/code] represents the direction \
             of the transition that you want to achieve."""
@@ -117,7 +117,7 @@ public final class DeckPanePage extends AbstractPage {
         };
 
         var topBtn = new Button(null, new FontIcon(Material2MZ.NORTH));
-        topBtn.setOnAction(e -> {
+        topBtn.setOnAction(_ -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeUp(nextItem.get());
             } else {
@@ -128,7 +128,7 @@ public final class DeckPanePage extends AbstractPage {
         BorderPane.setAlignment(topBtn, Pos.CENTER);
 
         var rightBtn = new Button(null, new FontIcon(Material2AL.EAST));
-        rightBtn.setOnAction(e -> {
+        rightBtn.setOnAction(_ -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeRight(nextItem.get());
             } else {
@@ -139,7 +139,7 @@ public final class DeckPanePage extends AbstractPage {
         BorderPane.setAlignment(rightBtn, Pos.CENTER);
 
         var bottomBtn = new Button(null, new FontIcon(Material2MZ.SOUTH));
-        bottomBtn.setOnAction(e -> {
+        bottomBtn.setOnAction(_ -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeDown(nextItem.get());
             } else {
@@ -150,7 +150,7 @@ public final class DeckPanePage extends AbstractPage {
         BorderPane.setAlignment(bottomBtn, Pos.CENTER);
 
         var leftBtn = new Button(null, new FontIcon(Material2MZ.WEST));
-        leftBtn.setOnAction(e -> {
+        leftBtn.setOnAction(_ -> {
             if ((int) transitionType.getSelectedToggle().getUserData() < 0) {
                 deck.swipeLeft(nextItem.get());
             } else {

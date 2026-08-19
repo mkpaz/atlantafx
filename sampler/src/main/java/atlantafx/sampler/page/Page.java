@@ -124,7 +124,7 @@ public interface Page {
             var sourceCodeItem = new MenuItem("Source Code", new FontIcon(Feather.CODE));
             sourceCodeItem.setDisable(!page.canDisplaySourceCode());
             sourceCodeItem.setAccelerator(new KeyCodeCombination(KeyCode.C, ALT_DOWN));
-            sourceCodeItem.setOnAction(e ->
+            sourceCodeItem.setOnAction(_ ->
                 DefaultEventBus.getInstance().publish(new PageEvent(PageEvent.Action.SOURCE_CODE_ON))
             );
 
@@ -132,7 +132,7 @@ public interface Page {
             var javadocItem = new MenuItem("Javadoc", new FontIcon(Feather.COFFEE));
             javadocItem.setAccelerator(new KeyCodeCombination(KeyCode.J, ALT_DOWN));
             javadocItem.setDisable(uri == null);
-            javadocItem.setOnAction(e -> {
+            javadocItem.setOnAction(_ -> {
                 if (uri != null) {
                     DefaultEventBus.getInstance().publish(new BrowseEvent(uri));
                 }

@@ -53,7 +53,7 @@ public final class SelectableTextFlowPage extends OutlinePage {
         textFlow.setTextSelectionOnMouseClick(true);
 
         var copyItem = new MenuItem("Copy");
-        copyItem.setOnAction(e -> textFlow.copySelectedRangeToClipboard());
+        copyItem.setOnAction(_ -> textFlow.copySelectedRangeToClipboard());
 
         var contextMenu = new ContextMenu(copyItem);
         textFlow.setContextMenu(contextMenu);
@@ -77,13 +77,13 @@ public final class SelectableTextFlowPage extends OutlinePage {
         );
 
         var selectAllBtn = new Button("Select All");
-        selectAllBtn.setOnAction(e -> textFlow.selectAll());
+        selectAllBtn.setOnAction(_ -> textFlow.selectAll());
 
         var selectRangeBtn = new Button("Select Range");
-        selectRangeBtn.setOnAction(e -> textFlow.selectRange(1, 5));
+        selectRangeBtn.setOnAction(_ -> textFlow.selectRange(1, 5));
 
         var clearBtn = new Button("Clear");
-        clearBtn.setOnAction(e -> textFlow.clearSelection());
+        clearBtn.setOnAction(_ -> textFlow.clearSelection());
         //snippet_2:end
 
         var box = new VBox(

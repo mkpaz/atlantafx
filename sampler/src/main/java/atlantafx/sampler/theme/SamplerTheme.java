@@ -2,35 +2,28 @@
 
 package atlantafx.sampler.theme;
 
-import static atlantafx.sampler.Launcher.IS_DEV_MODE;
-import static atlantafx.sampler.Resources.resolve;
-import static atlantafx.sampler.theme.ThemeManager.APP_STYLESHEETS;
-import static atlantafx.sampler.theme.ThemeManager.DUMMY_STYLESHEET;
-import static atlantafx.sampler.theme.ThemeManager.PROJECT_THEMES;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-
 import atlantafx.base.theme.Theme;
 import atlantafx.sampler.FileResource;
 import atlantafx.sampler.Launcher;
-import atlantafx.sampler.Resources;
 import fr.brouillard.oss.cssfx.CSSFX;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import org.jspecify.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.attribute.FileTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import org.jspecify.annotations.Nullable;
+
+import static atlantafx.sampler.Launcher.IS_DEV_MODE;
+import static atlantafx.sampler.Resources.resolve;
+import static atlantafx.sampler.theme.ThemeManager.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 /**
  * The {@link Theme} decorator to work around some JavaFX CSS limitations.
@@ -153,7 +146,7 @@ public final class SamplerTheme implements Theme {
         // return cached colors if file wasn't changed since the last read
         FileTime fileTime = Files.getLastModifiedTime(file.toPath(), NOFOLLOW_LINKS);
         if (Objects.equals(fileTime, lastModified)) {
-            return colors;
+            return colors != null ? colors : Map.of();
         }
 
         try (var br = new BufferedReader(new InputStreamReader(file.getInputStream(), UTF_8))) {
@@ -185,7 +178,7 @@ public final class SamplerTheme implements Theme {
 
         try {
             FileResource testTheme = FileResource.createInternal(
-                Resources.resolve("theme-test/" + filename), Launcher.class
+                resolve("theme-test/" + filename), Launcher.class
             );
             if (!testTheme.exists()) {
                 throw new IOException();

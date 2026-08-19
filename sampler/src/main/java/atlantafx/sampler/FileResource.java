@@ -2,6 +2,8 @@
 
 package atlantafx.sampler;
 
+import org.jspecify.annotations.Nullable;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,10 +19,10 @@ public final class FileResource {
     private final boolean internal;
     private final Class<?> anchor;
 
-    private FileResource(String location, boolean internal, Class<?> anchor) {
+    private FileResource(String location, boolean internal, @Nullable Class<?> anchor) {
         this.location = location;
         this.internal = internal;
-        this.anchor = anchor;
+        this.anchor = Objects.requireNonNullElse(anchor, FileResource.class);
     }
 
     public String location() {

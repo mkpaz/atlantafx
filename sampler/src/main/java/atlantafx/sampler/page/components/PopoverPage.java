@@ -64,7 +64,7 @@ public final class PopoverPage extends OutlinePage {
         pop1.setDetachable(true);
 
         var link1 = new Hyperlink("Text");
-        link1.setOnAction(e -> pop1.show(link1));
+        link1.setOnAction(_ -> pop1.show(link1));
 
         // ~
         var cal = new Calendar();
@@ -76,7 +76,7 @@ public final class PopoverPage extends OutlinePage {
         pop2.setDetachable(true);
 
         var link2 = new Hyperlink("Calendar");
-        link2.setOnAction(e -> pop2.show(link2));
+        link2.setOnAction(_ -> pop2.show(link2));
         //snippet_1:end
 
         var box = new HBox(HGAP_30, link1, link2);
@@ -112,7 +112,7 @@ public final class PopoverPage extends OutlinePage {
                 pop.setArrowLocation(arrowLocation);
 
                 setText(String.valueOf(arrowLocation));
-                setOnAction(e -> pop.show(this));
+                setOnAction(_ -> pop.show(this));
             }
         }
 

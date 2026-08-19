@@ -2,12 +2,14 @@
 
 package atlantafx.sampler.page.showcase.filemanager;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.css.PseudoClass;
+import org.jspecify.annotations.Nullable;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 final class Model {
 
@@ -47,8 +49,9 @@ final class Model {
         history.forth().ifPresent(currentPath::set);
     }
 
-    public void navigate(Path path, boolean saveInHistory) {
-        currentPath.set(Objects.requireNonNullElse(path, USER_HOME));
+    public void navigate(@Nullable Path path, boolean saveInHistory) {
+        path = Objects.requireNonNullElse(path, USER_HOME);
+        currentPath.set(path);
         if (saveInHistory) {
             history.append(path);
         }

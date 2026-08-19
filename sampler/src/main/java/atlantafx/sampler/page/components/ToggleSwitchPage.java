@@ -48,13 +48,13 @@ public final class ToggleSwitchPage extends OutlinePage {
         //snippet_1:start
         var toggle1 = new ToggleSwitch("Enabled");
         toggle1.selectedProperty().addListener(
-            (obs, old, val) -> toggle1.setText(val ? "Enabled" : "Disabled")
+            (_, _, val) -> toggle1.setText(val ? "Enabled" : "Disabled")
         );
         toggle1.setSelected(true);
 
         var toggle2 = new ToggleSwitch("Disabled");
         toggle2.selectedProperty().addListener(
-            (obs, old, val) -> toggle2.setText(val ? "Enabled" : "Disabled")
+            (_, _, val) -> toggle2.setText(val ? "Enabled" : "Disabled")
         );
         toggle2.setLabelPosition(HorizontalDirection.RIGHT);
         toggle2.setSelected(false);
@@ -74,7 +74,7 @@ public final class ToggleSwitchPage extends OutlinePage {
     private ExampleBox colorExample() {
         //snippet_2:start
         var successToggle = new ToggleSwitch("Enabled");
-        successToggle.selectedProperty().addListener((obs, old, val) -> {
+        successToggle.selectedProperty().addListener((_, _, val) -> {
                 successToggle.setText(val ? "Enabled" : "Disabled");
                 successToggle.pseudoClassStateChanged(Styles.STATE_SUCCESS, val);
             }
@@ -83,7 +83,7 @@ public final class ToggleSwitchPage extends OutlinePage {
         successToggle.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
 
         var dangerToggle = new ToggleSwitch("Disabled");
-        dangerToggle.selectedProperty().addListener((obs, old, val) -> {
+        dangerToggle.selectedProperty().addListener((_, _, val) -> {
                 dangerToggle.setText(val ? "Enabled" : "Disabled");
                 dangerToggle.pseudoClassStateChanged(Styles.STATE_DANGER, val);
             }

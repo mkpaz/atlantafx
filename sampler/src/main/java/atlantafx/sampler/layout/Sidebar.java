@@ -62,7 +62,7 @@ final class Sidebar extends VBox {
             return dialog;
         });
 
-        model.selectedPageProperty().addListener((obs, old, val) -> {
+        model.selectedPageProperty().addListener((_, _, val) -> {
             if (val != null) {
                 navTree.getSelectionModel().select(model.getTreeItemForPage(val));
             }
@@ -101,7 +101,7 @@ final class Sidebar extends VBox {
             "version", TEXT_SMALL, TEXT_BOLD, TEXT_SUBTLE
         );
         versionLbl.setCursor(Cursor.HAND);
-        versionLbl.setOnMouseClicked(e -> {
+        versionLbl.setOnMouseClicked(_ -> {
             var homepage = System.getProperty("app.homepage");
             if (homepage != null) {
                 DefaultEventBus.getInstance().publish(new BrowseEvent(URI.create(homepage)));
@@ -181,7 +181,7 @@ final class Sidebar extends VBox {
             themeSwitchBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
             themeSwitchBtn.setAlignment(Pos.CENTER_RIGHT);
             themeSwitchBtn.setTooltip(new Tooltip("Switch theme"));
-            themeSwitchBtn.setOnAction(e -> openThemeDialog());
+            themeSwitchBtn.setOnAction(_ -> openThemeDialog());
 
             var devtoolsBtn = new Button();
             devtoolsBtn.getStyleClass().add("palette");
@@ -190,7 +190,7 @@ final class Sidebar extends VBox {
             devtoolsBtn.getStyleClass().addAll(Styles.BUTTON_CIRCLE, Styles.FLAT);
             devtoolsBtn.setAlignment(Pos.CENTER_RIGHT);
             devtoolsBtn.setTooltip(new Tooltip("Run DevToolsFX"));
-            devtoolsBtn.setOnAction(e -> DevToolsEvent.fire());
+            devtoolsBtn.setOnAction(_ -> DevToolsEvent.fire());
 
             var root = new HBox(0, imageBox, titleLbl, new Spacer(), themeSwitchBtn, devtoolsBtn);
             root.getStyleClass().add("logo");
@@ -213,7 +213,7 @@ final class Sidebar extends VBox {
             root.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             root.getStyleClass().addAll("search-button");
             root.setGraphic(searchBox);
-            root.setOnAction(e -> openSearchDialog());
+            root.setOnAction(_ -> openSearchDialog());
             root.setMaxWidth(Double.MAX_VALUE);
 
             return root;

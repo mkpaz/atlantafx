@@ -68,7 +68,7 @@ public class NotificationPage extends OutlinePage {
 
         var ntf2 = new Notification(FAKER.lorem().sentence(15));
         ntf2.getStyleClass().add(Styles.ELEVATED_1);
-        ntf2.setOnClose(e -> Animations.flash(ntf2).playFromStart());
+        ntf2.setOnClose(_ -> Animations.flash(ntf2).playFromStart());
         //snippet_1:end
 
         var box = new VBox(VGAP_20, ntf1, ntf2);
@@ -88,7 +88,7 @@ public class NotificationPage extends OutlinePage {
             new FontIcon(Material2OutlinedAL.HELP_OUTLINE)
         );
         ntf.getStyleClass().add(Styles.ELEVATED_1);
-        ntf.setOnClose(e -> Animations.flash(ntf).playFromStart());
+        ntf.setOnClose(_ -> Animations.flash(ntf).playFromStart());
 
         var yesBtn = new Button("Yes");
         yesBtn.setDefaultButton(true);
@@ -121,7 +121,7 @@ public class NotificationPage extends OutlinePage {
         );
         info.getStyleClass().add(Styles.ELEVATED_1);
         info.getStyleClass().add(Styles.ACCENT);
-        info.setOnClose(e -> Animations.flash(info).playFromStart());
+        info.setOnClose(_ -> Animations.flash(info).playFromStart());
 
         var success = new Notification(
             FAKER.lorem().sentence(15),
@@ -129,7 +129,7 @@ public class NotificationPage extends OutlinePage {
         );
         success.getStyleClass().add(Styles.ELEVATED_1);
         success.getStyleClass().add(Styles.SUCCESS);
-        success.setOnClose(e -> Animations.flash(success).playFromStart());
+        success.setOnClose(_ -> Animations.flash(success).playFromStart());
 
         var warning = new Notification(
             FAKER.lorem().sentence(15),
@@ -137,7 +137,7 @@ public class NotificationPage extends OutlinePage {
         );
         warning.getStyleClass().add(Styles.ELEVATED_1);
         warning.getStyleClass().add(Styles.WARNING);
-        warning.setOnClose(e -> Animations.flash(warning).playFromStart());
+        warning.setOnClose(_ -> Animations.flash(warning).playFromStart());
 
         var danger = new Notification(
             FAKER.lorem().sentence(15),
@@ -145,7 +145,7 @@ public class NotificationPage extends OutlinePage {
         );
         danger.getStyleClass().add(Styles.ELEVATED_1);
         danger.getStyleClass().add(Styles.DANGER);
-        danger.setOnClose(e -> Animations.flash(danger).playFromStart());
+        danger.setOnClose(_ -> Animations.flash(danger).playFromStart());
         //snippet_3:end
 
         var box = new VBox(VGAP_20, info, success, warning, danger);
@@ -173,12 +173,12 @@ public class NotificationPage extends OutlinePage {
 
         var btn = new Button("Show");
 
-        msg.setOnClose(e -> {
+        msg.setOnClose(_ -> {
             var out = Animations.slideOutUp(msg, Duration.millis(250));
-            out.setOnFinished(f -> getChildren().remove(msg));
+            out.setOnFinished(_ -> getChildren().remove(msg));
             out.playFromStart();
         });
-        btn.setOnAction(e -> {
+        btn.setOnAction(_ -> {
             var in = Animations.slideInDown(msg, Duration.millis(250));
             if (!getChildren().contains(msg)) {
                 getChildren().add(msg);
@@ -207,14 +207,14 @@ public class NotificationPage extends OutlinePage {
             new FontIcon(Material2OutlinedAL.HELP_OUTLINE)
         );
         ntf1.getStyleClass().add(Styles.ELEVATED_2);
-        ntf1.setOnClose(e -> Animations.flash(ntf1).playFromStart());
+        ntf1.setOnClose(_ -> Animations.flash(ntf1).playFromStart());
 
         var ntf2 = new Notification(
             FAKER.lorem().sentence(15),
             new FontIcon(Material2OutlinedAL.HELP_OUTLINE)
         );
         ntf2.getStyleClass().add(Styles.INTERACTIVE);
-        ntf2.setOnClose(e -> Animations.flash(ntf2).playFromStart());
+        ntf2.setOnClose(_ -> Animations.flash(ntf2).playFromStart());
 
         //snippet_5:end
 

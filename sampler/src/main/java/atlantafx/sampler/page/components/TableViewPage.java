@@ -85,7 +85,7 @@ public final class TableViewPage extends OutlinePage {
         }
 
         public static ObservableList<Book> random(int count) {
-            return IntStream.range(0, count).mapToObj(i -> Book.random())
+            return IntStream.range(0, count).mapToObj(_ -> Book.random())
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         }
     }
@@ -107,7 +107,7 @@ public final class TableViewPage extends OutlinePage {
         }
 
         public static ObservableList<Flight> random(int count) {
-            return IntStream.range(0, count).mapToObj(i -> Flight.random())
+            return IntStream.range(0, count).mapToObj(_ -> Flight.random())
                 .sorted(Comparator.comparing(Flight::arrival))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         }
@@ -211,17 +211,17 @@ public final class TableViewPage extends OutlinePage {
 
         var borderToggle = new ToggleSwitch("Bordered");
         borderToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.BORDERED)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.BORDERED)
         );
 
         var stripeToggle = new ToggleSwitch("Striped");
         stripeToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.STRIPED)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.STRIPED)
         );
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.DENSE)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.DENSE)
         );
         //snippet_2:end
 
@@ -235,7 +235,7 @@ public final class TableViewPage extends OutlinePage {
         var box = new VBox(VGAP_10, table, togglesBox);
         var description = BBCodeParser.createFormattedText("""
             The [i]TableView[/i] rows can be styled simply by adding CSS classes:
-                        
+            
             [ul]
             [li][code]Styles.BORDERED[/code] - adds borders between the columns.[/li]
             [li][code]Styles.STRIPED[/code] - adds zebra-striping.[/li]
@@ -389,7 +389,7 @@ public final class TableViewPage extends OutlinePage {
         var box = new HBox(table);
         var description = BBCodeParser.createFormattedText("""
             Column content can be aligned by adding one of the following style class modifiers:
-                            
+            
             [ul]
             [li][code]Tweaks.ALIGN_LEFT[/code] (default)[/li]
             [li][code]Tweaks.ALIGN_CENTER[/code][/li]
@@ -547,7 +547,7 @@ public final class TableViewPage extends OutlinePage {
 
         var pg = new Pagination(25, 0);
         pg.setMaxPageIndicatorCount(5);
-        pg.setPageFactory(pageNum -> {
+        pg.setPageFactory(_ -> {
             table.getItems().setAll(Flight.random(50));
             return new StackPane(); // null isn't allowed
         });
@@ -588,22 +588,22 @@ public final class TableViewPage extends OutlinePage {
 
         var bordersToggle = new ToggleSwitch("Bordered");
         bordersToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.BORDERED)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.BORDERED)
         );
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.DENSE)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.DENSE)
         );
 
         var stripesToggle = new ToggleSwitch("Striped");
         stripesToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(table, Styles.STRIPED)
+            (_, _, _) -> Styles.toggleStyleClass(table, Styles.STRIPED)
         );
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
         edge2edgeToggle.selectedProperty().addListener(
-            (obs, old, value) -> Styles.toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
+            (_, _, _) -> Styles.toggleStyleClass(table, Tweaks.EDGE_TO_EDGE)
         );
 
         var footer = new HBox(HGAP_20, bordersToggle, denseToggle, stripesToggle, edge2edgeToggle);
@@ -648,7 +648,7 @@ public final class TableViewPage extends OutlinePage {
         // an example of creating index column if data object
         // doesn't provide index property
         var indexCol = new TableColumn<Product, String>("Index");
-        indexCol.setCellFactory(col -> {
+        indexCol.setCellFactory(_ -> {
             var cell = new TableCell<Product, String>();
             StringBinding value = Bindings.when(cell.emptyProperty())
                 .then("")
@@ -658,7 +658,7 @@ public final class TableViewPage extends OutlinePage {
         });
 
         var iconCol = new TableColumn<Product, Feather>("Logo");
-        iconCol.setCellValueFactory(c -> new SimpleObjectProperty<>(randomIcon()));
+        iconCol.setCellValueFactory(_ -> new SimpleObjectProperty<>(randomIcon()));
         iconCol.setCellFactory(FontIconTableCell.forTableColumn());
 
         var brandCol = new TableColumn<Product, String>("Brand");
@@ -689,7 +689,7 @@ public final class TableViewPage extends OutlinePage {
     private MenuButton createTablePropertiesMenu(TableView<Product> table) {
         final var resizePolCaption = new CaptionMenuItem("Resize Policy");
         final var resizePolGroup = new ToggleGroup();
-        resizePolGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        resizePolGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null && val.getUserData() instanceof Callback<?, ?> policy) {
                 //noinspection rawtypes,unchecked
                 table.setColumnResizePolicy((Callback<TableView.ResizeFeatures, Boolean>) policy);
@@ -729,7 +729,7 @@ public final class TableViewPage extends OutlinePage {
 
         final var selModeCaption = new CaptionMenuItem("Selection Mode");
         final var selModeGroup = new ToggleGroup();
-        selModeGroup.selectedToggleProperty().addListener((obs, old, val) -> {
+        selModeGroup.selectedToggleProperty().addListener((_, _, val) -> {
             if (val != null && val.getUserData() instanceof SelectionMode mode) {
                 table.getSelectionModel().setSelectionMode(mode);
             }

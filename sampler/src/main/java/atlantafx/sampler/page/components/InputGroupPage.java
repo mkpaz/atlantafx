@@ -89,9 +89,7 @@ public final class InputGroupPage extends OutlinePage {
             "", new FontIcon(Feather.REFRESH_CW)
         );
         rightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        rightBtn.setOnAction(
-            e -> leftTfd.setText(FAKER.internet().password())
-        );
+        rightBtn.setOnAction(_ -> leftTfd.setText(FAKER.internet().password()));
 
         var group = new InputGroup(leftTfd, rightBtn);
         //snippet_2:end
@@ -137,17 +135,17 @@ public final class InputGroupPage extends OutlinePage {
 
         var spellItem = new MenuItem("Spell");
         spellItem.setOnAction(
-            e -> rightTfd.setText(FAKER.harryPotter().spell())
+            _ -> rightTfd.setText(FAKER.harryPotter().spell())
         );
 
         var characterItem = new MenuItem("Character");
         characterItem.setOnAction(
-            e -> rightTfd.setText(FAKER.harryPotter().character())
+            _ -> rightTfd.setText(FAKER.harryPotter().character())
         );
 
         var locationItem = new MenuItem("Location");
         locationItem.setOnAction(
-            e -> rightTfd.setText(FAKER.harryPotter().location())
+            _ -> rightTfd.setText(FAKER.harryPotter().location())
         );
 
         var leftMenu = new MenuButton("Dropdown");

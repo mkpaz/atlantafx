@@ -116,10 +116,10 @@ public final class SpinsPage extends AbstractPage {
                 new Text("Secondary"), secondaryColor
             );
 
-            primaryColor.valueProperty().subscribe((old, val) ->
+            primaryColor.valueProperty().subscribe((_, val) ->
                 updateStyles(cssRoot, val, secondaryColor.getValue())
             );
-            secondaryColor.valueProperty().subscribe((old, val) ->
+            secondaryColor.valueProperty().subscribe((_, val) ->
                 updateStyles(cssRoot, primaryColor.getValue(), val)
             );
         }
@@ -154,7 +154,7 @@ public final class SpinsPage extends AbstractPage {
             StackPane.setAlignment(indexLabel, Pos.TOP_LEFT);
             StackPane.setMargin(indexLabel, new Insets(8, 0, 0, 8));
 
-            setOnMouseClicked(evt -> {
+            setOnMouseClicked(_ -> {
                 if (disabled.get()) {
                     spin.start();
                     disabled.set(false);

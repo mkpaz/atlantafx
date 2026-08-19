@@ -4,6 +4,7 @@ package atlantafx.sampler.layout;
 
 import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.NavEvent;
+import atlantafx.sampler.layout.NavTree.Item;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.page.components.*;
 import atlantafx.sampler.page.general.*;
@@ -13,6 +14,7 @@ import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
 import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.kordamp.ikonli.material2.Material2OutlinedMZ;
@@ -29,7 +31,7 @@ public class MainModel {
 
     public static final Class<? extends Page> DEFAULT_PAGE = ThemePage.class;
 
-    private static final Map<Class<? extends Page>, NavTree.Item> NAV_TREE = createNavItems();
+    private static final Map<Class<? extends Page>, Item> NAV_TREE = createNavItems();
 
     public enum SubLayer {
         PAGE,
@@ -40,9 +42,12 @@ public class MainModel {
         return NAV_TREE.getOrDefault(pageClass, NAV_TREE.get(DEFAULT_PAGE));
     }
 
-    List<NavTree.Item> findPages(String filter) {
+    List<NavTree.@Nullable Item> findPages(String filter) {
         return NAV_TREE.values().stream()
-            .filter(item -> item.getValue() != null && item.getValue().matches(filter))
+            .filter(item -> {
+                var value = item.getValue();
+                return value != null && value.matches(filter);
+            })
             .toList();
     }
 
@@ -57,7 +62,7 @@ public class MainModel {
     // ~
     private final ReadOnlyObjectWrapper<Class<? extends Page>> selectedPage = new ReadOnlyObjectWrapper<>();
 
-    public ReadOnlyObjectProperty<Class<? extends Page>> selectedPageProperty() {
+    public ReadOnlyObjectProperty<@Nullable Class<? extends Page>> selectedPageProperty() {
         return selectedPage.getReadOnlyProperty();
     }
 

@@ -131,7 +131,7 @@ public final class ChartPage extends OutlinePage {
         //snippet_3:start
         final var rnd = FAKER.random();
         final var countries = IntStream.range(0, 5).boxed()
-            .map(i -> FAKER.country().countryCode3().toUpperCase())
+            .map(_ -> FAKER.country().countryCode3().toUpperCase())
             .toList();
 
         var x = new CategoryAxis();
@@ -178,7 +178,7 @@ public final class ChartPage extends OutlinePage {
         //snippet_4:start
         final var rnd = FAKER.random();
         final var countries = IntStream.range(0, 5).boxed()
-            .map(i -> FAKER.country().countryCode3().toUpperCase())
+            .map(_ -> FAKER.country().countryCode3().toUpperCase())
             .toList();
 
         var x = new CategoryAxis();
@@ -231,7 +231,7 @@ public final class ChartPage extends OutlinePage {
 
         var series1 = new XYChart.Series<Number, Number>();
         series1.setName(FAKER.commerce().productName());
-        IntStream.range(1, 10).forEach(i -> series1.getData().add(
+        IntStream.range(1, 10).forEach(_ -> series1.getData().add(
             new XYChart.Data<>(
                 rnd.nextInt(1, 53),
                 rnd.nextInt(10, 80),
@@ -241,7 +241,7 @@ public final class ChartPage extends OutlinePage {
 
         var series2 = new XYChart.Series<Number, Number>();
         series2.setName(FAKER.commerce().productName());
-        IntStream.range(1, 10).forEach(i -> series2.getData().add(
+        IntStream.range(1, 10).forEach(_ -> series2.getData().add(
             new XYChart.Data<>(
                 rnd.nextInt(1, 53),
                 rnd.nextInt(10, 80),
@@ -343,7 +343,7 @@ public final class ChartPage extends OutlinePage {
 
         var series1 = new XYChart.Series<Number, Number>();
         series1.setName("Equities");
-        IntStream.range(1, 10).forEach(i -> series1.getData().add(
+        IntStream.range(1, 10).forEach(_ -> series1.getData().add(
             new XYChart.Data<>(
                 rnd.nextDouble(0, 10),
                 rnd.nextDouble(-100, 500)
@@ -352,7 +352,7 @@ public final class ChartPage extends OutlinePage {
 
         var series2 = new XYChart.Series<Number, Number>();
         series2.setName("Mutual funds");
-        IntStream.range(1, 10).forEach(i -> series2.getData().add(
+        IntStream.range(1, 10).forEach(_ -> series2.getData().add(
             new XYChart.Data<>(
                 rnd.nextDouble(0, 10),
                 rnd.nextDouble(-100, 500)

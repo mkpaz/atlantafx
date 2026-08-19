@@ -52,21 +52,21 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
     @SuppressWarnings("unchecked")
     private TableView<Path> createTable() {
-        var filenameCol = new TableColumn<Path, String>("Name");
+        var filenameCol = new TableColumn<@Nullable Path, String>("Name");
         filenameCol.setCellValueFactory(param -> new SimpleStringProperty(
             param.getValue() != null ? param.getValue().getFileName().toString() : null
         ));
         filenameCol.setComparator(Comparator.comparing(String::toLowerCase));
         filenameCol.setSortType(ASCENDING);
-        filenameCol.setCellFactory(col -> new FilenameCell());
+        filenameCol.setCellFactory(_ -> new FilenameCell());
 
         var sizeCol = new TableColumn<Path, Number>("Size");
         sizeCol.setCellValueFactory(param -> new SimpleLongProperty(fileSize(param.getValue())));
-        sizeCol.setCellFactory(col -> new FileSizeCell());
+        sizeCol.setCellFactory(_ -> new FileSizeCell());
 
         var mtimeCol = new TableColumn<Path, FileTime>("Modified");
         mtimeCol.setCellValueFactory(param -> new SimpleObjectProperty<>(fileMTime(param.getValue(), NOFOLLOW_LINKS)));
-        mtimeCol.setCellFactory(col -> new FileTimeCell());
+        mtimeCol.setCellFactory(_ -> new FileTimeCell());
         mtimeCol.getStyleClass().add(Tweaks.ALIGN_RIGHT);
 
         // ~
@@ -75,10 +75,10 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         table.getStyleClass().addAll(Styles.STRIPED, Tweaks.EDGE_TO_EDGE);
         table.getColumns().setAll(filenameCol, sizeCol, mtimeCol);
         table.getSortOrder().add(filenameCol);
-        table.setSortPolicy(param -> true);
+        table.setSortPolicy(_ -> true);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         filenameCol.minWidthProperty().bind(table.widthProperty().multiply(0.5));
-        table.setRowFactory(param -> {
+        table.setRowFactory(_ -> {
             TableRow<Path> row = new TableRow<>();
 
             row.setOnMouseClicked(e -> {
@@ -124,7 +124,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
 
     //*************************************************************************
 
-    private static class FilenameCell extends TableCell<Path, String> {
+    private static class FilenameCell extends TableCell<@Nullable Path, String> {
 
         private final ImageView imageView = new ImageView();
 
@@ -159,7 +159,7 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         }
     }
 
-    private static class FileSizeCell extends TableCell<Path, Number> {
+    private static class FileSizeCell extends TableCell<@Nullable Path, Number> {
 
         @Override
         protected void updateItem(Number fileSize, boolean empty) {
@@ -185,10 +185,10 @@ final class TableDirectoryView extends AnchorPane implements DirectoryView {
         }
     }
 
-    private static class FileTimeCell extends TableCell<Path, FileTime> {
+    private static class FileTimeCell extends TableCell<@Nullable Path, @Nullable  FileTime> {
 
         @Override
-        protected void updateItem(FileTime fileTime, boolean empty) {
+        protected void updateItem(@Nullable FileTime fileTime, boolean empty) {
             super.updateItem(fileTime, empty);
             if (empty) {
                 setText(null);

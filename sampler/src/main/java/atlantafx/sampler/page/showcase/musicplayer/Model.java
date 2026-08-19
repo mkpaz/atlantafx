@@ -21,6 +21,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import org.jspecify.annotations.Nullable;
 
 final class Model {
 
@@ -54,7 +55,7 @@ final class Model {
     private final ObservableList<MediaFile> playlist = FXCollections.observableArrayList();
     private final ReadOnlyBooleanWrapper canGoBack = new ReadOnlyBooleanWrapper();
     private final ReadOnlyBooleanWrapper canGoForward = new ReadOnlyBooleanWrapper();
-    private final ReadOnlyObjectWrapper<MediaFile> currentTrack = new ReadOnlyObjectWrapper<>();
+    private final ReadOnlyObjectWrapper<@Nullable MediaFile> currentTrack = new ReadOnlyObjectWrapper<>();
     private final ReadOnlyObjectWrapper<Color> backgroundColor = new ReadOnlyObjectWrapper<>(Color.TRANSPARENT);
 
     public Model() {
@@ -62,7 +63,7 @@ final class Model {
             () -> playlist.size() > 1 && getPlaylistPosition() > 0, currentTrack)
         );
         canGoForward.bind(Bindings.createBooleanBinding(
-            () -> playlist.size() > 0 && getPlaylistPosition() < playlist.size() - 1, currentTrack));
+            () -> !playlist.isEmpty() && getPlaylistPosition() < playlist.size() - 1, currentTrack));
     }
 
     private int getPlaylistPosition() {
@@ -88,7 +89,7 @@ final class Model {
         return canGoForward.getReadOnlyProperty();
     }
 
-    public ReadOnlyObjectProperty<MediaFile> currentTrackProperty() {
+    public ReadOnlyObjectProperty<@Nullable MediaFile> currentTrackProperty() {
         return currentTrack.getReadOnlyProperty();
     }
 
@@ -121,7 +122,7 @@ final class Model {
         setBackgroundColor(null);
     }
 
-    public void setBackgroundColor(Color color) {
+    public void setBackgroundColor(@Nullable Color color) {
         backgroundColor.set(Objects.requireNonNullElse(color, Color.TRANSPARENT));
     }
 
@@ -144,6 +145,6 @@ final class Model {
 
     public void playDemo() {
         DEMO_FILES.forEach(f -> addFile(new MediaFile(f)));
-        play(new MediaFile(DEMO_FILES.get(0)));
+        play(new MediaFile(DEMO_FILES.getFirst()));
     }
 }

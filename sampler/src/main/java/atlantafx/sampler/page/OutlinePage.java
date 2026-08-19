@@ -60,7 +60,7 @@ public abstract class OutlinePage extends StackPane implements Page {
         scrollPane.setMaxHeight(20_000);
 
         // scroll spy
-        scrollPane.vvalueProperty().addListener((obs, old, val) ->
+        scrollPane.vvalueProperty().addListener((_, _, _) ->
             // we need a little gap between changing vValue and fetching header bounds
             Platform.runLater(() -> outline.select(getFirstVisibleHeader()))
         );
@@ -246,7 +246,7 @@ public abstract class OutlinePage extends StackPane implements Page {
             return title != null && toc.contains(title);
         }
 
-        public void select(String title) {
+        public void select(@Nullable String title) {
             if (selected != null) {
                 selected.pseudoClassStateChanged(SELECTED, false);
             }

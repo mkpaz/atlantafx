@@ -79,7 +79,7 @@ public final class CalendarPage extends OutlinePage {
         }
 
         var cal = new Calendar(TODAY);
-        cal.setDayCellFactory(c -> new FutureDateCell());
+        cal.setDayCellFactory(_ -> new FutureDateCell());
         //snippet_2:end
 
         var box = new HBox(cal);
@@ -121,7 +121,7 @@ public final class CalendarPage extends OutlinePage {
 
                 var t = new Timeline(new KeyFrame(
                     Duration.seconds(1),
-                    e -> {
+                    _ -> {
                         var time = LocalTime.now(ZoneId.systemDefault());
                         clockLbl.setText(TIME_FORMATTER.format(time));
                     }

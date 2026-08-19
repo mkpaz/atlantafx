@@ -27,12 +27,12 @@ public final class NavTree extends TreeView<Nav> {
     public NavTree(MainModel model) {
         super();
 
-        getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
+        getSelectionModel().selectedItemProperty().addListener((_, _, val) -> {
             if (!(val instanceof Item item)) {
                 return;
             }
 
-            if (!item.isGroup()) {
+            if (!item.isGroup() && item.pageClass() != null) {
                 model.navigate(item.pageClass());
             }
         });
@@ -40,12 +40,12 @@ public final class NavTree extends TreeView<Nav> {
         getStyleClass().addAll(Tweaks.EDGE_TO_EDGE);
         setShowRoot(false);
         rootProperty().bind(model.navTreeProperty());
-        setCellFactory(p -> new NavTreeCell());
+        setCellFactory(_ -> new NavTreeCell());
     }
 
     //*************************************************************************
 
-    public static final class NavTreeCell extends TreeCell<Nav> {
+    public static final class NavTreeCell extends TreeCell<@Nullable Nav> {
 
         private static final PseudoClass GROUP = PseudoClass.getPseudoClass("group");
 
@@ -90,7 +90,7 @@ public final class NavTree extends TreeView<Nav> {
         }
 
         @Override
-        protected void updateItem(Nav nav, boolean empty) {
+        protected void updateItem(@Nullable Nav nav, boolean empty) {
             super.updateItem(nav, empty);
 
             if (nav == null || empty) {
@@ -110,7 +110,7 @@ public final class NavTree extends TreeView<Nav> {
         }
     }
 
-    public static final class Item extends TreeItem<Nav> {
+    public static final class Item extends TreeItem<@Nullable Nav> {
 
         private final Nav nav;
 

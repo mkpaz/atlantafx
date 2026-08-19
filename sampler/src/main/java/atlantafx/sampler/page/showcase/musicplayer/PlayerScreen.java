@@ -27,7 +27,7 @@ final class PlayerScreen extends SplitPane {
         getStyleClass().add("player-screen");
         getItems().setAll(player, playlist);
 
-        model.backgroundColorProperty().addListener((_, old, val) -> {
+        model.backgroundColorProperty().addListener((_, _, val) -> {
             var domColor = Objects.equals(Color.TRANSPARENT, val)
                 ? Color.TRANSPARENT
                 : Color.color(val.getRed(), val.getGreen(), val.getBlue(), 1);

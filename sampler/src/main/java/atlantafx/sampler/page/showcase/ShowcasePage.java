@@ -51,7 +51,7 @@ public abstract class ShowcasePage extends StackPane implements Page {
 
         var maximizeBtn = new FontIcon(Feather.MAXIMIZE_2);
         maximizeBtn.getStyleClass().addAll(Styles.SMALL, Styles.FLAT);
-        maximizeBtn.setOnMouseClicked(e -> maximized.set(!maximized.get()));
+        maximizeBtn.setOnMouseClicked(_ -> maximized.set(!maximized.get()));
 
         var windowHeader = new HBox(
             20, windowTitle, new Spacer(), aboutBtn, maximizeBtn
@@ -65,7 +65,7 @@ public abstract class ShowcasePage extends StackPane implements Page {
         getStyleClass().add("showcase-page");
         getChildren().setAll(showcaseWindow);
 
-        maximized.addListener((obs, old, val) -> {
+        maximized.addListener((_, _, val) -> {
             getScene().getRoot().pseudoClassStateChanged(SHOWCASE_MODE, val);
             maximizeBtn.setIconCode(val ? Feather.MINIMIZE_2 : Feather.MAXIMIZE_2);
 
@@ -87,12 +87,12 @@ public abstract class ShowcasePage extends StackPane implements Page {
         var tooltip = new Tooltip(text);
         tooltip.setWrapText(true);
         tooltip.setMaxWidth(300);
-        aboutBtn.setOnMouseEntered(e -> {
+        aboutBtn.setOnMouseEntered(_ -> {
             var localBounds = aboutBtn.getBoundsInLocal();
             var screenBounds = aboutBtn.localToScreen(localBounds);
             tooltip.show(getScene().getWindow(), screenBounds.getCenterX(), screenBounds.getMaxY());
         });
-        aboutBtn.setOnMouseExited(e -> tooltip.hide());
+        aboutBtn.setOnMouseExited(_ -> tooltip.hide());
     }
 
     protected void setShowCaseContent(Node node) {

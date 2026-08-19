@@ -35,6 +35,7 @@ public final class DefaultEventBus implements EventBus {
         eventSubscribers.add(subscriber);
     }
 
+    @SuppressWarnings("all")
     private <E> Set<Consumer> getOrCreateSubscribers(Class<E> eventType) {
         Set<Consumer> eventSubscribers = subscribers.get(eventType);
         if (eventSubscribers == null) {

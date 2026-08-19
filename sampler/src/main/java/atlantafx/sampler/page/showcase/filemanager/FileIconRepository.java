@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.image.Image;
+import org.jspecify.annotations.Nullable;
 
 final class FileIconRepository {
 
@@ -22,7 +23,7 @@ final class FileIconRepository {
     private final Map<String, Image> cache = new HashMap<>();
     private final Set<String> unknownMimeTypes = new HashSet<>();
 
-    public Image getByMimeType(String mimeType) {
+    public Image getByMimeType(@Nullable String mimeType) {
         if (mimeType == null || unknownMimeTypes.contains(mimeType)) {
             return UNKNOWN_FILE;
         }

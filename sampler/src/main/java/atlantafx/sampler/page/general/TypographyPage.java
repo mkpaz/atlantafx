@@ -369,7 +369,7 @@ public final class TypographyPage extends OutlinePage {
             Label is a non-editable text control. A [i]Label[/i] is useful for displaying text \
             that is required to fit within a specific space, and thus may need to use an ellipsis \
             or truncation to size the string to fit.
-                        
+            
             You can use pseudo-classes to set the [i]Label[/i] color. Note that icon \
             inherits label color by default."""
         );

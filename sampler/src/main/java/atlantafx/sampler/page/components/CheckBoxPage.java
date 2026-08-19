@@ -51,7 +51,7 @@ public final class CheckBoxPage extends OutlinePage {
 
         var description = BBCodeParser.createFormattedText("""
             A [i]CheckBox[/i] can be in one of three states:
-                        
+            
             [ul]
             [li][b]checked[/b]: indeterminate == false, checked == true[/li]
             [li][b]unchecked[/b]: indeterminate == false, checked == false[/li]

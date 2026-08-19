@@ -144,7 +144,7 @@ public final class PaginationPage extends OutlinePage {
             topRadio, rightRadio, bottomRadio, leftRadio
         );
         sideGroup.selectedToggleProperty().addListener(
-            (obs, old, val) -> pg.setStyle(String.valueOf(val.getUserData()))
+            (_, _, val) -> pg.setStyle(String.valueOf(val.getUserData()))
         );
         //snippet_4:end
 
@@ -187,11 +187,11 @@ public final class PaginationPage extends OutlinePage {
 
         var bulletToggle = new ToggleSwitch();
         bulletToggle.selectedProperty().addListener(
-            (obs, old, val) -> Styles.toggleStyleClass(pg, Pagination.STYLE_CLASS_BULLET)
+            (_, _, _) -> Styles.toggleStyleClass(pg, Pagination.STYLE_CLASS_BULLET)
         );
 
         var showArrowsToggle = new ToggleSwitch();
-        showArrowsToggle.selectedProperty().addListener((obs, old, val) -> {
+        showArrowsToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null) {
                 pg.setStyle(String.format("-fx-arrows-visible: %s;", val));
             }
@@ -199,7 +199,7 @@ public final class PaginationPage extends OutlinePage {
         showArrowsToggle.setSelected(true);
 
         var showPageInfoToggle = new ToggleSwitch();
-        showPageInfoToggle.selectedProperty().addListener((obs, old, val) -> {
+        showPageInfoToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null) {
                 pg.setStyle(String.format("-fx-page-information-visible: %s;", val));
             }

@@ -39,7 +39,7 @@ public class MusicPlayerPage extends ShowcasePage {
         root.getStylesheets().add(STYLESHEET_URL);
 
         model.playlist().addListener((ListChangeListener<MediaFile>) c -> {
-            if (model.playlist().size() > 0) {
+            if (!model.playlist().isEmpty()) {
                 root.setCenter(playerScreen);
             } else {
                 root.setCenter(startScreen);

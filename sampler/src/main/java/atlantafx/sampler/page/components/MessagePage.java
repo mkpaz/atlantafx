@@ -179,7 +179,7 @@ public class MessagePage extends OutlinePage {
             FAKER.lorem().sentence(5),
             new FontIcon(Material2OutlinedAL.CHAT_BUBBLE_OUTLINE)
         );
-        regular.setOnClose(e -> Animations.flash(regular).playFromStart());
+        regular.setOnClose(_ -> Animations.flash(regular).playFromStart());
 
         var info = new Message(
             "Info",
@@ -187,7 +187,7 @@ public class MessagePage extends OutlinePage {
             new FontIcon(Material2OutlinedAL.HELP_OUTLINE)
         );
         info.getStyleClass().add(Styles.ACCENT);
-        info.setOnClose(e -> Animations.flash(info).playFromStart());
+        info.setOnClose(_ -> Animations.flash(info).playFromStart());
 
         var success = new Message(
             "Success",
@@ -195,7 +195,7 @@ public class MessagePage extends OutlinePage {
             new FontIcon(Material2OutlinedAL.CHECK_CIRCLE_OUTLINE)
         );
         success.getStyleClass().add(Styles.SUCCESS);
-        success.setOnClose(e -> Animations.flash(success).playFromStart());
+        success.setOnClose(_ -> Animations.flash(success).playFromStart());
 
         var warning = new Message(
             "Warning",
@@ -203,7 +203,7 @@ public class MessagePage extends OutlinePage {
             new FontIcon(Material2OutlinedMZ.OUTLINED_FLAG)
         );
         warning.getStyleClass().add(Styles.WARNING);
-        warning.setOnClose(e -> Animations.flash(warning).playFromStart());
+        warning.setOnClose(_ -> Animations.flash(warning).playFromStart());
 
         var danger = new Message(
             "Danger",
@@ -211,7 +211,7 @@ public class MessagePage extends OutlinePage {
             new FontIcon(Material2OutlinedAL.ERROR_OUTLINE)
         );
         danger.getStyleClass().add(Styles.DANGER);
-        danger.setOnClose(e -> Animations.flash(danger).playFromStart());
+        danger.setOnClose(_ -> Animations.flash(danger).playFromStart());
         //snippet_4:end
 
         var box = new VBox(VGAP_10, regular, info, success, warning, danger);

@@ -175,7 +175,7 @@ public final class AccordionPage extends OutlinePage {
         var accordion = new Accordion(labelBlock, textBlock, disabledBlock, imageBlock);
 
         // prevents accordion from being completely collapsed
-        accordion.expandedPaneProperty().addListener((obs, old, val) -> {
+        accordion.expandedPaneProperty().addListener((_, old, _) -> {
             boolean hasExpanded = accordion.getPanes().stream().anyMatch(TitledPane::isExpanded);
             if (expandedProperty.get() && !hasExpanded && old != null) {
                 Platform.runLater(() -> accordion.setExpandedPane(old));
@@ -195,12 +195,12 @@ public final class AccordionPage extends OutlinePage {
 
         var denseToggle = new ToggleSwitch("Dense");
         denseToggle.selectedProperty().addListener(
-            (obs, old, val) -> accordion.getPanes().forEach(p -> Styles.toggleStyleClass(p, Styles.DENSE))
+            (_, _, _) -> accordion.getPanes().forEach(p -> Styles.toggleStyleClass(p, Styles.DENSE))
         );
 
         var altIconToggle = new ToggleSwitch("Alt icon");
         altIconToggle.selectedProperty().addListener(
-            (obs, old, val) -> accordion.getPanes().forEach(p -> Styles.toggleStyleClass(p, Tweaks.ALT_ICON))
+            (_, _, _) -> accordion.getPanes().forEach(p -> Styles.toggleStyleClass(p, Tweaks.ALT_ICON))
         );
 
         var controls = new HBox(HGAP_20, animatedToggle, expandedToggle, denseToggle, altIconToggle);

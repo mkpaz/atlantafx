@@ -62,7 +62,7 @@ public final class ThemeManager {
 
     private Scene scene = NullSafety.lateNonNull();
 
-    private @Nullable SamplerTheme currentTheme = null;
+    private @Nullable SamplerTheme currentTheme = NullSafety.lateNonNull();
     private String fontFamily = DEFAULT_FONT_FAMILY_NAME;
     private int fontSize = DEFAULT_FONT_SIZE;
     private int zoom = DEFAULT_ZOOM;
@@ -87,7 +87,7 @@ public final class ThemeManager {
     }
 
     public SamplerTheme getDefaultTheme() {
-        return getRepository().getAll().get(0);
+        return getRepository().getAll().getFirst();
     }
 
     /**
@@ -138,8 +138,8 @@ public final class ThemeManager {
         if (!SUPPORTED_FONT_SIZE.contains(size)) {
             throw new IllegalArgumentException(
                 String.format("Font size must in the range %d-%dpx. Actual value is %d.",
-                    SUPPORTED_FONT_SIZE.get(0),
-                    SUPPORTED_FONT_SIZE.get(SUPPORTED_FONT_SIZE.size() - 1),
+                    SUPPORTED_FONT_SIZE.getFirst(),
+                    SUPPORTED_FONT_SIZE.getLast(),
                     size
                 ));
         }
@@ -226,7 +226,7 @@ public final class ThemeManager {
         EVENT_BUS.publish(new ThemeEvent(EventType.THEME_CHANGE));
     }
 
-    public HighlightJSTheme getMatchingSourceCodeHighlightTheme(Theme theme) {
+    public HighlightJSTheme getMatchingSourceCodeHighlightTheme(@Nullable Theme theme) {
         Objects.requireNonNull(theme);
         if ("Nord Light".equals(theme.getName())) {
             return HighlightJSTheme.nordLight();
@@ -282,7 +282,7 @@ public final class ThemeManager {
             new KeyFrame(Duration.ZERO, new KeyValue(imageView.opacityProperty(), 1, Interpolator.EASE_OUT)),
             new KeyFrame(duration, new KeyValue(imageView.opacityProperty(), 0, Interpolator.EASE_OUT))
         );
-        transition.setOnFinished(e -> root.getChildren().remove(imageView));
+        transition.setOnFinished(_ -> root.getChildren().remove(imageView));
         transition.play();
     }
 

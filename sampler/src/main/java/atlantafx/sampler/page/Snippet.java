@@ -10,12 +10,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.jspecify.annotations.Nullable;
 
 public final class Snippet {
 
     private final Class<?> sourceClass;
     private final int id;
-    private HBox container = null;
+    private @Nullable HBox container = null;
 
     public Snippet(Class<?> sourceClass, int id) {
         this.sourceClass = Objects.requireNonNull(sourceClass, "sourceClass");

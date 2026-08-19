@@ -34,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
@@ -61,13 +62,13 @@ public class FileManagerPage extends ShowcasePage {
     private void createView() {
         var backBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         backBtn.getStyleClass().add(Styles.BUTTON_ICON);
-        backBtn.setOnAction(e -> model.back());
+        backBtn.setOnAction(_ -> model.back());
         backBtn.disableProperty().bind(model.getHistory().canGoBackProperty().not());
         backBtn.setTooltip(new Tooltip("Back"));
 
         var forthBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         forthBtn.getStyleClass().add(Styles.BUTTON_ICON);
-        forthBtn.setOnAction(e -> model.forth());
+        forthBtn.setOnAction(_ -> model.forth());
         forthBtn.disableProperty().bind(model.getHistory().canGoForthProperty().not());
         forthBtn.setTooltip(new Tooltip("Forward"));
 
@@ -122,7 +123,7 @@ public class FileManagerPage extends ShowcasePage {
         var splitPane = new SplitPane(dirTree, dirView.getView());
         splitPane.widthProperty().addListener(
             // set sidebar width in pixels depending on split pane width
-            (obs, old, val) -> splitPane.setDividerPosition(0, 300 / splitPane.getWidth())
+            (_, _, _) -> splitPane.setDividerPosition(0, 300 / splitPane.getWidth())
         );
 
         var root = new BorderPane();
@@ -131,22 +132,22 @@ public class FileManagerPage extends ShowcasePage {
         root.setTop(new VBox(topBar));
         root.setCenter(splitPane);
 
-        hiddenTgl.selectedProperty().addListener((obs, old, val) -> dirView.getFileList()
+        hiddenTgl.selectedProperty().addListener((_, _, val) -> dirView.getFileList()
             .predicateProperty()
             .set(!val ? PREDICATE_ANY : PREDICATE_NOT_HIDDEN)
         );
         dirView.getFileList().predicateProperty().set(PREDICATE_NOT_HIDDEN);
 
-        treeTgl.selectedProperty().addListener((obs, old, val) -> {
+        treeTgl.selectedProperty().addListener((_, _, val) -> {
             if (val) {
-                splitPane.getItems().add(0, dirTree);
+                splitPane.getItems().addFirst(dirTree);
                 splitPane.setDividerPosition(0, 300 / splitPane.getWidth());
             } else {
                 splitPane.getItems().remove(dirTree);
             }
         });
 
-        model.currentPathProperty().addListener((obs, old, val) -> {
+        model.currentPathProperty().addListener((_, _, val) -> {
             if (!Files.isReadable(val)) {
                 showWarning("Access Denied", "You have no permission to enter \"" + val + "\"");
                 return;
@@ -169,6 +170,7 @@ public class FileManagerPage extends ShowcasePage {
         NodeUtils.setAnchors(root, Insets.EMPTY);
     }
 
+    @SuppressWarnings("all")
     private Breadcrumbs<Path> createBreadcrumbs() {
         Callback<BreadCrumbItem<Path>, ButtonBase> crumbFactory = crumb -> {
             var hyperlink = new Hyperlink(crumb.getValue().getFileName().toString());
@@ -176,7 +178,7 @@ public class FileManagerPage extends ShowcasePage {
             return hyperlink;
         };
 
-        Callback<BreadCrumbItem<Path>, ? extends Node> dividerFactory = item ->
+        Callback<@Nullable BreadCrumbItem<Path>, ? extends @Nullable Node> dividerFactory = item ->
             item != null && !item.isLast()
                 ? new Label("", new FontIcon(Material2AL.CHEVRON_RIGHT))
                 : null;

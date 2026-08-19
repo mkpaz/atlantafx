@@ -34,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import org.jspecify.annotations.Nullable;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -271,12 +272,12 @@ public final class TreeViewPage extends OutlinePage {
 
     private VBox playground() {
         var denseToggle = new ToggleSwitch("Dense");
-        denseToggle.selectedProperty().addListener((obs, old, value) ->
+        denseToggle.selectedProperty().addListener((_, _, _) ->
             findDisplayedTree().ifPresent(tv -> Styles.toggleStyleClass(tv, Styles.DENSE))
         );
 
         var showRootToggle = new ToggleSwitch("Show root");
-        showRootToggle.selectedProperty().addListener((obs, old, val) ->
+        showRootToggle.selectedProperty().addListener((_, _, val) ->
             findDisplayedTree().ifPresent(tv -> {
                 if (val != null) {
                     tv.setShowRoot(val);
@@ -286,12 +287,12 @@ public final class TreeViewPage extends OutlinePage {
         showRootToggle.setSelected(true);
 
         var altIconToggle = new ToggleSwitch("Alt icon");
-        altIconToggle.selectedProperty().addListener((obs, old, val) ->
+        altIconToggle.selectedProperty().addListener((_, _, _) ->
             findDisplayedTree().ifPresent(tv -> Styles.toggleStyleClass(tv, Tweaks.ALT_ICON))
         );
 
         var edge2edgeToggle = new ToggleSwitch("Edge to edge");
-        edge2edgeToggle.selectedProperty().addListener((obs, old, val) ->
+        edge2edgeToggle.selectedProperty().addListener((_, _, _) ->
             findDisplayedTree().ifPresent(tv -> Styles.toggleStyleClass(tv, Tweaks.EDGE_TO_EDGE))
         );
 
@@ -318,12 +319,12 @@ public final class TreeViewPage extends OutlinePage {
         return playground;
     }
 
-    private ComboBox<Example> createExampleSelect() {
-        var select = new ComboBox<Example>();
+    private ComboBox<@Nullable Example> createExampleSelect() {
+        var select = new ComboBox<@Nullable Example>();
         select.setMaxWidth(Double.MAX_VALUE);
         select.getItems().setAll(Example.values());
 
-        select.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
+        select.getSelectionModel().selectedItemProperty().addListener((_, _, val) -> {
             if (val == null) {
                 return;
             }
@@ -344,12 +345,12 @@ public final class TreeViewPage extends OutlinePage {
 
         select.setConverter(new StringConverter<>() {
             @Override
-            public String toString(Example example) {
+            public String toString(@Nullable Example example) {
                 return example == null ? "" : example.getName();
             }
 
             @Override
-            public Example fromString(String s) {
+            public @Nullable Example fromString(String s) {
                 return Example.find(s);
             }
         });
@@ -364,8 +365,8 @@ public final class TreeViewPage extends OutlinePage {
     }
 
     private Optional<TreeView<?>> findDisplayedTree() {
-        return treeWrapper.getChildren().size() > 0
-            ? Optional.of((TreeView<?>) treeWrapper.getChildren().get(0))
+        return !treeWrapper.getChildren().isEmpty()
+            ? Optional.of((TreeView<?>) treeWrapper.getChildren().getFirst())
             : Optional.empty();
     }
 
@@ -536,7 +537,7 @@ public final class TreeViewPage extends OutlinePage {
             return name;
         }
 
-        public static Example find(String name) {
+        public static @Nullable Example find(String name) {
             return Arrays.stream(Example.values())
                 .filter(example -> Objects.equals(example.getName(), name))
                 .findFirst()

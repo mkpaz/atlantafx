@@ -26,7 +26,7 @@ import org.jspecify.annotations.Nullable;
 public final class ExampleBox extends VBox {
 
     private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
-    private final ObjectProperty<Label> selectedTab = new SimpleObjectProperty<>();
+    private final ObjectProperty<@Nullable Label> selectedTab = new SimpleObjectProperty<>();
     private final ToggleSwitch stateToggle;
 
     public ExampleBox(Node preview, Snippet snippet) {
@@ -67,19 +67,19 @@ public final class ExampleBox extends VBox {
 
         // == INIT ==
 
-        stateToggle.selectedProperty().addListener((obs, old, val) -> {
+        stateToggle.selectedProperty().addListener((_, _, val) -> {
             if (selectedTab.get() == previewTab) {
                 content.getChildren().forEach(c -> c.setDisable(val));
             }
         });
 
-        copyBtn.setOnAction(e -> {
+        copyBtn.setOnAction(_ -> {
             var cc = new ClipboardContent();
             cc.putString(snippet.getSourceCode());
             Clipboard.getSystemClipboard().setContent(cc);
         });
 
-        selectedTab.addListener((obs, old, val) -> {
+        selectedTab.addListener((_, old, val) -> {
             if (val == codeTab) {
                 stateToggle.setDisable(true);
                 content.getChildren().setAll(snippet.render());
@@ -107,7 +107,7 @@ public final class ExampleBox extends VBox {
 
     private Label createTabLabel(String title) {
         var label = new Label(title);
-        label.setOnMouseClicked(e -> selectedTab.set(label));
+        label.setOnMouseClicked(_ -> selectedTab.set(label));
         label.setPrefWidth(120);
         label.setAlignment(Pos.CENTER);
         return label;

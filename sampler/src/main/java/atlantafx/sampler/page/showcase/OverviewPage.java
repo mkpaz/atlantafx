@@ -7,6 +7,7 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED;
 import atlantafx.base.controls.Breadcrumbs;
 import atlantafx.base.controls.MaskTextField;
 import atlantafx.base.theme.Styles;
+import atlantafx.base.util.NullSafety;
 import atlantafx.sampler.Resources;
 import atlantafx.sampler.page.Page;
 import atlantafx.sampler.util.NodeUtils;
@@ -90,8 +91,8 @@ public final class OverviewPage extends ScrollPane implements Page {
     //*************************************************************************
 
     public static class Controller implements Initializable {
-        public @FXML MaskTextField phoneTf;
-        public @FXML Breadcrumbs<String> breadcrumbs;
+        public @FXML MaskTextField phoneTf = NullSafety.lateNonNull();
+        public @FXML Breadcrumbs<String> breadcrumbs = NullSafety.lateNonNull();
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {

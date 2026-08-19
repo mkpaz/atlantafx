@@ -29,7 +29,7 @@ public final class SliderPage extends OutlinePage {
             choices. It is typically represented visually as having a [i]track[/i] and a [i]knob[/i] \
             or [i]thumb[/i] which is dragged within the track. The [i]Slider[/i] can optionally show tick \
             marks and labels indicating the different slider position values.
-                        
+            
             AtlantaFX also provides the [b]ProgressSliderSkin[/b], which implements color support for \
             [i]Slider[/i] progress indication. Additionally, it adds the [code]Styles.SMALL[/code] and \
             [code]Styles.LARGE[/code] style class modifiers to change the [i]Slider[/i] size."""

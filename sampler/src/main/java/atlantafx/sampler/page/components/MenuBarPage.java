@@ -85,7 +85,7 @@ public final class MenuBarPage extends AbstractPage {
             openRecentMenu.setOnAction(SYSTEM_OUT);
             openRecentMenu.getItems().addAll(
                 IntStream.range(0, 10)
-                    .mapToObj(x -> new MenuItem(FAKER.file().fileName()))
+                    .mapToObj(_ -> new MenuItem(FAKER.file().fileName()))
                     .toList()
             );
 

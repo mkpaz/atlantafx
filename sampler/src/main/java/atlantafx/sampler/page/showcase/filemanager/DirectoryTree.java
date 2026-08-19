@@ -11,8 +11,9 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
+import org.jspecify.annotations.Nullable;
 
-final class DirectoryTree extends TreeView<File> {
+final class DirectoryTree extends TreeView<@Nullable File> {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public DirectoryTree(Model model, File rootPath) {
@@ -27,9 +28,9 @@ final class DirectoryTree extends TreeView<File> {
         // scan file tree two levels deep for starters
         scan(root, 2);
 
-        setCellFactory(c -> new TreeCell<>() {
+        setCellFactory(_ -> new TreeCell<>() {
             @Override
-            protected void updateItem(File item, boolean empty) {
+            protected void updateItem(@Nullable File item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
@@ -58,7 +59,7 @@ final class DirectoryTree extends TreeView<File> {
             });
         });
 
-        getSelectionModel().selectedItemProperty().addListener((obs, old, item) -> {
+        getSelectionModel().selectedItemProperty().addListener((_, _, item) -> {
             if (item != null && item.getValue() != null) {
                 model.navigate(item.getValue().toPath(), true);
             }

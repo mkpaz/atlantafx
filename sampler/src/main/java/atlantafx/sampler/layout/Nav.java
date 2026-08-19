@@ -15,7 +15,7 @@ import atlantafx.sampler.page.general.SelectableTextFlowPage;
 import javafx.scene.Node;
 import org.jspecify.annotations.Nullable;
 
-record Nav(String title,
+public record Nav(String title,
            @Nullable Node graphic,
            @Nullable Class<? extends Page> pageClass,
            @Nullable List<String> searchKeywords) {

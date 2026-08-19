@@ -213,23 +213,23 @@ public final class ToolBarPage extends OutlinePage {
 
         var toTopBtn = new Button(null, new FontIcon(Feather.ARROW_UP));
         toTopBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toTopBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.TOP));
+        toTopBtn.setOnAction(_ -> rotateToolbar(borderPane, toolbar, Side.TOP));
 
         var toRightBtn = new Button(null, new FontIcon(Feather.ARROW_RIGHT));
         toRightBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toRightBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.RIGHT));
+        toRightBtn.setOnAction(_ -> rotateToolbar(borderPane, toolbar, Side.RIGHT));
 
         var toBottomBtn = new Button(null, new FontIcon(Feather.ARROW_DOWN));
         toBottomBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toBottomBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.BOTTOM));
+        toBottomBtn.setOnAction(_ -> rotateToolbar(borderPane, toolbar, Side.BOTTOM));
 
         var toLeftBtn = new Button(null, new FontIcon(Feather.ARROW_LEFT));
         toLeftBtn.getStyleClass().addAll(Styles.BUTTON_ICON);
-        toLeftBtn.setOnAction(e -> rotateToolbar(borderPane, toolbar, Side.LEFT));
+        toLeftBtn.setOnAction(_ -> rotateToolbar(borderPane, toolbar, Side.LEFT));
 
         var appendBtn = new Button(null, new FontIcon(Feather.PLUS));
         appendBtn.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.ACCENT);
-        appendBtn.setOnAction(e -> {
+        appendBtn.setOnAction(_ -> {
             if (toolbar.getOrientation() == Orientation.HORIZONTAL) {
                 var textBtn = new Button(FAKER.animal().name(), new FontIcon(randomIcon()));
                 toolbar.getItems().add(textBtn);
@@ -261,7 +261,7 @@ public final class ToolBarPage extends OutlinePage {
         // == TOGGLES ==
 
         var menuBarToggle = new ToggleSwitch();
-        menuBarToggle.selectedProperty().addListener((obs, old, val) -> {
+        menuBarToggle.selectedProperty().addListener((_, _, val) -> {
             TopBar topBar = (TopBar) borderPane.getTop();
             if (val) {
                 topBar.showOrCreateMenuBar();
@@ -271,7 +271,7 @@ public final class ToolBarPage extends OutlinePage {
         });
 
         var disableToggle = new ToggleSwitch();
-        disableToggle.selectedProperty().addListener((obs, old, val) -> {
+        disableToggle.selectedProperty().addListener((_, _, val) -> {
             if (val != null) {
                 toolbar.setDisable(val);
             }
@@ -388,7 +388,7 @@ public final class ToolBarPage extends OutlinePage {
         return label;
     }
 
-    public static Button iconButton(Ikon icon) {
+    public static Button iconButton(@Nullable Ikon icon) {
         var btn = new Button(null);
         if (icon != null) {
             btn.setGraphic(new FontIcon(icon));
@@ -439,7 +439,7 @@ public final class ToolBarPage extends OutlinePage {
         }
 
         public void showOrCreateMenuBar() {
-            if (getChildren().get(0) instanceof MenuBar menuBar) {
+            if (getChildren().getFirst() instanceof MenuBar menuBar) {
                 menuBar.setVisible(true);
                 menuBar.setManaged(true);
             } else {
@@ -448,7 +448,7 @@ public final class ToolBarPage extends OutlinePage {
         }
 
         public void hideMenuBar() {
-            var any = getChildren().get(0);
+            var any = getChildren().getFirst();
             any.setVisible(false);
             any.setManaged(false);
         }
@@ -493,7 +493,7 @@ public final class ToolBarPage extends OutlinePage {
             openRecentMenu.setOnAction(PRINT_SOURCE);
             openRecentMenu.getItems().addAll(
                 IntStream.range(0, 10)
-                    .mapToObj(x -> new MenuItem(faker.file().fileName()))
+                    .mapToObj(_ -> new MenuItem(faker.file().fileName()))
                     .toList()
             );
 
@@ -632,7 +632,7 @@ public final class ToolBarPage extends OutlinePage {
             return aboutMenu;
         }
 
-        public MenuItem menuItem(String text, Ikon graphic, KeyCombination accelerator) {
+        public MenuItem menuItem(String text, @Nullable Ikon graphic, @Nullable KeyCombination accelerator) {
             var item = new MenuItem(text);
 
             if (graphic != null) {
