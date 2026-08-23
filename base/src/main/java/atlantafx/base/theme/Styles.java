@@ -137,6 +137,7 @@ public final class Styles {
     public static final String BORDER_DEFAULT = "border-default";
     public static final String BORDER_MUTED = "border-muted";
     public static final String BORDER_SUBTLE = "border-subtle";
+    public static final String BORDER_RADIUS = "border-radius";
 
     private Styles() {
         // utility

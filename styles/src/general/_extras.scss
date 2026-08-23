@@ -168,6 +168,11 @@
   -fx-border-width: cfg.$border-width;
 }
 
+.border-radius {
+  -fx-border-radius: cfg.$border-radius;
+  -fx-background-radius: cfg.$border-radius, cfg.$inner-border-radius;
+}
+
 @each $level, $radius in cfg.$elevation {
   .elevated-#{$level} {
     @include effects.shadow(cfg.$elevation-color, $radius);
