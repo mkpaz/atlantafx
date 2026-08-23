@@ -67,6 +67,11 @@ $margin-content-dense: 10px !default;
     >.title > *,
     >.content > * {
       -fx-opacity: cfg.$opacity-disabled;
+
+      // prevent opacity from being applied twice
+      *:disabled {
+        -fx-opacity: 1;
+      }
     }
   }
 

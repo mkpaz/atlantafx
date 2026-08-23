@@ -42,13 +42,13 @@ public class ProgressSliderSkin extends SliderSkin {
         if (getSkinnable().getOrientation() == Orientation.HORIZONTAL) {
             progressY = track.getLayoutY();
             progressWidth = thumb.getLayoutX() - track.getLayoutX()
-                + thumb.getLayoutBounds().getCenterX() - snappedLeftInset();
+                + thumb.getLayoutBounds().getCenterX();
             progressHeight = track.getHeight();
         } else {
             progressY = thumb.getLayoutY() + thumb.getLayoutBounds().getCenterY();
             progressWidth = track.getWidth();
             progressHeight = track.getLayoutBounds().getMaxY() + track.getLayoutY()
-                - thumb.getLayoutY() - thumb.getLayoutBounds().getCenterY() - snappedBottomInset();
+                - thumb.getLayoutY() - thumb.getLayoutBounds().getCenterY();
         }
 
         progressTrack.resizeRelocate(progressX, progressY, progressWidth, progressHeight);

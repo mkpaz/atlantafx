@@ -60,13 +60,8 @@ $image-confirm: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAA
   }
 
   &:no-header {
-
-    >.content {
-      -fx-padding: $padding-y $padding-x 0 0;
-    }
-
     >*>.graphic-container {
-      -fx-padding: $padding-y $padding-x 0 $padding-x;
+      -fx-padding: $padding-y 0 0 $padding-x;
     }
   }
 

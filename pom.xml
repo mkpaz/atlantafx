@@ -35,11 +35,11 @@
     </scm>
 
     <modules>
+        <module>styles</module> <!-- build styles/dist before base -->
         <module>base</module>
         <module>decorations</module>
         <module>sampler</module>
         <module>spins</module>
-        <module>styles</module>
         <module>validation</module>
         <module>scene-builder</module>
     </modules>
