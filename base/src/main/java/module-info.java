@@ -7,6 +7,7 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 module atlantafx.base {
     requires static org.jspecify;
+    requires static us.hebi.graalvm.reachability.annotations;
 
     requires transitive javafx.controls;
 

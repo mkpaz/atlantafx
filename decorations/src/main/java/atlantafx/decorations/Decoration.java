@@ -2,12 +2,15 @@
 
 package atlantafx.decorations;
 
+import us.hebi.graalvm.reachability.annotations.Reachable;
+
 import java.util.Objects;
 
 /**
  * This enum contains the links to the window decoration themes.
  * Use {@link #getStylesheet()} to obtain the path to a specific theme.
  */
+@Reachable(resources = "theme/*.css")
 public enum Decoration {
 
     CHROME_OS_DARK("chrome-os-dark", "ChromeOS Dark", true),

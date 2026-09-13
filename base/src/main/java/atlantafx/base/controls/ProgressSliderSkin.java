@@ -6,10 +6,13 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Slider;
 import javafx.scene.control.skin.SliderSkin;
 import javafx.scene.layout.StackPane;
+import us.hebi.graalvm.reachability.annotations.MemberAccess;
+import us.hebi.graalvm.reachability.annotations.Reachable;
 
 /**
  * A {@link Slider} skin that supports progress color indication.
  */
+@Reachable(condition = Slider.class, memberAccess = MemberAccess.ALL_DECLARED_CONSTRUCTORS)
 public class ProgressSliderSkin extends SliderSkin {
 
     protected final StackPane thumb;

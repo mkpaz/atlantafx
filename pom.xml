@@ -66,6 +66,7 @@
         <lib.ikonli.version>12.3.1</lib.ikonli.version>
         <lib.datafaker.version>1.3.0</lib.datafaker.version>
         <lib.gemsfx.version>3.8.2</lib.gemsfx.version>
+        <lib.reachability.version>1.0.0-RC4</lib.reachability.version>
         <test.assertj.version>3.27.3</test.assertj.version>
         <test.junit.version>5.8.1</test.junit.version>
         <test.mockito.version>5.23.0</test.mockito.version>
@@ -148,6 +149,12 @@
                 <groupId>org.jspecify</groupId>
                 <artifactId>jspecify</artifactId>
                 <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>us.hebi.graalvm</groupId>
+                <artifactId>reachability-annotations</artifactId>
+                <version>${lib.reachability.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <dependency>
@@ -234,6 +241,18 @@
                     <version>3.8.1</version>
                     <configuration>
                         <release>${java.version}</release>
+                        <!-- generate GraalVM reachability metadata from @Reachable annotations -->
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>us.hebi.graalvm</groupId>
+                                <artifactId>reachability-processor</artifactId>
+                                <version>${lib.reachability.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                        <compilerArgs>
+                            <arg>-Aproject=${project.groupId}/${project.artifactId}</arg>
+                            <arg>-Areachability.outputFormat=1.0.0</arg>
+                        </compilerArgs>
                     </configuration>
                 </plugin>
                 <plugin>

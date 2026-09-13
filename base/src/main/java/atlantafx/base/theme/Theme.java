@@ -4,6 +4,7 @@ package atlantafx.base.theme;
 
 import javafx.application.Application;
 import org.jspecify.annotations.Nullable;
+import us.hebi.graalvm.reachability.annotations.Reachable;
 
 import java.util.*;
 
@@ -13,6 +14,7 @@ import static javafx.application.Application.STYLESHEET_MODENA;
 /**
  * The basic theme interface.
  */
+@Reachable(resources = {"*.css", "*.bss"})
 public interface Theme {
 
     /**
