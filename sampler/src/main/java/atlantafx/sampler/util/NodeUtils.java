@@ -2,7 +2,9 @@
 
 package atlantafx.sampler.util;
 
+import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -68,5 +70,37 @@ public final class NodeUtils {
             descendant = descendant.getParent();
         }
         return false;
+    }
+
+    /**
+     * Snapshots fill node caches without clearing the dirty bits. Since JavaFX 27 a stylesheet
+     * change resets fewer properties, so the dirty marking can stop below a cached node and leave
+     * its cache stale. This works around it by turning the caches off until the window has repainted.
+     */
+    public static void suspendCaches(Parent root) {
+        List<Node> cached = new ArrayList<>();
+        collectCached(root, cached);
+        cached.forEach(node -> node.setCache(false));
+
+        new AnimationTimer() {
+            private int pulses;
+
+            @Override
+            public void handle(long now) {
+                if (++pulses == 2) {
+                    stop();
+                    cached.forEach(node -> node.setCache(true));
+                }
+            }
+        }.start();
+    }
+
+    private static void collectCached(Node node, List<Node> cached) {
+        if (node.isCache()) {
+            cached.add(node);
+        }
+        if (node instanceof Parent parent) {
+            parent.getChildrenUnmodifiable().forEach(child -> collectCached(child, cached));
+        }
     }
 }

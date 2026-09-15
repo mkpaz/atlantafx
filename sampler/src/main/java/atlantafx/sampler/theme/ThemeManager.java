@@ -10,6 +10,7 @@ import atlantafx.sampler.event.DefaultEventBus;
 import atlantafx.sampler.event.EventBus;
 import atlantafx.sampler.event.ThemeEvent;
 import atlantafx.sampler.event.ThemeEvent.EventType;
+import atlantafx.sampler.util.NodeUtils;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -273,6 +274,7 @@ public final class ThemeManager {
 
     private void animateThemeChange(Duration duration) {
         Image snapshot = scene.snapshot(null);
+        NodeUtils.suspendCaches(scene.getRoot());
         Pane root = (Pane) scene.getRoot();
 
         ImageView imageView = new ImageView(snapshot);
