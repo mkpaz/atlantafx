@@ -279,7 +279,7 @@
                         <configuration>
                             <toolName>jlink</toolName>
                             <addModules>
-                                java.base,java.logging,jdk.localedata,jdk.zipfs,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web
+                                java.base,java.logging,jdk.localedata,jdk.zipfs,java.desktop,java.prefs,javafx.controls,javafx.fxml,javafx.swing,javafx.web,javafx.media,jfx.incubator.richtext,java.net.http,jdk.unsupported
                             </addModules>
                             <modulePath>${build.platformModulesDir}</modulePath>
                             <output>${build.package.runtimeImageDir}</output>
