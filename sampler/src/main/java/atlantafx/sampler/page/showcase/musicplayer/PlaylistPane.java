@@ -210,6 +210,10 @@ final class PlaylistPane extends VBox {
                 playMark.setVisible(playing);
 
                 mediaFile.readMetadata(metadata -> {
+                    // the cell may have been reused for another file while loading
+                    if (!Objects.equals(getItem(), mediaFile)) {
+                        return;
+                    }
                     coverImage.setFill(new ImagePattern(
                         metadata.image() != null ? metadata.image() : NO_IMAGE_ALT
                     ));
