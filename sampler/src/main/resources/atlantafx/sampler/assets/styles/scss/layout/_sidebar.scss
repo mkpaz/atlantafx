@@ -75,6 +75,11 @@
 
       -fx-border-color: -color-border-muted;
       -fx-border-width: 0 0 0 1;
+
+      // set on every cell, jfx27 resets unset icon codes, but ikonli does not accept its null default
+      >.arrow {
+        -fx-icon-code: mdal-add;
+      }
     }
 
     &:selected>.container>.title {
@@ -98,10 +103,6 @@
         .ikonli-font-icon {
           -fx-fill: -color-fg-muted;
           -fx-icon-color: -color-fg-muted;
-        }
-
-        >.arrow {
-          -fx-icon-code: mdal-add;
         }
       }
 
