@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:card:start */
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
@@ -85,3 +86,4 @@ $title-font-size: cfg.$font-title-4;
     }
   }
 }
+/*! @module:card:end */

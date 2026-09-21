@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:modal-pane:start */
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
@@ -62,3 +63,4 @@ $close-button-icon-size: 0.3em !default;
     }
   }
 }
+/*! @module:modal-pane:end */

@@ -104,6 +104,7 @@ public final class ThemeManager {
 
     //*************************************************************************
 
+    private Set<String> modules = Set.of();
     private final ObjectProperty<Theme> themeProperty = new SimpleObjectProperty<>();
     private final ChangeListener<Theme> themeListener;
 
@@ -224,6 +225,38 @@ public final class ThemeManager {
     }
 
     /**
+     * Returns an unmodifiable set of active theme module names currently enabled.
+     *
+     * @return an unmodifiable {@link Set} containing active module names
+     * @see Theme#getUserAgentStylesheet(Set)
+     */
+    public Set<String> getModules() {
+        return Set.copyOf(modules);
+    }
+
+    /**
+     * Sets the theme modules to be included when applying the theme.
+     *
+     * <p>Passing {@code null} or an empty set resets the module configuration to default,
+     * which enables all available theme modules.
+     *
+     * <p>Supported module names can be found in the theme manifest file
+     * under the corresponding theme package directory.
+     *
+     * @param modules the set of module names to enable
+     * @see Theme#getUserAgentStylesheet(Set)
+     */
+    public ThemeManager setModules(@Nullable Set<String> modules) {
+        if (modules == null || modules.isEmpty()) {
+            this.modules = Set.of();
+            return this;
+        }
+
+        this.modules = Set.copyOf(modules);
+        return this;
+    }
+
+    /**
      * Returns the active theme.
      *
      * @return the current theme instance
@@ -238,7 +271,7 @@ public final class ThemeManager {
      * @param theme the new theme to set
      */
     public ThemeManager setTheme(Theme theme) {
-        this.themeProperty.set(theme);
+        themeProperty.set(theme);
         return this;
     }
 
@@ -380,7 +413,11 @@ public final class ThemeManager {
     //*************************************************************************
 
     private void applyTheme(Theme theme) {
-        Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        if (modules.isEmpty()) {
+            Application.setUserAgentStylesheet(theme.getUserAgentStylesheet());
+        } else {
+            Application.setUserAgentStylesheet(theme.getUserAgentStylesheet(modules));
+        }
     }
 
     // Applies a single option value to all open scenes.

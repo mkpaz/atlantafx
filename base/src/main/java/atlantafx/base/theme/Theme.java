@@ -5,8 +5,7 @@ package atlantafx.base.theme;
 import javafx.application.Application;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static javafx.application.Application.STYLESHEET_CASPIAN;
 import static javafx.application.Application.STYLESHEET_MODENA;
@@ -15,6 +14,13 @@ import static javafx.application.Application.STYLESHEET_MODENA;
  * The basic theme interface.
  */
 public interface Theme {
+
+    /**
+     * The list of mandatory CSS modules that cannot be excluded from any theme.
+     *
+     * @see #getUserAgentStylesheet(Set)
+     */
+    List<String> CORE_MODULES = List.of("root", "text");
 
     /**
      * Returns theme name.
@@ -70,6 +76,59 @@ public interface Theme {
                 return darkMode;
             }
         };
+    }
+
+    /**
+     * Returns the URI to the theme user-agent stylesheet, optionally filtered by the specified modules.
+     *
+     * <p>If the provided list of modules is {@code null} or empty, this method returns the base
+     * {@link #getUserAgentStylesheet()} value as-is. Otherwise, it appends or updates the {@code modules}
+     * query parameter using the custom {@value StylesheetURLHandler#SCHEME} scheme.
+     *
+     * @param modules the list of module names to include
+     * @return the stylesheet URI configured to include only the specified modules
+     * @see Application#setUserAgentStylesheet(String)
+     * @see StylesheetURLHandler
+     */
+    default String getUserAgentStylesheet(@Nullable Set<String> modules) {
+        String baseStylesheet = getUserAgentStylesheet();
+        if (baseStylesheet.isBlank()) {
+            throw new IllegalArgumentException("Theme stylesheet cannot be null or blank.");
+        }
+
+        if (modules == null || modules.isEmpty()) {
+            return baseStylesheet;
+        }
+
+        if (baseStylesheet.matches(".*\\?[^#]*\\bmodules=.*")) {
+            throw new IllegalArgumentException(
+                "Base stylesheet already contains a 'modules' query parameter: " + baseStylesheet
+            );
+        }
+
+        // add mandatory modules
+        Set<String> finalModules = modules;
+        if (!modules.containsAll(CORE_MODULES)) {
+            finalModules = new HashSet<>(modules);
+            finalModules.addAll(CORE_MODULES);
+        }
+
+        String queryValue = String.join(",", finalModules);
+        String prefix = StylesheetURLHandler.SCHEME + ":";
+        String path = baseStylesheet;
+
+        // strip scheme if present to normalize path handling
+        if (path.startsWith(prefix)) {
+            path = path.substring(prefix.length());
+        }
+
+        // ensure path starts with a leading slash for proper parsing
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+
+        char querySeparator = path.contains("?") ? '&' : '?';
+        return prefix + path + querySeparator + "modules=" + queryValue;
     }
 
     /**

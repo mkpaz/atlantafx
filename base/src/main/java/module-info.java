@@ -26,4 +26,6 @@ module atlantafx.base {
         NordLight, NordDark,
         CupertinoLight, CupertinoDark,
         Dracula;
+
+    provides java.net.spi.URLStreamHandlerProvider with StylesheetURLHandlerProvider;
 }

@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:root:start */
+
 @use "../settings/config" as cfg;
 @use "../settings/color-scale" as scale;
 @use "../settings/color-vars" as vars;
@@ -163,3 +165,5 @@
 .mnemonic-underline {
   -fx-stroke: transparent;
 }
+
+/*! @module:root:end */

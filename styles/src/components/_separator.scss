@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:separator:start */
 @use "../settings/config" as cfg;
 
 $padding:    map-get(cfg.$separators, "medium") !default;
@@ -39,3 +40,4 @@ $line-width: cfg.$border-width   !default;
     }
   }
 }
+/*! @module:separator:end */

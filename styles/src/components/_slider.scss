@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:slider:start */
 @use "../settings/config" as cfg;
 @use "sass:math";
 
@@ -221,3 +222,4 @@ $tick-minor-size: 3px !default;
     }
   }
 }
+/*! @module:slider:end */

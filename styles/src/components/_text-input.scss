@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:text-input:start */
 @use "../settings/config" as cfg;
 
 $color-bg: -color-bg-default !default;
@@ -271,3 +272,4 @@ $color-fg-password: -color-fg-muted !default;
   }
 }
 
+/*! @module:text-input:end */

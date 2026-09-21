@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:button:start */
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 @use "../settings/utils";
@@ -403,3 +404,4 @@ $color-shadow: -color-shadow-default !default;
     -fx-background-radius: 10em;
   }
 }
+/*! @module:button:end */

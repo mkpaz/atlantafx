@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:split-pane:start */
 @use "../settings/config" as cfg;
 
 $color-divider:         cfg.$scrollbar-color-track !default;
@@ -59,3 +60,4 @@ $grabber-length:        10px !default;
     }
   }
 }
+/*! @module:split-pane:end */

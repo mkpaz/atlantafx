@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:toggle-switch:start */
 @use "../settings/config" as cfg;
 
 $color-label: -color-fg-default !default;
@@ -94,3 +95,4 @@ $thumb-area-padding:       0.85em 1.4em 0.85em 1.4em !default;
     -fx-opacity: cfg.$opacity-disabled;
   }
 }
+/*! @module:toggle-switch:end */

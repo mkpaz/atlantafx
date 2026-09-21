@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:text:start */
+
 @use "../settings/config" as cfg;
 
 // text nodes
@@ -95,3 +97,5 @@ Text {
 .text-strikethrough {
   -fx-strikethrough: true;
 }
+
+/*! @module:text:end */

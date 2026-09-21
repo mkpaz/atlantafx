@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT */
+
 package atlantafx.base.theme;
 
 import java.util.HashMap;

@@ -95,7 +95,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>atlantafx.base.theme.ThemeCompiler</mainClass>
+                            <mainClass>atlantafx.base.theme.PostCSS</mainClass>
                             <arguments>
                                 <argument>${project.build.directory}/classes/atlantafx/base/theme</argument>
                             </arguments>

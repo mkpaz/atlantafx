@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:extras:start */
+
 @use "../settings/config" as cfg;
 @use "../settings/effects";
 
@@ -182,3 +184,5 @@
 .interactive:hover {
   @include effects.shadow(cfg.$elevation-color, cfg.$elevation-interactive);
 }
+
+/*! @module:extras:end */

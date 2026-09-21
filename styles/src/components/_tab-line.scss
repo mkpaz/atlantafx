@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:tab-line:start */
 @use "../settings/config" as cfg;
 @use "../settings/icons";
 
@@ -275,3 +276,4 @@ $color-float-border-selected: -color-border-default !default;
     -fx-padding: calc($tab-padding-y * 0.7) cfg.$padding-x calc($tab-padding-y * 0.7) cfg.$padding-x;
   }
 }
+/*! @module:tab-line:end */

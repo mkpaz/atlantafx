@@ -1,0 +1,11 @@
+/*! @module:button:start */
+.button {
+    -fx-background-color: -color-accent-emphasis;
+}
+/*! @module:button:end */
+
+/*! @module:tooltip:start */
+.tooltip {
+  -fx-background-color: -color-border-default, -color-bg-overlay;
+}
+/*! @module:tooltip:end */

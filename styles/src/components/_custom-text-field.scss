@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+/*! @module:custom-text-field:start */
 @use "../settings/config" as cfg;
 @use "sass:math";
 
@@ -42,3 +43,4 @@ $text-gap: 4px !default;
     }
   }
 }
+/*! @module:custom-text-field:end */
