@@ -2,13 +2,14 @@
 
 package atlantafx.base.theme;
 
-import static javafx.application.Application.STYLESHEET_CASPIAN;
-import static javafx.application.Application.STYLESHEET_MODENA;
-
 import javafx.application.Application;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Objects;
+
+import static javafx.application.Application.STYLESHEET_CASPIAN;
+import static javafx.application.Application.STYLESHEET_MODENA;
 
 /**
  * The basic theme interface.
@@ -77,5 +78,49 @@ public interface Theme {
     default boolean isDefault() {
         return STYLESHEET_MODENA.equals(getUserAgentStylesheet())
             || STYLESHEET_CASPIAN.equals(getUserAgentStylesheet());
+    }
+
+    /**
+     * Returns the mutable map of properties associated with this theme's class.
+     *
+     * <p>Properties are shared across all instances of the same theme class.
+     *
+     * @return a mutable map containing the properties for this theme's class
+     * @see ThemeProperties#getPropertiesFor(Class)
+     */
+    default Map<String, @Nullable Object> getProperties() {
+        return ThemeProperties.getPropertiesFor(this.getClass());
+    }
+
+    /**
+     * Retrieves a property value by its key, casting it to the inferred return type.
+     *
+     * @param <T> the expected type of the property value
+     * @param key the key of the property to retrieve
+     * @return the value associated with the specified key, or {@code null} if no mapping exists
+     * @throws ClassCastException if the property value cannot be cast to type {@code T}
+     */
+    @SuppressWarnings("unchecked")
+    default <T> @Nullable T getProperty(String key) {
+        return (T) getProperties().get(key);
+    }
+
+    /**
+     * Sets or updates a property value for this theme's class.
+     *
+     * @param key   the key of the property to set
+     * @param value the value to associate with the key, or {@code null} to explicitly map to null
+     */
+    default void setProperty(String key, @Nullable Object value) {
+        getProperties().put(key, value);
+    }
+
+    /**
+     * Removes the property associated with the specified key from this theme's class.
+     *
+     * @param key the key of the property to remove
+     */
+    default void removeProperty(String key) {
+        getProperties().remove(key);
     }
 }
