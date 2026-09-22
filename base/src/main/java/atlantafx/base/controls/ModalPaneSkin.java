@@ -212,6 +212,11 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
         return (_, _, val) -> {
             if (val == Animation.Status.STOPPED) {
                 doHide();
+
+                Node content = getSkinnable().getContent();
+                if (content != null) {
+                    Animations.reset(content);
+                }
             }
         };
     }
@@ -232,6 +237,9 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
             doShow();
             return;
         }
+
+        // fix for JDK-8375363 (JavaFX 27)
+        Animations.reset(content);
 
         if (inTransition == null && getSkinnable().getInTransitionFactory() != null) {
             inTransition = getSkinnable().getInTransitionFactory().apply(content);
