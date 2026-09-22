@@ -20,6 +20,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <java.version>25</java.version>
         <openjfx.version>27</openjfx.version>
+        <jfx.static.version>${openjfx.version}</jfx.static.version>
 
         <app.launcher>atlantafx.sampler.Launcher</app.launcher>
         <app.module>atlantafx.sampler</app.module>
@@ -388,6 +389,67 @@
                 <app.icon>${project.build.directory}\app-icon.ico</app.icon>
                 <app.build.compressionAlg>zip</app.build.compressionAlg>
             </properties>
+        </profile>
+        <profile> <!-- Profile for building a self-contained GraalVM native image executable -->
+            <id>native</id>
+            <dependencies>
+                <dependency>
+                    <groupId>us.hebi.graalvm</groupId>
+                    <artifactId>jfx-static-feature</artifactId>
+                    <version>1.0</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>us.hebi.graalvm</groupId>
+                    <artifactId>jfx-static-libs</artifactId>
+                    <version>${jfx.static.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>  <!-- removes the default jlink/jpackage packaging -->
+                        <groupId>io.github.wiverson</groupId>
+                        <artifactId>jtoolprovider-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-runtime-image</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>create-app-image</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin> <!-- adds native-image to package -->
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <imageName>sampler</imageName>
+                            <mainClass>atlantafx.sampler.Launcher</mainClass>
+                            <fallback>false</fallback>
+                            <metadataRepository>
+                                <enabled>false</enabled>
+                            </metadataRepository>
+                            <outputDirectory>${project.build.directory}/native-image</outputDirectory>
+                            <buildArgs>
+                                <buildArg>-Djfx.static.gui=auto</buildArg> <!-- false keeps windows console -->
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
