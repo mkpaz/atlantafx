@@ -89,7 +89,8 @@ public class MainModel {
             NAV_TREE.get(SelectableTextFlowPage.class),
             NAV_TREE.get(AnimationsPage.class),
             NAV_TREE.get(IconsPage.class),
-            NAV_TREE.get(DecorationsPage.class)
+            NAV_TREE.get(DecorationsPage.class),
+            NAV_TREE.get(UtilsPage.class)
         );
         general.setExpanded(true);
 
@@ -205,6 +206,7 @@ public class MainModel {
             TypographyPage.class,
             NavTree.Item.page(TypographyPage.NAME, TypographyPage.class, "Label", "Hyperlink")
         );
+        map.put(UtilsPage.class, NavTree.Item.page(UtilsPage.NAME, UtilsPage.class));
 
         // components
         map.put(AccordionPage.class, NavTree.Item.page(AccordionPage.NAME, AccordionPage.class));

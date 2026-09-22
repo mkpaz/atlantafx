@@ -138,6 +138,14 @@ public final class Styles {
     public static final String BORDER_MUTED = "border-muted";
     public static final String BORDER_SUBTLE = "border-subtle";
     public static final String BORDER_RADIUS = "border-radius";
+    public static final String BORDER_RADIUS_TOP = "border-radius-top";
+    public static final String BORDER_RADIUS_RIGHT = "border-radius-right";
+    public static final String BORDER_RADIUS_BOTTOM = "border-radius-bottom";
+    public static final String BORDER_RADIUS_LEFT = "border-radius-left";
+    public static final String BORDER_RADIUS_TOP_LEFT = "border-radius-top-left";
+    public static final String BORDER_RADIUS_TOP_RIGHT = "border-radius-top-right";
+    public static final String BORDER_RADIUS_BOTTOM_RIGHT = "border-radius-bottom-right";
+    public static final String BORDER_RADIUS_BOTTOM_LEFT = "border-radius-bottom-left";
 
     private Styles() {
         // utility
