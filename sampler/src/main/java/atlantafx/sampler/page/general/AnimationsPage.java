@@ -165,60 +165,70 @@ public final class AnimationsPage extends StackPane implements Page {
         fadeIn.setOnAction(_ -> {
             var t = Animations.fadeIn(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeOut = createMenuItem("Fade Out");
         fadeOut.setOnAction(_ -> {
             var t = Animations.fadeOut(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeInDown = createMenuItem("Fade In Down");
         fadeInDown.setOnAction(_ -> {
             var t = Animations.fadeInDown(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeOutDown = createMenuItem("Fade Out Down");
         fadeOutDown.setOnAction(_ -> {
             var t = Animations.fadeOutDown(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeInLeft = createMenuItem("Fade In Left");
         fadeInLeft.setOnAction(_ -> {
             var t = Animations.fadeInLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeOutLeft = createMenuItem("Fade Out Left");
         fadeOutLeft.setOnAction(_ -> {
             var t = Animations.fadeOutLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeInRight = createMenuItem("Fade In Right");
         fadeInRight.setOnAction(_ -> {
             var t = Animations.fadeInRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeOutRight = createMenuItem("Fade Out Right");
         fadeOutRight.setOnAction(_ -> {
             var t = Animations.fadeOutRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeInUp = createMenuItem("Fade In Down");
         fadeInUp.setOnAction(_ -> {
             var t = Animations.fadeInUp(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var fadeOutUp = createMenuItem("Fade Out Up");
         fadeOutUp.setOnAction(_ -> {
             var t = Animations.fadeOutUp(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         return List.of(
@@ -232,60 +242,70 @@ public final class AnimationsPage extends StackPane implements Page {
         rotateIn.setOnAction(_ -> {
             var t = Animations.rotateIn(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateOut = createMenuItem("Rotate Out");
         rotateOut.setOnAction(_ -> {
             var t = Animations.rotateOut(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateInDownLeft = createMenuItem("Rotate In Down Left");
         rotateInDownLeft.setOnAction(_ -> {
             var t = Animations.rotateInDownLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateOutDownLeft = createMenuItem("Rotate Out Down Left");
         rotateOutDownLeft.setOnAction(_ -> {
             var t = Animations.rotateOutDownLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateInDownRight = createMenuItem("Rotate In Down Right");
         rotateInDownRight.setOnAction(_ -> {
             var t = Animations.rotateInDownRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateOutDownRight = createMenuItem("Rotate Out Down Right");
         rotateOutDownRight.setOnAction(_ -> {
             var t = Animations.rotateOutDownRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateInUpLeft = createMenuItem("Rotate In Up Left");
         rotateInUpLeft.setOnAction(_ -> {
             var t = Animations.rotateInUpLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateOutUpLeft = createMenuItem("Rotate Out Up Left");
         rotateOutUpLeft.setOnAction(_ -> {
             var t = Animations.rotateOutUpLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateInUpRight = createMenuItem("Rotate In Up Right");
         rotateInUpRight.setOnAction(_ -> {
             var t = Animations.rotateInUpRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rotateOutUpRight = createMenuItem("Rotate Out Up Right");
         rotateOutUpRight.setOnAction(_ -> {
             var t = Animations.rotateOutUpRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         return List.of(
@@ -299,48 +319,56 @@ public final class AnimationsPage extends StackPane implements Page {
         slideInDown.setOnAction(_ -> {
             var t = Animations.slideInDown(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideOutDown = createMenuItem("Slide Out Down");
         slideOutDown.setOnAction(_ -> {
             var t = Animations.slideOutDown(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideInLeft = createMenuItem("Slide In Left");
         slideInLeft.setOnAction(_ -> {
             var t = Animations.slideInLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideOutLeft = createMenuItem("Slide Out Left");
         slideOutLeft.setOnAction(_ -> {
             var t = Animations.slideOutLeft(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideInRight = createMenuItem("Slide In Right");
         slideInRight.setOnAction(_ -> {
             var t = Animations.slideInRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideOutRight = createMenuItem("Slide Out Right");
         slideOutRight.setOnAction(_ -> {
             var t = Animations.slideOutRight(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideInUp = createMenuItem("Slide In Up");
         slideInUp.setOnAction(_ -> {
             var t = Animations.slideInUp(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var slideOutUp = createMenuItem("Slide Out Up");
         slideOutUp.setOnAction(_ -> {
             var t = Animations.slideOutUp(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         return List.of(
@@ -354,42 +382,49 @@ public final class AnimationsPage extends StackPane implements Page {
         flash.setOnAction(_ -> {
             var t = Animations.flash(ANIMATED_NODE);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var pulse = createMenuItem("Pulse");
         pulse.setOnAction(_ -> {
             var t = Animations.pulse(ANIMATED_NODE);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rollIn = createMenuItem("Roll In");
         rollIn.setOnAction(_ -> {
             var t = Animations.rollIn(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var rollOut = createMenuItem("Roll Out");
         rollOut.setOnAction(_ -> {
             var t = Animations.rollOut(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var shakeX = createMenuItem("Shake X");
         shakeX.setOnAction(_ -> {
             var t = Animations.shakeX(ANIMATED_NODE);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var shakeY = createMenuItem("Shake Y");
         shakeY.setOnAction(_ -> {
             var t = Animations.shakeY(ANIMATED_NODE);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var wobble = createMenuItem("Wobble");
         wobble.setOnAction(_ -> {
             var t = Animations.wobble(ANIMATED_NODE);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         return List.of(
@@ -402,12 +437,14 @@ public final class AnimationsPage extends StackPane implements Page {
         zoomIn.setOnAction(_ -> {
             var t = Animations.zoomIn(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         var zoomOut = createMenuItem("Zoom Out");
         zoomOut.setOnAction(_ -> {
             var t = Animations.zoomOut(ANIMATED_NODE, DURATION);
             t.playFromStart();
+            t.setOnFinished(_ -> Animations.reset(ANIMATED_NODE));
         });
 
         return List.of(

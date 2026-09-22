@@ -217,7 +217,9 @@ public class ModalPaneSkin extends SkinBase<ModalPane> {
     }
 
     protected Timeline createCloseBlockedAnimation(Node content) {
-        return Animations.zoomOut(content, Duration.millis(100), 0.98);
+        var t = Animations.zoomOut(content, Duration.millis(100), 0.98);
+        t.setOnFinished(e -> Animations.reset(content));
+        return t;
     }
 
     protected void show() {

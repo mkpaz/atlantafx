@@ -11,15 +11,18 @@
 
 package atlantafx.base.util;
 
-import java.util.Objects;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 import javafx.util.Duration;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Objects;
 
 /**
  * A utility class that provides factory methods to create a predefined
@@ -28,7 +31,7 @@ import javafx.util.Duration;
 public final class Animations {
 
     /** The default interpolator value that is used across all animations. */
-    public static final Interpolator EASE = Interpolator.SPLINE(0.25, 0.1, 0.25, 1);
+    public static final Interpolator EASE = Interpolator.ofSpline(0.25, 0.1, 0.25, 1);
 
     //*************************************************************************
     //  SPECIALS                                                             //
@@ -43,7 +46,9 @@ public final class Animations {
     public static Timeline flash(Node node) {
         Objects.requireNonNull(node, "Node cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE)
             ),
@@ -60,14 +65,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -87,7 +84,9 @@ public final class Animations {
     public static Timeline pulse(Node node, double scale) {
         Objects.requireNonNull(node, "Node cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeScaleX(node).storeScaleY(node).storeScaleZ(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.scaleXProperty(), 1, EASE),
                 new KeyValue(node.scaleYProperty(), 1, EASE),
@@ -104,16 +103,6 @@ public final class Animations {
                 new KeyValue(node.scaleZProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setScaleX(1);
-                node.setScaleY(1);
-                node.setScaleZ(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -133,7 +122,9 @@ public final class Animations {
     public static Timeline shakeX(Node node, double offset) {
         Objects.requireNonNull(node, "Node cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), 0, EASE)
             ),
@@ -168,14 +159,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     public static Timeline shakeY(Node node) {
@@ -192,7 +175,9 @@ public final class Animations {
     public static Timeline shakeY(Node node, double offset) {
         Objects.requireNonNull(node, "Node cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateYProperty(), 0, EASE)
             ),
@@ -227,14 +212,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -246,7 +223,9 @@ public final class Animations {
     public static Timeline wobble(Node node) {
         Objects.requireNonNull(node, "Node cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node).storeRotate(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), 0, EASE),
                 new KeyValue(node.rotateProperty(), -0, EASE)
@@ -276,15 +255,6 @@ public final class Animations {
                 new KeyValue(node.rotateProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-                node.setRotate(0);
-            }
-        });
-
-        return t;
     }
 
     //*************************************************************************
@@ -302,7 +272,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE)
             ),
@@ -310,14 +282,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -331,7 +295,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE)
             ),
@@ -339,14 +305,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -360,7 +318,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE),
                 new KeyValue(node.translateYProperty(), -node.getBoundsInParent().getHeight(), EASE)
@@ -371,15 +331,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -393,7 +344,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE),
                 new KeyValue(node.translateYProperty(), 0, EASE)
@@ -403,15 +356,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), node.getBoundsInParent().getHeight(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -425,7 +369,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE),
                 new KeyValue(node.translateXProperty(), -node.getBoundsInParent().getWidth(), EASE)
@@ -435,15 +381,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -457,7 +394,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE),
                 new KeyValue(node.translateXProperty(), 0, EASE)
@@ -467,15 +406,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), -node.getBoundsInParent().getWidth(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -489,7 +419,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE),
                 new KeyValue(node.translateXProperty(), node.getBoundsInParent().getWidth(), EASE)
@@ -499,15 +431,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -521,7 +444,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE),
                 new KeyValue(node.translateXProperty(), 0, EASE)
@@ -531,15 +456,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), node.getBoundsInParent().getWidth(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -553,7 +469,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE),
                 new KeyValue(node.translateYProperty(), node.getBoundsInParent().getHeight(), EASE)
@@ -563,15 +481,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -585,7 +494,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE),
                 new KeyValue(node.translateYProperty(), 0, EASE)
@@ -595,15 +506,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), -node.getBoundsInParent().getHeight(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     //*************************************************************************
@@ -621,7 +523,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node).storeRotate(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 0, EASE),
                 new KeyValue(node.translateXProperty(), -node.getBoundsInLocal().getWidth(), EASE),
@@ -633,16 +537,6 @@ public final class Animations {
                 new KeyValue(node.rotateProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-                node.setRotate(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -656,7 +550,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeOpacity(node).storeTranslateX(node).storeRotate(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.opacityProperty(), 1, EASE),
                 new KeyValue(node.translateXProperty(), 0, EASE),
@@ -668,16 +564,6 @@ public final class Animations {
                 new KeyValue(node.rotateProperty(), 120, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setTranslateX(0);
-                node.setRotate(0);
-            }
-        });
-
-        return t;
     }
 
     //*************************************************************************
@@ -695,9 +581,11 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
+        getOrCreateState(node).storeOpacity(node).storeRotate(node).storeRotationAxis(node);
+
         node.setRotationAxis(Rotate.Z_AXIS);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.rotateProperty(), -200, EASE),
                 new KeyValue(node.opacityProperty(), 0, EASE)
@@ -707,15 +595,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setRotate(0);
-                node.setOpacity(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -729,9 +608,11 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
+        getOrCreateState(node).storeOpacity(node).storeRotate(node).storeRotationAxis(node);
+
         node.setRotationAxis(Rotate.Z_AXIS);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.rotateProperty(), 0, EASE),
                 new KeyValue(node.opacityProperty(), 1, EASE)
@@ -741,15 +622,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                node.setRotate(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -765,10 +637,17 @@ public final class Animations {
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
         final var rotate = new Rotate(0, 0, node.getBoundsInLocal().getHeight());
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), -45, EASE),
                 new KeyValue(node.opacityProperty(), 0, EASE)
@@ -778,15 +657,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -802,10 +672,17 @@ public final class Animations {
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
         final var rotate = new Rotate(0, 0, node.getBoundsInLocal().getHeight());
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 0, EASE),
                 new KeyValue(node.opacityProperty(), 1, EASE)
@@ -815,15 +692,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -842,10 +710,17 @@ public final class Animations {
             node.getBoundsInLocal().getWidth(),
             node.getBoundsInLocal().getHeight()
         );
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 45, EASE),
                 new KeyValue(node.opacityProperty(), 0, EASE)
@@ -855,15 +730,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -882,10 +748,17 @@ public final class Animations {
             node.getBoundsInLocal().getWidth(),
             node.getBoundsInLocal().getHeight()
         );
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 0, EASE),
                 new KeyValue(node.opacityProperty(), 1, EASE)
@@ -895,15 +768,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -919,10 +783,17 @@ public final class Animations {
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
         final var rotate = new Rotate(0, 0, node.getBoundsInLocal().getHeight());
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 45, EASE),
                 new KeyValue(node.opacityProperty(), 0, EASE)
@@ -932,15 +803,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -956,10 +818,17 @@ public final class Animations {
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
         final var rotate = new Rotate(0, 0, node.getBoundsInLocal().getHeight());
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 0, EASE),
                 new KeyValue(node.opacityProperty(), 1, EASE)
@@ -969,15 +838,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -996,10 +856,17 @@ public final class Animations {
             node.getBoundsInLocal().getWidth(),
             node.getBoundsInLocal().getHeight()
         );
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), -45, EASE),
                 new KeyValue(node.opacityProperty(), 0, EASE)
@@ -1009,15 +876,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1036,10 +894,17 @@ public final class Animations {
             node.getBoundsInLocal().getWidth(),
             node.getBoundsInLocal().getHeight()
         );
+
+        getOrCreateState(node)
+            .storeOpacity(node)
+            .storeRotate(node)
+            .storeRotationAxis(node)
+            .storeCustomTransform(node, rotate);
+
         node.setRotationAxis(Rotate.Z_AXIS);
         node.getTransforms().add(rotate);
 
-        var t = new Timeline(
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(rotate.angleProperty(), 0, EASE),
                 new KeyValue(node.opacityProperty(), 1, EASE)
@@ -1049,15 +914,6 @@ public final class Animations {
                 new KeyValue(node.opacityProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setOpacity(1);
-                rotate.setAngle(0);
-            }
-        });
-
-        return t;
     }
 
     //*************************************************************************
@@ -1075,7 +931,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateYProperty(), -node.getBoundsInParent().getHeight(), EASE)
             ),
@@ -1083,14 +941,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1104,7 +954,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateYProperty(), 0, EASE)
             ),
@@ -1112,14 +964,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), node.getBoundsInParent().getHeight(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1133,7 +977,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), -node.getBoundsInParent().getWidth(), EASE)
             ),
@@ -1141,14 +987,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1162,7 +1000,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), 0, EASE)
             ),
@@ -1170,14 +1010,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), -node.getBoundsInParent().getWidth(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1191,7 +1023,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), node.getBoundsInParent().getWidth(), EASE)
             ),
@@ -1199,14 +1033,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1220,7 +1046,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateX(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateXProperty(), 0, EASE)
             ),
@@ -1228,14 +1056,6 @@ public final class Animations {
                 new KeyValue(node.translateXProperty(), node.getBoundsInParent().getWidth(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateX(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1249,7 +1069,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateYProperty(), node.getBoundsInParent().getHeight(), EASE)
             ),
@@ -1257,14 +1079,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), 0, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1278,7 +1092,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeTranslateY(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.translateYProperty(), 0, EASE)
             ),
@@ -1286,14 +1102,6 @@ public final class Animations {
                 new KeyValue(node.translateYProperty(), -node.getBoundsInParent().getHeight(), EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setTranslateY(0);
-            }
-        });
-
-        return t;
     }
 
     //*************************************************************************
@@ -1319,7 +1127,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeScaleX(node).storeScaleY(node).storeScaleZ(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.scaleXProperty(), startValue, EASE),
                 new KeyValue(node.scaleYProperty(), startValue, EASE),
@@ -1331,16 +1141,6 @@ public final class Animations {
                 new KeyValue(node.scaleZProperty(), 1, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setScaleX(1);
-                node.setScaleY(1);
-                node.setScaleZ(1);
-            }
-        });
-
-        return t;
     }
 
     /**
@@ -1363,7 +1163,9 @@ public final class Animations {
         Objects.requireNonNull(node, "Node cannot be null!");
         Objects.requireNonNull(duration, "Duration cannot be null!");
 
-        var t = new Timeline(
+        getOrCreateState(node).storeScaleX(node).storeScaleY(node).storeScaleZ(node);
+
+        return new Timeline(
             new KeyFrame(Duration.ZERO,
                 new KeyValue(node.scaleXProperty(), 1, EASE),
                 new KeyValue(node.scaleYProperty(), 1, EASE),
@@ -1375,15 +1177,272 @@ public final class Animations {
                 new KeyValue(node.scaleZProperty(), endValue, EASE)
             )
         );
-
-        t.statusProperty().addListener((_, _, val) -> {
-            if (val == Animation.Status.STOPPED) {
-                node.setScaleX(1);
-                node.setScaleY(1);
-                node.setScaleZ(1);
-            }
-        });
-
-        return t;
     }
+
+    //region RESET
+
+    /**
+     * Key used to store the {@link ResetState} instance in the node's properties map.
+     */
+    public static final String RESET_KEY = "ANIMATION_RESET_STATE";
+
+    /**
+     * A container storing the original state of a {@link Node} prior to animation.
+     */
+    public static final class ResetState {
+
+        // @formatter:off
+
+        // bitmask flags
+        private static final short MASK_OPACITY     = 1;
+        private static final short MASK_TRANSLATE_X = 1 << 1;
+        private static final short MASK_TRANSLATE_Y = 1 << 2;
+        private static final short MASK_TRANSLATE_Z = 1 << 3;
+        private static final short MASK_SCALE_X     = 1 << 4;
+        private static final short MASK_SCALE_Y     = 1 << 5;
+        private static final short MASK_SCALE_Z     = 1 << 6;
+        private static final short MASK_ROTATE      = 1 << 7;
+        private static final short MASK_ROT_AXIS    = 1 << 8;
+        private static final short MASK_TRANSFORM   = 1 << 9;
+
+        // default node values
+        private static final double DEFAULT_OPACITY = 1.0;
+        private static final double DEFAULT_ZERO    = 0.0;
+        private static final double DEFAULT_SCALE   = 1.0;
+
+        private short mask = 0;
+        private double opacity    = DEFAULT_OPACITY;
+        private double translateX = DEFAULT_ZERO;
+        private double translateY = DEFAULT_ZERO;
+        private double translateZ = DEFAULT_ZERO;
+        private double scaleX     = DEFAULT_SCALE;
+        private double scaleY     = DEFAULT_SCALE;
+        private double scaleZ     = DEFAULT_SCALE;
+        private double rotate     = DEFAULT_ZERO;
+
+        // @formatter:on
+
+        private Point3D rotationAxis = Rotate.Z_AXIS;
+        private @Nullable Transform customTransform = null;
+
+        /**
+         * Stores the current opacity of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeOpacity(Node node) {
+            double val = node.getOpacity();
+            if (Double.compare(val, DEFAULT_OPACITY) != 0) {
+                this.opacity = val;
+                this.mask |= MASK_OPACITY;
+            } else {
+                this.mask &= ~MASK_OPACITY;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current X translation of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeTranslateX(Node node) {
+            double val = node.getTranslateX();
+            if (Double.compare(val, DEFAULT_ZERO) != 0) {
+                this.translateX = val;
+                this.mask |= MASK_TRANSLATE_X;
+            } else {
+                this.mask &= ~MASK_TRANSLATE_X;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current Y translation of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeTranslateY(Node node) {
+            double val = node.getTranslateY();
+            if (Double.compare(val, DEFAULT_ZERO) != 0) {
+                this.translateY = val;
+                this.mask |= MASK_TRANSLATE_Y;
+            } else {
+                this.mask &= ~MASK_TRANSLATE_Y;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current Z translation of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeTranslateZ(Node node) {
+            double val = node.getTranslateZ();
+            if (Double.compare(val, DEFAULT_ZERO) != 0) {
+                this.translateZ = val;
+                this.mask |= MASK_TRANSLATE_Z;
+            } else {
+                this.mask &= ~MASK_TRANSLATE_Z;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current X scale factor of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeScaleX(Node node) {
+            double val = node.getScaleX();
+            if (Double.compare(val, DEFAULT_SCALE) != 0) {
+                this.scaleX = val;
+                this.mask |= MASK_SCALE_X;
+            } else {
+                this.mask &= ~MASK_SCALE_X;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current Y scale factor of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeScaleY(Node node) {
+            double val = node.getScaleY();
+            if (Double.compare(val, DEFAULT_SCALE) != 0) {
+                this.scaleY = val;
+                this.mask |= MASK_SCALE_Y;
+            } else {
+                this.mask &= ~MASK_SCALE_Y;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current Z scale factor of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeScaleZ(Node node) {
+            double val = node.getScaleZ();
+            if (Double.compare(val, DEFAULT_SCALE) != 0) {
+                this.scaleZ = val;
+                this.mask |= MASK_SCALE_Z;
+            } else {
+                this.mask &= ~MASK_SCALE_Z;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current rotation angle of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeRotate(Node node) {
+            double val = node.getRotate();
+            if (Double.compare(val, DEFAULT_ZERO) != 0) {
+                this.rotate = val;
+                this.mask |= MASK_ROTATE;
+            } else {
+                this.mask &= ~MASK_ROTATE;
+            }
+            return this;
+        }
+
+        /**
+         * Stores the current rotation axis of the specified node.
+         *
+         * @param node the target node
+         */
+        public ResetState storeRotationAxis(Node node) {
+            this.rotationAxis = node.getRotationAxis();
+            this.mask |= MASK_ROT_AXIS;
+            return this;
+        }
+
+        /**
+         * Registers a custom transform and removes any previously registered custom transform.
+         *
+         * @param node      the target node
+         * @param transform the custom transform to register
+         */
+        public ResetState storeCustomTransform(Node node, Transform transform) {
+            // remove previous custom transform to prevent accumulation in node.getTransforms()
+            if (this.customTransform != null) {
+                node.getTransforms().remove(this.customTransform);
+            }
+            this.customTransform = transform;
+            this.mask |= MASK_TRANSFORM;
+            return this;
+        }
+
+        /**
+         * Restores all stored properties of the specified node to their saved states or default values.
+         *
+         * @param node the target node to restore
+         */
+        public void restore(Node node) {
+            // remove dynamically added custom transforms
+            if ((mask & MASK_TRANSFORM) != 0 && customTransform != null) {
+                node.getTransforms().remove(customTransform);
+                customTransform = null;
+            }
+
+            // restore node properties
+            node.setOpacity((mask & MASK_OPACITY) != 0 ? opacity : DEFAULT_OPACITY);
+            node.setTranslateX((mask & MASK_TRANSLATE_X) != 0 ? translateX : DEFAULT_ZERO);
+            node.setTranslateY((mask & MASK_TRANSLATE_Y) != 0 ? translateY : DEFAULT_ZERO);
+            node.setTranslateZ((mask & MASK_TRANSLATE_Z) != 0 ? translateZ : DEFAULT_ZERO);
+            node.setScaleX((mask & MASK_SCALE_X) != 0 ? scaleX : DEFAULT_SCALE);
+            node.setScaleY((mask & MASK_SCALE_Y) != 0 ? scaleY : DEFAULT_SCALE);
+            node.setScaleZ((mask & MASK_SCALE_Z) != 0 ? scaleZ : DEFAULT_SCALE);
+            node.setRotate((mask & MASK_ROTATE) != 0 ? rotate : DEFAULT_ZERO);
+
+            if ((mask & MASK_ROT_AXIS) != 0) {
+                node.setRotationAxis(rotationAxis);
+            } else {
+                node.setRotationAxis(Rotate.Z_AXIS);
+            }
+
+            // clear flags after restoration
+            this.mask = 0;
+        }
+    }
+
+    /**
+     * Retrieves the existing {@link ResetState} associated with the node,
+     * or creates and attaches a new one if it does not already exist.
+     *
+     * @param node the target node
+     * @return the {@link ResetState} instance for the node
+     */
+    public static ResetState getOrCreateState(Node node) {
+        var properties = node.getProperties();
+
+        ResetState state = (ResetState) properties.get(RESET_KEY);
+        if (state == null) {
+            state = new ResetState();
+            properties.put(RESET_KEY, state);
+        }
+
+        return state;
+    }
+
+    /**
+     * Resets the target node back to its original state prior to any animation calls.
+     *
+     * @param node the node to reset
+     */
+    public static void reset(Node node) {
+        Objects.requireNonNull(node, "Node cannot be null!");
+        Object o = node.getProperties().remove(RESET_KEY);
+        if (o instanceof ResetState state) {
+            state.restore(node);
+        }
+    }
+    //endregion
 }
