@@ -425,7 +425,7 @@
                     <plugin> <!-- adds native-image to package -->
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>1.0.0</version>
+                        <version>1.1.14</version>
                         <executions>
                             <execution>
                                 <id>build-native</id>
