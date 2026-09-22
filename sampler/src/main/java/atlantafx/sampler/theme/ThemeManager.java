@@ -15,6 +15,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -90,26 +91,16 @@ public final class ThemeManager {
         return getRepository().getAll().getFirst();
     }
 
-    /**
-     * See {@link SamplerTheme}.
-     */
+    /** See {@link SamplerTheme}. */
     public void setTheme(SamplerTheme theme) {
         Objects.requireNonNull(theme);
 
         if (currentTheme != null) {
-            animateThemeChange(Duration.millis(750));
+            animateChange(() -> applyThemeStyles(theme), Duration.millis(750));
+        } else {
+            // initial startup without animation
+            applyThemeStyles(theme);
         }
-
-        Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
-        getScene().getStylesheets().setAll(theme.getAllStylesheets());
-        getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
-
-        // remove user CSS customizations and reset accent on theme change
-        resetAccentColor();
-        resetCustomCSS();
-
-        currentTheme = theme;
-        EVENT_BUS.publish(new ThemeEvent(EventType.THEME_CHANGE));
     }
 
     public String getFontFamily() {
@@ -184,27 +175,31 @@ public final class ThemeManager {
     public void setAccentColor(AccentColor color) {
         Objects.requireNonNull(color);
 
-        animateThemeChange(Duration.millis(350));
+        animateChange(
+            () -> {
+                var root = getScene().getRoot();
+                if (accentColor != null) {
+                    root.pseudoClassStateChanged(accentColor.pseudoClass(), false);
+                }
+                root.pseudoClassStateChanged(color.pseudoClass(), true);
 
-        if (accentColor != null) {
-            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
-        }
-
-        getScene().getRoot().pseudoClassStateChanged(color.pseudoClass(), true);
-        this.accentColor = color;
-
-        EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
+                this.accentColor = color;
+                EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
+            },
+            Duration.millis(350)
+        );
     }
 
     public void resetAccentColor() {
-        animateThemeChange(Duration.millis(350));
-
         if (accentColor != null) {
-            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
-            accentColor = null;
+            animateChange(
+                () -> {
+                    clearAccentColor();
+                    EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
+                },
+                Duration.millis(350)
+            );
         }
-
-        EVENT_BUS.publish(new ThemeEvent(EventType.COLOR_CHANGE));
     }
 
     public void setNamedColors(Map<String, Color> colors) {
@@ -271,19 +266,50 @@ public final class ThemeManager {
         }
     }
 
-    private void animateThemeChange(Duration duration) {
+    private void applyThemeStyles(SamplerTheme theme) {
+        Application.setUserAgentStylesheet(Objects.requireNonNull(theme.getUserAgentStylesheet()));
+        getScene().getStylesheets().setAll(theme.getAllStylesheets());
+        getScene().getRoot().pseudoClassStateChanged(DARK, theme.isDarkMode());
+
+        getScene().getRoot().applyCss();
+
+        clearAccentColor();
+        resetCustomCSS();
+
+        this.currentTheme = theme;
+        EVENT_BUS.publish(new ThemeEvent(EventType.THEME_CHANGE));
+    }
+
+    private void animateChange(Runnable action, Duration duration) {
         Image snapshot = scene.snapshot(null);
+        Platform.runLater(() -> {
+            action.run();
+            playTransition(snapshot, duration);
+        });
+    }
+
+    private void playTransition(Image snapshot, Duration duration) {
         Pane root = (Pane) scene.getRoot();
 
         ImageView imageView = new ImageView(snapshot);
-        root.getChildren().add(imageView); // add snapshot on top
+        imageView.setMouseTransparent(true);
+        imageView.setManaged(false);
+
+        root.getChildren().add(imageView);
 
         var transition = new Timeline(
-            new KeyFrame(Duration.ZERO, new KeyValue(imageView.opacityProperty(), 1, Interpolator.EASE_OUT)),
-            new KeyFrame(duration, new KeyValue(imageView.opacityProperty(), 0, Interpolator.EASE_OUT))
+            new KeyFrame(Duration.ZERO, new KeyValue(imageView.opacityProperty(), 1.0, Interpolator.EASE_OUT)),
+            new KeyFrame(duration, new KeyValue(imageView.opacityProperty(), 0.0, Interpolator.EASE_OUT))
         );
         transition.setOnFinished(_ -> root.getChildren().remove(imageView));
         transition.play();
+    }
+
+    private void clearAccentColor() {
+        if (accentColor != null) {
+            getScene().getRoot().pseudoClassStateChanged(accentColor.pseudoClass(), false);
+            accentColor = null;
+        }
     }
 
     private void reloadCustomCSS() {
@@ -303,8 +329,6 @@ public final class ThemeManager {
         css.append("}\n");
 
         customCSSRules.forEach((k, v) -> {
-            // custom CSS is applied to the body,
-            // thus it has a preference over accent color
             css.append(".body:");
             css.append(USER_CUSTOM.getPseudoClassName());
             css.append(" ");
@@ -329,7 +353,6 @@ public final class ThemeManager {
 
     //*************************************************************************
     // Singleton                                                             //
-
     //*************************************************************************
 
     private ThemeManager() {
