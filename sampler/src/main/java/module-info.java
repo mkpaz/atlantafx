@@ -5,6 +5,7 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 module atlantafx.sampler {
     requires static org.jspecify;
+    requires static us.hebi.graalvm.reachability.annotations;
 
     requires atlantafx.base;
     requires atlantafx.decorations;

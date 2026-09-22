@@ -4,6 +4,12 @@ package atlantafx.sampler;
 
 import atlantafx.sampler.event.*;
 import atlantafx.sampler.layout.ApplicationWindow;
+import atlantafx.sampler.page.components.*;
+import atlantafx.sampler.page.general.*;
+import atlantafx.sampler.page.showcase.BlueprintsPage;
+import atlantafx.sampler.page.showcase.OverviewPage;
+import atlantafx.sampler.page.showcase.filemanager.FileManagerPage;
+import atlantafx.sampler.page.showcase.musicplayer.MusicPlayerPage;
 import atlantafx.sampler.theme.ThemeManager;
 import com.dlsc.gemsfx.util.StageManager;
 import devtoolsfx.gui.GUI;
@@ -21,6 +27,9 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import us.hebi.graalvm.reachability.annotations.MemberAccess;
+import us.hebi.graalvm.reachability.annotations.Reachable;
+import us.hebi.graalvm.reachability.annotations.ReachableFxResources;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,8 +38,26 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.charset.StandardCharsets.*;
 
+// Sampler metadata: resources (practically everything including .java files and assets), and reflectively looked-up pages
+@Reachable(resources = "**")
+@ReachableFxResources({"**/*.fxml", "**/*.css"}) // capture anything referenced inside FXML and CSS
+@Reachable(memberAccess = MemberAccess.ALL_DECLARED_CONSTRUCTORS, classes = {
+        AccordionPage.class, BreadcrumbsPage.class, ButtonPage.class, CalendarPage.class, CardPage.class,
+        ChartPage.class, CheckBoxPage.class, ChoiceBoxPage.class, ColorPickerPage.class, ComboBoxPage.class,
+        ContextMenuPage.class, CustomTextFieldPage.class, DatePickerPage.class, DeckPanePage.class, DialogPage.class,
+        HtmlEditorPage.class, InputGroupPage.class, ListViewPage.class, MenuBarPage.class, MenuButtonPage.class,
+        MessagePage.class, ModalPanePage.class, NotificationPage.class, PaginationPage.class, PopoverPage.class,
+        ProgressIndicatorPage.class, RadioButtonPage.class, RichTextPage.class, ScrollPanePage.class,
+        SegmentedControlPage.class, SeparatorPage.class, SidebarPage.class, SliderPage.class, SpinnerPage.class,
+        SpinsPage.class, SplitPanePage.class, TabLinePage.class, TabPanePage.class, TableViewPage.class,
+        TextAreaPage.class, TextFieldPage.class, TilePage.class, TitledPanePage.class, ToggleButtonPage.class,
+        ToggleSwitchPage.class, ToolBarPage.class, TooltipPage.class, TreeTableViewPage.class, TreeViewPage.class,
+        AnimationsPage.class, BBCodePage.class, DecorationsPage.class, IconsPage.class, SelectableTextFlowPage.class,
+        ThemePage.class, TypographyPage.class, BlueprintsPage.class, OverviewPage.class, FileManagerPage.class,
+        MusicPlayerPage.class
+})
 public class Launcher extends Application {
 
     public static final String APP_NAME = "atlantafx";

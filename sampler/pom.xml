@@ -99,6 +99,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>us.hebi.graalvm</groupId>
+            <artifactId>reachability-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>fr.brouillard.oss</groupId>
             <artifactId>cssfx</artifactId>
         </dependency>
