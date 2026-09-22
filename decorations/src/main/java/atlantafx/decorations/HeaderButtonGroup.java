@@ -42,7 +42,6 @@ import java.util.*;
  * stage.show();
  * }</pre>
  */
-@SuppressWarnings("deprecation") // preview feature
 public class HeaderButtonGroup extends Control {
 
     protected static final PseudoClass PSEUDO_CLASS_MAXIMIZED = PseudoClass.getPseudoClass("maximized");
@@ -147,7 +146,7 @@ public class HeaderButtonGroup extends Control {
             });
         }
 
-        HeaderBar.setPrefButtonHeight(stage, 0);
+        HeaderBar.setSystemButtonHeight(stage, 0);
     }
 
     /**
@@ -171,7 +170,7 @@ public class HeaderButtonGroup extends Control {
 
         removeButtons(headerBar);
 
-        HeaderBar.setPrefButtonHeight(stage, HeaderBar.USE_DEFAULT_SIZE);
+        HeaderBar.setSystemButtonHeight(stage, HeaderBar.USE_DEFAULT_SIZE);
     }
 
     protected void setAutoAlignment(HeaderBar headerBar) {
