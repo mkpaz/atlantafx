@@ -2,6 +2,56 @@
 
 ## [Unreleased]
 
+## [3.0.0] - TBD
+
+### Breaking changes
+
+- (Base) `PlatformUtils` renamed to `OS`.
+- (Sampler) SceneBuilder integration removed in favor of the SceneBuilder plugin.
+
+### Added
+
+- 🚀 CSD decoration styles (see JDK-8356115) for all major OSs in `atlantafx-decorations` module.
+- 🚀 SceneBuilder plugin for SceneBuilder 24+ in `atlantafx-scene-builder` module.
+- 🚀 Fluent validation API in `atlantafx-validation` module.
+- 🚀 Spin control (base) with 30 different skins in `atlantafx-spins` module.
+- 🚀 (Base) New API for `Theme` and related features:
+  - `ThemeManager` for centralized control over application themes and dynamic style options.
+  - `ThemeManifest` to expose theme variables (colors, paddings, etc.) for programmatic access.
+  - `ThemeProperties` for associating user-specific data with a theme.
+  - Modular (partial) theme loading support.
+- 🚀 (Base) Sidebar control.
+- (CSS) Utility classes for `border-radius` (thanks to **ennerf**).
+- (CSS) Size support for `ToggleButton` (thanks to **tanhuang2016**).
+- (Sampler) Auto-downloading extra themes provided by `dlsc-software-consulting-gmbh/atlantafx-themes` (thanks to **dlemmermann**).
+
+### Improved
+
+- (Build) Java version bump to 25. All artifacts are compiled with the same version.
+- (Build) JavaFX version bump to 27.
+- (Base) Added GraalVM reachability metadata (thanks to **ennerf**).
+- (Base) All modules switched to JSpecify annotations (and lots of internal refactoring caused by this change).
+- (Base) Themes can now be discovered via `ServiceLoader`.
+- (Base) `atlantafx.base.util` package promoted from internal utils to provide general utility classes for app development:
+  - `StyleMap` helper for managing Node's inline CSS styles.
+  - Toolkit-agnostic actions to open resources in the default OS app.
+  - Cross-platform `XDG` specification implementation.
+  - Observable `Colour` utility to simplify working with colors.
+  - Auxiliary classes and contract interfaces: `Lazy`, `Focusable`, `Disposable`.
+  - Various documentation and API improvements.
+- (Base) `Animations` reset logic refactored to avoid registering helper listeners and store initial values as Node properties instead.
+- (Base) `Styles.toDataUri()` deprecated in favor of new `Styles.encode()` and `Styles.decode()` methods that are aware of MIME types.
+- (Sampler) Prepared Sampler to be released as a native image (thanks to **ennerf**).
+- (Sampler) Used GemsFX `StageManager` to restore stage size (thanks to **dlemmermann**).
+
+### Fixed
+
+- (CSS) `PieChart` line color.
+- (CSS) Removed vertical menu extra item padding.
+- (CSS) JavaFX regression where scrollbar thumb height became invisible in large textareas and tables.
+- (CSS) Removed accent hover border from toolbar buttons.
+- (CSS) `MenuButton` icon color.
+
 ## [2.1.0] - 2025-07-12
 
 ### Added
@@ -86,7 +136,7 @@
 - (Build) JavaFX version bump to 20 (March 2023).
 - (Base) A proper [Javadoc](https://mkpaz.github.io/atlantafx/apidocs/atlantafx.base/module-summary.html) for all controls.
 - (Base) All controls are now more FXML-friendly.
-- (CSS) Looked-up color variables for `Separator` and the selected `TabPane` tab..
+- (CSS) Looked-up color variables for `Separator` and the selected `TabPane` tab.
 - (CSS) Border radius and shadow effect to popup menu for `ComboBox` and all `ComboBox`-based controls.
 - (CSS) `TextFieldTableCell` is highlighted when in the editable state thanks to the new `:focus-within` state support.
 - (CSS) Icon buttons are now use `-fx-content-display: graphic-only` as the default.
@@ -155,7 +205,7 @@ This is a bugfix/maintenance release that also contains a few style improvements
 - (CSS) Utility classes for muted and subtle text style.
 - (CSS) Utility classes for box elevation effect: `.elevated-[1-4]`.
 - (CSS) New global looked-up color variable `-color-shadow-default` for creating shadow effects.
-- 
+-
 ### Improved
 
 - (CSS) 🚀 Nord light and dark themes rewamp with better color contrast and improved design.
