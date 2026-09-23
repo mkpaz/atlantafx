@@ -80,19 +80,6 @@
                             </descriptors>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>assemble-scenebuilder</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>${app.name}-${app.version}-scenebuilder-themes</finalName>
-                            <descriptors>
-                                <descriptor>scenebuilder.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
