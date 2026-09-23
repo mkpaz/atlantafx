@@ -42,3 +42,7 @@
 @use "toggle-switch";
 @use "toolbar";
 @use "tooltip";
+
+// print variables block at the very end of CSS file
+@use "../settings/manifest";
+@include manifest.print-variables();

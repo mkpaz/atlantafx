@@ -3,8 +3,8 @@
 package atlantafx.base.theme;
 
 import atlantafx.base.util.Range;
+import atlantafx.base.util.Resources;
 import org.jspecify.annotations.Nullable;
-import us.hebi.graalvm.reachability.annotations.Reachable;
 
 import java.io.*;
 import java.lang.System.Logger.Level;
@@ -28,6 +28,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * manifest file (e.g., {@code theme.manifest}) alongside the base CSS file to load and serve
  * only the specified style modules.
  *
+ * <p>The manifest file MUST be located in the same directory as the target stylesheet, sharing
+ * the same file name with a {@code .manifest} extension (e.g., {@code foo.css.manifest} for {@code foo.css}).
+ *
  * <p>If the {@code modules} parameter is omitted, the manifest file is missing, or an error occurs
  * during module extraction, the handler falls back to reading and returning the entire CSS file.
  *
@@ -38,32 +41,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Application.setUserAgentStylesheet(url);
  * }</pre>
  *
- * <h3>Manifest Format</h3>
- *
- * <p>The manifest file must be located in the same directory as the target stylesheet, sharing
- * the same base name with a {@code .manifest} extension (e.g., {@code foo.manifest} for {@code foo.css}).
- *
- * <p>To generate a manifest, the CSS file is marked up with comment markers in the following format:
- * <pre>
- * /*! @module:moduleName:start *&#47;
- * ... CSS rules ...
- * /*! @module:moduleName:end *&#47;
- * </pre>
- *
- * <p>The manifest contains line mapping directives formatted as {@code moduleName:start:end},
- * where {@code start} and {@code end} specify the 0-based inclusive line ranges within the CSS file.
- * Lines starting with {@code #} are treated as comments and ignored:
- *
- * <pre>{@code
- * # manifest for foo.css
- * root:0:128
- * button:130:250
- * tooltip:252:290
- * }</pre>
- *
+ * @see ThemeManifest
  * @see PostCSS#generateManifest(Path, Path)
  */
-@Reachable(resources = "*.manifest")
 public final class StylesheetURLHandler extends URLStreamHandler {
 
     private static final System.Logger LOGGER = System.getLogger(StylesheetURLHandler.class.getName());
@@ -115,77 +95,42 @@ public final class StylesheetURLHandler extends URLStreamHandler {
         }
 
         // read the manifest file
-        String manifestPath = getManifestPath(stylesheetPath);
+        String manifestPath = stylesheetPath + ".manifest";
+        var manifest = new ThemeManifest();
 
-        Map<String, Range> manifest;
-        try {
-            manifest = loadManifest(manifestPath);
+        try (InputStream is = Resources.getResourceAsStream(manifestPath)) {
+            if (is == null) {
+                LOGGER.log(Level.ERROR, "Manifest file does not exist: {0}", manifestPath);
+                return fallback.get();
+            }
+            manifest.load(is);
         } catch (Exception e) {
             LOGGER.log(Level.ERROR, "Failed to parse manifest file: " + manifestPath, e);
             return fallback.get();
         }
 
-        if (manifest.isEmpty()) {
-            LOGGER.log(Level.WARNING, "Manifest was not read or is empty");
+        // retain only requested modules
+        Map<String, Range> moduleRanges = new HashMap<>(manifest.getModules());
+        if (moduleRanges.isEmpty()) {
+            LOGGER.log(Level.WARNING, "Manifest was not read or contains no modules");
             return fallback.get();
         }
+        moduleRanges.keySet().retainAll(modules);
 
-        // retain only requested modules
-        manifest.keySet().retainAll(modules);
-
-        if (manifest.isEmpty()) {
+        if (moduleRanges.isEmpty()) {
             LOGGER.log(Level.ERROR, "None of the requested modules {0} were found in manifest: {1}",
                 modules, manifestPath
             );
             return fallback.get();
         }
 
-        // read selected line ranges from the main CSS file
+        // read selected line ranges from the CSS file
         try {
-            return readCSSFileRanges(stylesheetPath, manifest.values());
+            return readCSSFileRanges(stylesheetPath, moduleRanges.values());
         } catch (Exception e) {
             LOGGER.log(Level.ERROR, "Error reading CSS ranges from " + stylesheetPath, e);
             return fallback.get();
         }
-    }
-
-    private String getManifestPath(String stylesheetPath) {
-        int dotIndex = stylesheetPath.lastIndexOf('.');
-        if (dotIndex != -1) {
-            return stylesheetPath.substring(0, dotIndex) + ".manifest";
-        }
-        return stylesheetPath + ".manifest";
-    }
-
-    private Map<String, Range> loadManifest(String path) throws IOException {
-        var manifest = new HashMap<String, Range>();
-
-        try (InputStream is = getResourceAsStream(path)) {
-            if (is == null) {
-                LOGGER.log(Level.ERROR, "Manifest file does not exist: {0}", path);
-                return manifest;
-            }
-
-            try (var reader = new BufferedReader(new InputStreamReader(is, UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty() || line.startsWith("#")) {
-                        continue; // ignore empty lines and comments
-                    }
-
-                    String[] parts = line.split(":");
-                    if (parts.length == 3) {
-                        String module = parts[0].trim();
-                        int start = Integer.parseInt(parts[1].trim());
-                        int end = Integer.parseInt(parts[2].trim());
-                        manifest.put(module, new Range(start, end));
-                    }
-                }
-            }
-        }
-
-        return manifest;
     }
 
     private byte[] readCSSFileRanges(String path, Collection<Range> ranges) throws IOException {
@@ -195,7 +140,7 @@ public final class StylesheetURLHandler extends URLStreamHandler {
 
         var builder = new StringBuilder();
 
-        try (InputStream is = getResourceAsStream(path)) {
+        try (InputStream is = Resources.getResourceAsStream(path)) {
             if (is == null) {
                 throw new FileNotFoundException("Resource not found: " + path);
             }
@@ -222,7 +167,7 @@ public final class StylesheetURLHandler extends URLStreamHandler {
     }
 
     private byte[] readCSSFile(String path) {
-        try (InputStream is = getResourceAsStream(path)) {
+        try (InputStream is = Resources.getResourceAsStream(path)) {
             if (is != null) {
                 return is.readAllBytes();
             }
@@ -251,28 +196,5 @@ public final class StylesheetURLHandler extends URLStreamHandler {
         }
 
         return result;
-    }
-
-    private @Nullable InputStream getResourceAsStream(String path) {
-        if (path.isBlank()) {
-            return null;
-        }
-
-        String absPath = path.startsWith("/") ? path : "/" + path;
-
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        if (cl != null) {
-            InputStream is = cl.getResourceAsStream(absPath.substring(1));
-            if (is != null) {
-                return is;
-            }
-        }
-
-        cl = StylesheetURLHandler.class.getClassLoader();
-        if (cl != null) {
-            return cl.getResourceAsStream(absPath.substring(1));
-        }
-
-        return ClassLoader.getSystemResourceAsStream(absPath.substring(1));
     }
 }

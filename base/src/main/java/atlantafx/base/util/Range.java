@@ -12,7 +12,7 @@ import java.util.Objects;
  * @param start the start of the range
  * @param end   the end of the range
  */
-public record Range(int start, int end) {
+public record Range(int start, int end) implements Comparable<Range> {
 
     /**
      * Validates the range boundaries during instance creation.
@@ -134,5 +134,11 @@ public record Range(int start, int end) {
         int newEnd = Math.max(this.end, other.end);
 
         return new Range(newStart, newEnd);
+    }
+
+    @Override
+    public int compareTo(Range other) {
+        int cmp = Integer.compare(this.start, other.start);
+        return cmp != 0 ? cmp : Integer.compare(this.end, other.end);
     }
 }

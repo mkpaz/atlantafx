@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: MIT
+
+@use "sass:meta";
+
+@use "../settings/color-scale" as scale;
+@use "../settings/color-vars" as vars;
+@use "../settings/config" as config;
+
+// Flattens map into a list of key-value pairs.
+@function _flat-map($map, $prefix: "") {
+  $list: ();
+
+  @each $key, $value in $map {
+    $full-key: if($prefix =="", "#{$key}", "#{$prefix}.#{$key}");
+
+    @if meta.type-of($value)=="map" {
+      $list: join($list, _flat-map($value, $full-key));
+    }
+
+    @else {
+      $entry: $full-key + "=" + #{$value};
+      $list: append($list, $entry);
+    }
+  }
+
+  @return $list;
+}
+
+// Prints theme variables block for the theme manifest.
+@mixin print-variables() {
+  $props: join(_flat-map(meta.module-variables("config"), "config"), ());
+  $props: join($props, _flat-map(meta.module-variables("scale"), "color"));
+  $props: join($props, _flat-map(meta.module-variables("vars"), "color"));
+
+  @each $item in $props {
+    /*! @var:#{$item} */
+  }
+}

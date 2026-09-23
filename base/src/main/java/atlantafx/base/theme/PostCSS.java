@@ -2,19 +2,18 @@
 
 package atlantafx.base.theme;
 
+import atlantafx.base.util.Range;
 import javafx.css.Stylesheet;
 import org.jspecify.annotations.Nullable;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -76,7 +75,7 @@ public class PostCSS {
                 .forEach(f -> {
                     try {
                         generateBSS(f, f.resolveSibling(getFilename(f) + ".bss"));
-                        generateManifest(f, f.resolveSibling(getFilename(f) + ".manifest"));
+                        generateManifest(f, f.resolveSibling(f.getFileName() + ".manifest"));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -116,17 +115,9 @@ public class PostCSS {
     private static final Pattern MODULE_MARKER_PATTERN =
         Pattern.compile("/\\*!\\s*@module:([a-zA-Z0-9_-]+):(start|end)\\s*\\*/");
 
-    private record CSSModule(String name, long startLine, long endLine) {
-        public CSSModule {
-            if (startLine > endLine) {
-                throw new IllegalArgumentException(
-                    "Invalid module boundaries for '%s': startLine (%d) > endLine (%d)".formatted(
-                        name, startLine, endLine
-                    )
-                );
-            }
-        }
-    }
+    // Regex pattern to match variable markers like /*! @var:key=value */
+    private static final Pattern VAR_MARKER_PATTERN =
+        Pattern.compile("/\\*!\\s*@var:([^=\\s]+)\\s*=\\s*(.*?)\\s*\\*/");
 
     /**
      * Parses module boundary markers in the given CSS file and writes a manifest file.
@@ -135,41 +126,37 @@ public class PostCSS {
      * @param out the path to the output manifest file
      * @throws IllegalStateException if module markers are nested, mismatched, overlapping, or left unclosed
      * @throws IOException           if an I/O error occurs during processing
+     *
+     * @see ThemeManifest
      * @see StylesheetURLHandler
      */
     public void generateManifest(Path in, Path out) throws IOException {
-        List<CSSModule> modules = findModulesForManifest(in);
-
-        try (BufferedWriter writer = Files.newBufferedWriter(out, StandardCharsets.UTF_8)) {
-            String header = "#" + String.join(",", modules.stream().map(CSSModule::name).toList());
-            writer.write(header);
-            writer.newLine();
-
-            for (CSSModule module : modules) {
-                writer.write("%s:%d:%d".formatted(module.name(), module.startLine(), module.endLine()));
-                writer.newLine();
-            }
+        ThemeManifest manifest = extractManifestFromCSS(in);
+        try (OutputStream os = Files.newOutputStream(out)) {
+            manifest.save(os);
         }
     }
 
-    private List<CSSModule> findModulesForManifest(Path in) throws IOException {
-        var modules = new ArrayList<CSSModule>();
+    private ThemeManifest extractManifestFromCSS(Path in) throws IOException {
+        var modules = new HashMap<String, Range>();
+        var variables = new HashMap<String, Object>();
 
         String currentModule = null;
-        long currentStart = -1;
-        long previousEnd = -1;
+        int currentStart = -1;
+        int previousEnd = -1;
 
         try (BufferedReader reader = Files.newBufferedReader(in, StandardCharsets.UTF_8)) {
             String line;
-            long lineNumber = -1;
+            int lineNumber = -1;
 
             while ((line = reader.readLine()) != null) {
                 lineNumber++; // line number is 0-based
 
-                var matcher = MODULE_MARKER_PATTERN.matcher(line);
-                if (matcher.find()) {
-                    String module = matcher.group(1);
-                    String action = matcher.group(2);
+                // check for module markers
+                var moduleMatcher = MODULE_MARKER_PATTERN.matcher(line);
+                if (moduleMatcher.find()) {
+                    String module = moduleMatcher.group(1);
+                    String action = moduleMatcher.group(2);
 
                     if ("start".equals(action)) {
                         // illegal nesting
@@ -199,7 +186,7 @@ public class PostCSS {
                             );
                         }
 
-                        long currentEnd = lineNumber - 1;
+                        int currentEnd = lineNumber - 1;
 
                         // check for overlaps
                         if (currentStart <= previousEnd) {
@@ -209,13 +196,22 @@ public class PostCSS {
                             );
                         }
 
-                        modules.add(new CSSModule(module, currentStart, currentEnd));
+                        modules.put(module, new Range(currentStart, currentEnd));
 
                         // reset state for the next module
                         previousEnd = currentEnd;
                         currentModule = null;
                         currentStart = -1;
                     }
+                    continue;
+                }
+
+                // check for variable markers
+                var varMatcher = VAR_MARKER_PATTERN.matcher(line);
+                if (varMatcher.find()) {
+                    String key = varMatcher.group(1);
+                    String value = varMatcher.group(2);
+                    variables.put(key, value);
                 }
             }
 
@@ -227,7 +223,11 @@ public class PostCSS {
             }
         }
 
-        return modules;
+        var manifest = new ThemeManifest();
+        manifest.setModules(modules);
+        manifest.setVariables(variables);
+
+        return manifest;
     }
     //endregion
 }

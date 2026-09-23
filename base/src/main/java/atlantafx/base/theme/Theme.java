@@ -2,10 +2,15 @@
 
 package atlantafx.base.theme;
 
+import atlantafx.base.util.Resources;
 import javafx.application.Application;
 import org.jspecify.annotations.Nullable;
 import us.hebi.graalvm.reachability.annotations.Reachable;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.*;
 
 import static javafx.application.Application.STYLESHEET_CASPIAN;
@@ -139,6 +144,34 @@ public interface Theme {
     default boolean isDefault() {
         return STYLESHEET_MODENA.equals(getUserAgentStylesheet())
             || STYLESHEET_CASPIAN.equals(getUserAgentStylesheet());
+    }
+
+    /**
+     * Loads and returns the {@link ThemeManifest} associated with the theme.
+     *
+     * <p>The manifest file MUST be located in the same directory as the target stylesheet, sharing
+     * the same file name with a {@code .manifest} extension.
+     *
+     * @return the loaded {@link ThemeManifest} instance
+     * @throws UncheckedIOException if the manifest resource cannot be found or an I/O error occurs during processing
+     * @see ThemeManifest
+     */
+    default ThemeManifest getManifest() {
+        String manifestPath = getUserAgentStylesheet() + ".manifest";
+        var manifest = new ThemeManifest();
+
+        try (InputStream is = Resources.getResourceAsStream(manifestPath)) {
+            if (is == null) {
+                throw new UncheckedIOException(
+                    new FileNotFoundException("Manifest file not found: " + manifestPath)
+                );
+            }
+
+            manifest.load(is);
+            return manifest;
+        } catch (IOException e) {
+            throw new UncheckedIOException("Failed to load theme manifest from: " + manifestPath, e);
+        }
     }
 
     /**
