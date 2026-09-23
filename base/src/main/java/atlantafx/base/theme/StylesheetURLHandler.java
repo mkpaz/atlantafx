@@ -4,6 +4,7 @@ package atlantafx.base.theme;
 
 import atlantafx.base.util.Range;
 import org.jspecify.annotations.Nullable;
+import us.hebi.graalvm.reachability.annotations.Reachable;
 
 import java.io.*;
 import java.lang.System.Logger.Level;
@@ -62,6 +63,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  *
  * @see PostCSS#generateManifest(Path, Path)
  */
+@Reachable(resources = "*.manifest")
 public final class StylesheetURLHandler extends URLStreamHandler {
 
     private static final System.Logger LOGGER = System.getLogger(StylesheetURLHandler.class.getName());

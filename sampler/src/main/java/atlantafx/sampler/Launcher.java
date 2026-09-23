@@ -55,8 +55,8 @@ import static java.nio.charset.StandardCharsets.*;
         TextAreaPage.class, TextFieldPage.class, TilePage.class, TitledPanePage.class, ToggleButtonPage.class,
         ToggleSwitchPage.class, ToolBarPage.class, TooltipPage.class, TreeTableViewPage.class, TreeViewPage.class,
         AnimationsPage.class, BBCodePage.class, DecorationsPage.class, IconsPage.class, SelectableTextFlowPage.class,
-        ThemePage.class, TypographyPage.class, BlueprintsPage.class, OverviewPage.class, FileManagerPage.class,
-        MusicPlayerPage.class
+        ThemePage.class, TypographyPage.class, UtilsPage.class, BlueprintsPage.class, OverviewPage.class,
+        FileManagerPage.class, MusicPlayerPage.class
 })
 public class Launcher extends Application {
 
