@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.mkpaz</groupId>
         <artifactId>atlantafx-parent</artifactId>
-        <version>2.1.0</version>
+        <version>3.0.0</version>
     </parent>
     <artifactId>atlantafx-scene-builder</artifactId>
 

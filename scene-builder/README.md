@@ -18,8 +18,8 @@ with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
 
    ```text
    <scene-builder>/app             # Windows
-   <scene-builder>/lib/app         # Linux 
-   <scene-builder>/Resources/app   # MacOS 
+   <scene-builder>/lib/app         # Linux
+   <scene-builder>/Resources/app   # MacOS
    ```
 
 3. Copy the plugin JAR into the `app` directory and edit `SceneBuilder.cfg`. You need to add the plugin JAR to the
@@ -28,7 +28,7 @@ with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
 
    ```text
    [Application]
-   app.classpath=$APPDIR/scenebuilder-26.0.0-all.jar:$APPDIR/atlantafx-scene-builder-2.1.0.jar
+   app.classpath=$APPDIR/scenebuilder-26.0.0-all.jar:$APPDIR/atlantafx-scene-builder-3.0.0.jar
    ```
 
 ## Features
