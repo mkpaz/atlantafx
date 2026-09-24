@@ -5,6 +5,7 @@ package atlantafx.base.util;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.MockedStatic;
 
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SuppressWarnings("DuplicateExpressions")
 @NullMarked
+@DisabledOnOs(org.junit.jupiter.api.condition.OS.WINDOWS)
 class XDGTest {
 
     // Creates a spy over a resolver instance to intercept system env variables and Java system properties.
