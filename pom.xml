@@ -432,11 +432,11 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.8.0</version>
+                        <version>0.11.0</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
-                            <excludeArtifacts>atlantafx-sampler</excludeArtifacts>
+                            <excludeArtifacts>atlantafx-sampler,atlantafx-scene-builder</excludeArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>
