@@ -7,7 +7,8 @@ with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
 
 ## Installation
 
-1. Build the plugin from sources or download the latest JAR version from the Releases page (**TBD**).
+1. Build the plugin from sources or download the latest JAR version from
+   the [Releases](https://github.com/mkpaz/atlantafx/releases) page.
 
     ```sh
     mvn install
@@ -28,7 +29,7 @@ with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
 
    ```text
    [Application]
-   app.classpath=$APPDIR/scenebuilder-26.0.0-all.jar:$APPDIR/atlantafx-scene-builder-3.0.0.jar
+   app.classpath=$APPDIR/scenebuilder-26.0.0-all.jar:$APPDIR/AtlantaFX-3.0.0-scene-builder-plugin.jar
    ```
 
 ## Features

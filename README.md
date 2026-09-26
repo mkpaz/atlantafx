@@ -29,7 +29,7 @@ See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
 
 * Flat interface inspired by the variety of Web component frameworks.
 * CSS first! It works with existing JavaFX controls.
-* Two themes in both light and dark variants.
+* Multiple themes in both light and dark variants.
 * Simple and intuitive color system based on the [GitHub Primer guidelines](https://primer.style/design/foundations/color).
 * Fully customizable. Easily change global accent (brand) color or individual control via looked-up color variables.
 * Written in modular [SASS](https://sass-lang.com/). No more digging in 3,500 lines of CSS code.
@@ -41,6 +41,9 @@ See the <a href="https://mkpaz.github.io/atlantafx/">docs</a> for more info.
   * Check color palette and modify theme color contrast.
   * Hot reload. Play with control styles without restarting the whole app.
   * Showcases to demonstrate real-world project usage.
+* Custom [window decorations](https://github.com/mkpaz/atlantafx/tree/master/decorations) support (aka JavaFX controls in the title bar).
+* Fluent [validation API](https://github.com/mkpaz/atlantafx/tree/master/validation) designed for JavaFX applications.
+* Scene Builder [integration](https://github.com/mkpaz/atlantafx/tree/master/scene-builder).
 
 ## Try it out
 
@@ -58,7 +61,7 @@ Maven:
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-base</artifactId>
-    <version>2.1.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -70,7 +73,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.mkpaz:atlantafx-base:2.1.0'
+    implementation 'io.github.mkpaz:atlantafx-base:3.0.0'
 }
 ```
 
@@ -109,18 +112,32 @@ If you don't want to use additional dependencies, you can download compiled CSS 
 Set CSS theme:
 
 ```java
-Application.setUserAgentStylesheet(/* path to the CSS file */);
+Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+
+// or specify the theme stylesheet URI directly:
+Application.setUserAgentStylesheet(URI);
 ```
 
-Or use Java property:
+Or use a Java property:
 
 ```text
--Djavafx.userAgentStylesheetUrl=[URL]
+-Djavafx.userAgentStylesheetUrl=[URI]
+```
+
+Or use `ThemeManager`:
+
+```java
+// set theme based on platform color scheme preference
+// or pick theme from Java properties if run with -Datlantafx.theme=name
+ThemeManager.useDefault()
+
+// ... or set theme manually
+ThemeManager.instance().setTheme(new PrimerLight())
 ```
 
 ## Custom Themes
 
-AtlantaFX is written in modular SASS, so you can create your own CSS themes using AtlantaFX. 
+AtlantaFX is written in modular SASS, so you can create your own CSS themes using AtlantaFX.
 Here is the sample [repository](https://github.com/mkpaz/atlantafx-sample-theme):
 
 ```sh

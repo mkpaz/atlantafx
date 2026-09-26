@@ -6,11 +6,13 @@ A lightweight, fluent validation API designed for JavaFX applications.
 
 This subproject does not depend on any other AtlantaFX module.
 
+Maven:
+
 ```xml
 <dependency>
     <groupId>io.github.mkpaz</groupId>
     <artifactId>atlantafx-validation</artifactId>
-    <version>TBD</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -22,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.mkpaz:atlantafx-validation:TBD'
+    implementation 'io.github.mkpaz:atlantafx-validation:3.0.0'
 }
 ```
 
@@ -61,7 +63,7 @@ onSuccess(handler)                       // Runs a callback when validation succ
 onFailure(handler)                       // Runs a callback when validation fails
 onException(handler)                     // Runs a callback if an exception stops validation
 doFinally(handler)                       // Runs a callback after validation finishes regardless of the result
-onValidated(action)                      // Shortcut for onSuccess(handler) + onFailure(handler) 
+onValidated(action)                      // Shortcut for onSuccess(handler) + onFailure(handler)
 resultProperty()                         // Returns the validation result as an observable property
 observeValid() / observeInvalid()        // Returns the validity state as an observable property
 subscribe(consumer)                      // Subscribes a listener to result updates
@@ -80,7 +82,7 @@ onSuccess(handler)                       // Runs a callback when all rules succe
 onFailure(handler)                       // Runs a callback when any rule fails
 onException(handler)                     // Runs a callback if an exception occurs in the set
 doFinally(handler)                       // Runs a callback after set validation completes regardless of the result
-onValidated(action)                      // Shortcut for onSuccess(handler) + onFailure(handler) 
+onValidated(action)                      // Shortcut for onSuccess(handler) + onFailure(handler)
 resultProperty()                         // Returns the combined validation result as an observable property
 observeValid() / observeInvalid()        // Returns the validity state as an observable property
 subscribe(consumer)                      // Subscribes a listener to result updates
@@ -162,7 +164,7 @@ var postalCodeRule = Rule.on(postalCodeField.textProperty(), "Postal Code")
 postalCodeRule.revalidate(); // must be triggered manually
 ```
 
-Use `immediate` for reactive validation that updates results automatically. Use deferred validation when 
+Use `immediate` for reactive validation that updates results automatically. Use deferred validation when
 you want to run checks manually (for example, before submitting a form).
 
 ## Conditional Checks
@@ -181,7 +183,7 @@ Rule<String> phoneRule = Rule.on(phoneField.textProperty(), "PhoneNumber")
 
 ## Callbacks
 
-Both rules and RuleSets provide callbacks to handle validation results. You can also subscribe to the
+Both rules and rule sets provide callbacks to handle validation results. You can also subscribe to the
 validation result property to react to state changes directly.
 
 ```java
@@ -265,7 +267,7 @@ The descriptor holds a map of any custom attributes assigned to the rule.
 public record Descriptor(String name, Map<String, @Nullable Object> attributes) {}
 ```
 
-If you don’t set a name for a rule or RuleSet, one is assigned automatically for debugging.
+If you don’t set a name for a Rule or RuleSet, one is assigned automatically for debugging.
 It first uses the name of the observable property, or generates a name if none is available.
 
 ## Actions
@@ -361,7 +363,7 @@ var birthDateRule = Rule.on(birthDateDatePicker.valueProperty(), "Birth Date")
     .must(Temporals.isBefore(LocalDate.now()))
     .failMessage("Birth date must be in the past.")
     .childRules(ageCategoryRule);
-    
+
 birthDateDatePicker.valueProperty().subscribe(val ->
     ageCategory.set(val != null && Period.between(val, LocalDate.now()).getYears() >= 18 ? "adult" : "minor")
 );
@@ -372,7 +374,7 @@ birthDateRule.revalidate();
 
 ## Preconditions
 
-Preconditions let a rule depend on an external condition. If a precondition fails, the rule skips all 
+Preconditions let a rule depend on an external condition. If a precondition fails, the rule skips all
 validation checks and is treated as successful.
 
 ```java
