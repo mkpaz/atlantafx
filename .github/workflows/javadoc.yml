@@ -1,0 +1,51 @@
+name: Deploy Javadoc
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/javadoc.yml'
+      - 'pom.xml'
+      - 'base/**'
+      - 'decorations/**'
+      - 'spins/**'
+      - 'validation/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare | Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare | Java
+        uses: ./.github/actions/prepare-java
+
+      - name: Build | Generate aggregate Javadoc
+        run: mvn package javadoc:aggregate -pl "!scene-builder,!sampler,!styles" -DskipTests
+
+      - name: Publish | Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Publish | Upload Javadoc artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'target/site/apidocs'
+
+      - name: Publish | Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

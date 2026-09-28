@@ -31,7 +31,7 @@ jobs:
       - name: Prepare | Java
         uses: ./.github/actions/prepare-java
 
-      - name: Extract release notes
+      - name: Prepare | Extract release notes
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v1
         with:

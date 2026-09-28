@@ -55,7 +55,14 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <!-- skip javadoc generation -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
             <!-- compress resulting CSS into archive for distribution -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
