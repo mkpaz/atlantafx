@@ -51,9 +51,9 @@ The same as [`ChoiceBox`](#choicebox).
 
 This includes all virtualized controls such as ListView, TreeView, TableView and TreeTableView.
 
-**NOTE:**
-
-The default cell height is fixed. Set `-fx-cell-size: -1` CSS property to  use cell height based on content.
+> [!WARNING]
+> The default cell height is fixed. Set `-fx-cell-size: -1` CSS property to  use cell height
+> based on content.
 
 ### Common
 
@@ -252,7 +252,7 @@ CSS classes:
 * `.floating` (`TabPane.STYLE_CLASS_FLOATING` or `Styles.TABS_FLOATING`)
 * `.classic` (`Styles.TABS_CLASSIC`)
 
-Floating and classic styles are mutually exclusive. 
+Floating and classic styles are mutually exclusive.
 
 Color variables:
 

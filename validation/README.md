@@ -1,4 +1,4 @@
-# Validation
+# VALIDATION
 
 A lightweight, fluent validation API designed for JavaFX applications.
 

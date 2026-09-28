@@ -1,4 +1,4 @@
-# Spins
+# SPINS
 
 This module contains a collection of skins for the `atlantafx.base.controls.Spin` control.
 

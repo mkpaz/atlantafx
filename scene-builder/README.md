@@ -1,7 +1,6 @@
-# Scene Builder plugin
+# SCENE BUILDER PLUGIN
 
-This plugin integrates AtlantaFX themes and controls
-with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
+This plugin integrates AtlantaFX themes and controls with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
 
 **Required Scene Builder version**: 25+ (tested with 26).
 
@@ -38,4 +37,4 @@ with [Gluon Scene Builder](https://github.com/gluonhq/scenebuilder).
    the latter is a hard-coded FXML menu.
 2. All AtlantaFX controls are already included in the library.
 
-<img src="https://raw.githubusercontent.com/mkpaz/atlantafx/master/.screenshots/scene-builder/main.png" alt="SceneBuilder"/><br/>
+![SceneBuilder](../.screenshots/doc/scene-builder.png)
