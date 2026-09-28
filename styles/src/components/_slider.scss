@@ -58,6 +58,14 @@ $tick-minor-size: 3px !default;
     -fx-effect: $thumb-effect;
   }
 
+  &:focused>.thumb {
+    // Paint the focus ring outside the thumb without changing its layout size.
+    -fx-background-color: -color-accent-emphasis, -color-bg-default,
+                          -color-slider-thumb-border, -color-slider-thumb;
+    -fx-background-insets: -4, -2, 0, $thumb-border-width;
+    -fx-background-radius: $thumb-radius;
+  }
+
   >.track {
     -fx-background-color: transparent, -color-slider-track;
     -fx-background-radius: $track-radius;
