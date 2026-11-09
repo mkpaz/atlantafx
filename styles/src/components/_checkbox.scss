@@ -14,6 +14,7 @@ $color-border-hover:         -color-fg-subtle       !default;
 $color-border-selected:      -color-accent-emphasis !default;
 $color-border-indeterminate: -color-border-default  !default;
 
+$color-mark:                 transparent        !default;
 $color-mark-selected:        -color-fg-emphasis !default;
 $color-mark-indeterminate:   -color-fg-subtle   !default;
 
@@ -36,7 +37,7 @@ $border-width:        1.5px !default;
     -fx-alignment: CENTER;
 
     >.mark {
-      -fx-background-color: $color-box; // mark is hidden
+      -fx-background-color: $color-mark; // hidden until selected or indeterminate
       @include icons.get("check", true);
       -fx-min-height: cfg.$checkbox-mark-size;
       -fx-max-height: cfg.$checkbox-mark-size;
